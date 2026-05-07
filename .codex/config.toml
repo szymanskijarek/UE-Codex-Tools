@@ -1,0 +1,29 @@
+personality = "pragmatic"
+model = "gpt-5.4"
+model_reasoning_effort = "medium"
+
+[mcp_servers.blueprint_mcp]
+command = "node"
+args = ["Tools/blueprint-mcp/dist/index.js"]
+startup_timeout_sec = 20
+tool_timeout_sec = 120
+
+[mcp_servers.ccbridge]
+command = "node"
+args = ["Tools/ue-llm-mcp-bridge/index.js"]
+startup_timeout_sec = 20
+tool_timeout_sec = 120
+env = { UNREAL_MCP_URL = "http://localhost:3000" }
+
+[mcp_servers.ue_llm_toolkit]
+command = "node"
+args = ["Tools/ue-llm-mcp-bridge/index.js"]
+startup_timeout_sec = 20
+tool_timeout_sec = 120
+env = { UNREAL_MCP_URL = "http://localhost:3000" }
+
+[mcp_servers."unreal-analyzer-mcp"]
+command = "node"
+args = ["Tools/unreal-analyzer-mcp/build/index.js"]
+startup_timeout_sec = 20
+tool_timeout_sec = 120

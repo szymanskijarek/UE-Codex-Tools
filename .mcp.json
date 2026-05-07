@@ -1,0 +1,29 @@
+{
+  "mcpServers": {
+    "blueprint-mcp": {
+      "command": "node",
+      "args": ["Tools\\blueprint-mcp\\dist\\index.js"]
+    },
+    "ue-llm-toolkit": {
+      "command": "node",
+      "args": ["Tools\\ue-llm-mcp-bridge\\index.js"],
+      "env": {
+        "UNREAL_MCP_URL": "http://localhost:3000"
+      }
+    },
+    "ccbridge": {
+      "command": "node",
+      "args": ["Tools\\ue-llm-mcp-bridge\\index.js"],
+      "env": {
+        "UNREAL_MCP_URL": "http://localhost:3000"
+      }
+    },
+    "unreal-analyzer-mcp": {
+      "command": "node",
+      "args": ["Tools\\unreal-analyzer-mcp\\build\\index.js"],
+      "env": {
+        "UNREAL_SOURCE_OR_PROJECT_DIR": "D:\\Path\\To\\Your\\Unreal\\Source\\Or\\Project"
+      }
+    }
+  }
+}

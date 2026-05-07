@@ -1,0 +1,10 @@
+.env
+.env.local
+.codex/*.local.toml
+
+Tools/*/node_modules/
+Tools/*/build/
+Tools/unreal/python/__pycache__/
+Tools/unreal/python/*.pyc
+
+scripts/codex/*.log
