@@ -1,0 +1,502 @@
+{
+ "templates": {
+  "intro": [
+   "Welcome to the {arena}! Nobody here was trained for this.",
+   "Live from the {arena}, where job descriptions go to die.",
+   "The {arena} is open for business. And violence.",
+   "It's a beautiful day at the {arena}. That's about to change.",
+   "Referee's in position. Staff are clocked in. Let's go!"
+  ],
+  "hit": [
+   "{a} lands one on {b}.",
+   "{b} takes a solid hit from {a}.",
+   "Ooh, {a} connects!",
+   "{a} with a {aJob}'s touch — right on {b}.",
+   "{b} did not see that coming from {a}.",
+   "Clean shot by {a}.",
+   "{a} is making it personal with {b}.",
+   "That's gonna leave a mark on {b}."
+  ],
+  "crit": [
+   "CRITICAL! {a} absolutely flattens {b}!",
+   "What a hit from {a}! {b} felt that one in their pension.",
+   "{a} finds the sweet spot on {b}!",
+   "MASSIVE hit! {a} sends a message to {b}.",
+   "{b} just felt the full force of {a}."
+  ],
+  "ability": [
+   "{a} busts out {ability}!",
+   "Here it comes — {ability} from {a}!",
+   "{a} the {aJob} goes for {ability}.",
+   "Signature move! {ability}!",
+   "{a} has been practising {ability} all week.",
+   "Straight from the {aJob} handbook: {ability}!"
+  ],
+  "ability_self": [
+   "{a} takes a moment for {ability}.",
+   "{a} goes with {ability}. Bold.",
+   "{ability}! {a} knows exactly what they're doing. Probably."
+  ],
+  "status_burning": [
+   "{b} is ON FIRE!",
+   "Somebody get {b} a fire extinguisher!",
+   "{b} is now officially too hot to handle.",
+   "Smoke is coming off {b}. That's not a good sign.",
+   "{b} has caught fire. HR will want a word."
+  ],
+  "status_wet": [
+   "{b} is soaked!",
+   "{b} is dripping wet. Stay away from anything electrical!",
+   "Splash! {b} is drenched.",
+   "{b} did not dress for this weather."
+  ],
+  "status_electrified": [
+   "ZAP! {b} is electrified!",
+   "{b} is conducting about eleven thousand volts.",
+   "{b}'s hair is standing on end!",
+   "Bzzzt! {b} lights up like a Christmas tree."
+  ],
+  "status_slipping": [
+   "{b} is sliding everywhere!",
+   "{b} has lost all traction.",
+   "Whoa! {b} is doing the moonwalk. Involuntarily.",
+   "{b} forgot to read the wet floor sign."
+  ],
+  "status_stunned": [
+   "{b} is seeing stars.",
+   "{b} is stunned!",
+   "{b} needs a minute.",
+   "Lights on, nobody home — {b} is dazed."
+  ],
+  "status_knocked-down": [
+   "{b} hits the floor!",
+   "Down goes {b}!",
+   "{b} is having a little lie down.",
+   "Timber! {b} is on the ground."
+  ],
+  "status_caffeinated": [
+   "{b} is wired on caffeine!",
+   "{b} just went full espresso.",
+   "{b} is vibrating at a new frequency."
+  ],
+  "status_embarrassed": [
+   "{b} is mortified.",
+   "{b} is going red in the face.",
+   "That's embarrassing for {b}.",
+   "{b} wants the floor to swallow them up."
+  ],
+  "status_inspired": [
+   "{b} is feeling inspired!",
+   "{b} looks ready to take on the world.",
+   "Motivation levels rising for {b}!"
+  ],
+  "status_foamed": [
+   "{b} is covered in foam!",
+   "{b} looks like a cappuccino now.",
+   "Foam party! Mostly on {b}."
+  ],
+  "status_cold": [
+   "{b} is freezing!",
+   "{b} is chilled to the bone.",
+   "Brrr, {b} is moving in slow motion."
+  ],
+  "status_lectured": [
+   "The referee is giving {b} a long talking-to.",
+   "{b} is being lectured. It's going to take a while."
+  ],
+  "status_distracted": [
+   "{b} is completely distracted.",
+   "{b} is checking their phone. In the middle of a fight.",
+   "{b} has lost the plot."
+  ],
+  "status_slowed": [
+   "{b} is barely moving.",
+   "{b} is running through treacle."
+  ],
+  "status_armoured": [
+   "{b} is bracing for impact.",
+   "{b} is turtling up!"
+  ],
+  "status_live": [
+   "That puddle is now LIVE with current!",
+   "Uh oh. The water is electrified."
+  ],
+  "throw": [
+   "{a} hurls a {prop}!",
+   "{a} throws a {prop} at {b}!",
+   "Incoming {prop}!",
+   "{a} winds up and launches a {prop}.",
+   "A {prop} is airborne, courtesy of {a}!",
+   "{a} has decided the {prop} is a weapon now."
+  ],
+  "throw_hit": [
+   "The {prop} smacks right into {b}!",
+   "Direct hit! {b} wears the {prop}.",
+   "{b} catches the {prop} with their face.",
+   "Bullseye! {prop} to {b}!"
+  ],
+  "throw_miss": [
+   "The {prop} sails wide.",
+   "{a} misses with the {prop}. Embarrassing.",
+   "That {prop} went nowhere near anyone."
+  ],
+  "pickup": [
+   "{a} grabs a {prop}.",
+   "{a} picks up a {prop}. That can't be good.",
+   "{a} has armed themselves with a {prop}.",
+   "{a} eyes up a {prop}... and takes it."
+  ],
+  "push": [
+   "{a} shoves a {prop} across the floor!",
+   "{a} sends a {prop} sliding!",
+   "Look out! {a} has launched a {prop}!"
+  ],
+  "ride": [
+   "{a} hops on a {prop}!",
+   "{a} is riding a {prop}! Health and safety is weeping.",
+   "Wheee! {a} on the {prop}!",
+   "{a} commandeers a {prop}."
+  ],
+  "ride_hit": [
+   "{a} runs {b} over with a {prop}!",
+   "Road rage! {a} plows into {b}!",
+   "{b} gets flattened by {a} on a {prop}."
+  ],
+  "use_coffee": [
+   "{a} downs a coffee. Oh no.",
+   "{a} takes a caffeine break mid-fight.",
+   "Espresso for {a}!"
+  ],
+  "use_food": [
+   "{a} stops for a snack.",
+   "{a} is eating. Right now. During this.",
+   "{a} refuels with a {prop}."
+  ],
+  "use_machine": [
+   "{a} gets something from the {prop}.",
+   "{a} is using the {prop}. Priorities!",
+   "{a} jams the buttons on the {prop}."
+  ],
+  "prop_broken": [
+   "The {prop} is destroyed!",
+   "There goes the {prop}.",
+   "Smash! That {prop} is history.",
+   "Somebody's paying for that {prop}."
+  ],
+  "explosion": [
+   "KABOOM! The {prop} explodes!",
+   "EXPLOSION! That {prop} had it coming.",
+   "The {prop} goes up in a massive blast!",
+   "BOOM! Everyone near the {prop} is having a bad day."
+  ],
+  "downed": [
+   "{b} is DOWN!",
+   "{a} puts {b} on the floor!",
+   "{b} is down and needs help!",
+   "{b} crumples. Can anyone revive them?"
+  ],
+  "ko": [
+   "{b} is OUT!",
+   "KNOCKOUT! {a} finishes {b}!",
+   "That's it for {b}!",
+   "{b} has clocked out. Permanently.",
+   "{a} sends {b} home early!",
+   "{b} won't be making the afternoon meeting."
+  ],
+  "ko_env": [
+   "{b} is out — taken down by the environment!",
+   "The {arena} claims {b}!"
+  ],
+  "ko_friendly": [
+   "Oh no — {a} knocked out their OWN teammate {b}!",
+   "Friendly fire! {a} takes out {b}! Awkward.",
+   "{a} and {b} will be having words at the Christmas party."
+  ],
+  "revived": [
+   "{a} gets {b} back on their feet!",
+   "{b} is back! Thanks, {a}!",
+   "Miraculous recovery for {b}!",
+   "{a} drags {b} back into the fight."
+  ],
+  "panic": [
+   "{a} is PANICKING!",
+   "{a} has lost their nerve and is running!",
+   "{a} wants no part of this anymore.",
+   "{a} is screaming and running in circles."
+  ],
+  "taunt": [
+   "{a} is taunting the other team.",
+   "{a} does a little dance. Rude.",
+   "{a} is showing off!",
+   "{a} blows a raspberry."
+  ],
+  "taunted": [
+   "{b} has been provoked by {a}!",
+   "{b} can't let that go — charging at {a}!"
+  ],
+  "foul": [
+   "The referee has noticed that.",
+   "That's a foul from {b}!",
+   "The ref is writing something down about {b}."
+  ],
+  "card": [
+   "YELLOW CARD for {b}!",
+   "The referee has had enough of {b}!",
+   "{b} gets carded and a lecture!"
+  ],
+  "referee_down": [
+   "THE REFEREE IS DOWN! Nobody is in charge!",
+   "They've taken out the referee! Chaos reigns!",
+   "No more rules! The referee is out!"
+  ],
+  "referee_hit": [
+   "Somebody hit the referee!",
+   "Watch the ref!",
+   "The referee takes one for the team."
+  ],
+  "hazard_warn": [
+   "Attention shoppers: {hazard} incoming!",
+   "Heads up — {hazard}!",
+   "Something's happening: {hazard}!"
+  ],
+  "hazard": [
+   "{hazard}!",
+   "And here comes {hazard}!"
+  ],
+  "sudden_death": [
+   "SUDDEN DEATH! The {arena} is turning on everyone!",
+   "It's sudden death! Things are getting worse!",
+   "The {arena} has had enough. SUDDEN DEATH!"
+  ],
+  "heal": [
+   "{a} patches up {b}.",
+   "{b} gets some first aid from {a}.",
+   "A bit of healing for {b}."
+  ],
+  "heal_enemy": [
+   "Wait — {a} just healed {b} from the OTHER team!",
+   "{a} is helping the enemy. Professional ethics?"
+  ],
+  "drop": [
+   "{a} drops the {prop}!",
+   "Butterfingers! {a} loses the {prop}.",
+   "The {prop} slips out of {a}'s hands."
+  ],
+  "rule_fire": [
+   "The fire is spreading!",
+   "Flames everywhere!",
+   "Things are heating up — literally."
+  ],
+  "rule_shock": [
+   "Water and electricity — what a combination!",
+   "Electricity is finding its way through everyone!",
+   "ZAP! That's why you don't mix water and wires."
+  ],
+  "rule_water": [
+   "Splash! That put the fire out.",
+   "Water to the rescue!"
+  ],
+  "rule_slip": [
+   "Slip hazard claims another victim!",
+   "Who left this floor wet?!"
+  ],
+  "rule_cook": [
+   "{a} is cooking up a snack mid-fight!",
+   "Only a chef would make lunch during a brawl."
+  ],
+  "first_blood": [
+   "First blood goes to {a}!",
+   "{a} draws first blood!"
+  ],
+  "low_hp": [
+   "{b} is hanging on by a thread!",
+   "{b} is barely standing.",
+   "One more hit and {b} is done!"
+  ],
+  "end_win": [
+   "It's over! {team} win!",
+   "{team} take it! What a fight!",
+   "Victory for {team}!",
+   "{team} clock out as winners!"
+  ],
+  "end_draw": [
+   "It's a draw! Nobody wins, everyone's fired.",
+   "Time's up — and it's all square!"
+  ],
+  "bark_hurt": [
+   "Ow!",
+   "Ouch!",
+   "Hey!",
+   "Oof!",
+   "My back!",
+   "Not the face!",
+   "That hurt!",
+   "Ugh!",
+   "I'm telling HR!",
+   "Rude!"
+  ],
+  "bark_hit_by_prop": [
+   "Who threw that?!",
+   "My head!",
+   "Was that a {prop}?!",
+   "OW! A {prop}!",
+   "Seriously?!"
+  ],
+  "bark_attack": [
+   "Take that!",
+   "Hiyah!",
+   "Come here!",
+   "Gotcha!",
+   "Bam!",
+   "Have some!"
+  ],
+  "bark_crit": [
+   "BOOM!",
+   "Nailed it!",
+   "Did you see that?!",
+   "Textbook!",
+   "Clocked!"
+  ],
+  "bark_ko_win": [
+   "Next!",
+   "And STAY down!",
+   "Who's next?",
+   "Easy.",
+   "Overtime's cancelled!",
+   "Too easy!"
+  ],
+  "bark_ally_down": [
+   "NOOO!",
+   "Hang in there!",
+   "Medic!",
+   "Not them!",
+   "We'll get them!"
+  ],
+  "bark_enemy_down": [
+   "Ha!",
+   "One down!",
+   "Yes!",
+   "Get in!",
+   "Bye bye!"
+  ],
+  "bark_burning": [
+   "HOT HOT HOT!",
+   "I'M ON FIRE!",
+   "AAAH!",
+   "Water! WATER!",
+   "Stop drop and roll!"
+  ],
+  "bark_electrified": [
+   "BZZZT!",
+   "Zzzap!",
+   "My fillings!",
+   "Ngggh!"
+  ],
+  "bark_wet": [
+   "Ugh, soaked!",
+   "My suit!",
+   "So cold!",
+   "Brr!"
+  ],
+  "bark_slip": [
+   "Whoa!",
+   "Woah woah!",
+   "Slippy!",
+   "Nooo—"
+  ],
+  "bark_coffee": [
+   "LET'S GO!",
+   "Caffeine!",
+   "I can see sounds!",
+   "So. Much. Energy."
+  ],
+  "bark_food": [
+   "Mmm!",
+   "Snack time!",
+   "Delicious."
+  ],
+  "bark_panic": [
+   "RUN!",
+   "I quit!",
+   "Not today!",
+   "Help!",
+   "I'm out!",
+   "Mummy!"
+  ],
+  "bark_revived": [
+   "I'm back!",
+   "What happened?",
+   "Thanks!",
+   "Round two!"
+  ],
+  "bark_reviver": [
+   "Up you get!",
+   "Walk it off!",
+   "You're fine!",
+   "Get up!"
+  ],
+  "bark_card": [
+   "What?!",
+   "I barely touched them!",
+   "Come on, ref!",
+   "That's harsh!"
+  ],
+  "bark_ref_card": [
+   "Foul!",
+   "That's a card!",
+   "Unacceptable!",
+   "Behave!"
+  ],
+  "bark_taunt": [
+   "Come on then!",
+   "Is that all?",
+   "Too slow!",
+   "You call that a job?",
+   "Ha ha!"
+  ],
+  "bark_pickup": [
+   "Ooh, a {prop}!",
+   "This'll do.",
+   "Perfect.",
+   "Mine!"
+  ],
+  "bark_throw": [
+   "Catch!",
+   "Heads up!",
+   "Fore!",
+   "Incoming!"
+  ],
+  "bark_explosion": [
+   "WHOA!",
+   "My ears!",
+   "Duck!"
+  ],
+  "bark_ref_down": [
+   "Uh oh.",
+   "Is the ref OK?",
+   "Free for all!"
+  ],
+  "bark_ride": [
+   "Wheee!",
+   "Out of the way!",
+   "Beep beep!",
+   "Coming through!"
+  ],
+  "bark_heal_enemy": [
+   "Wait, wrong team!",
+   "Oops, force of habit."
+  ],
+  "bark_friendly": [
+   "Sorry!",
+   "My bad!",
+   "Oops!",
+   "Whose side am I on?"
+  ],
+  "bark_win": [
+   "We did it!",
+   "Pay rise please!",
+   "Champions!",
+   "Clocking out!"
+  ]
+ }
+}

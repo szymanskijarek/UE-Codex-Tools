@@ -74,6 +74,7 @@ export const effectSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('energy'), amount: int, ...effectBase }),
   z.object({ type: z.literal('taunt'), ticks: int.min(1), ...effectBase }),
   z.object({ type: z.literal('dash'), distanceMm: int.min(0), ...effectBase }),
+  z.object({ type: z.literal('pull'), forceMm: int.min(0), ...effectBase }),
   z.object({ type: z.literal('breakProp'), ...effectBase }),
   z.object({ type: z.literal('dropHeld'), ...effectBase }),
 ]);
@@ -174,6 +175,8 @@ export const careerSchema = z.object({
   passive: ref('ability'),
   active: ref('ability'),
   interactionRules: z.array(ref('rule')).optional(),
+  /** Additional signature actives beyond the main one. */
+  extraActives: z.array(ref('ability')).optional(),
   prerequisites: z.object({ anyOf: z.array(z.array(ref('career'))) }).nullable().optional(),
   unlock: z.object({ type: z.enum(['default', 'rep', 'achievement']), cost: int.optional(), achievement: z.string().optional() }),
   art: z.object({ color: z.string().regex(/^#[0-9a-f]{6}$/), hat: z.string().regex(/^#[0-9a-f]{6}$/).optional(), heldItem: ref('equipment').optional() }),
@@ -274,6 +277,8 @@ export const personalitySchema = z.object({
   tripChanceBp: bp,
   throwSpreadBp: bp,
   moveCostBp: bp,
+  /** Personality move every character with this personality can use. */
+  ability: ref('ability').optional(),
 });
 export type PersonalityDef = z.infer<typeof personalitySchema>;
 
@@ -396,7 +401,11 @@ export interface ContentBundle {
   economy: EconomyDef;
   locale: Record<string, string>;
   names: { first: string[]; last: string[] };
+  /** Live commentary templates by event kind (02 §11). */
+  live: Record<string, string[]>;
 }
+
+export const liveSchema = z.object({ templates: z.record(z.string(), z.array(z.string()).min(1)) });
 
 export const namesSchema = z.object({ first: z.array(z.string()).min(10), last: z.array(z.string()).min(10) });
 

@@ -2,68 +2,136 @@
 import 'pixi.js/unsafe-eval';
 import { Application, Container, Graphics, Text, type TextStyleOptions } from 'pixi.js';
 import { bundle } from '@cc/content';
-import type { ArenaDef } from '@cc/content-schema';
+import type { AbilityDef, ArenaDef } from '@cc/content-schema';
 import type { BattleEvent, BattleInput, FrameEntity } from '@cc/sim';
 import { nameOf, STATUS_ICONS } from '../i18n';
+import { Sfx, type SfxName } from './audio';
 import type { ReplayPlayer } from './player';
+import { drawArea, drawProp } from './props-art';
 
 /**
- * Placeholder-art battle renderer (04 R-3): PixiJS scene graph with a 3/4
- * "stage" projection (02 §2). Characters are simple paper dolls assembled from
- * body/head/hair/hat/held-item parts so real art can replace each part later.
+ * Battle renderer (04 R-3): PixiJS scene graph in a 3/4 "stage" projection
+ * (02 §2). Characters are paper dolls (body, arms, head, face, hair, hat,
+ * held item) animated from the simulation frames plus cosmetic reactions to
+ * events — flinches, lunges, expressions, speech bubbles and bystander
+ * reactions. None of this feeds back into the simulation.
  */
 const Y_SQUASH = 0.62;
 const Z_LIFT = 0.55;
 const WALL_H = 1100;
 const TEAM_COLORS = [0x3b82f6, 0xef4444, 0x22c55e, 0xf59e0b, 0xa855f7, 0x14b8a6, 0xec4899, 0x64748b];
 const OUTLINE = 0x1b1f2a;
+const FONT = 'system-ui, -apple-system, "Segoe UI", sans-serif';
 
 const hex = (s: string): number => parseInt(s.replace('#', ''), 16);
+const rand = <T,>(arr: readonly T[]): T => arr[Math.floor(Math.random() * arr.length)]!;
+
+type Expr = 'neutral' | 'angry' | 'hurt' | 'scared' | 'happy' | 'ko' | 'stunned' | 'sleepy';
 
 interface CharSprite {
+  id: number;
+  r: number;
   root: Container;
   doll: Container;
-  eyes: Graphics;
+  torso: Container;
+  armBack: Graphics;
+  armFront: Container;
   held: Graphics;
+  head: Container;
+  face: Graphics;
+  feet: Graphics;
+  fx: Graphics;
   bar: Graphics;
-  icons: Text;
   label: Text;
+  icons: Text;
   lastHp: number;
   lastIcons: string;
-  lastState: string;
-  lastHeld: number;
+  lastHeldKey: string;
+  expr: Expr;
+  drawnExpr: Expr | '';
+  exprUntil: number;
+  lungeUntil: number;
+  hitUntil: number;
+  throwUntil: number;
+  castUntil: number;
+  castColor: number;
+  flashUntil: number;
+  flashColor: number;
+  bubble: Container | null;
+  bubbleUntil: number;
+  lastBubbleAt: number;
+  knockX: number;
+  moving: boolean;
+  x: number;
+  y: number;
+  team: number;
+  kind: 'char' | 'npc';
+  personality: string;
 }
 
 interface PropSprite {
   root: Container;
   g: Graphics;
   area: number;
+  isArea: boolean;
+  animated: boolean;
+  color: number;
+  seed: number;
 }
 
-interface Floater {
-  text: Text;
-  vy: number;
+interface Fx {
+  g: Container;
   life: number;
   max: number;
+  update?: (k: number) => void;
+}
+
+const ABILITY_COLORS: Record<string, number> = { fire: 0xff7a1a, electric: 0xffe14a, water: 0x3ba7ff, social: 0xc084fc, heal: 0x4ade80, stun: 0xffffff, default: 0xfff3a0 };
+
+function abilityColor(ab: AbilityDef | undefined): number {
+  if (!ab) return ABILITY_COLORS.default!;
+  const eff = ab.effects ?? [];
+  if (eff.some((e) => e.type === 'damage' && e.damageType === 'fire') || eff.some((e) => e.type === 'applyStatus' && e.status === 'status.burning')) return ABILITY_COLORS.fire!;
+  if (eff.some((e) => e.type === 'damage' && e.damageType === 'electric') || eff.some((e) => e.type === 'applyStatus' && e.status === 'status.electrified')) return ABILITY_COLORS.electric!;
+  if (eff.some((e) => e.type === 'applyStatus' && (e.status === 'status.wet' || e.status === 'status.slipping'))) return ABILITY_COLORS.water!;
+  if (eff.some((e) => e.type === 'heal')) return ABILITY_COLORS.heal!;
+  if (eff.some((e) => (e.type === 'damage' && e.damageType === 'social') || (e.type === 'applyStatus' && (e.status === 'status.embarrassed' || e.status === 'status.distracted')) || e.type === 'taunt' || e.type === 'morale')) return ABILITY_COLORS.social!;
+  if (eff.some((e) => e.type === 'applyStatus' && e.status === 'status.stunned')) return ABILITY_COLORS.stun!;
+  return ABILITY_COLORS.default!;
+}
+
+function sfxForAbility(color: number): SfxName {
+  if (color === ABILITY_COLORS.fire) return 'fire';
+  if (color === ABILITY_COLORS.electric) return 'zap';
+  if (color === ABILITY_COLORS.water) return 'splash';
+  if (color === ABILITY_COLORS.heal) return 'heal';
+  if (color === ABILITY_COLORS.social) return 'blah';
+  return 'power';
 }
 
 export class BattleRenderer {
   app = new Application();
-  private stage = new Container();
+  readonly sfx = new Sfx();
+  private world = new Container();
   private floor = new Container();
   private areas = new Container();
   private bodies = new Container();
-  private fx = new Container();
+  private fxLayer = new Container();
+  private uiLayer = new Container();
   private banner!: Text;
   private bannerLife = 0;
   private chars = new Map<number, CharSprite>();
   private props = new Map<number, PropSprite>();
-  private floaters: Floater[] = [];
-  private flashes: { g: Graphics; life: number; max: number }[] = [];
+  private fx: Fx[] = [];
   private scale = 0.04;
   private arena!: ArenaDef;
   private ready = false;
   private observer: ResizeObserver | null = null;
+  private now = 0;
+  private shake = 0;
+  private cam = { x: 0, y: 0, z: 1 };
+  private compact = false;
+  private refId = -1;
 
   constructor(private input: BattleInput) {}
 
@@ -72,9 +140,9 @@ export class BattleRenderer {
     await this.app.init({ preference: 'webgl', resizeTo: el, background: hex(this.arena.theme.wall), antialias: true, autoDensity: true, resolution: Math.min(2, window.devicePixelRatio || 1) });
     el.appendChild(this.app.canvas);
     this.bodies.sortableChildren = true;
-    this.stage.addChild(this.floor, this.areas, this.bodies, this.fx);
-    this.app.stage.addChild(this.stage);
-    this.banner = new Text({ text: '', style: { fontFamily: 'system-ui, sans-serif', fontSize: 22, fontWeight: '900', fill: 0xffffff, stroke: { color: OUTLINE, width: 5 }, align: 'center' } });
+    this.world.addChild(this.floor, this.areas, this.bodies, this.fxLayer, this.uiLayer);
+    this.app.stage.addChild(this.world);
+    this.banner = new Text({ text: '', style: { fontFamily: FONT, fontSize: 22, fontWeight: '900', fill: 0xffffff, stroke: { color: OUTLINE, width: 5 }, align: 'center' } });
     this.banner.anchor.set(0.5, 0);
     this.app.stage.addChild(this.banner);
     this.layout();
@@ -82,13 +150,26 @@ export class BattleRenderer {
     // resizeTo only tracks window resizes; the stage box can change size on its own (fonts, wrapping, phones).
     this.observer = new ResizeObserver(() => this.app.resize());
     this.observer.observe(el);
+    el.addEventListener('pointerdown', () => this.sfx.unlock());
+    this.sfx.unlock();
     this.ready = true;
   }
 
   destroy(): void {
     this.observer?.disconnect();
+    this.sfx.close();
     if (this.ready) this.app.destroy(true, { children: true });
     this.ready = false;
+  }
+
+  /** Clear transient effects (after seeking). */
+  resetFx(): void {
+    for (const f of this.fx) f.g.destroy({ children: true });
+    this.fx = [];
+    for (const s of this.chars.values()) {
+      s.bubble?.destroy({ children: true });
+      s.bubble = null;
+    }
   }
 
   private layout(): void {
@@ -96,17 +177,19 @@ export class BattleRenderer {
     const sw = this.app.screen.width;
     const sh = this.app.screen.height;
     const worldH = H * Y_SQUASH + WALL_H * Z_LIFT;
-    this.scale = Math.min((sw - 16) / W, (sh - 40) / worldH);
-    this.stage.x = (sw - W * this.scale) / 2;
-    this.stage.y = (sh - worldH * this.scale) / 2 + WALL_H * Z_LIFT * this.scale;
+    this.compact = sw < 700;
+    // Phones: fit the arena's height and let the camera pan sideways, so fighters stay readable.
+    this.scale = this.compact ? (sh - 16) / worldH : Math.min((sw - 16) / W, (sh - 40) / worldH);
+    this.cam = { x: (W * this.scale) / 2, y: (H * Y_SQUASH * this.scale) / 2, z: 1 };
     this.banner.x = sw / 2;
     this.banner.y = 8;
+    this.banner.style.fontSize = this.compact ? 16 : 22;
     this.drawFloor();
-    // Character dolls depend on scale: rebuild.
     for (const s of this.chars.values()) s.root.destroy({ children: true });
     this.chars.clear();
     for (const s of this.props.values()) s.root.destroy({ children: true });
     this.props.clear();
+    this.resetFx();
   }
 
   private px(x: number, y: number, z = 0): [number, number] {
@@ -115,11 +198,11 @@ export class BattleRenderer {
 
   private drawFloor(): void {
     this.floor.removeChildren().forEach((c) => c.destroy());
+    for (const c of [...this.bodies.children]) if ((c as Container & { isWall?: boolean }).isWall) c.destroy();
     const [W, H] = this.arena.sizeMm;
     const g = new Graphics();
     const [fw, fh] = this.px(W, H);
     g.rect(0, 0, fw, fh).fill(hex(this.arena.theme.floor));
-    // Tile grid for a sense of scale (1 m).
     for (let x = 0; x <= W; x += 1000) {
       const [sx] = this.px(x, 0);
       g.moveTo(sx, 0).lineTo(sx, fh);
@@ -131,213 +214,681 @@ export class BattleRenderer {
     g.stroke({ width: 1, color: 0x000000, alpha: 0.06 });
     g.rect(0, 0, fw, fh).stroke({ width: 4, color: OUTLINE });
     this.floor.addChild(g);
-    // Walls / shelves: extruded boxes, drawn into the sorted body layer so people can walk in front/behind.
     for (const [x, y, w, h] of this.arena.walls) {
-      const wall = new Graphics();
+      const wall = new Graphics() as Graphics & { isWall?: boolean };
+      wall.isWall = true;
       const [x0, y0] = this.px(x, y);
       const [x1, y1] = this.px(x + w, y + h);
       const lift = WALL_H * Z_LIFT * this.scale;
       wall.rect(x0, y1 - lift, x1 - x0, lift).fill(hex(this.arena.theme.wall)).stroke({ width: 2, color: OUTLINE });
       wall.rect(x0, y0 - lift, x1 - x0, y1 - y0).fill(hex(this.arena.theme.accent)).stroke({ width: 2, color: OUTLINE });
+      // Shelf goods: little coloured blocks so walls read as shelves/desks.
+      const n = Math.max(2, Math.floor((x1 - x0) / 10));
+      for (let i = 0; i < n; i++) {
+        const bx = x0 + 2 + ((x1 - x0 - 4) * i) / n;
+        wall.rect(bx, y1 - lift + 3, (x1 - x0) / n - 2, lift * 0.35).fill([0xfbbf24, 0xef4444, 0x22c55e, 0x60a5fa, 0xf472b6][i % 5]!);
+      }
       wall.zIndex = y + h;
       this.bodies.addChild(wall);
     }
   }
 
   // ---------------------------------------------------------------------------
-  // Sprites
+  // Characters
   // ---------------------------------------------------------------------------
+  private snapOf(e: FrameEntity) {
+    return this.input.teams[e.team]?.characters.find((c) => c.id === e.snap);
+  }
+
   private makeChar(e: FrameEntity): CharSprite {
-    const r = e.r * this.scale; // body radius in px
-    const snap = this.input.teams[e.team]?.characters.find((c) => c.id === e.snap);
+    const r = e.r * this.scale;
+    const snap = this.snapOf(e);
     const career = bundle.careers.find((c) => c.id === e.def);
     const isRef = e.kind === 'npc';
+    if (isRef) this.refId = e.id;
     const bodyColor = isRef ? 0xffffff : hex(career?.art.color ?? '#999999');
     const hatColor = career?.art.hat ? hex(career.art.hat) : null;
     const skin = hex(snap?.appearance.skin ?? '#e0ac69');
     const hair = hex(snap?.appearance.hair ?? '#3b2a1a');
+    const line = Math.max(1.2, r * 0.14);
 
     const root = new Container();
-    const doll = new Container();
     const shadow = new Graphics().ellipse(0, 0, r * 1.1, r * 0.45).fill({ color: 0x000000, alpha: 0.18 });
     const ring = new Graphics().ellipse(0, 0, r * 1.15, r * 0.5).stroke({ width: Math.max(2, r * 0.18), color: isRef ? 0x111111 : TEAM_COLORS[e.team % TEAM_COLORS.length]! });
+    const doll = new Container();
+    const feet = new Graphics();
+    const torso = new Container();
     root.addChild(shadow, ring, doll);
+    doll.addChild(feet, torso);
 
-    const body = new Graphics().roundRect(-r * 0.8, -r * 2.1, r * 1.6, r * 1.9, r * 0.45).fill(bodyColor).stroke({ width: Math.max(1.5, r * 0.14), color: OUTLINE });
+    const armColor = isRef ? 0xffffff : bodyColor;
+    const armBack = new Graphics().roundRect(-r * 0.18, 0, r * 0.36, r * 1.05, r * 0.18).fill(armColor).stroke({ width: line * 0.8, color: OUTLINE });
+    armBack.position.set(-r * 0.55, -r * 1.95);
+    const body = new Graphics().roundRect(-r * 0.8, -r * 2.1, r * 1.6, r * 1.9, r * 0.45).fill(bodyColor).stroke({ width: line, color: OUTLINE });
     if (isRef) for (let i = -2; i <= 2; i++) body.rect(i * r * 0.32 - r * 0.07, -r * 2.05, r * 0.14, r * 1.8).fill(0x111111);
-    const head = new Graphics().circle(0, -r * 2.9, r * 0.95).fill(skin).stroke({ width: Math.max(1.5, r * 0.14), color: OUTLINE });
+    else body.rect(-r * 0.8, -r * 0.75, r * 1.6, r * 0.18).fill({ color: 0x000000, alpha: 0.25 });
+    const armFront = new Container();
+    armFront.position.set(r * 0.55, -r * 1.95);
+    const armG = new Graphics().roundRect(-r * 0.18, 0, r * 0.36, r * 1.05, r * 0.18).fill(armColor).stroke({ width: line * 0.8, color: OUTLINE });
+    const hand = new Graphics().circle(0, r * 1.08, r * 0.2).fill(skin).stroke({ width: line * 0.6, color: OUTLINE });
+    const held = new Graphics();
+    held.position.set(0, r * 1.08);
+    armFront.addChild(armG, held, hand);
+    torso.addChild(armBack, body, armFront);
+
+    const head = new Container();
+    head.position.set(0, -r * 2.9);
+    const headG = new Graphics().circle(0, 0, r * 0.95).fill(skin).stroke({ width: line, color: OUTLINE });
     const style = snap?.appearance.hairStyle ?? 0;
     const hairG = new Graphics();
-    if (style % 3 === 0) hairG.arc(0, -r * 2.95, r * 0.95, Math.PI, 0).fill(hair);
-    else if (style % 3 === 1) hairG.rect(-r * 0.95, -r * 3.85, r * 1.9, r * 0.55).fill(hair);
-    else hairG.circle(-r * 0.6, -r * 3.5, r * 0.4).circle(r * 0.6, -r * 3.5, r * 0.4).circle(0, -r * 3.75, r * 0.45).fill(hair);
-    doll.addChild(body, head, hairG);
+    if (style % 3 === 0) hairG.arc(0, -r * 0.05, r * 0.95, Math.PI, 0).fill(hair);
+    else if (style % 3 === 1) hairG.rect(-r * 0.95, -r * 0.95, r * 1.9, r * 0.55).fill(hair);
+    else hairG.circle(-r * 0.6, -r * 0.6, r * 0.4).circle(r * 0.6, -r * 0.6, r * 0.4).circle(0, -r * 0.85, r * 0.45).fill(hair);
+    const face = new Graphics();
+    head.addChild(headG, hairG, face);
     if (hatColor !== null && !isRef) {
-      const hat = new Graphics().roundRect(-r * 0.85, -r * 4.05, r * 1.7, r * 0.55, r * 0.2).fill(hatColor).stroke({ width: Math.max(1, r * 0.1), color: OUTLINE });
-      hat.rect(r * 0.2, -r * 3.62, r * 0.95, r * 0.18).fill(hatColor);
-      doll.addChild(hat);
+      const hat = new Graphics().roundRect(-r * 0.85, -r * 1.15, r * 1.7, r * 0.55, r * 0.2).fill(hatColor).stroke({ width: Math.max(1, r * 0.1), color: OUTLINE });
+      hat.rect(r * 0.2, -r * 0.72, r * 0.95, r * 0.18).fill(hatColor);
+      head.addChild(hat);
     }
-    const eyes = new Graphics();
-    const held = new Graphics();
-    doll.addChild(eyes, held);
+    if (isRef) head.addChild(new Graphics().rect(-r * 0.2, r * 0.5, r * 0.4, r * 0.18).fill(0x111111)); // whistle
+    torso.addChild(head);
+
+    const fxG = new Graphics();
     const bar = new Graphics();
-    const labelStyle: TextStyleOptions = { fontFamily: 'system-ui, sans-serif', fontSize: Math.max(9, r * 0.75), fontWeight: '700', fill: 0xffffff, stroke: { color: OUTLINE, width: 3 } };
-    const label = new Text({ text: isRef ? 'REF' : e.name.split(' ')[0]!, style: labelStyle });
+    bar.y = -r * 4.35;
+    const labelStyle: TextStyleOptions = { fontFamily: FONT, fontSize: Math.max(9, r * 0.75), fontWeight: '800', fill: 0xffffff, stroke: { color: OUTLINE, width: 3 } };
+    const label = new Text({ text: isRef ? 'REF' : (e.name.split(' ')[0] ?? e.name), style: labelStyle, resolution: 3 });
     label.anchor.set(0.5, 1);
     label.y = -r * 4.5;
-    const icons = new Text({ text: '', style: { fontSize: Math.max(10, r * 0.95) } });
+    const icons = new Text({ text: '', style: { fontSize: Math.max(9, r * 0.8) }, resolution: 3 });
     icons.anchor.set(0.5, 1);
-    icons.y = -r * 5.6;
-    bar.y = -r * 4.35;
-    root.addChild(bar, label, icons);
+    icons.y = -r * 5.5;
+    root.addChild(fxG, bar, label, icons);
     this.bodies.addChild(root);
-    const s: CharSprite = { root, doll, eyes, held, bar, icons, label, lastHp: -1, lastIcons: '', lastState: '', lastHeld: -2 };
-    this.drawEyes(s, e);
-    return s;
+    return {
+      id: e.id,
+      r,
+      root,
+      doll,
+      torso,
+      armBack,
+      armFront,
+      held,
+      head,
+      face,
+      feet,
+      fx: fxG,
+      bar,
+      label,
+      icons,
+      lastHp: -1,
+      lastIcons: '',
+      lastHeldKey: '',
+      expr: 'neutral',
+      drawnExpr: '',
+      exprUntil: 0,
+      lungeUntil: 0,
+      hitUntil: 0,
+      throwUntil: 0,
+      castUntil: 0,
+      castColor: 0xffffff,
+      flashUntil: 0,
+      flashColor: 0xffffff,
+      bubble: null,
+      bubbleUntil: 0,
+      lastBubbleAt: -99999,
+      knockX: 0,
+      moving: false,
+      x: 0,
+      y: 0,
+      team: e.team,
+      kind: isRef ? 'npc' : 'char',
+      personality: snap?.personality ?? '',
+    };
   }
 
-  private drawEyes(s: CharSprite, e: FrameEntity): void {
-    const r = e.r * this.scale;
-    const g = s.eyes;
+  private drawFace(s: CharSprite, expr: Expr): void {
+    const r = s.r;
+    const g = s.face;
     g.clear();
-    const ey = -r * 2.95;
-    if (e.state === 'ko') {
-      for (const ex of [-r * 0.35, r * 0.35]) g.moveTo(ex - r * 0.15, ey - r * 0.15).lineTo(ex + r * 0.15, ey + r * 0.15).moveTo(ex + r * 0.15, ey - r * 0.15).lineTo(ex - r * 0.15, ey + r * 0.15);
-      g.stroke({ width: Math.max(1.5, r * 0.12), color: OUTLINE });
-    } else if (e.panicking) {
-      g.circle(-r * 0.32, ey, r * 0.2).circle(r * 0.32, ey, r * 0.2).fill(0xffffff).stroke({ width: 1, color: OUTLINE });
-      g.circle(-r * 0.32, ey, r * 0.08).circle(r * 0.32, ey, r * 0.08).fill(OUTLINE);
-    } else {
-      g.circle(-r * 0.1, ey, r * 0.11).circle(r * 0.45, ey, r * 0.11).fill(OUTLINE);
+    const ey = -r * 0.05;
+    const w = Math.max(1.2, r * 0.12);
+    const L = -r * 0.1;
+    const R = r * 0.45;
+    switch (expr) {
+      case 'ko':
+        for (const ex of [L, R]) g.moveTo(ex - r * 0.15, ey - r * 0.15).lineTo(ex + r * 0.15, ey + r * 0.15).moveTo(ex + r * 0.15, ey - r * 0.15).lineTo(ex - r * 0.15, ey + r * 0.15);
+        g.stroke({ width: w, color: OUTLINE });
+        g.moveTo(L, r * 0.45).lineTo(R, r * 0.45).stroke({ width: w, color: OUTLINE });
+        break;
+      case 'scared':
+        g.circle(L, ey, r * 0.22).circle(R, ey, r * 0.22).fill(0xffffff).stroke({ width: 1, color: OUTLINE });
+        g.circle(L, ey, r * 0.08).circle(R, ey, r * 0.08).fill(OUTLINE);
+        g.ellipse((L + R) / 2, r * 0.45, r * 0.14, r * 0.2).fill(OUTLINE);
+        break;
+      case 'hurt':
+        g.moveTo(L - r * 0.14, ey - r * 0.1).lineTo(L + r * 0.12, ey).lineTo(L - r * 0.14, ey + r * 0.1);
+        g.moveTo(R + r * 0.14, ey - r * 0.1).lineTo(R - r * 0.12, ey).lineTo(R + r * 0.14, ey + r * 0.1);
+        g.stroke({ width: w, color: OUTLINE });
+        g.moveTo(L, r * 0.5).quadraticCurveTo((L + R) / 2, r * 0.3, R, r * 0.5).stroke({ width: w, color: OUTLINE });
+        break;
+      case 'angry':
+        g.moveTo(L - r * 0.18, ey - r * 0.3).lineTo(L + r * 0.15, ey - r * 0.15).moveTo(R + r * 0.18, ey - r * 0.3).lineTo(R - r * 0.15, ey - r * 0.15).stroke({ width: w, color: OUTLINE });
+        g.circle(L, ey, r * 0.1).circle(R, ey, r * 0.1).fill(OUTLINE);
+        g.moveTo(L, r * 0.45).lineTo(R, r * 0.4).stroke({ width: w, color: OUTLINE });
+        break;
+      case 'happy':
+        g.moveTo(L - r * 0.12, ey + r * 0.05).quadraticCurveTo(L, ey - r * 0.15, L + r * 0.12, ey + r * 0.05);
+        g.moveTo(R - r * 0.12, ey + r * 0.05).quadraticCurveTo(R, ey - r * 0.15, R + r * 0.12, ey + r * 0.05);
+        g.stroke({ width: w, color: OUTLINE });
+        g.moveTo(L - r * 0.05, r * 0.3).quadraticCurveTo((L + R) / 2, r * 0.7, R + r * 0.05, r * 0.3).fill(0x7f1d1d).stroke({ width: w, color: OUTLINE });
+        break;
+      case 'stunned':
+        for (const ex of [L, R]) g.circle(ex, ey, r * 0.16).circle(ex, ey, r * 0.07);
+        g.stroke({ width: w * 0.7, color: OUTLINE });
+        g.moveTo(L, r * 0.45).quadraticCurveTo((L + R) / 2, r * 0.6, R, r * 0.4).stroke({ width: w, color: OUTLINE });
+        break;
+      case 'sleepy':
+        g.moveTo(L - r * 0.12, ey).lineTo(L + r * 0.12, ey).moveTo(R - r * 0.12, ey).lineTo(R + r * 0.12, ey).stroke({ width: w, color: OUTLINE });
+        break;
+      default:
+        g.circle(L, ey, r * 0.11).circle(R, ey, r * 0.11).fill(OUTLINE);
+        g.moveTo(L, r * 0.42).quadraticCurveTo((L + R) / 2, r * 0.55, R, r * 0.42).stroke({ width: w * 0.9, color: OUTLINE });
     }
   }
 
-  private drawHeld(s: CharSprite, e: FrameEntity, frameProps: Map<number, FrameEntity>): void {
-    const r = e.r * this.scale;
+  private drawHeld(s: CharSprite, e: FrameEntity, byId: Map<number, FrameEntity>): void {
+    const r = s.r;
+    const key = `${e.held}:${this.snapOf(e)?.held ?? ''}`;
+    if (key === s.lastHeldKey) return;
+    s.lastHeldKey = key;
     s.held.clear();
-    const heldProp = e.held >= 0 ? frameProps.get(e.held) : undefined;
-    const snap = this.input.teams[e.team]?.characters.find((c) => c.id === e.snap);
-    if (heldProp) return; // carried props render themselves
-    if (snap?.held) {
-      const def = bundle.equipment.find((x) => x.id === snap.held);
-      const color = def?.tags.includes('material:metal') ? 0x9ca3af : def?.tags.includes('material:wood') ? 0x92400e : 0x475569;
-      s.held.roundRect(r * 0.7, -r * 1.7, r * 0.35, r * 1.2, r * 0.1).fill(color).stroke({ width: 1, color: OUTLINE });
-    }
+    if (e.held >= 0 && byId.get(e.held)) return; // carried props render themselves
+    const item = this.snapOf(e)?.held;
+    if (!item) return;
+    const def = bundle.equipment.find((x) => x.id === item);
+    const tags = def?.tags ?? [];
+    const color = tags.includes('material:metal') ? 0x9ca3af : tags.includes('material:wood') ? 0x92400e : tags.includes('material:paper') ? 0xf8fafc : tags.includes('material:tech') ? 0x374151 : tags.includes('silly') ? 0xfacc15 : 0x475569;
+    const len = r * ((def?.attack?.rangeMm ?? 1000) > 1500 ? 1.9 : 1.2);
+    s.held.roundRect(-r * 0.14, -r * 0.1, r * 0.28, len, r * 0.1).fill(color).stroke({ width: 1, color: OUTLINE });
+    if (tags.includes('material:tech') || tags.includes('material:paper')) s.held.rect(-r * 0.35, len * 0.55, r * 0.7, len * 0.4).fill(color).stroke({ width: 1, color: OUTLINE });
   }
 
+  private setExpr(s: CharSprite, expr: Expr, ms: number): void {
+    s.expr = expr;
+    s.exprUntil = this.now + ms;
+  }
+
+  private bark(s: CharSprite | undefined, kind: string, chance = 1, slots: Record<string, string> = {}, force = false): void {
+    if (!s || (s.kind === 'npc' && !kind.startsWith('bark_ref'))) return;
+    if (Math.random() > chance) return;
+    if (!force && this.now - s.lastBubbleAt < 1400) return;
+    let open = 0;
+    for (const o of this.chars.values()) if (o.bubble && o !== s) open++;
+    if (open >= (this.compact ? 2 : 4) && !force) return;
+    const list = bundle.live[kind];
+    if (!list?.length) return;
+    const text = rand(list).replace(/\{(\w+)\}/g, (_, k: string) => slots[k] ?? k).replace(/\b([Aa]) ([aeiouAEIOU])/g, '$1n $2');
+    s.bubble?.destroy({ children: true });
+    const size = this.compact ? 10 : Math.max(10, Math.min(15, s.r * 0.95));
+    const t = new Text({ text, style: { fontFamily: FONT, fontSize: size, fontWeight: '800', fill: OUTLINE, wordWrap: true, wordWrapWidth: 130 }, resolution: 3 });
+    const padX = 6;
+    const padY = 4;
+    const w = t.width + padX * 2;
+    const h = t.height + padY * 2;
+    const c = new Container();
+    const bg = new Graphics()
+      .roundRect(-w / 2, -h - 7, w, h, 8)
+      .fill(0xffffff)
+      .stroke({ width: 2, color: OUTLINE })
+      .poly([-5, -8, 5, -8, 0, 0])
+      .fill(0xffffff);
+    bg.moveTo(-5, -7).lineTo(0, 0).lineTo(5, -7).stroke({ width: 2, color: OUTLINE });
+    t.position.set(-w / 2 + padX, -h - 7 + padY);
+    c.addChild(bg, t);
+    this.uiLayer.addChild(c);
+    s.bubble = c;
+    s.bubbleUntil = this.now + 1500;
+    s.lastBubbleAt = this.now;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Props
+  // ---------------------------------------------------------------------------
   private makeProp(e: FrameEntity): PropSprite {
     const def = bundle.props.find((p) => p.id === e.def);
     const root = new Container();
     const g = new Graphics();
     root.addChild(g);
-    const s: PropSprite = { root, g, area: -1 };
-    if (def?.art.shape === 'area') {
+    const isArea = def?.art.shape === 'area';
+    const color = hex(def?.art.color ?? '#999999');
+    const s: PropSprite = { root, g, area: -1, isArea, animated: isArea && ['prop.fire-patch', 'prop.sparks', 'prop.foam-cloud', 'prop.puddle-water', 'prop.flood', 'prop.oil-spill', 'prop.soda-spill'].includes(e.def), color, seed: e.id };
+    if (isArea) {
+      root.scale.y = Y_SQUASH;
       this.areas.addChild(root);
     } else {
-      const r = e.r * this.scale;
-      const color = hex(def?.art.color ?? '#999999');
-      g.ellipse(0, 0, r, r * 0.45).fill({ color: 0x000000, alpha: 0.15 });
-      if (def?.art.shape === 'square') g.roundRect(-r, -r * 1.7, r * 2, r * 1.7, r * 0.2).fill(color).stroke({ width: Math.max(1, r * 0.12), color: OUTLINE });
-      else g.circle(0, -r * 0.9, r * 0.9).fill(color).stroke({ width: Math.max(1, r * 0.12), color: OUTLINE });
+      drawProp(g, e.def, e.r * this.scale, color, def?.art.shape === 'square');
       this.bodies.addChild(root);
     }
     return s;
   }
 
   // ---------------------------------------------------------------------------
-  // Per-frame update
+  // Frame update
   // ---------------------------------------------------------------------------
-  render(player: ReplayPlayer, dtMs: number): void {
+  render(player: ReplayPlayer, dtMs: number, events: BattleEvent[]): void {
     if (!this.ready) return;
+    this.now += dtMs;
+    const t = this.now / 1000;
     const a = player.alpha;
     const prev = new Map(player.prev.entities.map((e) => [e.id, e]));
     const cur = player.cur.entities;
     const byId = new Map(cur.map((e) => [e.id, e]));
     const seenC = new Set<number>();
     const seenP = new Set<number>();
+    let minX = Infinity;
+    let maxX = -Infinity;
+    let minY = Infinity;
+    let maxY = -Infinity;
+
     for (const e of cur) {
       const p = prev.get(e.id) ?? e;
       const x = p.x + (e.x - p.x) * a;
       const y = p.y + (e.y - p.y) * a;
       const z = p.z + (e.z - p.z) * a;
+      const [sx, sy] = this.px(x, y, z);
       if (e.kind === 'prop') {
         seenP.add(e.id);
         let s = this.props.get(e.id);
         if (!s) this.props.set(e.id, (s = this.makeProp(e)));
-        const [sx, sy] = this.px(x, y, z);
         s.root.position.set(sx, sy);
-        s.root.zIndex = y + (e.z > 0 ? 400 : 0);
-        if (e.area > 0 && Math.abs(e.area - s.area) > 5) {
-          const def = bundle.props.find((pp) => pp.id === e.def);
-          s.g.clear();
-          const rr = e.area * this.scale;
-          s.g.ellipse(0, 0, rr, rr * Y_SQUASH).fill({ color: hex(def?.art.color ?? '#4fa3e0'), alpha: 0.45 });
-          s.area = e.area;
+        if (s.isArea) {
+          if (s.animated || Math.abs(e.area - s.area) > 5) {
+            drawArea(s.g, e.def, e.area * this.scale, s.color, t, s.seed);
+            s.area = e.area;
+          }
+        } else {
+          s.root.zIndex = y + (e.z > 0 ? 400 : 0);
+          s.root.rotation = e.flying ? t * 12 : 0;
+          const live = e.statuses.includes('status.burning') || e.statuses.includes('status.electrified') || e.statuses.includes('status.live');
+          s.root.alpha = live && Math.floor(t * 8) % 2 === 0 ? 0.7 : 1;
         }
-        const live = e.statuses.includes('status.burning') || e.statuses.includes('status.electrified') || e.statuses.includes('status.live');
-        s.root.alpha = live && player.tick % 4 < 2 ? 0.75 : 1;
         continue;
       }
       seenC.add(e.id);
       let s = this.chars.get(e.id);
       if (!s) this.chars.set(e.id, (s = this.makeChar(e)));
-      const [sx, sy] = this.px(x, y, z);
+      s.moving = Math.abs(e.x - p.x) + Math.abs(e.y - p.y) > 4;
+      s.x = sx;
+      s.y = sy;
       s.root.position.set(sx, sy);
       s.root.zIndex = y;
-      s.doll.scale.x = e.fx < 0 ? -1 : 1;
-      const down = e.state !== 'active' || e.statuses.includes('status.knocked-down');
-      s.doll.rotation = down ? (e.fx < 0 ? -1.4 : 1.4) : e.statuses.includes('status.electrified') ? Math.sin(player.tick * 2.3) * 0.15 : 0;
-      s.root.alpha = e.state === 'ko' ? 0.55 : 1;
-      const stateKey = `${e.state}:${e.panicking}`;
-      if (stateKey !== s.lastState) {
-        this.drawEyes(s, e);
-        s.lastState = stateKey;
+      if (e.state !== 'ko' && e.kind === 'char') {
+        minX = Math.min(minX, sx);
+        maxX = Math.max(maxX, sx);
+        minY = Math.min(minY, sy);
+        maxY = Math.max(maxY, sy);
       }
-      if (e.held !== s.lastHeld) {
-        this.drawHeld(s, e, byId);
-        s.lastHeld = e.held;
-      }
-      if (e.hp !== s.lastHp) {
-        const r = e.r * this.scale;
-        const w = r * 2.4;
-        const frac = e.maxHp > 0 ? Math.max(0, e.hp / e.maxHp) : 0;
-        s.bar.clear();
-        s.bar.rect(-w / 2, 0, w, Math.max(3, r * 0.28)).fill(0x111111);
-        s.bar.rect(-w / 2, 0, w * frac, Math.max(3, r * 0.28)).fill(frac > 0.5 ? 0x22c55e : frac > 0.25 ? 0xf59e0b : 0xef4444);
-        s.lastHp = e.hp;
-      }
-      const iconStr = (e.panicking ? '❗' : '') + [...new Set(e.statuses.map((st) => STATUS_ICONS[st] ?? ''))].join('');
-      if (iconStr !== s.lastIcons) {
-        s.icons.text = iconStr;
-        s.lastIcons = iconStr;
-      }
-      s.label.visible = e.state !== 'ko';
+      this.animateChar(s, e, t, byId);
     }
-    for (const [id, s] of this.chars) if (!seenC.has(id)) s.root.visible = false;
+    for (const [id, s] of this.chars) {
+      if (!seenC.has(id)) s.root.visible = false;
+      if (s.bubble) {
+        if (this.now > s.bubbleUntil || !s.root.visible) {
+          s.bubble.destroy({ children: true });
+          s.bubble = null;
+        } else s.bubble.position.set(s.x, s.y - s.r * 4.6);
+      }
+    }
     for (const [id, s] of this.props) {
       if (!seenP.has(id)) {
         s.root.destroy({ children: true });
         this.props.delete(id);
       }
     }
-    for (const ev of player.drainEvents()) this.onEvent(ev, byId);
+    for (const ev of events) this.onEvent(ev, byId);
     this.tickFx(dtMs);
+    this.updateCamera(dtMs, minX, maxX, minY, maxY);
   }
 
+  private animateChar(s: CharSprite, e: FrameEntity, t: number, byId: Map<number, FrameEntity>): void {
+    const r = s.r;
+    const down = e.state !== 'active' || e.statuses.includes('status.knocked-down');
+    const stunned = e.statuses.includes('status.stunned') || e.statuses.includes('status.electrified') || e.statuses.includes('status.lectured');
+    const action = e.action;
+    const winding = action.endsWith(':windup');
+    const casting = winding && action.startsWith('ability.');
+    s.doll.scale.x = e.fx < 0 ? -1 : 1;
+
+    // Expression: event-driven first, then state.
+    let expr: Expr = 'neutral';
+    if (e.state === 'ko') expr = 'ko';
+    else if (this.now < s.exprUntil) expr = s.expr;
+    else if (e.panicking || e.statuses.includes('status.burning')) expr = 'scared';
+    else if (stunned || e.state === 'downed') expr = 'stunned';
+    else if (e.statuses.includes('status.inspired') || e.statuses.includes('status.caffeinated')) expr = 'happy';
+    else if (winding || action.startsWith('attack')) expr = 'angry';
+    else if (e.maxHp > 0 && e.hp / e.maxHp < 0.25) expr = 'scared';
+    if (expr !== s.drawnExpr) {
+      this.drawFace(s, expr);
+      s.drawnExpr = expr;
+    }
+
+    // Body pose.
+    const bob = s.moving ? Math.abs(Math.sin(t * 14)) * r * 0.25 : Math.sin(t * 3 + s.id) * r * 0.05;
+    let lean = 0;
+    let offX = 0;
+    let armF = 0.25 + Math.sin(t * 3 + s.id) * 0.08;
+    let armB = -0.2;
+    if (s.moving) {
+      armF = Math.sin(t * 14) * 0.7;
+      armB = -Math.sin(t * 14) * 0.7;
+    }
+    if (winding) {
+      armF = casting ? -2.6 + Math.sin(t * 20) * 0.2 : -2.0;
+      lean = -0.12;
+    }
+    if (this.now < s.lungeUntil) {
+      const k = (s.lungeUntil - this.now) / 220;
+      offX = r * 0.6 * k;
+      armF = 1.4;
+      lean = 0.18 * k;
+    }
+    if (this.now < s.throwUntil) {
+      const k = (s.throwUntil - this.now) / 320;
+      armF = -2.8 + (1 - k) * 4;
+    }
+    if (this.now < s.hitUntil) {
+      const k = (s.hitUntil - this.now) / 300;
+      lean = -0.35 * k * (s.knockX >= 0 ? 1 : -1) * (e.fx < 0 ? -1 : 1);
+      armF = -2.4;
+      armB = 2.4;
+      offX = -r * 0.3 * k;
+    }
+    if (e.panicking && !down) {
+      armF = -2.6 + Math.sin(t * 25) * 0.6;
+      armB = 2.6 - Math.sin(t * 25) * 0.6;
+    }
+    let jitterX = 0;
+    if (e.statuses.includes('status.electrified')) jitterX = (Math.random() - 0.5) * r * 0.5;
+    if (e.statuses.includes('status.caffeinated')) jitterX = (Math.random() - 0.5) * r * 0.15;
+    s.torso.position.set(offX + jitterX, -bob);
+    s.torso.rotation = lean;
+    s.armFront.rotation = armF;
+    s.armBack.rotation = armB;
+    s.doll.rotation = down ? (e.fx < 0 ? -1.45 : 1.45) : 0;
+    s.doll.position.y = down ? -r * 0.4 : 0;
+    s.head.rotation = stunned ? Math.sin(t * 8) * 0.25 : 0;
+
+    // Feet: alternate when walking.
+    s.feet.clear();
+    if (!down) {
+      const step = s.moving ? Math.sin(t * 14) * r * 0.25 : 0;
+      s.feet.ellipse(-r * 0.35, -r * 0.05 - Math.max(0, step), r * 0.28, r * 0.14).ellipse(r * 0.35, -r * 0.05 - Math.max(0, -step), r * 0.28, r * 0.14).fill(0x1f2937);
+    }
+
+    // Tint flashes: red when hit, ability colour while casting, blue when cold.
+    let tint = 0xffffff;
+    if (this.now < s.flashUntil) tint = s.flashColor;
+    else if (casting) tint = Math.floor(t * 10) % 2 ? 0xffffff : s.castColor || 0xfff3a0;
+    else if (e.statuses.includes('status.electrified')) tint = Math.floor(t * 20) % 2 ? 0xfff59d : 0xffffff;
+    else if (e.statuses.includes('status.cold')) tint = 0xbfdbfe;
+    else if (e.statuses.includes('status.embarrassed')) tint = 0xffc4c4;
+    s.torso.tint = tint;
+    s.root.alpha = e.state === 'ko' ? 0.55 : 1;
+
+    this.drawStatusFx(s, e, t, casting);
+    this.drawHeld(s, e, byId);
+
+    if (e.hp !== s.lastHp) {
+      const w = r * 2.4;
+      const frac = e.maxHp > 0 ? Math.max(0, e.hp / e.maxHp) : 0;
+      s.bar.clear();
+      s.bar.rect(-w / 2, 0, w, Math.max(3, r * 0.28)).fill(0x111111);
+      s.bar.rect(-w / 2, 0, w * frac, Math.max(3, r * 0.28)).fill(frac > 0.5 ? 0x22c55e : frac > 0.25 ? 0xf59e0b : 0xef4444);
+      s.lastHp = e.hp;
+    }
+    const iconStr = [...new Set(e.statuses.map((st) => STATUS_ICONS[st] ?? ''))].join('');
+    if (iconStr !== s.lastIcons) {
+      s.icons.text = iconStr;
+      s.lastIcons = iconStr;
+    }
+    s.label.visible = e.state !== 'ko';
+    s.bar.visible = e.state !== 'ko';
+  }
+
+  /** Per-frame status visuals drawn around a character. */
+  private drawStatusFx(s: CharSprite, e: FrameEntity, t: number, casting: boolean): void {
+    const g = s.fx;
+    const r = s.r;
+    g.clear();
+    const st = e.statuses;
+    if (casting) {
+      const k = (t * 3) % 1;
+      g.ellipse(0, 0, r * (1.2 + k), r * (0.5 + k * 0.4)).stroke({ width: Math.max(2, r * 0.2), color: s.castColor, alpha: 1 - k });
+      g.ellipse(0, 0, r * 1.3, r * 0.55).fill({ color: s.castColor, alpha: 0.25 });
+    }
+    if (st.includes('status.burning')) {
+      for (let i = 0; i < 5; i++) {
+        const x = (i - 2) * r * 0.35;
+        const h = r * (1.0 + 0.5 * Math.sin(t * 14 + i * 2));
+        const base = -r * (1.2 + (i % 2) * 0.6);
+        g.poly([x - r * 0.25, base, x + r * 0.25, base, x, base - h]).fill({ color: i % 2 ? 0xef4444 : 0xfb923c, alpha: 0.9 });
+      }
+    }
+    if (st.includes('status.electrified')) {
+      for (let i = 0; i < 3; i++) {
+        let x = (Math.random() - 0.5) * r * 2.4;
+        let y = -r * (0.5 + Math.random() * 3);
+        g.moveTo(x, y);
+        for (let k = 0; k < 3; k++) {
+          x += (Math.random() - 0.5) * r * 1.2;
+          y += (Math.random() - 0.5) * r * 1.2;
+          g.lineTo(x, y);
+        }
+      }
+      g.stroke({ width: Math.max(1.5, r * 0.12), color: 0xfff176 });
+    }
+    if (st.includes('status.wet')) {
+      for (let i = 0; i < 3; i++) {
+        const k = (t * 1.5 + i / 3) % 1;
+        g.ellipse((i - 1) * r * 0.6, -r * (2.4 - k * 2.2), r * 0.1, r * 0.16).fill({ color: 0x60a5fa, alpha: 1 - k });
+      }
+    }
+    if (st.includes('status.stunned') || st.includes('status.electrified') || e.state === 'downed') {
+      for (let i = 0; i < 3; i++) {
+        const ang = t * 5 + (i * Math.PI * 2) / 3;
+        const x = Math.cos(ang) * r * 0.9;
+        const y = -r * 4.0 + Math.sin(ang) * r * 0.3;
+        star(g, x, y, r * 0.22, 0xfde047);
+      }
+    }
+    if (st.includes('status.foamed')) for (let i = 0; i < 6; i++) g.circle(Math.cos(i * 1.7) * r * 0.8, -r * (0.6 + (i % 3) * 0.7), r * 0.28).fill({ color: 0xffffff, alpha: 0.9 }).stroke({ width: 1, color: 0xcbd5e1 });
+    if (st.includes('status.inspired')) {
+      for (let i = 0; i < 3; i++) {
+        const k = (t * 1.2 + i / 3) % 1;
+        star(g, (i - 1) * r * 0.9, -r * (1 + k * 3), r * 0.18 * (1 - k) + 1, 0xfff3a0);
+      }
+    }
+    if (st.includes('status.caffeinated')) {
+      g.moveTo(-r * 1.2, -r * 1.5).lineTo(-r * 1.6, -r * 1.5).moveTo(-r * 1.2, -r * 2.1).lineTo(-r * 1.7, -r * 2.1).stroke({ width: Math.max(1, r * 0.1), color: 0x78350f });
+    }
+    if (st.includes('status.slipping') && !st.includes('status.knocked-down')) {
+      g.arc(0, 0, r * 1.1, 0, Math.PI * (0.6 + Math.sin(t * 8) * 0.3)).stroke({ width: Math.max(1, r * 0.12), color: 0x60a5fa });
+    }
+    if (e.panicking) {
+      for (let i = 0; i < 2; i++) {
+        const k = (t * 2 + i / 2) % 1;
+        g.ellipse(r * (0.9 + i * 0.3), -r * (3.2 - k * 1.2), r * 0.12, r * 0.2).fill({ color: 0x93c5fd, alpha: 1 - k });
+      }
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  // Events → reactions, VFX, sound
+  // ---------------------------------------------------------------------------
   private posOf(id: number, byId: Map<number, FrameEntity>): [number, number] | null {
     const e = byId.get(id);
     if (!e) return null;
-    const [x, y] = this.px(e.x, e.y, e.z);
-    return [x, y - e.r * this.scale * 4.8];
+    return this.px(e.x, e.y, e.z);
   }
 
-  private float(text: string, at: [number, number] | null, color: number, size = 14): void {
-    if (!at || this.floaters.length > 60) return;
-    const t = new Text({ text, style: { fontFamily: 'system-ui, sans-serif', fontSize: size, fontWeight: '900', fill: color, stroke: { color: OUTLINE, width: 4 } } });
-    t.anchor.set(0.5, 1);
-    t.position.set(at[0] + (Math.random() - 0.5) * 10, at[1]);
-    this.fx.addChild(t);
-    this.floaters.push({ text: t, vy: -0.04, life: 1100, max: 1100 });
+  private float(text: string, at: [number, number] | null, color: number, size = 14, rise = 1): void {
+    if (!at || this.fx.length > 90) return;
+    const tx = new Text({ text, style: { fontFamily: FONT, fontSize: size, fontWeight: '900', fill: color, stroke: { color: OUTLINE, width: 4 } }, resolution: 3 });
+    tx.anchor.set(0.5, 1);
+    const head = this.scale * 350 * 4.8;
+    tx.position.set(at[0] + (Math.random() - 0.5) * 12, at[1] - head);
+    this.uiLayer.addChild(tx);
+    const y0 = tx.y;
+    this.fx.push({
+      g: tx,
+      life: 1000,
+      max: 1000,
+      update: (k) => {
+        tx.y = y0 - (1 - k) * 30 * rise;
+        tx.alpha = Math.min(1, k * 2.5);
+      },
+    });
+  }
+
+  /** Big coloured name badge above the caster. */
+  private pill(text: string, at: [number, number], color: number): void {
+    const size = this.compact ? 13 : 16;
+    const tx = new Text({ text, style: { fontFamily: FONT, fontSize: size, fontWeight: '900', fill: OUTLINE }, resolution: 3 });
+    const w = tx.width + 16;
+    const h = tx.height + 6;
+    const c = new Container();
+    const bg = new Graphics().roundRect(-w / 2, -h, w, h, h / 2).fill(color).stroke({ width: 2.5, color: OUTLINE });
+    tx.position.set(-w / 2 + 8, -h + 3);
+    c.addChild(bg, tx);
+    const head = this.scale * 350 * 5.2;
+    c.position.set(at[0], at[1] - head);
+    this.uiLayer.addChild(c);
+    const y0 = c.y;
+    this.fx.push({
+      g: c,
+      life: 1300,
+      max: 1300,
+      update: (k) => {
+        const p = 1 - k;
+        c.scale.set(p < 0.12 ? 0.6 + (p / 0.12) * 0.5 : 1.1 - Math.min(0.1, (p - 0.12) * 0.5));
+        c.y = y0 - p * 14;
+        c.alpha = Math.min(1, k * 3);
+      },
+    });
+  }
+
+  private addShape(draw: (g: Graphics, k: number) => void, life: number): void {
+    const g = new Graphics();
+    this.fxLayer.addChild(g);
+    this.fx.push({
+      g,
+      life,
+      max: life,
+      update: (k) => {
+        g.clear();
+        draw(g, k);
+      },
+    });
+  }
+
+  private sparks(at: [number, number] | null, color: number, size: number): void {
+    if (!at) return;
+    const [x, y0] = at;
+    const y = y0 - this.scale * 350 * 2;
+    const rays = 7;
+    const angles = Array.from({ length: rays }, (_, i) => (i / rays) * Math.PI * 2 + Math.random() * 0.4);
+    this.addShape((g, k) => {
+      const p = 1 - k;
+      for (const a of angles) g.moveTo(x + Math.cos(a) * size * p * 0.5, y + Math.sin(a) * size * p * 0.5).lineTo(x + Math.cos(a) * size * (0.4 + p), y + Math.sin(a) * size * (0.4 + p));
+      g.stroke({ width: Math.max(2, size * 0.18), color, alpha: k });
+      star(g, x, y, size * 0.5 * k, 0xffffff);
+    }, 260);
+  }
+
+  private abilityVfx(ab: AbilityDef, caster: FrameEntity, target: FrameEntity | undefined, color: number): void {
+    const tg = ab.targeting;
+    if (!tg) return;
+    const [cx, cy] = this.px(caster.x, caster.y);
+    const S = this.scale;
+    const ring = (x: number, y: number, rad: number, life = 520) =>
+      this.addShape((g, k) => {
+        const p = 1 - k;
+        g.ellipse(x, y, rad * (0.2 + p * 0.8), rad * (0.2 + p * 0.8) * Y_SQUASH).fill({ color, alpha: 0.25 * k });
+        g.ellipse(x, y, rad * (0.2 + p * 0.8), rad * (0.2 + p * 0.8) * Y_SQUASH).stroke({ width: Math.max(2, 5 * k), color, alpha: k });
+      }, life);
+    switch (tg.type) {
+      case 'cone': {
+        if (!target) break;
+        const ang = Math.atan2((target.y - caster.y) * Y_SQUASH, target.x - caster.x);
+        const half = Math.acos(Math.max(-1, Math.min(1, (tg.coneCosBp ?? 7071) / 10000)));
+        const R = tg.rangeMm * S;
+        this.addShape((g, k) => {
+          const p = 1 - k;
+          const rr = R * (0.3 + p * 0.7);
+          const pts = [cx, cy - 10 * S * 100];
+          const n = 10;
+          for (let i = 0; i <= n; i++) {
+            const a = ang - half + (2 * half * i) / n;
+            pts.push(cx + Math.cos(a) * rr, cy - 10 * S * 100 + Math.sin(a) * rr);
+          }
+          g.poly(pts).fill({ color, alpha: 0.35 * k }).stroke({ width: 2, color, alpha: k });
+          for (let i = 0; i < 6; i++) {
+            const a = ang - half + Math.random() * 2 * half;
+            const d = rr * (0.4 + Math.random() * 0.6);
+            g.circle(cx + Math.cos(a) * d, cy - 10 * S * 100 + Math.sin(a) * d, Math.max(1.5, 60 * S)).fill({ color: 0xffffff, alpha: k });
+          }
+        }, 480);
+        break;
+      }
+      case 'circleSelf':
+        ring(cx, cy, (tg.radiusMm ?? tg.rangeMm) * S);
+        break;
+      case 'circleTarget': {
+        if (!target) break;
+        const [tx, ty] = this.px(target.x, target.y);
+        const rad = (tg.radiusMm ?? 1500) * S;
+        this.addShape((g, k) => {
+          const p = Math.min(1, (1 - k) * 2.2);
+          const x = cx + (tx - cx) * p;
+          const y = cy + (ty - cy) * p - Math.sin(p * Math.PI) * 60 * S * 30;
+          if (p < 1) g.circle(x, y - 350 * S * 2, Math.max(4, 180 * S)).fill(color).stroke({ width: 2, color: OUTLINE });
+        }, 450);
+        setTimeout(() => this.ready && ring(tx, ty, rad, 500), 200);
+        break;
+      }
+      case 'self':
+        ring(cx, cy, 1600 * S, 600);
+        break;
+      default: {
+        if (!target) break;
+        const [tx, ty] = this.px(target.x, target.y);
+        const hy = 350 * S * 2;
+        const melee = tg.rangeMm < 2200;
+        if (melee) {
+          this.addShape((g, k) => {
+            const a0 = Math.atan2(ty - cy, tx - cx);
+            g.arc(tx, ty - hy, 500 * S, a0 - 1.2 + (1 - k) * 0.6, a0 + 0.2 + (1 - k) * 1.2).stroke({ width: Math.max(3, 8 * k), color, alpha: k });
+          }, 260);
+        } else if (color === ABILITY_COLORS.electric) {
+          this.addShape((g, k) => {
+            g.moveTo(cx, cy - hy);
+            for (let i = 1; i <= 8; i++) g.lineTo(cx + ((tx - cx) * i) / 8 + (i < 8 ? (Math.random() - 0.5) * 20 : 0), cy - hy + ((ty - cy) * i) / 8 + (i < 8 ? (Math.random() - 0.5) * 20 : 0));
+            g.stroke({ width: Math.max(2, 5 * k), color, alpha: k });
+          }, 300);
+        } else {
+          this.addShape((g, k) => {
+            const p = Math.min(1, (1 - k) * 2.5);
+            const x = cx + (tx - cx) * p;
+            const y = cy - hy + (ty - cy) * p;
+            g.moveTo(cx + (tx - cx) * Math.max(0, p - 0.3), cy - hy + (ty - cy) * Math.max(0, p - 0.3)).lineTo(x, y).stroke({ width: Math.max(2, 180 * S), color, alpha: 0.6 * k });
+            g.circle(x, y, Math.max(3, 150 * S)).fill(color).stroke({ width: 1.5, color: OUTLINE });
+          }, 380);
+        }
+      }
+    }
   }
 
   private announce(text: string): void {
@@ -345,87 +896,311 @@ export class BattleRenderer {
     this.bannerLife = 2200;
   }
 
+  private witnesses(victim: FrameEntity | undefined, fn: (s: CharSprite, sameTeam: boolean) => void): void {
+    if (!victim) return;
+    for (const s of this.chars.values()) {
+      if (s.id === victim.id || !s.root.visible) continue;
+      const dx = s.x - this.px(victim.x, victim.y)[0];
+      const dy = s.y - this.px(victim.x, victim.y)[1];
+      if (Math.hypot(dx, dy) > 7000 * this.scale) continue;
+      fn(s, s.team === victim.team);
+    }
+  }
+
   private onEvent(ev: BattleEvent, byId: Map<number, FrameEntity>): void {
+    const A = this.chars.get(ev.a);
+    const B = this.chars.get(ev.b);
+    const ea = byId.get(ev.a);
+    const eb = byId.get(ev.b);
     switch (ev.type) {
+      case 'attack':
+        if (A) {
+          A.lungeUntil = this.now + 220;
+          this.setExpr(A, 'angry', 450);
+          this.bark(A, 'bark_attack', 0.12);
+        }
+        this.sfx.play('whoosh', 0.6);
+        break;
       case 'hit':
-        this.float(`-${ev.v}`, this.posOf(ev.b, byId), 0xff5a5a, 13);
+      case 'crit': {
+        const crit = ev.type === 'crit';
+        if (B) {
+          B.hitUntil = this.now + 300;
+          B.flashUntil = this.now + 140;
+          B.flashColor = 0xff6b6b;
+          B.knockX = ea ? (eb && ea.x > eb.x ? -1 : 1) : 1;
+          this.setExpr(B, 'hurt', 550);
+          const byProp = ea?.kind === 'prop' || (ev.cause >= 0 && ev.s === 'blunt' && !A);
+          this.bark(B, byProp ? 'bark_hit_by_prop' : B.kind === 'npc' ? 'bark_ref_card' : 'bark_hurt', crit ? 0.6 : 0.18, { prop: ea ? nameOf(ea.def).toLowerCase() : 'thing' });
+        }
+        if (A && A.kind === 'char' && crit) {
+          this.setExpr(A, 'happy', 700);
+          this.bark(A, 'bark_crit', 0.45);
+        }
+        if (A && B && A.team === B.team && A.kind === 'char' && A.id !== B.id) this.bark(A, 'bark_friendly', 0.5);
+        this.float(crit ? `CRIT -${ev.v}` : `-${ev.v}`, this.posOf(ev.b, byId), crit ? 0xffd000 : 0xff5a5a, crit ? 18 : 13);
+        this.sparks(this.posOf(ev.b, byId), crit ? 0xffd000 : 0xffffff, crit ? 22 : 12);
+        if (crit) this.shake = Math.max(this.shake, 6);
+        this.sfx.play(crit ? 'crit' : ev.s === 'electric' ? 'zap' : ev.s === 'fire' ? 'fire' : 'punch', Math.min(1.4, 0.5 + ev.v / 20));
         break;
-      case 'crit':
-        this.float(`CRIT -${ev.v}`, this.posOf(ev.b, byId), 0xffd000, 17);
-        break;
+      }
       case 'heal':
         this.float(`+${ev.v}`, this.posOf(ev.b, byId), 0x4ade80, 13);
+        if (B) {
+          B.flashUntil = this.now + 200;
+          B.flashColor = 0xa7f3d0;
+        }
+        if (A && B && A.team !== B.team && A.kind === 'char' && B.kind === 'char') this.bark(A, 'bark_heal_enemy', 0.8);
+        this.sfx.play('heal');
         break;
-      case 'abilityCast':
-        this.float(nameOf(ev.s), this.posOf(ev.a, byId), 0xfff3a0, 15);
+      case 'abilityCast': {
+        const ab = bundle.abilities.find((x) => x.id === ev.s);
+        const color = abilityColor(ab);
+        const at = this.posOf(ev.a, byId);
+        if (A) {
+          A.castColor = color;
+          A.throwUntil = this.now + 320;
+          A.flashUntil = this.now + 260;
+          A.flashColor = color;
+          this.setExpr(A, color === ABILITY_COLORS.heal ? 'happy' : 'angry', 700);
+        }
+        if (at) this.pill(`${nameOf(ev.s)}`, at, color);
+        if (ab && ea) this.abilityVfx(ab, ea, eb, color);
+        this.sfx.play('power', 0.8);
+        this.sfx.play(sfxForAbility(color));
+        break;
+      }
+      case 'statusApplied': {
+        if (!B || B.kind !== 'char') {
+          if (ev.s === 'status.live') this.sfx.play('zap');
+          if (ev.s === 'status.burning') this.sfx.play('fire', 0.6);
+          break;
+        }
+        const map: Record<string, [string, SfxName | null, Expr]> = {
+          'status.burning': ['bark_burning', 'fire', 'scared'],
+          'status.electrified': ['bark_electrified', 'zap', 'scared'],
+          'status.wet': ['bark_wet', 'splash', 'hurt'],
+          'status.slipping': ['bark_slip', 'boing', 'scared'],
+          'status.caffeinated': ['bark_coffee', 'slurp', 'happy'],
+          'status.knocked-down': ['bark_hurt', 'thud', 'hurt'],
+          'status.embarrassed': ['', 'blah', 'hurt'],
+          'status.stunned': ['', null, 'stunned'],
+          'status.inspired': ['', 'pop', 'happy'],
+          'status.foamed': ['', 'splash', 'hurt'],
+        };
+        const m = map[ev.s];
+        if (m) {
+          if (m[0]) this.bark(B, m[0], ev.s === 'status.burning' || ev.s === 'status.electrified' ? 0.8 : 0.4);
+          if (m[1]) this.sfx.play(m[1]);
+          this.setExpr(B, m[2], 700);
+        }
+        break;
+      }
+      case 'throw':
+        if (A) {
+          A.throwUntil = this.now + 320;
+          this.bark(A, 'bark_throw', 0.25);
+        }
+        this.sfx.play('whoosh', 1);
+        break;
+      case 'pickUp':
+        if (A) this.bark(A, 'bark_pickup', 0.3, { prop: nameOf(ev.s).toLowerCase() });
+        this.sfx.play('pop');
+        break;
+      case 'push':
+        if (A) A.lungeUntil = this.now + 250;
+        this.sfx.play('whoosh', 0.8);
+        break;
+      case 'ride':
+        this.bark(A, 'bark_ride', 0.7);
+        this.sfx.play('boing');
+        break;
+      case 'use': {
+        const def = bundle.props.find((p) => p.id === ev.s);
+        if (def?.tags.includes('drink')) this.sfx.play('slurp');
+        else if (def?.tags.includes('food')) this.bark(A, 'bark_food', 0.6);
+        else this.sfx.play('pop');
+        break;
+      }
+      case 'propBroken': {
+        const def = bundle.props.find((p) => p.id === ev.s);
+        if (def?.area) break;
+        this.sfx.play(def?.tags.includes('material:glass') ? 'glass' : def?.tags.includes('food') || def?.tags.includes('liquid') ? 'splash' : 'thud');
+        this.sparks(this.posOf(ev.b, byId), 0xe5e7eb, 16);
+        break;
+      }
+      case 'drop':
+        this.sfx.play('thud', 0.5);
         break;
       case 'downed':
         this.float('DOWN!', this.posOf(ev.b, byId), 0xffffff, 18);
+        this.witnesses(eb, (s, same) => {
+          this.setExpr(s, same ? 'scared' : 'happy', 800);
+          this.bark(s, same ? 'bark_ally_down' : 'bark_enemy_down', 0.35);
+        });
+        this.sfx.play('down');
+        this.sfx.play('ooh');
         break;
       case 'ko':
-        this.float('KO!', this.posOf(ev.b, byId), 0xff3b3b, 24);
+        this.float('KO!', this.posOf(ev.b, byId), 0xff3b3b, 26);
+        this.shake = Math.max(this.shake, 9);
+        if (A && A.kind === 'char' && B && A.team !== B.team) {
+          this.setExpr(A, 'happy', 1200);
+          this.bark(A, 'bark_ko_win', 0.8, {}, true);
+        }
+        this.witnesses(eb, (s, same) => {
+          if (s === A) return;
+          this.setExpr(s, same ? 'scared' : 'happy', 1000);
+          this.bark(s, same ? 'bark_ally_down' : 'bark_enemy_down', 0.5);
+        });
+        this.sfx.play('bell');
+        this.sfx.play('cheer');
         break;
       case 'revived':
         this.float('REVIVED!', this.posOf(ev.b, byId), 0x4ade80, 18);
+        this.bark(B, 'bark_revived', 0.8, {}, true);
+        this.bark(A, 'bark_reviver', 0.4);
+        this.sfx.play('heal');
         break;
       case 'panic':
-        this.float('PANIC!', this.posOf(ev.a, byId), 0xffa500, 16);
+        this.bark(A, 'bark_panic', 0.9, {}, true);
+        this.sfx.play('ooh');
         break;
-      case 'card':
+      case 'card': {
         this.float('🟨 CARD', this.posOf(ev.b, byId), 0xffe600, 18);
+        this.bark(B, 'bark_card', 0.9, {}, true);
+        const ref = this.chars.get(this.refId);
+        if (ref) this.bark(ref, 'bark_ref_card', 1, {}, true);
+        this.sfx.play('whistle');
+        break;
+      }
+      case 'foul':
+        this.sfx.play('whistle', 0.5);
         break;
       case 'taunt':
-        if (ev.b < 0) this.float('😜', this.posOf(ev.a, byId), 0xffffff, 18);
+        if (ev.b < 0) {
+          this.bark(A, 'bark_taunt', 0.7);
+          this.float('😜', this.posOf(ev.a, byId), 0xffffff, 18);
+        } else if (B) this.setExpr(B, 'angry', 800);
+        this.sfx.play('blah');
         break;
       case 'refereeDown':
         this.announce('THE REFEREE IS DOWN!');
+        for (const s of this.chars.values()) if (s.kind === 'char') this.bark(s, 'bark_ref_down', 0.3);
+        this.shake = Math.max(this.shake, 8);
+        this.sfx.play('whistle');
+        this.sfx.play('ooh');
         break;
       case 'suddenDeath':
         this.announce(ev.v <= 1 ? 'SUDDEN DEATH' : `SUDDEN DEATH ×${ev.v}`);
+        this.sfx.play('alarm');
         break;
       case 'hazardWarn':
         this.announce(`⚠ ${nameOf(ev.s).replace(/^Hazard\s*/i, '')}`);
+        this.sfx.play('dingdong');
         break;
       case 'explosion': {
         const e = byId.get(ev.b);
-        const [x, y] = e ? this.px(e.x, e.y) : [0, 0];
-        const g = new Graphics().circle(0, 0, ev.v * this.scale).fill({ color: 0xff7a00, alpha: 0.6 });
-        g.position.set(x, y);
-        g.scale.y = Y_SQUASH;
-        this.fx.addChild(g);
-        this.flashes.push({ g, life: 450, max: 450 });
+        const at = e ? this.px(e.x, e.y) : null;
+        if (at) {
+          const rad = ev.v * this.scale;
+          this.addShape((g, k) => {
+            const p = 1 - k;
+            g.circle(at[0], at[1], rad * (0.3 + p * 0.8)).fill({ color: 0xff7a00, alpha: 0.55 * k });
+            g.circle(at[0], at[1], rad * (0.15 + p * 0.5)).fill({ color: 0xfff176, alpha: 0.7 * k });
+            g.circle(at[0], at[1], rad * (0.3 + p)).stroke({ width: 4, color: 0x1b1f2a, alpha: 0.4 * k });
+          }, 600);
+          this.witnesses(e, (s) => {
+            this.setExpr(s, 'scared', 900);
+            this.bark(s, 'bark_explosion', 0.4);
+          });
+        }
         this.announce('BOOM!');
+        this.shake = Math.max(this.shake, 14);
+        this.sfx.play('boom');
         break;
       }
+      case 'battleEnd':
+        for (const s of this.chars.values()) {
+          if (s.kind !== 'char') continue;
+          if (ev.v >= 0 && s.team === ev.v) {
+            this.setExpr(s, 'happy', 99999);
+            this.bark(s, 'bark_win', 0.6, {}, true);
+          }
+        }
+        this.announce(ev.v >= 0 ? `${this.input.teams[ev.v]?.playerName ?? 'Winners'} WIN!` : 'DRAW!');
+        this.sfx.play('fanfare');
+        this.sfx.play('cheer');
+        break;
       default:
         break;
     }
   }
 
   private tickFx(dt: number): void {
-    for (let i = this.floaters.length - 1; i >= 0; i--) {
-      const f = this.floaters[i]!;
+    for (let i = this.fx.length - 1; i >= 0; i--) {
+      const f = this.fx[i]!;
       f.life -= dt;
-      f.text.y += f.vy * dt;
-      f.text.alpha = Math.min(1, f.life / 400);
       if (f.life <= 0) {
-        f.text.destroy();
-        this.floaters.splice(i, 1);
+        f.g.destroy({ children: true });
+        this.fx.splice(i, 1);
+        continue;
       }
-    }
-    for (let i = this.flashes.length - 1; i >= 0; i--) {
-      const f = this.flashes[i]!;
-      f.life -= dt;
-      f.g.alpha = f.life / f.max;
-      f.g.scale.x = 1 + (1 - f.life / f.max) * 0.4;
-      if (f.life <= 0) {
-        f.g.destroy();
-        this.flashes.splice(i, 1);
-      }
+      f.update?.(f.life / f.max);
     }
     if (this.bannerLife > 0) {
       this.bannerLife -= dt;
       this.banner.alpha = Math.min(1, this.bannerLife / 400);
-    }
+    } else this.banner.alpha = 0;
   }
+
+  /**
+   * Camera: on small screens, zoom in on the action (bounding box of active
+   * fighters) and pan smoothly; add screen shake for big moments.
+   */
+  private updateCamera(dt: number, minX: number, maxX: number, minY: number, maxY: number): void {
+    const [W, H] = this.arena.sizeMm;
+    const sw = this.app.screen.width;
+    const sh = this.app.screen.height;
+    const fullW = W * this.scale;
+    const top = -WALL_H * Z_LIFT * this.scale;
+    const bottom = H * Y_SQUASH * this.scale;
+    let tz = 1;
+    let tx = fullW / 2;
+    let ty = (top + bottom) / 2;
+    if (this.compact && Number.isFinite(minX)) {
+      const pad = 2500 * this.scale;
+      const bw = maxX - minX + pad * 2;
+      const bh = maxY - minY + pad * 3;
+      tz = Math.max(1, Math.min(1.6, sw / bw, sh / bh));
+      tx = (minX + maxX) / 2;
+      ty = (minY + maxY) / 2 - 900 * this.scale;
+    }
+    const k = Math.min(1, dt / 500);
+    this.cam.z += (tz - this.cam.z) * k;
+    this.cam.x += (tx - this.cam.x) * k;
+    this.cam.y += (ty - this.cam.y) * k;
+    // Keep the view inside the arena (centre it when the arena is smaller than the view).
+    const halfW = sw / 2 / this.cam.z;
+    const halfH = sh / 2 / this.cam.z;
+    const cx = fullW < halfW * 2 ? fullW / 2 : Math.min(fullW - halfW, Math.max(halfW, this.cam.x));
+    const cy = bottom - top < halfH * 2 ? (top + bottom) / 2 : Math.min(bottom - halfH, Math.max(top + halfH, this.cam.y));
+    this.shake = Math.max(0, this.shake - dt * 0.03);
+    const jx = (Math.random() - 0.5) * this.shake;
+    const jy = (Math.random() - 0.5) * this.shake;
+    this.world.scale.set(this.cam.z);
+    this.world.x = sw / 2 - cx * this.cam.z + jx;
+    this.world.y = sh / 2 - cy * this.cam.z + jy;
+  }
+}
+
+function star(g: Graphics, x: number, y: number, r: number, color: number): void {
+  if (r <= 0.5) return;
+  const pts: number[] = [];
+  for (let i = 0; i < 10; i++) {
+    const a = (i / 10) * Math.PI * 2 - Math.PI / 2;
+    const rr = i % 2 ? r * 0.45 : r;
+    pts.push(x + Math.cos(a) * rr, y + Math.sin(a) * rr);
+  }
+  g.poly(pts).fill(color).stroke({ width: 1, color: OUTLINE });
 }

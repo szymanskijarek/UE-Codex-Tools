@@ -682,7 +682,12 @@ details summary {
 
 @media (max-width: 700px) {
   .stage {
-    aspect-ratio: 4 / 3;
+    aspect-ratio: 1 / 1;
+    max-height: 62vh;
+  }
+  .feed {
+    font-size: 0.84rem;
+    height: 8.2em;
   }
   .controls button {
     padding: 4px 8px;
@@ -692,4 +697,75 @@ details summary {
     flex-basis: 100%;
     order: -1;
   }
+}
+
+/* Live commentary feed under the arena */
+.feed {
+  margin-top: 8px;
+  border: var(--outline);
+  border-radius: var(--radius);
+  background: #1b1f2a;
+  color: #f8fafc;
+  padding: 8px 10px;
+  height: 9.5em;
+  overflow-y: auto;
+  font-size: 0.92rem;
+  line-height: 1.35;
+  box-shadow: var(--shadow);
+}
+
+.feed-line {
+  display: flex;
+  gap: 8px;
+  padding: 2px 0;
+  opacity: 0.72;
+}
+
+.feed-line.imp2 {
+  opacity: 0.88;
+}
+
+.feed-line.imp3 {
+  opacity: 1;
+  font-weight: 800;
+  color: #fde047;
+}
+
+.feed-line.fresh {
+  opacity: 1;
+  animation: feed-in 0.35s ease-out;
+}
+
+.feed-t {
+  color: #94a3b8;
+  font-variant-numeric: tabular-nums;
+  min-width: 2.2em;
+  text-align: right;
+}
+
+@keyframes feed-in {
+  from {
+    transform: translateY(-6px);
+    background: #334155;
+  }
+  to {
+    transform: none;
+    background: transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .feed-line.fresh {
+    animation: none;
+  }
+}
+
+.side {
+  display: grid;
+  gap: 12px;
+  min-width: 0;
+}
+
+.side .report {
+  margin-bottom: 0;
 }

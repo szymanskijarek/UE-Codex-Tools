@@ -14,7 +14,10 @@ function useRoute(): string[] {
   const read = () => (window.location.hash.replace(/^#\/?/, '') || (STANDALONE ? 'sandbox' : 'home')).split('/');
   const [route, setRoute] = useState(read());
   useEffect(() => {
-    const on = () => setRoute(read());
+    const on = () => {
+      setRoute(read());
+      window.scrollTo(0, 0);
+    };
     window.addEventListener('hashchange', on);
     return () => window.removeEventListener('hashchange', on);
   }, []);

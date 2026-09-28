@@ -364,6 +364,11 @@ export function applyEffect(w: World, eff: Effect, target: Entity, ctx: EffectCt
         }
       }
       break;
+    case 'pull': {
+      const o = origin ?? src;
+      if (o && o.id !== t.id) push(w, t, 2 * t.x - o.x, 2 * t.y - o.y, bpMul(eff.forceMm, ctx.powerBp));
+      break;
+    }
     case 'dash': {
       if (!src) break;
       const [dx, dy] = dir1000(t.x - src.x, t.y - src.y);

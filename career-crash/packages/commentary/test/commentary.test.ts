@@ -29,3 +29,26 @@ describe('commentary', () => {
     expect(headlines).toBeGreaterThan(15);
   });
 });
+
+describe('live commentary', () => {
+  it('produces a steady, fully-filled feed and is deterministic', async () => {
+    const { LiveCommentator } = await import('../src/live');
+    for (let k = 0; k < 10; k++) {
+      const i = input(`live-${k}`);
+      const out = simulate(i, bundle);
+      const a = new LiveCommentator(bundle, i).consume(out.events, out.events);
+      const b = new LiveCommentator(bundle, i).consume(out.events, out.events);
+      expect(a).toEqual(b);
+      const seconds = out.result.ticks / 20;
+      expect(a.length).toBeGreaterThan(seconds / 4);
+      for (const l of a) expect(l.text).not.toMatch(/\{\w+\}/);
+      expect(a.some((l) => l.importance === 3)).toBe(true);
+    }
+  });
+
+  it('every bark and live template kind referenced by the client exists', () => {
+    for (const k of ['bark_hurt', 'bark_attack', 'bark_ko_win', 'bark_ally_down', 'bark_burning', 'bark_panic', 'bark_win', 'intro', 'ko', 'ability', 'end_win']) {
+      expect(bundle.live[k]?.length, k).toBeGreaterThan(0);
+    }
+  });
+});

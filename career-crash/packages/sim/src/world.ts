@@ -329,7 +329,7 @@ function spawnCharacter(w: World, snap: CharacterSnapshot, team: number, x: numb
   for (const cid of snap.careers) {
     const career = must(c.careers, cid, 'career');
     for (const t of career.tags) tags.add(t);
-    actives.push(career.active);
+    actives.push(career.active, ...(career.extraActives ?? []));
     passives.push(career.passive);
   }
   for (const mid of snap.masteries) {
@@ -354,6 +354,7 @@ function spawnCharacter(w: World, snap: CharacterSnapshot, team: number, x: numb
   if (held?.attack) e.attack = held.attack;
 
   const pers = must(c.personalities, snap.personality, 'personality');
+  if (pers.ability) actives.push(pers.ability);
   const gw = { ...e.goalWeights };
   for (const g of GOALS) gw[g] = pers.goalWeights[g] ?? 10000;
   const preferTags: string[] = [];
@@ -447,6 +448,6 @@ export function createWorld(input: BattleInput, bundle: ContentBundle): World {
     });
     spawnReferee(w);
   }
-  for (const e of w.entities) if (e.kind !== 'prop') emit(w, 'spawn', e.id, -1, e.team, e.def);
+  for (const e of w.entities) if (e.kind !== 'prop') emit(w, 'spawn', e.id, -1, e.team, e.kind === 'char' ? e.snapshotId : e.def);
   return w;
 }

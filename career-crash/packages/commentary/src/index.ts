@@ -317,3 +317,5 @@ export function buildReport(bundle: ContentBundle, input: BattleInput, out: Batt
     storyScore: moments.filter((m) => m.score >= 60).length,
   };
 }
+
+export { LiveCommentator, type LiveLine } from './live';

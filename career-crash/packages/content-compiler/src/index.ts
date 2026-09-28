@@ -10,6 +10,7 @@ import {
   STAT_KEYS,
   economySchema,
   localeSchema,
+  liveSchema,
   namesSchema,
   tagsFileSchema,
   type CollectionName,
@@ -93,6 +94,8 @@ export function compileContent(dataDir: string): CompileResult {
   if (!economy.success) errors.push(`economy.json: ${economy.error.message}`);
   const names = namesSchema.safeParse(readJson(join(dataDir, 'names.json'), errors));
   if (!names.success) errors.push(`names.json: ${names.error.message}`);
+  const live = liveSchema.safeParse(readJson(join(dataDir, 'live.json'), errors));
+  if (!live.success) errors.push(`live.json: ${live.error.message}`);
   const locale = localeSchema.safeParse(readJson(join(dataDir, 'locales', 'en.json'), errors));
   if (!locale.success) errors.push(`locales/en.json: ${locale.error.message}`);
 
@@ -121,7 +124,7 @@ export function compileContent(dataDir: string): CompileResult {
     items.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
     collections[name] = items;
   }
-  if (errors.length > 0 || !tagsFile.success || !economy.success || !names.success || !locale.success) return { bundle: null, errors };
+  if (errors.length > 0 || !tagsFile.success || !economy.success || !names.success || !live.success || !locale.success) return { bundle: null, errors };
 
   const bundle: ContentBundle = {
     version: 1,
@@ -141,6 +144,7 @@ export function compileContent(dataDir: string): CompileResult {
     economy: economy.data,
     locale: locale.data,
     names: names.data,
+    live: live.data.templates,
   };
 
   errors.push(...validateBundle(bundle));
@@ -171,6 +175,7 @@ export function validateBundle(b: ContentBundle): string[] {
   for (const c of b.careers) {
     needAbility(c.id, c.passive, 'passive');
     needAbility(c.id, c.active, 'active');
+    for (const a of c.extraActives ?? []) needAbility(c.id, a, 'active');
     if (c.art.heldItem && !equipment.has(c.art.heldItem)) errors.push(`${c.id}: unknown held item ${c.art.heldItem}`);
     for (const group of c.prerequisites?.anyOf ?? []) for (const p of group) if (!careers.has(p)) errors.push(`${c.id}: unknown prerequisite ${p}`);
     for (const r of c.interactionRules ?? []) if (!b.rules.some((x) => x.id === r)) errors.push(`${c.id}: unknown rule ${r}`);
@@ -181,6 +186,7 @@ export function validateBundle(b: ContentBundle): string[] {
     if (pos > 6) errors.push(`${c.id}: positive stat mods ${pos} exceed budget 6`);
     if (net > netCap) errors.push(`${c.id}: net stat mods ${net} exceed tier ${c.tier} budget ${netCap}`);
   }
+  for (const p of b.personalities) if (p.ability) needAbility(p.id, p.ability, 'active');
   for (const m of b.masteries) {
     needAbility(m.id, m.passive, 'passive');
     for (const a of m.grantsAbilities) needAbility(m.id, a, 'active');
