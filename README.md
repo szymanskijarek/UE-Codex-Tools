@@ -20,3 +20,7 @@ Portable Codex tooling for Unreal Engine projects.
 3. Run `powershell -ExecutionPolicy Bypass -File .\\scripts\\codex\\smoke-test.ps1`.
 
 Detailed setup is documented in `docs/codex-tooling/SETUP.md`.
+
+## Other documents
+
+- `docs/career-crash/` — design documentation for *Career Crash*, a browser-based async auto-brawler (game design, technical spec, combat, economy, AI-agent roadmap).
