@@ -1,4 +1,3 @@
-/* eslint-env node */
 /* global URL, console */
 // Builds apps/client/dist-standalone/career-crash.html: the Sandbox as one self-contained file.
 import { readFileSync, readdirSync, writeFileSync } from 'node:fs';
