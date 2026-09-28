@@ -15,10 +15,9 @@ export class Rng {
     this.s = { ...state };
   }
 
-  static fromSeed(seedHex: string): Rng {
-    const h = seedHex.padEnd(32, '0').slice(0, 32);
-    const words = [0, 1, 2, 3].map((i) => parseInt(h.slice(i * 8, i * 8 + 8), 16) >>> 0);
-    const rng = new Rng({ a: words[0]!, b: words[1]!, c: words[2]!, d: words[3]! | 1 });
+  /** Any string is a valid seed; it is hashed into the 128-bit state. */
+  static fromSeed(seed: string): Rng {
+    const rng = new Rng({ a: fnv32(seed, 0x811c9dc5), b: fnv32(seed, 0x01000193), c: fnv32(`${seed}#`, 0x811c9dc5), d: fnv32(`${seed}#`, 0x9e3779b9) | 1 });
     for (let i = 0; i < 15; i++) rng.nextU32();
     return rng;
   }

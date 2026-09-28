@@ -1,0 +1,4632 @@
+{
+ "simVersion": "0.1.0",
+ "contentHash": "db33ba69ecc1aa44",
+ "cases": [
+  {
+   "name": "arena.office-3v3-0",
+   "input": {
+    "schemaVersion": 1,
+    "contentHash": "db33ba69ecc1aa44",
+    "simVersion": "0.1.0",
+    "seed": "1942b39aeff3f829",
+    "arenaId": "arena.office",
+    "mode": "duel_3v3",
+    "teams": [
+     {
+      "playerId": "p0",
+      "playerName": "Player 0",
+      "rating": 1000,
+      "characters": [
+       {
+        "id": "arena.office-3v3-0-0-0",
+        "name": "Dmitri Silva",
+        "level": 1,
+        "careers": [
+         "career.accountant"
+        ],
+        "masteries": [],
+        "personality": "personality.helpful",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 6,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 6,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.briefcase",
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#9ca3af",
+         "hairStyle": 0
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-3v3-0-0-1",
+        "name": "Noor Müller",
+        "level": 5,
+        "careers": [
+         "career.builder",
+         "career.plumber"
+        ],
+        "masteries": [],
+        "personality": "personality.clumsy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 4,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 6,
+         "confidence": 6,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.hammer",
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#d6b370",
+         "hairStyle": 4
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-3v3-0-0-2",
+        "name": "Kenji Park",
+        "level": 1,
+        "careers": [
+         "career.influencer"
+        ],
+        "masteries": [],
+        "personality": "personality.competitive",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 6,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 7,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 3,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.selfie-stick",
+        "accessory": null,
+        "appearance": {
+         "skin": "#e0ac69",
+         "hair": "#6b4423",
+         "hairStyle": 0
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p1",
+      "playerName": "Player 1",
+      "rating": 1040,
+      "characters": [
+       {
+        "id": "arena.office-3v3-0-1-0",
+        "name": "Dev Mbeki",
+        "level": 1,
+        "careers": [
+         "career.electrician"
+        ],
+        "masteries": [],
+        "personality": "personality.greedy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 6,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.screwdriver",
+        "accessory": null,
+        "appearance": {
+         "skin": "#a0522d",
+         "hair": "#6b4423",
+         "hairStyle": 3
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-3v3-0-1-1",
+        "name": "Luis Popescu",
+        "level": 5,
+        "careers": [
+         "career.accountant",
+         "career.mechanic"
+        ],
+        "masteries": [],
+        "personality": "personality.greedy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 7,
+         "throwing": 5,
+         "intelligence": 4,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.briefcase",
+        "accessory": null,
+        "appearance": {
+         "skin": "#c68642",
+         "hair": "#9ca3af",
+         "hairStyle": 2
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-3v3-0-1-2",
+        "name": "Luis García",
+        "level": 1,
+        "careers": [
+         "career.builder"
+        ],
+        "masteries": [],
+        "personality": "personality.chaotic",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 4,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 3,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 6
+        },
+        "held": "equipment.hammer",
+        "accessory": null,
+        "appearance": {
+         "skin": "#8d5524",
+         "hair": "#111111",
+         "hairStyle": 3
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     }
+    ],
+    "modifiers": []
+   },
+   "resultHash": "bfc2c0fdce1e7752",
+   "hashes": [
+    "e12c5a5e08749de1",
+    "d29d070fa82a0c42",
+    "bee4df0e5de549e5",
+    "94bee6ff20b1e834",
+    "9973572b9a566094",
+    "baa1cfbb76bbeb2e",
+    "fde5bf24d5a577db",
+    "4cc9c19992cf85d4",
+    "d465da45a1a8e552",
+    "d3fad15038be0ded"
+   ],
+   "winner": 0,
+   "ticks": 1005
+  },
+  {
+   "name": "arena.office-3v3-1",
+   "input": {
+    "schemaVersion": 1,
+    "contentHash": "db33ba69ecc1aa44",
+    "simVersion": "0.1.0",
+    "seed": "5e7b098fded2d143",
+    "arenaId": "arena.office",
+    "mode": "duel_3v3",
+    "teams": [
+     {
+      "playerId": "p0",
+      "playerName": "Player 0",
+      "rating": 1000,
+      "characters": [
+       {
+        "id": "arena.office-3v3-1-0-0",
+        "name": "Greta Chen",
+        "level": 1,
+        "careers": [
+         "career.lawyer"
+        ],
+        "masteries": [],
+        "personality": "personality.lazy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 7,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 3,
+         "interactionSpeed": 6
+        },
+        "held": "equipment.briefcase",
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#b55239",
+         "hairStyle": 3
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-3v3-1-0-1",
+        "name": "Luis Costa",
+        "level": 5,
+        "careers": [
+         "career.mechanic",
+         "career.lawyer"
+        ],
+        "masteries": [],
+        "personality": "personality.confident",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 3,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 3,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 4
+        },
+        "held": "equipment.wrench",
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#6b4423",
+         "hairStyle": 1
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-3v3-1-0-2",
+        "name": "Ravi Chen",
+        "level": 1,
+        "careers": [
+         "career.taxi-driver"
+        ],
+        "masteries": [],
+        "personality": "personality.competitive",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 7,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 4,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#c68642",
+         "hair": "#e5e7eb",
+         "hairStyle": 5
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p1",
+      "playerName": "Player 1",
+      "rating": 1040,
+      "characters": [
+       {
+        "id": "arena.office-3v3-1-1-0",
+        "name": "Wendy Dubois",
+        "level": 1,
+        "careers": [
+         "career.librarian"
+        ],
+        "masteries": [],
+        "personality": "personality.greedy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 3,
+         "strength": 5,
+         "throwing": 7,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.book",
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#d6b370",
+         "hairStyle": 4
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-3v3-1-1-1",
+        "name": "Yuki Park",
+        "level": 5,
+        "careers": [
+         "career.mechanic",
+         "career.builder"
+        ],
+        "masteries": [],
+        "personality": "personality.clumsy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 7,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 6,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.wrench",
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#d6b370",
+         "hairStyle": 2
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-3v3-1-1-2",
+        "name": "Omar Brown",
+        "level": 1,
+        "careers": [
+         "career.teacher"
+        ],
+        "masteries": [],
+        "personality": "personality.lazy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 6,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 3,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.clipboard",
+        "accessory": null,
+        "appearance": {
+         "skin": "#a0522d",
+         "hair": "#b55239",
+         "hairStyle": 4
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     }
+    ],
+    "modifiers": []
+   },
+   "resultHash": "f883f51b12ac2536",
+   "hashes": [
+    "adb0cc4a9d3b6493",
+    "c110bedb70d7b68a",
+    "880daefb513cafb2",
+    "38f284b6fec927a7",
+    "dfd9a0658682d5da",
+    "20818bb6a6eaa3e1",
+    "c27f787d8cd525be",
+    "9e0be1e15b0265d6",
+    "97a91fb36896bcea"
+   ],
+   "winner": 1,
+   "ticks": 909
+  },
+  {
+   "name": "arena.office-3v3-2",
+   "input": {
+    "schemaVersion": 1,
+    "contentHash": "db33ba69ecc1aa44",
+    "simVersion": "0.1.0",
+    "seed": "e9aac648f664d750",
+    "arenaId": "arena.office",
+    "mode": "duel_3v3",
+    "teams": [
+     {
+      "playerId": "p0",
+      "playerName": "Player 0",
+      "rating": 1000,
+      "characters": [
+       {
+        "id": "arena.office-3v3-2-0-0",
+        "name": "Imani Mensah",
+        "level": 1,
+        "careers": [
+         "career.electrician"
+        ],
+        "masteries": [],
+        "personality": "personality.aggressive",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 4,
+         "speed": 5,
+         "strength": 4,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 7,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.screwdriver",
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#e5e7eb",
+         "hairStyle": 0
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-3v3-2-0-1",
+        "name": "Beth Lindqvist",
+        "level": 5,
+        "careers": [
+         "career.electrician",
+         "career.mechanic"
+        ],
+        "masteries": [],
+        "personality": "personality.greedy",
+        "traits": [],
+        "stats": {
+         "health": 3,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 6,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.screwdriver",
+        "accessory": null,
+        "appearance": {
+         "skin": "#8d5524",
+         "hair": "#e5e7eb",
+         "hairStyle": 2
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-3v3-2-0-2",
+        "name": "Greta Park",
+        "level": 1,
+        "careers": [
+         "career.plumber"
+        ],
+        "masteries": [],
+        "personality": "personality.helpful",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 7,
+         "luck": 3,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.plunger",
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#d6b370",
+         "hairStyle": 5
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p1",
+      "playerName": "Player 1",
+      "rating": 1040,
+      "characters": [
+       {
+        "id": "arena.office-3v3-2-1-0",
+        "name": "Björn Park",
+        "level": 1,
+        "careers": [
+         "career.police-officer"
+        ],
+        "masteries": [],
+        "personality": "personality.confident",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 6,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 4,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.baton",
+        "accessory": null,
+        "appearance": {
+         "skin": "#e0ac69",
+         "hair": "#d6b370",
+         "hairStyle": 2
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-3v3-2-1-1",
+        "name": "Anya Brown",
+        "level": 5,
+        "careers": [
+         "career.journalist",
+         "career.plumber"
+        ],
+        "masteries": [],
+        "personality": "personality.confident",
+        "traits": [],
+        "stats": {
+         "health": 3,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 3,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 4,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.notepad",
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#2c1b10",
+         "hairStyle": 5
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-3v3-2-1-2",
+        "name": "Nadia García",
+        "level": 1,
+        "careers": [
+         "career.builder"
+        ],
+        "masteries": [],
+        "personality": "personality.clumsy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 3,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 7,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 7,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.hammer",
+        "accessory": null,
+        "appearance": {
+         "skin": "#c68642",
+         "hair": "#b55239",
+         "hairStyle": 3
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     }
+    ],
+    "modifiers": []
+   },
+   "resultHash": "eeb21bf1f768ac88",
+   "hashes": [
+    "25110875c6d04198",
+    "faf7344133f610fe",
+    "a2432d7afe4c6705",
+    "24168a1a95ae0821",
+    "fbd43aa35ead789c",
+    "148cba25513bdf32",
+    "5c007238200d508f",
+    "fd90b9bc7bf82383",
+    "cfd5f71f44f5c464"
+   ],
+   "winner": 0,
+   "ticks": 934
+  },
+  {
+   "name": "arena.office-3v3-3",
+   "input": {
+    "schemaVersion": 1,
+    "contentHash": "db33ba69ecc1aa44",
+    "simVersion": "0.1.0",
+    "seed": "a1c6d770c6ab0fd2",
+    "arenaId": "arena.office",
+    "mode": "duel_3v3",
+    "teams": [
+     {
+      "playerId": "p0",
+      "playerName": "Player 0",
+      "rating": 1000,
+      "characters": [
+       {
+        "id": "arena.office-3v3-3-0-0",
+        "name": "Greta Popescu",
+        "level": 1,
+        "careers": [
+         "career.mechanic"
+        ],
+        "masteries": [],
+        "personality": "personality.coward",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 4,
+         "speed": 5,
+         "strength": 4,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 7,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.wrench",
+        "accessory": null,
+        "appearance": {
+         "skin": "#e0ac69",
+         "hair": "#e5e7eb",
+         "hairStyle": 1
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-3v3-3-0-1",
+        "name": "Pat Nakamura",
+        "level": 5,
+        "careers": [
+         "career.influencer",
+         "career.janitor"
+        ],
+        "masteries": [],
+        "personality": "personality.clumsy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 6,
+         "interactionSpeed": 7
+        },
+        "held": "equipment.selfie-stick",
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#b55239",
+         "hairStyle": 1
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-3v3-3-0-2",
+        "name": "Anya Okafor",
+        "level": 1,
+        "careers": [
+         "career.janitor"
+        ],
+        "masteries": [],
+        "personality": "personality.coward",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 6,
+         "charisma": 5,
+         "recovery": 7,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.mop",
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#e5e7eb",
+         "hairStyle": 0
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p1",
+      "playerName": "Player 1",
+      "rating": 1040,
+      "characters": [
+       {
+        "id": "arena.office-3v3-3-1-0",
+        "name": "Sam Ahmed",
+        "level": 1,
+        "careers": [
+         "career.paramedic"
+        ],
+        "masteries": [],
+        "personality": "personality.confident",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 7,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 7,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 3,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#8d5524",
+         "hair": "#9ca3af",
+         "hairStyle": 1
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-3v3-3-1-1",
+        "name": "Yuki Dubois",
+        "level": 5,
+        "careers": [
+         "career.lawyer",
+         "career.programmer"
+        ],
+        "masteries": [],
+        "personality": "personality.greedy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 3,
+         "speed": 4,
+         "strength": 5,
+         "throwing": 6,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.briefcase",
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#d6b370",
+         "hairStyle": 5
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-3v3-3-1-2",
+        "name": "Yuki Brown",
+        "level": 1,
+        "careers": [
+         "career.farmer"
+        ],
+        "masteries": [],
+        "personality": "personality.clumsy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 4,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 6
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#a0522d",
+         "hair": "#e5e7eb",
+         "hairStyle": 1
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     }
+    ],
+    "modifiers": []
+   },
+   "resultHash": "7e7ab123b4c507d0",
+   "hashes": [
+    "73b8b15cd11bee7f",
+    "e6940d34bc954f85",
+    "15653276c19c84c1",
+    "82f434019818280e",
+    "ef91654f8167ffba",
+    "e2f38b161fddcc51",
+    "ca424f6284fa89d3",
+    "e2a99ac203cbacaf",
+    "ee08c6db486b4122",
+    "631cc7e8eb079969",
+    "21257778efe085df",
+    "905da5f60c1a1e17",
+    "d5b9d68874749ee3",
+    "e7405ae1ae8ff89a",
+    "992dc1612b904386",
+    "023441362e19be19",
+    "7fe0715ad1a09875",
+    "cbabd9f6519cf7e1",
+    "688c7aaa7253c9cb"
+   ],
+   "winner": 0,
+   "ticks": 1916
+  },
+  {
+   "name": "arena.office-3v3-4",
+   "input": {
+    "schemaVersion": 1,
+    "contentHash": "db33ba69ecc1aa44",
+    "simVersion": "0.1.0",
+    "seed": "ca541a546174fe1c",
+    "arenaId": "arena.office",
+    "mode": "duel_3v3",
+    "teams": [
+     {
+      "playerId": "p0",
+      "playerName": "Player 0",
+      "rating": 1000,
+      "characters": [
+       {
+        "id": "arena.office-3v3-4-0-0",
+        "name": "Frank Mensah",
+        "level": 1,
+        "careers": [
+         "career.firefighter"
+        ],
+        "masteries": [],
+        "personality": "personality.coward",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 6,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 7,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.axe",
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#6b4423",
+         "hairStyle": 3
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-3v3-4-0-1",
+        "name": "Hugo Nakamura",
+        "level": 5,
+        "careers": [
+         "career.janitor",
+         "career.security-guard"
+        ],
+        "masteries": [],
+        "personality": "personality.helpful",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 3,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 4,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.mop",
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#111111",
+         "hairStyle": 1
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-3v3-4-0-2",
+        "name": "Jarek Ahmed",
+        "level": 1,
+        "careers": [
+         "career.programmer"
+        ],
+        "masteries": [],
+        "personality": "personality.chaotic",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 7,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 3,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.laptop",
+        "accessory": null,
+        "appearance": {
+         "skin": "#c68642",
+         "hair": "#9ca3af",
+         "hairStyle": 5
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p1",
+      "playerName": "Player 1",
+      "rating": 1040,
+      "characters": [
+       {
+        "id": "arena.office-3v3-4-1-0",
+        "name": "Marek Brown",
+        "level": 1,
+        "careers": [
+         "career.police-officer"
+        ],
+        "masteries": [],
+        "personality": "personality.competitive",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 4,
+         "strength": 5,
+         "throwing": 3,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 3,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.baton",
+        "accessory": null,
+        "appearance": {
+         "skin": "#8d5524",
+         "hair": "#e5e7eb",
+         "hairStyle": 2
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-3v3-4-1-1",
+        "name": "Wendy Popescu",
+        "level": 5,
+        "careers": [
+         "career.electrician",
+         "career.delivery-driver"
+        ],
+        "masteries": [],
+        "personality": "personality.helpful",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 3,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.screwdriver",
+        "accessory": null,
+        "appearance": {
+         "skin": "#e0ac69",
+         "hair": "#d6b370",
+         "hairStyle": 0
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-3v3-4-1-2",
+        "name": "Anya Kaur",
+        "level": 1,
+        "careers": [
+         "career.electrician"
+        ],
+        "masteries": [],
+        "personality": "personality.confident",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 7,
+         "intelligence": 6,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.screwdriver",
+        "accessory": null,
+        "appearance": {
+         "skin": "#a0522d",
+         "hair": "#6b4423",
+         "hairStyle": 4
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     }
+    ],
+    "modifiers": []
+   },
+   "resultHash": "1c1cabdd02e59d92",
+   "hashes": [
+    "e911f8747514b50d",
+    "2136dfc4aadbfe25",
+    "116558c2b72b7a31",
+    "b2d72115404e7cb2",
+    "b21ca1e645bb7cab",
+    "93490da9156de17a",
+    "fbd07ab69d5434c1",
+    "956e2c7e875473e3"
+   ],
+   "winner": 1,
+   "ticks": 885
+  },
+  {
+   "name": "arena.office-5v5-0",
+   "input": {
+    "schemaVersion": 1,
+    "contentHash": "db33ba69ecc1aa44",
+    "simVersion": "0.1.0",
+    "seed": "64179e10dfbbf1c5",
+    "arenaId": "arena.office",
+    "mode": "duel_5v5",
+    "teams": [
+     {
+      "playerId": "p0",
+      "playerName": "Player 0",
+      "rating": 1000,
+      "characters": [
+       {
+        "id": "arena.office-5v5-0-0-0",
+        "name": "Priya Okafor",
+        "level": 1,
+        "careers": [
+         "career.police-officer"
+        ],
+        "masteries": [],
+        "personality": "personality.clumsy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 6,
+         "recovery": 5,
+         "interactionSpeed": 4
+        },
+        "held": "equipment.baton",
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#b55239",
+         "hairStyle": 0
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-5v5-0-0-1",
+        "name": "Beth Jensen",
+        "level": 5,
+        "careers": [
+         "career.dj",
+         "career.programmer"
+        ],
+        "masteries": [],
+        "personality": "personality.competitive",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 3,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 3,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.headphones",
+        "accessory": null,
+        "appearance": {
+         "skin": "#8d5524",
+         "hair": "#d6b370",
+         "hairStyle": 0
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-5v5-0-0-2",
+        "name": "Nadia Brown",
+        "level": 1,
+        "careers": [
+         "career.taxi-driver"
+        ],
+        "masteries": [],
+        "personality": "personality.paranoid",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#e0ac69",
+         "hair": "#2c1b10",
+         "hairStyle": 2
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-5v5-0-0-3",
+        "name": "Kenji Kaur",
+        "level": 5,
+        "careers": [
+         "career.lawyer",
+         "career.dj"
+        ],
+        "masteries": [],
+        "personality": "personality.greedy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 4,
+         "strength": 5,
+         "throwing": 3,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 3
+        },
+        "held": "equipment.briefcase",
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#b55239",
+         "hairStyle": 5
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-5v5-0-0-4",
+        "name": "Tariq Okafor",
+        "level": 1,
+        "careers": [
+         "career.police-officer"
+        ],
+        "masteries": [],
+        "personality": "personality.competitive",
+        "traits": [],
+        "stats": {
+         "health": 4,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.baton",
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#2c1b10",
+         "hairStyle": 5
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p1",
+      "playerName": "Player 1",
+      "rating": 1040,
+      "characters": [
+       {
+        "id": "arena.office-5v5-0-1-0",
+        "name": "Ingrid Nakamura",
+        "level": 1,
+        "careers": [
+         "career.dentist"
+        ],
+        "masteries": [],
+        "personality": "personality.lazy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 6,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#111111",
+         "hairStyle": 3
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-5v5-0-1-1",
+        "name": "Alex O'Brien",
+        "level": 5,
+        "careers": [
+         "career.chef",
+         "career.librarian"
+        ],
+        "masteries": [],
+        "personality": "personality.greedy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 3,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 4,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 6
+        },
+        "held": "equipment.frying-pan",
+        "accessory": null,
+        "appearance": {
+         "skin": "#c68642",
+         "hair": "#111111",
+         "hairStyle": 3
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-5v5-0-1-2",
+        "name": "Anya Nowak",
+        "level": 1,
+        "careers": [
+         "career.paramedic"
+        ],
+        "masteries": [],
+        "personality": "personality.aggressive",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 4,
+         "speed": 6,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 7,
+         "interactionSpeed": 5
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#e0ac69",
+         "hair": "#b55239",
+         "hairStyle": 1
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-5v5-0-1-3",
+        "name": "Fatima García",
+        "level": 5,
+        "careers": [
+         "career.builder",
+         "career.police-officer"
+        ],
+        "masteries": [],
+        "personality": "personality.aggressive",
+        "traits": [],
+        "stats": {
+         "health": 4,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.hammer",
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#d6b370",
+         "hairStyle": 3
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-5v5-0-1-4",
+        "name": "Priya O'Brien",
+        "level": 1,
+        "careers": [
+         "career.plumber"
+        ],
+        "masteries": [],
+        "personality": "personality.coward",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 4,
+         "charisma": 8,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.plunger",
+        "accessory": null,
+        "appearance": {
+         "skin": "#c68642",
+         "hair": "#e5e7eb",
+         "hairStyle": 5
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     }
+    ],
+    "modifiers": []
+   },
+   "resultHash": "9526dc188fca6881",
+   "hashes": [
+    "3235c25c192d1ac9",
+    "0d4a89dcdec87ab7",
+    "feff6835fa210a60",
+    "511c2d858f61fd60",
+    "8948efcb5abc67b2",
+    "c495d0619f6e7bfe",
+    "afc4f11c0e27cfb9",
+    "82697d44983f6181"
+   ],
+   "winner": 1,
+   "ticks": 848
+  },
+  {
+   "name": "arena.office-5v5-1",
+   "input": {
+    "schemaVersion": 1,
+    "contentHash": "db33ba69ecc1aa44",
+    "simVersion": "0.1.0",
+    "seed": "6ef4a751697087ad",
+    "arenaId": "arena.office",
+    "mode": "duel_5v5",
+    "teams": [
+     {
+      "playerId": "p0",
+      "playerName": "Player 0",
+      "rating": 1000,
+      "characters": [
+       {
+        "id": "arena.office-5v5-1-0-0",
+        "name": "Pat Okafor",
+        "level": 1,
+        "careers": [
+         "career.firefighter"
+        ],
+        "masteries": [],
+        "personality": "personality.clumsy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 4,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 6,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 6,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.axe",
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#b55239",
+         "hairStyle": 0
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-5v5-1-0-1",
+        "name": "Sade Brown",
+        "level": 5,
+        "careers": [
+         "career.electrician",
+         "career.lawyer"
+        ],
+        "masteries": [],
+        "personality": "personality.helpful",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 7,
+         "charisma": 4,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.screwdriver",
+        "accessory": null,
+        "appearance": {
+         "skin": "#c68642",
+         "hair": "#b55239",
+         "hairStyle": 2
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-5v5-1-0-2",
+        "name": "Chloe Costa",
+        "level": 1,
+        "careers": [
+         "career.journalist"
+        ],
+        "masteries": [],
+        "personality": "personality.competitive",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 3,
+         "intelligence": 6,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 6,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.notepad",
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#2c1b10",
+         "hairStyle": 3
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-5v5-1-0-3",
+        "name": "Rafael Moreau",
+        "level": 5,
+        "careers": [
+         "career.teacher",
+         "career.firefighter"
+        ],
+        "masteries": [],
+        "personality": "personality.confident",
+        "traits": [],
+        "stats": {
+         "health": 3,
+         "energy": 7,
+         "speed": 6,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.clipboard",
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#e5e7eb",
+         "hairStyle": 5
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-5v5-1-0-4",
+        "name": "Beth Smith",
+        "level": 1,
+        "careers": [
+         "career.journalist"
+        ],
+        "masteries": [],
+        "personality": "personality.coward",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 7,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 7
+        },
+        "held": "equipment.notepad",
+        "accessory": null,
+        "appearance": {
+         "skin": "#c68642",
+         "hair": "#9ca3af",
+         "hairStyle": 5
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p1",
+      "playerName": "Player 1",
+      "rating": 1040,
+      "characters": [
+       {
+        "id": "arena.office-5v5-1-1-0",
+        "name": "Dev Kowalski",
+        "level": 1,
+        "careers": [
+         "career.taxi-driver"
+        ],
+        "masteries": [],
+        "personality": "personality.clumsy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 4,
+         "strength": 5,
+         "throwing": 7,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 6,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#8d5524",
+         "hair": "#d6b370",
+         "hairStyle": 1
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-5v5-1-1-1",
+        "name": "Fatima Okafor",
+        "level": 5,
+        "careers": [
+         "career.librarian",
+         "career.accountant"
+        ],
+        "masteries": [],
+        "personality": "personality.aggressive",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 4,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.book",
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#e5e7eb",
+         "hairStyle": 2
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-5v5-1-1-2",
+        "name": "Tariq Kaur",
+        "level": 1,
+        "careers": [
+         "career.teacher"
+        ],
+        "masteries": [],
+        "personality": "personality.competitive",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 6,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 3,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.clipboard",
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#2c1b10",
+         "hairStyle": 3
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-5v5-1-1-3",
+        "name": "Ravi Silva",
+        "level": 5,
+        "careers": [
+         "career.influencer",
+         "career.lawyer"
+        ],
+        "masteries": [],
+        "personality": "personality.greedy",
+        "traits": [],
+        "stats": {
+         "health": 6,
+         "energy": 5,
+         "speed": 3,
+         "strength": 7,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.selfie-stick",
+        "accessory": null,
+        "appearance": {
+         "skin": "#c68642",
+         "hair": "#2c1b10",
+         "hairStyle": 4
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.office-5v5-1-1-4",
+        "name": "Marek Novak",
+        "level": 1,
+        "careers": [
+         "career.accountant"
+        ],
+        "masteries": [],
+        "personality": "personality.clumsy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 6,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 3,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 4,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.briefcase",
+        "accessory": null,
+        "appearance": {
+         "skin": "#a0522d",
+         "hair": "#6b4423",
+         "hairStyle": 2
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     }
+    ],
+    "modifiers": []
+   },
+   "resultHash": "768ef8678b21ac3a",
+   "hashes": [
+    "67e610ac67121b81",
+    "36dbabb9e8f6cd08",
+    "3117fbe9f6fa5c6e",
+    "9df486144649779d",
+    "dc1251340c893435",
+    "c4a51e6280e5c051",
+    "50271d8d47e420cc",
+    "829a5837f6766e06",
+    "52035dd8b6c96ca5"
+   ],
+   "winner": 1,
+   "ticks": 927
+  },
+  {
+   "name": "arena.office-ffa",
+   "input": {
+    "schemaVersion": 1,
+    "contentHash": "db33ba69ecc1aa44",
+    "simVersion": "0.1.0",
+    "seed": "8ee11f25ead1b54",
+    "arenaId": "arena.office",
+    "mode": "ffa",
+    "teams": [
+     {
+      "playerId": "p0",
+      "playerName": "Player 0",
+      "rating": 1000,
+      "characters": [
+       {
+        "id": "arena.office-ffa-0-0",
+        "name": "Tomasz Rossi",
+        "level": 1,
+        "careers": [
+         "career.teacher"
+        ],
+        "masteries": [],
+        "personality": "personality.helpful",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 4,
+         "speed": 6,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 3,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.clipboard",
+        "accessory": null,
+        "appearance": {
+         "skin": "#c68642",
+         "hair": "#111111",
+         "hairStyle": 4
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p1",
+      "playerName": "Player 1",
+      "rating": 1040,
+      "characters": [
+       {
+        "id": "arena.office-ffa-1-0",
+        "name": "Marek Dubois",
+        "level": 1,
+        "careers": [
+         "career.farmer"
+        ],
+        "masteries": [],
+        "personality": "personality.coward",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 7,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 7,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#8d5524",
+         "hair": "#b55239",
+         "hairStyle": 4
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p2",
+      "playerName": "Player 2",
+      "rating": 1080,
+      "characters": [
+       {
+        "id": "arena.office-ffa-2-0",
+        "name": "Frank García",
+        "level": 1,
+        "careers": [
+         "career.plumber"
+        ],
+        "masteries": [],
+        "personality": "personality.paranoid",
+        "traits": [],
+        "stats": {
+         "health": 7,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 6,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 7,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.plunger",
+        "accessory": null,
+        "appearance": {
+         "skin": "#c68642",
+         "hair": "#111111",
+         "hairStyle": 5
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p3",
+      "playerName": "Player 3",
+      "rating": 1120,
+      "characters": [
+       {
+        "id": "arena.office-ffa-3-0",
+        "name": "Olu Fischer",
+        "level": 1,
+        "careers": [
+         "career.lawyer"
+        ],
+        "masteries": [],
+        "personality": "personality.helpful",
+        "traits": [],
+        "stats": {
+         "health": 6,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 7,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.briefcase",
+        "accessory": null,
+        "appearance": {
+         "skin": "#a0522d",
+         "hair": "#d6b370",
+         "hairStyle": 4
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p4",
+      "playerName": "Player 4",
+      "rating": 1160,
+      "characters": [
+       {
+        "id": "arena.office-ffa-4-0",
+        "name": "Ravi Park",
+        "level": 1,
+        "careers": [
+         "career.teacher"
+        ],
+        "masteries": [],
+        "personality": "personality.helpful",
+        "traits": [],
+        "stats": {
+         "health": 3,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 7
+        },
+        "held": "equipment.clipboard",
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#e5e7eb",
+         "hairStyle": 4
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p5",
+      "playerName": "Player 5",
+      "rating": 1200,
+      "characters": [
+       {
+        "id": "arena.office-ffa-5-0",
+        "name": "Wendy Ivanova",
+        "level": 1,
+        "careers": [
+         "career.influencer"
+        ],
+        "masteries": [],
+        "personality": "personality.greedy",
+        "traits": [],
+        "stats": {
+         "health": 3,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 6,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 4
+        },
+        "held": "equipment.selfie-stick",
+        "accessory": null,
+        "appearance": {
+         "skin": "#e0ac69",
+         "hair": "#2c1b10",
+         "hairStyle": 5
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     }
+    ],
+    "modifiers": []
+   },
+   "resultHash": "15ad6fb632e86ca7",
+   "hashes": [
+    "59e4d0753b888630",
+    "04418e7685354499",
+    "f62ec69cd28948af",
+    "538eb192a33cd93d",
+    "ca1910991602df94",
+    "cb9782fc6839d4e3",
+    "a3e22e696abe225c",
+    "95f865e69d596e05",
+    "ffc9d4823d561a3d",
+    "77a4d68e7f0349c9",
+    "768ba82d64178fcc",
+    "c0c54466dbb85919",
+    "58e5e54583fa7732",
+    "21a4c67135c0a56e",
+    "2f3cb3ef0b8816ac",
+    "d7ef49ab9ff01c3a",
+    "1cde0c7f3f1d9f7a",
+    "a834c0c7cf5c3f00",
+    "db1eff30e0c3d7a7",
+    "db9195c45444ed99"
+   ],
+   "winner": 3,
+   "ticks": 2084
+  },
+  {
+   "name": "arena.supermarket-3v3-0",
+   "input": {
+    "schemaVersion": 1,
+    "contentHash": "db33ba69ecc1aa44",
+    "simVersion": "0.1.0",
+    "seed": "9ae2eb0a49d70d1c",
+    "arenaId": "arena.supermarket",
+    "mode": "duel_3v3",
+    "teams": [
+     {
+      "playerId": "p0",
+      "playerName": "Player 0",
+      "rating": 1000,
+      "characters": [
+       {
+        "id": "arena.supermarket-3v3-0-0-0",
+        "name": "Wendy Smith",
+        "level": 1,
+        "careers": [
+         "career.chef"
+        ],
+        "masteries": [],
+        "personality": "personality.aggressive",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 4,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.frying-pan",
+        "accessory": null,
+        "appearance": {
+         "skin": "#8d5524",
+         "hair": "#111111",
+         "hairStyle": 0
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-3v3-0-0-1",
+        "name": "Fatima Smith",
+        "level": 5,
+        "careers": [
+         "career.lawyer",
+         "career.influencer"
+        ],
+        "masteries": [],
+        "personality": "personality.paranoid",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 7,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 6
+        },
+        "held": "equipment.briefcase",
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#9ca3af",
+         "hairStyle": 5
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-3v3-0-0-2",
+        "name": "Hugo Silva",
+        "level": 1,
+        "careers": [
+         "career.delivery-driver"
+        ],
+        "masteries": [],
+        "personality": "personality.helpful",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 7,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 4,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#6b4423",
+         "hairStyle": 3
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p1",
+      "playerName": "Player 1",
+      "rating": 1040,
+      "characters": [
+       {
+        "id": "arena.supermarket-3v3-0-1-0",
+        "name": "Kofi O'Brien",
+        "level": 1,
+        "careers": [
+         "career.builder"
+        ],
+        "masteries": [],
+        "personality": "personality.coward",
+        "traits": [],
+        "stats": {
+         "health": 7,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 3,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 4,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.hammer",
+        "accessory": null,
+        "appearance": {
+         "skin": "#e0ac69",
+         "hair": "#111111",
+         "hairStyle": 4
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-3v3-0-1-1",
+        "name": "Greta Costa",
+        "level": 5,
+        "careers": [
+         "career.dentist",
+         "career.dj"
+        ],
+        "masteries": [],
+        "personality": "personality.aggressive",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 3,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 3,
+         "charisma": 5,
+         "recovery": 3,
+         "interactionSpeed": 5
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#a0522d",
+         "hair": "#9ca3af",
+         "hairStyle": 1
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-3v3-0-1-2",
+        "name": "Björn Brown",
+        "level": 1,
+        "careers": [
+         "career.lawyer"
+        ],
+        "masteries": [],
+        "personality": "personality.paranoid",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 1,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 7,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.briefcase",
+        "accessory": null,
+        "appearance": {
+         "skin": "#e0ac69",
+         "hair": "#9ca3af",
+         "hairStyle": 2
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     }
+    ],
+    "modifiers": []
+   },
+   "resultHash": "05ce39562a144c07",
+   "hashes": [
+    "a008f311c655d346",
+    "bba980d553fc0370",
+    "5b62c1ebe5b527a0",
+    "e6f9519a5b6a40ff",
+    "9347123663062307",
+    "2068196073e0f1b5",
+    "7fb7e4e488d541d1",
+    "ccab35e2fb2ee471",
+    "bf03759778e1d66c",
+    "4a8aa5e8c8e3462f",
+    "135d9372a623a66b",
+    "38d6ac069e24f837",
+    "c2bd9903bb036fa4"
+   ],
+   "winner": 0,
+   "ticks": 1314
+  },
+  {
+   "name": "arena.supermarket-3v3-1",
+   "input": {
+    "schemaVersion": 1,
+    "contentHash": "db33ba69ecc1aa44",
+    "simVersion": "0.1.0",
+    "seed": "f27e04ed5de877d6",
+    "arenaId": "arena.supermarket",
+    "mode": "duel_3v3",
+    "teams": [
+     {
+      "playerId": "p0",
+      "playerName": "Player 0",
+      "rating": 1000,
+      "characters": [
+       {
+        "id": "arena.supermarket-3v3-1-0-0",
+        "name": "Frank Ahmed",
+        "level": 1,
+        "careers": [
+         "career.plumber"
+        ],
+        "masteries": [],
+        "personality": "personality.paranoid",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 7,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 6
+        },
+        "held": "equipment.plunger",
+        "accessory": null,
+        "appearance": {
+         "skin": "#8d5524",
+         "hair": "#b55239",
+         "hairStyle": 1
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-3v3-1-0-1",
+        "name": "Linda Kowalski",
+        "level": 5,
+        "careers": [
+         "career.electrician",
+         "career.plumber"
+        ],
+        "masteries": [],
+        "personality": "personality.chaotic",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 7,
+         "awareness": 5,
+         "confidence": 6,
+         "luck": 4,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.screwdriver",
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#6b4423",
+         "hairStyle": 0
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-3v3-1-0-2",
+        "name": "Olu Kaur",
+        "level": 1,
+        "careers": [
+         "career.security-guard"
+        ],
+        "masteries": [],
+        "personality": "personality.aggressive",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 6,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 7,
+         "interactionSpeed": 3
+        },
+        "held": "equipment.torch",
+        "accessory": null,
+        "appearance": {
+         "skin": "#8d5524",
+         "hair": "#e5e7eb",
+         "hairStyle": 1
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p1",
+      "playerName": "Player 1",
+      "rating": 1040,
+      "characters": [
+       {
+        "id": "arena.supermarket-3v3-1-1-0",
+        "name": "Ravi O'Brien",
+        "level": 1,
+        "careers": [
+         "career.accountant"
+        ],
+        "masteries": [],
+        "personality": "personality.confident",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 4,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.briefcase",
+        "accessory": null,
+        "appearance": {
+         "skin": "#e0ac69",
+         "hair": "#9ca3af",
+         "hairStyle": 4
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-3v3-1-1-1",
+        "name": "Kenji Ivanova",
+        "level": 5,
+        "careers": [
+         "career.chef",
+         "career.electrician"
+        ],
+        "masteries": [],
+        "personality": "personality.competitive",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 4,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 7
+        },
+        "held": "equipment.frying-pan",
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#b55239",
+         "hairStyle": 0
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-3v3-1-1-2",
+        "name": "Anya Walsh",
+        "level": 1,
+        "careers": [
+         "career.journalist"
+        ],
+        "masteries": [],
+        "personality": "personality.confident",
+        "traits": [],
+        "stats": {
+         "health": 6,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 4,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.notepad",
+        "accessory": null,
+        "appearance": {
+         "skin": "#e0ac69",
+         "hair": "#111111",
+         "hairStyle": 4
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     }
+    ],
+    "modifiers": []
+   },
+   "resultHash": "8786904bbe9e935c",
+   "hashes": [
+    "a29480a268b184f3",
+    "3cc35249507eaaf2",
+    "278aa67da2b2b7c6",
+    "f1b38ddb678c011e",
+    "cc3d7aeb8c37484e",
+    "74ff363fc87cada4",
+    "b969c2ee594d8fe1",
+    "840607cdb98067b0",
+    "eaf4dcf9a41d8386",
+    "d735261a367deb7b"
+   ],
+   "winner": 0,
+   "ticks": 1020
+  },
+  {
+   "name": "arena.supermarket-3v3-2",
+   "input": {
+    "schemaVersion": 1,
+    "contentHash": "db33ba69ecc1aa44",
+    "simVersion": "0.1.0",
+    "seed": "29fc562148eb9ed3",
+    "arenaId": "arena.supermarket",
+    "mode": "duel_3v3",
+    "teams": [
+     {
+      "playerId": "p0",
+      "playerName": "Player 0",
+      "rating": 1000,
+      "characters": [
+       {
+        "id": "arena.supermarket-3v3-2-0-0",
+        "name": "Tomasz García",
+        "level": 1,
+        "careers": [
+         "career.firefighter"
+        ],
+        "masteries": [],
+        "personality": "personality.chaotic",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 7,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 7,
+         "confidence": 3,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.axe",
+        "accessory": null,
+        "appearance": {
+         "skin": "#e0ac69",
+         "hair": "#6b4423",
+         "hairStyle": 1
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-3v3-2-0-1",
+        "name": "Alex Chen",
+        "level": 5,
+        "careers": [
+         "career.mechanic",
+         "career.paramedic"
+        ],
+        "masteries": [],
+        "personality": "personality.coward",
+        "traits": [],
+        "stats": {
+         "health": 4,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 3,
+         "confidence": 3,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.wrench",
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#d6b370",
+         "hairStyle": 4
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-3v3-2-0-2",
+        "name": "Imani Okafor",
+        "level": 1,
+        "careers": [
+         "career.programmer"
+        ],
+        "masteries": [],
+        "personality": "personality.chaotic",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 2,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.laptop",
+        "accessory": null,
+        "appearance": {
+         "skin": "#a0522d",
+         "hair": "#111111",
+         "hairStyle": 0
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p1",
+      "playerName": "Player 1",
+      "rating": 1040,
+      "characters": [
+       {
+        "id": "arena.supermarket-3v3-2-1-0",
+        "name": "Jarek Smith",
+        "level": 1,
+        "careers": [
+         "career.dentist"
+        ],
+        "masteries": [],
+        "personality": "personality.competitive",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 2,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 4,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#e0ac69",
+         "hair": "#111111",
+         "hairStyle": 3
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-3v3-2-1-1",
+        "name": "Sam Patel",
+        "level": 5,
+        "careers": [
+         "career.paramedic",
+         "career.builder"
+        ],
+        "masteries": [],
+        "personality": "personality.paranoid",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 7,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#a0522d",
+         "hair": "#111111",
+         "hairStyle": 2
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-3v3-2-1-2",
+        "name": "Alex Mensah",
+        "level": 1,
+        "careers": [
+         "career.influencer"
+        ],
+        "masteries": [],
+        "personality": "personality.paranoid",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 3,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 7
+        },
+        "held": "equipment.selfie-stick",
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#111111",
+         "hairStyle": 0
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     }
+    ],
+    "modifiers": []
+   },
+   "resultHash": "214f35ca218e3a15",
+   "hashes": [
+    "e54aafb813b37555",
+    "5fc6cc05436af792",
+    "c1d2f133953d72e6",
+    "b87bec7d64c59426",
+    "ccde2ea3736973c0",
+    "333ddd1c010728c5",
+    "f30e376ed90e9faf",
+    "956fe64cb66730fb",
+    "178f35f991720798",
+    "f92ccbd370d8cb66",
+    "79c2d72e348c7e1d",
+    "b62cb4e6d7067f5d",
+    "cda53cbe04b66255",
+    "c6f319a3dcf5f51a",
+    "fd060737035a82ac"
+   ],
+   "winner": 0,
+   "ticks": 1526
+  },
+  {
+   "name": "arena.supermarket-3v3-3",
+   "input": {
+    "schemaVersion": 1,
+    "contentHash": "db33ba69ecc1aa44",
+    "simVersion": "0.1.0",
+    "seed": "81a072b6f39a2f04",
+    "arenaId": "arena.supermarket",
+    "mode": "duel_3v3",
+    "teams": [
+     {
+      "playerId": "p0",
+      "playerName": "Player 0",
+      "rating": 1000,
+      "characters": [
+       {
+        "id": "arena.supermarket-3v3-3-0-0",
+        "name": "Tariq Tanaka",
+        "level": 1,
+        "careers": [
+         "career.firefighter"
+        ],
+        "masteries": [],
+        "personality": "personality.coward",
+        "traits": [],
+        "stats": {
+         "health": 7,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 3,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.axe",
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#111111",
+         "hairStyle": 5
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-3v3-3-0-1",
+        "name": "Ingrid Kaur",
+        "level": 5,
+        "careers": [
+         "career.journalist",
+         "career.lawyer"
+        ],
+        "masteries": [],
+        "personality": "personality.chaotic",
+        "traits": [],
+        "stats": {
+         "health": 6,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 6,
+         "interactionSpeed": 7
+        },
+        "held": "equipment.notepad",
+        "accessory": null,
+        "appearance": {
+         "skin": "#a0522d",
+         "hair": "#b55239",
+         "hairStyle": 2
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-3v3-3-0-2",
+        "name": "Tomasz Brown",
+        "level": 1,
+        "careers": [
+         "career.builder"
+        ],
+        "masteries": [],
+        "personality": "personality.competitive",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 3,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 7,
+         "charisma": 3,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.hammer",
+        "accessory": null,
+        "appearance": {
+         "skin": "#8d5524",
+         "hair": "#b55239",
+         "hairStyle": 5
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p1",
+      "playerName": "Player 1",
+      "rating": 1040,
+      "characters": [
+       {
+        "id": "arena.supermarket-3v3-3-1-0",
+        "name": "Jarek Ahmed",
+        "level": 1,
+        "careers": [
+         "career.firefighter"
+        ],
+        "masteries": [],
+        "personality": "personality.coward",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 7,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.axe",
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#b55239",
+         "hairStyle": 1
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-3v3-3-1-1",
+        "name": "Imani Ivanova",
+        "level": 5,
+        "careers": [
+         "career.mechanic",
+         "career.taxi-driver"
+        ],
+        "masteries": [],
+        "personality": "personality.aggressive",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 7,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.wrench",
+        "accessory": null,
+        "appearance": {
+         "skin": "#e0ac69",
+         "hair": "#d6b370",
+         "hairStyle": 4
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-3v3-3-1-2",
+        "name": "Omar Patel",
+        "level": 1,
+        "careers": [
+         "career.farmer"
+        ],
+        "masteries": [],
+        "personality": "personality.paranoid",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 6,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 7,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#111111",
+         "hairStyle": 4
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     }
+    ],
+    "modifiers": []
+   },
+   "resultHash": "c0185ce1ab10a1c2",
+   "hashes": [
+    "086e78d6b8645f95",
+    "16fa159e544a303d",
+    "2e9f6135eaa7c93a",
+    "11328dcbe0f7555e",
+    "f1f8296a9ff05dc9",
+    "d9f8b2d3e2397b26",
+    "23445b281952f1bb",
+    "4e5b2136bf25c217",
+    "cfad4642660fe49f",
+    "cc4e4295f72629e4",
+    "55954112784ae9e1",
+    "9c5f15c538cef2ea",
+    "ca77af4986631d16",
+    "8407bb0685fd4a4d",
+    "bd9dac231d3bcfb2"
+   ],
+   "winner": 0,
+   "ticks": 1530
+  },
+  {
+   "name": "arena.supermarket-3v3-4",
+   "input": {
+    "schemaVersion": 1,
+    "contentHash": "db33ba69ecc1aa44",
+    "simVersion": "0.1.0",
+    "seed": "3092dba1fbfc3c02",
+    "arenaId": "arena.supermarket",
+    "mode": "duel_3v3",
+    "teams": [
+     {
+      "playerId": "p0",
+      "playerName": "Player 0",
+      "rating": 1000,
+      "characters": [
+       {
+        "id": "arena.supermarket-3v3-4-0-0",
+        "name": "Zara Patel",
+        "level": 1,
+        "careers": [
+         "career.farmer"
+        ],
+        "masteries": [],
+        "personality": "personality.coward",
+        "traits": [],
+        "stats": {
+         "health": 7,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 7,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#111111",
+         "hairStyle": 0
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-3v3-4-0-1",
+        "name": "Alex Costa",
+        "level": 5,
+        "careers": [
+         "career.security-guard",
+         "career.firefighter"
+        ],
+        "masteries": [],
+        "personality": "personality.lazy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 6,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 6,
+         "recovery": 5,
+         "interactionSpeed": 3
+        },
+        "held": "equipment.torch",
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#b55239",
+         "hairStyle": 1
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-3v3-4-0-2",
+        "name": "Hugo Walsh",
+        "level": 1,
+        "careers": [
+         "career.police-officer"
+        ],
+        "masteries": [],
+        "personality": "personality.clumsy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 4,
+         "speed": 7,
+         "strength": 3,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.baton",
+        "accessory": null,
+        "appearance": {
+         "skin": "#8d5524",
+         "hair": "#6b4423",
+         "hairStyle": 3
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p1",
+      "playerName": "Player 1",
+      "rating": 1040,
+      "characters": [
+       {
+        "id": "arena.supermarket-3v3-4-1-0",
+        "name": "Frank Jensen",
+        "level": 1,
+        "careers": [
+         "career.electrician"
+        ],
+        "masteries": [],
+        "personality": "personality.chaotic",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 6,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 3,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.screwdriver",
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#d6b370",
+         "hairStyle": 2
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-3v3-4-1-1",
+        "name": "Fatima Moreau",
+        "level": 5,
+        "careers": [
+         "career.teacher",
+         "career.influencer"
+        ],
+        "masteries": [],
+        "personality": "personality.coward",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 4,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 6,
+         "charisma": 5,
+         "recovery": 3,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.clipboard",
+        "accessory": null,
+        "appearance": {
+         "skin": "#a0522d",
+         "hair": "#2c1b10",
+         "hairStyle": 4
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-3v3-4-1-2",
+        "name": "Maria Kowalski",
+        "level": 1,
+        "careers": [
+         "career.paramedic"
+        ],
+        "masteries": [],
+        "personality": "personality.chaotic",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 3,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#9ca3af",
+         "hairStyle": 4
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     }
+    ],
+    "modifiers": []
+   },
+   "resultHash": "260ca3aae062bba5",
+   "hashes": [
+    "245c4b5db007932c",
+    "49540c9e940b035f",
+    "9eade9d49c360a2b",
+    "032213002b47b549",
+    "1b773450ecd032d3",
+    "00a8a3a8ef9ef66d",
+    "d50f33f0ae1e0ba9",
+    "b5c713372e2ae728",
+    "c2f9f2fee9973009",
+    "194eccced81d2d53",
+    "6fdc5d432685b644",
+    "4f6642c238a84b65",
+    "91b3b6628a20bc31",
+    "60e9f2976dd1ae62",
+    "9e5aa2596dd04fbc",
+    "fc3950d61acc124d",
+    "aee931269e1bc4f1",
+    "54e1b0124cb43ec5",
+    "9e879c09d01c8792",
+    "825afba60c776757",
+    "7b01402c745a8635",
+    "02f0d8ac5d00335d"
+   ],
+   "winner": 1,
+   "ticks": 2280
+  },
+  {
+   "name": "arena.supermarket-5v5-0",
+   "input": {
+    "schemaVersion": 1,
+    "contentHash": "db33ba69ecc1aa44",
+    "simVersion": "0.1.0",
+    "seed": "15b9ea93d29325f1",
+    "arenaId": "arena.supermarket",
+    "mode": "duel_5v5",
+    "teams": [
+     {
+      "playerId": "p0",
+      "playerName": "Player 0",
+      "rating": 1000,
+      "characters": [
+       {
+        "id": "arena.supermarket-5v5-0-0-0",
+        "name": "Hugo Brown",
+        "level": 1,
+        "careers": [
+         "career.librarian"
+        ],
+        "masteries": [],
+        "personality": "personality.chaotic",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 3,
+         "intelligence": 8,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.book",
+        "accessory": null,
+        "appearance": {
+         "skin": "#a0522d",
+         "hair": "#6b4423",
+         "hairStyle": 1
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-5v5-0-0-1",
+        "name": "Priya Novak",
+        "level": 5,
+        "careers": [
+         "career.electrician",
+         "career.accountant"
+        ],
+        "masteries": [],
+        "personality": "personality.paranoid",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 3,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 4,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 3
+        },
+        "held": "equipment.screwdriver",
+        "accessory": null,
+        "appearance": {
+         "skin": "#a0522d",
+         "hair": "#2c1b10",
+         "hairStyle": 5
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-5v5-0-0-2",
+        "name": "Frank Fischer",
+        "level": 1,
+        "careers": [
+         "career.teacher"
+        ],
+        "masteries": [],
+        "personality": "personality.competitive",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 3,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 7,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.clipboard",
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#6b4423",
+         "hairStyle": 1
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-5v5-0-0-3",
+        "name": "Nadia Nowak",
+        "level": 5,
+        "careers": [
+         "career.influencer",
+         "career.police-officer"
+        ],
+        "masteries": [],
+        "personality": "personality.greedy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 6,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 7,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.selfie-stick",
+        "accessory": null,
+        "appearance": {
+         "skin": "#a0522d",
+         "hair": "#6b4423",
+         "hairStyle": 0
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-5v5-0-0-4",
+        "name": "Mei Nowak",
+        "level": 1,
+        "careers": [
+         "career.paramedic"
+        ],
+        "masteries": [],
+        "personality": "personality.greedy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 4,
+         "strength": 7,
+         "throwing": 5,
+         "intelligence": 3,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#a0522d",
+         "hair": "#2c1b10",
+         "hairStyle": 5
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p1",
+      "playerName": "Player 1",
+      "rating": 1040,
+      "characters": [
+       {
+        "id": "arena.supermarket-5v5-0-1-0",
+        "name": "Olu Popescu",
+        "level": 1,
+        "careers": [
+         "career.influencer"
+        ],
+        "masteries": [],
+        "personality": "personality.paranoid",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 7,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 6,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.selfie-stick",
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#111111",
+         "hairStyle": 2
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-5v5-0-1-1",
+        "name": "Kofi Tanaka",
+        "level": 5,
+        "careers": [
+         "career.taxi-driver",
+         "career.programmer"
+        ],
+        "masteries": [],
+        "personality": "personality.lazy",
+        "traits": [],
+        "stats": {
+         "health": 4,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 8,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#8d5524",
+         "hair": "#d6b370",
+         "hairStyle": 4
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-5v5-0-1-2",
+        "name": "Yuki Fischer",
+        "level": 1,
+        "careers": [
+         "career.farmer"
+        ],
+        "masteries": [],
+        "personality": "personality.greedy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#8d5524",
+         "hair": "#6b4423",
+         "hairStyle": 3
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-5v5-0-1-3",
+        "name": "Aisha Walsh",
+        "level": 5,
+        "careers": [
+         "career.dentist",
+         "career.dj"
+        ],
+        "masteries": [],
+        "personality": "personality.confident",
+        "traits": [],
+        "stats": {
+         "health": 4,
+         "energy": 5,
+         "speed": 5,
+         "strength": 3,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 3,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#a0522d",
+         "hair": "#6b4423",
+         "hairStyle": 2
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-5v5-0-1-4",
+        "name": "Aisha Rossi",
+        "level": 1,
+        "careers": [
+         "career.chef"
+        ],
+        "masteries": [],
+        "personality": "personality.greedy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 4,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 7,
+         "charisma": 6,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.frying-pan",
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#b55239",
+         "hairStyle": 1
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     }
+    ],
+    "modifiers": []
+   },
+   "resultHash": "b4385489266d2fda",
+   "hashes": [
+    "557437c6af55148b",
+    "5dcd1ce3324df11a",
+    "7032b6ddfeb7292e",
+    "15b9053d3feecb48",
+    "d77d6f740375bce5",
+    "05a8777f18262e6a",
+    "e08b5566a757e499",
+    "cca12301fbb75b78"
+   ],
+   "winner": 0,
+   "ticks": 845
+  },
+  {
+   "name": "arena.supermarket-5v5-1",
+   "input": {
+    "schemaVersion": 1,
+    "contentHash": "db33ba69ecc1aa44",
+    "simVersion": "0.1.0",
+    "seed": "e3db234b698108ca",
+    "arenaId": "arena.supermarket",
+    "mode": "duel_5v5",
+    "teams": [
+     {
+      "playerId": "p0",
+      "playerName": "Player 0",
+      "rating": 1000,
+      "characters": [
+       {
+        "id": "arena.supermarket-5v5-1-0-0",
+        "name": "Fatima Popescu",
+        "level": 1,
+        "careers": [
+         "career.taxi-driver"
+        ],
+        "masteries": [],
+        "personality": "personality.chaotic",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 4,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 6,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#b55239",
+         "hairStyle": 4
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-5v5-1-0-1",
+        "name": "Kenji Walsh",
+        "level": 5,
+        "careers": [
+         "career.firefighter",
+         "career.security-guard"
+        ],
+        "masteries": [],
+        "personality": "personality.helpful",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 6,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.axe",
+        "accessory": null,
+        "appearance": {
+         "skin": "#e0ac69",
+         "hair": "#d6b370",
+         "hairStyle": 4
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-5v5-1-0-2",
+        "name": "Kofi García",
+        "level": 1,
+        "careers": [
+         "career.electrician"
+        ],
+        "masteries": [],
+        "personality": "personality.greedy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 7,
+         "strength": 5,
+         "throwing": 7,
+         "intelligence": 7,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.screwdriver",
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#e5e7eb",
+         "hairStyle": 2
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-5v5-1-0-3",
+        "name": "Imani Moreau",
+        "level": 5,
+        "careers": [
+         "career.programmer",
+         "career.journalist"
+        ],
+        "masteries": [],
+        "personality": "personality.aggressive",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 4,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 4,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 3
+        },
+        "held": "equipment.laptop",
+        "accessory": null,
+        "appearance": {
+         "skin": "#e0ac69",
+         "hair": "#b55239",
+         "hairStyle": 5
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-5v5-1-0-4",
+        "name": "Fatima Haddad",
+        "level": 1,
+        "careers": [
+         "career.paramedic"
+        ],
+        "masteries": [],
+        "personality": "personality.lazy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 7,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 3,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 6,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#b55239",
+         "hairStyle": 1
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p1",
+      "playerName": "Player 1",
+      "rating": 1040,
+      "characters": [
+       {
+        "id": "arena.supermarket-5v5-1-1-0",
+        "name": "Frank Silva",
+        "level": 1,
+        "careers": [
+         "career.janitor"
+        ],
+        "masteries": [],
+        "personality": "personality.coward",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 6,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 3,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.mop",
+        "accessory": null,
+        "appearance": {
+         "skin": "#e0ac69",
+         "hair": "#111111",
+         "hairStyle": 0
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-5v5-1-1-1",
+        "name": "Pat Mbeki",
+        "level": 5,
+        "careers": [
+         "career.mechanic",
+         "career.paramedic"
+        ],
+        "masteries": [],
+        "personality": "personality.helpful",
+        "traits": [],
+        "stats": {
+         "health": 6,
+         "energy": 7,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 4
+        },
+        "held": "equipment.wrench",
+        "accessory": null,
+        "appearance": {
+         "skin": "#ffdbac",
+         "hair": "#9ca3af",
+         "hairStyle": 5
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-5v5-1-1-2",
+        "name": "Hugo Chen",
+        "level": 1,
+        "careers": [
+         "career.journalist"
+        ],
+        "masteries": [],
+        "personality": "personality.lazy",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 6,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 6,
+         "luck": 4,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.notepad",
+        "accessory": null,
+        "appearance": {
+         "skin": "#8d5524",
+         "hair": "#e5e7eb",
+         "hairStyle": 1
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-5v5-1-1-3",
+        "name": "Dmitri Mbeki",
+        "level": 5,
+        "careers": [
+         "career.paramedic",
+         "career.plumber"
+        ],
+        "masteries": [],
+        "personality": "personality.confident",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 3,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 3,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#9ca3af",
+         "hairStyle": 2
+        },
+        "rivals": [],
+        "friends": []
+       },
+       {
+        "id": "arena.supermarket-5v5-1-1-4",
+        "name": "Noor Chen",
+        "level": 1,
+        "careers": [
+         "career.influencer"
+        ],
+        "masteries": [],
+        "personality": "personality.confident",
+        "traits": [],
+        "stats": {
+         "health": 4,
+         "energy": 7,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.selfie-stick",
+        "accessory": null,
+        "appearance": {
+         "skin": "#e0ac69",
+         "hair": "#2c1b10",
+         "hairStyle": 3
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     }
+    ],
+    "modifiers": []
+   },
+   "resultHash": "18adb39db4f8cb94",
+   "hashes": [
+    "1a4c8993f528235c",
+    "bfa2d0de08704577",
+    "ab45f88f5fb0f57a",
+    "ae26c035012c5854",
+    "2fc323cf232b3a8e",
+    "165998fb8bbb3952",
+    "9ca1f32e349fab17",
+    "4ebc52042f243d29",
+    "d630657521c3e18a",
+    "1b3409194ed5a6b8",
+    "f8d229060a44ab41",
+    "5e0b67b7b0de48b4"
+   ],
+   "winner": 1,
+   "ticks": 1289
+  },
+  {
+   "name": "arena.supermarket-ffa",
+   "input": {
+    "schemaVersion": 1,
+    "contentHash": "db33ba69ecc1aa44",
+    "simVersion": "0.1.0",
+    "seed": "466b3a4eb135955b",
+    "arenaId": "arena.supermarket",
+    "mode": "ffa",
+    "teams": [
+     {
+      "playerId": "p0",
+      "playerName": "Player 0",
+      "rating": 1000,
+      "characters": [
+       {
+        "id": "arena.supermarket-ffa-0-0",
+        "name": "Yuki Rossi",
+        "level": 1,
+        "careers": [
+         "career.farmer"
+        ],
+        "masteries": [],
+        "personality": "personality.greedy",
+        "traits": [],
+        "stats": {
+         "health": 4,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 3,
+         "luck": 5,
+         "charisma": 4,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": null,
+        "accessory": null,
+        "appearance": {
+         "skin": "#c68642",
+         "hair": "#9ca3af",
+         "hairStyle": 5
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p1",
+      "playerName": "Player 1",
+      "rating": 1040,
+      "characters": [
+       {
+        "id": "arena.supermarket-ffa-1-0",
+        "name": "Omar Fischer",
+        "level": 1,
+        "careers": [
+         "career.accountant"
+        ],
+        "masteries": [],
+        "personality": "personality.helpful",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 7,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 3,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.briefcase",
+        "accessory": null,
+        "appearance": {
+         "skin": "#8d5524",
+         "hair": "#9ca3af",
+         "hairStyle": 3
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p2",
+      "playerName": "Player 2",
+      "rating": 1080,
+      "characters": [
+       {
+        "id": "arena.supermarket-ffa-2-0",
+        "name": "Noor Patel",
+        "level": 1,
+        "careers": [
+         "career.plumber"
+        ],
+        "masteries": [],
+        "personality": "personality.clumsy",
+        "traits": [],
+        "stats": {
+         "health": 4,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 4,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.plunger",
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#d6b370",
+         "hairStyle": 1
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p3",
+      "playerName": "Player 3",
+      "rating": 1120,
+      "characters": [
+       {
+        "id": "arena.supermarket-ffa-3-0",
+        "name": "Marek Silva",
+        "level": 1,
+        "careers": [
+         "career.mechanic"
+        ],
+        "masteries": [],
+        "personality": "personality.chaotic",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 2,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 5,
+         "luck": 6,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.wrench",
+        "accessory": null,
+        "appearance": {
+         "skin": "#f1c27d",
+         "hair": "#6b4423",
+         "hairStyle": 2
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p4",
+      "playerName": "Player 4",
+      "rating": 1160,
+      "characters": [
+       {
+        "id": "arena.supermarket-ffa-4-0",
+        "name": "Beth Smith",
+        "level": 1,
+        "careers": [
+         "career.lawyer"
+        ],
+        "masteries": [],
+        "personality": "personality.aggressive",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 5,
+         "confidence": 7,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 7,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.briefcase",
+        "accessory": null,
+        "appearance": {
+         "skin": "#a0522d",
+         "hair": "#b55239",
+         "hairStyle": 3
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     },
+     {
+      "playerId": "p5",
+      "playerName": "Player 5",
+      "rating": 1200,
+      "characters": [
+       {
+        "id": "arena.supermarket-ffa-5-0",
+        "name": "Kenji Mbeki",
+        "level": 1,
+        "careers": [
+         "career.journalist"
+        ],
+        "masteries": [],
+        "personality": "personality.competitive",
+        "traits": [],
+        "stats": {
+         "health": 5,
+         "energy": 5,
+         "speed": 5,
+         "strength": 5,
+         "throwing": 5,
+         "intelligence": 5,
+         "awareness": 7,
+         "confidence": 7,
+         "luck": 5,
+         "charisma": 5,
+         "recovery": 5,
+         "interactionSpeed": 5
+        },
+        "held": "equipment.notepad",
+        "accessory": null,
+        "appearance": {
+         "skin": "#a0522d",
+         "hair": "#9ca3af",
+         "hairStyle": 1
+        },
+        "rivals": [],
+        "friends": []
+       }
+      ]
+     }
+    ],
+    "modifiers": []
+   },
+   "resultHash": "eab7f6d57ddd5800",
+   "hashes": [
+    "1281b6866679b7ab",
+    "411887e3654986b0",
+    "d722c9f8ce8d466b",
+    "96e35e79b4512ce0",
+    "ff638bd8600011a7",
+    "017eb2cb315d8a04",
+    "4cd85a6542dcc730",
+    "c159b97e75217d8b",
+    "f6861bf2d77b99db",
+    "7df5147793cc03d4",
+    "b61a53fa33b7a991"
+   ],
+   "winner": 2,
+   "ticks": 1105
+  }
+ ]
+}

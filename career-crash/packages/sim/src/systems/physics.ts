@@ -148,6 +148,10 @@ function separateBodies(w: World): void {
     a.y -= idiv(idiv(ny * overlap, 1000) * shareA, 1000);
     b.x += idiv(idiv(nx * overlap, 1000) * shareB, 1000);
     b.y += idiv(idiv(ny * overlap, 1000) * shareB, 1000);
+    for (const e of [a, b]) {
+      e.x = clamp(e.x, e.radius, w.arena.sizeMm[0] - e.radius);
+      e.y = clamp(e.y, e.radius, w.arena.sizeMm[1] - e.radius);
+    }
   }
 }
 

@@ -1,0 +1,2 @@
+SESSION_SECRET=dev-only-secret-change-me
+# TURNSTILE_SECRET=
