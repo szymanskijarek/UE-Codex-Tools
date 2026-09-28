@@ -41,6 +41,9 @@ const SOUNDS = {
   angry: () => { tone(140, 0.12, { type: 'sawtooth', vol: 0.04 }); tone(150, 0.12, { type: 'sawtooth', vol: 0.04, delay: 0.14 }); },
   escape: () => { tone(200, 0.5, { type: 'sawtooth', slide: 500, vol: 0.04 }); },
   radio: () => { noise(0.05, 0.05); tone(1200, 0.05, { vol: 0.02, delay: 0.05 }); },
+  event: () => { [523, 659, 784, 1047].forEach((f, i) => tone(f, 0.18, { type: 'square', vol: 0.045, delay: i * 0.11 })); },
+  // Greensleeves, as performed by a van with a blown speaker
+  jingle: () => { [[440, 0.2], [523, 0.4], [587, 0.2], [659, 0.3], [698, 0.1], [659, 0.2], [587, 0.4], [494, 0.2]].reduce((t, [f, d]) => { tone(f, d * 0.9, { type: 'triangle', vol: 0.05, delay: t }); return t + d * 0.75; }, 0); },
   whistle: () => { tone(2000, 0.15, { type: 'sine', vol: 0.05 }); tone(2000, 0.35, { type: 'sine', vol: 0.05, delay: 0.2 }); }
 };
 

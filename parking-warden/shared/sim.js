@@ -3,8 +3,10 @@
 
 import {
   CHARACTERS, CHARACTER_BY_ID, OFFENCES, CAR_MODELS, CAR_COLORS, PLATES,
-  DRIVER_LINES, RADIO, SUPERVISOR_REVIEWS, STREETS, SHOPS
+  DRIVER_LINES, RADIO, SUPERVISOR_REVIEWS, STREETS, SHOPS, EVENTS
 } from './content.js';
+
+const EVENT_BY_ID = Object.fromEntries(EVENTS.map((e) => [e.id, e]));
 
 export const WORLD = { w: 1600, h: 1000 };
 export const H_ROADS = [260, 740];
@@ -172,6 +174,8 @@ export class Game {
     this.nextRadio = 0;
     this.saidHalfway = false;
     this.saidMinute = false;
+    this.event = null;
+    this.eventQueue = [];
   }
 
   // ------------------------------------------------------------- helpers
@@ -265,6 +269,11 @@ export class Game {
     this.saidHalfway = false; this.saidMinute = false;
     this.nextRadio = this.r(22, 32);
     this.nextSpawn = 0;
+    // Two different events per shift: one early-ish, one late-ish.
+    const pool = EVENTS.map((e) => e.id).sort(() => this.rng() - 0.5);
+    const L = this.shiftLength;
+    this.event = null;
+    this.eventQueue = [{ at: L * this.r(0.2, 0.32), id: pool[0] }, { at: L * this.r(0.55, 0.66), id: pool[1] }];
     let k = 0;
     for (const w of this.wardens.values()) {
       w.score = 0; w.stats = this.freshStats();
@@ -283,6 +292,9 @@ export class Game {
 
   endShift() {
     this.phase = 'ended';
+    this.event = null;
+    this.eventQueue = [];
+    for (const o of this.objects.values()) if (o.type === 'inspector') this.objects.delete(o.id);
     for (const w of this.wardens.values()) { w.writing = null; }
     const list = [...this.wardens.values()];
     const q = this.quota;
@@ -315,25 +327,28 @@ export class Game {
   }
 
   // ------------------------------------------------------------- cars
-  spawnCar(prefill = false) {
+  spawnCar(prefill = false, { onlyTypes = null, tag = null, model: forcedModel = null, color = null, stay: forcedStay = 0 } = {}) {
     const free = [];
     for (const s of this.map.spots) if (!this.spotCar[s.id]) free.push(s);
     if (!free.length) return null;
-    const illegal = this.rng() < TUNING.illegalChance;
+    const illegal = onlyTypes ? true : this.rng() < this.mods.illegal;
     const candidates = free.filter((s) => {
       const t = this.spotTypes[s.id];
+      if (onlyTypes) return onlyTypes.includes(t);
       return illegal ? t !== 'free' : t !== 'yellow' && t !== 'bus';
     });
+    if (onlyTypes && !candidates.length) return null;
     const spot = this.pick(candidates.length ? candidates : free);
     const type = this.spotTypes[spot.id];
 
     const vanWanted = type === 'loading' ? !illegal : this.rng() < 0.12;
     const models = CAR_MODELS.filter((m) => !!m.van === vanWanted);
-    const model = this.pick(models);
-    const stay = this.r(28, 58);
+    const model = forcedModel || this.pick(models);
+    const stay = forcedStay || this.r(28, 58);
     const car = {
       id: this.id(), spotId: spot.id, model: model.name, len: model.len, van: !!model.van,
-      color: model.van ? this.pick(['#ecf0f1', '#f5f6fa', '#dfe6e9', '#ffeaa7']) : this.pick(CAR_COLORS),
+      color: color || (model.van ? this.pick(['#ecf0f1', '#f5f6fa', '#dfe6e9', '#ffeaa7']) : this.pick(CAR_COLORS)),
+      tag,
       plate: this.rng() < 0.35 ? this.pick(PLATES) : this.randomPlate(),
       badge: type === 'disabled' ? !illegal : this.rng() < 0.08,
       permit: type === 'resident' ? !illegal : this.rng() < 0.1,
@@ -374,6 +389,15 @@ export class Game {
   laneEnd(spot) {
     const lane = spot.roadC + spot.side * 18;
     return spot.o === 'h' ? [spot.x + spot.side * 170, lane] : [lane, spot.y - spot.side * 170];
+  }
+
+  moveCarTo(car, spot) {
+    this.spotCar[car.spotId] = 0;
+    this.spotCar[spot.id] = car.id;
+    car.spotId = spot.id;
+    car.state = 'nudged'; car.anim = 0;
+    car.fromX = car.x; car.fromY = car.y; car.toX = spot.x; car.toY = spot.y;
+    for (const w of this.wardens.values()) if (w.writing && w.writing.carId === car.id) w.writing = null;
   }
 
   carOffence(car) {
@@ -444,7 +468,7 @@ export class Game {
       const [tx, ty] = this.curbPoint(spot, LANE_OUT + 8);
       const dd = dist(d.x, d.y, tx, ty);
       if (dd > 3 && car.state === 'parked') {
-        const sp = 60 * dt;
+        const sp = 60 * this.mods.driverSpeed * dt;
         d.x += ((tx - d.x) / dd) * Math.min(sp, dd);
         d.y += ((ty - d.y) / dd) * Math.min(sp, dd);
         continue;
@@ -534,7 +558,10 @@ export class Game {
     let t = CHARACTER_BY_ID[w.charId].writeTime;
     if (w.buffs.tea > this.t) t *= 0.7;
     if (w.buffs.scrawl > this.t) t = 0.12;
-    else if (w.bot) t *= 1.7;
+    else {
+      if (w.bot) t *= 1.7;
+      t *= this.mods.write;
+    }
     return t;
   }
 
@@ -556,8 +583,9 @@ export class Game {
     car.ticketedBy = w.id;
     if (off) {
       const o = OFFENCES[off];
-      let pts = o.points;
+      let pts = o.points + (car.tag === 'wedding' ? 2 : car.tag === 'icecream' ? 4 : 0);
       if (w.buffs.veteran > 0) { pts *= 2; w.buffs.veteran--; }
+      pts *= this.mods.points;
       w.score += pts;
       w.stats.tickets++;
       if (w.ai) w.ai.pauseUntil = this.t + this.r(2.5, 5); // admire their handiwork
@@ -567,9 +595,10 @@ export class Game {
       this.feed(`${w.name} fined ${an(car.model)} [${car.plate}]: ${this.pick(o.reasons)}.`);
     } else {
       car.wrongTicket = true;
-      w.score = Math.max(0, w.score - 1);
+      const penalty = this.mods.complaint;
+      w.score = Math.max(0, w.score - penalty);
       w.stats.complaints++;
-      this.float(car.x, car.y - 18, 'COMPLAINT -1', '#ff7675');
+      this.float(car.x, car.y - 18, `COMPLAINT -${penalty}`, '#ff7675');
       this.charBark(w, 'complaint', 1, true);
       this.sfx('complaint');
       this.say(this.fill(this.pick(RADIO.complaint), { name: w.name.split(' ')[0] }), 5);
@@ -628,11 +657,7 @@ export class Game {
           if (d < bd) { bd = d; best = s; }
         }
         if (!best) return this.fail(w, 'No illegal spots free. Curses.');
-        this.spotCar[from.id] = 0;
-        this.spotCar[best.id] = car.id;
-        car.spotId = best.id;
-        car.state = 'nudged'; car.anim = 0;
-        car.fromX = car.x; car.fromY = car.y; car.toX = best.x; car.toY = best.y;
+        this.moveCarTo(car, best);
         this.float(car.x, car.y - 18, 'REPOSITIONED', '#55efc4');
         this.feed(`${w.name} "repositioned" ${an(car.model)} onto ${this.spotTypes[best.id] === 'bus' ? 'a bus stop' : 'double yellows'}.`);
       },
@@ -749,6 +774,92 @@ export class Game {
     }
   }
 
+  // ------------------------------------------------------------- events
+  get mods() {
+    const id = this.event && this.event.id;
+    return {
+      points: id === 'inspection' ? 2 : 1,
+      complaint: id === 'inspection' ? 3 : 1,
+      write: id === 'rain' ? 1.5 : 1,
+      driverSpeed: id === 'rain' ? 1.9 : 1,
+      illegal: id === 'rushhour' ? 0.8 : TUNING.illegalChance,
+      occupancy: id === 'rushhour' ? 0.78 : TUNING.occupancy,
+      spawnRate: id === 'rushhour' ? 3 : 1
+    };
+  }
+
+  startEvent(id) {
+    const def = EVENT_BY_ID[id];
+    if (!def) return;
+    this.event = { id, until: Math.min(this.shiftT + def.duration, this.shiftLength - 1), next: this.shiftT + 9 };
+    this.say(this.pick(def.start), 7);
+    this.nextRadio = Math.max(this.nextRadio, this.shiftT + 15);
+    this.feed(`${def.icon} ${def.name}! ${def.desc}`);
+    this.emit({ k: 'event', id });
+    this.sfx('event');
+    if (id === 'inspection') {
+      const road = this.pick(H_ROADS);
+      const o = { id: this.id(), type: 'inspector', x: this.rng() < 0.5 ? 20 : WORLD.w - 20, y: road, until: this.t + 999, bark: null, nextBark: this.t + 3 };
+      this.objects.set(o.id, o);
+    } else if (id === 'wedding') {
+      const model = { name: 'Wedding Car (ribbons, honking)', len: 48 };
+      for (let i = 0; i < 6; i++) this.spawnCar(false, { onlyTypes: ['yellow', 'bus'], tag: 'wedding', model, color: '#fdfdfd', stay: def.duration - 2 });
+    } else if (id === 'icecream') {
+      this.spawnCar(false, { onlyTypes: ['yellow', 'bus'], tag: 'icecream', model: { name: 'Mr Whippy (rogue)', len: 50, van: true }, color: '#ffeaa7', stay: def.duration + 5 });
+      this.sfx('jingle');
+    }
+  }
+
+  endEvent() {
+    const def = EVENT_BY_ID[this.event.id];
+    this.say(this.pick(def.end), 6);
+    for (const o of this.objects.values()) if (o.type === 'inspector') this.objects.delete(o.id);
+    for (const c of this.cars.values()) {
+      if (c.tag === 'icecream' && c.state !== 'leaving' && !c.ticketedBy) {
+        this.float(c.x, c.y - 18, '🍦 GOT AWAY', '#ffeaa7');
+        this.beginLeaving(c);
+      }
+    }
+    this.event = null;
+  }
+
+  updateEvent(dt) {
+    const ev = this.event;
+    if (!ev) {
+      if (this.eventQueue.length && this.shiftT >= this.eventQueue[0].at) this.startEvent(this.eventQueue.shift().id);
+      return;
+    }
+    if (this.shiftT >= ev.until) { this.endEvent(); return; }
+    if (ev.id === 'inspection') {
+      const def = EVENT_BY_ID.inspection;
+      for (const o of this.objects.values()) {
+        if (o.type !== 'inspector') continue;
+        // Loom behind whichever warden is closest. Menacingly. With a clipboard.
+        let target = null; let bd = Infinity;
+        for (const w of this.wardens.values()) { const d = dist(w.x, w.y, o.x, o.y); if (d < bd) { bd = d; target = w; } }
+        if (target && bd > 45) {
+          const sp = 75 * dt;
+          o.x += ((target.x - o.x) / bd) * sp;
+          o.y += ((target.y - o.y) / bd) * sp;
+        }
+        if (this.t > o.nextBark) { o.nextBark = this.t + this.r(4, 7); this.bark(o, this.pick(def.barks), 3, true); }
+      }
+    } else if (ev.id === 'icecream' && this.shiftT >= ev.next) {
+      ev.next = this.shiftT + 9;
+      for (const c of this.cars.values()) {
+        if (c.tag !== 'icecream' || c.state !== 'parked' || c.ticketedBy || c.clampedUntil > this.t) continue;
+        const spots = this.map.spots.filter((s) => !this.spotCar[s.id] && ['yellow', 'bus'].includes(this.spotTypes[s.id]));
+        if (!spots.length) continue;
+        this.float(c.x, c.y - 18, '🍦 *Greensleeves*', '#ffeaa7');
+        const dest = this.pick(spots);
+        this.moveCarTo(c, dest);
+        [c.fromX, c.fromY] = this.laneStart(dest); // pops up round the corner, as they do
+        c.x = c.fromX; c.y = c.fromY;
+        this.sfx('jingle');
+      }
+    }
+  }
+
   // ------------------------------------------------------------- bots
   corridorsOf(x, y) {
     const out = [];
@@ -858,9 +969,10 @@ export class Game {
       this.shiftT += dt;
       this.nextSpawn -= dt;
       const occupied = this.spotCar.filter(Boolean).length;
-      if (this.nextSpawn <= 0 && occupied < this.map.spots.length * TUNING.occupancy) {
+      const mods = this.mods;
+      if (this.nextSpawn <= 0 && occupied < this.map.spots.length * mods.occupancy) {
         this.spawnCar();
-        this.nextSpawn = this.r(0.35, 0.9) / Math.max(1, this.wardens.size * 0.6);
+        this.nextSpawn = this.r(0.35, 0.9) / (Math.max(1, this.wardens.size * 0.6) * mods.spawnRate);
       }
       if (this.shiftT > this.nextRadio) {
         this.nextRadio = this.shiftT + this.r(25, 40);
@@ -873,6 +985,7 @@ export class Game {
         this.say(this.fill(RADIO.halfway[0], { team, teamq: this.quota * this.wardens.size }));
       }
       if (!this.saidMinute && left < 60) { this.saidMinute = true; this.say(RADIO.minute[0]); }
+      this.updateEvent(dt);
       this.updateCars(dt);
       this.updateDrivers(dt);
     }
@@ -924,12 +1037,14 @@ export class Game {
         off: this.carOffence(c),
         paid: this.spotTypes[c.spotId] === 'meter' ? this.shiftT <= c.paidUntil : null,
         ticket: c.ticketedBy ? (c.wrongTicket ? 'wrong' : 'ok') : null,
-        clamped: c.clampedUntil > t
+        clamped: c.clampedUntil > t,
+        tag: c.tag
       })),
       drivers: [...this.drivers.values()].map((d) => ({
         id: d.id, x: Math.round(d.x), y: Math.round(d.y), shirt: d.shirt, frozen: d.frozenUntil > t, bark: bark(d.bark)
       })),
-      objects: [...this.objects.values()].map((o) => ({ id: o.id, type: o.type, x: Math.round(o.x), y: Math.round(o.y) })),
+      objects: [...this.objects.values()].map((o) => ({ id: o.id, type: o.type, x: Math.round(o.x), y: Math.round(o.y), bark: bark(o.bark) })),
+      event: this.event ? { id: this.event.id, name: EVENT_BY_ID[this.event.id].name, icon: EVENT_BY_ID[this.event.id].icon, desc: EVENT_BY_ID[this.event.id].desc, left: Math.max(0, Math.ceil(this.event.until - this.shiftT)) } : null,
       radio: this.radio && this.radio.until > t ? this.radio.text : null,
       results: this.results,
       events

@@ -43,7 +43,7 @@
           </label>
           <button id="solo" class="btn primary">Clock on</button>
         </div>
-        <div class="mode">
+        <div class="mode" id="mp-mode">
           <h2>Multiplayer</h2>
           <button id="create" class="btn">Create room</button>
           <div class="join-row">
@@ -78,6 +78,8 @@
       <div class="bar thin"><div id="hud-teambar"></div></div>
     </div>
     <div class="top-right card" id="hud-board"></div>
+    <div class="event-banner hidden" id="hud-event"></div>
+    <div class="event-splash hidden" id="event-splash"></div>
     <div class="feed" id="hud-feed"></div>
     <div class="ability card" id="hud-ability">
       <div class="ab-name" id="ab-name"></div>
@@ -88,7 +90,10 @@
     <div class="inspect card hidden" id="hud-inspect"></div>
     <div class="radio hidden" id="hud-radio"><span class="radio-who">📻 DENNIS, CONTROL</span><span id="radio-text"></span></div>
     <div class="lobby card hidden" id="hud-lobby"></div>
-    <button id="mute" class="mute" title="Mute (M)">🔊</button>
+    <div class="hud-buttons">
+      <button id="mute" title="Mute (M)">🔊</button>
+      <button id="quit" title="Clock off (Esc)">✕</button>
+    </div>
   </div>
 
   <!-- touch controls, shown on touch devices only -->

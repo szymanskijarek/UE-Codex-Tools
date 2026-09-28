@@ -13,7 +13,7 @@
 * { box-sizing: border-box; }
 html, body { margin: 0; height: 100%; background: var(--ink); color: #f5f5f5; font-family: var(--font); overflow: hidden; }
 canvas#game { position: fixed; inset: 0; width: 100vw; height: 100vh; display: block; }
-.hidden { display: none !important; }
+.hidden, [hidden] { display: none !important; }
 
 /* ------------------------------------------------------------- overlays */
 .overlay {
@@ -116,7 +116,28 @@ kbd { background: #2d3139; border: 1px solid #555; border-bottom-width: 3px; bor
 .lobby .code { font-size: 40px; font-weight: 900; letter-spacing: 10px; color: var(--ticket); }
 .lobby .btns { display: flex; gap: 8px; justify-content: center; margin-top: 10px; flex-wrap: wrap; }
 .lobby .btn { font-size: 13px; padding: 8px 14px; }
-.mute { position: absolute; bottom: 10px; left: 280px; pointer-events: auto; background: var(--card); border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; font-size: 16px; padding: 6px 9px; cursor: pointer; }
+.hud-buttons { position: absolute; bottom: 10px; left: 280px; display: flex; gap: 6px; pointer-events: auto; }
+.modes.solo-only { grid-template-columns: 1fr; }
+.hud-buttons button.armed { width: auto; padding: 0 10px; font-size: 13px; font-weight: 700; background: #b91c1c; }
+.hud-buttons button { background: var(--card); color: #fff; border: 1px solid rgba(255,255,255,0.1); border-radius: 8px; font-size: 16px; width: 36px; height: 34px; cursor: pointer; }
+
+/* --------------------------------------------------------------- events */
+.event-banner { position: absolute; top: 96px; left: 50%; transform: translateX(-50%); width: min(440px, 60vw); background: linear-gradient(90deg, #7c2d12, #a16207); border: 2px solid #fbbf24; border-radius: 10px; padding: 6px 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.4); }
+.event-banner .ev-icon { font-size: 18px; margin-right: 6px; }
+.event-banner .ev-name { font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #fde68a; }
+.event-banner .ev-left { float: right; margin-left: 10px; font-weight: 800; font-variant-numeric: tabular-nums; color: #fff; }
+.event-banner .ev-desc { font-size: 12px; color: #fff7e0; margin-top: 2px; }
+.event-splash { position: absolute; top: 34%; left: 50%; transform: translate(-50%, -50%); text-align: center; background: rgba(20,22,27,0.92); border: 3px solid #fbbf24; border-radius: 16px; padding: 18px 28px; width: min(460px, 88vw); animation: splash 3.2s ease forwards; }
+.event-splash .icon { font-size: 48px; }
+.event-splash .name { font-size: 28px; font-weight: 900; color: #fde68a; text-transform: uppercase; letter-spacing: 2px; }
+.event-splash .desc { color: #e5e7eb; margin-top: 6px; }
+@keyframes splash {
+  0% { opacity: 0; transform: translate(-50%, -50%) scale(0.6) rotate(-4deg); }
+  10% { opacity: 1; transform: translate(-50%, -50%) scale(1.06) rotate(1deg); }
+  16% { transform: translate(-50%, -50%) scale(1) rotate(0); }
+  85% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -60%) scale(0.95); }
+}
 
 /* -------------------------------------------------------------- results */
 .results-inner h1 { text-align: center; color: var(--ticket); margin: 8px 0 2px; }
@@ -150,8 +171,45 @@ kbd { background: #2d3139; border: 1px solid #555; border-bottom-width: 3px; bor
 @media (max-width: 720px) {
   .modes { grid-template-columns: 1fr; }
   .ticket-logo .fine { font-size: 40px; }
-  .feed, .inspect { display: none; }
-  .ability { width: 200px; }
-  .mute { left: 220px; }
-  .top-right { font-size: 11px; min-width: 140px; }
+}
+
+/* Phones, portrait or landscape: a compact two-row HUD that leaves room for thumbs. */
+@media (max-width: 720px), (max-height: 500px) {
+  .card { padding: 5px 8px; }
+  .feed, .inspect, .ab-desc, .ab-key, .controls { display: none; }
+  .top-left { top: 8px; left: 8px; min-width: 70px; }
+  .timer { font-size: 18px; }
+  .top-center { top: 8px; left: 86px; right: 8px; width: auto; transform: none; }
+  .quota-label { font-size: 11px; }
+  .hud-buttons { top: 66px; right: 8px; left: auto; bottom: auto; }
+  .top-right { top: 106px; right: 8px; min-width: 112px; max-width: 112px; font-size: 11px; }
+  .event-banner { top: 66px; left: 8px; right: 128px; width: auto; transform: none; padding: 4px 8px; }
+  .event-banner .ev-desc { font-size: 10px; }
+  .radio { top: 136px; bottom: auto; left: 8px; right: 128px; max-width: none; transform: none; font-size: 12px; padding: 6px 10px; }
+  .ability { left: 50%; bottom: 8px; transform: translateX(-50%); width: 170px; text-align: center; }
+  .ability .ab-name { font-size: 13px; }
+  .lobby { top: 66px; }
+  .lobby .code { font-size: 30px; }
+  .event-splash .name { font-size: 20px; }
+  .event-splash .icon { font-size: 36px; }
+  .stick, .touch-buttons { bottom: 64px; }
+  .stick { left: 16px; width: 120px; height: 120px; }
+  .knob { left: 35px; top: 35px; }
+  .touch-buttons { right: 12px; }
+  .overlay { padding: 12px 10px; }
+}
+@media (max-width: 720px), (max-height: 500px) {
+  .quota-label.team, .bar.thin { display: none; }
+  .hud-buttons { top: 52px; }
+  .top-right { top: 92px; }
+  .event-banner { top: 52px; }
+  .radio { top: 122px; }
+}
+@media (max-height: 500px) {
+  .stick, .touch-buttons { bottom: 20px; }
+  .ability { bottom: 6px; width: 150px; }
+  .event-banner .ev-desc { display: none; }
+  .event-banner { right: auto; max-width: 60vw; }
+  .radio { top: auto; bottom: 62px; left: 50%; right: auto; transform: translateX(-50%); width: min(380px, 44vw); font-size: 11px; }
+  .top-right .row:nth-child(n+4) { display: none; }
 }

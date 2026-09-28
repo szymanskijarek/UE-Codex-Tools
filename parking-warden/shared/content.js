@@ -311,3 +311,42 @@ export const SUPERVISOR_REVIEWS = {
 export const STREETS = ['Chapel Street', 'Grimsby Road', 'Mafeking Terrace', 'Pudding Lane', 'Station Approach'];
 
 export const SHOPS = ['GREGGSY\'S', 'CURL UP & DYE', 'COD ALMIGHTY', 'VAPE ESCAPE', 'POUND PLUS PLUS', 'FLORIST GUMP', 'TAN-TASTIC', 'BREW-TIFUL', 'PLAICE OF WORSHIP', 'SOLE MAN SHOES', 'LORD OF THE FRIES', 'KNICKERBOCKER GLORY', 'HAIR FORCE ONE', 'NAILED IT', 'WOK THIS WAY', 'THE DEPOT', 'THAI TANIC', 'SPEC-TACULAR'];
+
+// Mid-shift events. Two fire per shift; each bends the rules for a while.
+export const EVENTS = [
+  {
+    id: 'inspection', name: 'Council Inspection', icon: '🕵️', duration: 30,
+    desc: 'Inspector Hargreaves is watching. Tickets score DOUBLE, complaints cost 3.',
+    start: ["Control: Inspector Hargreaves from the council is on site. Everybody look busy. Nigel, stop saluting.", "Control: council inspection, NOW. Double points. If you ticket a legal car I will personally cry."],
+    end: ['Control: the inspector has left. He gave us a "satisfactory minus". Best result since 2009.'],
+    barks: ['Hmm.', '*writes something down*', 'Is that a biro? Interesting.', 'I\'ll be noting that.', 'Carry on. Don\'t mind me.', 'Your vest is 3% less visible than regulation.', '*sniffs clipboard*']
+  },
+  {
+    id: 'wedding', name: 'Wedding Convoy', icon: '💒', duration: 25,
+    desc: 'A wedding party has parked EVERYWHERE illegal. Ribboned cars are worth +2 extra.',
+    start: ['Control: a wedding convoy has just abandoned six cars on the double yellows. Congratulations to the happy couple. Fine them.', "Control: wedding party at the registry office. They've parked like they're in love. Which is to say, badly."],
+    end: ['Control: the wedding convoy has driven off, honking. Somebody cried. Might have been Kevin.'],
+    barks: []
+  },
+  {
+    id: 'icecream', name: 'Rogue Ice Cream Van', icon: '🍦', duration: 35,
+    desc: 'An ice cream van keeps parking illegally, then moving before you get there. Worth +4 extra.',
+    start: ['Control: Mr Whippy is back. He parks, he sells, he vanishes. Catch that van.', 'Control: reports of an ice cream van playing Greensleeves on a bus stop. This is personal.'],
+    end: ['Control: the ice cream van has escaped to the next town. We will meet again, Mr Whippy.'],
+    barks: []
+  },
+  {
+    id: 'rain', name: 'Sudden Downpour', icon: '🌧️', duration: 25,
+    desc: 'Tickets smudge: writing is 50% slower. Drivers sprint back to their cars.',
+    start: ["Control: it's chucking it down. Keep your tickets dry. Brenda, you can't laminate them in advance."],
+    end: ['Control: rain has stopped. Please wring out your hats before entering the depot.'],
+    barks: []
+  },
+  {
+    id: 'rushhour', name: 'School Run', icon: '🚸', duration: 25,
+    desc: 'Parents are abandoning cars wherever they like. Lots of offenders, very quickly.',
+    start: ['Control: school run. Parents are parking on anything flat. Godspeed.', "Control: it's the school run. Chelsea tractors inbound. May God have mercy on the bus stops."],
+    end: ['Control: school run over. The parents have gone. Silence returns to the land.'],
+    barks: []
+  }
+];

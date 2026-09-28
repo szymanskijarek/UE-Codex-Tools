@@ -161,3 +161,64 @@ test('snapshot is JSON-serialisable and drains events', () => {
   assert.ok(JSON.stringify(s).length > 100);
   assert.equal(g.snapshot().events.length, 0);
 });
+
+test('two distinct events are scheduled each shift', () => {
+  const g = freshGame();
+  assert.equal(g.eventQueue.length, 2);
+  assert.notEqual(g.eventQueue[0].id, g.eventQueue[1].id);
+  assert.ok(g.eventQueue[0].at < g.eventQueue[1].at);
+});
+
+test('council inspection doubles points and triples complaints', () => {
+  const g = freshGame(); clearOtherCars(g);
+  g.startEvent('inspection');
+  assert.ok([...g.objects.values()].some((o) => o.type === 'inspector'));
+  parkAt(g, 'bus');
+  holdWrite(g, 1.6);
+  assert.equal(g.wardens.get('me').score, 4); // bus stop 2 × 2
+  parkAt(g, 'free');
+  holdWrite(g, 1.6);
+  assert.equal(g.wardens.get('me').score, 1);
+  assert.equal(g.snapshot().event.id, 'inspection');
+});
+
+test('events end on time and clean up', () => {
+  const g = freshGame();
+  g.startEvent('inspection');
+  for (let i = 0; i < 32 * 30; i++) g.step(1 / 30);
+  assert.equal(g.event, null);
+  assert.ok(![...g.objects.values()].some((o) => o.type === 'inspector'));
+});
+
+test('wedding convoy parks ribboned offenders worth extra', () => {
+  const g = freshGame(); clearOtherCars(g);
+  g.startEvent('wedding');
+  const wedding = [...g.cars.values()].filter((c) => c.tag === 'wedding');
+  assert.ok(wedding.length >= 3);
+  for (let i = 0; i < 45; i++) g.step(1 / 30); // let them roll in
+  const car = wedding[0];
+  const me = g.wardens.get('me');
+  const spot = g.spot(car.spotId);
+  if (spot.o === 'h') { me.x = spot.x; me.y = spot.roadC + spot.side * 20; } else { me.x = spot.roadC + spot.side * 20; me.y = spot.y; }
+  const before = me.score;
+  holdWrite(g, 1.6);
+  assert.ok(me.score - before >= 3, 'yellow/bus points + 2 wedding bonus');
+});
+
+test('the rogue ice cream van relocates until ticketed', () => {
+  const g = freshGame(); clearOtherCars(g);
+  g.startEvent('icecream');
+  const van = [...g.cars.values()].find((c) => c.tag === 'icecream');
+  assert.ok(van);
+  const spots = new Set([van.spotId]);
+  for (let i = 0; i < 30 * 30; i++) { g.step(1 / 30); spots.add(van.spotId); }
+  assert.ok(spots.size >= 3, `van visited ${spots.size} spots`);
+});
+
+test('rain slows writing', () => {
+  const g = freshGame();
+  const me = g.wardens.get('me');
+  const dry = g.writeTimeOf(me);
+  g.startEvent('rain');
+  assert.equal(g.writeTimeOf(me), dry * 1.5);
+});

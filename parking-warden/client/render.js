@@ -53,9 +53,26 @@ export class Renderer {
     const w = this.canvas.clientWidth; const h = this.canvas.clientHeight;
     this.canvas.width = Math.round(w * dpr); this.canvas.height = Math.round(h * dpr);
     const W = this.map.world.w; const H = this.map.world.h;
-    this.scale = Math.min(w / W, h / H) * dpr;
+    const fit = Math.min(w / W, h / H);
+    // Small screens (phones) can't show the whole town legibly: zoom in and follow the player.
+    this.follow = fit < 0.62;
+    const css = this.follow ? Math.min(0.8, Math.max(fit, Math.min(w, h) / 560)) : fit;
+    this.scale = css * dpr;
     this.ox = (this.canvas.width - W * this.scale) / 2;
     this.oy = (this.canvas.height - H * this.scale) / 2;
+    this.cam = null;
+  }
+
+  updateCamera(focus, dt) {
+    if (!this.follow || !focus) return;
+    const W = this.map.world.w; const H = this.map.world.h;
+    if (!this.cam) this.cam = { x: focus.x, y: focus.y };
+    const k = 1 - Math.exp(-dt * 6);
+    this.cam.x += (focus.x - this.cam.x) * k; this.cam.y += (focus.y - this.cam.y) * k;
+    const cw = this.canvas.width; const ch = this.canvas.height;
+    const axis = (size, view, c) => (size * this.scale <= view ? (view - size * this.scale) / 2 : Math.min(0, Math.max(view - size * this.scale, view / 2 - c * this.scale)));
+    this.ox = axis(W, cw, this.cam.x);
+    this.oy = axis(H, ch, this.cam.y);
   }
 
   // -------------------------------------------------------------- static
@@ -243,13 +260,13 @@ export class Renderer {
   draw(snap, myId, dt, { exact = false } = {}) {
     this.time += dt;
     const ctx = this.ctx;
+    const me = snap && (snap.wardens.find((w) => w.id === myId) || (!myId && snap.wardens[0]));
+    this.updateCamera(me, dt);
     ctx.setTransform(1, 0, 0, 1, 0, 0);
     ctx.fillStyle = '#1d1f24'; ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     ctx.setTransform(this.scale, 0, 0, this.scale, this.ox, this.oy);
     ctx.drawImage(this.base, 0, 0, this.map.world.w, this.map.world.h);
     if (!snap) return;
-
-    const me = snap.wardens.find((w) => w.id === myId);
     const reveal = me && me.buffs.reveal;
     const types = new Map(snap.spotTypes);
 
@@ -287,9 +304,10 @@ export class Renderer {
     }
 
     for (const o of snap.objects) if (o.type === 'cone') this.drawCone(ctx, o);
+    for (const o of snap.objects) if (o.type === 'inspector') this.drawInspector(ctx, o, dt, exact);
 
     // offence tells: close to you, or everywhere when the drone is up
-    if (me) {
+    if (me && myId) {
       for (const car of snap.cars) {
         if (car.state !== 'parked' || car.ticket) continue;
         const d = Math.hypot(car.x - me.x, car.y - me.y);
@@ -309,6 +327,7 @@ export class Renderer {
 
     // speech on top of everything
     for (const d of snap.drivers) if (d.bark) { const p = this.disp.get('d' + d.id); this.bubble(ctx, p.x, p.y - 14, d.bark, '#fff4e6'); }
+    for (const o of snap.objects) if (o.bark) { const p = this.disp.get('o' + o.id) || o; this.bubble(ctx, p.x, p.y - 20, o.bark, '#e8f0ff'); }
     for (const w of wardens) if (w.bark) { const p = wpos.get(w.id); this.bubble(ctx, p.x, p.y - 24, w.bark, w.id === myId ? '#fffbd1' : '#ffffff'); }
     this.ghosts = this.ghosts.filter((g) => (g.life -= dt) > 0);
     for (const g of this.ghosts) { ctx.globalAlpha = Math.min(1, g.life); this.bubble(ctx, g.x, g.y - 14, g.text, '#fff4e6'); ctx.globalAlpha = 1; }
@@ -333,7 +352,9 @@ export class Renderer {
     }
     ctx.globalAlpha = 1;
 
-    if (me && me.dazzled) {
+    if (snap.event && snap.event.id === 'rain') this.drawRain(ctx);
+
+    if (me && myId && me.dazzled) {
       ctx.setTransform(1, 0, 0, 1, 0, 0);
       const flick = 0.72 + Math.sin(this.time * 30) * 0.08;
       ctx.fillStyle = `rgba(255,255,225,${flick})`; ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
@@ -382,6 +403,20 @@ export class Renderer {
       ctx.fillStyle = car.ticket === 'wrong' ? '#fd79a8' : '#ffd32a';
       ctx.fillRect(L * 0.12 + 1, -5, 7, 10);
       ctx.fillStyle = 'rgba(0,0,0,0.5)'; ctx.fillRect(L * 0.12 + 2, -3, 5, 1); ctx.fillRect(L * 0.12 + 2, 0, 5, 1);
+    }
+    if (car.tag === 'wedding') {
+      ctx.strokeStyle = '#ff7eb6'; ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.moveTo(-L / 2 + 4, -W / 2); ctx.lineTo(L / 2 - 4, W / 2); ctx.moveTo(-L / 2 + 4, W / 2); ctx.lineTo(L / 2 - 4, -W / 2); ctx.stroke();
+      ctx.fillStyle = '#ff7eb6'; ctx.beginPath(); ctx.arc(0, 0, 4, 0, Math.PI * 2); ctx.fill();
+      ctx.strokeStyle = '#999'; ctx.lineWidth = 1; // tin cans on strings
+      for (const dy of [-6, 0, 6]) { ctx.beginPath(); ctx.moveTo(-L / 2, dy / 2); ctx.lineTo(-L / 2 - 10, dy); ctx.stroke(); ctx.fillStyle = '#ccc'; ctx.fillRect(-L / 2 - 14, dy - 2, 4, 4); }
+    } else if (car.tag === 'icecream') {
+      ctx.fillStyle = '#ff9ff3';
+      for (let k = -L / 2 + 6; k < L / 2 - 14; k += 8) ctx.fillRect(k, -W / 2 + 3, 4, W - 6);
+      ctx.save(); ctx.rotate(car.o === 'v' ? -Math.PI / 2 : 0);
+      ctx.font = '14px sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+      ctx.fillText('🍦', 0, -2 + Math.sin(this.time * 6) * 2);
+      ctx.restore();
     }
     if (car.clamped) {
       ctx.strokeStyle = '#ffd32a'; ctx.lineWidth = 3;
@@ -473,6 +508,42 @@ export class Renderer {
       ctx.beginPath(); ctx.moveTo(o.x - 4 + k * 4, o.y - 14 - t * 16); ctx.quadraticCurveTo(o.x + 2 + k * 4, o.y - 20 - t * 16, o.x - 4 + k * 4, o.y - 26 - t * 16); ctx.stroke();
     }
     ctx.globalAlpha = 1;
+  }
+
+  drawInspector(ctx, o, dt, exact) {
+    const p = this.smooth('o' + o.id, o.x, o.y, dt, exact);
+    const { x, y } = p;
+    ctx.fillStyle = 'rgba(0,0,0,0.25)'; ctx.beginPath(); ctx.ellipse(x, y + 12, 12, 4, 0, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#4b5563'; ctx.beginPath(); ctx.arc(x, y, 12, 0, Math.PI * 2); ctx.fill();   // grey council suit
+    ctx.fillStyle = '#b91c1c'; ctx.fillRect(x - 1.5, y - 4, 3, 12);                                  // tie
+    ctx.fillStyle = '#f0d0b0'; ctx.beginPath(); ctx.arc(x, y - 3, 6, 0, Math.PI * 2); ctx.fill();
+    ctx.fillStyle = '#111'; ctx.beginPath(); ctx.ellipse(x, y - 6, 9, 3, 0, 0, Math.PI * 2); ctx.fill(); // bowler hat
+    ctx.beginPath(); ctx.arc(x, y - 7, 5, Math.PI, 0); ctx.fill();
+    ctx.fillStyle = '#c8a26b'; ctx.fillRect(x + 8, y - 2, 9, 12);                                   // clipboard
+    ctx.fillStyle = '#fff'; ctx.fillRect(x + 9.5, y, 6, 8);
+    ctx.font = 'bold 10px "Trebuchet MS", sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+    ctx.fillStyle = 'rgba(75,85,99,0.9)'; roundRect(ctx, x - 36, y + 15, 72, 13, 6); ctx.fill();
+    ctx.fillStyle = '#fff'; ctx.fillText('INSPECTOR', x, y + 22);
+    // the all-seeing gaze
+    ctx.strokeStyle = 'rgba(185,28,28,0.35)'; ctx.lineWidth = 2; ctx.setLineDash([3, 5]);
+    ctx.beginPath(); ctx.arc(x, y, 60 + Math.sin(this.time * 3) * 4, 0, Math.PI * 2); ctx.stroke(); ctx.setLineDash([]);
+  }
+
+  drawRain(ctx) {
+    ctx.save();
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
+    const cw = this.canvas.width; const ch = this.canvas.height;
+    ctx.fillStyle = 'rgba(40,60,90,0.22)'; ctx.fillRect(0, 0, cw, ch);
+    ctx.strokeStyle = 'rgba(200,220,255,0.45)'; ctx.lineWidth = 1.5;
+    ctx.beginPath();
+    const n = Math.floor((cw * ch) / 9000);
+    for (let i = 0; i < n; i++) {
+      const sx = (i * 97.13) % cw; const sy = (i * 61.7 + this.time * 900) % ch;
+      const x = (sx + sy * 0.25) % cw;
+      ctx.moveTo(x, sy); ctx.lineTo(x - 5, sy + 16);
+    }
+    ctx.stroke();
+    ctx.restore();
   }
 
   bubble(ctx, x, y, text, bg) {

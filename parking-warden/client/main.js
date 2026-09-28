@@ -1,7 +1,7 @@
 // Client entry: menu, input, HUD, and the solo/online session glue.
 
 import { Game } from '../shared/sim.js';
-import { CHARACTERS, CHARACTER_BY_ID, OFFENCES } from '../shared/content.js';
+import { CHARACTERS, CHARACTER_BY_ID, OFFENCES, EVENTS } from '../shared/content.js';
 import { Renderer } from './render.js';
 import { play, unlockAudio, toggleMute } from './audio.js';
 
@@ -51,6 +51,11 @@ $('name').addEventListener('input', () => store.set('fp.name', $('name').value))
 const params = new URLSearchParams(location.search);
 if (params.get('room')) $('code').value = params.get('room').toUpperCase();
 
+function setUrl(u) { try { history.replaceState(null, '', u); } catch { /* sandboxed: no URL updates */ } }
+
+// The single-file build (npm run build) has no server, so multiplayer is hidden there.
+if (window.FP_STANDALONE) { $('mp-mode').hidden = true; document.querySelector('.modes').classList.add('solo-only'); }
+
 function netStatus(text, err = false) { $('net-status').textContent = text; $('net-status').classList.toggle('err', err); }
 
 $('solo').addEventListener('click', () => { unlockAudio(); begin(new LocalSession(playerName(), selectedChar, +$('bots').value)); });
@@ -76,6 +81,7 @@ class LocalSession {
     this.game.addWarden('me', { name, charId });
     for (let i = 0; i < bots; i++) this.game.addBot();
     this.game.startShift();
+    if (params.get('event')) this.game.eventQueue[0] = { at: 2, id: params.get('event') }; // ?event=inspection to test events
   }
   isHost() { return true; }
   send(msg) {
@@ -122,7 +128,7 @@ function connect(code) {
     if (msg.t === 'error') { netStatus(msg.text, true); ws.close(); return; }
     if (msg.t === 'joined') {
       netStatus('');
-      history.replaceState(null, '', `?room=${msg.room}`);
+      setUrl(`?room=${msg.room}`);
       begin(new NetSession(ws, msg));
     }
   };
@@ -148,7 +154,8 @@ function leave() {
   $('hud').classList.add('hidden');
   $('results').classList.add('hidden');
   $('touch').classList.add('hidden');
-  history.replaceState(null, '', location.pathname);
+  $('event-splash').classList.add('hidden');
+  setUrl(location.pathname);
   renderChars();
   if (restartAttract) restartAttract();
 }
@@ -188,7 +195,7 @@ addEventListener('keydown', (e) => {
   if (e.code === 'KeyQ' || e.code === 'Space') session.send({ t: 'ability' });
   if (e.code === 'KeyF') session.send({ t: 'high5' });
   if (e.code === 'KeyM') muteToggle();
-  if (e.code === 'Escape' && $('results').classList.contains('hidden') && confirm('Clock off and return to the menu?')) leave();
+  if (e.code === 'Escape' && $('results').classList.contains('hidden')) askQuit();
 });
 addEventListener('keyup', (e) => keys.delete(e.code));
 addEventListener('blur', () => keys.clear());
@@ -196,6 +203,16 @@ addEventListener('resize', () => renderer && renderer.resize());
 
 function muteToggle() { $('mute').textContent = toggleMute() ? '🔇' : '🔊'; }
 $('mute').addEventListener('click', muteToggle);
+$('quit').addEventListener('click', askQuit);
+
+// Two-step clock off: first press arms the button, second press within 3s leaves.
+let quitArmed = 0;
+function askQuit() {
+  const b = $('quit');
+  if (quitArmed) { clearTimeout(quitArmed); quitArmed = 0; b.textContent = '✕'; b.classList.remove('armed'); leave(); return; }
+  b.textContent = 'Clock off?'; b.classList.add('armed');
+  quitArmed = setTimeout(() => { quitArmed = 0; b.textContent = '✕'; b.classList.remove('armed'); }, 3000);
+}
 
 // touch stick + buttons
 (function setupTouch() {
@@ -234,11 +251,23 @@ function handleEvents(events) {
   for (const e of events) {
     if (renderer) renderer.addEvent(e);
     if (e.k === 'sfx') play(e.s);
+    else if (e.k === 'event') showSplash(EVENTS.find((x) => x.id === e.id));
     else if (e.k === 'feed') { feedLines.push({ text: e.text, at: performance.now() }); if (feedLines.length > 5) feedLines.shift(); }
   }
 }
 
 // ================================================================= HUD ====
+
+let splashTimer = 0;
+function showSplash(def) {
+  if (!def) return;
+  const el = $('event-splash');
+  el.innerHTML = `<div class="icon">${def.icon}</div><div class="name">${esc(def.name)}</div><div class="desc">${esc(def.desc)}</div>`;
+  el.classList.remove('hidden');
+  el.style.animation = 'none'; void el.offsetWidth; el.style.animation = '';
+  clearTimeout(splashTimer);
+  splashTimer = setTimeout(() => el.classList.add('hidden'), 3200);
+}
 
 const cache = new Map();
 function setHTML(id, html) { if (cache.get(id) !== html) { cache.set(id, html); $(id).innerHTML = html; } }
@@ -279,6 +308,9 @@ function updateHUD(snap) {
 
   const now = performance.now();
   setHTML('hud-feed', feedLines.map((f) => `<div style="opacity:${Math.max(0.15, 1 - (now - f.at) / 12000).toFixed(2)}">${esc(f.text)}</div>`).join(''));
+
+  show('hud-event', !!snap.event);
+  if (snap.event) setHTML('hud-event', `<span class="ev-icon">${snap.event.icon}</span><span class="ev-name">${esc(snap.event.name)}</span><span class="ev-left">${snap.event.left}s</span><div class="ev-desc">${esc(snap.event.desc)}</div>`);
 
   show('hud-radio', !!snap.radio);
   if (snap.radio) setHTML('radio-text', esc(snap.radio));

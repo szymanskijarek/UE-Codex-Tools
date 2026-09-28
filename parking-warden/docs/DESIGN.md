@@ -59,9 +59,10 @@ this is acceptable.
 
 - **More towns:** seaside promenade (seagulls steal tickets), hospital car
   park (moral dilemmas), a festival.
-- **Events mid-shift:** council inspection (double points, no complaints
-  allowed), a wedding convoy, an ice cream van that moves every 20s, rain
-  (tickets smudge).
+- **More mid-shift events** (five ship today, see `EVENTS` in content.js and
+  `startEvent`/`updateEvent` in sim.js): a funeral procession (ticket it and
+  lose points, obviously), a film crew closing a street, a seagull that
+  steals your last ticket, the Mayor's Jaguar on a bus stop.
 - **Career mode:** unlock wardens, vest cosmetics, "Warden of the Month"
   wall in the depot, persistent grudges with named repeat-offender drivers.
 - **More interactions:** handing off tickets, "tag-team" clamps, arguing
