@@ -1,3 +1,5 @@
+// CSP-safe shader/uniform code paths: the artifact host and strict deployments forbid eval.
+import 'pixi.js/unsafe-eval';
 import { Application, Container, Graphics, Text, type TextStyleOptions } from 'pixi.js';
 import { bundle } from '@cc/content';
 import type { ArenaDef } from '@cc/content-schema';
@@ -61,12 +63,13 @@ export class BattleRenderer {
   private scale = 0.04;
   private arena!: ArenaDef;
   private ready = false;
+  private observer: ResizeObserver | null = null;
 
   constructor(private input: BattleInput) {}
 
   async mount(el: HTMLElement): Promise<void> {
     this.arena = bundle.arenas.find((a) => a.id === this.input.arenaId)!;
-    await this.app.init({ resizeTo: el, background: hex(this.arena.theme.wall), antialias: true, autoDensity: true, resolution: Math.min(2, window.devicePixelRatio || 1) });
+    await this.app.init({ preference: 'webgl', resizeTo: el, background: hex(this.arena.theme.wall), antialias: true, autoDensity: true, resolution: Math.min(2, window.devicePixelRatio || 1) });
     el.appendChild(this.app.canvas);
     this.bodies.sortableChildren = true;
     this.stage.addChild(this.floor, this.areas, this.bodies, this.fx);
@@ -76,10 +79,14 @@ export class BattleRenderer {
     this.app.stage.addChild(this.banner);
     this.layout();
     this.app.renderer.on('resize', () => this.layout());
+    // resizeTo only tracks window resizes; the stage box can change size on its own (fonts, wrapping, phones).
+    this.observer = new ResizeObserver(() => this.app.resize());
+    this.observer.observe(el);
     this.ready = true;
   }
 
   destroy(): void {
+    this.observer?.disconnect();
     if (this.ready) this.app.destroy(true, { children: true });
     this.ready = false;
   }
