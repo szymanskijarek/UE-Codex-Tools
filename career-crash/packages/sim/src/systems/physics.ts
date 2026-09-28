@@ -1,7 +1,7 @@
 import { clamp, dir1000, dist2, idiv, isqrt } from '../core/math';
 import type { Entity, World } from '../types';
 import { derived, emit, get, hasFlag, maskOverlap, removeEntity, tagsOf } from '../world';
-import { applyDamage, applyEffect, applyStatus, push } from './effects';
+import { applyDamage, applyEffect, applyStatus, push, removeStatus } from './effects';
 
 const GRAVITY = 12;
 const CHAR_FRICTION = 78;
@@ -98,6 +98,7 @@ export function physics(w: World): void {
       if (e.z <= 0) {
         e.z = 0;
         e.vz = 0;
+        if (e.kind !== 'prop' && e.tossedBy !== -1) land(w, e);
         if (e.flying) {
           e.flying = false;
           e.vx = idiv(e.vx, 4);
@@ -107,7 +108,7 @@ export function physics(w: World): void {
         }
       }
     }
-    if (!e.flying) {
+    if (!e.flying && !(e.kind !== 'prop' && e.z > 0)) {
       const f = slipping ? SLIP_FRICTION : e.kind === 'prop' ? PROP_FRICTION : CHAR_FRICTION;
       e.vx = idiv(e.vx * f, 100);
       e.vy = idiv(e.vy * f, 100);
@@ -161,6 +162,34 @@ function speedOf(e: Entity): number {
 
 function overlapRadius(e: Entity): number {
   return e.areaRadius > 0 ? e.areaRadius : e.radius;
+}
+
+/** A thrown character hits the floor. */
+function land(w: World, e: Entity): void {
+  const by = e.tossedBy;
+  const cause = e.tossCause;
+  const dmg = e.tossLand;
+  e.tossedBy = -1;
+  e.vx = idiv(e.vx * 3, 10);
+  e.vy = idiv(e.vy * 3, 10);
+  removeStatus(w, e, 'status.airborne', cause);
+  emit(w, 'landed', by, e.id, dmg, '', cause);
+  if (dmg > 0) applyDamage(w, e, dmg, 'blunt', by >= 0 ? by : e.id, cause, false);
+  if (e.kind === 'char' && e.state === 'active') applyEffect(w, { type: 'knockdown' }, e, { sourceId: by, cause, powerBp: 10000, scale: 'none' });
+}
+
+/** A flying body bowls over whoever it hits mid-air. */
+function bodyHit(w: World, flyer: Entity, other: Entity): void {
+  if (other.kind === 'prop') {
+    if (other.maxHp > 0) applyDamage(w, other, 12, 'blunt', flyer.tossedBy, flyer.tossCause);
+    push(w, other, flyer.x - flyer.vx, flyer.y - flyer.vy, 1500);
+    return;
+  }
+  if (other.state !== 'active' || other.id === flyer.tossedBy) return;
+  const ev = emit(w, 'hit', flyer.id, other.id, 0, 'body', flyer.tossCause);
+  applyDamage(w, other, 7, 'blunt', flyer.tossedBy >= 0 ? flyer.tossedBy : flyer.id, ev, false);
+  if (other.kind === 'char') applyEffect(w, { type: 'knockdown' }, other, { sourceId: flyer.tossedBy, cause: ev, powerBp: 10000, scale: 'none' });
+  push(w, other, flyer.x - flyer.vx, flyer.y - flyer.vy, 1800);
 }
 
 /** A patrolling machine meets something: run characters over, eat small props. */
@@ -280,7 +309,11 @@ export function contacts(w: World): void {
     if ((a.spawnedBy === b.id && a.age < 40) || (b.spawnedBy === a.id && b.age < 40)) continue;
     if (!w.contacts.has(pk)) {
       w.queue.push({ event: 'contact', a: a.id, b: b.id, status: '', cause: -1 });
-      if (a.moverSpeed > 0 && b.moverSpeed === 0) moverHit(w, a, b);
+      const flyingA = a.kind !== 'prop' && a.tossedBy !== -1 && a.z > 150;
+      const flyingB = b.kind !== 'prop' && b.tossedBy !== -1 && b.z > 150;
+      if (flyingA && !flyingB) bodyHit(w, a, b);
+      else if (flyingB && !flyingA) bodyHit(w, b, a);
+      else if (a.moverSpeed > 0 && b.moverSpeed === 0) moverHit(w, a, b);
       else if (b.moverSpeed > 0 && a.moverSpeed === 0) moverHit(w, b, a);
       else {
         if (a.kind === 'prop' && a.areaRadius === 0) impact(w, a, b);

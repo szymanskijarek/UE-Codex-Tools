@@ -179,6 +179,31 @@ Core v1 set:
   **Panic**: random fleeing, drops held item. Panicked characters are a
   primary comedy source and a real tactical weakness.
 
+### 5.6 Grapples, throws and ragdolls
+
+Contact is the heart of the comedy (think MDickie): characters get picked up,
+spun and thrown into each other.
+
+- **`toss` effect** `{distanceMm, heightMm, direction: away|behind|up,
+  landDamage}`. The victim drops whatever it holds, dismounts, becomes
+  **Airborne** (`state:airborne`, no actions) and follows an integer ballistic
+  arc (gravity 12 mm/tick²). `behind` = judo-style over-the-shoulder throw;
+  `away` aims the victim *at the nearest other enemy* within range, so bodies
+  are thrown into bodies; `up` = launch straight up.
+- A flying body (z > 150 mm) that touches another character deals 7 damage,
+  knocks them down and shoves them (`hit` with `s = "body"`), and smashes or
+  pushes props in its path — the bowling-pin effect.
+- Landing emits `landed` (damage = `landDamage`) and knocks the victim down.
+- Grapple abilities: Bouncer Toss (Security), Fireman's Carry (Firefighter),
+  Judo Takedown (Police), Body Slam (Builder), Deadlift Suplex (Trainer),
+  Pitchfork Toss (Farmer), Return to Sender (Delivery), Belly Flop
+  (Lifeguard), Crowd Surf (DJ), Giant Swing (Aggressive personality); big
+  knockbacks (Drop the Bass, Honk, Table Flip, Haymaker, ...) became small
+  tosses.
+- The client layers a cosmetic Verlet **ragdoll** over any airborne, knocked
+  down, downed or KO'd character: limbs flop, bodies tumble in the air and
+  settle on the floor. It is purely visual; the sim still owns positions.
+
 ---
 
 ## 6. AI decision system
@@ -396,6 +421,16 @@ there is no player-set rotation.
 **Order bonus:** the *first* career is the character's "origin" and grants
 its passive at +50% strength; the *latest* career determines the default
 outfit. Masteries may require ordered careers (01 §5.3).
+
+### 8.1.1 Career synergies (banter)
+
+`synergies/*.json` pairs an attacker career with a victim career. When a hit
+lands across teams, each matching synergy rolls `chanceBp` (cooldown 400 ticks
+per pair) and emits `banter` with a line — *Barista hits Farmer:* "Oat milk is
+NOT real milk!" — spoken by the attacker or victim. Optional `effects` apply to
+the speaker (e.g. Inspired + Taunt = rage at the other; Embarrassed = shame),
+so professional rivalries change behaviour, not just text. Every career also
+has a mirror synergy for same-career fights ("Two of us? Awkward.").
 
 ### 8.2 Masteries
 

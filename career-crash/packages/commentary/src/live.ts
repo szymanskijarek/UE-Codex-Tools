@@ -135,6 +135,7 @@ export class LiveCommentator {
         if (!bi) return null;
         if (ai?.kind === 'prop' && ai.def === 'prop.floor-scrubber') return this.make(e.t, 'mover_scrubber', 3, base, [e.b]);
         if (ai?.kind === 'prop' && ai.def === 'prop.robot-vacuum') return this.make(e.t, 'mover_vacuum', 2, base, [e.b]);
+        if (e.s === 'body') return this.make(e.t, 'body_hit', 3, base, [e.b]);
         if (bi.kind === 'npc') return this.make(e.t, 'referee_hit', 2, base, [e.a, e.b]);
         if (cause?.type === 'throw') return this.make(e.t, 'throw_hit', 2, { ...base, a: this.label(cause.a), prop: this.nm(cause.s) }, [cause.a, e.b]);
         if (cause?.type === 'ride') return this.make(e.t, 'ride_hit', 3, { ...base, prop: this.nm(cause.s) }, [e.a, e.b]);
@@ -207,6 +208,15 @@ export class LiveCommentator {
         return this.make(e.t, 'referee_down', 3, base, [e.a]);
       case 'hazardWarn':
         return this.make(e.t, 'hazard_warn', 3, { ...base, hazard: e.s.replace(/^hazard\./, '').replace(/-/g, ' ') }, []);
+      case 'grab':
+        return this.make(e.t, `grab_${e.s}`, e.s === 'away' ? 2 : 3, base, [e.a, e.b]);
+      case 'landed':
+        return e.v >= 14 ? this.make(e.t, 'landed_big', 2, base, [e.b]) : null;
+      case 'banter': {
+        const sy = this.bundle.synergies.find((x) => x.id === e.s);
+        const line = sy?.lines[e.v] ?? '';
+        return line ? this.make(e.t, 'banter', 3, { ...base, line }, [e.a, e.b]) : null;
+      }
       case 'hazardStart': {
         const k = `hazard_start_${e.s.replace(/^hazard\./, '')}`;
         return this.bundle.live[k] ? this.make(e.t, k, 3, base, []) : null;

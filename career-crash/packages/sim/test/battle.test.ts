@@ -94,4 +94,33 @@ describe('systems', () => {
     for (const k of kos) expect(k.cause).toBeGreaterThanOrEqual(-1);
     expect(kos.some((k) => k.cause >= 0)).toBe(true);
   });
+
+  it('grapplers toss people who land with a thud, and careers banter', () => {
+    const team = (p: string, careers: string[][]) => ({
+      playerId: p,
+      playerName: p,
+      rating: 1000,
+      characters: careers.map((c, i) => char(`${p}${i}`, c, 'personality.aggressive')),
+    });
+    const counts = { grab: 0, landed: 0, banter: 0 };
+    for (let i = 0; i < 6; i++) {
+      const input = battleInput(bundle, `toss${i}`, [
+        team('A', [['career.security-guard'], ['career.farmer'], ['career.barista']]),
+        team('B', [['career.barista'], ['career.farmer'], ['career.builder']]),
+      ]);
+      const out = simulate(input, bundle);
+      for (const e of out.events) {
+        if (e.type === 'grab' || e.type === 'landed' || e.type === 'banter') counts[e.type]++;
+        if (e.type === 'banter') expect(bundle.synergies.some((s) => s.id === e.s)).toBe(true);
+      }
+    }
+    const rng = Rng.fromSeed('toss');
+    for (let i = 0; i < 6; i++) {
+      const out = simulate(battleInput(bundle, `rt${i}`, [randomTeam(bundle, rng, 3, 'A'), randomTeam(bundle, rng, 3, 'B')]), bundle);
+      for (const e of out.events) if (e.type === 'grab' || e.type === 'landed') counts[e.type]++;
+    }
+    expect(counts.grab).toBeGreaterThan(0);
+    expect(counts.landed).toBeGreaterThan(0);
+    expect(counts.banter).toBeGreaterThan(0);
+  });
 });

@@ -3,7 +3,7 @@ import type { ContentIndex } from './content';
 import type { Rng } from './core/rng';
 import type { NavGrid } from './systems/nav';
 
-export const SIM_VERSION = '0.3.0';
+export const SIM_VERSION = '0.4.0';
 export const TICKS_PER_SECOND = 20;
 export const MAX_TICKS = 2400;
 export const ENTITY_CAP = 256;
@@ -88,6 +88,9 @@ export type EventType =
   | 'hazardWarn'
   | 'hazardStart'
   | 'suddenDeath'
+  | 'grab'
+  | 'landed'
+  | 'banter'
   | 'battleEnd';
 
 export interface BattleEvent {
@@ -246,6 +249,10 @@ export interface Entity {
   moverIdx: number;
   moverSpeed: number;
   moverLoop: boolean;
+  /** Airborne after being thrown: who threw them, landing damage, cause event (-1 when not tossed). */
+  tossedBy: number;
+  tossLand: number;
+  tossCause: number;
 }
 
 export interface World {
@@ -272,6 +279,8 @@ export interface World {
   finished: boolean;
   result: BattleResult | null;
   firedThisTick: Set<string>;
+  /** Career banter cooldowns: "attackerSnap>victimSnap" → next allowed tick. */
+  banter: Map<string, number>;
   /** Props spawned this tick; capped to stop runaway rule loops. */
   spawnedThisTick: number;
 }

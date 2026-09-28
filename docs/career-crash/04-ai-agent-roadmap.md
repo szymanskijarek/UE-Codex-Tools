@@ -26,6 +26,8 @@ Latest balance run (1,500 × 3v3, sim 0.3.0): median 54 s, ~4 % timeouts, p99 si
 
 v0.3 additions: 36 careers (Barista, Hairdresser, Lifeguard, Personal Trainer, Gardener, Mime, Conspiracy Podcaster, Astronaut), 124 abilities, 6 masteries; stations + duels (02 §6.7); movers (floor scrubber, robot vacuum) and new arena events (02 §7.4); client: director camera, slow-motion action replays of KOs/explosions/run-overs with zoom lens and pitched-down audio, intent and job icons, floor signage, contextual live commentary (ability-specific jokes, irony, location cuts).
 
+v0.4 additions: grapples and throws (`toss` effect, Airborne status, body-to-body collisions, landings; 02 §5.6) with 10 new grapple abilities; 95 career synergies — profession-vs-profession banter lines with behavioural effects (02 §8.1.1); client: Verlet ragdolls for thrown/knocked-down/KO'd characters, grab/landing/banter reactions, action replays of big throws and body hits.
+
 ---
 
 ## 1. How agents work on this project

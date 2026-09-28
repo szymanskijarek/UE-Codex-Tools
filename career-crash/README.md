@@ -24,12 +24,12 @@ pnpm dev                        # worker on :8787, client on :5173 (proxied /api
 
 - **Deterministic simulation** (`packages/sim`): integer physics, utility AI
   driven by personality/traits, statuses, tag-based interaction rules, props
-  (throw, push, ride, leak, explode), a knock-out-able referee, hazards,
+  (throw, push, ride, leak, explode), grapples that toss fighters into each other, a knock-out-able referee, hazards,
   patrolling machines (floor scrubber, robot vacuum), duels spread across
   named arena stations, and sudden death. Every battle replays from a ~5 KB
   input record.
 - **Content** (`packages/content/data`): 36 careers (28 tier 1, 7 tier 2,
-  1 tier 3), 124 abilities, 6 hidden masteries, 10 personalities, 12 traits,
+  1 tier 3), 134 abilities (incl. 10 grapples/throws), 95 career synergies (banter), 6 hidden masteries, 10 personalities, 12 traits,
   43 items, 41 props, 27 interaction rules, 2 arenas (Supermarket, Office).
 - **Commentary**: 21 moment detectors for the battle report, plus a live feed
   (~300 lines: ability-specific jokes, irony, location cuts) and ~180 fighter
@@ -39,7 +39,7 @@ pnpm dev                        # worker on :8787, client on :5173 (proxied /api
   opponent matching with bot fill, server-run battles, defence rewards,
   reports, leaderboard, idempotent writes, append-only currency ledger.
 - **Client** (`apps/client`): Preact UI + PixiJS replay viewer with animated
-  paper-doll characters (expressions, speech bubbles, reactions), drawn props,
+  paper-doll characters with floppy ragdolls (expressions, speech bubbles, reactions), drawn props,
   ability effects, a director camera, slow-motion action replays, synthesised
   sound, battle reports with jump-to-moment, and the Sandbox. A standalone
   single-file build of the Sandbox: `pnpm --filter @cc/client build:standalone`.
@@ -49,6 +49,6 @@ pnpm dev                        # worker on :8787, client on :5173 (proxied /api
 ## Checks
 
 ```bash
-pnpm check                      # content + lint + typecheck + 64 tests
+pnpm check                      # content + lint + typecheck + 67 tests
 pnpm balance --battles=400      # writes tools/balance/reports/*.md
 ```

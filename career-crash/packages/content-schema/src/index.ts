@@ -75,6 +75,15 @@ export const effectSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('taunt'), ticks: int.min(1), ...effectBase }),
   z.object({ type: z.literal('dash'), distanceMm: int.min(0), ...effectBase }),
   z.object({ type: z.literal('pull'), forceMm: int.min(0), ...effectBase }),
+  /** Grab and throw a character (02 §5.6): away from the thrower, over the shoulder (behind), or straight up and down (slam). */
+  z.object({
+    type: z.literal('toss'),
+    distanceMm: int.min(0),
+    heightMm: int.min(100),
+    direction: z.enum(['away', 'behind', 'up']),
+    landDamage: int.min(0),
+    ...effectBase,
+  }),
   z.object({ type: z.literal('breakProp'), ...effectBase }),
   z.object({ type: z.literal('dropHeld'), ...effectBase }),
 ]);
@@ -415,9 +424,23 @@ export interface ContentBundle {
   names: { first: string[]; last: string[] };
   /** Live commentary templates by event kind (02 §11). */
   live: Record<string, string[]>;
+  synergies: SynergyDef[];
 }
 
 export const liveSchema = z.object({ templates: z.record(z.string(), z.array(z.string()).min(1)) });
+
+/** Career-pair banter (and behaviour) triggered when one career hits another. */
+export const synergySchema = z.object({
+  id: ref('synergy'),
+  attacker: ref('career'),
+  victim: ref('career'),
+  speaker: z.enum(['attacker', 'victim']),
+  lines: z.array(z.string()).min(1),
+  chanceBp: bp,
+  /** Applied to the speaker; source is the other character (so a taunt makes the speaker charge them). */
+  effects: z.array(effectSchema).optional(),
+});
+export type SynergyDef = z.infer<typeof synergySchema>;
 
 export const namesSchema = z.object({ first: z.array(z.string()).min(10), last: z.array(z.string()).min(10) });
 
@@ -434,6 +457,7 @@ export const COLLECTIONS = {
   traits: traitSchema,
   equipment: equipmentSchema,
   detectors: detectorSchema,
+  synergies: synergySchema,
 } as const;
 export type CollectionName = keyof typeof COLLECTIONS;
 

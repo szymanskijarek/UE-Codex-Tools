@@ -145,6 +145,7 @@ export function compileContent(dataDir: string): CompileResult {
     locale: locale.data,
     names: names.data,
     live: live.data.templates,
+    synergies: collections.synergies as ContentBundle['synergies'],
   };
 
   errors.push(...validateBundle(bundle));
@@ -187,6 +188,7 @@ export function validateBundle(b: ContentBundle): string[] {
     if (net > netCap) errors.push(`${c.id}: net stat mods ${net} exceed tier ${c.tier} budget ${netCap}`);
   }
   for (const p of b.personalities) if (p.ability) needAbility(p.id, p.ability, 'active');
+  for (const sy of b.synergies) for (const c of [sy.attacker, sy.victim]) if (!careers.has(c)) errors.push(`${sy.id}: unknown career ${c}`);
   for (const m of b.masteries) {
     needAbility(m.id, m.passive, 'passive');
     for (const a of m.grantsAbilities) needAbility(m.id, a, 'active');
@@ -229,7 +231,7 @@ export function validateBundle(b: ContentBundle): string[] {
 
   // Effects anywhere in content must reference existing statuses/props.
   const refs = { statuses: new Set<string>(), props: new Set<string>() };
-  collectEffectRefs([b.statuses, b.abilities, b.props, b.rules, b.arenas, b.equipment], refs);
+  collectEffectRefs([b.statuses, b.abilities, b.props, b.rules, b.arenas, b.equipment, b.synergies], refs);
   for (const s of refs.statuses) if (!statuses.has(s)) errors.push(`effect references unknown status ${s}`);
   for (const p of refs.props) if (!props.has(p)) errors.push(`effect references unknown prop ${p}`);
 

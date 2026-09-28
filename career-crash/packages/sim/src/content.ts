@@ -10,6 +10,7 @@ import type {
   RuleDef,
   RuleEvent,
   StatusDef,
+  SynergyDef,
   TraitDef,
 } from '@cc/content-schema';
 
@@ -30,6 +31,8 @@ export interface ContentIndex {
   /** Contact/touching rules in a fixed order; bit i of an entity's masks refers to contactRules[i]. */
   contactRules: RuleDef[];
   contactRuleBit: Map<string, number>;
+  /** Synergies by attacker career. */
+  synergiesByAttacker: Map<string, SynergyDef[]>;
 }
 
 const cache = new WeakMap<ContentBundle, ContentIndex>();
@@ -52,6 +55,12 @@ export function indexContent(bundle: ContentBundle): ContentIndex {
   }
   const contactRules = sorted.filter((r) => r.when.event === 'contact' || r.when.event === 'touching');
   const contactRuleBit = new Map(contactRules.map((r, i) => [r.id, i]));
+  const synergiesByAttacker = new Map<string, SynergyDef[]>();
+  for (const sy of [...(bundle.synergies ?? [])].sort((p, q) => (p.id < q.id ? -1 : 1))) {
+    const l = synergiesByAttacker.get(sy.attacker) ?? [];
+    l.push(sy);
+    synergiesByAttacker.set(sy.attacker, l);
+  }
   const idx: ContentIndex = {
     bundle,
     statuses: byId(bundle.statuses),
@@ -66,6 +75,7 @@ export function indexContent(bundle: ContentBundle): ContentIndex {
     rulesByEvent,
     contactRules,
     contactRuleBit,
+    synergiesByAttacker,
   };
   cache.set(bundle, idx);
   return idx;

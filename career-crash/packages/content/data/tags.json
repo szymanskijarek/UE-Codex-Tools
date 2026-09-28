@@ -78,6 +78,7 @@
   "skill:swim",
   "skill:wiring",
   "slippery",
+  "state:airborne",
   "state:armoured",
   "state:burning",
   "state:caffeinated",

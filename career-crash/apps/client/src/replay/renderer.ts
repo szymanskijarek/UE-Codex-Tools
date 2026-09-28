@@ -8,6 +8,7 @@ import { nameOf, STATUS_ICONS } from '../i18n';
 import { Sfx, type SfxName } from './audio';
 import type { ReplayPlayer } from './player';
 import { drawArea, drawProp } from './props-art';
+import { Ragdoll } from './ragdoll';
 
 /**
  * Battle renderer (04 R-3): PixiJS scene graph in a 3/4 "stage" projection
@@ -69,6 +70,12 @@ interface CharSprite {
   personality: string;
   /** Director interest: rises with events around this character, decays over time. */
   heat: number;
+  /** Floppy ragdoll while thrown / knocked down / KO'd (cosmetic). */
+  rag: Ragdoll | null;
+  ragG: Graphics | null;
+  kick: { dx: number; dy: number; spin: number; at: number } | null;
+  colors: { body: number; skin: number; hair: number };
+  career: string;
   alive: boolean;
   intent: Text;
   lastIntent: string;
@@ -178,7 +185,17 @@ export class BattleRenderer {
     for (const s of this.chars.values()) {
       s.bubble?.destroy({ children: true });
       s.bubble = null;
+      // Seeks and resizes teleport everyone; stale ragdolls would stretch across the screen.
+      this.dropRagdoll(s);
+      s.kick = null;
     }
+  }
+
+  private dropRagdoll(s: CharSprite): void {
+    s.ragG?.destroy();
+    s.ragG = null;
+    s.rag = null;
+    s.doll.visible = true;
   }
 
   private layout(): void {
@@ -371,6 +388,11 @@ export class BattleRenderer {
       kind: isRef ? 'npc' : 'char',
       personality: snap?.personality ?? '',
       heat: 0,
+      rag: null,
+      ragG: null,
+      kick: null,
+      colors: { body: bodyColor, skin, hair },
+      career: (career?.id ?? '').replace('career.', ''),
       alive: true,
       intent,
       lastIntent: '',
@@ -459,6 +481,11 @@ export class BattleRenderer {
     const list = bundle.live[kind];
     if (!list?.length) return;
     const text = rand(list).replace(/\{(\w+)\}/g, (_, k: string) => slots[k] ?? k).replace(/\b([Aa]) ([aeiouAEIOU])/g, '$1n $2');
+    this.say(s, text, 1500);
+  }
+
+  /** Show a speech bubble with exactly this text. */
+  private say(s: CharSprite, text: string, ms: number): void {
     s.bubble?.destroy({ children: true });
     const size = this.compact ? 10 : Math.max(10, Math.min(15, s.r * 0.95));
     const t = new Text({ text, style: { fontFamily: FONT, fontSize: size, fontWeight: '800', fill: OUTLINE, wordWrap: true, wordWrapWidth: 130 }, resolution: 3 });
@@ -478,7 +505,7 @@ export class BattleRenderer {
     c.addChild(bg, t);
     this.uiLayer.addChild(c);
     s.bubble = c;
-    s.bubbleUntil = this.now + 1500;
+    s.bubbleUntil = this.now + ms;
     s.lastBubbleAt = this.now;
   }
 
@@ -562,9 +589,13 @@ export class BattleRenderer {
         maxY = Math.max(maxY, sy);
       }
       this.animateChar(s, e, t, byId);
+      this.updateRagdoll(s, e, sx, sy, this.px(x, y, 0)[1], y, dtMs);
     }
     for (const [id, s] of this.chars) {
-      if (!seenC.has(id)) s.root.visible = false;
+      if (!seenC.has(id)) {
+        s.root.visible = false;
+        if (s.rag) this.dropRagdoll(s);
+      }
       if (s.bubble) {
         if (this.now > s.bubbleUntil || !s.root.visible) {
           s.bubble.destroy({ children: true });
@@ -694,6 +725,47 @@ export class BattleRenderer {
     }
   }
 
+  /**
+   * Switch between the animated doll and the floppy ragdoll. The ragdoll takes
+   * over when a character is airborne, knocked down, downed or KO'd.
+   */
+  private updateRagdoll(s: CharSprite, e: FrameEntity, sx: number, sy: number, floorY: number, depth: number, dt: number): void {
+    const airborne = e.z > 60 || e.statuses.includes('status.airborne');
+    const want = e.state !== 'active' || e.statuses.includes('status.knocked-down') || airborne;
+    if (s.rag && Math.hypot(s.rag.x[2]! - sx, s.rag.y[2]! - sy) > s.r * 8) this.dropRagdoll(s);
+    if (want && !s.rag) {
+      s.rag = new Ragdoll(s.r, sx, sy, e.fx < 0 ? -1 : 1);
+      s.ragG = new Graphics();
+      this.bodies.addChild(s.ragG);
+      if (s.kick && this.now - s.kick.at < 400) {
+        s.rag.impulse(s.kick.dx, s.kick.dy);
+        s.rag.spin = s.kick.spin;
+      } else s.rag.impulse((e.fx < 0 ? 1 : -1) * s.r * 0.3, -s.r * 0.2);
+      s.kick = null;
+    }
+    if (!s.rag || !s.ragG) return;
+    if (!want) {
+      this.dropRagdoll(s);
+      return;
+    }
+    if (s.kick) {
+      s.rag.impulse(s.kick.dx, s.kick.dy);
+      if (s.kick.spin) s.rag.spin = s.kick.spin;
+      s.kick = null;
+    }
+    if (!airborne) s.rag.spin *= 0.9;
+    s.rag.step(dt, sx, sy, floorY, airborne, e.statuses.includes('status.electrified'));
+    s.rag.draw(s.ragG, { r: s.r, body: s.colors.body, skin: s.colors.skin, hair: s.colors.hair, legs: 0x1f2937, outline: OUTLINE, ko: e.state === 'ko' });
+    s.ragG.zIndex = depth + 1;
+    s.ragG.alpha = e.state === 'ko' ? 0.75 : 1;
+    s.doll.visible = false;
+  }
+
+  /** Queue a ragdoll impulse for a character (applied now or when their ragdoll starts). */
+  private kick(s: CharSprite | undefined, dx: number, dy: number, spin = 0): void {
+    if (s) s.kick = { dx, dy, spin, at: this.now };
+  }
+
   /** Small icon describing the current plan, so viewers can read what's about to happen. */
   private intentIcon(e: FrameEntity, byId: Map<number, FrameEntity>): string {
     const [kind, phase] = e.action.split(':');
@@ -784,7 +856,7 @@ export class BattleRenderer {
       g.moveTo(-r * 1.2, -r * 1.5).lineTo(-r * 1.6, -r * 1.5).moveTo(-r * 1.2, -r * 2.1).lineTo(-r * 1.7, -r * 2.1).stroke({ width: Math.max(1, r * 0.1), color: 0x78350f });
     }
     if (st.includes('status.slipping') && !st.includes('status.knocked-down')) {
-      g.arc(0, 0, r * 1.1, 0, Math.PI * (0.6 + Math.sin(t * 8) * 0.3)).stroke({ width: Math.max(1, r * 0.12), color: 0x60a5fa });
+      g.moveTo(r * 1.1, 0).arc(0, 0, r * 1.1, 0, Math.PI * (0.6 + Math.sin(t * 8) * 0.3)).stroke({ width: Math.max(1, r * 0.12), color: 0x60a5fa });
     }
     if (e.panicking) {
       for (let i = 0; i < 2; i++) {
@@ -939,7 +1011,10 @@ export class BattleRenderer {
         if (melee) {
           this.addShape((g, k) => {
             const a0 = Math.atan2(ty - cy, tx - cx);
-            g.arc(tx, ty - hy, 500 * S, a0 - 1.2 + (1 - k) * 0.6, a0 + 0.2 + (1 - k) * 1.2).stroke({ width: Math.max(3, 8 * k), color, alpha: k });
+            const s0 = a0 - 1.2 + (1 - k) * 0.6;
+            g.moveTo(tx + Math.cos(s0) * 500 * S, ty - hy + Math.sin(s0) * 500 * S)
+              .arc(tx, ty - hy, 500 * S, s0, a0 + 0.2 + (1 - k) * 1.2)
+              .stroke({ width: Math.max(3, 8 * k), color, alpha: k });
           }, 260);
         } else if (color === ABILITY_COLORS.electric) {
           this.addShape((g, k) => {
@@ -992,7 +1067,7 @@ export class BattleRenderer {
         if (A) {
           A.lungeUntil = this.now + 220;
           this.setExpr(A, 'angry', 450);
-          this.bark(A, 'bark_attack', 0.12);
+          this.bark(A, Math.random() < 0.5 && bundle.live[`job_${A.career}`] ? `job_${A.career}` : 'bark_attack', 0.14);
         }
         this.sfx.play('whoosh', 0.6);
         break;
@@ -1011,7 +1086,11 @@ export class BattleRenderer {
           B.knockX = ea ? (eb && ea.x > eb.x ? -1 : 1) : 1;
           this.setExpr(B, 'hurt', 550);
           const byProp = ea?.kind === 'prop' || (ev.cause >= 0 && ev.s === 'blunt' && !A);
-          this.bark(B, byProp ? 'bark_hit_by_prop' : B.kind === 'npc' ? 'bark_ref_card' : 'bark_hurt', crit ? 0.6 : 0.18, { prop: ea ? nameOf(ea.def).toLowerCase() : 'thing' });
+          const hurtKey = !byProp && B.kind === 'char' && Math.random() < 0.45 && bundle.live[`jobhurt_${B.career}`] ? `jobhurt_${B.career}` : byProp ? 'bark_hit_by_prop' : B.kind === 'npc' ? 'bark_ref_card' : 'bark_hurt';
+          this.bark(B, hurtKey, crit ? 0.6 : ev.s === 'body' ? 0.8 : 0.2, { prop: ea ? nameOf(ea.def).toLowerCase() : 'thing' });
+          // Knock the ragdoll (if they're floppy) away from the hitter.
+          const dir = ea && eb ? Math.sign(eb.x - ea.x) || 1 : 1;
+          this.kick(B, dir * B.r * (0.4 + ev.v / 25), -B.r * (0.3 + ev.v / 40));
         }
         if (A && A.kind === 'char' && crit) {
           this.setExpr(A, 'happy', 700);
@@ -1095,6 +1174,52 @@ export class BattleRenderer {
         this.bark(A, 'bark_ride', 0.7);
         this.sfx.play('boing');
         break;
+      case 'grab': {
+        if (A) {
+          A.throwUntil = this.now + 450;
+          this.setExpr(A, 'angry', 700);
+          this.bark(A, 'bark_thrower', 0.5);
+        }
+        if (B) {
+          this.setExpr(B, 'scared', 1200);
+          this.bark(B, 'bark_thrown', 0.7, {}, true);
+          const dir = ea && eb ? Math.sign(eb.x - ea.x) || 1 : 1;
+          const spin = ev.s === 'behind' ? -1.4 * dir : ev.s === 'up' ? 0.6 * dir : 0.9 * dir;
+          this.kick(B, dir * B.r * 0.5, -B.r * 1.4, spin);
+        }
+        this.sfx.play('whoosh', 1.3);
+        this.sfx.play('ooh');
+        this.shake = Math.max(this.shake, 3);
+        break;
+      }
+      case 'landed':
+        if (ev.v > 0) {
+          this.float(ev.v >= 14 ? 'SLAM!' : 'THUD', this.posOf(ev.b, byId), ev.v >= 14 ? 0xffd000 : 0xffffff, ev.v >= 14 ? 22 : 15);
+          this.sparks(this.posOf(ev.b, byId), 0xe5e7eb, 18);
+          this.kick(B, 0, B ? -B.r * 0.6 : 0);
+          this.shake = Math.max(this.shake, ev.v >= 14 ? 10 : 5);
+          this.sfx.play('thud', 1.4);
+          if (ev.v >= 14) this.sfx.play('cheer');
+          this.witnesses(eb, (s, same) => {
+            this.setExpr(s, same ? 'scared' : 'happy', 800);
+            if (!same) this.bark(s, 'bark_enemy_down', 0.25);
+          });
+        }
+        break;
+      case 'banter': {
+        const sy = bundle.synergies.find((x) => x.id === ev.s);
+        const line = sy?.lines[ev.v];
+        if (A && line) {
+          // The banter line is the joke: always show it, and for longer.
+          this.say(A, line, 2600);
+          const angry = sy?.effects?.some((x) => x.type === 'taunt');
+          this.setExpr(A, angry ? 'angry' : sy?.effects?.some((x) => x.type === 'applyStatus' && x.status === 'status.embarrassed') ? 'hurt' : 'happy', 1400);
+          A.bubbleUntil = this.now + 2600;
+        }
+        if (B) this.setExpr(B, 'stunned', 600);
+        this.sfx.play('blah');
+        break;
+      }
       case 'ruleFired':
         if (ev.s === 'rule.stepped-on-rake') {
           this.bark(B, 'bark_rake', 1, {}, true);

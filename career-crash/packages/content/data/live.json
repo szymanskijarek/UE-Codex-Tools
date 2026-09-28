@@ -819,6 +819,380 @@
    "Instant replay!",
    "Roll the tape!",
    "One more time, in slow motion..."
+  ],
+  "banter": [
+   "{a} to {b}: “{line}”",
+   "{a} yells at {b}: “{line}”",
+   "“{line}” — {a}, to {b}"
+  ],
+  "grab": [
+   "{a} grabs {b}!",
+   "{a} has {b} in a hold!",
+   "{a} gets a grip on {b}..."
+  ],
+  "grab_behind": [
+   "SUPLEX! {a} sends {b} over the shoulder!",
+   "{a} throws {b} over their back!",
+   "Judo! {a} flips {b}!"
+  ],
+  "grab_up": [
+   "{a} lifts {b} into the air — BODY SLAM!",
+   "Up goes {b}... and DOWN!",
+   "{a} picks {b} up like a sack of potatoes!"
+  ],
+  "grab_away": [
+   "{a} launches {b} across the {arena}!",
+   "{b} is thrown like a parcel!",
+   "{a} tosses {b}! They're airborne!",
+   "Yeet! {b} is flying!"
+  ],
+  "landed_big": [
+   "{b} hits the floor HARD!",
+   "OOF. {b} felt every bone in that landing.",
+   "{b} lands with a thud they'll feel till Monday."
+  ],
+  "body_hit": [
+   "{b} got bowled over by a flying {aJob}!",
+   "Human missile! {b} goes down!",
+   "{b} is hit by a flying colleague!"
+  ],
+  "bark_thrown": [
+   "WHOA-OA-OA!",
+   "PUT ME DOWN!",
+   "AAAAAH!",
+   "Not like this!",
+   "I can fly!"
+  ],
+  "bark_thrower": [
+   "Up you go!",
+   "Catch!",
+   "Hup!",
+   "Special delivery!",
+   "Get OUT!"
+  ],
+  "job_teacher": [
+   "Eyes on the board!",
+   "This WILL be on the test!",
+   "Hands up if you're hurt!"
+  ],
+  "jobhurt_teacher": [
+   "I've survived Year 9, I can survive this!",
+   "My marking!"
+  ],
+  "job_electrician": [
+   "Live wire!",
+   "Mind the voltage!",
+   "Don't touch that!"
+  ],
+  "jobhurt_electrician": [
+   "Who flipped the breaker?!",
+   "That's not earthed!"
+  ],
+  "job_chef": [
+   "Yes, chef!",
+   "Order up!",
+   "Taste THIS!"
+  ],
+  "jobhurt_chef": [
+   "My soufflé!",
+   "I've been deglazed!"
+  ],
+  "job_taxi-driver": [
+   "Where to, mate?",
+   "Meter's running!",
+   "Shortcut!"
+  ],
+  "jobhurt_taxi-driver": [
+   "Mind the upholstery!",
+   "That's a one-star review!"
+  ],
+  "job_paramedic": [
+   "Stay with me!",
+   "This'll sting!",
+   "Clear!"
+  ],
+  "jobhurt_paramedic": [
+   "I need a medic! Oh wait.",
+   "Who's going to treat ME?"
+  ],
+  "job_programmer": [
+   "sudo punch!",
+   "It's not a bug, it's a feature!",
+   "Deploying fix!"
+  ],
+  "jobhurt_programmer": [
+   "Segfault!",
+   "Stack overflow!"
+  ],
+  "job_influencer": [
+   "Like and subscribe!",
+   "Content!",
+   "This is going viral!"
+  ],
+  "jobhurt_influencer": [
+   "My ring light!",
+   "Delete that!"
+  ],
+  "job_dentist": [
+   "Open wide!",
+   "Just a little pinch!",
+   "Rinse!"
+  ],
+  "jobhurt_dentist": [
+   "I've chipped a tooth!",
+   "My crowns!"
+  ],
+  "job_mechanic": [
+   "Needs a new clutch!",
+   "Torque!",
+   "I'll tighten that!"
+  ],
+  "jobhurt_mechanic": [
+   "My back! Like a transmission!",
+   "That's a write-off!"
+  ],
+  "job_farmer": [
+   "Get off my land!",
+   "Harvest time!",
+   "Oo-arr!"
+  ],
+  "jobhurt_farmer": [
+   "Me turnips!",
+   "I've been ploughed!"
+  ],
+  "job_librarian": [
+   "Overdue!",
+   "Shh!",
+   "Dewey decimal THIS!"
+  ],
+  "jobhurt_librarian": [
+   "My glasses!",
+   "That's a late fee!"
+  ],
+  "job_accountant": [
+   "Audit!",
+   "That doesn't add up!",
+   "Deductible!"
+  ],
+  "jobhurt_accountant": [
+   "My spreadsheets!",
+   "That's a loss!"
+  ],
+  "job_firefighter": [
+   "Stand back!",
+   "Everybody out!",
+   "Hose it!"
+  ],
+  "jobhurt_firefighter": [
+   "I've had worse!",
+   "That's hot!"
+  ],
+  "job_security-guard": [
+   "Not on the list!",
+   "Move along!",
+   "Out!"
+  ],
+  "jobhurt_security-guard": [
+   "I need backup!",
+   "Code red!"
+  ],
+  "job_lawyer": [
+   "Objection!",
+   "Sue you!",
+   "Pro bono punch!"
+  ],
+  "jobhurt_lawyer": [
+   "Personal injury! I'm claiming!",
+   "That's assault!"
+  ],
+  "job_journalist": [
+   "Scoop!",
+   "Exclusive!",
+   "Breaking news!"
+  ],
+  "jobhurt_journalist": [
+   "Off the record!",
+   "My deadline!"
+  ],
+  "job_dj": [
+   "Drop it!",
+   "Hands in the air!",
+   "Bass!"
+  ],
+  "jobhurt_dj": [
+   "Record scratch!",
+   "My decks!"
+  ],
+  "job_builder": [
+   "Hard hat area!",
+   "Cowboy job!",
+   "Solid!"
+  ],
+  "jobhurt_builder": [
+   "Mind the scaffolding!",
+   "Me back's gone!"
+  ],
+  "job_police-officer": [
+   "Freeze!",
+   "You're nicked!",
+   "Hands where I can see 'em!"
+  ],
+  "jobhurt_police-officer": [
+   "Officer down!",
+   "I'll write you up for that!"
+  ],
+  "job_delivery-driver": [
+   "Parcel!",
+   "Signed for!",
+   "Left in porch!"
+  ],
+  "jobhurt_delivery-driver": [
+   "Damaged in transit!",
+   "I'm on a schedule!"
+  ],
+  "job_janitor": [
+   "Mind the floor!",
+   "Mop that up!",
+   "Clean-up!"
+  ],
+  "jobhurt_janitor": [
+   "I just mopped that!",
+   "Not the bucket!"
+  ],
+  "job_plumber": [
+   "Unblocked!",
+   "Pipe down!",
+   "That's a leak!"
+  ],
+  "jobhurt_plumber": [
+   "Me pipes!",
+   "I'm flooding!"
+  ],
+  "job_engineer": [
+   "Structurally sound!",
+   "Calculated!",
+   "Load test!"
+  ],
+  "jobhurt_engineer": [
+   "That's a design flaw!",
+   "Tolerances exceeded!"
+  ],
+  "job_politician": [
+   "Vote for me!",
+   "Promise!",
+   "Order, order!"
+  ],
+  "jobhurt_politician": [
+   "Scandal!",
+   "My approval rating!"
+  ],
+  "job_psychologist": [
+   "Let's talk about it!",
+   "Breathe!",
+   "Repressed!"
+  ],
+  "jobhurt_psychologist": [
+   "That's triggering!",
+   "I need therapy!"
+  ],
+  "job_life-coach": [
+   "You got this!",
+   "Manifest it!",
+   "Believe!"
+  ],
+  "jobhurt_life-coach": [
+   "This is a growth opportunity!",
+   "Negative energy!"
+  ],
+  "job_tv-host": [
+   "We're live!",
+   "And action!",
+   "Smile for the camera!"
+  ],
+  "jobhurt_tv-host": [
+   "Cut! CUT!",
+   "My makeup!"
+  ],
+  "job_food-critic": [
+   "One star!",
+   "Bland!",
+   "Deconstructed!"
+  ],
+  "jobhurt_food-critic": [
+   "Undercooked!",
+   "I'm sending this back!"
+  ],
+  "job_barista": [
+   "Extra shot!",
+   "Oat or dairy?",
+   "Order for... YOU!"
+  ],
+  "jobhurt_barista": [
+   "I've been decaffeinated!",
+   "My foam art!"
+  ],
+  "job_hairdresser": [
+   "Snip snip!",
+   "Layers!",
+   "Something off the top?"
+  ],
+  "jobhurt_hairdresser": [
+   "My blow-dry!",
+   "Split ends!"
+  ],
+  "job_lifeguard": [
+   "No running!",
+   "Whistle!",
+   "Save!"
+  ],
+  "jobhurt_lifeguard": [
+   "I'm drowning! On land!",
+   "Man overboard!"
+  ],
+  "job_personal-trainer": [
+   "One more rep!",
+   "Feel the burn!",
+   "Core!"
+  ],
+  "jobhurt_personal-trainer": [
+   "I've pulled something!",
+   "That's not cardio!"
+  ],
+  "job_gardener": [
+   "Prune!",
+   "Weed!",
+   "Fertiliser!"
+  ],
+  "jobhurt_gardener": [
+   "My roses!",
+   "Stepped on my seedlings!"
+  ],
+  "job_mime": [
+   "*mimes punching*",
+   "...!",
+   "*mimes victory*"
+  ],
+  "jobhurt_mime": [
+   "*mimes pain*",
+   "*mimes crying*"
+  ],
+  "job_conspiracy-podcaster": [
+   "Wake up, sheeple!",
+   "It's all connected!",
+   "Follow the money!"
+  ],
+  "jobhurt_conspiracy-podcaster": [
+   "They're coming for me!",
+   "It's a cover-up!"
+  ],
+  "job_astronaut": [
+   "Houston!",
+   "Liftoff!",
+   "One small step!"
+  ],
+  "jobhurt_astronaut": [
+   "Houston, we have a problem!",
+   "Mayday!"
   ]
  }
 }

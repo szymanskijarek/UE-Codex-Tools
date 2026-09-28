@@ -11,7 +11,7 @@ import { Card, CareerChain, Empty } from '../ui/components';
 
 const SPEEDS = [1, 2, 4];
 const FEED_MAX = 40;
-const MAX_REPLAYS = 4;
+const MAX_REPLAYS = 5;
 const REPLAY_SPEED = 0.35;
 const REPLAY_KEY = 'cc.replays';
 
@@ -160,6 +160,8 @@ export function Replay({ battleId }: { battleId?: string }) {
                 (e.type === 'ko' && player.world.byId.get(e.b)?.kind === 'char') ||
                 e.type === 'explosion' ||
                 e.type === 'refereeDown' ||
+                (e.type === 'landed' && e.v >= 14) ||
+                (e.type === 'hit' && e.s === 'body') ||
                 (e.type === 'hit' && player.world.byId.get(e.a)?.def === 'prop.floor-scrubber'),
             );
             if (big) {

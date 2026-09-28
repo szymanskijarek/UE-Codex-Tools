@@ -16,5 +16,6 @@
   {"id": "status.sticky", "tags": ["state:sticky"], "durationTicks": 80, "stacking": "refresh", "mods": {"moveBp": -3500}},
   {"id": "status.armoured", "tags": ["state:armoured"], "durationTicks": 120, "stacking": "refresh", "mods": {"damageTakenBp": -3000}},
   {"id": "status.distracted", "tags": ["state:distracted"], "durationTicks": 60, "stacking": "refresh", "mods": {"interactionBp": -4000, "damageDealtBp": -1000}},
-  {"id": "status.live", "tags": ["state:live", "element:electric"], "durationTicks": 120, "stacking": "ignore"}
+  {"id": "status.live", "tags": ["state:live", "element:electric"], "durationTicks": 120, "stacking": "ignore"},
+  {"id": "status.airborne", "tags": ["state:airborne"], "durationTicks": 40, "stacking": "refresh", "flags": {"noActions": true}}
 ]

@@ -127,6 +127,9 @@ function blankEntity(id: number, kind: Entity['kind'], def: string): Entity {
     moverIdx: 0,
     moverSpeed: 0,
     moverLoop: false,
+    tossedBy: -1,
+    tossLand: 0,
+    tossCause: -1,
   };
 }
 
@@ -475,6 +478,7 @@ export function createWorld(input: BattleInput, bundle: ContentBundle): World {
     result: null,
     firedThisTick: new Set(),
     spawnedThisTick: 0,
+    banter: new Map(),
   };
   for (const p of arena.props) spawnProp(w, p.prop, p.at[0], p.at[1]);
   if (input.mode === 'ffa') {

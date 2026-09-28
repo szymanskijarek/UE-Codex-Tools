@@ -1,5 +1,5 @@
 import type { Effect, TagMatch } from '@cc/content-schema';
-import { bpMul, clamp, dir1000, dist, idiv } from '../core/math';
+import { bpMul, clamp, dir1000, dist, idiv, isqrt } from '../core/math';
 import type { Entity, World } from '../types';
 import { derived, emit, get, isAlive, removeEntity, spawnProp, statusMod, tagSetMatches, tagsOf } from '../world';
 
@@ -57,6 +57,7 @@ export function applyDamage(w: World, target: Entity, amount: number, damageType
     if (target.kind === 'char' && target.team === src.team && target.id !== src.id) src.counters.friendlyHits++;
   }
   target.counters.damageTaken += final;
+  if (src?.kind === 'char' && target.kind === 'char' && src.team !== target.team) banter(w, src, target, hitEv);
   target.lastHitBy = sourceId;
   target.lastCause = hitEv;
   w.queue.push({ event: 'hit', a: sourceId, b: target.id, status: '', cause: hitEv });
@@ -292,6 +293,83 @@ export function push(w: World, e: Entity, ox: number, oy: number, forceMm: numbe
 }
 
 // ---------------------------------------------------------------------------
+// Career banter (02 §8.5): specific career pairings trigger lines and reactions
+// ---------------------------------------------------------------------------
+function banter(w: World, src: Entity, target: Entity, cause: number): void {
+  const aCareers = src.snap?.careers ?? [];
+  const vCareers = target.snap?.careers ?? [];
+  for (const ac of aCareers) {
+    for (const sy of w.content.synergiesByAttacker.get(ac) ?? []) {
+      if (!vCareers.includes(sy.victim)) continue;
+      const key = `${sy.id}:${src.id}>${target.id}`;
+      if ((w.banter.get(key) ?? 0) > w.tick) continue;
+      if (!w.rng.chance(sy.chanceBp)) continue;
+      w.banter.set(key, w.tick + 400);
+      const speaker = sy.speaker === 'attacker' ? src : target;
+      const other = speaker === src ? target : src;
+      const line = w.rng.int(sy.lines.length);
+      const ev = emit(w, 'banter', speaker.id, other.id, line, sy.id, cause);
+      for (const eff of sy.effects ?? []) applyEffect(w, eff, speaker, { sourceId: other.id, cause: ev, powerBp: 10000, scale: 'none' });
+      return;
+    }
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Grapples and throws (02 §5.6)
+// ---------------------------------------------------------------------------
+const GRAVITY = 12;
+
+/**
+ * Lift a character and throw them on a ballistic arc. They can't act while
+ * airborne, take `landDamage` and fall over on landing, and bowl over anyone
+ * they hit on the way (see physics contacts).
+ */
+export function toss(w: World, t: Entity, src: Entity | undefined, eff: Extract<Effect, { type: 'toss' }>, cause: number): void {
+  if (t.kind === 'prop' || t.state !== 'active' || t.z > 0) return;
+  const vz = isqrt(2 * GRAVITY * eff.heightMm);
+  const flight = Math.max(4, idiv(2 * vz, GRAVITY));
+  let [dx, dy] = src && src.id !== t.id ? dir1000(t.x - src.x, t.y - src.y) : [t.fx, t.fy];
+  if (eff.direction === 'behind') [dx, dy] = [-dx, -dy];
+  let distance = eff.distanceMm;
+  // Throw them INTO someone: aim at the nearest other opponent of the thrower within reach.
+  if (eff.direction === 'away' && src) {
+    let best: Entity | null = null;
+    let bestD = eff.distanceMm + 2000;
+    for (const o of w.entities) {
+      if (o.kind !== 'char' || o.id === t.id || o.team === src.team || o.state !== 'active') continue;
+      const d = dist(t.x, t.y, o.x, o.y);
+      if (d < bestD && d > 800) {
+        bestD = d;
+        best = o;
+      }
+    }
+    if (best) {
+      [dx, dy] = dir1000(best.x - t.x, best.y - t.y);
+      distance = bestD + 400;
+    }
+  }
+  const sp = eff.direction === 'up' ? 0 : idiv(distance, flight);
+  // Over-the-shoulder throws start from the thrower's position.
+  if (eff.direction === 'behind' && src) {
+    t.x = src.x;
+    t.y = src.y;
+  }
+  const ev = emit(w, 'grab', src?.id ?? -1, t.id, eff.heightMm, eff.direction, cause);
+  dropHeld(w, t, ev);
+  if (t.rideId >= 0) dismount(w, t);
+  t.action = null;
+  t.z = 1;
+  t.vz = vz;
+  t.vx = idiv(dx * sp, 1000);
+  t.vy = idiv(dy * sp, 1000);
+  t.tossedBy = src?.id ?? -1;
+  t.tossLand = eff.landDamage;
+  t.tossCause = ev;
+  applyStatus(w, t, 'status.airborne', flight + 2, src?.id ?? -1, ev);
+}
+
+// ---------------------------------------------------------------------------
 // Effect executor (the closed set from 01 §5.3)
 // ---------------------------------------------------------------------------
 export function applyEffect(w: World, eff: Effect, target: Entity, ctx: EffectCtx, origin?: Entity): void {
@@ -363,6 +441,9 @@ export function applyEffect(w: World, eff: Effect, target: Entity, ctx: EffectCt
           emit(w, 'taunt', src.id, t.id, eff.ticks, '', ctx.cause);
         }
       }
+      break;
+    case 'toss':
+      toss(w, t, src, eff, ctx.cause);
       break;
     case 'pull': {
       const o = origin ?? src;
