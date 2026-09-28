@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'preact/hooks';
 import { Money } from './ui/components';
-import { me, online, refreshMe, toast } from './state';
+import { me, online, refreshMe, STANDALONE, toast } from './state';
 import { Home } from './screens/Home';
 import { Roster } from './screens/Roster';
 import { CharacterScreen } from './screens/Character';
@@ -11,7 +11,7 @@ import { Office } from './screens/Office';
 import { Sandbox } from './screens/Sandbox';
 
 function useRoute(): string[] {
-  const read = () => (window.location.hash.replace(/^#\/?/, '') || 'home').split('/');
+  const read = () => (window.location.hash.replace(/^#\/?/, '') || (STANDALONE ? 'sandbox' : 'home')).split('/');
   const [route, setRoute] = useState(read());
   useEffect(() => {
     const on = () => setRoute(read());
@@ -69,11 +69,11 @@ export function App() {
         <a class="logo" href="#/home">
           Career<span>Crash</span>
         </a>
-        {player ? <Money wallet={player.wallet} /> : <span class="muted">{online.value === 'offline' ? 'Offline — Sandbox only' : 'Connecting…'}</span>}
+        {player ? <Money wallet={player.wallet} /> : <span class="muted">{STANDALONE ? 'Sandbox' : online.value === 'offline' ? 'Offline — Sandbox only' : 'Connecting…'}</span>}
       </header>
       <main>{screen}</main>
       <nav class="tabs">
-        {TABS.map(([id, icon, label]) => (
+        {TABS.filter(([id]) => !STANDALONE || id === 'sandbox').map(([id, icon, label]) => (
           <a key={id} href={`#/${id}`} class={page === id || (id === 'roster' && page === 'character') ? 'active' : ''}>
             <span class="icon">{icon}</span>
             <span>{label}</span>

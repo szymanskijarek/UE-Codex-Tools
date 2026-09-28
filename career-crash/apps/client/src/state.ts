@@ -17,7 +17,14 @@ export function notify(text: string, kind: 'info' | 'error' | 'good' = 'info'): 
   toastTimer = setTimeout(() => (toast.value = null), 3500);
 }
 
+/** Standalone build (single HTML file, no server): only the Sandbox is available. */
+export const STANDALONE = import.meta.env.VITE_STANDALONE === '1';
+
 export async function refreshMe(): Promise<void> {
+  if (STANDALONE) {
+    online.value = 'offline';
+    return;
+  }
   try {
     if (!hasSession()) await signIn();
     me.value = await api.me();

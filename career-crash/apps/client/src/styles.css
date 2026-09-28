@@ -656,3 +656,40 @@ details summary {
     gap: 4px;
   }
 }
+
+/* Keep the replay inside the viewport on phones. */
+.replay-body > *,
+.stage-wrap {
+  min-width: 0;
+}
+
+.stage canvas {
+  display: block;
+  max-width: 100%;
+}
+
+.stage {
+  max-width: 100%;
+}
+
+.controls {
+  flex-wrap: wrap;
+}
+
+.replay-head b {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 700px) {
+  .stage {
+    aspect-ratio: 4 / 3;
+  }
+  .controls button {
+    padding: 4px 8px;
+    font-size: 0.85rem;
+  }
+  .controls input[type='range'] {
+    flex-basis: 100%;
+    order: -1;
+  }
+}
