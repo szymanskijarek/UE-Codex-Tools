@@ -1,6 +1,6 @@
 import { clamp, dir1000, dist2, idiv, isqrt } from '../core/math';
 import type { Entity, World } from '../types';
-import { derived, emit, get, hasFlag, maskOverlap, tagsOf } from '../world';
+import { derived, get, hasFlag, maskOverlap, tagsOf } from '../world';
 import { applyDamage, applyEffect, applyStatus, push } from './effects';
 
 const GRAVITY = 12;
@@ -186,7 +186,7 @@ function impact(w: World, prop: Entity, victim: Entity): void {
     const rider = w.byId.get(prop.riddenBy)!;
     const sp = isqrt(rider.mx * rider.mx + rider.my * rider.my);
     if (sp < 150) return;
-    const cause = emit(w, 'hit', rider.id, victim.id, 0, 'ride', prop.moveCause);
+    const cause = prop.moveCause;
     applyDamage(w, victim, clamp(idiv(prop.weightG * sp, 150000), 4, 25), 'blunt', rider.id, cause);
     applyEffect(w, { type: 'knockdown' }, victim, { sourceId: rider.id, cause, powerBp: 10000, scale: 'none' });
     push(w, victim, rider.x, rider.y, 1500);

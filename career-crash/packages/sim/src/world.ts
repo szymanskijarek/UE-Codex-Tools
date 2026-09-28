@@ -262,7 +262,7 @@ export function finalStats(content: ContentIndex, snap: CharacterSnapshot): Stat
 }
 
 export const derived = {
-  maxHp: (s: Stats): number => 200 + 22 * s.health,
+  maxHp: (s: Stats): number => 220 + 24 * s.health,
   maxEnergy: (s: Stats): number => (50 + 5 * s.energy) * 100,
   speed: (s: Stats): number => 150 + 10 * s.speed,
   meleeMulBp: (s: Stats): number => 10000 + 500 * s.strength,
@@ -389,8 +389,8 @@ function spawnReferee(w: World): void {
   [e.x, e.y] = w.arena.refereeSpawn;
   e.radius = CHAR_RADIUS;
   e.weightG = 80000;
-  e.maxHp = 90;
-  e.hp = 90;
+  e.maxHp = 260;
+  e.hp = 260;
   e.baseTags = ['npc', 'referee'];
   e.stats = Object.fromEntries(STAT_KEYS.map((k) => [k, 5])) as Stats;
   addEntity(w, e);

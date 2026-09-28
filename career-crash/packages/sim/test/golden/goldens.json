@@ -1,12 +1,12 @@
 {
  "simVersion": "0.1.0",
- "contentHash": "db33ba69ecc1aa44",
+ "contentHash": "709b47cd8cdced70",
  "cases": [
   {
    "name": "arena.office-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "db33ba69ecc1aa44",
+    "contentHash": "709b47cd8cdced70",
     "simVersion": "0.1.0",
     "seed": "1942b39aeff3f829",
     "arenaId": "arena.office",
@@ -235,27 +235,29 @@
     ],
     "modifiers": []
    },
-   "resultHash": "bfc2c0fdce1e7752",
+   "resultHash": "5d289ccc46a11a81",
    "hashes": [
-    "e12c5a5e08749de1",
-    "d29d070fa82a0c42",
-    "bee4df0e5de549e5",
-    "94bee6ff20b1e834",
-    "9973572b9a566094",
-    "baa1cfbb76bbeb2e",
-    "fde5bf24d5a577db",
-    "4cc9c19992cf85d4",
-    "d465da45a1a8e552",
-    "d3fad15038be0ded"
+    "8847398229b58867",
+    "0f736a492919beb0",
+    "d9f01c372e2eb98e",
+    "187ef9b317f35cf8",
+    "dc804e22f606aa9b",
+    "52e1bf9ae4a37b8b",
+    "411857923b32fcf9",
+    "33fcb04601151291",
+    "5d82d7f84d191b97",
+    "101fe586066d64d5",
+    "da2c4020e610fe4d",
+    "02a4e0bd969be272"
    ],
    "winner": 0,
-   "ticks": 1005
+   "ticks": 1279
   },
   {
    "name": "arena.office-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "db33ba69ecc1aa44",
+    "contentHash": "709b47cd8cdced70",
     "simVersion": "0.1.0",
     "seed": "5e7b098fded2d143",
     "arenaId": "arena.office",
@@ -359,7 +361,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": null,
+        "held": "equipment.steering-lock",
         "accessory": null,
         "appearance": {
          "skin": "#c68642",
@@ -484,26 +486,25 @@
     ],
     "modifiers": []
    },
-   "resultHash": "f883f51b12ac2536",
+   "resultHash": "013483e7959c143c",
    "hashes": [
-    "adb0cc4a9d3b6493",
-    "c110bedb70d7b68a",
-    "880daefb513cafb2",
-    "38f284b6fec927a7",
-    "dfd9a0658682d5da",
-    "20818bb6a6eaa3e1",
-    "c27f787d8cd525be",
-    "9e0be1e15b0265d6",
-    "97a91fb36896bcea"
+    "23f57394e5ab0fa3",
+    "450c41b6ac83a213",
+    "8c3999b735ddfb44",
+    "d797868b82c79546",
+    "32e8602084ba723b",
+    "60e1baa4ace5cc8f",
+    "7e85e8ae2c520cab",
+    "cd838ac563e5c744"
    ],
-   "winner": 1,
-   "ticks": 909
+   "winner": 0,
+   "ticks": 838
   },
   {
    "name": "arena.office-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "db33ba69ecc1aa44",
+    "contentHash": "709b47cd8cdced70",
     "simVersion": "0.1.0",
     "seed": "e9aac648f664d750",
     "arenaId": "arena.office",
@@ -732,26 +733,24 @@
     ],
     "modifiers": []
    },
-   "resultHash": "eeb21bf1f768ac88",
+   "resultHash": "647ab5f569110334",
    "hashes": [
-    "25110875c6d04198",
-    "faf7344133f610fe",
-    "a2432d7afe4c6705",
-    "24168a1a95ae0821",
-    "fbd43aa35ead789c",
-    "148cba25513bdf32",
-    "5c007238200d508f",
-    "fd90b9bc7bf82383",
-    "cfd5f71f44f5c464"
+    "b560d7351a2c9094",
+    "4f56b4accb6688c9",
+    "6aeb363bf422e116",
+    "e5d333d292b64e9b",
+    "cc09ebc94781f6d8",
+    "4f19de5498d65765",
+    "03dd410635359119"
    ],
    "winner": 0,
-   "ticks": 934
+   "ticks": 735
   },
   {
    "name": "arena.office-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "db33ba69ecc1aa44",
+    "contentHash": "709b47cd8cdced70",
     "simVersion": "0.1.0",
     "seed": "a1c6d770c6ab0fd2",
     "arenaId": "arena.office",
@@ -896,7 +895,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": null,
+        "held": "equipment.first-aid-kit",
         "accessory": null,
         "appearance": {
          "skin": "#8d5524",
@@ -965,7 +964,7 @@
          "recovery": 5,
          "interactionSpeed": 6
         },
-        "held": null,
+        "held": "equipment.pitchfork",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -980,36 +979,33 @@
     ],
     "modifiers": []
    },
-   "resultHash": "7e7ab123b4c507d0",
+   "resultHash": "48b224b425421287",
    "hashes": [
-    "73b8b15cd11bee7f",
-    "e6940d34bc954f85",
-    "15653276c19c84c1",
-    "82f434019818280e",
-    "ef91654f8167ffba",
-    "e2f38b161fddcc51",
-    "ca424f6284fa89d3",
-    "e2a99ac203cbacaf",
-    "ee08c6db486b4122",
-    "631cc7e8eb079969",
-    "21257778efe085df",
-    "905da5f60c1a1e17",
-    "d5b9d68874749ee3",
-    "e7405ae1ae8ff89a",
-    "992dc1612b904386",
-    "023441362e19be19",
-    "7fe0715ad1a09875",
-    "cbabd9f6519cf7e1",
-    "688c7aaa7253c9cb"
+    "4aed5f0ecba6ae87",
+    "0de1969e7350bde1",
+    "58ab01a95a71fcd4",
+    "3cdeeb48f0e72765",
+    "e95ed4078a1f97ce",
+    "12314862b8bb5445",
+    "8ed656ca70ba12a1",
+    "a6e29f91ea896e1e",
+    "eed22b47d0aab158",
+    "c9d39ce6d04ce36b",
+    "4571746fddd51c7c",
+    "f7d873d0f5098ebd",
+    "ff864eec760477e7",
+    "528a5b5bb6f66430",
+    "f543b3d3703084dc",
+    "60bd7ea8ac4f4671"
    ],
-   "winner": 0,
-   "ticks": 1916
+   "winner": 1,
+   "ticks": 1606
   },
   {
    "name": "arena.office-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "db33ba69ecc1aa44",
+    "contentHash": "709b47cd8cdced70",
     "simVersion": "0.1.0",
     "seed": "ca541a546174fe1c",
     "arenaId": "arena.office",
@@ -1238,25 +1234,27 @@
     ],
     "modifiers": []
    },
-   "resultHash": "1c1cabdd02e59d92",
+   "resultHash": "d26d5594d205946d",
    "hashes": [
-    "e911f8747514b50d",
-    "2136dfc4aadbfe25",
-    "116558c2b72b7a31",
-    "b2d72115404e7cb2",
-    "b21ca1e645bb7cab",
-    "93490da9156de17a",
-    "fbd07ab69d5434c1",
-    "956e2c7e875473e3"
+    "0f1f770821b47c7b",
+    "dacf903ac8f9a8db",
+    "acaf7439f4b9d1f0",
+    "69a52502af77e23d",
+    "45d64bcbf284c206",
+    "7aa8609e674dc611",
+    "7fec32f370303a92",
+    "8d2644781886fe69",
+    "df79458212869791",
+    "4bb140e266ad07f9"
    ],
    "winner": 1,
-   "ticks": 885
+   "ticks": 1008
   },
   {
    "name": "arena.office-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "db33ba69ecc1aa44",
+    "contentHash": "709b47cd8cdced70",
     "simVersion": "0.1.0",
     "seed": "64179e10dfbbf1c5",
     "arenaId": "arena.office",
@@ -1360,7 +1358,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": null,
+        "held": "equipment.steering-lock",
         "accessory": null,
         "appearance": {
          "skin": "#e0ac69",
@@ -1470,7 +1468,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": null,
+        "held": "equipment.dental-drill",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -1539,7 +1537,7 @@
          "recovery": 7,
          "interactionSpeed": 5
         },
-        "held": null,
+        "held": "equipment.first-aid-kit",
         "accessory": null,
         "appearance": {
          "skin": "#e0ac69",
@@ -1623,25 +1621,35 @@
     ],
     "modifiers": []
    },
-   "resultHash": "9526dc188fca6881",
+   "resultHash": "d3b61bd8c50773f7",
    "hashes": [
-    "3235c25c192d1ac9",
-    "0d4a89dcdec87ab7",
-    "feff6835fa210a60",
-    "511c2d858f61fd60",
-    "8948efcb5abc67b2",
-    "c495d0619f6e7bfe",
-    "afc4f11c0e27cfb9",
-    "82697d44983f6181"
+    "cafc80e7a25dff5a",
+    "4c392ead841330e6",
+    "bc68040b7dcbf088",
+    "21c302a1ff1acf1a",
+    "3453192df84d53dc",
+    "6549dc160a2b5dc9",
+    "ed1e183e0b7c819d",
+    "d776cb7c8f40e95d",
+    "4abb587ad09c3423",
+    "29a0c947d8a73b52",
+    "1dfe176410d90e2b",
+    "0c88d95fed1aa37e",
+    "c712193778d78304",
+    "c473878caf220521",
+    "3ec79dde9b013699",
+    "e61ed5112a0041e0",
+    "f42f64a8e5149781",
+    "1150c8f93ee49cda"
    ],
-   "winner": 1,
-   "ticks": 848
+   "winner": 0,
+   "ticks": 1897
   },
   {
    "name": "arena.office-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "db33ba69ecc1aa44",
+    "contentHash": "709b47cd8cdced70",
     "simVersion": "0.1.0",
     "seed": "6ef4a751697087ad",
     "arenaId": "arena.office",
@@ -1855,7 +1863,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": null,
+        "held": "equipment.steering-lock",
         "accessory": null,
         "appearance": {
          "skin": "#8d5524",
@@ -2008,26 +2016,27 @@
     ],
     "modifiers": []
    },
-   "resultHash": "768ef8678b21ac3a",
+   "resultHash": "3e8c7cc054b8fe75",
    "hashes": [
-    "67e610ac67121b81",
-    "36dbabb9e8f6cd08",
-    "3117fbe9f6fa5c6e",
-    "9df486144649779d",
-    "dc1251340c893435",
-    "c4a51e6280e5c051",
-    "50271d8d47e420cc",
-    "829a5837f6766e06",
-    "52035dd8b6c96ca5"
+    "db3cce75d7d51052",
+    "2ba7c1e18ece8efc",
+    "4d8382ad4dd655ea",
+    "8aec31b9e2dabd04",
+    "351d2baf88ac004e",
+    "426a4e888ea04be9",
+    "9da34a91421a0654",
+    "c431e686e0b00b49",
+    "619a332a9386e99b",
+    "48ba25d6fdb4da2f"
    ],
    "winner": 1,
-   "ticks": 927
+   "ticks": 1045
   },
   {
    "name": "arena.office-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "db33ba69ecc1aa44",
+    "contentHash": "709b47cd8cdced70",
     "simVersion": "0.1.0",
     "seed": "8ee11f25ead1b54",
     "arenaId": "arena.office",
@@ -2103,7 +2112,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": null,
+        "held": "equipment.pitchfork",
         "accessory": null,
         "appearance": {
          "skin": "#8d5524",
@@ -2282,37 +2291,30 @@
     ],
     "modifiers": []
    },
-   "resultHash": "15ad6fb632e86ca7",
+   "resultHash": "047e012e01b644a5",
    "hashes": [
-    "59e4d0753b888630",
-    "04418e7685354499",
-    "f62ec69cd28948af",
-    "538eb192a33cd93d",
-    "ca1910991602df94",
-    "cb9782fc6839d4e3",
-    "a3e22e696abe225c",
-    "95f865e69d596e05",
-    "ffc9d4823d561a3d",
-    "77a4d68e7f0349c9",
-    "768ba82d64178fcc",
-    "c0c54466dbb85919",
-    "58e5e54583fa7732",
-    "21a4c67135c0a56e",
-    "2f3cb3ef0b8816ac",
-    "d7ef49ab9ff01c3a",
-    "1cde0c7f3f1d9f7a",
-    "a834c0c7cf5c3f00",
-    "db1eff30e0c3d7a7",
-    "db9195c45444ed99"
+    "dd84bbadf7aa3db6",
+    "06655c6dadb74d72",
+    "c6e7fd13a1be7b74",
+    "f8c0857054685379",
+    "9c55fa4af88b3855",
+    "301abe7720fb6344",
+    "d4ee4632d63c7c81",
+    "09f2c3d7cc8b3a72",
+    "f51918613daa0d64",
+    "0a3f7cfdecc656fe",
+    "c9f2ffba4b787c53",
+    "6870617fe9e8b150",
+    "84d046d7205a694e"
    ],
-   "winner": 3,
-   "ticks": 2084
+   "winner": 2,
+   "ticks": 1358
   },
   {
    "name": "arena.supermarket-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "db33ba69ecc1aa44",
+    "contentHash": "709b47cd8cdced70",
     "simVersion": "0.1.0",
     "seed": "9ae2eb0a49d70d1c",
     "arenaId": "arena.supermarket",
@@ -2416,7 +2418,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": null,
+        "held": "equipment.parcel-scanner",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -2492,7 +2494,7 @@
          "recovery": 3,
          "interactionSpeed": 5
         },
-        "held": null,
+        "held": "equipment.dental-drill",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -2541,30 +2543,26 @@
     ],
     "modifiers": []
    },
-   "resultHash": "05ce39562a144c07",
+   "resultHash": "f383d0d00f8b4b4b",
    "hashes": [
-    "a008f311c655d346",
-    "bba980d553fc0370",
-    "5b62c1ebe5b527a0",
-    "e6f9519a5b6a40ff",
-    "9347123663062307",
-    "2068196073e0f1b5",
-    "7fb7e4e488d541d1",
-    "ccab35e2fb2ee471",
-    "bf03759778e1d66c",
-    "4a8aa5e8c8e3462f",
-    "135d9372a623a66b",
-    "38d6ac069e24f837",
-    "c2bd9903bb036fa4"
+    "ccad1b040caff671",
+    "4d0078774b1f7fb8",
+    "06630d06734a45d5",
+    "b10dcc72a38d5321",
+    "12a12d71c6c8e0e4",
+    "a728c2aebcd89493",
+    "11f31cb6ce94f903",
+    "ecb8a9b439d88a2d",
+    "eb366c7c58976a23"
    ],
-   "winner": 0,
-   "ticks": 1314
+   "winner": 1,
+   "ticks": 975
   },
   {
    "name": "arena.supermarket-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "db33ba69ecc1aa44",
+    "contentHash": "709b47cd8cdced70",
     "simVersion": "0.1.0",
     "seed": "f27e04ed5de877d6",
     "arenaId": "arena.supermarket",
@@ -2793,27 +2791,24 @@
     ],
     "modifiers": []
    },
-   "resultHash": "8786904bbe9e935c",
+   "resultHash": "4d277a122cd49c39",
    "hashes": [
-    "a29480a268b184f3",
-    "3cc35249507eaaf2",
-    "278aa67da2b2b7c6",
-    "f1b38ddb678c011e",
-    "cc3d7aeb8c37484e",
-    "74ff363fc87cada4",
-    "b969c2ee594d8fe1",
-    "840607cdb98067b0",
-    "eaf4dcf9a41d8386",
-    "d735261a367deb7b"
+    "707a4b0e86006b5b",
+    "3afe8703e356c1d6",
+    "82c7fb966b3f8d13",
+    "a409cc10a10c8ff3",
+    "2eb6dd871fb0af80",
+    "6e24f4b8517bc98f",
+    "4d277a122cd49c39"
    ],
    "winner": 0,
-   "ticks": 1020
+   "ticks": 700
   },
   {
    "name": "arena.supermarket-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "db33ba69ecc1aa44",
+    "contentHash": "709b47cd8cdced70",
     "simVersion": "0.1.0",
     "seed": "29fc562148eb9ed3",
     "arenaId": "arena.supermarket",
@@ -2958,7 +2953,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": null,
+        "held": "equipment.dental-drill",
         "accessory": null,
         "appearance": {
          "skin": "#e0ac69",
@@ -2993,7 +2988,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": null,
+        "held": "equipment.first-aid-kit",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -3042,32 +3037,31 @@
     ],
     "modifiers": []
    },
-   "resultHash": "214f35ca218e3a15",
+   "resultHash": "22e278acb79ecccf",
    "hashes": [
-    "e54aafb813b37555",
-    "5fc6cc05436af792",
-    "c1d2f133953d72e6",
-    "b87bec7d64c59426",
-    "ccde2ea3736973c0",
-    "333ddd1c010728c5",
-    "f30e376ed90e9faf",
-    "956fe64cb66730fb",
-    "178f35f991720798",
-    "f92ccbd370d8cb66",
-    "79c2d72e348c7e1d",
-    "b62cb4e6d7067f5d",
-    "cda53cbe04b66255",
-    "c6f319a3dcf5f51a",
-    "fd060737035a82ac"
+    "52551e1b6fd33e78",
+    "3a06743f7bacbbe4",
+    "c08a048fe0ef444e",
+    "50647500d59ae56b",
+    "d198150fec72ed7c",
+    "86677f5d23b695e6",
+    "afd60f20af8ae5dd",
+    "f8d65688f6f7f3d1",
+    "7e0fcc00d6c60b55",
+    "26f209da74e6042b",
+    "a82ea53ff2d6ff4a",
+    "db0740b787872800",
+    "de17718a8c50ab7f",
+    "315946a49994b5b7"
    ],
    "winner": 0,
-   "ticks": 1526
+   "ticks": 1421
   },
   {
    "name": "arena.supermarket-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "db33ba69ecc1aa44",
+    "contentHash": "709b47cd8cdced70",
     "simVersion": "0.1.0",
     "seed": "81a072b6f39a2f04",
     "arenaId": "arena.supermarket",
@@ -3281,7 +3275,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": null,
+        "held": "equipment.pitchfork",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -3296,32 +3290,41 @@
     ],
     "modifiers": []
    },
-   "resultHash": "c0185ce1ab10a1c2",
+   "resultHash": "6c2ca636c534adbb",
    "hashes": [
-    "086e78d6b8645f95",
-    "16fa159e544a303d",
-    "2e9f6135eaa7c93a",
-    "11328dcbe0f7555e",
-    "f1f8296a9ff05dc9",
-    "d9f8b2d3e2397b26",
-    "23445b281952f1bb",
-    "4e5b2136bf25c217",
-    "cfad4642660fe49f",
-    "cc4e4295f72629e4",
-    "55954112784ae9e1",
-    "9c5f15c538cef2ea",
-    "ca77af4986631d16",
-    "8407bb0685fd4a4d",
-    "bd9dac231d3bcfb2"
+    "ff00992e46f19609",
+    "d1b9f4662ad0f117",
+    "c5c0ca787060311d",
+    "745e040e1359d3c5",
+    "4607113b8c277608",
+    "a282737ee46ec311",
+    "e33456ead782f15f",
+    "e06ad196dadcea87",
+    "ecb43c2d73ab8654",
+    "b08ccf4022635a33",
+    "3a79ada3f69a1f50",
+    "d03a1ab983601a70",
+    "562cb639c4e44cae",
+    "d8d61b0c396eb387",
+    "bbeeebf0345a14f7",
+    "41c99c8aef246abd",
+    "e183a49e46dc9a4d",
+    "a58d10e79ff7bbf0",
+    "3f7323c9cba0ab54",
+    "7b4ef79e6469e3d1",
+    "33678bb1bb1f15a0",
+    "e0685443c1f4b90c",
+    "e728873c70a773c3",
+    "6c2ca636c534adbb"
    ],
    "winner": 0,
-   "ticks": 1530
+   "ticks": 2400
   },
   {
    "name": "arena.supermarket-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "db33ba69ecc1aa44",
+    "contentHash": "709b47cd8cdced70",
     "simVersion": "0.1.0",
     "seed": "3092dba1fbfc3c02",
     "arenaId": "arena.supermarket",
@@ -3356,7 +3359,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": null,
+        "held": "equipment.pitchfork",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -3535,7 +3538,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": null,
+        "held": "equipment.first-aid-kit",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -3550,39 +3553,41 @@
     ],
     "modifiers": []
    },
-   "resultHash": "260ca3aae062bba5",
+   "resultHash": "01d846b53258d996",
    "hashes": [
-    "245c4b5db007932c",
-    "49540c9e940b035f",
-    "9eade9d49c360a2b",
-    "032213002b47b549",
-    "1b773450ecd032d3",
-    "00a8a3a8ef9ef66d",
-    "d50f33f0ae1e0ba9",
-    "b5c713372e2ae728",
-    "c2f9f2fee9973009",
-    "194eccced81d2d53",
-    "6fdc5d432685b644",
-    "4f6642c238a84b65",
-    "91b3b6628a20bc31",
-    "60e9f2976dd1ae62",
-    "9e5aa2596dd04fbc",
-    "fc3950d61acc124d",
-    "aee931269e1bc4f1",
-    "54e1b0124cb43ec5",
-    "9e879c09d01c8792",
-    "825afba60c776757",
-    "7b01402c745a8635",
-    "02f0d8ac5d00335d"
+    "ed9ab1696aa5cada",
+    "f7c2a63d18f78822",
+    "7600cd93412de11e",
+    "ee22b8be1c0a77b9",
+    "bd1da2a559d9311c",
+    "de582a699036ea4c",
+    "fb71b8c771d5eadc",
+    "439081228a61a303",
+    "04b9bbde10cd18b1",
+    "8c816f19b28acef6",
+    "0fb520012adbd4e6",
+    "f499ea1f2e14ac62",
+    "d79e39c27e23310f",
+    "f45b6ef4dcef2bb1",
+    "b1ab18dd06f21b86",
+    "5d7a29f85e94732b",
+    "41e0fbe59b466160",
+    "7a6e9371849d378e",
+    "599c17ab0b4d4382",
+    "18f6eae4ee8333bf",
+    "e4d926b40fd200dd",
+    "4238efc3c8ce9cbc",
+    "15e38622b353b47b",
+    "01d846b53258d996"
    ],
-   "winner": 1,
-   "ticks": 2280
+   "winner": 0,
+   "ticks": 2400
   },
   {
    "name": "arena.supermarket-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "db33ba69ecc1aa44",
+    "contentHash": "709b47cd8cdced70",
     "simVersion": "0.1.0",
     "seed": "15b9ea93d29325f1",
     "arenaId": "arena.supermarket",
@@ -3755,7 +3760,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": null,
+        "held": "equipment.first-aid-kit",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -3831,7 +3836,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": null,
+        "held": "equipment.steering-lock",
         "accessory": null,
         "appearance": {
          "skin": "#8d5524",
@@ -3865,7 +3870,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": null,
+        "held": "equipment.pitchfork",
         "accessory": null,
         "appearance": {
          "skin": "#8d5524",
@@ -3900,7 +3905,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": null,
+        "held": "equipment.dental-drill",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -3949,25 +3954,26 @@
     ],
     "modifiers": []
    },
-   "resultHash": "b4385489266d2fda",
+   "resultHash": "4b5688c4fb2f9827",
    "hashes": [
-    "557437c6af55148b",
-    "5dcd1ce3324df11a",
-    "7032b6ddfeb7292e",
-    "15b9053d3feecb48",
-    "d77d6f740375bce5",
-    "05a8777f18262e6a",
-    "e08b5566a757e499",
-    "cca12301fbb75b78"
+    "5152d5c8be5ad0cd",
+    "d5230b211d70e054",
+    "a39dd6bf74c8451a",
+    "4c111beec0df75af",
+    "742623320491f323",
+    "6a4645328a3b6ac7",
+    "cd3c6545a8239276",
+    "77ecd757615067de",
+    "be75edb0acbb8d7d"
    ],
    "winner": 0,
-   "ticks": 845
+   "ticks": 974
   },
   {
    "name": "arena.supermarket-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "db33ba69ecc1aa44",
+    "contentHash": "709b47cd8cdced70",
     "simVersion": "0.1.0",
     "seed": "e3db234b698108ca",
     "arenaId": "arena.supermarket",
@@ -4002,7 +4008,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": null,
+        "held": "equipment.steering-lock",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -4140,7 +4146,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": null,
+        "held": "equipment.first-aid-kit",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -4285,7 +4291,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": null,
+        "held": "equipment.first-aid-kit",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -4334,29 +4340,28 @@
     ],
     "modifiers": []
    },
-   "resultHash": "18adb39db4f8cb94",
+   "resultHash": "8a0e255c9ef3005b",
    "hashes": [
-    "1a4c8993f528235c",
-    "bfa2d0de08704577",
-    "ab45f88f5fb0f57a",
-    "ae26c035012c5854",
-    "2fc323cf232b3a8e",
-    "165998fb8bbb3952",
-    "9ca1f32e349fab17",
-    "4ebc52042f243d29",
-    "d630657521c3e18a",
-    "1b3409194ed5a6b8",
-    "f8d229060a44ab41",
-    "5e0b67b7b0de48b4"
+    "fbb518d43c6a5aaf",
+    "af8deca6e67ab59f",
+    "4e454f51005cc7a6",
+    "be55b9dab1667de5",
+    "10d696c468a67077",
+    "b1064eac461c0711",
+    "4028f87f091813c0",
+    "1b8d2bc5e8c76962",
+    "030e5dd253a7a6f7",
+    "9eb449c1a0298a00",
+    "89f55931ec670336"
    ],
-   "winner": 1,
-   "ticks": 1289
+   "winner": 0,
+   "ticks": 1199
   },
   {
    "name": "arena.supermarket-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "db33ba69ecc1aa44",
+    "contentHash": "709b47cd8cdced70",
     "simVersion": "0.1.0",
     "seed": "466b3a4eb135955b",
     "arenaId": "arena.supermarket",
@@ -4391,7 +4396,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": null,
+        "held": "equipment.pitchfork",
         "accessory": null,
         "appearance": {
          "skin": "#c68642",
@@ -4611,22 +4616,23 @@
     ],
     "modifiers": []
    },
-   "resultHash": "eab7f6d57ddd5800",
+   "resultHash": "5e64a57f10e2daec",
    "hashes": [
-    "1281b6866679b7ab",
-    "411887e3654986b0",
-    "d722c9f8ce8d466b",
-    "96e35e79b4512ce0",
-    "ff638bd8600011a7",
-    "017eb2cb315d8a04",
-    "4cd85a6542dcc730",
-    "c159b97e75217d8b",
-    "f6861bf2d77b99db",
-    "7df5147793cc03d4",
-    "b61a53fa33b7a991"
+    "571b55e0af4b10e1",
+    "9c48bf3385dd1aee",
+    "8c5af677db539fdc",
+    "c4e501d7d5828558",
+    "c86e4ae3864a612c",
+    "e835feca9bb4fa41",
+    "ee8c9387fddb10a6",
+    "1bce9a5caf5000b5",
+    "a7516b11d740a298",
+    "067a3c72f5bf9183",
+    "3ca0cbb601eb2b0b",
+    "72695d203a189e79"
    ],
-   "winner": 2,
-   "ticks": 1105
+   "winner": 3,
+   "ticks": 1221
   }
  ]
 }

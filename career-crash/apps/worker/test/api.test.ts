@@ -76,16 +76,11 @@ describe('API (01 §6.4)', () => {
   it('PvP: attacking a real player updates their rating and pending defence rewards', async () => {
     const t = setup();
     const def = await t.signIn('device-secret-defender', 'Defender');
-    const attackerTokenHolder = setup(); // separate app instance, same DB below
-    void attackerTokenHolder;
     const atk = await t.signIn('device-secret-attacker', 'Attacker');
-    // Force the defender into the opponent cache by asking for opponents until it shows up.
-    let card: OpponentDTO | undefined;
-    for (let i = 0; i < 10 && !card; i++) {
-      const r = await t.call<{ opponents: OpponentDTO[] }>('GET', `/opponents/duel_3v3?refresh=1`);
-      card = r.data.opponents.find((o) => o.playerId === def.playerId);
-    }
-    expect(card, 'real defender should appear among opponents').toBeDefined();
+    // Real players are preferred over bots, so the defender (same rating) is the "even" pick.
+    const r = await t.call<{ opponents: OpponentDTO[] }>('GET', '/opponents/duel_3v3?refresh=1');
+    const card = r.data.opponents.find((o) => o.playerId === def.playerId);
+    expect(card?.difficulty).toBe('even');
     const me = (await t.call<MeResponse>('GET', '/me')).data;
     const res = await t.call<AttackResponse>('POST', '/battles/attack', { mode: 'duel_3v3', opponentId: def.playerId, characterIds: me.roster.slice(0, 3).map((c) => c.id) });
     expect(res.status).toBe(200);
@@ -97,7 +92,7 @@ describe('API (01 §6.4)', () => {
     const reports = await t.call<{ reports: { attackerName: string }[] }>('GET', '/reports');
     expect(reports.data.reports[0]!.attackerName).toBe('Attacker');
     expect(dme.player.rating).not.toBe(1000);
-    void atk;
+    expect(atk.playerId).not.toBe(def.playerId);
   });
 
   it('idempotency keys replay the first response', async () => {

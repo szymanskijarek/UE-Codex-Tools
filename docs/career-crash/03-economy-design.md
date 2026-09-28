@@ -149,7 +149,9 @@ within ±20% of the attacker's selected team power, excluding opponents
 attacked in the last 24 h. Rewards scale with difficulty (§5.4). If the pool
 is thin (early launch), fill with **ghost defences**: frozen snapshots of
 real players' past defences at similar rating, flagged as such (no rating
-change for the ghost's owner).
+change for the ghost's owner). v0.1 fills with deterministic bot teams
+(`botTeam()` in game-rules, level scaled from rating). Within a band, real
+players are always preferred over bots; bots only fill empty bands.
 
 ### 5.3 Leagues
 

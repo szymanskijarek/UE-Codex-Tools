@@ -6,6 +6,26 @@ stops and proposes a doc change first.
 
 ---
 
+## 0. Status (v0.1 implementation)
+
+Code lives in [`career-crash/`](../../career-crash/README.md). Implemented in the first pass:
+
+| Phase | State |
+|---|---|
+| 0 Foundations | ✅ monorepo, strict TS, ESLint determinism + boundary rules, CI workflow, `AGENTS.md` |
+| 1 Deterministic core | ✅ integer math, sfc32 + forks, world/hash, 12-phase tick loop, physics, nav A*, golden harness + replay CLI (cross-runtime job: Node only so far) |
+| 2 Content pipeline | ✅ schemas, compiler (refs, tags, budgets, locale), 28 careers, 64 abilities, 38 props, 26 rules, 2 arenas |
+| 3 Combat | ✅ B-1…B-12 (balance tool reports duration, outliers, story density, perf) |
+| 4 Replay + commentary | ✅ Pixi viewer with placeholder paper dolls, 19 detectors, report screen, Sandbox — **Gate 3 ("is it funny?") is next for a human** |
+| 5 Backend + loop | ✅ K-1…K-9 on D1 (K-10 immutable R2 bundles: not yet — old replays currently need the same content hash) |
+| 6 Depth | ◐ masteries + discoveries, traits, relationships, job board, 5v5 done; leagues/seasons cron, economy simulator, Hall of Fame not yet |
+| 7 Art pipeline | ◐ style guide + prompt generator; generated assets not yet |
+| 8 Launch | ☐ |
+
+Latest balance run (500 × 3v3): median 57 s, 5–7 % timeouts, p99 sim ≈ 70–95 ms on the dev container, 2.8 story moments/battle (5v5: 4.2), 1–3 careers slightly outside 40–60 %.
+
+---
+
 ## 1. How agents work on this project
 
 ### 1.1 Task contract

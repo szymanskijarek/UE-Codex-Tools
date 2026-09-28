@@ -29,5 +29,10 @@
   {"id": "equipment.hard-hat", "slot": "accessory", "rarity": "common", "tags": ["material:plastic"], "statMods": {"health": 2}, "price": 300},
   {"id": "equipment.coffee-thermos", "slot": "accessory", "rarity": "common", "tags": [], "statMods": {"energy": 1, "recovery": 1}, "price": 250},
   {"id": "equipment.wellies", "slot": "accessory", "rarity": "rare", "tags": ["material:rubber"], "statMods": {"speed": -1}, "price": 450, "immuneTo": ["status.slipping", "status.wet"]},
-  {"id": "equipment.name-badge", "slot": "accessory", "rarity": "common", "tags": [], "statMods": {"charisma": 1, "confidence": 1}, "price": 200}
+  {"id": "equipment.name-badge", "slot": "accessory", "rarity": "common", "tags": [], "statMods": {"charisma": 1, "confidence": 1}, "price": 200},
+  {"id": "equipment.steering-lock", "slot": "held", "rarity": "common", "tags": ["material:metal", "conductive"], "attack": {"base": 12, "rangeMm": 1300, "windupTicks": 8, "recoverTicks": 12, "knockbackMm": 1100, "damageType": "blunt"}, "price": 300},
+  {"id": "equipment.first-aid-kit", "slot": "held", "rarity": "common", "tags": ["material:plastic", "skill:heal"], "attack": {"base": 9, "rangeMm": 1100, "windupTicks": 6, "recoverTicks": 10, "knockbackMm": 700, "damageType": "blunt"}, "statMods": {"recovery": 1}, "price": 350},
+  {"id": "equipment.pitchfork", "slot": "held", "rarity": "common", "tags": ["material:wood", "sharp"], "attack": {"base": 11, "rangeMm": 1800, "windupTicks": 8, "recoverTicks": 12, "knockbackMm": 1300, "damageType": "sharp"}, "price": 300},
+  {"id": "equipment.parcel-scanner", "slot": "held", "rarity": "common", "tags": ["material:tech", "conductive"], "attack": {"base": 10, "rangeMm": 1200, "windupTicks": 6, "recoverTicks": 10, "knockbackMm": 800, "damageType": "blunt"}, "statMods": {"throwing": 1}, "price": 300},
+  {"id": "equipment.dental-drill", "slot": "held", "rarity": "common", "tags": ["material:tech", "conductive", "sharp"], "attack": {"base": 10, "rangeMm": 1000, "windupTicks": 5, "recoverTicks": 9, "knockbackMm": 400, "damageType": "sharp", "effects": [{"type": "applyStatus", "status": "status.stunned", "durationTicks": 8, "chanceBp": 2500}]}, "price": 350}
 ]

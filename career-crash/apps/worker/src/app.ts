@@ -479,14 +479,13 @@ export function createApp() {
         pool.push({ playerId: team.playerId, playerName: team.playerName, rating, power: teamPower(bundle, team.characters), ghost: true });
       }
     }
-    let ids: string[];
     if (refreshList) {
-      ids = pickOpponents(pool, p.rating, myPower, `${p.id}:${now}`, new Set(Object.keys(p.state.attacked))).map((o) => o.playerId);
-      p.state.opponents = { mode, at: now, ids };
+      const picks = pickOpponents(pool, p.rating, myPower, `${p.id}:${now}`, new Set(Object.keys(p.state.attacked)));
+      p.state.opponents = { mode, at: now, ids: picks.map((o) => o.playerId), difficulties: picks.map((o) => o.difficulty) };
       await repo.savePlayer(p).run();
-    } else ids = p.state.opponents!.ids;
+    }
+    const { ids, difficulties } = p.state.opponents!;
     const cards: OpponentDTO[] = [];
-    const diffs: Difficulty[] = ['easy', 'even', 'hard'];
     for (const [i, id] of ids.entries()) {
       const cand = pool.find((x) => x.playerId === id);
       const team = await opponentTeam(repo, id, mode);
@@ -496,7 +495,7 @@ export function createApp() {
         playerName: cand.playerName,
         rating: cand.rating,
         power: cand.power,
-        difficulty: diffs[i] ?? 'even',
+        difficulty: difficulties[i] ?? 'even',
         ghost: cand.ghost,
         preview: team.characters.map((ch) => ({ name: ch.name, careers: ch.careers, level: ch.level })),
       });
@@ -521,8 +520,7 @@ export function createApp() {
     if (!MODES.includes(req.mode)) fail(400, 'mode', 'Unknown mode');
     const cached = p.state.opponents;
     if (!cached || cached.mode !== req.mode || !cached.ids.includes(req.opponentId)) fail(409, 'stale_opponent', 'Opponent list expired — refresh opponents');
-    const idx = cached!.ids.indexOf(req.opponentId);
-    const difficulty = (['easy', 'even', 'hard'] as Difficulty[])[idx] ?? 'even';
+    const difficulty: Difficulty = cached!.difficulties[cached!.ids.indexOf(req.opponentId)] ?? 'even';
     const wallet = await repo.wallet(p.id);
     const pre = refresh(repo, p, wallet.tickets, now);
     if (wallet.tickets + pre.gained < 1) fail(402, 'no_tickets', 'No tickets left — they regenerate over time');

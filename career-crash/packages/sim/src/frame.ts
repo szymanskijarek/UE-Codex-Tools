@@ -8,6 +8,8 @@ export interface FrameEntity {
   def: string;
   team: number;
   name: string;
+  /** Character snapshot id ('' for props/NPCs). */
+  snap: string;
   x: number;
   y: number;
   z: number;
@@ -44,6 +46,7 @@ export function frameOf(w: World): Frame {
       def: e.def,
       team: e.team,
       name: e.name,
+      snap: e.snapshotId,
       x: e.x,
       y: e.y,
       z: e.z,

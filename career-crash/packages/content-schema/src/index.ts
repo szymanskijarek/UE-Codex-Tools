@@ -329,6 +329,11 @@ export const DETECTOR_KINDS = [
   'cowardSurvivor',
   'flawless',
   'longBattle',
+  'panic',
+  'card',
+  'explosion',
+  'rideHit',
+  'healedEnemy',
 ] as const;
 export type DetectorKind = (typeof DETECTOR_KINDS)[number];
 

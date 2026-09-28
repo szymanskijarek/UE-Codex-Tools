@@ -58,7 +58,7 @@ all modifiers.
 
 | Stat | Primary effect (derived value) | Secondary effect |
 |---|---|---|
-| Health | Max HP = `60 + 8 × Health` | Resistance to knock-down |
+| Health | Max HP = `220 + 24 × Health` (tuned in v0.1 from `60 + 8 ×` so median 3v3 length approaches 60 s) | Resistance to knock-down |
 | Energy | Max energy = `50 + 5 × Energy` | — |
 | Movement Speed | Speed mm/tick = `150 + 10 × Speed` (3.0–9.0 m/s) | Dodge chance |
 | Strength | Melee damage multiplier `+5%/pt`; carry weight `10 kg × Str` | Push force |
@@ -94,7 +94,7 @@ determinism contract; changing it bumps `simVersion`.
 4. **Action progress** — advance wind-ups, casts, interactions; fire effects whose wind-up finished.
 5. **Movement & physics** — apply intended velocities, knockback, friction, gravity on `z`; resolve collisions; projectiles advance.
 6. **Contacts** — emit `contact` events for new overlaps (character↔prop, prop↔prop, character↔zone).
-7. **Interaction rules** — evaluate rules for all events emitted this tick (bounded: max 3 cascade rounds per tick; further events defer to the next tick).
+7. **Interaction rules** — evaluate rules for all events emitted this tick (bounded: max 3 cascade rounds per tick; further events defer to the next tick). Rules that spawn props must not be able to re-trigger themselves; as a safety net the engine caps prop spawns at 12 per tick (`MAX_SPAWNS_PER_TICK`). Contact pairs are pre-filtered with per-entity rule bitmasks so only pairs that could match a rule are evaluated.
 8. **Statuses** — tick durations, apply periodic effects, expire.
 9. **Resources** — energy regen, morale drift, downed/revive timers.
 10. **Referee** — observe fouls, issue cards (§7.5).
@@ -339,7 +339,7 @@ Every duel has a neutral **referee** entity (content: `npc.referee`). It:
 - Tracks fouls: hitting downed characters, friendly-fire KOs, repeated taunts.
 - At 3 foul points, issues a **card**: the offender is `Lectured`
   (stunned 40 ticks). Charisma reduces foul points accrued (−5%/pt).
-- Is a physical entity with HP. It **can be knocked out** by stray props,
+- Is a physical entity with HP (260 in v0.1). It **can be knocked out** by stray props,
   explosions, trolleys. When KO'd: event `refereeDown`, fouls stop being
   enforced, sudden death starts 15 s earlier. Knocking out the referee on
   purpose is never an AI goal — it only happens by accident, which is the joke.
@@ -459,6 +459,13 @@ over the event log and the characters' histories. Each detector produces a
 | `career-cleanup` | one career type got all KOs | 60 |
 | `chain-reaction` | a cause chain of length ≥ 3 | 65 |
 | `upset` | lower-rated team won by > 150 rating | 60 |
+| `explosion` | a prop exploded (credits whoever set it off) | 60 |
+| `rideHit` | someone rode a trolley/chair into another character | 70 |
+| `healedEnemy` | a healer patched up the other team (e.g. medic first-aid rule) | 64 |
+| `card` | the referee showed a yellow card | 62 |
+| `panic` | a character's morale collapsed | 58 |
+| `massStatus` | ≥ 3 characters share a status not caused by a hazard | 50 |
+| `flawless` | winners lost nobody | 40 |
 
 ### 11.3 Templates
 

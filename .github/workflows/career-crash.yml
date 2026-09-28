@@ -1,0 +1,43 @@
+name: career-crash
+
+on:
+  push:
+    paths: ['career-crash/**', '.github/workflows/career-crash.yml']
+  pull_request:
+    paths: ['career-crash/**', '.github/workflows/career-crash.yml']
+
+defaults:
+  run:
+    working-directory: career-crash
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          package_json_file: career-crash/package.json
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: career-crash/pnpm-lock.yaml
+      - run: pnpm install --frozen-lockfile
+      - name: Content build (schemas, references, budgets, locale)
+        run: pnpm content:build
+      - run: pnpm lint
+      - run: pnpm typecheck
+      - name: Tests (unit, property, golden replays, API)
+        run: pnpm test
+      - name: Golden replay diff
+        run: pnpm replay golden
+      - name: Balance smoke (report only)
+        run: pnpm balance --battles=150
+      - name: Client build
+        run: pnpm --filter @cc/client build
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: balance-report
+          path: career-crash/tools/balance/reports/

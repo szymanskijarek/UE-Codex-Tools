@@ -1,5 +1,5 @@
 import type { D1Database, D1PreparedStatement } from '@cloudflare/workers-types';
-import type { Character, Currency } from '@cc/game-rules';
+import type { Character, Currency, Difficulty } from '@cc/game-rules';
 import type { DefenceDTO, PendingRewards, PlayerDTO, Wallet } from '@cc/protocol';
 import type { BattleMode, TeamSnapshot } from '@cc/sim';
 
@@ -15,7 +15,7 @@ export interface PlayerState {
   pending: PendingRewards;
   rosterSlots: number;
   attacked: Record<string, number>;
-  opponents: { mode: BattleMode; at: number; ids: string[] } | null;
+  opponents: { mode: BattleMode; at: number; ids: string[]; difficulties: Difficulty[] } | null;
 }
 
 export interface PlayerRow {

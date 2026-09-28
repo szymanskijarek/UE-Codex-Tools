@@ -24,3 +24,4 @@ Detailed setup is documented in `docs/codex-tooling/SETUP.md`.
 ## Other documents
 
 - `docs/career-crash/` — design documentation for *Career Crash*, a browser-based async auto-brawler (game design, technical spec, combat, economy, AI-agent roadmap).
+- `career-crash/` — the Career Crash game itself (TypeScript monorepo: simulation, content, Cloudflare Worker API, Preact/PixiJS client). See `career-crash/README.md`.

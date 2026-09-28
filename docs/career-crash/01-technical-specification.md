@@ -103,8 +103,10 @@ Battle view = one `<canvas>` managed by Pixi, mounted inside a Preact route.
 
 1. Fetch the `BattleRecord` (see §4.4) and the content bundle matching its
    `contentHash` (cached in IndexedDB; immutable URL on R2/CDN).
-2. Run the sim in a Web Worker at full speed, emitting per-tick snapshots and
-   events into a ring buffer.
+2. Run the sim incrementally as playback advances, emitting per-tick snapshots
+   and events. (v0.1 runs it on the main thread: a whole battle simulates in
+   < 100 ms, and seeking backwards re-simulates from tick 0. Move to a Web
+   Worker if profiling on low-end phones shows frame drops.)
 3. Main thread renders at display refresh rate, interpolating between the two
    nearest ticks. Speed control: 1×, 2×, 4×, skip-to-end.
 4. Verify the final state hash equals `BattleRecord.resultHash`. On mismatch,

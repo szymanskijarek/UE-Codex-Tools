@@ -110,6 +110,15 @@ describe('economy (03 §5–7)', () => {
     expect(picks[0]!.rating).toBeLessThan(picks[2]!.rating);
   });
 
+  it('prefers real players over bots in the same band', () => {
+    const pool = [
+      { playerId: 'bot:a', playerName: 'Bot', rating: 1000, power: 200, ghost: true },
+      { playerId: 'bot:b', playerName: 'Bot', rating: 1010, power: 200, ghost: true },
+      { playerId: 'human', playerName: 'Human', rating: 1005, power: 200, ghost: false },
+    ];
+    for (const seed of ['a', 'b', 'c', 'd']) expect(pickOpponents(pool, 1000, 200, seed, new Set()).find((o) => o.difficulty === 'even')?.playerId).toBe('human');
+  });
+
   it('bot teams scale with rating', () => {
     const lo = botTeam(bundle, 'b', 900, 3);
     const hi = botTeam(bundle, 'b', 1700, 3);

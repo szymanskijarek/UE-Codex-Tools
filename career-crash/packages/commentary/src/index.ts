@@ -238,6 +238,37 @@ const DETECTORS: Record<DetectorKind, Detector> = {
     if (mine.some((x) => x.counters.downs > 0 || x.state !== 'active')) return null;
     return { tick: c.out.result.ticks, actors: [], slots: { winner: c.input.teams[w]!.playerName } };
   },
+  panic: (c) => {
+    const e = c.out.events.find((x) => x.type === 'panic' && c.chars.has(x.a));
+    return e ? { tick: e.t, actors: [e.a], slots: { name: charName(c, e.a) } } : null;
+  },
+  card: (c) => {
+    const e = c.out.events.find((x) => x.type === 'card' && c.chars.has(x.b));
+    return e ? { tick: e.t, actors: [e.b], slots: { name: charName(c, e.b) } } : null;
+  },
+  explosion: (c) => {
+    const e = c.out.events.find((x) => x.type === 'explosion');
+    if (!e) return null;
+    const who = chain(c, e).find((x) => c.chars.has(x.a));
+    return { tick: e.t, actors: who ? [who.a] : [], slots: { prop: nameOf(c.bundle, e.s).toLowerCase(), name: who ? charName(c, who.a) : 'someone' } };
+  },
+  rideHit: (c) => {
+    for (const e of c.out.events) {
+      if (e.type !== 'hit' || !c.chars.has(e.a) || !c.chars.has(e.b)) continue;
+      const ride = e.cause >= 0 ? c.byIndex[e.cause] : undefined;
+      if (ride?.type === 'ride') return { tick: e.t, actors: [e.a, e.b], slots: { name: charName(c, e.a), victim: charName(c, e.b), prop: nameOf(c.bundle, ride.s).toLowerCase() } };
+    }
+    return null;
+  },
+  healedEnemy: (c) => {
+    for (const e of c.out.events) {
+      if (e.type !== 'heal' || e.v < 5) continue;
+      const a = c.chars.get(e.a);
+      const b = c.chars.get(e.b);
+      if (a && b && a.team !== b.team) return { tick: e.t, actors: [e.a, e.b], slots: { name: a.name, victim: b.name, career: careerTitle(c, e.a) } };
+    }
+    return null;
+  },
   longBattle: (c) =>
     c.out.result.reason === 'timeout' ? { tick: c.out.result.ticks, actors: [], slots: { arena: nameOf(c.bundle, c.input.arenaId) } } : null,
 };

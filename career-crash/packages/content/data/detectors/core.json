@@ -11,6 +11,11 @@
   {"id": "detector.prop-ko", "kind": "propKo", "score": 55, "templates": ["commentary.prop-ko.1", "commentary.prop-ko.2", "commentary.prop-ko.3"]},
   {"id": "detector.mass-status", "kind": "massStatus", "score": 50, "templates": ["commentary.mass-status.1", "commentary.mass-status.2", "commentary.mass-status.3"], "params": {"min": 3}},
   {"id": "detector.coward-survivor", "kind": "cowardSurvivor", "score": 58, "templates": ["commentary.coward-survivor.1", "commentary.coward-survivor.2"]},
-  {"id": "detector.flawless", "kind": "flawless", "score": 68, "templates": ["commentary.flawless.1", "commentary.flawless.2"]},
-  {"id": "detector.long-battle", "kind": "longBattle", "score": 30, "templates": ["commentary.long-battle.1", "commentary.long-battle.2"]}
+  {"id": "detector.flawless", "kind": "flawless", "score": 40, "templates": ["commentary.flawless.1", "commentary.flawless.2"]},
+  {"id": "detector.long-battle", "kind": "longBattle", "score": 30, "templates": ["commentary.long-battle.1", "commentary.long-battle.2"]},
+  {"id": "detector.panic", "kind": "panic", "score": 58, "templates": ["commentary.panic.1", "commentary.panic.2", "commentary.panic.3"]},
+  {"id": "detector.yellow-card", "kind": "card", "score": 62, "templates": ["commentary.yellow-card.1", "commentary.yellow-card.2", "commentary.yellow-card.3"]},
+  {"id": "detector.explosion", "kind": "explosion", "score": 60, "templates": ["commentary.explosion.1", "commentary.explosion.2", "commentary.explosion.3"]},
+  {"id": "detector.ride-hit", "kind": "rideHit", "score": 70, "templates": ["commentary.ride-hit.1", "commentary.ride-hit.2", "commentary.ride-hit.3"]},
+  {"id": "detector.healed-enemy", "kind": "healedEnemy", "score": 64, "templates": ["commentary.healed-enemy.1", "commentary.healed-enemy.2"]}
 ]

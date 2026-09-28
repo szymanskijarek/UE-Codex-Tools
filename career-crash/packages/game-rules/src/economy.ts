@@ -108,20 +108,23 @@ export function pickOpponents(pool: DefenceCandidate[], myRating: number, myPowe
   const rng = Rng.fromSeed(seed);
   const usable = pool.filter((p) => !exclude.has(p.playerId) && Math.abs(p.power - myPower) <= Math.max(20, Math.trunc(myPower * 0.35)));
   const bands: [Difficulty, number, number][] = [
-    ['easy', myRating - 150, myRating - 20],
     ['even', myRating - 60, myRating + 60],
+    ['easy', myRating - 150, myRating - 20],
     ['hard', myRating + 20, myRating + 250],
   ];
   const out: OpponentCard[] = [];
   const taken = new Set<string>();
   for (const [difficulty, lo, hi] of bands) {
     let cands = usable.filter((p) => p.rating >= lo && p.rating <= hi && !taken.has(p.playerId));
+    // Real players first; bots only fill bands that have no humans (03 §5.2).
+    const humans = cands.filter((p) => !p.ghost);
+    if (humans.length > 0) cands = humans;
     if (cands.length === 0) {
-      // Fall back to the closest rating in the right direction.
-      const sorted = usable
-        .filter((p) => !taken.has(p.playerId))
-        .sort((a, b) => Math.abs(a.rating - (lo + hi) / 2) - Math.abs(b.rating - (lo + hi) / 2) || (a.playerId < b.playerId ? -1 : 1));
-      cands = sorted.slice(0, 3);
+      // Nothing in the band: fall back to the closest rating, preferring bots (a human outside the band is a mismatch).
+      const mid = (lo + hi) / 2;
+      const rest = usable.filter((p) => !taken.has(p.playerId));
+      const bots = rest.filter((p) => p.ghost);
+      cands = (bots.length > 0 ? bots : rest).sort((a, b) => Math.abs(a.rating - mid) - Math.abs(b.rating - mid) || (a.playerId < b.playerId ? -1 : 1)).slice(0, 3);
     }
     if (cands.length === 0) continue;
     cands.sort((a, b) => (a.playerId < b.playerId ? -1 : 1));
@@ -129,6 +132,8 @@ export function pickOpponents(pool: DefenceCandidate[], myRating: number, myPowe
     taken.add(pick.playerId);
     out.push({ ...pick, difficulty });
   }
+  const order: Difficulty[] = ['easy', 'even', 'hard'];
+  out.sort((a, b) => order.indexOf(a.difficulty) - order.indexOf(b.difficulty));
   return out;
 }
 
@@ -140,7 +145,7 @@ const BOT_COMPANIES = ['Acme Temps', 'Night Shift', 'Middle Management', 'The In
 /** A deterministic bot team at roughly the given rating: higher ratings → more levels and careers. */
 export function botTeam(bundle: ContentBundle, seed: string, rating: number, size: number): TeamSnapshot {
   const rng = Rng.fromSeed(seed);
-  const level = Math.max(1, Math.min(40, Math.round((rating - 900) / 25)));
+  const level = Math.max(1, Math.min(40, Math.round((rating - 950) / 25)));
   const unlocked = bundle.careers.filter((c) => !c.deprecated).map((c) => c.id);
   const characters: CharacterSnapshot[] = [];
   for (let i = 0; i < size; i++) {

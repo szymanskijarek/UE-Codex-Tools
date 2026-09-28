@@ -1,0 +1,3 @@
+{ "name": "@cc/art-pipeline", "version": "0.1.0", "private": true, "type": "module",
+  "scripts": { "prompts": "tsx src/prompts.ts" },
+  "dependencies": { "@cc/content": "workspace:*", "@cc/content-schema": "workspace:*" } }
