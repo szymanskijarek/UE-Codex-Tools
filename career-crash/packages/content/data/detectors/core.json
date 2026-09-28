@@ -17,5 +17,7 @@
   {"id": "detector.yellow-card", "kind": "card", "score": 62, "templates": ["commentary.yellow-card.1", "commentary.yellow-card.2", "commentary.yellow-card.3"]},
   {"id": "detector.explosion", "kind": "explosion", "score": 60, "templates": ["commentary.explosion.1", "commentary.explosion.2", "commentary.explosion.3"]},
   {"id": "detector.ride-hit", "kind": "rideHit", "score": 70, "templates": ["commentary.ride-hit.1", "commentary.ride-hit.2", "commentary.ride-hit.3"]},
-  {"id": "detector.healed-enemy", "kind": "healedEnemy", "score": 64, "templates": ["commentary.healed-enemy.1", "commentary.healed-enemy.2"]}
+  {"id": "detector.healed-enemy", "kind": "healedEnemy", "score": 64, "templates": ["commentary.healed-enemy.1", "commentary.healed-enemy.2"]},
+  {"id": "detector.machine-hit", "kind": "machineHit", "score": 66, "templates": ["commentary.machine-hit.1", "commentary.machine-hit.2"]},
+  {"id": "detector.rake-hit", "kind": "rakeHit", "score": 64, "templates": ["commentary.rake-hit.1", "commentary.rake-hit.2"]}
 ]

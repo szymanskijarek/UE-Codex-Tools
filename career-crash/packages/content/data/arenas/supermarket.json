@@ -425,6 +425,24 @@
      "dropFromMm": 3000
     }
    }
+  },
+  {
+   "id": "hazard.free-samples",
+   "startTick": 900,
+   "everyTicks": 700,
+   "telegraphTicks": 40,
+   "region": [
+    17500,
+    10200,
+    3400,
+    2200
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.snack",
+     "count": 3
+    }
+   }
   }
  ],
  "suddenDeath": {
@@ -457,5 +475,101 @@
  },
  "unlock": {
   "league": "intern"
- }
+ },
+ "stations": [
+  {
+   "id": "frozen",
+   "name": "the Frozen Aisle",
+   "at": [
+    4800,
+    2700
+   ]
+  },
+  {
+   "id": "checkouts",
+   "name": "the Checkouts",
+   "at": [
+    12000,
+    7000
+   ]
+  },
+  {
+   "id": "bakery",
+   "name": "the Bakery",
+   "at": [
+    19200,
+    11300
+   ]
+  },
+  {
+   "id": "drinks",
+   "name": "the Drinks Aisle",
+   "at": [
+    19200,
+    2700
+   ]
+  },
+  {
+   "id": "produce",
+   "name": "Fruit & Veg",
+   "at": [
+    4800,
+    11300
+   ]
+  }
+ ],
+ "movers": [
+  {
+   "id": "hazard.floor-scrubber",
+   "prop": "prop.floor-scrubber",
+   "path": [
+    [
+     500,
+     6300
+    ],
+    [
+     23500,
+     6300
+    ],
+    [
+     23500,
+     7700
+    ],
+    [
+     500,
+     7700
+    ]
+   ],
+   "startTick": 500,
+   "telegraphTicks": 60,
+   "speedMm": 95,
+   "loop": false
+  },
+  {
+   "id": "hazard.floor-scrubber",
+   "prop": "prop.floor-scrubber",
+   "path": [
+    [
+     23500,
+     7700
+    ],
+    [
+     500,
+     7700
+    ],
+    [
+     500,
+     6300
+    ],
+    [
+     23500,
+     6300
+    ]
+   ],
+   "startTick": 1400,
+   "telegraphTicks": 60,
+   "speedMm": 110,
+   "loop": false
+  }
+ ]
 }

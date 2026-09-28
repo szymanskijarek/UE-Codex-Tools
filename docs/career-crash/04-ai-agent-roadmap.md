@@ -22,7 +22,9 @@ Code lives in [`career-crash/`](../../career-crash/README.md). Implemented in th
 | 7 Art pipeline | ◐ style guide + prompt generator; generated assets not yet |
 | 8 Launch | ☐ |
 
-Latest balance run (500 × 3v3): median 57 s, 5–7 % timeouts, p99 sim ≈ 70–95 ms on the dev container, 2.8 story moments/battle (5v5: 4.2), 1–3 careers slightly outside 40–60 %.
+Latest balance run (1,500 × 3v3, sim 0.3.0): median 54 s, ~4 % timeouts, p99 sim ≈ 85–97 ms on the dev container, 2.3 story moments/battle; all 28 tier-1 careers within 40–60 % except Farmer (62 %, trimmed afterwards).
+
+v0.3 additions: 36 careers (Barista, Hairdresser, Lifeguard, Personal Trainer, Gardener, Mime, Conspiracy Podcaster, Astronaut), 124 abilities, 6 masteries; stations + duels (02 §6.7); movers (floor scrubber, robot vacuum) and new arena events (02 §7.4); client: director camera, slow-motion action replays of KOs/explosions/run-overs with zoom lens and pitched-down audio, intent and job icons, floor signage, contextual live commentary (ability-specific jokes, irony, location cuts).
 
 ---
 

@@ -497,6 +497,328 @@
    "Pay rise please!",
    "Champions!",
    "Clocking out!"
+  ],
+  "ab_flambe": [
+   "{a} flambés {b}. Chef's kiss.",
+   "{a} sets {b} on fire and calls it presentation.",
+   "Yes chef! {b} is on fire!"
+  ],
+  "ab_hose-down": [
+   "{a} hoses down everyone. Friend or foe, doesn't matter.",
+   "Firefighter protocol: soak everything. {b} is drenched."
+  ],
+  "ab_live-wire": [
+   "{a} finds a live wire. Of course they do.",
+   "{a} sparks up — {b} is conducting beautifully."
+  ],
+  "ab_short-circuit": [
+   "{a} shorts the whole area out!",
+   "Not up to code! {a} starts a short circuit."
+  ],
+  "ab_detention": [
+   "{a} gives {b} detention. Sit down and think about what you've done.",
+   "{b} is in detention. {a} is not accepting excuses."
+  ],
+  "ab_pop-quiz": [
+   "Pop quiz! Nobody studied!",
+   "{a} springs a pop quiz. Everyone's panicking."
+  ],
+  "ab_objection": [
+   "OBJECTION! {b} has been overruled.",
+   "{a} objects to {b}'s entire existence."
+  ],
+  "ab_cease-and-desist": [
+   "{a} serves {b} a cease and desist. Legally binding punch."
+  ],
+  "ab_audit": [
+   "{a} audits {b}. The numbers do not add up.",
+   "{b} is being audited. This is worse than being punched."
+  ],
+  "ab_tax-return": [
+   "{a} files a tax return mid-fight and gets money back."
+  ],
+  "ab_blue-screen": [
+   "{b} just blue-screened. Have you tried turning them off and on again?",
+   "{a} crashes {b}. Fatal error."
+  ],
+  "ab_ddos": [
+   "{a} launches a DDoS. Nobody can think straight."
+  ],
+  "ab_go-live": [
+   "{a} goes live! The team is feeling the likes.",
+   "{a} is streaming this. Like and subscribe."
+  ],
+  "ab_ring-light-flash": [
+   "{a} flashes the ring light. {b} can't see a thing."
+  ],
+  "ab_numbing-gel": [
+   "{a} numbs {b}'s face. This won't hurt a bit.",
+   "Open wide, {b}!"
+  ],
+  "ab_laughing-gas": [
+   "{a} releases laughing gas. Everyone's giggling. Including the enemy."
+  ],
+  "ab_wrench-toss": [
+   "{a} throws a wrench into {b}'s plans. Literally.",
+   "Spanner in the works! {a} nails {b}."
+  ],
+  "ab_tow-hook": [
+   "{a} tows {b} away. No parking here."
+  ],
+  "ab_pitchfork-prod": [
+   "{a} prods {b} with a pitchfork. Get off my land!"
+  ],
+  "ab_manure-spread": [
+   "{a} spreads manure. The smell is... tactical."
+  ],
+  "ab_shhh": [
+   "SHHH! {a} silences the whole aisle.",
+   "{a} shushes everyone. The fighting stops out of pure shame."
+  ],
+  "ab_book-avalanche": [
+   "{a} brings down a shelf of books on {b}. Overdue!"
+  ],
+  "ab_road-rage": [
+   "{a} goes full road rage on {b}.",
+   "Beep beep! {a} ploughs into {b}."
+  ],
+  "ab_honk": [
+   "HONK! {a} leans on the horn. Everyone jumps."
+  ],
+  "ab_defibrillator": [
+   "CLEAR! {a} shocks {b} back to life."
+  ],
+  "ab_adrenaline-shot": [
+   "{a} jabs {b} with adrenaline. They're buzzing."
+  ],
+  "ab_not-on-the-list": [
+   "{b} is NOT on the list. {a} makes sure of it."
+  ],
+  "ab_radio-for-backup": [
+   "{a} radios for backup. The team braces."
+  ],
+  "ab_expose": [
+   "{a} publishes an exposé on {b}. Career over."
+  ],
+  "ab_flash-photography": [
+   "{a} snaps a photo. {b} is blinded by journalism."
+  ],
+  "ab_drop-the-bass": [
+   "{a} DROPS THE BASS! Everyone flies.",
+   "The beat drops. So does {b}."
+  ],
+  "ab_strobe-lights": [
+   "{a} turns on the strobes. It's a rave now."
+  ],
+  "ab_hard-hat-charge": [
+   "{a} charges head-first. Safety first!"
+  ],
+  "ab_wrecking-swing": [
+   "{a} spins like a wrecking ball!"
+  ],
+  "ab_taser": [
+   "{a} tases {b}. Don't tase me, bro!"
+  ],
+  "ab_pepper-spray": [
+   "{a} pepper-sprays {b}. Eyes watering all round."
+  ],
+  "ab_parcel-throw": [
+   "Special delivery for {b}! Signed for with their face.",
+   "{a} leaves a parcel on {b}. Nobody was home."
+  ],
+  "ab_express-delivery": [
+   "Express delivery! {a} arrives at {b} at speed."
+  ],
+  "ab_mop-slide": [
+   "{a} mops the floor. {b} goes skating."
+  ],
+  "ab_bucket-toss": [
+   "{a} empties a mop bucket over everyone."
+  ],
+  "ab_burst-pipe": [
+   "{a} bursts a pipe. The {arena} is flooding!",
+   "That's a plumbing emergency — caused by the plumber."
+  ],
+  "ab_plunger-pull": [
+   "{a} plungers {b} across the floor. Unblocked."
+  ],
+  "ab_empty-promises": [
+   "{a} makes empty promises. The crowd turns on them."
+  ],
+  "ab_commercial-break": [
+   "We'll be right back after this commercial break!"
+  ],
+  "ab_scathing-review": [
+   "{a} gives {b} one star. 'Overcooked. Undeserving.'"
+  ],
+  "ab_you-got-this": [
+   "{a} tells {b} they've got this. They believe it."
+  ],
+  "ab_how-does-that-feel": [
+   "{a} asks {b} how that makes them feel. {b} has to sit down."
+  ],
+  "ab_structural-analysis": [
+   "{a} finds the structural weakness in {b}. It's their knees."
+  ],
+  "ab_scalding-latte": [
+   "{a} serves {b} an extra-hot latte. Directly. On them.",
+   "One oat milk latte, scalding, for {b}!"
+  ],
+  "ab_espresso-round": [
+   "{a} gets a round of espressos in. The team is vibrating."
+  ],
+  "ab_hairspray-blaze": [
+   "{a} uses hairspray and a lighter. Flamethrower hairdo!",
+   "That's not how hairspray works, {a}!"
+  ],
+  "ab_bad-haircut": [
+   "{a} gives {b} the worst haircut of their life.",
+   "{b} will be wearing a hat for months."
+  ],
+  "ab_rescue-tube": [
+   "{a} throws {b} a rescue tube and drags them in."
+  ],
+  "ab_whistle-blast": [
+   "{a} blows the lifeguard whistle. Everyone out of the pool!"
+  ],
+  "ab_burpee-challenge": [
+   "{a} makes everyone do burpees. The enemy is exhausted."
+  ],
+  "ab_no-pain-no-gain": [
+   "{a} screams motivation at {b}. NO PAIN NO GAIN!"
+  ],
+  "ab_hose-pipe": [
+   "{a} turns the garden hose on everyone.",
+   "{a} waters {b} like a hydrangea."
+  ],
+  "ab_rake-trap": [
+   "{a} leaves a rake on the floor. Nobody will see it coming. Nobody ever does."
+  ],
+  "ab_invisible-wall": [
+   "{a} puts up an invisible wall. {b} walks straight into it.",
+   "{b} is trapped in an invisible box. Somehow."
+  ],
+  "ab_imaginary-rope": [
+   "{a} pulls {b} in with an imaginary rope. It works?!"
+  ],
+  "ab_zero-g-leap": [
+   "{a} leaps like there's no gravity. One small step for {a}..."
+  ],
+  "ab_rocket-pack": [
+   "{a} fires up a rocket pack. Liftoff!",
+   "Houston, we have a problem: {a} has a rocket pack."
+  ],
+  "ab_theyre-lying-to-you": [
+   "{a} tells everyone the referee is a government plant.",
+   "{a}: 'Do your own research!' Everyone is confused."
+  ],
+  "ab_tinfoil-hat": [
+   "{a} puts on a tinfoil hat. Can't zap them now."
+  ],
+  "ab_live-cooking-show": [
+   "{a} starts a live cooking show. Snacks for the team!"
+  ],
+  "ab_the-moon-is-fake": [
+   "{a} reveals the moon is fake. Everyone stops to process this."
+  ],
+  "ab_haymaker": [
+   "{a} throws a haymaker at {b}!"
+  ],
+  "ab_table-flip": [
+   "{a} flips a table. (╯°□°)╯︵ ┻━┻"
+  ],
+  "ab_power-nap": [
+   "{a} takes a power nap. In the middle of a fight.",
+   "Zzz... {a} is napping."
+  ],
+  "ab_play-dead": [
+   "{a} plays dead. Oscar-worthy."
+  ],
+  "ab_oops": [
+   "Oops! {a} trips and takes everyone down with them."
+  ],
+  "ab_pickpocket": [
+   "{a} pickpockets {b}. Classic."
+  ],
+  "ab_trash-talk": [
+   "{a} trash-talks {b}. That was personal."
+  ],
+  "ab_panic-button": [
+   "{a} hits the panic button. Literally."
+  ],
+  "ab_victory-pose": [
+   "{a} strikes a victory pose. Bit early."
+  ],
+  "ab_pep-talk": [
+   "{a} gives {b} a pep talk. Team spirit!"
+  ],
+  "irony_fire": [
+   "A {bJob}, on fire. The irony is not lost on anyone.",
+   "{b} the {bJob} is burning. Professionally embarrassing."
+  ],
+  "irony_shock": [
+   "{b} is an electrician. Electrocuted. Should have checked the fuse.",
+   "The electrician gets electrocuted. Health and safety are furious."
+  ],
+  "irony_slip": [
+   "{b} the {bJob} slips on a wet floor. They KNOW better.",
+   "A {bJob} slipping over. You love to see it."
+  ],
+  "irony_wet": [
+   "The lifeguard is soaked. That's just Tuesday for them."
+  ],
+  "mover_scrubber": [
+   "{b} gets run over by the floor scrubber!",
+   "The floor scrubber flattens {b}. Clean-up on aisle everywhere.",
+   "{b} is now part of the floor-cleaning process."
+  ],
+  "mover_vacuum": [
+   "The robot vacuum trips {b}!",
+   "{b} tripped over the robot vacuum. It didn't even notice.",
+   "The Roomba strikes again — {b} is down!"
+  ],
+  "vacuum_eats": [
+   "The robot vacuum just ate a {prop}.",
+   "Om nom. The vacuum hoovers up a {prop}."
+  ],
+  "scrubber_eats": [
+   "The floor scrubber swallows a {prop}."
+  ],
+  "rule_rake": [
+   "{b} steps on a rake. THWACK.",
+   "Rake to the face! {b} walked right into that.",
+   "Classic rake. Classic {b}."
+  ],
+  "meanwhile": [
+   "Meanwhile, at {place}: ",
+   "Over at {place}: ",
+   "At {place}: ",
+   "Cut to {place} — "
+  ],
+  "hazard_start_floor-scrubber": [
+   "Here comes the floor scrubber! Everyone out of the way!"
+  ],
+  "hazard_start_robot-vacuum": [
+   "The robot vacuum has started its rounds. Watch your ankles."
+  ],
+  "bark_mover": [
+   "MY FEET!",
+   "Who's driving that?!",
+   "It ran me over!",
+   "Not the {prop}!",
+   "AAARGH!"
+  ],
+  "bark_rake": [
+   "OW! Who leaves a rake here?!",
+   "WHY IS THERE A RAKE?!",
+   "Every. Single. Time.",
+   "My nose!"
+  ],
+  "replay_intro": [
+   "Let's see that again!",
+   "Instant replay!",
+   "Roll the tape!",
+   "One more time, in slow motion..."
   ]
  }
 }

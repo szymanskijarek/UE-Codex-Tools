@@ -18,6 +18,7 @@ export interface LiveLine {
 interface Info {
   name: string;
   job: string;
+  careers: string[];
   team: number;
   kind: 'char' | 'prop' | 'npc';
   def: string;
@@ -33,6 +34,7 @@ export class LiveCommentator {
   private lastKind = '';
   private sameTick = 0;
   private firstBlood = false;
+  private lastPlace = -1;
   private used = new Map<string, number>();
 
   constructor(
@@ -84,8 +86,9 @@ export class LiveCommentator {
    * Feed newly produced events (in order). `all` is the full event log (for cause lookups).
    * With `silent`, only internal state is updated (used when seeking).
    */
-  consume(events: BattleEvent[], all: BattleEvent[], silent = false): LiveLine[] {
+  consume(events: BattleEvent[], all: BattleEvent[], silent = false, locate?: (entityId: number) => number | null): LiveLine[] {
     const out: LiveLine[] = [];
+    const stations = this.bundle.arenas.find((a) => a.id === this.input.arenaId)?.stations ?? [];
     for (const e of events) {
       const cand = this.candidate(e, all);
       if (!cand || silent) continue;
@@ -96,6 +99,15 @@ export class LiveCommentator {
       this.sameTick = gap === 0 ? this.sameTick + 1 : 0;
       this.lastTick = e.t;
       this.lastKind = cand.kind;
+      // "Meanwhile, at the Frozen Aisle: ..." when the action jumps between fight locations.
+      const place = locate && cand.actors.length && cand.importance >= 2 ? locate(cand.actors[cand.actors.length - 1]!) : null;
+      if (place !== null && place !== this.lastPlace && stations[place]) {
+        if (this.lastPlace !== -1) {
+          const pre = this.make(e.t, 'meanwhile', cand.importance, { place: stations[place]!.name }, []);
+          if (pre) cand.text = pre.text + cand.text;
+        }
+        this.lastPlace = place;
+      }
       out.push(cand);
     }
     return out;
@@ -111,27 +123,39 @@ export class LiveCommentator {
     switch (e.type) {
       case 'spawn': {
         const snap = this.input.teams[e.v]?.characters.find((c) => c.id === e.s);
-        if (snap) this.info.set(e.a, { name: snap.name, job: this.nm(snap.careers[snap.careers.length - 1]!), team: e.v, kind: 'char', def: snap.careers[0]! });
-        else this.info.set(e.a, { name: 'The Referee', job: 'referee', team: -1, kind: 'npc', def: e.s });
+        if (snap) this.info.set(e.a, { name: snap.name, job: this.nm(snap.careers[snap.careers.length - 1]!), careers: snap.careers, team: e.v, kind: 'char', def: snap.careers[0]! });
+        else this.info.set(e.a, { name: 'The Referee', job: 'referee', careers: [], team: -1, kind: 'npc', def: e.s });
         return null;
       }
       case 'propSpawned':
-        this.info.set(e.b, { name: e.s, job: '', team: -1, kind: 'prop', def: e.s });
+        this.info.set(e.b, { name: e.s, job: '', careers: [], team: -1, kind: 'prop', def: e.s });
         return null;
       case 'hit':
       case 'crit': {
         if (!bi) return null;
+        if (ai?.kind === 'prop' && ai.def === 'prop.floor-scrubber') return this.make(e.t, 'mover_scrubber', 3, base, [e.b]);
+        if (ai?.kind === 'prop' && ai.def === 'prop.robot-vacuum') return this.make(e.t, 'mover_vacuum', 2, base, [e.b]);
         if (bi.kind === 'npc') return this.make(e.t, 'referee_hit', 2, base, [e.a, e.b]);
         if (cause?.type === 'throw') return this.make(e.t, 'throw_hit', 2, { ...base, a: this.label(cause.a), prop: this.nm(cause.s) }, [cause.a, e.b]);
         if (cause?.type === 'ride') return this.make(e.t, 'ride_hit', 3, { ...base, prop: this.nm(cause.s) }, [e.a, e.b]);
         if (e.type === 'crit') return this.make(e.t, 'crit', 2, base, [e.a, e.b]);
         return e.v >= 14 && ai?.kind === 'char' ? this.make(e.t, 'hit', 1, base, [e.a, e.b]) : null;
       }
-      case 'abilityCast':
-        return this.make(e.t, e.a === e.b ? 'ability_self' : 'ability', 2, { ...base, ability: this.bundle.locale[`${e.s}.name`] ?? e.s }, [e.a, e.b]);
+      case 'abilityCast': {
+        const specific = `ab_${e.s.replace('ability.', '')}`;
+        const slots = { ...base, ability: this.bundle.locale[`${e.s}.name`] ?? e.s };
+        // Ability-specific jokes most of the time; generic lines keep some variety.
+        if (this.bundle.live[specific] && this.rng.chance(7500)) return this.make(e.t, specific, 2, slots, [e.a, e.b]);
+        return this.make(e.t, e.a === e.b ? 'ability_self' : 'ability', 2, slots, [e.a, e.b]);
+      }
       case 'statusApplied': {
         if (bi?.kind === 'prop') return e.s === 'status.live' ? this.make(e.t, 'status_live', 2, base, [e.b]) : e.s === 'status.burning' ? this.make(e.t, 'rule_fire', 1, base, [e.b]) : null;
         if (bi?.kind !== 'char') return null;
+        const has = (c: string): boolean => bi.careers.includes(`career.${c}`);
+        if (e.s === 'status.burning' && (has('firefighter') || has('chef'))) return this.make(e.t, 'irony_fire', 3, base, [e.b]);
+        if (e.s === 'status.electrified' && has('electrician')) return this.make(e.t, 'irony_shock', 3, base, [e.b]);
+        if ((e.s === 'status.slipping' || e.s === 'status.knocked-down') && (has('janitor') || has('plumber')) && cause?.type === 'ruleFired') return this.make(e.t, 'irony_slip', 3, base, [e.b]);
+        if (e.s === 'status.wet' && has('lifeguard')) return this.make(e.t, 'irony_wet', 1, base, [e.b]);
         return this.make(e.t, `status_${e.s.replace('status.', '')}`, BIG_STATUS.has(e.s) ? 2 : 1, base, [e.b]);
       }
       case 'throw':
@@ -145,6 +169,8 @@ export class LiveCommentator {
       case 'ride':
         return this.make(e.t, 'ride', 2, { ...base, prop: this.nm(e.s) }, [e.a]);
       case 'use': {
+        if (ai?.kind === 'prop' && ai.def === 'prop.robot-vacuum') return this.make(e.t, 'vacuum_eats', 2, { ...base, prop: this.nm(e.s) }, [e.a]);
+        if (ai?.kind === 'prop' && ai.def === 'prop.floor-scrubber') return this.make(e.t, 'scrubber_eats', 2, { ...base, prop: this.nm(e.s) }, [e.a]);
         const def = this.bundle.props.find((p) => p.id === e.s);
         const kind = def?.tags.includes('drink') ? 'use_coffee' : def?.tags.includes('food') ? 'use_food' : 'use_machine';
         return this.make(e.t, kind, 1, { ...base, prop: this.nm(e.s) }, [e.a]);
@@ -181,6 +207,10 @@ export class LiveCommentator {
         return this.make(e.t, 'referee_down', 3, base, [e.a]);
       case 'hazardWarn':
         return this.make(e.t, 'hazard_warn', 3, { ...base, hazard: e.s.replace(/^hazard\./, '').replace(/-/g, ' ') }, []);
+      case 'hazardStart': {
+        const k = `hazard_start_${e.s.replace(/^hazard\./, '')}`;
+        return this.bundle.live[k] ? this.make(e.t, k, 3, base, []) : null;
+      }
       case 'suddenDeath':
         return this.make(e.t, 'sudden_death', 3, base, []);
       case 'heal':

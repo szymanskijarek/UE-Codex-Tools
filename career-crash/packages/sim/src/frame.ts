@@ -24,6 +24,8 @@ export interface FrameEntity {
   state: Entity['state'];
   statuses: string[];
   action: string;
+  /** Entity the current action targets (-1 if none). */
+  target: number;
   held: number;
   riding: number;
   panicking: boolean;
@@ -61,6 +63,7 @@ export function frameOf(w: World): Frame {
       state: e.state,
       statuses: e.statuses.map((s) => s.id),
       action: e.action ? (e.action.kind === 'ability' ? e.action.abilityId : e.action.kind) + ':' + e.action.phase : '',
+      target: e.action?.targetId ?? -1,
       held: e.heldId,
       riding: e.rideId,
       panicking: e.panicking,

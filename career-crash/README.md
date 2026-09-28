@@ -24,18 +24,25 @@ pnpm dev                        # worker on :8787, client on :5173 (proxied /api
 
 - **Deterministic simulation** (`packages/sim`): integer physics, utility AI
   driven by personality/traits, statuses, tag-based interaction rules, props
-  (throw, push, ride, leak, explode), a knock-out-able referee, hazards and
-  sudden death. Every battle replays from a ~5 KB input record.
-- **Content** (`packages/content/data`): 28 careers (22 tier 1, 6 tier 2),
-  64 abilities, 4 hidden masteries, 10 personalities, 12 traits, 36 items,
-  38 props, 26 interaction rules, 2 arenas (Supermarket, Office).
-- **Commentary**: 19 moment detectors turn the event log into a battle report.
+  (throw, push, ride, leak, explode), a knock-out-able referee, hazards,
+  patrolling machines (floor scrubber, robot vacuum), duels spread across
+  named arena stations, and sudden death. Every battle replays from a ~5 KB
+  input record.
+- **Content** (`packages/content/data`): 36 careers (28 tier 1, 7 tier 2,
+  1 tier 3), 124 abilities, 6 hidden masteries, 10 personalities, 12 traits,
+  43 items, 41 props, 27 interaction rules, 2 arenas (Supermarket, Office).
+- **Commentary**: 21 moment detectors for the battle report, plus a live feed
+  (~300 lines: ability-specific jokes, irony, location cuts) and ~180 fighter
+  barks.
 - **Backend** (`apps/worker`): Cloudflare Worker + D1 — device accounts,
   roster, career milestones & masteries, recruiting, shop, job board, defences,
   opponent matching with bot fill, server-run battles, defence rewards,
   reports, leaderboard, idempotent writes, append-only currency ledger.
-- **Client** (`apps/client`): Preact UI + PixiJS replay viewer with placeholder
-  paper-doll art, battle reports with jump-to-moment, and the Sandbox.
+- **Client** (`apps/client`): Preact UI + PixiJS replay viewer with animated
+  paper-doll characters (expressions, speech bubbles, reactions), drawn props,
+  ability effects, a director camera, slow-motion action replays, synthesised
+  sound, battle reports with jump-to-moment, and the Sandbox. A standalone
+  single-file build of the Sandbox: `pnpm --filter @cc/client build:standalone`.
 - **Tooling**: balance reports, replay CLI + 16 golden replays, art prompt
   generator and style guide, CI workflow.
 

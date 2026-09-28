@@ -273,6 +273,28 @@ fire, electricity and pushed trolleys hit allies. AI scoring includes an
 `allyInArea` consideration (penalty scaled by Intelligence and reduced by
 Chaotic). This is a deliberate source of emergent comedy.
 
+### 6.7 Fight locations (stations and duels)
+
+A single pile-up in the middle is hard to read and kills contextual jokes, so
+battles are spread across the arena:
+
+- Each arena defines 2–5 named **stations** (Supermarket: Frozen Aisle,
+  Checkouts, Bakery, Drinks Aisle, Fruit & Veg).
+- At kick-off, opponents are paired into **duels** (A[i] vs B[i]) and each pair
+  is assigned a station (rotated by the battle seed).
+- For the first 11 s, characters walk to their station and only swing at
+  someone right next to them.
+- While their duel partner is still up, characters prefer that opponent (×1.5)
+  and are leashed to their station: targets more than 5 m from it score ×0.25,
+  and they drift back if dragged more than 6 m away.
+- Once the partner is down, the character is free and joins the nearest fight,
+  so scraps merge naturally towards the end.
+
+Measured effect: average number of separate fight groups between 7.5 s and
+45 s rose from 1.6 to 2.3 (3v3) and to 3.2 (5v5). Live commentary cuts
+between locations ("Meanwhile, at the Frozen Aisle: …") and the mobile
+camera directs itself to the busiest fight.
+
 ---
 
 ## 7. Environment and interaction system
@@ -330,6 +352,22 @@ Starter rule set (v1 needs ~40):
 Each arena defines 1–3 scheduled hazards and 0–2 movers (escalators, baggage
 belts, forklifts on patrol, zoo animals on a path). Hazards telegraph for
 ≥ 20 ticks (visible warning in replay) so outcomes read as fair.
+
+**Movers** (implemented in v0.3) are props with a `mover` component, spawned by
+the arena at `startTick` and driven along a waypoint path:
+
+- On new contact with a standing character they apply `hitEffects` (e.g. the
+  floor scrubber: damage, knockdown, knockback, Wet), at most once per victim
+  every 3 s.
+- They can eat small carryable props (`eatsUpToG`) and leave a `trail`
+  (the scrubber leaves puddles, so people slip in its wake).
+- Characters notice an approaching mover within `1.5 m + 0.25 m × Awareness`
+  and sidestep; oblivious characters get run over, which is the joke.
+
+Current arena events: Supermarket — floor scrubber (two passes), clean-up on
+aisle three, falling stock, free samples at the bakery. Office — robot vacuum
+(patrols all battle, trips people, eats staplers and coffee cups), printer jam
+sparks, birthday cake, fire drill (sprinklers soak everyone).
 
 ### 7.5 The referee
 

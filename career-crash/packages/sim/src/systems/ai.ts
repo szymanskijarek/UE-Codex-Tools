@@ -99,6 +99,7 @@ function abilityCandidates(w: World, e: Entity, enemies: Entity[], allies: Entit
     else if (aim === 'woundedAlly') targets = [e, ...allies].filter((a) => hpBp(a) < 7000);
     else targets = allies.slice(0, 3);
     for (const t of targets) {
+      const leash = aim === 'enemy' ? leashBp(e, t) : 10000;
       if (hints.requireTargetTags && !matchTags(w, t, { hasAll: hints.requireTargetTags })) continue;
       const affected = affectedBy(w, e, ab, t);
       let good = 0;
@@ -125,9 +126,20 @@ function abilityCandidates(w: World, e: Entity, enemies: Entity[], allies: Entit
       const d = dist(e.x, e.y, t.x, t.y);
       if (aim !== 'self' && d > ab.targeting.rangeMm) base = bpMul(base, near(d, ab.targeting.rangeMm, 9000));
       if (base <= 0) continue;
-      out.push({ kind: 'ability', targetId: t.id, tx: t.x, ty: t.y, abilityId: aid, goal: hints.goal, base: idiv(base * 5, 4) });
+      out.push({ kind: 'ability', targetId: t.id, tx: t.x, ty: t.y, abilityId: aid, goal: hints.goal, base: bpMul(idiv(base * 5, 4), leash) });
     }
   }
+}
+
+/**
+ * Duel leash (02 §6.7): while a character's kick-off opponent is still up,
+ * they prefer that opponent and are reluctant to chase fights far from their
+ * own station. This keeps several separate scraps going instead of one pile-up.
+ */
+export function leashBp(e: Entity, t: Entity): number {
+  if (e.duelTarget < 0) return 10000;
+  if (t.id === e.duelTarget) return 15000;
+  return dist(t.x, t.y, e.stationX, e.stationY) > 5000 ? 2500 : 10000;
 }
 
 function prefScore(w: World, e: Entity, t: Entity, d: number): number {
@@ -184,14 +196,30 @@ export function candidates(w: World, e: Entity): Candidate[] {
   );
   const held = e.heldId >= 0 ? w.byId.get(e.heldId) : undefined;
 
+  // Duel bookkeeping: once the kick-off opponent is out, this character is free to roam.
+  const duel = e.duelTarget >= 0 ? w.byId.get(e.duelTarget) : undefined;
+  if (e.duelTarget >= 0 && (!duel || duel.removed || duel.state !== 'active')) e.duelTarget = -1;
+  const dStation = dist(e.x, e.y, e.stationX, e.stationY);
+  if (e.duelTarget >= 0 && e.station >= 0) {
+    // Kick-off: walk to the assigned station first; later, drift back if dragged away.
+    if (w.tick < 220 && dStation > 2200) {
+      out.push({ kind: 'reposition', targetId: -1, tx: e.stationX, ty: e.stationY, abilityId: '', goal: 'damage', base: 11000 });
+    } else if (dStation > 6000) {
+      out.push({ kind: 'reposition', targetId: -1, tx: e.stationX, ty: e.stationY, abilityId: '', goal: 'control', base: 4500 });
+    }
+  }
+  const attackTargets = enemies.slice(0, 3);
+  if (e.duelTarget >= 0 && duel && !attackTargets.includes(duel)) attackTargets.push(duel);
+
   // Basic attacks / throws
-  for (const t of enemies.slice(0, 3)) {
+  for (const t of attackTargets) {
     const d = dist(e.x, e.y, t.x, t.y);
     let base = idiv(near(d, e.attack.rangeMm, 12000) * 6 + prefScore(w, e, t, d) * 4, 10);
     if (e.snap?.rivals?.includes(t.snapshotId)) base = idiv(base * 14, 10);
     if (e.quirks.includes('grudge') && e.lastHitBy === t.id) base = idiv(base * 15, 10);
     if (e.preferTags.length && matchTags(w, t, { hasAny: e.preferTags })) base = idiv(base * 13, 10);
     if (t.state === 'downed') base = idiv(base, 3);
+    base = bpMul(base, leashBp(e, t));
     out.push({ kind: 'attack', targetId: t.id, tx: t.x, ty: t.y, abilityId: '', goal: 'damage', base });
     if (held && d > 1500 && d < 10000 && !(e.quirks.includes('hoarder') && d > 4000)) {
       out.push({ kind: 'throw', targetId: t.id, tx: t.x, ty: t.y, abilityId: '', goal: 'damage', base: idiv(near(d, 5000, 7000) * 11, 10) });
@@ -248,6 +276,22 @@ export function candidates(w: World, e: Entity): Candidate[] {
     if (used) propsConsidered++;
   }
 
+  // Machines: step out of the way of an approaching floor scrubber / robot vacuum.
+  // Awareness decides how early you notice; oblivious characters get run over.
+  const notice = 1500 + (e.stats?.awareness ?? 5) * 250;
+  for (const m of w.entities) {
+    if (m.removed || m.moverSpeed === 0) continue;
+    const d = dist(e.x, e.y, m.x, m.y);
+    if (d > notice + m.radius) continue;
+    const toMe = (e.x - m.x) * m.fx + (e.y - m.y) * m.fy;
+    if (toMe <= 0) continue; // it's moving away
+    // Sidestep perpendicular to its heading, on whichever side we already are.
+    const side = (e.x - m.x) * -m.fy + (e.y - m.y) * m.fx >= 0 ? 1 : -1;
+    const sx = e.x + idiv(-m.fy * side * 2600, 1000);
+    const sy = e.y + idiv(m.fx * side * 2600, 1000);
+    if (!isBlockedAt(w.nav, sx, sy)) out.push({ kind: 'retreat', targetId: -1, tx: sx, ty: sy, abilityId: '', goal: 'survive', base: 6000 + (e.stats?.awareness ?? 5) * 500 });
+  }
+
   // Survival: burning → run to water; low HP / morale → retreat.
   const tags = tagsOf(w, e);
   const threatened = e.statuses.some((s) => w.content.statuses.get(s.id)?.aiThreat);
@@ -286,6 +330,15 @@ export function candidates(w: World, e: Entity): Candidate[] {
   // Show-off
   if ((e.cooldowns['taunt'] ?? 0) <= w.tick && activeEnemies.some((x) => dist(e.x, e.y, x.x, x.y) < 6000)) {
     out.push({ kind: 'taunt', targetId: -1, tx: e.x, ty: e.y, abilityId: '', goal: 'showOff', base: 2500 });
+  }
+
+  // Kick-off walk: head for the station and only swing at people who are right in your face.
+  if (e.duelTarget >= 0 && w.tick < 220 && dStation > 2200) {
+    for (const c of out) {
+      if (c.kind !== 'attack' && c.kind !== 'ability' && c.kind !== 'throw' && c.kind !== 'push' && c.kind !== 'pickUp') continue;
+      if (c.targetId === e.id) continue;
+      if (dist(e.x, e.y, c.tx, c.ty) > 2000) c.base = idiv(c.base * 3, 10);
+    }
   }
 
   out.push({ kind: 'wander', targetId: -1, tx: e.x + w.aiRng.range(-3000, 3000), ty: e.y + w.aiRng.range(-3000, 3000), abilityId: '', goal: 'loot', base: 300 });

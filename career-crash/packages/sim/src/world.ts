@@ -106,6 +106,10 @@ function blankEntity(id: number, kind: Entity['kind'], def: string): Entity {
     pathGoal: -1,
     counters: emptyCounters(),
     fouls: 0,
+    stationX: 0,
+    stationY: 0,
+    station: -1,
+    duelTarget: -1,
     carriedBy: -1,
     riddenBy: -1,
     flying: false,
@@ -119,6 +123,10 @@ function blankEntity(id: number, kind: Entity['kind'], def: string): Entity {
     fuse: -1,
     leaked: 0,
     spawnedBy: -1,
+    moverPath: [],
+    moverIdx: 0,
+    moverSpeed: 0,
+    moverLoop: false,
   };
 }
 
@@ -262,7 +270,7 @@ export function finalStats(content: ContentIndex, snap: CharacterSnapshot): Stat
 }
 
 export const derived = {
-  maxHp: (s: Stats): number => 220 + 24 * s.health,
+  maxHp: (s: Stats): number => 240 + 26 * s.health,
   maxEnergy: (s: Stats): number => (50 + 5 * s.energy) * 100,
   speed: (s: Stats): number => 150 + 10 * s.speed,
   meleeMulBp: (s: Stats): number => 10000 + 500 * s.strength,
@@ -398,6 +406,46 @@ function spawnReferee(w: World): void {
   w.refereeId = e.id;
 }
 
+/**
+ * Spread the fight across the arena (02 §6.7): pair opponents into duels and
+ * send each pair to its own station. Pairs share stations only when there are
+ * more pairs than stations.
+ */
+function assignStations(w: World): void {
+  const st = w.arena.stations;
+  const chars = w.entities.filter((e) => e.kind === 'char');
+  const set = (e: Entity, i: number): void => {
+    const s = st[i % st.length]!;
+    e.station = i % st.length;
+    [e.stationX, e.stationY] = s.at;
+  };
+  if (w.mode === 'ffa') {
+    chars.forEach((e, i) => {
+      set(e, i >> 1);
+      e.duelTarget = chars[i ^ 1]?.id ?? -1;
+    });
+    return;
+  }
+  const a = chars.filter((e) => e.team === 0);
+  const b = chars.filter((e) => e.team === 1);
+  // Rotate the station list by seed so the same pairing doesn't always meet in the same place.
+  const offset = w.envRng.int(st.length);
+  const n = Math.max(a.length, b.length);
+  for (let i = 0; i < n; i++) {
+    const x = a[i];
+    const y = b[i % b.length];
+    const idx = offset + i;
+    if (x) {
+      set(x, idx);
+      x.duelTarget = y?.id ?? -1;
+    }
+    if (y && i < b.length) {
+      set(y, idx);
+      y.duelTarget = x?.id ?? -1;
+    }
+  }
+}
+
 export function createWorld(input: BattleInput, bundle: ContentBundle): World {
   const content = indexContent(bundle);
   const arena = must(content.arenas, input.arenaId, 'arena');
@@ -448,6 +496,7 @@ export function createWorld(input: BattleInput, bundle: ContentBundle): World {
     });
     spawnReferee(w);
   }
+  assignStations(w);
   for (const e of w.entities) if (e.kind !== 'prop') emit(w, 'spawn', e.id, -1, e.team, e.kind === 'char' ? e.snapshotId : e.def);
   return w;
 }

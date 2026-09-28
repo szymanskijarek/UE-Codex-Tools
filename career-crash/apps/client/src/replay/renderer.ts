@@ -67,6 +67,11 @@ interface CharSprite {
   team: number;
   kind: 'char' | 'npc';
   personality: string;
+  /** Director interest: rises with events around this character, decays over time. */
+  heat: number;
+  alive: boolean;
+  intent: Text;
+  lastIntent: string;
 }
 
 interface PropSprite {
@@ -132,6 +137,9 @@ export class BattleRenderer {
   private cam = { x: 0, y: 0, z: 1 };
   private compact = false;
   private refId = -1;
+  private overlay = new Container();
+  private replayFocus: number[] | null = null;
+  private replayBadge: Text | null = null;
 
   constructor(private input: BattleInput) {}
 
@@ -145,6 +153,7 @@ export class BattleRenderer {
     this.banner = new Text({ text: '', style: { fontFamily: FONT, fontSize: 22, fontWeight: '900', fill: 0xffffff, stroke: { color: OUTLINE, width: 5 }, align: 'center' } });
     this.banner.anchor.set(0.5, 0);
     this.app.stage.addChild(this.banner);
+    this.app.stage.addChild(this.overlay);
     this.layout();
     this.app.renderer.on('resize', () => this.layout());
     // resizeTo only tracks window resizes; the stage box can change size on its own (fonts, wrapping, phones).
@@ -185,6 +194,7 @@ export class BattleRenderer {
     this.banner.y = 8;
     this.banner.style.fontSize = this.compact ? 16 : 22;
     this.drawFloor();
+    this.drawOverlay();
     for (const s of this.chars.values()) s.root.destroy({ children: true });
     this.chars.clear();
     for (const s of this.props.values()) s.root.destroy({ children: true });
@@ -214,6 +224,16 @@ export class BattleRenderer {
     g.stroke({ width: 1, color: 0x000000, alpha: 0.06 });
     g.rect(0, 0, fw, fh).stroke({ width: 4, color: OUTLINE });
     this.floor.addChild(g);
+    // Location signage painted on the floor, so viewers know where each scrap is happening.
+    for (const st of this.arena.stations) {
+      const [sx, sy] = this.px(st.at[0], st.at[1]);
+      const mark = new Graphics().ellipse(sx, sy, 2200 * this.scale, 2200 * this.scale * Y_SQUASH).fill({ color: 0xffffff, alpha: 0.18 }).stroke({ width: 2, color: hex(this.arena.theme.accent), alpha: 0.35 });
+      const label = new Text({ text: st.name.replace(/^the /i, '').toUpperCase(), style: { fontFamily: FONT, fontSize: Math.max(8, 420 * this.scale), fontWeight: '900', fill: hex(this.arena.theme.accent), letterSpacing: 1 }, resolution: 3 });
+      label.alpha = 0.55;
+      label.anchor.set(0.5, 0.5);
+      label.position.set(sx, sy + 1500 * this.scale * Y_SQUASH);
+      this.floor.addChild(mark, label);
+    }
     for (const [x, y, w, h] of this.arena.walls) {
       const wall = new Graphics() as Graphics & { isWall?: boolean };
       wall.isWall = true;
@@ -298,13 +318,18 @@ export class BattleRenderer {
     const bar = new Graphics();
     bar.y = -r * 4.35;
     const labelStyle: TextStyleOptions = { fontFamily: FONT, fontSize: Math.max(9, r * 0.75), fontWeight: '800', fill: 0xffffff, stroke: { color: OUTLINE, width: 3 } };
-    const label = new Text({ text: isRef ? 'REF' : (e.name.split(' ')[0] ?? e.name), style: labelStyle, resolution: 3 });
+    const jobIcon = career?.art.icon ?? '';
+    const label = new Text({ text: isRef ? 'REF' : `${jobIcon} ${e.name.split(' ')[0] ?? e.name}`.trim(), style: labelStyle, resolution: 3 });
     label.anchor.set(0.5, 1);
     label.y = -r * 4.5;
     const icons = new Text({ text: '', style: { fontSize: Math.max(9, r * 0.8) }, resolution: 3 });
     icons.anchor.set(0.5, 1);
     icons.y = -r * 5.5;
-    root.addChild(fxG, bar, label, icons);
+    // Intent icon: what this character is about to do (throw, grab, ride, flee...).
+    const intent = new Text({ text: '', style: { fontSize: Math.max(10, r * 0.95) }, resolution: 3 });
+    intent.anchor.set(0, 1);
+    intent.position.set(r * 1.25, -r * 3.4);
+    root.addChild(fxG, bar, label, icons, intent);
     this.bodies.addChild(root);
     return {
       id: e.id,
@@ -345,6 +370,10 @@ export class BattleRenderer {
       team: e.team,
       kind: isRef ? 'npc' : 'char',
       personality: snap?.personality ?? '',
+      heat: 0,
+      alive: true,
+      intent,
+      lastIntent: '',
     };
   }
 
@@ -511,6 +540,7 @@ export class BattleRenderer {
         } else {
           s.root.zIndex = y + (e.z > 0 ? 400 : 0);
           s.root.rotation = e.flying ? t * 12 : 0;
+          if (e.def === 'prop.floor-scrubber' || e.def === 'prop.robot-vacuum') s.root.scale.x = e.fx < 0 ? -1 : 1;
           const live = e.statuses.includes('status.burning') || e.statuses.includes('status.electrified') || e.statuses.includes('status.live');
           s.root.alpha = live && Math.floor(t * 8) % 2 === 0 ? 0.7 : 1;
         }
@@ -520,6 +550,7 @@ export class BattleRenderer {
       let s = this.chars.get(e.id);
       if (!s) this.chars.set(e.id, (s = this.makeChar(e)));
       s.moving = Math.abs(e.x - p.x) + Math.abs(e.y - p.y) > 4;
+      s.alive = e.state !== 'ko' && e.kind === 'char';
       s.x = sx;
       s.y = sy;
       s.root.position.set(sx, sy);
@@ -549,7 +580,7 @@ export class BattleRenderer {
     }
     for (const ev of events) this.onEvent(ev, byId);
     this.tickFx(dtMs);
-    this.updateCamera(dtMs, minX, maxX, minY, maxY);
+    this.updateCamera(dtMs, minX);
   }
 
   private animateChar(s: CharSprite, e: FrameEntity, t: number, byId: Map<number, FrameEntity>): void {
@@ -656,6 +687,44 @@ export class BattleRenderer {
     }
     s.label.visible = e.state !== 'ko';
     s.bar.visible = e.state !== 'ko';
+    const intent = e.state === 'active' ? this.intentIcon(e, byId) : '';
+    if (intent !== s.lastIntent) {
+      s.intent.text = intent;
+      s.lastIntent = intent;
+    }
+  }
+
+  /** Small icon describing the current plan, so viewers can read what's about to happen. */
+  private intentIcon(e: FrameEntity, byId: Map<number, FrameEntity>): string {
+    const [kind, phase] = e.action.split(':');
+    if (!kind) return e.panicking ? '😱' : '';
+    if (kind.startsWith('ability.')) return phase === 'windup' ? '✨' : '';
+    const t = byId.get(e.target);
+    switch (kind) {
+      case 'throw':
+        return '🎯';
+      case 'pickUp':
+        return '✋';
+      case 'push':
+        return '💪';
+      case 'revive':
+        return '🚑';
+      case 'retreat':
+        return '🏃';
+      case 'taunt':
+        return '😜';
+      case 'use': {
+        const def = t ? bundle.props.find((p) => p.id === t.def) : undefined;
+        if (def?.ride) return '🛒';
+        if (def?.tags.includes('drink')) return '☕';
+        if (def?.tags.includes('food')) return '🍩';
+        return '⚙️';
+      }
+      case 'attack':
+        return t?.kind === 'prop' ? '💥' : '';
+      default:
+        return '';
+    }
   }
 
   /** Per-frame status visuals drawn around a character. */
@@ -910,6 +979,12 @@ export class BattleRenderer {
   private onEvent(ev: BattleEvent, byId: Map<number, FrameEntity>): void {
     const A = this.chars.get(ev.a);
     const B = this.chars.get(ev.b);
+    const HEAT: Partial<Record<BattleEvent['type'], number>> = { hit: 1, crit: 2.5, abilityCast: 2, downed: 4, ko: 6, explosion: 4, throw: 1.5, ride: 2, revived: 3, panic: 2, card: 2, statusApplied: 0.6 };
+    const h = HEAT[ev.type] ?? 0;
+    if (h) {
+      if (A) A.heat += h;
+      if (B) B.heat += h;
+    }
     const ea = byId.get(ev.a);
     const eb = byId.get(ev.b);
     switch (ev.type) {
@@ -924,6 +999,11 @@ export class BattleRenderer {
       case 'hit':
       case 'crit': {
         const crit = ev.type === 'crit';
+        if (ea?.def === 'prop.floor-scrubber' || ea?.def === 'prop.robot-vacuum') {
+          this.sfx.play('thud', 1.2);
+          this.sfx.play('boing');
+          if (B) this.bark(B, 'bark_mover', 0.9, { prop: nameOf(ea.def).toLowerCase() }, true);
+        }
         if (B) {
           B.hitUntil = this.now + 300;
           B.flashUntil = this.now + 140;
@@ -1015,7 +1095,27 @@ export class BattleRenderer {
         this.bark(A, 'bark_ride', 0.7);
         this.sfx.play('boing');
         break;
+      case 'ruleFired':
+        if (ev.s === 'rule.stepped-on-rake') {
+          this.bark(B, 'bark_rake', 1, {}, true);
+          this.sfx.play('thud', 1.3);
+          this.sfx.play('boing');
+          this.float('THWACK!', this.posOf(ev.b, byId), 0xffffff, 20);
+          this.shake = Math.max(this.shake, 5);
+        }
+        break;
+      case 'hazardStart':
+        if (ev.s === 'hazard.floor-scrubber' || ev.s === 'hazard.robot-vacuum') {
+          this.announce(`⚠ ${nameOf(ev.s.replace('hazard.', 'prop.'))} incoming!`);
+          this.sfx.play('alarm');
+        }
+        break;
       case 'use': {
+        if (ea?.kind === 'prop') {
+          this.sfx.play('slurp');
+          this.float('gulp', this.posOf(ev.a, byId), 0xe5e7eb, 12);
+          break;
+        }
         const def = bundle.props.find((p) => p.id === ev.s);
         if (def?.tags.includes('drink')) this.sfx.play('slurp');
         else if (def?.tags.includes('food')) this.bark(A, 'bark_food', 0.6);
@@ -1155,28 +1255,91 @@ export class BattleRenderer {
   }
 
   /**
-   * Camera: on small screens, zoom in on the action (bounding box of active
-   * fighters) and pan smoothly; add screen shake for big moments.
+   * Action replay mode (slow motion): zoom lens on the given entities,
+   * cinematic bars, a REPLAY badge and lower-pitched sound. Pass null to exit.
    */
-  private updateCamera(dt: number, minX: number, maxX: number, minY: number, maxY: number): void {
+  setReplay(ids: number[] | null): void {
+    this.replayFocus = ids;
+    this.sfx.rate = ids ? 0.5 : 1;
+    this.drawOverlay();
+  }
+
+  private drawOverlay(): void {
+    this.overlay.removeChildren().forEach((c) => c.destroy({ children: true }));
+    this.replayBadge = null;
+    if (!this.replayFocus) return;
+    const sw = this.app.screen.width;
+    const sh = this.app.screen.height;
+    const bar = Math.round(sh * 0.09);
+    const lensR = Math.min(sw, sh - bar * 2) * 0.5;
+    const g = new Graphics();
+    g.rect(0, 0, sw, sh).fill({ color: 0x0b0d12, alpha: 0.45 }).circle(sw / 2, sh / 2, lensR).cut();
+    g.circle(sw / 2, sh / 2, lensR).stroke({ width: 3, color: 0xffffff, alpha: 0.6 });
+    g.rect(0, 0, sw, bar).fill(0x000000).rect(0, sh - bar, sw, bar).fill(0x000000);
+    const badge = new Text({ text: '● ACTION REPLAY', style: { fontFamily: FONT, fontSize: Math.max(12, bar * 0.45), fontWeight: '900', fill: 0xffffff, letterSpacing: 2 }, resolution: 2 });
+    badge.anchor.set(0, 0.5);
+    badge.position.set(12, bar / 2);
+    const slow = new Text({ text: '½× SLOW-MO', style: { fontFamily: FONT, fontSize: Math.max(10, bar * 0.35), fontWeight: '800', fill: 0xfde047 }, resolution: 2 });
+    slow.anchor.set(1, 0.5);
+    slow.position.set(sw - 12, sh - bar / 2);
+    this.overlay.addChild(g, badge, slow);
+    this.replayBadge = badge;
+  }
+
+  /**
+   * Director camera: follow the "hottest" fight (recent hits, abilities, KOs)
+   * and zoom in on it — strongly on phones, gently on desktop. In replay mode,
+   * lock onto the replayed characters. Adds screen shake for big moments.
+   */
+  private updateCamera(dt: number, minX: number): void {
     const [W, H] = this.arena.sizeMm;
     const sw = this.app.screen.width;
     const sh = this.app.screen.height;
     const fullW = W * this.scale;
     const top = -WALL_H * Z_LIFT * this.scale;
     const bottom = H * Y_SQUASH * this.scale;
+    const decay = Math.exp(-dt / 2500);
+    for (const c of this.chars.values()) c.heat *= decay;
     let tz = 1;
     let tx = fullW / 2;
     let ty = (top + bottom) / 2;
-    if (this.compact && Number.isFinite(minX)) {
-      const pad = 2500 * this.scale;
-      const bw = maxX - minX + pad * 2;
-      const bh = maxY - minY + pad * 3;
-      tz = Math.max(1, Math.min(1.6, sw / bw, sh / bh));
-      tx = (minX + maxX) / 2;
-      ty = (minY + maxY) / 2 - 900 * this.scale;
+    let speed = 600;
+    const frame = (xs: CharSprite[], maxZ: number, pad: number) => {
+      if (xs.length === 0) return;
+      let x0 = Infinity;
+      let x1 = -Infinity;
+      let y0 = Infinity;
+      let y1 = -Infinity;
+      for (const c of xs) {
+        x0 = Math.min(x0, c.x);
+        x1 = Math.max(x1, c.x);
+        y0 = Math.min(y0, c.y);
+        y1 = Math.max(y1, c.y);
+      }
+      tz = Math.max(1, Math.min(maxZ, sw / (x1 - x0 + pad * 2), sh / (y1 - y0 + pad * 3)));
+      tx = (x0 + x1) / 2;
+      ty = (y0 + y1) / 2 - 900 * this.scale;
+    };
+    if (this.replayFocus) {
+      frame([...this.chars.values()].filter((c) => this.replayFocus!.includes(c.id) && c.root.visible), this.compact ? 2.4 : 2.6, 1800 * this.scale);
+      speed = 250;
+      if (this.replayBadge) this.replayBadge.alpha = Math.floor(this.now / 500) % 2 ? 1 : 0.55;
+    } else {
+      const alive = [...this.chars.values()].filter((c) => c.alive && c.root.visible);
+      const hottest = alive.reduce<CharSprite | null>((best, c) => (!best || c.heat > best.heat ? c : best), null);
+      if (hottest && hottest.heat > 1.5) {
+        const near = alive.filter((c) => Math.hypot(c.x - hottest.x, c.y - hottest.y) < 5500 * this.scale);
+        frame(near, this.compact ? 1.7 : 1.3, 3000 * this.scale);
+      } else if (this.compact && Number.isFinite(minX)) {
+        frame(alive, 1.5, 2500 * this.scale);
+      }
+      if (!this.compact && tz < 1.05) {
+        tz = 1;
+        tx = fullW / 2;
+        ty = (top + bottom) / 2;
+      }
     }
-    const k = Math.min(1, dt / 500);
+    const k = Math.min(1, dt / speed);
     this.cam.z += (tz - this.cam.z) * k;
     this.cam.x += (tx - this.cam.x) * k;
     this.cam.y += (ty - this.cam.y) * k;

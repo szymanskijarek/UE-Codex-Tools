@@ -204,6 +204,32 @@ const DRAWERS: Record<string, Drawer> = {
     g.poly([-u * 0.9, 0, u * 0.9, 0, 0, -u * 1.1]).fill(0xfde68a).stroke({ width: ow(u), color: O });
     g.moveTo(-u * 0.7, -u * 0.25).lineTo(u * 0.7, -u * 0.25).stroke({ width: Math.max(1, u * 0.15), color: 0x16a34a });
   },
+  'prop.floor-scrubber': (g, u) => {
+    shadow(g, u, 1.2);
+    // Ride-on scrubber: body, seat, steering column, spinning brush skirt, hazard light.
+    g.roundRect(-u * 1.1, -u * 0.35, u * 2.2, u * 0.35, u * 0.15).fill(0x1f2937);
+    g.roundRect(-u * 1.0, -u * 1.25, u * 2.0, u * 1.0, u * 0.25).fill(0x0ea5e9).stroke({ width: ow(u), color: O });
+    g.rect(-u * 1.0, -u * 0.75, u * 2.0, u * 0.14).fill(0xfacc15);
+    g.roundRect(-u * 0.7, -u * 1.75, u * 0.6, u * 0.5, u * 0.12).fill(0x111827);
+    g.moveTo(u * 0.45, -u * 1.25).lineTo(u * 0.6, -u * 1.9).stroke({ width: Math.max(1.5, u * 0.1), color: 0x111827 });
+    g.ellipse(u * 0.6, -u * 1.95, u * 0.22, u * 0.08).fill(0x111827);
+    g.circle(-u * 0.9, -u * 1.35, u * 0.12).fill(0xf97316).stroke({ width: 1, color: O });
+    g.circle(u * 0.75, -u * 0.12, u * 0.2).circle(-u * 0.75, -u * 0.12, u * 0.2).fill(0x111827);
+  },
+  'prop.robot-vacuum': (g, u) => {
+    shadow(g, u, 1);
+    g.ellipse(0, -u * 0.25, u * 1.0, u * 0.45).fill(0x374151).stroke({ width: ow(u), color: O });
+    g.ellipse(0, -u * 0.4, u * 0.85, u * 0.35).fill(0x4b5563);
+    g.circle(u * 0.35, -u * 0.45, u * 0.12).fill(0x22c55e);
+    g.moveTo(-u * 0.5, -u * 0.4).lineTo(u * 0.1, -u * 0.4).stroke({ width: Math.max(1, u * 0.08), color: 0x9ca3af });
+  },
+  'prop.garden-rake': (g, u) => {
+    // Lying on the floor, tines up. Classic.
+    g.moveTo(-u * 1.3, -u * 0.1).lineTo(u * 0.9, -u * 0.25).stroke({ width: Math.max(1.5, u * 0.14), color: 0x92400e });
+    g.rect(u * 0.85, -u * 0.55, u * 0.14, u * 0.6).fill(0x6b7280);
+    for (let i = 0; i < 5; i++) g.moveTo(u * 0.92, -u * 0.5 + i * u * 0.12).lineTo(u * 1.2, -u * 0.62 + i * u * 0.12);
+    g.stroke({ width: Math.max(1, u * 0.06), color: 0x6b7280 });
+  },
   'prop.scrap-metal': (g, u) => {
     shadow(g, u);
     g.poly([-u * 0.9, 0, -u * 0.5, -u * 0.9, 0, -u * 0.5, u * 0.4, -u * 1.1, u * 0.9, 0]).fill(0x94a3b8).stroke({ width: ow(u), color: O });

@@ -47,6 +47,8 @@ export class Sfx {
   private noise: AudioBuffer | null = null;
   private last = new Map<SfxName, number>();
   muted = readMuted();
+  /** Playback rate: < 1 lowers pitch and stretches sounds (slow-motion replays). */
+  rate = 1;
 
   /** Create/resume the audio context; call from a user gesture when possible. */
   unlock(): void {
@@ -97,6 +99,10 @@ export class Sfx {
     const o = c.createOscillator();
     const g = c.createGain();
     o.type = type;
+    f0 *= this.rate;
+    f1 *= this.rate;
+    dur /= this.rate;
+    attack /= this.rate;
     o.frequency.setValueAtTime(f0, t);
     o.frequency.exponentialRampToValueAtTime(Math.max(20, f1), t + dur);
     this.env(g, t, peak, attack, dur);
@@ -110,6 +116,11 @@ export class Sfx {
     const s = c.createBufferSource();
     s.buffer = this.noise;
     s.loop = true;
+    s.playbackRate.value = this.rate;
+    f0 *= this.rate;
+    f1 *= this.rate;
+    dur /= this.rate;
+    attack /= this.rate;
     const f = c.createBiquadFilter();
     f.type = filter;
     f.Q.value = q;
@@ -128,6 +139,9 @@ export class Sfx {
     if (now - (this.last.get(name) ?? 0) < (MIN_GAP_MS[name] ?? 50)) return;
     this.last.set(name, now);
     const t = this.ctx.currentTime + 0.005;
+    // In slow motion, spread multi-part sounds out too.
+    const r0 = this.rate;
+    const T = (dt: number): number => t + dt / r0;
     const v = Math.min(1.4, Math.max(0.3, intensity));
     const r = (a: number, b: number) => a + Math.random() * (b - a);
     switch (name) {
@@ -149,27 +163,27 @@ export class Sfx {
         break;
       case 'splash':
         this.hiss('lowpass', 4000, 350, t, 0.4, 0.45, 0.01);
-        this.hiss('bandpass', 1200, 500, t + 0.05, 0.25, 0.25, 0.01, 3);
+        this.hiss('bandpass', 1200, 500, T(0.05), 0.25, 0.25, 0.01, 3);
         break;
       case 'zap':
-        for (let i = 0; i < 4; i++) this.tone('sawtooth', r(600, 1600), r(200, 900), t + i * 0.045, 0.05, 0.18);
+        for (let i = 0; i < 4; i++) this.tone('sawtooth', r(600, 1600), r(200, 900), T(i * 0.045), 0.05, 0.18);
         this.hiss('highpass', 3000, 5000, t, 0.2, 0.2);
         break;
       case 'fire':
         this.hiss('bandpass', 500, 900, t, 0.5, 0.35, 0.12, 0.8);
-        this.hiss('highpass', 3000, 2000, t + 0.05, 0.3, 0.08, 0.05);
+        this.hiss('highpass', 3000, 2000, T(0.05), 0.3, 0.08, 0.05);
         break;
       case 'boom':
         this.hiss('lowpass', 900, 60, t, 1.1, 0.9, 0.01);
         this.tone('sine', 70, 28, t, 0.9, 1.0);
         break;
       case 'glass':
-        for (let i = 0; i < 5; i++) this.tone('sine', r(2200, 5200), r(2000, 5000), t + i * 0.025, 0.12, 0.12);
+        for (let i = 0; i < 5; i++) this.tone('sine', r(2200, 5200), r(2000, 5000), T(i * 0.025), 0.12, 0.12);
         this.hiss('highpass', 4000, 6000, t, 0.15, 0.25);
         break;
       case 'boing':
         this.tone('sine', 260, 900, t, 0.12, 0.35);
-        this.tone('sine', 900, 180, t + 0.12, 0.25, 0.3);
+        this.tone('sine', 900, 180, T(0.12), 0.25, 0.3);
         break;
       case 'whistle':
         this.tone('sine', 2900, 2950, t, 0.35, 0.18, 0.01);
@@ -185,38 +199,38 @@ export class Sfx {
         break;
       case 'cheer':
         this.hiss('bandpass', 1000, 1500, t, 1.4, 0.3, 0.2, 1.2);
-        this.hiss('bandpass', 2500, 3000, t + 0.1, 1.2, 0.12, 0.2, 2);
+        this.hiss('bandpass', 2500, 3000, T(0.1), 1.2, 0.12, 0.2, 2);
         break;
       case 'heal':
-        [523, 659, 784, 1047].forEach((f, i) => this.tone('sine', f, f, t + i * 0.06, 0.18, 0.18));
+        [523, 659, 784, 1047].forEach((f, i) => this.tone('sine', f, f, T(i * 0.06), 0.18, 0.18));
         break;
       case 'power':
         this.tone('sine', 220, 880, t, 0.25, 0.3, 0.02);
-        this.tone('triangle', 440, 1320, t + 0.05, 0.25, 0.15, 0.02);
+        this.tone('triangle', 440, 1320, T(0.05), 0.25, 0.15, 0.02);
         break;
       case 'pop':
         this.tone('sine', 500, 950, t, 0.06, 0.25);
         break;
       case 'down':
         this.tone('sawtooth', 420, 110, t, 0.45, 0.18, 0.01);
-        this.tone('sine', 140, 50, t + 0.1, 0.3, 0.6);
+        this.tone('sine', 140, 50, T(0.1), 0.3, 0.6);
         break;
       case 'alarm':
-        for (let i = 0; i < 4; i++) this.tone('square', i % 2 ? 330 : 440, i % 2 ? 330 : 440, t + i * 0.22, 0.18, 0.12, 0.01);
+        for (let i = 0; i < 4; i++) this.tone('square', i % 2 ? 330 : 440, i % 2 ? 330 : 440, T(i * 0.22), 0.18, 0.12, 0.01);
         break;
       case 'dingdong':
         this.tone('sine', 660, 660, t, 0.45, 0.3);
-        this.tone('sine', 523, 523, t + 0.4, 0.7, 0.3);
+        this.tone('sine', 523, 523, T(0.4), 0.7, 0.3);
         break;
       case 'blah':
-        for (let i = 0; i < 4; i++) this.tone('square', r(180, 320), r(150, 300), t + i * 0.08, 0.06, 0.08);
+        for (let i = 0; i < 4; i++) this.tone('square', r(180, 320), r(150, 300), T(i * 0.08), 0.06, 0.08);
         break;
       case 'fanfare':
-        [523, 659, 784, 1047, 784, 1047].forEach((f, i) => this.tone('triangle', f, f, t + i * 0.11, i === 5 ? 0.6 : 0.12, 0.25));
+        [523, 659, 784, 1047, 784, 1047].forEach((f, i) => this.tone('triangle', f, f, T(i * 0.11), i === 5 ? 0.6 : 0.12, 0.25));
         break;
       case 'squeak':
         this.tone('square', 1200, 1800, t, 0.08, 0.1);
-        this.tone('square', 1700, 900, t + 0.08, 0.1, 0.08);
+        this.tone('square', 1700, 900, T(0.08), 0.1, 0.08);
         break;
       case 'slurp':
         this.hiss('bandpass', 800, 1800, t, 0.3, 0.25, 0.05, 6);

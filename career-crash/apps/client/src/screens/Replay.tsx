@@ -11,6 +11,27 @@ import { Card, CareerChain, Empty } from '../ui/components';
 
 const SPEEDS = [1, 2, 4];
 const FEED_MAX = 40;
+const MAX_REPLAYS = 4;
+const REPLAY_SPEED = 0.35;
+const REPLAY_KEY = 'cc.replays';
+
+function readReplayPref(): boolean {
+  try {
+    return window.localStorage.getItem(REPLAY_KEY) !== '0';
+  } catch {
+    return true;
+  }
+}
+
+/** Pending/active slow-motion action replay of a big moment (KO, explosion, machine run-over). */
+interface ActionReplay {
+  tick: number;
+  focus: number[];
+  startAt: number;
+  returnTick: number;
+  prevSpeed: number;
+  active: boolean;
+}
 
 interface FeedLine extends LiveLine {
   key: number;
@@ -26,6 +47,11 @@ export function Replay({ battleId }: { battleId?: string }) {
   const [speed, setSpeed] = useState(1);
   const [paused, setPaused] = useState(false);
   const [muted, setMuted] = useState(false);
+  const [replaysOn, setReplaysOn] = useState(readReplayPref);
+  const replaysOnRef = useRef(replaysOn);
+  const actionRef = useRef<ActionReplay | null>(null);
+  const replayCountRef = useRef(0);
+  const [inReplay, setInReplay] = useState(false);
   const [feed, setFeed] = useState<FeedLine[]>([]);
   const [report, setReport] = useState<BattleReport | null>(null);
   const [loading, setLoading] = useState(false);
@@ -65,7 +91,25 @@ export function Replay({ battleId }: { battleId?: string }) {
       notify('Replay desync detected — please report this bug.', 'error');
     }
     setReport(buildReport(bundle, rep.input, simulate(rep.input, bundle)));
+    replayCountRef.current = 0;
+    actionRef.current = null;
     const commentator = resetCommentary(player);
+    const stations = bundle.arenas.find((a) => a.id === rep.input.arenaId)?.stations ?? [];
+    // Which fight location an entity is at (for "Meanwhile, at the Frozen Aisle:" lines).
+    const locate = (id: number): number | null => {
+      const e = player.world.byId.get(id);
+      if (!e || e.kind !== 'char') return null;
+      let best: number | null = null;
+      let bestD = 6500;
+      stations.forEach((s, i) => {
+        const d = Math.hypot(e.x - s.at[0], e.y - s.at[1]);
+        if (d < bestD) {
+          bestD = d;
+          best = i;
+        }
+      });
+      return best;
+    };
     setFeed([{ ...commentator.intro(), key: keyRef.current++ }]);
     const renderer = new BattleRenderer(rep.input);
     rendererRef.current = renderer;
@@ -78,10 +122,57 @@ export function Replay({ battleId }: { battleId?: string }) {
         if (!alive) return;
         const dt = Math.min(100, now - last);
         last = now;
+        const ar = actionRef.current;
+        // Start a pending action replay once the moment has had a beat to land.
+        if (ar && !ar.active && now >= ar.startAt) {
+          ar.active = true;
+          ar.returnTick = player.tick;
+          ar.prevSpeed = player.speed;
+          player.seek(Math.max(0, ar.tick - 50));
+          player.drainEvents();
+          renderer.resetFx();
+          renderer.setReplay(ar.focus);
+          player.speed = REPLAY_SPEED;
+          player.paused = false;
+          setInReplay(true);
+          const intro = bundle.live['replay_intro'] ?? ['Instant replay!'];
+          pushLines([{ tick: ar.tick, text: `⟲ ${intro[replayCountRef.current % intro.length]}`, kind: 'replay', importance: 3, actors: [] }]);
+        }
         player.advance(dt);
         const events = player.drainEvents();
         renderer.render(player, dt, events);
-        if (events.length > 0 && commentatorRef.current) pushLines(commentatorRef.current.consume(events, player.world.events));
+        if (ar?.active) {
+          if (player.tick >= ar.tick + 18 || player.done) {
+            player.seek(ar.returnTick);
+            player.drainEvents();
+            renderer.resetFx();
+            renderer.setReplay(null);
+            player.speed = ar.prevSpeed;
+            actionRef.current = null;
+            setInReplay(false);
+          }
+        } else {
+          if (events.length > 0 && commentatorRef.current) pushLines(commentatorRef.current.consume(events, player.world.events, false, locate));
+          // Queue a replay for knockouts and other big moments.
+          if (replaysOnRef.current && !actionRef.current && replayCountRef.current < MAX_REPLAYS) {
+            const big = events.find(
+              (e) =>
+                (e.type === 'ko' && player.world.byId.get(e.b)?.kind === 'char') ||
+                e.type === 'explosion' ||
+                e.type === 'refereeDown' ||
+                (e.type === 'hit' && player.world.byId.get(e.a)?.def === 'prop.floor-scrubber'),
+            );
+            if (big) {
+              replayCountRef.current++;
+              const focus = [big.a, big.b].filter((id) => player.world.byId.get(id)?.kind !== 'prop');
+              if (big.type === 'explosion') {
+                const p = player.world.byId.get(big.b);
+                for (const c of player.world.entities) if (c.kind === 'char' && p && Math.hypot(c.x - p.x, c.y - p.y) < 3500) focus.push(c.id);
+              }
+              if (focus.length) actionRef.current = { tick: big.t, focus, startAt: now + 900, returnTick: 0, prevSpeed: 1, active: false };
+            }
+          }
+        }
         setTick(player.tick);
         raf = requestAnimationFrame(loop);
       };
@@ -104,6 +195,12 @@ export function Replay({ battleId }: { battleId?: string }) {
   const seek = (t: number) => {
     const player = playerRef.current;
     if (!player) return;
+    if (actionRef.current) {
+      if (actionRef.current.active) player.speed = actionRef.current.prevSpeed;
+      actionRef.current = null;
+      rendererRef.current?.setReplay(null);
+      setInReplay(false);
+    }
     player.seek(t);
     player.drainEvents();
     rendererRef.current?.resetFx();
@@ -169,6 +266,34 @@ export function Replay({ battleId }: { battleId?: string }) {
             <button onClick={toggleSound} aria-label={muted ? 'Sound on' : 'Mute'} class={muted ? '' : 'on'}>
               {muted ? '🔇' : '🔊'}
             </button>
+            <button
+              class={replaysOn ? 'on' : ''}
+              aria-label="Toggle action replays"
+              title="Slow-motion replays of knockouts"
+              onClick={() => {
+                const v = !replaysOn;
+                setReplaysOn(v);
+                replaysOnRef.current = v;
+                try {
+                  window.localStorage.setItem(REPLAY_KEY, v ? '1' : '0');
+                } catch {
+                  /* storage unavailable */
+                }
+              }}
+            >
+              ⟲
+            </button>
+            {inReplay && (
+              <button
+                class="on"
+                onClick={() => {
+                  // End the replay on the next frame without clearing the commentary feed.
+                  if (actionRef.current) actionRef.current.tick = -1000;
+                }}
+              >
+                Skip replay
+              </button>
+            )}
           </div>
           <div class="feed" aria-live="polite">
             {feed.length === 0 && <div class="feed-line muted">…</div>}

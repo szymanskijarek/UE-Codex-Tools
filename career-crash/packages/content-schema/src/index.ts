@@ -179,7 +179,7 @@ export const careerSchema = z.object({
   extraActives: z.array(ref('ability')).optional(),
   prerequisites: z.object({ anyOf: z.array(z.array(ref('career'))) }).nullable().optional(),
   unlock: z.object({ type: z.enum(['default', 'rep', 'achievement']), cost: int.optional(), achievement: z.string().optional() }),
-  art: z.object({ color: z.string().regex(/^#[0-9a-f]{6}$/), hat: z.string().regex(/^#[0-9a-f]{6}$/).optional(), heldItem: ref('equipment').optional() }),
+  art: z.object({ color: z.string().regex(/^#[0-9a-f]{6}$/), hat: z.string().regex(/^#[0-9a-f]{6}$/).optional(), heldItem: ref('equipment').optional(), icon: z.string().max(8).optional() }),
   deprecated: z.boolean().optional(),
 });
 export type CareerDef = z.infer<typeof careerSchema>;
@@ -219,6 +219,10 @@ export const propSchema = z.object({
   leak: z.object({ spill: ref('prop'), everyTicks: int.min(1), max: int.min(1) }).optional(),
   /** Flat area (spill, fire patch). Does not collide; overlaps generate contacts. */
   area: z.object({ growMmPerTick: int.min(0), maxRadiusMm: int.min(0), lifetimeTicks: int.min(0) }).optional(),
+  /** Machine behaviour when used as an arena mover. */
+  mover: z
+    .object({ hitEffects: z.array(effectSchema), trail: ref('prop').optional(), trailEveryTicks: int.min(1).optional(), eatsUpToG: int.min(0).optional() })
+    .optional(),
   art: z.object({ color: z.string().regex(/^#[0-9a-f]{6}$/), shape: z.enum(['circle', 'square', 'area']) }),
   deprecated: z.boolean().optional(),
 });
@@ -259,6 +263,12 @@ export const arenaSchema = z.object({
     z.object({ id: z.string(), startTick: int.min(0), everyTicks: int.min(1), telegraphTicks: int.min(0), region: rect, action: hazardActionSchema }),
   ),
   suddenDeath: z.object({ everyTicks: int.min(1), region: rect, action: hazardActionSchema }),
+  /** Named fight locations; duelling pairs are spread across them (02 §6.7). */
+  stations: z.array(z.object({ id: z.string(), name: z.string(), at: point })).min(2),
+  /** Scripted machines that patrol a path (floor scrubbers, robot vacuums...). */
+  movers: z
+    .array(z.object({ id: z.string(), prop: ref('prop'), path: z.array(point).min(2), startTick: int.min(0), telegraphTicks: int.min(0), speedMm: int.min(1), loop: z.boolean() }))
+    .optional(),
   theme: z.object({ floor: z.string(), wall: z.string(), accent: z.string() }),
   unlock: z.object({ league: z.string() }),
 });
@@ -339,6 +349,8 @@ export const DETECTOR_KINDS = [
   'explosion',
   'rideHit',
   'healedEnemy',
+  'machineHit',
+  'rakeHit',
 ] as const;
 export type DetectorKind = (typeof DETECTOR_KINDS)[number];
 

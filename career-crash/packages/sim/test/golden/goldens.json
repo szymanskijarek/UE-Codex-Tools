@@ -1,13 +1,13 @@
 {
- "simVersion": "0.2.0",
- "contentHash": "ad4bd5604037ed07",
+ "simVersion": "0.3.0",
+ "contentHash": "a3996009d0acebf4",
  "cases": [
   {
    "name": "arena.office-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "ad4bd5604037ed07",
-    "simVersion": "0.2.0",
+    "contentHash": "a3996009d0acebf4",
+    "simVersion": "0.3.0",
     "seed": "1942b39aeff3f829",
     "arenaId": "arena.office",
     "mode": "duel_3v3",
@@ -22,7 +22,7 @@
         "name": "Dmitri Silva",
         "level": 1,
         "careers": [
-         "career.accountant"
+         "career.gardener"
         ],
         "masteries": [],
         "personality": "personality.helpful",
@@ -41,7 +41,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.briefcase",
+        "held": "equipment.trowel",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -56,8 +56,8 @@
         "name": "Noor Müller",
         "level": 5,
         "careers": [
-         "career.builder",
-         "career.plumber"
+         "career.mime",
+         "career.firefighter"
         ],
         "masteries": [],
         "personality": "personality.clumsy",
@@ -76,7 +76,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.hammer",
+        "held": "equipment.baguette",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -91,7 +91,7 @@
         "name": "Kenji Park",
         "level": 1,
         "careers": [
-         "career.influencer"
+         "career.mime"
         ],
         "masteries": [],
         "personality": "personality.competitive",
@@ -110,7 +110,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.selfie-stick",
+        "held": "equipment.baguette",
         "accessory": null,
         "appearance": {
          "skin": "#e0ac69",
@@ -132,7 +132,7 @@
         "name": "Dev Mbeki",
         "level": 1,
         "careers": [
-         "career.electrician"
+         "career.farmer"
         ],
         "masteries": [],
         "personality": "personality.greedy",
@@ -151,7 +151,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.screwdriver",
+        "held": "equipment.pitchfork",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -166,8 +166,8 @@
         "name": "Luis Popescu",
         "level": 5,
         "careers": [
-         "career.accountant",
-         "career.mechanic"
+         "career.mechanic",
+         "career.gardener"
         ],
         "masteries": [],
         "personality": "personality.greedy",
@@ -186,7 +186,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.briefcase",
+        "held": "equipment.wrench",
         "accessory": null,
         "appearance": {
          "skin": "#c68642",
@@ -201,7 +201,7 @@
         "name": "Luis García",
         "level": 1,
         "careers": [
-         "career.builder"
+         "career.personal-trainer"
         ],
         "masteries": [],
         "personality": "personality.chaotic",
@@ -220,7 +220,7 @@
          "recovery": 5,
          "interactionSpeed": 6
         },
-        "held": "equipment.hammer",
+        "held": "equipment.kettlebell",
         "accessory": null,
         "appearance": {
          "skin": "#8d5524",
@@ -235,32 +235,30 @@
     ],
     "modifiers": []
    },
-   "resultHash": "dfb00b8763ab6262",
+   "resultHash": "b9dd9337d4fbccb0",
    "hashes": [
-    "747bf377f3e432e6",
-    "8035a8c5e36b925a",
-    "ea52cb6d13849f46",
-    "8cd289ce9bc31421",
-    "08fcc490c4dc2c4d",
-    "4545c89e1a3cc04f",
-    "3d040106859b677d",
-    "324b62c293f3901d",
-    "0e6904b6581797cb",
-    "448f8c6f324a842e",
-    "3d2c119478b38aaf",
-    "50048a768d56e125",
-    "b14fe88f7a3e5312",
-    "c2fa42ec7b9d1329"
+    "a6826a4b4044295c",
+    "0872bdf8a069bf8b",
+    "36204d29913300ea",
+    "e5e8b665c4b02088",
+    "7f6420c5a05dbb10",
+    "de7260ac3ada3871",
+    "cecce965362eb900",
+    "c41051424b24eb31",
+    "406fe179b1a8bf8c",
+    "254a6f5b1926e940",
+    "7136ada478e4998b",
+    "4c46565879b5e051"
    ],
    "winner": 0,
-   "ticks": 1433
+   "ticks": 1272
   },
   {
    "name": "arena.office-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "ad4bd5604037ed07",
-    "simVersion": "0.2.0",
+    "contentHash": "a3996009d0acebf4",
+    "simVersion": "0.3.0",
     "seed": "5e7b098fded2d143",
     "arenaId": "arena.office",
     "mode": "duel_3v3",
@@ -275,7 +273,7 @@
         "name": "Greta Chen",
         "level": 1,
         "careers": [
-         "career.lawyer"
+         "career.journalist"
         ],
         "masteries": [],
         "personality": "personality.lazy",
@@ -294,7 +292,7 @@
          "recovery": 3,
          "interactionSpeed": 6
         },
-        "held": "equipment.briefcase",
+        "held": "equipment.notepad",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -309,8 +307,8 @@
         "name": "Luis Costa",
         "level": 5,
         "careers": [
-         "career.mechanic",
-         "career.lawyer"
+         "career.influencer",
+         "career.accountant"
         ],
         "masteries": [],
         "personality": "personality.confident",
@@ -329,7 +327,7 @@
          "recovery": 5,
          "interactionSpeed": 4
         },
-        "held": "equipment.wrench",
+        "held": "equipment.selfie-stick",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -344,7 +342,7 @@
         "name": "Ravi Chen",
         "level": 1,
         "careers": [
-         "career.taxi-driver"
+         "career.programmer"
         ],
         "masteries": [],
         "personality": "personality.competitive",
@@ -363,7 +361,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.steering-lock",
+        "held": "equipment.laptop",
         "accessory": null,
         "appearance": {
          "skin": "#c68642",
@@ -385,7 +383,7 @@
         "name": "Wendy Dubois",
         "level": 1,
         "careers": [
-         "career.librarian"
+         "career.lifeguard"
         ],
         "masteries": [],
         "personality": "personality.greedy",
@@ -404,7 +402,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.book",
+        "held": "equipment.rescue-tube-item",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -419,8 +417,8 @@
         "name": "Yuki Park",
         "level": 5,
         "careers": [
-         "career.mechanic",
-         "career.builder"
+         "career.journalist",
+         "career.janitor"
         ],
         "masteries": [],
         "personality": "personality.clumsy",
@@ -439,7 +437,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.wrench",
+        "held": "equipment.notepad",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -454,7 +452,7 @@
         "name": "Omar Brown",
         "level": 1,
         "careers": [
-         "career.teacher"
+         "career.lifeguard"
         ],
         "masteries": [],
         "personality": "personality.lazy",
@@ -473,7 +471,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.clipboard",
+        "held": "equipment.rescue-tube-item",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -488,27 +486,36 @@
     ],
     "modifiers": []
    },
-   "resultHash": "10b06054d71a7647",
+   "resultHash": "c9973ef6fe669063",
    "hashes": [
-    "5a1a69c30164237a",
-    "d49f9b81447cc1fa",
-    "a765f5a99de64cbe",
-    "fa5dfb6ae5886643",
-    "03072c215251f79e",
-    "4aa7507df6205c0c",
-    "954568fe8d745981",
-    "0d7d4dafe4a5f244",
-    "60c17daf080f8582"
+    "9d292fd576005680",
+    "211237987ade7083",
+    "0edd9c3408e8dfed",
+    "06d04023922c8898",
+    "742f9a7f61edd7fe",
+    "ee6ce34ca0838a89",
+    "61d6117eddc69c7b",
+    "d5c356cff879c8de",
+    "e6b713e9ce26c410",
+    "d78bea33c0eee8b4",
+    "d620d87f14587b3e",
+    "0560157e338177b1",
+    "f08cae432f09dbf8",
+    "5064a9a8853b0c21",
+    "f57ee18c77f3679f",
+    "1576fd9c3cb79f55",
+    "c7f6a9252b28792e",
+    "54b828908ead6f0f"
    ],
    "winner": 1,
-   "ticks": 977
+   "ticks": 1875
   },
   {
    "name": "arena.office-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "ad4bd5604037ed07",
-    "simVersion": "0.2.0",
+    "contentHash": "a3996009d0acebf4",
+    "simVersion": "0.3.0",
     "seed": "e9aac648f664d750",
     "arenaId": "arena.office",
     "mode": "duel_3v3",
@@ -523,7 +530,7 @@
         "name": "Imani Mensah",
         "level": 1,
         "careers": [
-         "career.electrician"
+         "career.journalist"
         ],
         "masteries": [],
         "personality": "personality.aggressive",
@@ -542,7 +549,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.screwdriver",
+        "held": "equipment.notepad",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -557,8 +564,8 @@
         "name": "Beth Lindqvist",
         "level": 5,
         "careers": [
-         "career.electrician",
-         "career.mechanic"
+         "career.influencer",
+         "career.barista"
         ],
         "masteries": [],
         "personality": "personality.greedy",
@@ -577,7 +584,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.screwdriver",
+        "held": "equipment.selfie-stick",
         "accessory": null,
         "appearance": {
          "skin": "#8d5524",
@@ -592,7 +599,7 @@
         "name": "Greta Park",
         "level": 1,
         "careers": [
-         "career.plumber"
+         "career.gardener"
         ],
         "masteries": [],
         "personality": "personality.helpful",
@@ -611,7 +618,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.plunger",
+        "held": "equipment.trowel",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -633,7 +640,7 @@
         "name": "Björn Park",
         "level": 1,
         "careers": [
-         "career.police-officer"
+         "career.mime"
         ],
         "masteries": [],
         "personality": "personality.confident",
@@ -652,7 +659,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.baton",
+        "held": "equipment.baguette",
         "accessory": null,
         "appearance": {
          "skin": "#e0ac69",
@@ -667,8 +674,8 @@
         "name": "Anya Brown",
         "level": 5,
         "careers": [
-         "career.journalist",
-         "career.plumber"
+         "career.mime",
+         "career.lawyer"
         ],
         "masteries": [],
         "personality": "personality.confident",
@@ -687,7 +694,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.notepad",
+        "held": "equipment.baguette",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -702,7 +709,7 @@
         "name": "Nadia García",
         "level": 1,
         "careers": [
-         "career.builder"
+         "career.hairdresser"
         ],
         "masteries": [],
         "personality": "personality.clumsy",
@@ -721,7 +728,7 @@
          "recovery": 7,
          "interactionSpeed": 5
         },
-        "held": "equipment.hammer",
+        "held": "equipment.scissors",
         "accessory": null,
         "appearance": {
          "skin": "#c68642",
@@ -736,25 +743,28 @@
     ],
     "modifiers": []
    },
-   "resultHash": "aa50831e9ad5a36d",
+   "resultHash": "09353b877c595938",
    "hashes": [
-    "7e94316281b81c4b",
-    "f8c292ee45b2b8ef",
-    "ace3faa90edb8ebc",
-    "c8b2a3043719456b",
-    "698245bd4fa7a146",
-    "fbb18754abf95f6b",
-    "559b31c34e95ed8e"
+    "8d1ecdceb8767035",
+    "8154c8e3aa44e7b6",
+    "a4199af78a3ead6c",
+    "6e87656f96a4686e",
+    "b6cf6ebb83a6a0a2",
+    "ff4095271754aaca",
+    "f2cbb10918ec3fc6",
+    "0e56b759a3d0397e",
+    "08140994a3512b0b",
+    "23665e3ed1430501"
    ],
-   "winner": 0,
-   "ticks": 745
+   "winner": 1,
+   "ticks": 1011
   },
   {
    "name": "arena.office-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "ad4bd5604037ed07",
-    "simVersion": "0.2.0",
+    "contentHash": "a3996009d0acebf4",
+    "simVersion": "0.3.0",
     "seed": "a1c6d770c6ab0fd2",
     "arenaId": "arena.office",
     "mode": "duel_3v3",
@@ -769,7 +779,7 @@
         "name": "Greta Popescu",
         "level": 1,
         "careers": [
-         "career.mechanic"
+         "career.influencer"
         ],
         "masteries": [],
         "personality": "personality.coward",
@@ -788,7 +798,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.wrench",
+        "held": "equipment.selfie-stick",
         "accessory": null,
         "appearance": {
          "skin": "#e0ac69",
@@ -803,8 +813,8 @@
         "name": "Pat Nakamura",
         "level": 5,
         "careers": [
-         "career.influencer",
-         "career.janitor"
+         "career.lifeguard",
+         "career.plumber"
         ],
         "masteries": [],
         "personality": "personality.clumsy",
@@ -823,7 +833,7 @@
          "recovery": 6,
          "interactionSpeed": 7
         },
-        "held": "equipment.selfie-stick",
+        "held": "equipment.rescue-tube-item",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -838,7 +848,7 @@
         "name": "Anya Okafor",
         "level": 1,
         "careers": [
-         "career.janitor"
+         "career.dj"
         ],
         "masteries": [],
         "personality": "personality.coward",
@@ -857,7 +867,7 @@
          "recovery": 7,
          "interactionSpeed": 5
         },
-        "held": "equipment.mop",
+        "held": "equipment.headphones",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -879,7 +889,7 @@
         "name": "Sam Ahmed",
         "level": 1,
         "careers": [
-         "career.paramedic"
+         "career.hairdresser"
         ],
         "masteries": [],
         "personality": "personality.confident",
@@ -898,7 +908,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.first-aid-kit",
+        "held": "equipment.scissors",
         "accessory": null,
         "appearance": {
          "skin": "#8d5524",
@@ -913,8 +923,8 @@
         "name": "Yuki Dubois",
         "level": 5,
         "careers": [
-         "career.lawyer",
-         "career.programmer"
+         "career.accountant",
+         "career.dj"
         ],
         "masteries": [],
         "personality": "personality.greedy",
@@ -948,7 +958,7 @@
         "name": "Yuki Brown",
         "level": 1,
         "careers": [
-         "career.farmer"
+         "career.lifeguard"
         ],
         "masteries": [],
         "personality": "personality.clumsy",
@@ -967,7 +977,7 @@
          "recovery": 5,
          "interactionSpeed": 6
         },
-        "held": "equipment.pitchfork",
+        "held": "equipment.rescue-tube-item",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -982,42 +992,28 @@
     ],
     "modifiers": []
    },
-   "resultHash": "9cc35cc249a552af",
+   "resultHash": "a57bf56930b7445a",
    "hashes": [
-    "b1b361c49a6b545f",
-    "c8d159016bd9b006",
-    "7ae977961c5fd395",
-    "95720633239eddf4",
-    "d2a0c9e2687d876f",
-    "f7656ee40b25a319",
-    "14ad6a47705cfea0",
-    "b82f25b3de591f34",
-    "e97d20d8ad78ab1b",
-    "d19aec7aae5026bf",
-    "6c4bd895e2b1e7e2",
-    "a60d2acad413f11d",
-    "c01b8d3d81ae4bf2",
-    "805d62eb6a2a466e",
-    "5f469071896554ec",
-    "4d553833a9c24504",
-    "fd17476761afc0fa",
-    "dd1ac6ea8bf30263",
-    "28742f892524f7b4",
-    "190adf4162316078",
-    "b26af5d3adc656a4",
-    "43dd5252dd364829",
-    "0a8a7996d1f4fa2f",
-    "9cc35cc249a552af"
+    "4e46006edd0704d1",
+    "d2c3de884d7c3d69",
+    "becdef019dcc237e",
+    "0a1b5399fc64820c",
+    "3c79c4290f39bfcc",
+    "f22e7ba7404c9a50",
+    "1fb4907692bb6d0b",
+    "83140b51f63855e0",
+    "c7efe6051a07321e",
+    "b153a6cd282c5e12"
    ],
    "winner": 1,
-   "ticks": 2400
+   "ticks": 1046
   },
   {
    "name": "arena.office-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "ad4bd5604037ed07",
-    "simVersion": "0.2.0",
+    "contentHash": "a3996009d0acebf4",
+    "simVersion": "0.3.0",
     "seed": "ca541a546174fe1c",
     "arenaId": "arena.office",
     "mode": "duel_3v3",
@@ -1032,7 +1028,7 @@
         "name": "Frank Mensah",
         "level": 1,
         "careers": [
-         "career.firefighter"
+         "career.plumber"
         ],
         "masteries": [],
         "personality": "personality.coward",
@@ -1051,7 +1047,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.axe",
+        "held": "equipment.plunger",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -1066,8 +1062,8 @@
         "name": "Hugo Nakamura",
         "level": 5,
         "careers": [
-         "career.janitor",
-         "career.security-guard"
+         "career.programmer",
+         "career.firefighter"
         ],
         "masteries": [],
         "personality": "personality.helpful",
@@ -1086,7 +1082,7 @@
          "recovery": 4,
          "interactionSpeed": 5
         },
-        "held": "equipment.mop",
+        "held": "equipment.laptop",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -1101,7 +1097,7 @@
         "name": "Jarek Ahmed",
         "level": 1,
         "careers": [
-         "career.programmer"
+         "career.builder"
         ],
         "masteries": [],
         "personality": "personality.chaotic",
@@ -1120,7 +1116,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.laptop",
+        "held": "equipment.hammer",
         "accessory": null,
         "appearance": {
          "skin": "#c68642",
@@ -1142,7 +1138,7 @@
         "name": "Marek Brown",
         "level": 1,
         "careers": [
-         "career.police-officer"
+         "career.janitor"
         ],
         "masteries": [],
         "personality": "personality.competitive",
@@ -1161,7 +1157,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.baton",
+        "held": "equipment.mop",
         "accessory": null,
         "appearance": {
          "skin": "#8d5524",
@@ -1176,8 +1172,8 @@
         "name": "Wendy Popescu",
         "level": 5,
         "careers": [
-         "career.electrician",
-         "career.delivery-driver"
+         "career.accountant",
+         "career.security-guard"
         ],
         "masteries": [],
         "personality": "personality.helpful",
@@ -1196,7 +1192,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.screwdriver",
+        "held": "equipment.briefcase",
         "accessory": null,
         "appearance": {
          "skin": "#e0ac69",
@@ -1211,7 +1207,7 @@
         "name": "Anya Kaur",
         "level": 1,
         "careers": [
-         "career.electrician"
+         "career.influencer"
         ],
         "masteries": [],
         "personality": "personality.confident",
@@ -1230,7 +1226,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.screwdriver",
+        "held": "equipment.selfie-stick",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -1245,30 +1241,30 @@
     ],
     "modifiers": []
    },
-   "resultHash": "c62ebbc762aeddc0",
+   "resultHash": "ddc4daa5b2e47226",
    "hashes": [
-    "5a43947800b527e9",
-    "de4eec2153ca14b0",
-    "12f0fa1b41b6ee14",
-    "008dbed1a6929d30",
-    "3198581b0bbd1cd4",
-    "20b6162a282c43fd",
-    "ca45b998eab4ce11",
-    "1dd4e933eb5ab43a",
-    "ecba70eff6425cfa",
-    "7bdcd1ad9fbb2d32",
-    "df1d9437a13b1644",
-    "a5500719e885547a"
+    "88a7c22b7e814b40",
+    "08ce9f25025a408c",
+    "aa1b2161dba68764",
+    "060b6aec23a32cdb",
+    "ef17bd2bc4fd02b8",
+    "a89bfea6aa4fcaf1",
+    "84d7cf97e20abb16",
+    "4cc6ee057a6ab374",
+    "8b34f6a2f093ea89",
+    "3cc3cde3c6e74fc6",
+    "a5017a8a2a303c9d",
+    "942b5075866dbaca"
    ],
    "winner": 1,
-   "ticks": 1235
+   "ticks": 1224
   },
   {
    "name": "arena.office-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "ad4bd5604037ed07",
-    "simVersion": "0.2.0",
+    "contentHash": "a3996009d0acebf4",
+    "simVersion": "0.3.0",
     "seed": "64179e10dfbbf1c5",
     "arenaId": "arena.office",
     "mode": "duel_5v5",
@@ -1283,7 +1279,7 @@
         "name": "Priya Okafor",
         "level": 1,
         "careers": [
-         "career.police-officer"
+         "career.teacher"
         ],
         "masteries": [],
         "personality": "personality.clumsy",
@@ -1302,7 +1298,7 @@
          "recovery": 5,
          "interactionSpeed": 4
         },
-        "held": "equipment.baton",
+        "held": "equipment.clipboard",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -1317,8 +1313,8 @@
         "name": "Beth Jensen",
         "level": 5,
         "careers": [
-         "career.dj",
-         "career.programmer"
+         "career.janitor",
+         "career.dentist"
         ],
         "masteries": [],
         "personality": "personality.competitive",
@@ -1337,7 +1333,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.headphones",
+        "held": "equipment.mop",
         "accessory": null,
         "appearance": {
          "skin": "#8d5524",
@@ -1352,7 +1348,7 @@
         "name": "Nadia Brown",
         "level": 1,
         "careers": [
-         "career.taxi-driver"
+         "career.dj"
         ],
         "masteries": [],
         "personality": "personality.paranoid",
@@ -1371,7 +1367,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.steering-lock",
+        "held": "equipment.headphones",
         "accessory": null,
         "appearance": {
          "skin": "#e0ac69",
@@ -1386,8 +1382,8 @@
         "name": "Kenji Kaur",
         "level": 5,
         "careers": [
-         "career.lawyer",
-         "career.dj"
+         "career.journalist",
+         "career.programmer"
         ],
         "masteries": [],
         "personality": "personality.greedy",
@@ -1406,7 +1402,7 @@
          "recovery": 5,
          "interactionSpeed": 3
         },
-        "held": "equipment.briefcase",
+        "held": "equipment.notepad",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -1421,7 +1417,7 @@
         "name": "Tariq Okafor",
         "level": 1,
         "careers": [
-         "career.police-officer"
+         "career.electrician"
         ],
         "masteries": [],
         "personality": "personality.competitive",
@@ -1440,7 +1436,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.baton",
+        "held": "equipment.screwdriver",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -1462,7 +1458,7 @@
         "name": "Ingrid Nakamura",
         "level": 1,
         "careers": [
-         "career.dentist"
+         "career.mechanic"
         ],
         "masteries": [],
         "personality": "personality.lazy",
@@ -1481,7 +1477,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.dental-drill",
+        "held": "equipment.wrench",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -1496,8 +1492,8 @@
         "name": "Alex O'Brien",
         "level": 5,
         "careers": [
-         "career.chef",
-         "career.librarian"
+         "career.builder",
+         "career.janitor"
         ],
         "masteries": [],
         "personality": "personality.greedy",
@@ -1516,7 +1512,7 @@
          "recovery": 5,
          "interactionSpeed": 6
         },
-        "held": "equipment.frying-pan",
+        "held": "equipment.hammer",
         "accessory": null,
         "appearance": {
          "skin": "#c68642",
@@ -1531,7 +1527,7 @@
         "name": "Anya Nowak",
         "level": 1,
         "careers": [
-         "career.paramedic"
+         "career.security-guard"
         ],
         "masteries": [],
         "personality": "personality.aggressive",
@@ -1550,7 +1546,7 @@
          "recovery": 7,
          "interactionSpeed": 5
         },
-        "held": "equipment.first-aid-kit",
+        "held": "equipment.torch",
         "accessory": null,
         "appearance": {
          "skin": "#e0ac69",
@@ -1565,8 +1561,8 @@
         "name": "Fatima García",
         "level": 5,
         "careers": [
-         "career.builder",
-         "career.police-officer"
+         "career.barista",
+         "career.taxi-driver"
         ],
         "masteries": [],
         "personality": "personality.aggressive",
@@ -1585,7 +1581,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.hammer",
+        "held": "equipment.portafilter",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -1600,7 +1596,7 @@
         "name": "Priya O'Brien",
         "level": 1,
         "careers": [
-         "career.plumber"
+         "career.farmer"
         ],
         "masteries": [],
         "personality": "personality.coward",
@@ -1619,7 +1615,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.plunger",
+        "held": "equipment.pitchfork",
         "accessory": null,
         "appearance": {
          "skin": "#c68642",
@@ -1634,29 +1630,34 @@
     ],
     "modifiers": []
    },
-   "resultHash": "01b80e0db75fe88c",
+   "resultHash": "4427120a4a99e7f7",
    "hashes": [
-    "7a92c983554ddd54",
-    "1f33a3ce7d9d4e73",
-    "1c4871d31bcd1bda",
-    "077fae7ce8510df9",
-    "d35bd39a237f790b",
-    "678d2c17090fdd70",
-    "9abfb771ba596020",
-    "9ce20f8c1a53ca7d",
-    "da31e8405a807055",
-    "3b8c58bcae021c63",
-    "e115449f4fb9173a"
+    "ba4bb986c68afc33",
+    "7b52c26fc55a0cc0",
+    "165f7cfd5195657a",
+    "3015fdb6d096a08f",
+    "332f4838293ed05d",
+    "9b153eec834e480f",
+    "5354de0940883710",
+    "45f860b738c66762",
+    "311eb1c4999378e7",
+    "d32b7f5f98fdca88",
+    "21e1382c6ac9b6c9",
+    "536a724b9f9c6d46",
+    "c63b1e18ea71c42d",
+    "cc573ce30c856358",
+    "8eef157a25a611e1",
+    "4204e34731896970"
    ],
-   "winner": 1,
-   "ticks": 1175
+   "winner": 0,
+   "ticks": 1632
   },
   {
    "name": "arena.office-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "ad4bd5604037ed07",
-    "simVersion": "0.2.0",
+    "contentHash": "a3996009d0acebf4",
+    "simVersion": "0.3.0",
     "seed": "6ef4a751697087ad",
     "arenaId": "arena.office",
     "mode": "duel_5v5",
@@ -1671,7 +1672,7 @@
         "name": "Pat Okafor",
         "level": 1,
         "careers": [
-         "career.firefighter"
+         "career.dj"
         ],
         "masteries": [],
         "personality": "personality.clumsy",
@@ -1690,7 +1691,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.axe",
+        "held": "equipment.headphones",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -1705,8 +1706,8 @@
         "name": "Sade Brown",
         "level": 5,
         "careers": [
-         "career.electrician",
-         "career.lawyer"
+         "career.taxi-driver",
+         "career.lifeguard"
         ],
         "masteries": [],
         "personality": "personality.helpful",
@@ -1725,7 +1726,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.screwdriver",
+        "held": "equipment.steering-lock",
         "accessory": null,
         "appearance": {
          "skin": "#c68642",
@@ -1740,7 +1741,7 @@
         "name": "Chloe Costa",
         "level": 1,
         "careers": [
-         "career.journalist"
+         "career.firefighter"
         ],
         "masteries": [],
         "personality": "personality.competitive",
@@ -1759,7 +1760,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.notepad",
+        "held": "equipment.axe",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -1774,8 +1775,8 @@
         "name": "Rafael Moreau",
         "level": 5,
         "careers": [
-         "career.teacher",
-         "career.firefighter"
+         "career.lifeguard",
+         "career.dentist"
         ],
         "masteries": [],
         "personality": "personality.confident",
@@ -1794,7 +1795,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.clipboard",
+        "held": "equipment.rescue-tube-item",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -1809,7 +1810,7 @@
         "name": "Beth Smith",
         "level": 1,
         "careers": [
-         "career.journalist"
+         "career.hairdresser"
         ],
         "masteries": [],
         "personality": "personality.coward",
@@ -1828,7 +1829,7 @@
          "recovery": 5,
          "interactionSpeed": 7
         },
-        "held": "equipment.notepad",
+        "held": "equipment.scissors",
         "accessory": null,
         "appearance": {
          "skin": "#c68642",
@@ -1850,7 +1851,7 @@
         "name": "Dev Kowalski",
         "level": 1,
         "careers": [
-         "career.taxi-driver"
+         "career.librarian"
         ],
         "masteries": [],
         "personality": "personality.clumsy",
@@ -1869,7 +1870,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.steering-lock",
+        "held": "equipment.book",
         "accessory": null,
         "appearance": {
          "skin": "#8d5524",
@@ -1884,8 +1885,8 @@
         "name": "Fatima Okafor",
         "level": 5,
         "careers": [
-         "career.librarian",
-         "career.accountant"
+         "career.personal-trainer",
+         "career.security-guard"
         ],
         "masteries": [],
         "personality": "personality.aggressive",
@@ -1904,7 +1905,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.book",
+        "held": "equipment.kettlebell",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -1919,7 +1920,7 @@
         "name": "Tariq Kaur",
         "level": 1,
         "careers": [
-         "career.teacher"
+         "career.janitor"
         ],
         "masteries": [],
         "personality": "personality.competitive",
@@ -1938,7 +1939,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.clipboard",
+        "held": "equipment.mop",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -1953,7 +1954,7 @@
         "name": "Ravi Silva",
         "level": 5,
         "careers": [
-         "career.influencer",
+         "career.barista",
          "career.lawyer"
         ],
         "masteries": [],
@@ -1973,7 +1974,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.selfie-stick",
+        "held": "equipment.portafilter",
         "accessory": null,
         "appearance": {
          "skin": "#c68642",
@@ -1988,7 +1989,7 @@
         "name": "Marek Novak",
         "level": 1,
         "careers": [
-         "career.accountant"
+         "career.programmer"
         ],
         "masteries": [],
         "personality": "personality.clumsy",
@@ -2007,7 +2008,7 @@
          "recovery": 4,
          "interactionSpeed": 5
         },
-        "held": "equipment.briefcase",
+        "held": "equipment.laptop",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -2022,29 +2023,26 @@
     ],
     "modifiers": []
    },
-   "resultHash": "c1b12129b997a3c8",
+   "resultHash": "523b137e8ec2348d",
    "hashes": [
-    "1b2a75c902d31c1e",
-    "b25d8724e5bb96f9",
-    "40e45010218e09ab",
-    "66dd3a0438b71da7",
-    "fd93ba439cc1baba",
-    "4102395cd63da5eb",
-    "c2db722b966c7348",
-    "4246e8f360d3409e",
-    "6689355b916e80fa",
-    "d2605f1111890492",
-    "b26b882dcda65e36"
+    "a7514ddb89ab6bb0",
+    "31189e29616f091a",
+    "df2f8260894756f5",
+    "1e29a6ff35871fd0",
+    "eee01a43888dce7a",
+    "dcc39cbdb2c1ad9e",
+    "a6daf68ebc621f47",
+    "11b3dcece1250257"
    ],
-   "winner": 1,
-   "ticks": 1196
+   "winner": 0,
+   "ticks": 842
   },
   {
    "name": "arena.office-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "ad4bd5604037ed07",
-    "simVersion": "0.2.0",
+    "contentHash": "a3996009d0acebf4",
+    "simVersion": "0.3.0",
     "seed": "8ee11f25ead1b54",
     "arenaId": "arena.office",
     "mode": "ffa",
@@ -2059,7 +2057,7 @@
         "name": "Tomasz Rossi",
         "level": 1,
         "careers": [
-         "career.teacher"
+         "career.lifeguard"
         ],
         "masteries": [],
         "personality": "personality.helpful",
@@ -2078,7 +2076,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.clipboard",
+        "held": "equipment.rescue-tube-item",
         "accessory": null,
         "appearance": {
          "skin": "#c68642",
@@ -2100,7 +2098,7 @@
         "name": "Marek Dubois",
         "level": 1,
         "careers": [
-         "career.farmer"
+         "career.security-guard"
         ],
         "masteries": [],
         "personality": "personality.coward",
@@ -2119,7 +2117,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.pitchfork",
+        "held": "equipment.torch",
         "accessory": null,
         "appearance": {
          "skin": "#8d5524",
@@ -2141,7 +2139,7 @@
         "name": "Frank García",
         "level": 1,
         "careers": [
-         "career.plumber"
+         "career.influencer"
         ],
         "masteries": [],
         "personality": "personality.paranoid",
@@ -2160,7 +2158,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.plunger",
+        "held": "equipment.selfie-stick",
         "accessory": null,
         "appearance": {
          "skin": "#c68642",
@@ -2182,7 +2180,7 @@
         "name": "Olu Fischer",
         "level": 1,
         "careers": [
-         "career.lawyer"
+         "career.plumber"
         ],
         "masteries": [],
         "personality": "personality.helpful",
@@ -2201,7 +2199,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.briefcase",
+        "held": "equipment.plunger",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -2223,7 +2221,7 @@
         "name": "Ravi Park",
         "level": 1,
         "careers": [
-         "career.teacher"
+         "career.chef"
         ],
         "masteries": [],
         "personality": "personality.helpful",
@@ -2242,7 +2240,7 @@
          "recovery": 5,
          "interactionSpeed": 7
         },
-        "held": "equipment.clipboard",
+        "held": "equipment.frying-pan",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -2264,7 +2262,7 @@
         "name": "Wendy Ivanova",
         "level": 1,
         "careers": [
-         "career.influencer"
+         "career.electrician"
         ],
         "masteries": [],
         "personality": "personality.greedy",
@@ -2283,7 +2281,7 @@
          "recovery": 5,
          "interactionSpeed": 4
         },
-        "held": "equipment.selfie-stick",
+        "held": "equipment.screwdriver",
         "accessory": null,
         "appearance": {
          "skin": "#e0ac69",
@@ -2298,38 +2296,32 @@
     ],
     "modifiers": []
    },
-   "resultHash": "31b0e107deb8c9fe",
+   "resultHash": "45659a634ed2af74",
    "hashes": [
-    "091761e9b60ea3a0",
-    "34854f4ff653c43c",
-    "8aca4d2a2c491075",
-    "d133b1d25c9c63b7",
-    "45872e24c9e2a831",
-    "ac5aa04bec15f32c",
-    "eb2a974e0e745a13",
-    "4fbb380246d22b1f",
-    "0160644c21d8b5e5",
-    "4c1c17d1949fc0b6",
-    "b5989ce86d216461",
-    "5bb9e1f24dab376f",
-    "7d2eeff177777274",
-    "12002f4157fac222",
-    "2b543cc746039ab0",
-    "4ae67ef7a5156586",
-    "ad91ce86cf1ce64f",
-    "9e1c4f767935d09b",
-    "c8e1aa55724ee606",
-    "5bdf22b1cd0e9af4"
+    "b667da72cb77cf45",
+    "9d48af8d2d8b3022",
+    "2157b884876c6539",
+    "736ca2735f1b3466",
+    "b34575c7f99fdc84",
+    "c6441297c0552900",
+    "f09fd96bef456d8e",
+    "b3097748e234ff33",
+    "5cd7c7695b0103ea",
+    "1218b3a41e12cf87",
+    "a4304a6e2b4a7557",
+    "e00b3a64c1cd5a0f",
+    "95874b26dcd8dc41",
+    "34560fd776cb31c6"
    ],
-   "winner": 1,
-   "ticks": 2078
+   "winner": 3,
+   "ticks": 1462
   },
   {
    "name": "arena.supermarket-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "ad4bd5604037ed07",
-    "simVersion": "0.2.0",
+    "contentHash": "a3996009d0acebf4",
+    "simVersion": "0.3.0",
     "seed": "9ae2eb0a49d70d1c",
     "arenaId": "arena.supermarket",
     "mode": "duel_3v3",
@@ -2344,7 +2336,7 @@
         "name": "Wendy Smith",
         "level": 1,
         "careers": [
-         "career.chef"
+         "career.journalist"
         ],
         "masteries": [],
         "personality": "personality.aggressive",
@@ -2363,7 +2355,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.frying-pan",
+        "held": "equipment.notepad",
         "accessory": null,
         "appearance": {
          "skin": "#8d5524",
@@ -2378,8 +2370,8 @@
         "name": "Fatima Smith",
         "level": 5,
         "careers": [
-         "career.lawyer",
-         "career.influencer"
+         "career.journalist",
+         "career.chef"
         ],
         "masteries": [],
         "personality": "personality.paranoid",
@@ -2398,7 +2390,7 @@
          "recovery": 5,
          "interactionSpeed": 6
         },
-        "held": "equipment.briefcase",
+        "held": "equipment.notepad",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -2413,7 +2405,7 @@
         "name": "Hugo Silva",
         "level": 1,
         "careers": [
-         "career.delivery-driver"
+         "career.firefighter"
         ],
         "masteries": [],
         "personality": "personality.helpful",
@@ -2432,7 +2424,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.parcel-scanner",
+        "held": "equipment.axe",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -2454,7 +2446,7 @@
         "name": "Kofi O'Brien",
         "level": 1,
         "careers": [
-         "career.builder"
+         "career.security-guard"
         ],
         "masteries": [],
         "personality": "personality.coward",
@@ -2473,7 +2465,7 @@
          "recovery": 4,
          "interactionSpeed": 5
         },
-        "held": "equipment.hammer",
+        "held": "equipment.torch",
         "accessory": null,
         "appearance": {
          "skin": "#e0ac69",
@@ -2488,8 +2480,8 @@
         "name": "Greta Costa",
         "level": 5,
         "careers": [
-         "career.dentist",
-         "career.dj"
+         "career.dj",
+         "career.police-officer"
         ],
         "masteries": [],
         "personality": "personality.aggressive",
@@ -2508,7 +2500,7 @@
          "recovery": 3,
          "interactionSpeed": 5
         },
-        "held": "equipment.dental-drill",
+        "held": "equipment.headphones",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -2523,7 +2515,7 @@
         "name": "Björn Brown",
         "level": 1,
         "careers": [
-         "career.lawyer"
+         "career.taxi-driver"
         ],
         "masteries": [],
         "personality": "personality.paranoid",
@@ -2542,7 +2534,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.briefcase",
+        "held": "equipment.steering-lock",
         "accessory": null,
         "appearance": {
          "skin": "#e0ac69",
@@ -2557,31 +2549,25 @@
     ],
     "modifiers": []
    },
-   "resultHash": "7918d60dd1db7344",
+   "resultHash": "c4f60c2b1ca2ef62",
    "hashes": [
-    "d8aa858a4ea14aaf",
-    "f054999a5ce3034d",
-    "68831f3abef2ead3",
-    "daa9baa94ffb6f0e",
-    "fbf0d7b56651d5ec",
-    "fd72846745116542",
-    "723aacd79ae2d976",
-    "54bdc59c9127a4c3",
-    "cbf8b70312fce32a",
-    "a79dbf92abc26411",
-    "1b249145fcfd51f4",
-    "cd45d6f834c65d5b",
-    "550facc668416a7d"
+    "230f0df0de797285",
+    "e93e079ba36ca860",
+    "ff827d4c9452b751",
+    "f44bc48c87038231",
+    "ca01d6aa038d0221",
+    "302ef958032ce627",
+    "800e9aad9f171c74"
    ],
-   "winner": 0,
-   "ticks": 1345
+   "winner": 1,
+   "ticks": 735
   },
   {
    "name": "arena.supermarket-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "ad4bd5604037ed07",
-    "simVersion": "0.2.0",
+    "contentHash": "a3996009d0acebf4",
+    "simVersion": "0.3.0",
     "seed": "f27e04ed5de877d6",
     "arenaId": "arena.supermarket",
     "mode": "duel_3v3",
@@ -2596,7 +2582,7 @@
         "name": "Frank Ahmed",
         "level": 1,
         "careers": [
-         "career.plumber"
+         "career.taxi-driver"
         ],
         "masteries": [],
         "personality": "personality.paranoid",
@@ -2615,7 +2601,7 @@
          "recovery": 5,
          "interactionSpeed": 6
         },
-        "held": "equipment.plunger",
+        "held": "equipment.steering-lock",
         "accessory": null,
         "appearance": {
          "skin": "#8d5524",
@@ -2630,8 +2616,8 @@
         "name": "Linda Kowalski",
         "level": 5,
         "careers": [
-         "career.electrician",
-         "career.plumber"
+         "career.gardener",
+         "career.librarian"
         ],
         "masteries": [],
         "personality": "personality.chaotic",
@@ -2650,7 +2636,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.screwdriver",
+        "held": "equipment.trowel",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -2665,7 +2651,7 @@
         "name": "Olu Kaur",
         "level": 1,
         "careers": [
-         "career.security-guard"
+         "career.lawyer"
         ],
         "masteries": [],
         "personality": "personality.aggressive",
@@ -2684,7 +2670,7 @@
          "recovery": 7,
          "interactionSpeed": 3
         },
-        "held": "equipment.torch",
+        "held": "equipment.briefcase",
         "accessory": null,
         "appearance": {
          "skin": "#8d5524",
@@ -2706,7 +2692,7 @@
         "name": "Ravi O'Brien",
         "level": 1,
         "careers": [
-         "career.accountant"
+         "career.gardener"
         ],
         "masteries": [],
         "personality": "personality.confident",
@@ -2725,7 +2711,7 @@
          "recovery": 4,
          "interactionSpeed": 5
         },
-        "held": "equipment.briefcase",
+        "held": "equipment.trowel",
         "accessory": null,
         "appearance": {
          "skin": "#e0ac69",
@@ -2740,8 +2726,8 @@
         "name": "Kenji Ivanova",
         "level": 5,
         "careers": [
-         "career.chef",
-         "career.electrician"
+         "career.builder",
+         "career.chef"
         ],
         "masteries": [],
         "personality": "personality.competitive",
@@ -2760,7 +2746,7 @@
          "recovery": 5,
          "interactionSpeed": 7
         },
-        "held": "equipment.frying-pan",
+        "held": "equipment.hammer",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -2775,7 +2761,7 @@
         "name": "Anya Walsh",
         "level": 1,
         "careers": [
-         "career.journalist"
+         "career.electrician"
         ],
         "masteries": [],
         "personality": "personality.confident",
@@ -2794,7 +2780,7 @@
          "recovery": 4,
          "interactionSpeed": 5
         },
-        "held": "equipment.notepad",
+        "held": "equipment.screwdriver",
         "accessory": null,
         "appearance": {
          "skin": "#e0ac69",
@@ -2809,26 +2795,33 @@
     ],
     "modifiers": []
    },
-   "resultHash": "8d8385a38a76db9a",
+   "resultHash": "82e9c845e9483260",
    "hashes": [
-    "154c3b1ab05e737f",
-    "577bfad458148e69",
-    "122a1102b7e0a9b1",
-    "3fb3567298f46aab",
-    "2d44e636fa08f27f",
-    "aeab52d457bed477",
-    "36e25b3264bae7cd",
-    "044846594036c7ae"
+    "fc2cee99561cab2e",
+    "a29440e5c9f2cae0",
+    "1bb232ae1a873037",
+    "c642c3f627f0898f",
+    "db3ec1228e959181",
+    "48e6cfad96fe6d6e",
+    "eb820bb1609cc1aa",
+    "e032af0cbdcbaa1d",
+    "4f7f7415ec3cfcc0",
+    "8c8a24839ccbb64a",
+    "fb3ce24b07b80bf4",
+    "b4b0b7b204b526b1",
+    "130f9983f34198f0",
+    "d73bb9ec1e12c48f",
+    "8365f221446818fc"
    ],
-   "winner": 0,
-   "ticks": 839
+   "winner": 1,
+   "ticks": 1558
   },
   {
    "name": "arena.supermarket-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "ad4bd5604037ed07",
-    "simVersion": "0.2.0",
+    "contentHash": "a3996009d0acebf4",
+    "simVersion": "0.3.0",
     "seed": "29fc562148eb9ed3",
     "arenaId": "arena.supermarket",
     "mode": "duel_3v3",
@@ -2843,7 +2836,7 @@
         "name": "Tomasz García",
         "level": 1,
         "careers": [
-         "career.firefighter"
+         "career.delivery-driver"
         ],
         "masteries": [],
         "personality": "personality.chaotic",
@@ -2862,7 +2855,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.axe",
+        "held": "equipment.parcel-scanner",
         "accessory": null,
         "appearance": {
          "skin": "#e0ac69",
@@ -2877,8 +2870,8 @@
         "name": "Alex Chen",
         "level": 5,
         "careers": [
-         "career.mechanic",
-         "career.paramedic"
+         "career.gardener",
+         "career.lawyer"
         ],
         "masteries": [],
         "personality": "personality.coward",
@@ -2897,7 +2890,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.wrench",
+        "held": "equipment.trowel",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -2912,7 +2905,7 @@
         "name": "Imani Okafor",
         "level": 1,
         "careers": [
-         "career.programmer"
+         "career.builder"
         ],
         "masteries": [],
         "personality": "personality.chaotic",
@@ -2931,7 +2924,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.laptop",
+        "held": "equipment.hammer",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -2953,7 +2946,7 @@
         "name": "Jarek Smith",
         "level": 1,
         "careers": [
-         "career.dentist"
+         "career.dj"
         ],
         "masteries": [],
         "personality": "personality.competitive",
@@ -2972,7 +2965,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.dental-drill",
+        "held": "equipment.headphones",
         "accessory": null,
         "appearance": {
          "skin": "#e0ac69",
@@ -2987,8 +2980,8 @@
         "name": "Sam Patel",
         "level": 5,
         "careers": [
-         "career.paramedic",
-         "career.builder"
+         "career.hairdresser",
+         "career.lifeguard"
         ],
         "masteries": [],
         "personality": "personality.paranoid",
@@ -3007,7 +3000,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.first-aid-kit",
+        "held": "equipment.scissors",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -3022,7 +3015,7 @@
         "name": "Alex Mensah",
         "level": 1,
         "careers": [
-         "career.influencer"
+         "career.barista"
         ],
         "masteries": [],
         "personality": "personality.paranoid",
@@ -3041,7 +3034,7 @@
          "recovery": 5,
          "interactionSpeed": 7
         },
-        "held": "equipment.selfie-stick",
+        "held": "equipment.portafilter",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -3056,42 +3049,26 @@
     ],
     "modifiers": []
    },
-   "resultHash": "ddd3a8f4ce90e841",
+   "resultHash": "c6d12d24f56be3b1",
    "hashes": [
-    "b5df6be6417f35c5",
-    "553dbff9da7552ce",
-    "67ef593f7e043e4a",
-    "cd8a1b9be32b981e",
-    "abaab31df9b23674",
-    "cea5da03118921d6",
-    "e43751053477703e",
-    "231c006e96601477",
-    "992138184938e129",
-    "bdd17930a148f3e1",
-    "abebcf7c7c034a4b",
-    "5a54ec7687278b55",
-    "59e93e9a3e6b77d9",
-    "7223bb08bf08cc1b",
-    "dffae218ed131e65",
-    "b6600544c44be639",
-    "9696fb3e1341a237",
-    "efb72014c80276dd",
-    "5e24b8a93884cade",
-    "87fe763ffed75cc2",
-    "f3bf6973a370c83a",
-    "47b2060c9a31242f",
-    "c7e3244fc2674706",
-    "ddd3a8f4ce90e841"
+    "d45838f25770f623",
+    "d5c163c51763b6ba",
+    "36c2fc331a5e7f66",
+    "95ceb2fd6411387a",
+    "8b0226f413b5d41b",
+    "4efc2010e66d504b",
+    "063339ade651083a",
+    "e2bc8d39c3f165c2"
    ],
    "winner": 0,
-   "ticks": 2400
+   "ticks": 803
   },
   {
    "name": "arena.supermarket-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "ad4bd5604037ed07",
-    "simVersion": "0.2.0",
+    "contentHash": "a3996009d0acebf4",
+    "simVersion": "0.3.0",
     "seed": "81a072b6f39a2f04",
     "arenaId": "arena.supermarket",
     "mode": "duel_3v3",
@@ -3106,7 +3083,7 @@
         "name": "Tariq Tanaka",
         "level": 1,
         "careers": [
-         "career.firefighter"
+         "career.programmer"
         ],
         "masteries": [],
         "personality": "personality.coward",
@@ -3125,7 +3102,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.axe",
+        "held": "equipment.laptop",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -3140,8 +3117,8 @@
         "name": "Ingrid Kaur",
         "level": 5,
         "careers": [
-         "career.journalist",
-         "career.lawyer"
+         "career.barista",
+         "career.dj"
         ],
         "masteries": [],
         "personality": "personality.chaotic",
@@ -3160,7 +3137,7 @@
          "recovery": 6,
          "interactionSpeed": 7
         },
-        "held": "equipment.notepad",
+        "held": "equipment.portafilter",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -3175,7 +3152,7 @@
         "name": "Tomasz Brown",
         "level": 1,
         "careers": [
-         "career.builder"
+         "career.janitor"
         ],
         "masteries": [],
         "personality": "personality.competitive",
@@ -3194,7 +3171,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.hammer",
+        "held": "equipment.mop",
         "accessory": null,
         "appearance": {
          "skin": "#8d5524",
@@ -3216,7 +3193,7 @@
         "name": "Jarek Ahmed",
         "level": 1,
         "careers": [
-         "career.firefighter"
+         "career.journalist"
         ],
         "masteries": [],
         "personality": "personality.coward",
@@ -3235,7 +3212,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.axe",
+        "held": "equipment.notepad",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -3250,7 +3227,7 @@
         "name": "Imani Ivanova",
         "level": 5,
         "careers": [
-         "career.mechanic",
+         "career.builder",
          "career.taxi-driver"
         ],
         "masteries": [],
@@ -3270,7 +3247,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.wrench",
+        "held": "equipment.hammer",
         "accessory": null,
         "appearance": {
          "skin": "#e0ac69",
@@ -3285,7 +3262,7 @@
         "name": "Omar Patel",
         "level": 1,
         "careers": [
-         "career.farmer"
+         "career.lifeguard"
         ],
         "masteries": [],
         "personality": "personality.paranoid",
@@ -3304,7 +3281,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.pitchfork",
+        "held": "equipment.rescue-tube-item",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -3319,32 +3296,32 @@
     ],
     "modifiers": []
    },
-   "resultHash": "329aa6bbfc830ee0",
+   "resultHash": "d56acf401b99d405",
    "hashes": [
-    "d4874fef3797564a",
-    "e20afc7ea4e55183",
-    "fa2f55533af94170",
-    "ebd0985bb49a22f4",
-    "3382986715578702",
-    "7cdf29b7b20ea6d0",
-    "392d614ea1d720d1",
-    "fcc1e4ff1b4b9472",
-    "e5bed238c38bf9bb",
-    "23f437f5b30105bc",
-    "e142f3434a538768",
-    "88043b46bbb31903",
-    "52f490bcb438f0a3",
-    "c02bc2ca99a4b8c5",
-    "394f6eab159b07cc",
-    "622370b7749e5cda",
-    "c4e5fa91213827f8",
-    "7e9d1131a7c7d93a",
-    "d62f037cdc73e471",
-    "1de2090622961c55",
-    "d399358fed57de58",
-    "ab882d88287c5623",
-    "3d7472a4ce862b71",
-    "329aa6bbfc830ee0"
+    "bde0637e9ea45343",
+    "db92393e0ec33fd3",
+    "84975c05ba4b2ad4",
+    "f9af09205cabeaeb",
+    "63ad21b5e18119e8",
+    "cf0ad47666fd1781",
+    "3457b4d937feeed2",
+    "4b821c93d98f386e",
+    "09d292365b667eab",
+    "958cd33afdefde53",
+    "726f778f1f660a56",
+    "3bd52fac0ef6da79",
+    "21e8d0f3bc451b30",
+    "3fe8ae749d0cd58f",
+    "bd3403efcde3fd28",
+    "89e7c98743d234da",
+    "387983435b520c82",
+    "c82f568f5b8f32ce",
+    "54143cbcf23096f5",
+    "bd7c7e2c504dec51",
+    "52879d47de0510e8",
+    "38f0fcf078880b4b",
+    "ca74e513db06acfc",
+    "d56acf401b99d405"
    ],
    "winner": 0,
    "ticks": 2400
@@ -3353,8 +3330,8 @@
    "name": "arena.supermarket-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "ad4bd5604037ed07",
-    "simVersion": "0.2.0",
+    "contentHash": "a3996009d0acebf4",
+    "simVersion": "0.3.0",
     "seed": "3092dba1fbfc3c02",
     "arenaId": "arena.supermarket",
     "mode": "duel_3v3",
@@ -3369,7 +3346,7 @@
         "name": "Zara Patel",
         "level": 1,
         "careers": [
-         "career.farmer"
+         "career.dentist"
         ],
         "masteries": [],
         "personality": "personality.coward",
@@ -3388,7 +3365,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.pitchfork",
+        "held": "equipment.dental-drill",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -3403,8 +3380,8 @@
         "name": "Alex Costa",
         "level": 5,
         "careers": [
-         "career.security-guard",
-         "career.firefighter"
+         "career.police-officer",
+         "career.paramedic"
         ],
         "masteries": [],
         "personality": "personality.lazy",
@@ -3423,7 +3400,7 @@
          "recovery": 5,
          "interactionSpeed": 3
         },
-        "held": "equipment.torch",
+        "held": "equipment.baton",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -3438,7 +3415,7 @@
         "name": "Hugo Walsh",
         "level": 1,
         "careers": [
-         "career.police-officer"
+         "career.chef"
         ],
         "masteries": [],
         "personality": "personality.clumsy",
@@ -3457,7 +3434,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.baton",
+        "held": "equipment.frying-pan",
         "accessory": null,
         "appearance": {
          "skin": "#8d5524",
@@ -3479,7 +3456,7 @@
         "name": "Frank Jensen",
         "level": 1,
         "careers": [
-         "career.electrician"
+         "career.influencer"
         ],
         "masteries": [],
         "personality": "personality.chaotic",
@@ -3498,7 +3475,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.screwdriver",
+        "held": "equipment.selfie-stick",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -3513,8 +3490,8 @@
         "name": "Fatima Moreau",
         "level": 5,
         "careers": [
-         "career.teacher",
-         "career.influencer"
+         "career.electrician",
+         "career.plumber"
         ],
         "masteries": [],
         "personality": "personality.coward",
@@ -3533,7 +3510,7 @@
          "recovery": 3,
          "interactionSpeed": 5
         },
-        "held": "equipment.clipboard",
+        "held": "equipment.screwdriver",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -3548,7 +3525,7 @@
         "name": "Maria Kowalski",
         "level": 1,
         "careers": [
-         "career.paramedic"
+         "career.barista"
         ],
         "masteries": [],
         "personality": "personality.chaotic",
@@ -3567,7 +3544,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.first-aid-kit",
+        "held": "equipment.portafilter",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -3582,36 +3559,42 @@
     ],
     "modifiers": []
    },
-   "resultHash": "474edeebe4faf578",
+   "resultHash": "e9fcc09c45a265fb",
    "hashes": [
-    "3c98522a64254a2b",
-    "98e943964c887119",
-    "31be18f450d10c67",
-    "90fd85ec9fe7f6d9",
-    "e7ff65453d1fe8e0",
-    "2c528d3dd08b31d0",
-    "20f27088715a741f",
-    "958834defa7c5853",
-    "905058a7a01c31b6",
-    "00c6b427577c0736",
-    "27f7f80bec70cc7c",
-    "3807936910de1ee6",
-    "c96837c7edb70f7e",
-    "ea73a75a49fda96d",
-    "eeb0635eaa6c393f",
-    "ee91da8f5f3903a2",
-    "6de29af8ac1fc8df",
-    "589e8aed2f8a232a"
+    "dcf114aef8e5057b",
+    "979e28ac6f0306f5",
+    "f1d27c7af88ff817",
+    "f486e816d0fe9ac1",
+    "18e77e0f4d3c2ec0",
+    "be74c644e8698183",
+    "1a9468eb1615c4fc",
+    "9029729aba2b2bb7",
+    "4b6b01df107c6cee",
+    "e430cd03cde4a560",
+    "6f4f73af59c01682",
+    "d683c7c929524d78",
+    "1fd891e40e1d7b21",
+    "53fd007aa272d4c7",
+    "08199e35818d27da",
+    "0a0f6569f223eff8",
+    "3257ac5aec700c21",
+    "8232d993ee272c82",
+    "2d0665365bab7a4d",
+    "b2b7f888d2e45167",
+    "f7aeb769177736ec",
+    "15a2da642a589f33",
+    "c1a78b173d9f3bce",
+    "e9fcc09c45a265fb"
    ],
    "winner": 0,
-   "ticks": 1811
+   "ticks": 2400
   },
   {
    "name": "arena.supermarket-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "ad4bd5604037ed07",
-    "simVersion": "0.2.0",
+    "contentHash": "a3996009d0acebf4",
+    "simVersion": "0.3.0",
     "seed": "15b9ea93d29325f1",
     "arenaId": "arena.supermarket",
     "mode": "duel_5v5",
@@ -3626,7 +3609,7 @@
         "name": "Hugo Brown",
         "level": 1,
         "careers": [
-         "career.librarian"
+         "career.hairdresser"
         ],
         "masteries": [],
         "personality": "personality.chaotic",
@@ -3645,7 +3628,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.book",
+        "held": "equipment.scissors",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -3660,7 +3643,7 @@
         "name": "Priya Novak",
         "level": 5,
         "careers": [
-         "career.electrician",
+         "career.paramedic",
          "career.accountant"
         ],
         "masteries": [],
@@ -3680,7 +3663,7 @@
          "recovery": 5,
          "interactionSpeed": 3
         },
-        "held": "equipment.screwdriver",
+        "held": "equipment.first-aid-kit",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -3695,7 +3678,7 @@
         "name": "Frank Fischer",
         "level": 1,
         "careers": [
-         "career.teacher"
+         "career.barista"
         ],
         "masteries": [],
         "personality": "personality.competitive",
@@ -3714,7 +3697,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.clipboard",
+        "held": "equipment.portafilter",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -3729,8 +3712,8 @@
         "name": "Nadia Nowak",
         "level": 5,
         "careers": [
-         "career.influencer",
-         "career.police-officer"
+         "career.teacher",
+         "career.gardener"
         ],
         "masteries": [],
         "personality": "personality.greedy",
@@ -3749,7 +3732,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.selfie-stick",
+        "held": "equipment.clipboard",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -3764,7 +3747,7 @@
         "name": "Mei Nowak",
         "level": 1,
         "careers": [
-         "career.paramedic"
+         "career.lifeguard"
         ],
         "masteries": [],
         "personality": "personality.greedy",
@@ -3783,7 +3766,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.first-aid-kit",
+        "held": "equipment.rescue-tube-item",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -3805,7 +3788,7 @@
         "name": "Olu Popescu",
         "level": 1,
         "careers": [
-         "career.influencer"
+         "career.barista"
         ],
         "masteries": [],
         "personality": "personality.paranoid",
@@ -3824,7 +3807,7 @@
          "recovery": 6,
          "interactionSpeed": 5
         },
-        "held": "equipment.selfie-stick",
+        "held": "equipment.portafilter",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -3839,8 +3822,8 @@
         "name": "Kofi Tanaka",
         "level": 5,
         "careers": [
-         "career.taxi-driver",
-         "career.programmer"
+         "career.builder",
+         "career.janitor"
         ],
         "masteries": [],
         "personality": "personality.lazy",
@@ -3859,7 +3842,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.steering-lock",
+        "held": "equipment.hammer",
         "accessory": null,
         "appearance": {
          "skin": "#8d5524",
@@ -3874,7 +3857,7 @@
         "name": "Yuki Fischer",
         "level": 1,
         "careers": [
-         "career.farmer"
+         "career.dentist"
         ],
         "masteries": [],
         "personality": "personality.greedy",
@@ -3893,7 +3876,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.pitchfork",
+        "held": "equipment.dental-drill",
         "accessory": null,
         "appearance": {
          "skin": "#8d5524",
@@ -3908,8 +3891,8 @@
         "name": "Aisha Walsh",
         "level": 5,
         "careers": [
-         "career.dentist",
-         "career.dj"
+         "career.paramedic",
+         "career.police-officer"
         ],
         "masteries": [],
         "personality": "personality.confident",
@@ -3928,7 +3911,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.dental-drill",
+        "held": "equipment.first-aid-kit",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -3943,7 +3926,7 @@
         "name": "Aisha Rossi",
         "level": 1,
         "careers": [
-         "career.chef"
+         "career.taxi-driver"
         ],
         "masteries": [],
         "personality": "personality.greedy",
@@ -3962,7 +3945,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.frying-pan",
+        "held": "equipment.steering-lock",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -3977,35 +3960,29 @@
     ],
     "modifiers": []
    },
-   "resultHash": "4460d02046f764f3",
+   "resultHash": "40e29b3a73f7db39",
    "hashes": [
-    "d80ccd531744ced0",
-    "15dc6f19094fccf8",
-    "147f3e7fa06b8168",
-    "f9f57fe00f002c97",
-    "98c768070954eb5a",
-    "348a942208762cfd",
-    "9d2a442b5aad2752",
-    "2a6996bd2bcf2636",
-    "3f67eca738fb0850",
-    "90c21f0a9650fd37",
-    "c8885c0ecff11199",
-    "3fadb9597e158a14",
-    "e7d3475205566ac7",
-    "0590531626de50ad",
-    "11d0469363b8ae82",
-    "4ffca805dfb04bf4",
-    "9b4e498109756628"
+    "bc45f4f139010564",
+    "045fc8b3b76b1064",
+    "7b89ea92e01e7e05",
+    "0475bdcebf6bf7af",
+    "240d780de484f9e2",
+    "ed22776fb648b83c",
+    "0737a2362ebacb85",
+    "d8b53cf2cc1240eb",
+    "9578c9432474511e",
+    "28b1df6026fc720f",
+    "e2f1e20fbba8c4fa"
    ],
-   "winner": 0,
-   "ticks": 1709
+   "winner": 1,
+   "ticks": 1141
   },
   {
    "name": "arena.supermarket-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "ad4bd5604037ed07",
-    "simVersion": "0.2.0",
+    "contentHash": "a3996009d0acebf4",
+    "simVersion": "0.3.0",
     "seed": "e3db234b698108ca",
     "arenaId": "arena.supermarket",
     "mode": "duel_5v5",
@@ -4020,7 +3997,7 @@
         "name": "Fatima Popescu",
         "level": 1,
         "careers": [
-         "career.taxi-driver"
+         "career.gardener"
         ],
         "masteries": [],
         "personality": "personality.chaotic",
@@ -4039,7 +4016,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.steering-lock",
+        "held": "equipment.trowel",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -4054,8 +4031,8 @@
         "name": "Kenji Walsh",
         "level": 5,
         "careers": [
-         "career.firefighter",
-         "career.security-guard"
+         "career.delivery-driver",
+         "career.electrician"
         ],
         "masteries": [],
         "personality": "personality.helpful",
@@ -4074,7 +4051,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.axe",
+        "held": "equipment.parcel-scanner",
         "accessory": null,
         "appearance": {
          "skin": "#e0ac69",
@@ -4089,7 +4066,7 @@
         "name": "Kofi García",
         "level": 1,
         "careers": [
-         "career.electrician"
+         "career.influencer"
         ],
         "masteries": [],
         "personality": "personality.greedy",
@@ -4108,7 +4085,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.screwdriver",
+        "held": "equipment.selfie-stick",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -4123,8 +4100,8 @@
         "name": "Imani Moreau",
         "level": 5,
         "careers": [
-         "career.programmer",
-         "career.journalist"
+         "career.librarian",
+         "career.personal-trainer"
         ],
         "masteries": [],
         "personality": "personality.aggressive",
@@ -4143,7 +4120,7 @@
          "recovery": 5,
          "interactionSpeed": 3
         },
-        "held": "equipment.laptop",
+        "held": "equipment.book",
         "accessory": null,
         "appearance": {
          "skin": "#e0ac69",
@@ -4158,7 +4135,7 @@
         "name": "Fatima Haddad",
         "level": 1,
         "careers": [
-         "career.paramedic"
+         "career.dentist"
         ],
         "masteries": [],
         "personality": "personality.lazy",
@@ -4177,7 +4154,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.first-aid-kit",
+        "held": "equipment.dental-drill",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -4199,7 +4176,7 @@
         "name": "Frank Silva",
         "level": 1,
         "careers": [
-         "career.janitor"
+         "career.dj"
         ],
         "masteries": [],
         "personality": "personality.coward",
@@ -4218,7 +4195,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.mop",
+        "held": "equipment.headphones",
         "accessory": null,
         "appearance": {
          "skin": "#e0ac69",
@@ -4233,8 +4210,8 @@
         "name": "Pat Mbeki",
         "level": 5,
         "careers": [
-         "career.mechanic",
-         "career.paramedic"
+         "career.plumber",
+         "career.lifeguard"
         ],
         "masteries": [],
         "personality": "personality.helpful",
@@ -4253,7 +4230,7 @@
          "recovery": 5,
          "interactionSpeed": 4
         },
-        "held": "equipment.wrench",
+        "held": "equipment.plunger",
         "accessory": null,
         "appearance": {
          "skin": "#ffdbac",
@@ -4268,7 +4245,7 @@
         "name": "Hugo Chen",
         "level": 1,
         "careers": [
-         "career.journalist"
+         "career.mime"
         ],
         "masteries": [],
         "personality": "personality.lazy",
@@ -4287,7 +4264,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.notepad",
+        "held": "equipment.baguette",
         "accessory": null,
         "appearance": {
          "skin": "#8d5524",
@@ -4302,8 +4279,8 @@
         "name": "Dmitri Mbeki",
         "level": 5,
         "careers": [
-         "career.paramedic",
-         "career.plumber"
+         "career.dentist",
+         "career.electrician"
         ],
         "masteries": [],
         "personality": "personality.confident",
@@ -4322,7 +4299,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.first-aid-kit",
+        "held": "equipment.dental-drill",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -4337,7 +4314,7 @@
         "name": "Noor Chen",
         "level": 1,
         "careers": [
-         "career.influencer"
+         "career.personal-trainer"
         ],
         "masteries": [],
         "personality": "personality.confident",
@@ -4356,7 +4333,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.selfie-stick",
+        "held": "equipment.kettlebell",
         "accessory": null,
         "appearance": {
          "skin": "#e0ac69",
@@ -4371,32 +4348,42 @@
     ],
     "modifiers": []
    },
-   "resultHash": "0042a8a2e08559fb",
+   "resultHash": "6e8cd5ebc34886fa",
    "hashes": [
-    "bc8b1804f693a71b",
-    "7d4db76143c954ee",
-    "b55c2ee9697e0770",
-    "f9b3a61304e4a66a",
-    "4d102bbd1a747692",
-    "0b95417a51dfc8ad",
-    "7d7fc6650b75d608",
-    "144e803d3d9d9e20",
-    "18384e57dd39fda2",
-    "20297613bd313f50",
-    "823a74911c30876e",
-    "74bd434c41445da9",
-    "2cc35db9c4b8ed90",
-    "e6e7136d4ae203b2"
+    "bd7b23befc388e83",
+    "710567e2c56e4769",
+    "fac38b3ec9b431e5",
+    "1c56f3a73b43ea56",
+    "d2d16fa268dd0023",
+    "70b2c80c1154593d",
+    "3ab25961f577e92a",
+    "2e551f541f870563",
+    "01c00f5cf912f4c1",
+    "3dfbe23ac7230899",
+    "f9d3fc67c0a659c6",
+    "648b23bd1d28790e",
+    "6f7fec45a3b984dc",
+    "2c55bdbe2b819b1f",
+    "47edb97dd85da3b8",
+    "44f98d20b7cd7b67",
+    "8b702314e877cb6d",
+    "e968d5b987d7eba4",
+    "c195bc7db76a3f22",
+    "becfb703cfad6abc",
+    "23775927db965886",
+    "66cdb903c58b1cbc",
+    "0175429477e4079f",
+    "6e8cd5ebc34886fa"
    ],
    "winner": 1,
-   "ticks": 1475
+   "ticks": 2400
   },
   {
    "name": "arena.supermarket-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "ad4bd5604037ed07",
-    "simVersion": "0.2.0",
+    "contentHash": "a3996009d0acebf4",
+    "simVersion": "0.3.0",
     "seed": "466b3a4eb135955b",
     "arenaId": "arena.supermarket",
     "mode": "ffa",
@@ -4411,7 +4398,7 @@
         "name": "Yuki Rossi",
         "level": 1,
         "careers": [
-         "career.farmer"
+         "career.barista"
         ],
         "masteries": [],
         "personality": "personality.greedy",
@@ -4430,7 +4417,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.pitchfork",
+        "held": "equipment.portafilter",
         "accessory": null,
         "appearance": {
          "skin": "#c68642",
@@ -4452,7 +4439,7 @@
         "name": "Omar Fischer",
         "level": 1,
         "careers": [
-         "career.accountant"
+         "career.builder"
         ],
         "masteries": [],
         "personality": "personality.helpful",
@@ -4471,7 +4458,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.briefcase",
+        "held": "equipment.hammer",
         "accessory": null,
         "appearance": {
          "skin": "#8d5524",
@@ -4493,7 +4480,7 @@
         "name": "Noor Patel",
         "level": 1,
         "careers": [
-         "career.plumber"
+         "career.influencer"
         ],
         "masteries": [],
         "personality": "personality.clumsy",
@@ -4512,7 +4499,7 @@
          "recovery": 4,
          "interactionSpeed": 5
         },
-        "held": "equipment.plunger",
+        "held": "equipment.selfie-stick",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -4534,7 +4521,7 @@
         "name": "Marek Silva",
         "level": 1,
         "careers": [
-         "career.mechanic"
+         "career.librarian"
         ],
         "masteries": [],
         "personality": "personality.chaotic",
@@ -4553,7 +4540,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.wrench",
+        "held": "equipment.book",
         "accessory": null,
         "appearance": {
          "skin": "#f1c27d",
@@ -4575,7 +4562,7 @@
         "name": "Beth Smith",
         "level": 1,
         "careers": [
-         "career.lawyer"
+         "career.influencer"
         ],
         "masteries": [],
         "personality": "personality.aggressive",
@@ -4594,7 +4581,7 @@
          "recovery": 7,
          "interactionSpeed": 5
         },
-        "held": "equipment.briefcase",
+        "held": "equipment.selfie-stick",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -4616,7 +4603,7 @@
         "name": "Kenji Mbeki",
         "level": 1,
         "careers": [
-         "career.journalist"
+         "career.hairdresser"
         ],
         "masteries": [],
         "personality": "personality.competitive",
@@ -4635,7 +4622,7 @@
          "recovery": 5,
          "interactionSpeed": 5
         },
-        "held": "equipment.notepad",
+        "held": "equipment.scissors",
         "accessory": null,
         "appearance": {
          "skin": "#a0522d",
@@ -4650,27 +4637,20 @@
     ],
     "modifiers": []
    },
-   "resultHash": "1a07d703be0eea66",
+   "resultHash": "24d0ae34661c14b5",
    "hashes": [
-    "903637fda80a0cb6",
-    "a3e17f909665e7cd",
-    "bc474a12ae4da60d",
-    "71ebb6ec31ad35bf",
-    "0492bf3f9f6dea9e",
-    "66dab9c17305d09e",
-    "30b60e5d8c1b52ec",
-    "aeca61eaa8793a3b",
-    "19ede11e16d53f13",
-    "cbab41475dfa641a",
-    "3ab4d702a5ef6981",
-    "934b5054e40e0b8b",
-    "2d52b008875a0417",
-    "289611ce5aa6284b",
-    "3c70d5ce834d8ff7",
-    "c97cc52dcde04c80"
+    "bd16960b1877295e",
+    "dfba7e22d05a4859",
+    "fa3ac847dbbd1148",
+    "3ba78dbed29d0415",
+    "251b3da35ee2ce48",
+    "6b83e0aedde241fd",
+    "f5e0149f519408ec",
+    "72e2f2d997f2fe18",
+    "8a9e8f8e4117ee25"
    ],
-   "winner": 2,
-   "ticks": 1607
+   "winner": 1,
+   "ticks": 983
   }
  ]
 }

@@ -1,6 +1,6 @@
 import { clamp, dir1000, dist2, idiv, isqrt } from '../core/math';
 import type { Entity, World } from '../types';
-import { derived, get, hasFlag, maskOverlap, tagsOf } from '../world';
+import { derived, emit, get, hasFlag, maskOverlap, removeEntity, tagsOf } from '../world';
 import { applyDamage, applyEffect, applyStatus, push } from './effects';
 
 const GRAVITY = 12;
@@ -163,6 +163,28 @@ function overlapRadius(e: Entity): number {
   return e.areaRadius > 0 ? e.areaRadius : e.radius;
 }
 
+/** A patrolling machine meets something: run characters over, eat small props. */
+function moverHit(w: World, mover: Entity, other: Entity): void {
+  const def = w.content.props.get(mover.def)?.mover;
+  if (!def) return;
+  if (other.kind === 'prop') {
+    const od = w.content.props.get(other.def);
+    if (def.eatsUpToG !== undefined && od?.carry && other.weightG <= def.eatsUpToG && other.carriedBy < 0 && !other.flying && other.moverSpeed === 0) {
+      other.lastHitBy = mover.id;
+      emit(w, 'use', mover.id, other.id, 0, other.def, -1);
+      removeEntity(w, other);
+    }
+    return;
+  }
+  if (other.state !== 'active') return;
+  // One run-over per victim every 3 s, otherwise the knockback just feeds them back under the machine.
+  const key = `hit:${other.id}`;
+  if ((mover.cooldowns[key] ?? -1) > w.tick) return;
+  mover.cooldowns[key] = w.tick + 60;
+  const ev = emit(w, 'hit', mover.id, other.id, 0, mover.def, -1);
+  for (const eff of def.hitEffects) applyEffect(w, eff, other, { sourceId: mover.id, cause: ev, powerBp: 10000, scale: 'none' }, mover);
+}
+
 /** Impact when a thrown/pushed/ridden prop meets a body. */
 function impact(w: World, prop: Entity, victim: Entity): void {
   if (victim.kind === 'prop' || victim.state === 'ko') return;
@@ -254,10 +276,16 @@ export function contacts(w: World): void {
     if (a.removed || b.removed) continue;
     const pk = a.id * 100000 + b.id;
     now.add(pk);
+    // A freshly spawned prop never triggers on whoever spawned it (no stepping on your own rake instantly).
+    if ((a.spawnedBy === b.id && a.age < 40) || (b.spawnedBy === a.id && b.age < 40)) continue;
     if (!w.contacts.has(pk)) {
       w.queue.push({ event: 'contact', a: a.id, b: b.id, status: '', cause: -1 });
-      if (a.kind === 'prop' && a.areaRadius === 0) impact(w, a, b);
-      if (b.kind === 'prop' && b.areaRadius === 0 && !a.removed) impact(w, b, a);
+      if (a.moverSpeed > 0 && b.moverSpeed === 0) moverHit(w, a, b);
+      else if (b.moverSpeed > 0 && a.moverSpeed === 0) moverHit(w, b, a);
+      else {
+        if (a.kind === 'prop' && a.areaRadius === 0) impact(w, a, b);
+        if (b.kind === 'prop' && b.areaRadius === 0 && !a.removed) impact(w, b, a);
+      }
     } else if ((w.tick + a.id + b.id) % 10 === 0) {
       w.queue.push({ event: 'touching', a: a.id, b: b.id, status: '', cause: -1 });
     }
@@ -266,7 +294,7 @@ export function contacts(w: World): void {
 }
 
 function isMover(e: Entity): boolean {
-  return e.kind === 'prop' && e.areaRadius === 0 && (e.flying || e.riddenBy >= 0 || e.vx !== 0 || e.vy !== 0);
+  return e.kind === 'prop' && e.areaRadius === 0 && (e.flying || e.riddenBy >= 0 || e.moverSpeed > 0 || e.vx !== 0 || e.vy !== 0);
 }
 
 /** Tripping while slipping: Luck saves you (02 §5.3). */

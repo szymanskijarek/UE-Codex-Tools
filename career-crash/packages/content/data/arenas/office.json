@@ -348,6 +348,31 @@
      "count": 1
     }
    }
+  },
+  {
+   "id": "hazard.fire-drill",
+   "startTick": 1100,
+   "everyTicks": 900,
+   "telegraphTicks": 60,
+   "region": [
+    0,
+    0,
+    22000,
+    14000
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.puddle-water",
+     "count": 4
+    },
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.wet",
+      "durationTicks": 100
+     }
+    ]
+   }
   }
  ],
  "suddenDeath": {
@@ -379,5 +404,99 @@
  },
  "unlock": {
   "league": "intern"
- }
+ },
+ "stations": [
+  {
+   "id": "kitchen",
+   "name": "the Kitchenette",
+   "at": [
+    11000,
+    2200
+   ]
+  },
+  {
+   "id": "accounts",
+   "name": "Accounts",
+   "at": [
+    2800,
+    7000
+   ]
+  },
+  {
+   "id": "it",
+   "name": "the IT Corner",
+   "at": [
+    19200,
+    7000
+   ]
+  },
+  {
+   "id": "meeting",
+   "name": "the Meeting Room",
+   "at": [
+    11000,
+    9600
+   ]
+  },
+  {
+   "id": "reception",
+   "name": "Reception",
+   "at": [
+    11000,
+    12600
+   ]
+  }
+ ],
+ "movers": [
+  {
+   "id": "hazard.robot-vacuum",
+   "prop": "prop.robot-vacuum",
+   "path": [
+    [
+     1500,
+     5200
+    ],
+    [
+     8000,
+     5200
+    ],
+    [
+     8000,
+     8800
+    ],
+    [
+     14000,
+     8800
+    ],
+    [
+     14000,
+     5200
+    ],
+    [
+     20500,
+     5200
+    ],
+    [
+     20500,
+     8800
+    ],
+    [
+     13000,
+     12800
+    ],
+    [
+     9000,
+     12800
+    ],
+    [
+     1500,
+     8800
+    ]
+   ],
+   "startTick": 200,
+   "telegraphTicks": 40,
+   "speedMm": 55,
+   "loop": true
+  }
+ ]
 }

@@ -3,7 +3,7 @@ import type { ContentIndex } from './content';
 import type { Rng } from './core/rng';
 import type { NavGrid } from './systems/nav';
 
-export const SIM_VERSION = '0.2.0';
+export const SIM_VERSION = '0.3.0';
 export const TICKS_PER_SECOND = 20;
 export const MAX_TICKS = 2400;
 export const ENTITY_CAP = 256;
@@ -220,6 +220,12 @@ export interface Entity {
   pathGoal: number;
   counters: CharCounters;
   fouls: number;
+  /** Assigned fight location (duels are spread across arena stations). */
+  stationX: number;
+  stationY: number;
+  station: number;
+  /** Opponent this character is paired with at kick-off; -1 once free. */
+  duelTarget: number;
 
   // Props
   carriedBy: number;
@@ -235,6 +241,11 @@ export interface Entity {
   fuse: number;
   leaked: number;
   spawnedBy: number;
+  /** Mover props: flattened path, next waypoint index, speed (mm/tick), loop flag. */
+  moverPath: number[];
+  moverIdx: number;
+  moverSpeed: number;
+  moverLoop: boolean;
 }
 
 export interface World {

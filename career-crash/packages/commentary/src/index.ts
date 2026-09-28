@@ -269,6 +269,17 @@ const DETECTORS: Record<DetectorKind, Detector> = {
     }
     return null;
   },
+  machineHit: (c) => {
+    for (const e of c.out.events) {
+      const prop = e.type === 'hit' && c.chars.has(e.b) ? c.propDefs.get(e.a) : undefined;
+      if (prop === 'prop.floor-scrubber' || prop === 'prop.robot-vacuum') return { tick: e.t, actors: [e.b], slots: { name: charName(c, e.b), prop: nameOf(c.bundle, prop).toLowerCase() } };
+    }
+    return null;
+  },
+  rakeHit: (c) => {
+    const e = c.out.events.find((x) => x.type === 'ruleFired' && x.s === 'rule.stepped-on-rake' && c.chars.has(x.b));
+    return e ? { tick: e.t, actors: [e.b], slots: { name: charName(c, e.b) } } : null;
+  },
   longBattle: (c) =>
     c.out.result.reason === 'timeout' ? { tick: c.out.result.ticks, actors: [], slots: { arena: nameOf(c.bundle, c.input.arenaId) } } : null,
 };
