@@ -1,0 +1,41 @@
+{
+  "xp": { "win": 100, "draw": 60, "loss": 40, "perKo": 10, "mvp": 20, "defenceMultiplierBp": 5000, "levelCap": 50, "curve": { "a": 100, "b": 40, "c": 4 } },
+  "careerSlotLevels": [1, 5, 12, 22, 35],
+  "milestoneOffers": 3,
+  "rerollCostPerMilestone": 200,
+  "statPointsPerLevel": 1,
+  "maxPointsPerStat": 10,
+  "retrainCostPerCareer": 2000,
+  "retirePayoutPerLevelSq": 25,
+  "tickets": { "regenMinutes": 20, "cap": 10, "dailyBonus": 5 },
+  "rewards": {
+    "attack_win_easy": { "cash": 60, "rep": 4 },
+    "attack_win_even": { "cash": 100, "rep": 8 },
+    "attack_win_hard": { "cash": 160, "rep": 14 },
+    "attack_draw": { "cash": 40, "rep": 2 },
+    "attack_loss": { "cash": 25, "rep": 1 },
+    "defence_win": { "cash": 40, "rep": 3 },
+    "defence_draw": { "cash": 20, "rep": 1 },
+    "defence_loss": { "cash": 10, "rep": 0 },
+    "mastery_discovery": { "cash": 0, "rep": 300 }
+  },
+  "overtime": { "wins": 3, "multiplierBp": 20000 },
+  "offline": { "cashPerTierPerHour": 2, "capHours": 12 },
+  "rating": { "start": 1000, "kLow": 32, "kMid": 24, "kHigh": 16, "lowBelow": 1400, "highAbove": 1800, "defenceLossFactorBp": 5000 },
+  "leagues": [
+    { "id": "intern", "minRating": 0 },
+    { "id": "junior", "minRating": 1100 },
+    { "id": "associate", "minRating": 1250 },
+    { "id": "senior", "minRating": 1400 },
+    { "id": "manager", "minRating": 1550 },
+    { "id": "director", "minRating": 1700 },
+    { "id": "executive", "minRating": 1850 },
+    { "id": "ceo", "minRating": 2000 }
+  ],
+  "recruit": { "costs": { "common": 500, "rare": 900, "epic": 1400 }, "applicants": 3, "baseStat": 5, "variance": 2, "variedStats": 3 },
+  "rosterSlots": { "start": 6, "max": 15, "costBase": 1000 },
+  "jobBoard": { "size": 6, "tierCost": { "1": 150, "2": 400, "3": 1000 } },
+  "startingWallet": { "cash": 1000, "rep": 100, "tickets": 10, "stars": 0 },
+  "maxTraits": 4,
+  "maxMasteries": 2
+}

@@ -1,0 +1,20 @@
+[
+  {"id": "status.burning", "tags": ["state:burning", "element:fire"], "durationTicks": 100, "stacking": "refresh", "blockedBy": ["state:wet", "state:foamed"], "periodic": {"everyTicks": 10, "effects": [{"type": "damage", "amount": 3, "damageType": "fire"}]}, "onApply": [{"type": "morale", "amount": -8}], "aiThreat": true},
+  {"id": "status.wet", "tags": ["state:wet"], "durationTicks": 160, "stacking": "refresh", "mods": {"moveBp": -800}},
+  {"id": "status.electrified", "tags": ["state:electrified", "element:electric"], "durationTicks": 30, "stacking": "ignore", "flags": {"noActions": true}, "onApply": [{"type": "dropHeld", "chanceBp": 5000}]},
+  {"id": "status.slipping", "tags": ["state:slipping"], "durationTicks": 50, "stacking": "refresh", "flags": {"slipping": true}},
+  {"id": "status.stunned", "tags": ["state:stunned"], "durationTicks": 30, "stacking": "refresh", "flags": {"noActions": true}},
+  {"id": "status.knocked-down", "tags": ["state:prone"], "durationTicks": 30, "stacking": "ignore", "flags": {"down": true, "noMove": true}},
+  {"id": "status.caffeinated", "tags": ["state:caffeinated"], "durationTicks": 300, "stacking": "refresh", "mods": {"moveBp": 3000, "interactionBp": 3000}, "onExpire": [{"type": "applyStatus", "status": "status.crash"}]},
+  {"id": "status.crash", "tags": ["state:tired"], "durationTicks": 120, "stacking": "refresh", "mods": {"moveBp": -2500, "damageDealtBp": -1500}},
+  {"id": "status.foamed", "tags": ["state:foamed"], "durationTicks": 120, "stacking": "refresh", "mods": {"moveBp": -5000}},
+  {"id": "status.inspired", "tags": ["state:inspired"], "durationTicks": 160, "stacking": "refresh", "mods": {"damageDealtBp": 2000, "moveBp": 1000}, "onApply": [{"type": "morale", "amount": 15}]},
+  {"id": "status.embarrassed", "tags": ["state:embarrassed"], "durationTicks": 100, "stacking": "refresh", "mods": {"damageDealtBp": -2000}, "onApply": [{"type": "morale", "amount": -20}]},
+  {"id": "status.lectured", "tags": ["state:lectured"], "durationTicks": 40, "stacking": "ignore", "flags": {"noActions": true, "noMove": true}},
+  {"id": "status.slowed", "tags": ["state:slowed"], "durationTicks": 80, "stacking": "refresh", "mods": {"moveBp": -4000}},
+  {"id": "status.cold", "tags": ["state:cold"], "durationTicks": 120, "stacking": "refresh", "blockedBy": ["state:burning"], "mods": {"moveBp": -2500, "interactionBp": -3000}},
+  {"id": "status.sticky", "tags": ["state:sticky"], "durationTicks": 80, "stacking": "refresh", "mods": {"moveBp": -3500}},
+  {"id": "status.armoured", "tags": ["state:armoured"], "durationTicks": 120, "stacking": "refresh", "mods": {"damageTakenBp": -3000}},
+  {"id": "status.distracted", "tags": ["state:distracted"], "durationTicks": 60, "stacking": "refresh", "mods": {"interactionBp": -4000, "damageDealtBp": -1000}},
+  {"id": "status.live", "tags": ["state:live", "element:electric"], "durationTicks": 120, "stacking": "ignore"}
+]

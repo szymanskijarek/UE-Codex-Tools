@@ -1,0 +1,461 @@
+{
+ "id": "arena.supermarket",
+ "sizeMm": [
+  24000,
+  14000
+ ],
+ "navCellMm": 500,
+ "walls": [
+  [
+   6700,
+   2300,
+   600,
+   3000
+  ],
+  [
+   6700,
+   8700,
+   600,
+   3000
+  ],
+  [
+   11700,
+   2300,
+   600,
+   3000
+  ],
+  [
+   11700,
+   8700,
+   600,
+   3000
+  ],
+  [
+   16700,
+   2300,
+   600,
+   3000
+  ],
+  [
+   16700,
+   8700,
+   600,
+   3000
+  ]
+ ],
+ "spawns": {
+  "a": [
+   [
+    2000,
+    7000
+   ],
+   [
+    2000,
+    4500
+   ],
+   [
+    2000,
+    9500
+   ],
+   [
+    3200,
+    3000
+   ],
+   [
+    3200,
+    11000
+   ]
+  ],
+  "b": [
+   [
+    22000,
+    7000
+   ],
+   [
+    22000,
+    4500
+   ],
+   [
+    22000,
+    9500
+   ],
+   [
+    20800,
+    3000
+   ],
+   [
+    20800,
+    11000
+   ]
+  ],
+  "ffa": [
+   [
+    2500,
+    2500
+   ],
+   [
+    21500,
+    2500
+   ],
+   [
+    2500,
+    11500
+   ],
+   [
+    21500,
+    11500
+   ],
+   [
+    9000,
+    7000
+   ],
+   [
+    15000,
+    7000
+   ],
+   [
+    12000,
+    2000
+   ],
+   [
+    12000,
+    12000
+   ]
+  ]
+ },
+ "refereeSpawn": [
+  12000,
+  5200
+ ],
+ "props": [
+  {
+   "prop": "prop.shopping-trolley",
+   "at": [
+    4500,
+    4200
+   ]
+  },
+  {
+   "prop": "prop.shopping-trolley",
+   "at": [
+    19500,
+    4200
+   ]
+  },
+  {
+   "prop": "prop.shopping-trolley",
+   "at": [
+    4500,
+    10200
+   ]
+  },
+  {
+   "prop": "prop.shopping-trolley",
+   "at": [
+    19500,
+    10200
+   ]
+  },
+  {
+   "prop": "prop.cardboard-display",
+   "at": [
+    9300,
+    7000
+   ]
+  },
+  {
+   "prop": "prop.cardboard-display",
+   "at": [
+    14700,
+    7000
+   ]
+  },
+  {
+   "prop": "prop.cereal-box",
+   "at": [
+    7700,
+    3000
+   ]
+  },
+  {
+   "prop": "prop.cereal-box",
+   "at": [
+    16300,
+    3000
+   ]
+  },
+  {
+   "prop": "prop.cereal-box",
+   "at": [
+    7700,
+    11000
+   ]
+  },
+  {
+   "prop": "prop.cereal-box",
+   "at": [
+    16300,
+    11000
+   ]
+  },
+  {
+   "prop": "prop.watermelon",
+   "at": [
+    10200,
+    4200
+   ]
+  },
+  {
+   "prop": "prop.watermelon",
+   "at": [
+    13800,
+    4200
+   ]
+  },
+  {
+   "prop": "prop.wine-bottle",
+   "at": [
+    10300,
+    9900
+   ]
+  },
+  {
+   "prop": "prop.wine-bottle",
+   "at": [
+    13700,
+    9900
+   ]
+  },
+  {
+   "prop": "prop.olive-oil",
+   "at": [
+    8300,
+    5000
+   ]
+  },
+  {
+   "prop": "prop.olive-oil",
+   "at": [
+    15700,
+    5000
+   ]
+  },
+  {
+   "prop": "prop.frozen-turkey",
+   "at": [
+    3500,
+    1500
+   ]
+  },
+  {
+   "prop": "prop.frozen-turkey",
+   "at": [
+    20500,
+    1500
+   ]
+  },
+  {
+   "prop": "prop.freezer",
+   "at": [
+    2000,
+    900
+   ]
+  },
+  {
+   "prop": "prop.freezer",
+   "at": [
+    22000,
+    900
+   ]
+  },
+  {
+   "prop": "prop.vending-machine",
+   "at": [
+    900,
+    13000
+   ]
+  },
+  {
+   "prop": "prop.vending-machine",
+   "at": [
+    23100,
+    13000
+   ]
+  },
+  {
+   "prop": "prop.soda-can",
+   "at": [
+    1800,
+    12200
+   ]
+  },
+  {
+   "prop": "prop.soda-can",
+   "at": [
+    22200,
+    12200
+   ]
+  },
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    5800,
+    7000
+   ]
+  },
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    18200,
+    7000
+   ]
+  },
+  {
+   "prop": "prop.mop-bucket",
+   "at": [
+    9000,
+    12600
+   ]
+  },
+  {
+   "prop": "prop.mop-bucket",
+   "at": [
+    15000,
+    12600
+   ]
+  },
+  {
+   "prop": "prop.wet-floor-sign",
+   "at": [
+    8200,
+    9200
+   ]
+  },
+  {
+   "prop": "prop.wet-floor-sign",
+   "at": [
+    15800,
+    9200
+   ]
+  },
+  {
+   "prop": "prop.fire-extinguisher",
+   "at": [
+    6200,
+    13300
+   ]
+  },
+  {
+   "prop": "prop.fire-extinguisher",
+   "at": [
+    17800,
+    13300
+   ]
+  },
+  {
+   "prop": "prop.rubber-chicken",
+   "at": [
+    10500,
+    7000
+   ]
+  },
+  {
+   "prop": "prop.rubber-chicken",
+   "at": [
+    13500,
+    7000
+   ]
+  },
+  {
+   "prop": "prop.gas-canister",
+   "at": [
+    12000,
+    13200
+   ]
+  },
+  {
+   "prop": "prop.fire-extinguisher",
+   "at": [
+    12000,
+    900
+   ]
+  },
+  {
+   "prop": "prop.cake",
+   "at": [
+    12000,
+    7000
+   ]
+  }
+ ],
+ "hazards": [
+  {
+   "id": "hazard.clean-up-aisle-three",
+   "startTick": 300,
+   "everyTicks": 450,
+   "telegraphTicks": 40,
+   "region": [
+    5000,
+    5600,
+    14000,
+    2800
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.puddle-water",
+     "count": 1
+    }
+   }
+  },
+  {
+   "id": "hazard.falling-stock",
+   "startTick": 600,
+   "everyTicks": 500,
+   "telegraphTicks": 30,
+   "region": [
+    6000,
+    2500,
+    12000,
+    9000
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.cereal-box",
+     "count": 2,
+     "dropFromMm": 3000
+    }
+   }
+  }
+ ],
+ "suddenDeath": {
+  "everyTicks": 200,
+  "region": [
+   0,
+   0,
+   24000,
+   14000
+  ],
+  "action": {
+   "spawn": {
+    "prop": "prop.frozen-turkey",
+    "count": 2,
+    "dropFromMm": 4000
+   },
+   "effects": [
+    {
+     "type": "applyStatus",
+     "status": "status.wet",
+     "durationTicks": 120
+    }
+   ]
+  }
+ },
+ "theme": {
+  "floor": "#e9e4d8",
+  "wall": "#8a7f6a",
+  "accent": "#d93b2b"
+ },
+ "unlock": {
+  "league": "intern"
+ }
+}

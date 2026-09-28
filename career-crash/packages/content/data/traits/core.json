@@ -1,0 +1,14 @@
+[
+  {"id": "trait.coffee-addict", "earn": {"counter": "used:prop.coffee-cup", "atLeast": 5}, "goalWeights": {"loot": 12000}, "statMods": {"energy": 1}, "tags": ["trait:coffee"]},
+  {"id": "trait.pyromaniac", "earn": {"counter": "statusCaused:status.burning", "atLeast": 12}, "goalWeights": {"chaos": 13000}, "preferTargetsWithTags": ["flammable"], "exclusive": ["trait.fear-of-fire"]},
+  {"id": "trait.fear-of-fire", "earn": {"counter": "statusReceived:status.burning", "atLeast": 10}, "goalWeights": {"survive": 13000}, "exclusive": ["trait.pyromaniac"]},
+  {"id": "trait.never-lost-a-duel", "earn": {"counter": "winStreak", "atLeast": 8}, "statMods": {"confidence": 1}, "goalWeights": {"showOff": 12000}},
+  {"id": "trait.referee-menace", "earn": {"counter": "refereeHits", "atLeast": 5}, "goalWeights": {"chaos": 11000}},
+  {"id": "trait.butterfingers", "earn": {"counter": "drops", "atLeast": 8}, "statMods": {"throwing": -1}, "goalWeights": {"loot": 12000}},
+  {"id": "trait.trolley-pilot", "earn": {"counter": "used:prop.shopping-trolley", "atLeast": 5}, "goalWeights": {"chaos": 12000}, "statMods": {"speed": 1}},
+  {"id": "trait.frequent-flyer", "earn": {"counter": "knockdowns", "atLeast": 20}, "statMods": {"recovery": 1}},
+  {"id": "trait.veteran", "earn": {"counter": "battles", "atLeast": 30}, "statMods": {"confidence": 1}},
+  {"id": "trait.favourite-weapon-chair", "earn": {"counter": "thrown:prop.office-chair", "atLeast": 6}, "preferTargetsWithTags": ["state:prone"], "statMods": {"throwing": 1}},
+  {"id": "trait.team-medic", "earn": {"counter": "revives", "atLeast": 8}, "goalWeights": {"support": 13000}},
+  {"id": "trait.always-late", "earn": {"counter": "lateArrivals", "atLeast": 10}, "statMods": {"speed": -1, "luck": 1}}
+]

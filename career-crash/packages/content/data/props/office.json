@@ -1,0 +1,12 @@
+[
+  {"id": "prop.office-chair", "tags": ["material:plastic", "rideable"], "radiusMm": 350, "weightG": 12000, "hp": 40, "carry": true, "throwDamage": 14, "push": true, "ride": {"speedBonusBp": 3000, "durationTicks": 100}, "art": {"color": "#334155", "shape": "circle"}},
+  {"id": "prop.water-cooler", "tags": ["material:plastic", "element:water"], "radiusMm": 350, "weightG": 30000, "hp": 25, "solid": true, "leak": {"spill": "prop.puddle-water", "everyTicks": 1, "max": 3}, "onBreak": {"spawn": ["prop.flood"]}, "art": {"color": "#93c5fd", "shape": "circle"}},
+  {"id": "prop.printer", "tags": ["material:tech", "conductive"], "radiusMm": 450, "weightG": 25000, "hp": 40, "solid": true, "anchored": true, "use": {"effects": [], "consumed": false, "spawn": "prop.paper-stack", "uses": 3}, "onBreak": {"spawn": ["prop.sparks", "prop.paper-stack"]}, "art": {"color": "#e5e7eb", "shape": "square"}},
+  {"id": "prop.laptop", "tags": ["material:tech", "conductive"], "radiusMm": 250, "weightG": 2000, "hp": 6, "carry": true, "throwDamage": 8, "onBreak": {"spawn": ["prop.sparks"]}, "art": {"color": "#374151", "shape": "square"}},
+  {"id": "prop.stapler", "tags": ["material:metal", "conductive"], "radiusMm": 150, "weightG": 800, "carry": true, "throwDamage": 7, "art": {"color": "#111827", "shape": "circle"}},
+  {"id": "prop.coffee-machine", "tags": ["material:metal", "conductive"], "radiusMm": 450, "weightG": 20000, "hp": 60, "solid": true, "anchored": true, "use": {"effects": [], "consumed": false, "spawn": "prop.coffee-cup", "uses": 5}, "onBreak": {"spawn": ["prop.puddle-water", "prop.sparks"]}, "art": {"color": "#78350f", "shape": "square"}},
+  {"id": "prop.potted-plant", "tags": ["material:ceramic"], "radiusMm": 300, "weightG": 5000, "hp": 6, "carry": true, "throwDamage": 9, "art": {"color": "#15803d", "shape": "circle"}},
+  {"id": "prop.filing-cabinet", "tags": ["material:metal", "conductive"], "radiusMm": 450, "weightG": 60000, "hp": 80, "solid": true, "push": true, "onBreak": {"spawn": ["prop.paper-stack", "prop.paper-stack"]}, "art": {"color": "#6b7280", "shape": "square"}},
+  {"id": "prop.paper-stack", "tags": ["material:paper", "flammable"], "radiusMm": 250, "weightG": 800, "hp": 5, "carry": true, "throwDamage": 3, "art": {"color": "#f8fafc", "shape": "square"}},
+  {"id": "prop.power-strip", "tags": ["element:electric", "material:tech"], "radiusMm": 250, "weightG": 500, "anchored": true, "art": {"color": "#fef08a", "shape": "square"}}
+]

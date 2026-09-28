@@ -1,0 +1,383 @@
+{
+ "id": "arena.office",
+ "sizeMm": [
+  22000,
+  14000
+ ],
+ "navCellMm": 500,
+ "walls": [
+  [
+   5000,
+   3000,
+   3000,
+   1200
+  ],
+  [
+   5000,
+   9800,
+   3000,
+   1200
+  ],
+  [
+   14000,
+   3000,
+   3000,
+   1200
+  ],
+  [
+   14000,
+   9800,
+   3000,
+   1200
+  ],
+  [
+   9500,
+   6300,
+   3000,
+   1400
+  ]
+ ],
+ "spawns": {
+  "a": [
+   [
+    1800,
+    7000
+   ],
+   [
+    1800,
+    4500
+   ],
+   [
+    1800,
+    9500
+   ],
+   [
+    3000,
+    3000
+   ],
+   [
+    3000,
+    11000
+   ]
+  ],
+  "b": [
+   [
+    20200,
+    7000
+   ],
+   [
+    20200,
+    4500
+   ],
+   [
+    20200,
+    9500
+   ],
+   [
+    19000,
+    3000
+   ],
+   [
+    19000,
+    11000
+   ]
+  ],
+  "ffa": [
+   [
+    2500,
+    2500
+   ],
+   [
+    19500,
+    2500
+   ],
+   [
+    2500,
+    11500
+   ],
+   [
+    19500,
+    11500
+   ],
+   [
+    8000,
+    7000
+   ],
+   [
+    14000,
+    7000
+   ],
+   [
+    11000,
+    2500
+   ],
+   [
+    11000,
+    11500
+   ]
+  ]
+ },
+ "refereeSpawn": [
+  11000,
+  5000
+ ],
+ "props": [
+  {
+   "prop": "prop.office-chair",
+   "at": [
+    4000,
+    5000
+   ]
+  },
+  {
+   "prop": "prop.office-chair",
+   "at": [
+    18000,
+    5000
+   ]
+  },
+  {
+   "prop": "prop.office-chair",
+   "at": [
+    4000,
+    9000
+   ]
+  },
+  {
+   "prop": "prop.office-chair",
+   "at": [
+    18000,
+    9000
+   ]
+  },
+  {
+   "prop": "prop.water-cooler",
+   "at": [
+    1200,
+    1200
+   ]
+  },
+  {
+   "prop": "prop.water-cooler",
+   "at": [
+    20800,
+    1200
+   ]
+  },
+  {
+   "prop": "prop.power-strip",
+   "at": [
+    2000,
+    1800
+   ]
+  },
+  {
+   "prop": "prop.power-strip",
+   "at": [
+    20000,
+    1800
+   ]
+  },
+  {
+   "prop": "prop.printer",
+   "at": [
+    6500,
+    1000
+   ]
+  },
+  {
+   "prop": "prop.printer",
+   "at": [
+    15500,
+    1000
+   ]
+  },
+  {
+   "prop": "prop.laptop",
+   "at": [
+    6500,
+    4600
+   ]
+  },
+  {
+   "prop": "prop.laptop",
+   "at": [
+    15500,
+    4600
+   ]
+  },
+  {
+   "prop": "prop.stapler",
+   "at": [
+    6000,
+    9400
+   ]
+  },
+  {
+   "prop": "prop.stapler",
+   "at": [
+    16000,
+    9400
+   ]
+  },
+  {
+   "prop": "prop.potted-plant",
+   "at": [
+    3000,
+    13000
+   ]
+  },
+  {
+   "prop": "prop.potted-plant",
+   "at": [
+    19000,
+    13000
+   ]
+  },
+  {
+   "prop": "prop.filing-cabinet",
+   "at": [
+    8500,
+    13000
+   ]
+  },
+  {
+   "prop": "prop.filing-cabinet",
+   "at": [
+    13500,
+    13000
+   ]
+  },
+  {
+   "prop": "prop.paper-stack",
+   "at": [
+    8200,
+    5200
+   ]
+  },
+  {
+   "prop": "prop.paper-stack",
+   "at": [
+    13800,
+    5200
+   ]
+  },
+  {
+   "prop": "prop.fire-extinguisher",
+   "at": [
+    9000,
+    1000
+   ]
+  },
+  {
+   "prop": "prop.fire-extinguisher",
+   "at": [
+    13000,
+    1000
+   ]
+  },
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    7500,
+    8200
+   ]
+  },
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    14500,
+    8200
+   ]
+  },
+  {
+   "prop": "prop.coffee-machine",
+   "at": [
+    11000,
+    800
+   ]
+  },
+  {
+   "prop": "prop.gas-canister",
+   "at": [
+    11000,
+    13200
+   ]
+  },
+  {
+   "prop": "prop.rubber-chicken",
+   "at": [
+    11000,
+    5400
+   ]
+  }
+ ],
+ "hazards": [
+  {
+   "id": "hazard.birthday-cake",
+   "startTick": 500,
+   "everyTicks": 700,
+   "telegraphTicks": 40,
+   "region": [
+    8000,
+    4500,
+    6000,
+    1500
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.cake",
+     "count": 1
+    }
+   }
+  },
+  {
+   "id": "hazard.printer-jam",
+   "startTick": 400,
+   "everyTicks": 550,
+   "telegraphTicks": 30,
+   "region": [
+    5500,
+    500,
+    11000,
+    1500
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.sparks",
+     "count": 1
+    }
+   }
+  }
+ ],
+ "suddenDeath": {
+  "everyTicks": 200,
+  "region": [
+   0,
+   0,
+   22000,
+   14000
+  ],
+  "action": {
+   "spawn": {
+    "prop": "prop.flood",
+    "count": 1
+   },
+   "effects": [
+    {
+     "type": "applyStatus",
+     "status": "status.distracted",
+     "durationTicks": 80
+    }
+   ]
+  }
+ },
+ "theme": {
+  "floor": "#d9dde3",
+  "wall": "#5b6474",
+  "accent": "#2563eb"
+ },
+ "unlock": {
+  "league": "intern"
+ }
+}

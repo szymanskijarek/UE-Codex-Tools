@@ -1,0 +1,31 @@
+{
+  "name": "career-crash",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@10.33.0",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "content:build": "tsx packages/content-compiler/src/cli.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "check": "pnpm content:build && pnpm lint && pnpm typecheck && pnpm test",
+    "balance": "tsx tools/balance/src/cli.ts",
+    "replay": "tsx tools/replay-cli/src/cli.ts",
+    "golden:update": "tsx tools/replay-cli/src/cli.ts golden --update",
+    "dev:client": "pnpm --filter @cc/client dev",
+    "dev:worker": "pnpm --filter @cc/worker dev"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20260702.1",
+    "@eslint/js": "^9.39.0",
+    "@types/node": "^22.18.0",
+    "eslint": "^9.39.0",
+    "tsx": "^4.20.0",
+    "typescript": "~5.9.3",
+    "typescript-eslint": "^8.46.0",
+    "vitest": "^3.2.4"
+  }
+}

@@ -1,0 +1,2 @@
+{ "name": "@cc/replay-cli", "version": "0.1.0", "private": true, "type": "module",
+  "dependencies": { "@cc/sim": "workspace:*", "@cc/content": "workspace:*", "@cc/content-schema": "workspace:*", "@cc/commentary": "workspace:*", "@cc/game-rules": "workspace:*" } }
