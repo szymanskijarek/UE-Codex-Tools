@@ -12,6 +12,7 @@ Portable Codex tooling for Unreal Engine projects.
 - `Tools/unreal/python/` small Unreal Python helper scripts
 - `scripts/codex/` validation and smoke-test scripts
 - `docs/codex-tooling/` setup and bridge documentation
+- `parking-warden/` **Fine Print**, a standalone multiplayer browser game about parking wardens (see its README)
 
 ## Quick start
 

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <title>Fine Print</title>
+  <meta name="description" content="A comedic multiplayer parking warden game about quotas, clipboards and questionable conduct.">
+  <link rel="stylesheet" href="client/style.css">
+</head>
+<body>
+  <canvas id="game"></canvas>
+
+  <!-- ============================== MENU ============================== -->
+  <div id="menu" class="overlay">
+    <div class="menu-inner">
+      <header class="logo">
+        <div class="ticket-logo">
+          <span class="fine">FINE</span><span class="print">PRINT</span>
+        </div>
+        <p class="tagline">A parking warden game of quotas, clipboards and questionable conduct.</p>
+      </header>
+
+      <section class="panel">
+        <label class="field">Your name on the clipboard
+          <input id="name" maxlength="20" placeholder="e.g. Big Sue" autocomplete="off">
+        </label>
+        <h2>Pick your warden</h2>
+        <div id="chars" class="chars"></div>
+        <div id="char-detail" class="char-detail"></div>
+      </section>
+
+      <section class="panel modes">
+        <div class="mode">
+          <h2>Solo shift</h2>
+          <label class="field inline">AI colleagues
+            <select id="bots">
+              <option value="0">None (just you and the pigeons)</option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3" selected>3</option>
+              <option value="5">5 (chaos)</option>
+            </select>
+          </label>
+          <button id="solo" class="btn primary">Clock on</button>
+        </div>
+        <div class="mode">
+          <h2>Multiplayer</h2>
+          <button id="create" class="btn">Create room</button>
+          <div class="join-row">
+            <input id="code" maxlength="4" placeholder="CODE" autocomplete="off">
+            <button id="join" class="btn">Join</button>
+          </div>
+          <p id="net-status" class="hint"></p>
+        </div>
+      </section>
+
+      <section class="panel controls">
+        <div><kbd>WASD</kbd>/<kbd>Arrows</kbd> patrol</div>
+        <div>Hold <kbd>E</kbd> write ticket</div>
+        <div><kbd>Q</kbd>/<kbd>Space</kbd> special ability</div>
+        <div><kbd>F</kbd> awkward high-five</div>
+        <div><kbd>M</kbd> mute</div>
+      </section>
+      <p class="hint small">Walk up to a car to inspect it. Red badge = offence, green tick = legal. Ticketing a legal car earns a complaint. Hit your quota before the shift ends.</p>
+    </div>
+  </div>
+
+  <!-- ============================== HUD =============================== -->
+  <div id="hud" class="hidden">
+    <div class="top-left card">
+      <div class="day" id="hud-day">Day 1</div>
+      <div class="timer" id="hud-timer">3:00</div>
+    </div>
+    <div class="top-center card">
+      <div class="quota-label"><span>Your quota</span><span id="hud-score">0 / 18</span></div>
+      <div class="bar"><div id="hud-bar"></div></div>
+      <div class="quota-label team"><span>Team</span><span id="hud-team">0 / 0</span></div>
+      <div class="bar thin"><div id="hud-teambar"></div></div>
+    </div>
+    <div class="top-right card" id="hud-board"></div>
+    <div class="feed" id="hud-feed"></div>
+    <div class="ability card" id="hud-ability">
+      <div class="ab-name" id="ab-name"></div>
+      <div class="ab-desc" id="ab-desc"></div>
+      <div class="bar"><div id="ab-bar"></div></div>
+      <div class="ab-key">Q</div>
+    </div>
+    <div class="inspect card hidden" id="hud-inspect"></div>
+    <div class="radio hidden" id="hud-radio"><span class="radio-who">📻 DENNIS, CONTROL</span><span id="radio-text"></span></div>
+    <div class="lobby card hidden" id="hud-lobby"></div>
+    <button id="mute" class="mute" title="Mute (M)">🔊</button>
+  </div>
+
+  <!-- touch controls, shown on touch devices only -->
+  <div id="touch" class="hidden">
+    <div id="stick" class="stick"><div id="knob" class="knob"></div></div>
+    <div class="touch-buttons">
+      <button data-act="write" class="tb big">📝<small>Ticket</small></button>
+      <button data-act="ability" class="tb">⚡<small>Ability</small></button>
+      <button data-act="high5" class="tb">✋<small>High 5</small></button>
+    </div>
+  </div>
+
+  <!-- ============================ RESULTS ============================= -->
+  <div id="results" class="overlay hidden">
+    <div class="menu-inner results-inner" id="results-body"></div>
+  </div>
+
+  <script type="module" src="client/main.js"></script>
+</body>
+</html>

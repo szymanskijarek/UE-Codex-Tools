@@ -1,0 +1,12 @@
+{
+  "name": "fine-print",
+  "version": "0.1.0",
+  "description": "Fine Print: a comedic multiplayer parking warden game for the browser.",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "start": "node server/server.js",
+    "test": "node --test test/*.test.js"
+  },
+  "engines": { "node": ">=18" }
+}
