@@ -1879,3 +1879,18 @@ body:has(.shell.li) {
 .li-body .rankbar > .muted {
   display: none;
 }
+
+.li-more {
+  display: block;
+  width: 100%;
+  text-align: center;
+  color: var(--li-blue);
+  font-weight: 700;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.li-more:hover {
+  background: #ebf4fd;
+  transform: none;
+}

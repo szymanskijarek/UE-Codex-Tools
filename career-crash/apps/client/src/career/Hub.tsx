@@ -1,7 +1,6 @@
 import { useState } from 'preact/hooks';
 import { bundle } from '@cc/content';
 import { careerRank, DIFFICULTIES, difficulty, RANKS, SQUAD_UNLOCK_RANK, stageInfo, STAGES_PER_ARENA, type CareerChar, type DifficultyId } from '@cc/game-rules';
-import { Rng } from '@cc/sim';
 import { nameOf } from '../i18n';
 import { arenaArt } from '../replay/arena-art';
 import { currentReplay, navigate } from '../state';
@@ -9,6 +8,7 @@ import { Portrait } from '../ui/components';
 import { levelProgress, Loadout, RankBar, skillAlert } from './Career';
 import { abandon, applicants, currentCareer, lineup, mainChar, nextOpponents, prepareFight, save, squadUnlocked, type CareerSave } from './model';
 import { PuppetView } from './PuppetView';
+import { promotedPosts, starterPosts, type FeedPost } from './feed';
 
 /**
  * The career home, styled after a professional networking site: a profile card
@@ -21,77 +21,49 @@ function headline(cc: CareerChar): string {
   return `${RANKS[careerRank(cc, cid) - 1]} ${nameOf(cid)} · ${nameOf(cc.c.personality)} · Open to brawls`;
 }
 
-interface Post {
-  who: { name: string; careers: string[]; appearance: CareerChar['c']['appearance'] } | null;
-  author: string;
-  sub: string;
-  text: string;
-  tags?: string;
-  promoted?: boolean;
-  reacts: number;
-  comments: number;
-  icon?: string;
+/** "Just now", "1 fight ago", ... */
+function ago(n: number): string {
+  return n <= 0 ? 'Just now' : `${n} fight${n === 1 ? '' : 's'} ago`;
 }
 
-function feed(s: CareerSave): Post[] {
-  const rng = Rng.fromSeed(`feed:${s.seed}:${s.stage}:${s.wins}:${s.losses}`);
-  const pick = <T,>(a: T[]): T => a[rng.int(a.length)]!;
-  const m = mainChar(s);
-  const posts: Post[] = [];
-  const r = s.last;
-  const me = { name: m.c.name, careers: [currentCareer(m)], appearance: m.c.appearance };
-  if (r) {
-    const company = stageInfo(bundle, r.stage).company;
-    const mine = r.board?.filter((b) => b.team === 0) ?? [];
-    const kos = mine.reduce((n, b) => n + b.kos, 0);
-    const star = [...mine].sort((a, b) => b.dealt - a.dealt).find((b) => b.name !== m.c.name);
-    const text =
-      r.outcome === 'win'
-        ? pick([
-            `I'm humbled and honoured to announce that our team took down ${company} today. ${kos} KO${kos === 1 ? '' : 's'}, zero regrets.${star ? ` Couldn't have done it without ${star.name}, who dealt ${star.dealt} damage. Legend.` : ''}`,
-            `Agree? 👇 Winning against ${company} isn't about fists. It's about synergy. (It was mostly fists.)`,
-            `Stage ${r.stage + 1}: ✅. Another day, another ${company} lying on the floor. Grateful for this journey.`,
-          ])
-        : r.outcome === 'loss'
-          ? pick([
-              `Today I got knocked flat by ${company}. And that's okay. Here are 5 things it taught me about B2B sales 🧵`,
-              `Failure is just success that hasn't been punched yet. Back at it tomorrow, ${company}.`,
-              `Some days you're the stapler. Some days you're the paper. Tough one against ${company} today.`,
-            ])
-          : `Honoured to share a hard-fought draw with ${company}. We both lost, and we both grew.`;
-    posts.push({ who: me, author: m.c.name, sub: headline(m), text, tags: r.outcome === 'win' ? '#Grateful #Teamwork #Leadership' : '#Resilience #GrowthMindset', reacts: 40 + rng.int(300), comments: 2 + rng.int(40) });
-    for (const g of r.growth) {
-      const cc = s.chars[g.id];
-      if (!cc) continue;
-      const who = { name: cc.c.name, careers: [currentCareer(cc)], appearance: cc.c.appearance };
-      if (g.rankAfter > g.rankBefore)
-        posts.push({ who, author: cc.c.name, sub: headline(cc), text: `🎉 I'm happy to share that I'm starting a new position as ${RANKS[g.rankAfter - 1]} ${nameOf(g.career)}!`, tags: '#NewRole', reacts: 80 + rng.int(400), comments: 10 + rng.int(60) });
-      else if (g.levelsGained > 0)
-        posts.push({ who, author: cc.c.name, sub: headline(cc), text: `Levelled up to Level ${cc.c.level} 💪 Personal growth is a marathon, not a sprint. Except the bit where you run from a forklift.`, reacts: 20 + rng.int(150), comments: rng.int(20) });
-      for (const tr of g.newTraits) posts.push({ who, author: cc.c.name, sub: headline(cc), text: `Just got endorsed for "${nameOf(tr)}" 🏷️ Thanks, everyone who watched it happen.`, reacts: 15 + rng.int(90), comments: rng.int(12) });
-    }
-  }
-  const next = stageInfo(bundle, s.stage);
-  posts.push({
-    who: null,
-    icon: next.company[0],
-    author: next.company,
-    sub: `${nameOf(next.arenaId)} · ${200 + rng.int(9000)} followers`,
-    text: pick([
-      `We're hiring! Looking for rockstar ninjas who can take a punch. Competitive salary (lunch). Fast-paced environment (we will chase you).`,
-      `Culture is everything at ${next.company}. That's why we fight every new starter in the ${nameOf(next.arenaId).toLowerCase()}.`,
-      `Heard ${m.c.name} is coming for us. Our door is open. Our fists are also open. Then closed. Into fists.`,
-    ]),
-    promoted: true,
-    reacts: 5 + rng.int(60),
-    comments: rng.int(8),
-  });
-  if (!Object.values(s.inventory).some((n) => n > 0) && !(m.loadout ?? []).length)
-    posts.push({ who: null, icon: '🛒', author: 'Corner Shop', sub: 'Retail · Open till late', text: 'Meal deals, energy drinks, steel-toe boots. Everything a working professional needs to survive a Tuesday. Pack up to 3 per fighter.', promoted: true, reacts: 3 + rng.int(30), comments: 0 });
-  return posts;
+/** Your saved posts (newest first) with the sponsored ones slotted in. */
+function timeline(s: CareerSave): FeedPost[] {
+  const saved = s.feed?.length ? s.feed : starterPosts(s);
+  const [hiring, shop] = promotedPosts(s);
+  const out = [...saved];
+  out.splice(Math.min(2, out.length), 0, hiring!);
+  if (!Object.values(s.inventory).some((n) => n > 0) && !(mainChar(s).loadout ?? []).length) out.splice(Math.min(5, out.length), 0, shop!);
+  return out;
 }
 
-function PostCard({ p }: { p: Post }) {
+const PAGE = 5;
+
+function Feed({ s }: { s: CareerSave }) {
+  const [shown, setShown] = useState(PAGE);
+  const posts = timeline(s);
+  const fights = s.feed?.find((p) => p.fight > 0)?.fight ?? 0;
+  const more = posts.length - shown;
+  return (
+    <>
+      {posts.slice(0, shown).map((p) => (
+        <PostCard key={p.id} p={p} fights={fights} />
+      ))}
+      {more > 0 ? (
+        <button class="li-card li-more" onClick={() => setShown(shown + 10)}>
+          Show more posts ({more}) ▾
+        </button>
+      ) : (
+        shown > PAGE && (
+          <button class="li-card li-more" onClick={() => setShown(PAGE)}>
+            Show fewer posts ▴
+          </button>
+        )
+      )}
+    </>
+  );
+}
+
+function PostCard({ p, fights }: { p: FeedPost; fights: number }) {
   const [liked, setLiked] = useState(false);
   return (
     <article class="li-card li-post">
@@ -100,7 +72,7 @@ function PostCard({ p }: { p: Post }) {
         <div class="grow">
           <b>{p.author}</b>
           <div class="muted small">{p.sub}</div>
-          <div class="muted tiny">{p.promoted ? 'Promoted' : 'Just now · 🌐'}</div>
+          <div class="muted tiny">{p.promoted ? 'Promoted' : `${ago(fights - p.fight)} · 🌐`}</div>
         </div>
       </header>
       <p>{p.text}</p>
@@ -273,9 +245,7 @@ export function Hub({ save: s }: { save: CareerSave }) {
             <span>Sort by: </span>
             <b>Top</b>
           </div>
-          {feed(s).map((p) => (
-            <PostCard p={p} />
-          ))}
+          <Feed s={s} />
         </div>
 
         <aside class="li-right">

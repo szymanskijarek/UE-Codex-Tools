@@ -29,6 +29,7 @@ import {
   type GrowthReport,
 } from '@cc/game-rules';
 import { Rng, SIM_VERSION, simulate, type BattleInput } from '@cc/sim';
+import { FEED_CAP, fightPosts, type FeedPost } from './feed';
 
 /**
  * Offline career mode (03 §8): one main character climbs a ladder of fights,
@@ -53,6 +54,8 @@ export interface CareerSave {
   losses: number;
   /** Shop items owned but not equipped (count per item id). */
   inventory: Record<string, number>;
+  /** Career-home social feed, newest first (see feed.ts). */
+  feed?: FeedPost[];
 }
 
 /** One line of the post-fight board. */
@@ -96,6 +99,8 @@ function load(): CareerSave | null {
 function migrate(s: CareerSave | null): CareerSave | null {
   if (!s) return s;
   s.inventory ??= {};
+  s.feed ??= [];
+  if (!s.feed.length && s.last?.board) s.feed = fightPosts(s, s.last);
   for (const c of Object.values(s.chars)) c.loadout ??= [];
   return s;
 }
@@ -244,6 +249,7 @@ export function collectResults(s: CareerSave): CareerSave {
     last: null,
   };
   next.last = { stage, outcome, cash, pay, board, growth, unlockedSquad: !wasUnlocked && squadUnlocked(next) };
+  next.feed = [...fightPosts(next, next.last), ...(s.feed ?? [])].slice(0, FEED_CAP);
   save(next);
   return next;
 }
