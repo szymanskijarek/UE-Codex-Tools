@@ -60,7 +60,7 @@ export function SkillsScreen({ save: s, id }: { save: CareerSave; id: string }) 
         ← {id === s.mainId ? 'Career' : 'Squad'}
       </button>
       <div class="row hero">
-        <PuppetView careerId={cc.c.careers[cc.c.careers.length - 1]!} personality={cc.c.personality} appearance={cc.c.appearance} size={140} hype={hype} />
+        <PuppetView careerId={cc.c.careers[cc.c.careers.length - 1]!} personality={cc.c.personality} appearance={cc.c.appearance} size={140} hype={hype} voiceId={cc.c.id} lines={hype > 1 ? 'menu_skill' : 'menu_hello'} />
         <div class="grow">
           <h1>{cc.c.name}</h1>
           <div class="muted">

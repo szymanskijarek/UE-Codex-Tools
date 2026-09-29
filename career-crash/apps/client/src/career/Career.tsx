@@ -1,10 +1,11 @@
 import { useMemo, useState } from 'preact/hooks';
 import { bundle } from '@cc/content';
-import { careerRank, DIFFICULTIES, difficulty, pointsLeft, RANK_XP, RANKS, SQUAD_UNLOCK_RANK, stageInfo, STAGES_PER_ARENA, type CareerChar, type DifficultyId } from '@cc/game-rules';
+import { careerRank, DIFFICULTIES, pointsLeft, RANK_XP, RANKS, SQUAD_UNLOCK_RANK, stageInfo, type CareerChar, type DifficultyId } from '@cc/game-rules';
 import { abilitySummary, descOf, nameOf } from '../i18n';
-import { currentReplay, navigate, notify } from '../state';
+import { navigate, notify } from '../state';
 import { Card, CareerChip, Portrait } from '../ui/components';
-import { abandon, type BoardRow, career, collectResults, currentCareer, draftCharacter, lineup, mainChar, nextOpponents, prepareFight, save, squadUnlocked, startCareer, type CareerSave } from './model';
+import { type BoardRow, career, collectResults, currentCareer, draftCharacter, mainChar, startCareer, type CareerSave } from './model';
+import { Hub } from './Hub';
 import { PuppetView } from './PuppetView';
 import { ShopScreen } from './Shop';
 import { SkillsScreen } from './Skills';
@@ -86,7 +87,7 @@ function CreateCharacter() {
       </button>
       <div class="row hero">
         <button class="puppet-btn" title="Show us a move" onClick={() => setHype((h) => h + 1)}>
-          <PuppetView careerId={careerId} personality={shown.personality} appearance={shown.appearance} size={220} hype={hype} />
+          <PuppetView careerId={careerId} personality={shown.personality} appearance={shown.appearance} size={220} hype={hype} voiceId={shown.id} />
         </button>
         <div class="grow">
           <h1>{shown.name}</h1>
@@ -208,7 +209,7 @@ export function RankBar({ cc, careerId }: { cc: CareerChar; careerId: string }) 
   );
 }
 
-function levelProgress(cc: CareerChar): number {
+export function levelProgress(cc: CareerChar): number {
   const econ = bundle.economy;
   const need = (l: number) => econ.xp.curve.a + econ.xp.curve.b * l + econ.xp.curve.c * l * l;
   let base = 0;
@@ -232,140 +233,6 @@ export function Loadout({ ids }: { ids?: string[] }) {
   );
 }
 
-function FighterRow({ cc, tag }: { cc: CareerChar; tag?: string }) {
-  const cid = currentCareer(cc);
-  const skills = cc.nodes.filter((n) => !n.endsWith(':active')).length;
-  return (
-    <div class="fighter-row">
-      <Portrait c={cc.c} size={40} />
-      <div class="grow">
-        <b>{cc.c.name}</b> {tag && <span class="badge">{tag}</span>} <Loadout ids={cc.loadout} />
-        <div class="muted small">
-          Lv {cc.c.level} · {nameOf(cid)} ({RANKS[careerRank(cc, cid) - 1]}) · {skills} skill{skills === 1 ? '' : 's'}
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Hub({ save: s }: { save: CareerSave }) {
-  const m = mainChar(s);
-  const cid = currentCareer(m);
-  const [hype, setHype] = useState(1);
-  const info = stageInfo(bundle, s.stage);
-  const diff = difficulty(s.difficulty);
-  const opp = nextOpponents(s);
-  const mine = lineup(s);
-  const unlocked = squadUnlocked(s);
-  const fight = () => {
-    const input = prepareFight(s);
-    currentReplay.value = { id: 'career', input, title: `Stage ${s.stage + 1} · vs ${info.company}`, back: '/career/results' };
-    navigate('/replay/career');
-  };
-  const chapter = Math.floor(s.stage / STAGES_PER_ARENA);
-  const packed = (m.loadout ?? []).length;
-  return (
-    <section>
-      {s.pending && (
-        <Card class="highlight">
-          <b>A fight is waiting for its results.</b>{' '}
-          <button class="primary small" onClick={() => navigate('/career/results')}>
-            Collect results
-          </button>
-        </Card>
-      )}
-      <div class="row hero">
-        <button class="puppet-btn" title="Show us a move" onClick={() => setHype((h) => h + 1)}>
-          <PuppetView careerId={cid} personality={m.c.personality} appearance={m.c.appearance} size={180} hype={hype} />
-        </button>
-        <div class="grow">
-          <h1>{m.c.name}</h1>
-          <div class="muted">
-            Level {m.c.level} · {nameOf(m.c.personality)} · {s.wins}W {s.losses}L · 💵 {s.cash}
-          </div>
-          <div class="row">
-            <CareerChip id={cid} />
-            <RankBar cc={m} careerId={cid} />
-          </div>
-          <div class="xpbar" title="Level progress">
-            <div style={{ width: `${levelProgress(m)}%` }} />
-          </div>
-        </div>
-      </div>
-      <div class="cta-row">
-        <button class={`ghost ${skillAlert(m) ? 'alert' : ''}`} onClick={() => navigate(`/career/skills/${m.c.id}`)}>
-          🌳 Skills & stats
-        </button>
-        <button class={`ghost ${unlocked ? '' : 'locked'}`} onClick={() => navigate('/career/squad')} title={unlocked ? 'Build your squad' : `Unlocks at ${RANKS[SQUAD_UNLOCK_RANK - 1]} rank`}>
-          {unlocked ? '👥 Squad' : `🔒 Squad (${RANKS[SQUAD_UNLOCK_RANK - 1]} rank)`}
-        </button>
-        <button class={`ghost ${packed === 0 && Object.values(s.inventory).some((n) => n > 0) ? 'alert' : ''}`} onClick={() => navigate('/career/shop')}>
-          🛒 Shop & gear · 💵 {s.cash}
-        </button>
-      </div>
-
-      <Card class="next-fight">
-        <div class="row">
-          <h2 class="grow">
-            Stage {s.stage + 1}: {info.company} {info.boss && <span class="badge red">BOSS</span>}
-          </h2>
-          <span class="badge">{nameOf(info.arenaId)}</span>
-          <span class={`badge ${s.difficulty === 'brutal' || s.difficulty === 'hard' ? 'red' : s.difficulty === 'relaxed' ? 'green' : 'gold'}`}>{diff.name}</span>
-        </div>
-        <div class="ladder">
-          {Array.from({ length: STAGES_PER_ARENA * 2 }, (_, i) => chapter * STAGES_PER_ARENA + i).map((st) => (
-            <span class={`rung ${st < s.stage ? 'done' : st === s.stage ? 'now' : ''} ${stageInfo(bundle, st).boss ? 'boss' : ''}`} title={`Stage ${st + 1} · ${nameOf(stageInfo(bundle, st).arenaId)}`}>
-              {st < s.stage ? '✓' : stageInfo(bundle, st).boss ? '☠' : st + 1}
-            </span>
-          ))}
-        </div>
-        <div class="grid two">
-          <div>
-            <h3>Your squad</h3>
-            {mine.map((cc, i) => (
-              <FighterRow cc={cc} tag={i === 0 ? 'You' : cc.temp ? 'Agency temp' : undefined} />
-            ))}
-          </div>
-          <div>
-            <h3>{info.company}</h3>
-            {opp.map((cc) => (
-              <FighterRow cc={cc} />
-            ))}
-          </div>
-        </div>
-        <button class="primary big" onClick={fight} disabled={!!s.pending}>
-          🥊 Fight!
-        </button>
-      </Card>
-
-      <details class="settings">
-        <summary>Career settings</summary>
-        <label class="field">
-          Difficulty
-          <select value={s.difficulty} onChange={(e) => save({ ...s, difficulty: (e.target as HTMLSelectElement).value as DifficultyId })}>
-            {DIFFICULTIES.map((d) => (
-              <option value={d.id}>
-                {d.name} — {d.blurb}
-              </option>
-            ))}
-          </select>
-        </label>
-        <button
-          class="ghost small"
-          onClick={() => {
-            if (window.confirm(`Abandon ${m.c.name}'s career? This deletes the save.`)) {
-              abandon();
-              navigate('/career');
-            }
-          }}
-        >
-          🗑️ Abandon career
-        </button>
-      </details>
-    </section>
-  );
-}
-
 // ---------------------------------------------------------------------------
 // Results
 // ---------------------------------------------------------------------------
@@ -385,7 +252,7 @@ function Results({ save: s0 }: { save: CareerSave }) {
   return (
     <section>
       <div class="row hero">
-        <PuppetView careerId={currentCareer(m)} personality={r.outcome === 'win' ? m.c.personality : 'personality.lazy'} appearance={m.c.appearance} size={170} hype={r.outcome === 'win' ? 1 : 0} />
+        <PuppetView careerId={currentCareer(m)} personality={r.outcome === 'win' ? m.c.personality : 'personality.lazy'} appearance={m.c.appearance} size={170} hype={r.outcome === 'win' ? 1 : 0} voiceId={m.c.id} lines="bark_win" />
         <div class="grow">
           <h1>{title}</h1>
           <p class="lead">

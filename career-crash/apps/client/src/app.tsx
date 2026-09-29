@@ -35,6 +35,15 @@ const TABS: [string, string, string][] = [
   ['sandbox', '🧪', 'Sandbox'],
 ];
 
+/** Career mode's top navigation (networking-site style): [route, icon, label]. */
+const CAREER_NAV: [string, string, string][] = [
+  ['career', '🏠', 'Home'],
+  ['career/squad', '👥', 'My Network'],
+  ['career/skills', '💼', 'Skills'],
+  ['career/shop', '🛒', 'Shop'],
+  ['sandbox', '🧪', 'Sandbox'],
+];
+
 export function App() {
   const route = useRoute();
   useEffect(() => {
@@ -71,6 +80,33 @@ export function App() {
       screen = <Home />;
   }
   const player = me.value?.player;
+  const li = page === 'career' || (STANDALONE && page === 'sandbox');
+  const here = [page, arg].filter(Boolean).join('/');
+  const navActive = (id: string) => (id === 'career' ? here === 'career' || here === 'career/results' : here.startsWith(id));
+  if (li) {
+    return (
+      <div class="shell li">
+        <header class="li-top">
+          <div class="li-top-inner">
+            <a class="li-brand" href="#/career" title="Career Crash">
+              Cc
+            </a>
+            <span class="li-brand-name">Career Crash</span>
+            <nav class="li-nav">
+              {CAREER_NAV.map(([id, icon, label]) => (
+                <a key={id} href={`#/${id}`} class={navActive(id) ? 'active' : ''}>
+                  <span class="icon">{icon}</span>
+                  <span>{label}</span>
+                </a>
+              ))}
+            </nav>
+          </div>
+        </header>
+        <main>{screen}</main>
+        {toast.value && <div class={`toast ${toast.value.kind}`}>{toast.value.text}</div>}
+      </div>
+    );
+  }
   return (
     <div class={`shell ${page === 'replay' ? 'wide' : ''}`}>
       <header class="topbar">

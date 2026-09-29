@@ -1399,6 +1399,49 @@
    "Don't mind me.",
    "Lunch break!",
    "Ahh, that's the stuff."
+  ],
+  "menu_hello": [
+   "Let's do this!",
+   "Put me in, coach!",
+   "I was born for this.",
+   "Ready when you are!",
+   "Who's first?",
+   "I've done the training. Mostly.",
+   "Is this a paid position?",
+   "Let's get to work!",
+   "Try me!",
+   "Hold my coffee.",
+   "Is it Friday yet?",
+   "I've got a good feeling about today."
+  ],
+  "menu_equip": [
+   "Ooh, nice.",
+   "Very practical.",
+   "Is this company property?",
+   "I'll look after it. Probably.",
+   "Now we're talking!",
+   "Receipt?"
+  ],
+  "menu_hire": [
+   "Happy to be here!",
+   "When do I get paid?",
+   "First day nerves!",
+   "Where's the break room?",
+   "You won't regret this!"
+  ],
+  "menu_skill": [
+   "New trick!",
+   "Look what I can do!",
+   "Knew that'd come in handy.",
+   "Training pays off!",
+   "Watch this!"
+  ],
+  "menu_loss": [
+   "Next time.",
+   "That's going on my CV anyway.",
+   "I need a lie down.",
+   "Ow. Everything hurts.",
+   "Let's never speak of this."
   ]
  }
 }

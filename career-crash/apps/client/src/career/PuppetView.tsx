@@ -6,6 +6,8 @@ import { bundle } from '@cc/content';
 import { extension, MOVES, repertoire } from '../replay/moves';
 import { hasPuppet, loadPuppets, NEUTRAL, Puppet, PUPPET_HEIGHT, type Pose } from '../replay/puppet';
 import { Portrait } from '../ui/components';
+import { voiceFor } from '../replay/voices';
+import { menuSfx } from './menuVoice';
 import type { Appearance } from '@cc/sim';
 
 /**
@@ -169,7 +171,55 @@ function hypePose(u: number, r: number, move: keyof typeof MOVES): Pose {
   return p;
 }
 
-export function PuppetView({ careerId, personality, appearance, size = 180, hype = 0, flip = false }: { careerId: string; personality: string; appearance: Appearance; size?: number; hype?: number; flip?: boolean }) {
+/** Pick a line for a menu preview: their job's catchphrase or a generic one from `lines`. */
+function menuLine(careerId: string, lines: string): string {
+  const job = bundle.live[`job_${careerId.replace('career.', '')}`];
+  const pool = lines === 'menu_hello' && job?.length && Math.random() < 0.4 ? job : (bundle.live[lines] ?? bundle.live.menu_hello ?? ['Hi!']);
+  return pool[Math.floor(Math.random() * pool.length)]!;
+}
+
+export function PuppetView({
+  careerId,
+  personality,
+  appearance,
+  size = 180,
+  hype = 0,
+  flip = false,
+  talk = true,
+  lines = 'menu_hello',
+  voiceId = '',
+}: {
+  careerId: string;
+  personality: string;
+  appearance: Appearance;
+  size?: number;
+  hype?: number;
+  flip?: boolean;
+  /** Say a line (bubble + babble) with the selection animation. */
+  talk?: boolean;
+  /** live.json template list to pick the line from. */
+  lines?: string;
+  /** Character id, for their personal voice pitch. */
+  voiceId?: string;
+}) {
+  const [bubble, setBubble] = useState<{ text: string; key: number } | null>(null);
+  const voice = voiceFor(careerId.replace('career.', ''), voiceId || careerId, personality);
+  useEffect(() => {
+    if (!talk || hype <= 0) return;
+    // Yell on the jump, then say the line as the move lands.
+    const yell = window.setTimeout(() => menuSfx.shout('yell', voice), 260);
+    const say = window.setTimeout(() => {
+      const text = menuLine(careerId, lines);
+      setBubble({ text, key: Date.now() });
+      menuSfx.speak(text, voice, true);
+    }, 900);
+    const hide = window.setTimeout(() => setBubble(null), 3200);
+    return () => {
+      window.clearTimeout(yell);
+      window.clearTimeout(say);
+      window.clearTimeout(hide);
+    };
+  }, [hype]);
   const host = useRef<HTMLDivElement>(null);
   // 0 = play the selection animation from the next rendered frame (so it isn't
   // lost while the sprites load); >0 = when it started; -1 = idle.
@@ -226,6 +276,22 @@ export function PuppetView({ careerId, personality, appearance, size = 180, hype
   }, [careerId, personality, size, flip, loaded]);
 
   if (!loaded) return <div class="puppet-view" style={{ width: `${Math.round(size * 0.8)}px`, height: `${size}px` }} />;
-  if (!art) return <Portrait c={{ careers: [careerId], appearance }} size={Math.round(size * 0.6)} />;
-  return <div class="puppet-view" ref={host} style={{ width: `${Math.round(size * 0.8)}px`, height: `${size}px` }} />;
+  const say = bubble && (
+    <div class="menu-bubble" key={bubble.key}>
+      {bubble.text}
+    </div>
+  );
+  if (!art)
+    return (
+      <div class="puppet-wrap">
+        <Portrait c={{ careers: [careerId], appearance }} size={Math.round(size * 0.6)} />
+        {say}
+      </div>
+    );
+  return (
+    <div class="puppet-wrap">
+      <div class="puppet-view" ref={host} style={{ width: `${Math.round(size * 0.8)}px`, height: `${size}px` }} />
+      {say}
+    </div>
+  );
 }

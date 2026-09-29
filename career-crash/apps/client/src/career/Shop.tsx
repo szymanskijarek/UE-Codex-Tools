@@ -44,7 +44,7 @@ export function ShopScreen({ save: s }: { save: CareerSave }) {
             ))}
           </div>
           <div class="row">
-            <PuppetView careerId={target.c.careers[target.c.careers.length - 1]!} personality={target.c.personality} appearance={target.c.appearance} size={150} hype={hype} />
+            <PuppetView careerId={target.c.careers[target.c.careers.length - 1]!} personality={target.c.personality} appearance={target.c.appearance} size={150} hype={hype} voiceId={target.c.id} lines="menu_equip" />
             <div class="grow">
               <b>{target.c.name}</b>
               <div class="slots">

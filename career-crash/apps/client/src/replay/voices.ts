@@ -33,12 +33,12 @@ interface VoiceParams {
 }
 
 const PARAMS: Record<VoiceType, VoiceParams> = {
-  deep: { f0: 92, formant: 0.86, syll: 0.135, creak: 0, vibrato: 0.012, wave: 'sawtooth', gain: 1 },
-  gravel: { f0: 108, formant: 0.9, syll: 0.125, creak: 0.55, vibrato: 0.008, wave: 'sawtooth', gain: 1.4 },
-  mid: { f0: 138, formant: 1, syll: 0.115, creak: 0, vibrato: 0.015, wave: 'sawtooth', gain: 1.05 },
-  bright: { f0: 215, formant: 1.14, syll: 0.105, creak: 0, vibrato: 0.02, wave: 'sawtooth', gain: 1 },
-  squeaky: { f0: 340, formant: 1.3, syll: 0.085, creak: 0, vibrato: 0.035, wave: 'triangle', gain: 0.5 },
-  whisper: { f0: 0, formant: 1.05, syll: 0.1, creak: 0, vibrato: 0, wave: 'sawtooth', gain: 1 },
+  deep: { f0: 92, formant: 0.86, syll: 0.075, creak: 0, vibrato: 0.012, wave: 'sawtooth', gain: 1 },
+  gravel: { f0: 108, formant: 0.9, syll: 0.07, creak: 0.55, vibrato: 0.008, wave: 'sawtooth', gain: 1.4 },
+  mid: { f0: 138, formant: 1, syll: 0.065, creak: 0, vibrato: 0.015, wave: 'sawtooth', gain: 1.05 },
+  bright: { f0: 215, formant: 1.14, syll: 0.06, creak: 0, vibrato: 0.02, wave: 'sawtooth', gain: 1 },
+  squeaky: { f0: 340, formant: 1.3, syll: 0.05, creak: 0, vibrato: 0.035, wave: 'triangle', gain: 0.5 },
+  whisper: { f0: 0, formant: 1.05, syll: 0.06, creak: 0, vibrato: 0, wave: 'sawtooth', gain: 1 },
 };
 
 /** Voice type per career, chosen to match the character art. */
@@ -146,7 +146,7 @@ function syllables(text: string, max: number): Syllable[] {
     parts.forEach((p, i) => {
       const onset = /^[^aeiouy]*/.exec(p)![0];
       const vowel = p[onset.length] ?? 'a';
-      out.push({ onset, vowel, wordStart: i === 0, wordEnd: i === parts.length - 1, pause: i === parts.length - 1 ? (/[,.!?…]$/.test(w) ? 0.12 : 0.035) : 0 });
+      out.push({ onset, vowel, wordStart: i === 0, wordEnd: i === parts.length - 1, pause: i === parts.length - 1 ? (/[,.!?…]$/.test(w) ? 0.09 : 0.015) : 0 });
     });
   }
   if (out.length <= max) return out;
@@ -166,20 +166,30 @@ function rng(seed: string): () => number {
   };
 }
 
-/**
- * Schedule a babbled line on `ctx`, into `dest`. `noise` is a looping white
- * noise buffer. Returns the utterance length in seconds.
- */
-export function babble(ctx: BaseAudioContext, dest: AudioNode, noise: AudioBuffer, text: string, voice: Voice, at: number, rate = 1): number {
+/** One sound unit of an utterance: an optional consonant, then a vowel held for `dur` seconds. */
+interface Note {
+  onset: string;
+  vowel: string;
+  /** Vowel it glides to by the end (screams: "aaa-eee"). */
+  vowel2?: string;
+  dur: number;
+  /** Pitch relative to the voice's base at the start and end of the vowel. */
+  pitch: number;
+  pitch2: number;
+  gain: number;
+  /** Start from silence (word start) and end in silence (word end). */
+  hardStart: boolean;
+  hardEnd: boolean;
+  pause: number;
+}
+
+/** Schedule a list of notes in one voice; returns the length in seconds. */
+function utter(ctx: BaseAudioContext, dest: AudioNode, noise: AudioBuffer, voice: Voice, notes: Note[], at: number, rate: number, seed: string, opts: { vibrato?: number; rough?: number; breath?: number } = {}): number {
+  if (notes.length === 0) return 0;
   const P = PARAMS[voice.type];
-  const R = rng(text + voice.type);
-  const syl = syllables(text, 14);
-  if (syl.length === 0) return 0;
-  const exclaim = /!/.test(text);
-  const question = /\?\s*$/.test(text);
-  const f0 = P.f0 * voice.pitch * rate * (exclaim ? 1.12 : 1);
+  const R = rng(seed);
+  const f0 = P.f0 * voice.pitch * rate;
   const fs = P.formant * (0.97 + (voice.pitch - 1) * 0.5) * (rate < 1 ? 0.85 : 1);
-  const loud = 0.8 * P.gain * voice.loud * (exclaim ? 1.2 : 1);
 
   // Source → amplitude envelope → (creak) → three parallel formant filters → out.
   const amp = ctx.createGain();
@@ -194,36 +204,38 @@ export function babble(ctx: BaseAudioContext, dest: AudioNode, noise: AudioBuffe
   } else {
     osc = ctx.createOscillator();
     osc.type = P.wave;
-    osc.frequency.value = f0;
+    osc.frequency.value = f0 * notes[0]!.pitch;
     src = osc;
   }
   src.connect(amp);
   let chain: AudioNode = amp;
   const extras: AudioScheduledSourceNode[] = [];
-  if (P.creak > 0) {
-    // Vocal fry: fast, irregular amplitude flutter.
+  const creakAmt = Math.min(0.9, P.creak + (opts.rough ?? 0));
+  if (creakAmt > 0) {
+    // Vocal fry / a ragged scream: fast amplitude flutter.
     const creak = ctx.createGain();
-    creak.gain.value = 1 - P.creak * 0.5;
+    creak.gain.value = 1 - creakAmt * 0.5;
     const lfo = ctx.createOscillator();
     lfo.type = 'square';
-    lfo.frequency.value = 38 * rate;
+    lfo.frequency.value = (opts.rough ? 55 : 38) * rate;
     const depth = ctx.createGain();
-    depth.gain.value = P.creak * 0.5;
+    depth.gain.value = creakAmt * 0.5;
     lfo.connect(depth).connect(creak.gain);
     amp.connect(creak);
     chain = creak;
     extras.push(lfo);
   }
-  if (osc && P.vibrato > 0) {
+  const vibAmt = opts.vibrato ?? P.vibrato;
+  if (osc && vibAmt > 0) {
     const vib = ctx.createOscillator();
-    vib.frequency.value = 5.5 + R() * 1.5;
+    vib.frequency.value = (opts.vibrato ? 9 : 5.5) + R() * 1.5;
     const depth = ctx.createGain();
-    depth.gain.value = f0 * P.vibrato;
+    depth.gain.value = f0 * vibAmt;
     vib.connect(depth).connect(osc.frequency);
     extras.push(vib);
   }
   const out = ctx.createGain();
-  out.gain.value = voice.type === 'whisper' ? 1.6 : 1;
+  out.gain.value = (voice.type === 'whisper' ? 1.6 : 1) * P.gain * voice.loud;
   out.connect(dest);
   const filters = [0, 1, 2].map((k) => {
     const f = ctx.createBiquadFilter();
@@ -234,8 +246,8 @@ export function babble(ctx: BaseAudioContext, dest: AudioNode, noise: AudioBuffe
     chain.connect(f).connect(g).connect(out);
     return f;
   });
-  // A little of the raw source for body.
   if (voice.type !== 'whisper') {
+    // A little of the raw source for body.
     const lp = ctx.createBiquadFilter();
     lp.type = 'lowpass';
     lp.frequency.value = 500 * fs;
@@ -254,63 +266,60 @@ export function babble(ctx: BaseAudioContext, dest: AudioNode, noise: AudioBuffe
     f.Q.value = 1.5;
     const g = ctx.createGain();
     g.gain.setValueAtTime(0.0001, t);
-    g.gain.exponentialRampToValueAtTime(peak * voice.loud, t + 0.006);
+    g.gain.exponentialRampToValueAtTime(peak * voice.loud, t + 0.004);
     g.gain.exponentialRampToValueAtTime(0.0001, t + dur);
     s.connect(f).connect(g).connect(dest);
     s.start(t, R() * 0.5);
     s.stop(t + dur + 0.02);
   };
+  if (opts.breath) burst(at, 'bandpass', 1400, 0.08, opts.breath);
 
-  const n = syl.length;
   let t = at;
-  const baseDur = P.syll / voice.speed / rate;
-  for (let i = 0; i < n; i++) {
-    const s = syl[i]!;
-    const last = i === n - 1;
-    const on = s.onset.slice(-2);
-    // Consonant onset.
+  for (const n of notes) {
+    const on = n.onset.slice(-2);
+    // Consonant onset: a short noise burst, then the vowel.
     let lead = 0;
     if (/[sz]|c(?=[ei])|x/.test(on)) {
-      burst(t, 'highpass', 5200, 0.07 / voice.speed, 0.05);
-      lead = 0.055;
-    } else if (/sh|ch|j/.test(on)) {
-      burst(t, 'bandpass', 2800, 0.08 / voice.speed, 0.06);
-      lead = 0.06;
-    } else if (/[fvh]|th/.test(on)) {
-      burst(t, 'bandpass', 2200, 0.05, 0.025);
-      lead = 0.04;
-    } else if (/[ptk]|c|q/.test(on)) {
-      burst(t + 0.01, 'highpass', 2500, 0.025, 0.09);
+      burst(t, 'highpass', 5200, 0.045, 0.05);
       lead = 0.035;
-    } else if (/[bdg]/.test(on)) {
-      burst(t + 0.005, 'lowpass', 900, 0.02, 0.07);
+    } else if (/sh|ch|j/.test(on)) {
+      burst(t, 'bandpass', 2800, 0.05, 0.06);
+      lead = 0.04;
+    } else if (/[fvh]|th/.test(on)) {
+      burst(t, 'bandpass', 2200, 0.035, 0.03);
+      lead = 0.025;
+    } else if (/[ptk]|c|q/.test(on)) {
+      burst(t + 0.005, 'highpass', 2500, 0.02, 0.09);
       lead = 0.02;
+    } else if (/[bdg]/.test(on)) {
+      burst(t + 0.003, 'lowpass', 900, 0.015, 0.07);
+      lead = 0.012;
     }
-    lead /= rate;
-    const d = baseDur * (0.8 + R() * 0.45) * (s.wordEnd ? 1.15 : 1) * (last ? 1.7 : 1);
-    const v0 = t + lead;
-    // Intonation: gentle declination, stressed word starts, a rise for questions.
-    const prog = i / Math.max(1, n - 1);
-    let pitch = 1 + (0.1 - prog * 0.22) * voice.range + (R() - 0.5) * 0.18 * voice.range + (s.wordStart ? 0.06 : 0);
-    if (last) pitch = question ? 1.35 : exclaim ? 1.18 : 0.82;
+    const v0 = t + lead / rate;
+    const d = n.dur / rate;
     if (osc) {
-      osc.frequency.setTargetAtTime(f0 * pitch, v0, 0.025);
-      if (last) osc.frequency.setTargetAtTime(f0 * pitch * (question ? 1.2 : 0.85), v0 + d * 0.4, d * 0.4);
+      osc.frequency.setTargetAtTime(f0 * n.pitch, v0, 0.012);
+      if (n.pitch2 !== n.pitch) osc.frequency.setTargetAtTime(f0 * n.pitch2, v0 + d * 0.3, d * 0.35);
     }
-    const [F1, F2, F3] = VOWELS[s.vowel] ?? VOWELS.a!;
+    const [F1, F2, F3] = VOWELS[n.vowel] ?? VOWELS.a!;
     const nasal = /[mn]/.test(on) ? 0.75 : 1;
-    filters[0]!.frequency.setTargetAtTime(F1 * fs * nasal, v0, 0.018);
-    filters[1]!.frequency.setTargetAtTime(F2 * fs, v0, 0.025);
-    filters[2]!.frequency.setTargetAtTime(F3 * fs, v0, 0.03);
-    const peak = loud * (s.wordStart ? 1 : 0.85) * (0.9 + R() * 0.2);
-    const floor = s.wordStart ? 0.0001 : peak * 0.25;
-    amp.gain.setValueAtTime(floor, v0);
-    amp.gain.linearRampToValueAtTime(peak, v0 + 0.02);
-    amp.gain.linearRampToValueAtTime(peak * 0.75, v0 + d * 0.8);
-    amp.gain.linearRampToValueAtTime(s.wordEnd ? 0.0001 : peak * 0.3, v0 + d);
-    t = v0 + d + s.pause / rate;
+    filters[0]!.frequency.setTargetAtTime(F1 * fs * nasal, v0, 0.01);
+    filters[1]!.frequency.setTargetAtTime(F2 * fs, v0, 0.014);
+    filters[2]!.frequency.setTargetAtTime(F3 * fs, v0, 0.018);
+    if (n.vowel2) {
+      const [G1, G2, G3] = VOWELS[n.vowel2] ?? VOWELS.a!;
+      filters[0]!.frequency.setTargetAtTime(G1 * fs, v0 + d * 0.4, d * 0.3);
+      filters[1]!.frequency.setTargetAtTime(G2 * fs, v0 + d * 0.4, d * 0.3);
+      filters[2]!.frequency.setTargetAtTime(G3 * fs, v0 + d * 0.4, d * 0.3);
+    }
+    const peak = 0.8 * n.gain;
+    amp.gain.setValueAtTime(n.hardStart ? 0.0001 : peak * 0.3, v0);
+    amp.gain.linearRampToValueAtTime(peak, v0 + Math.min(0.015, d * 0.3));
+    amp.gain.linearRampToValueAtTime(peak * 0.8, v0 + d * 0.8);
+    amp.gain.linearRampToValueAtTime(n.hardEnd ? 0.0001 : peak * 0.35, v0 + d);
+    t = v0 + d + n.pause / rate;
   }
-  const end = t + 0.05;
+  const end = t + 0.04;
   src.start(at);
   src.stop(end);
   for (const x of extras) {
@@ -318,4 +327,67 @@ export function babble(ctx: BaseAudioContext, dest: AudioNode, noise: AudioBuffe
     x.stop(end);
   }
   return end - at;
+}
+
+/**
+ * Schedule a babbled line on `ctx`, into `dest`. `noise` is a looping white
+ * noise buffer. Returns the utterance length in seconds.
+ */
+export function babble(ctx: BaseAudioContext, dest: AudioNode, noise: AudioBuffer, text: string, voice: Voice, at: number, rate = 1): number {
+  const P = PARAMS[voice.type];
+  const R = rng(text + voice.type);
+  const syl = syllables(text, 16);
+  if (syl.length === 0) return 0;
+  const exclaim = /!/.test(text);
+  const question = /\?\s*$/.test(text);
+  const baseDur = P.syll / voice.speed;
+  const n = syl.length;
+  const notes: Note[] = syl.map((s, i) => {
+    const last = i === n - 1;
+    const prog = i / Math.max(1, n - 1);
+    // Intonation: gentle declination, stressed word starts, a rise for questions.
+    let pitch = (exclaim ? 1.12 : 1) * (1 + (0.1 - prog * 0.22) * voice.range + (R() - 0.5) * 0.2 * voice.range + (s.wordStart ? 0.07 : 0));
+    let pitch2 = pitch;
+    if (last) {
+      pitch = question ? 1.3 : exclaim ? 1.25 : 0.88;
+      pitch2 = pitch * (question ? 1.25 : 0.82);
+    }
+    return {
+      onset: s.onset,
+      vowel: s.vowel,
+      dur: baseDur * (0.75 + R() * 0.4) * (s.wordEnd ? 1.1 : 1) * (last ? 1.9 : 1),
+      pitch,
+      pitch2,
+      gain: (exclaim ? 1.15 : 1) * (s.wordStart ? 1 : 0.85) * (0.9 + R() * 0.2),
+      hardStart: s.wordStart,
+      hardEnd: s.wordEnd,
+      pause: s.pause * (0.6 / voice.speed),
+    };
+  });
+  return utter(ctx, dest, noise, voice, notes, at, rate, text + voice.type);
+}
+
+/** Wordless outbursts: a battle cry, a hurt "oof", a thrown-through-the-air scream, a KO wail, a cheer. */
+export type Shout = 'yell' | 'ouch' | 'scream' | 'wail' | 'cheer' | 'grunt' | 'gasp';
+
+export function shout(ctx: BaseAudioContext, dest: AudioNode, noise: AudioBuffer, kind: Shout, voice: Voice, at: number, rate = 1, variant = 0): number {
+  const k = variant % 3;
+  const n = (vowel: string, dur: number, pitch: number, pitch2: number, gain = 1, onset = '', vowel2?: string): Note => ({ onset, vowel, vowel2, dur, pitch, pitch2, gain, hardStart: true, hardEnd: true, pause: 0 });
+  const seed = `${kind}${variant}${voice.type}`;
+  switch (kind) {
+    case 'yell': // "HYAAH!" / "RAAH!" / "HUP-HAH!"
+      return utter(ctx, dest, noise, voice, k === 2 ? [{ ...n('u', 0.07, 1.25, 1.3, 1, 'h'), pause: 0.03 }, n('a', 0.2, 1.45, 1.15, 1.2, 'h')] : [n('a', 0.28, 1.35, 1.6, 1.25, k === 0 ? 'hy' : 'r')], at, rate, seed, { rough: 0.25 });
+    case 'ouch': // "OOF" / "AGH" / "OW"
+      return utter(ctx, dest, noise, voice, [n(k === 0 ? 'u' : k === 1 ? 'a' : 'a', k === 2 ? 0.2 : 0.14, 1.3, 0.85, 1.1, k === 1 ? '' : '', k === 2 ? 'u' : undefined)], at, rate, seed, { breath: k === 0 ? 0.05 : 0 });
+    case 'grunt': // effort: "hnn" / "hup"
+      return utter(ctx, dest, noise, voice, [n('u', 0.1, 0.95, 0.9, 0.8, k === 1 ? 'h' : 'hn')], at, rate, seed, { rough: 0.2 });
+    case 'gasp':
+      return utter(ctx, dest, noise, voice, [n('a', 0.12, 1.5, 1.7, 0.6, 'h')], at, rate, seed, { breath: 0.08 });
+    case 'scream': // "AAAAHHH!" rising then falling, ragged
+      return utter(ctx, dest, noise, voice, [n('a', 0.7 + k * 0.1, 2.0, 2.4, 1.2, '', k === 1 ? 'e' : undefined)], at, rate, seed, { vibrato: 0.05, rough: 0.35 });
+    case 'wail': // KO: long falling "nooooo" / "aaaaah"
+      return utter(ctx, dest, noise, voice, [n(k === 0 ? 'o' : 'a', 0.85, 1.6, 0.7, 1.1, k === 0 ? 'n' : '', 'u')], at, rate, seed, { vibrato: 0.04, rough: 0.2 });
+    case 'cheer': // "WOO-HOO!" / "YEAH!"
+      return utter(ctx, dest, noise, voice, k === 0 ? [{ ...n('u', 0.16, 1.4, 1.7, 1.1, 'w'), pause: 0.04 }, n('u', 0.28, 1.5, 1.9, 1.2, 'h')] : [n('e', 0.36, 1.3, 1.65, 1.2, 'y', 'a')], at, rate, seed, { vibrato: 0.02 });
+  }
 }

@@ -14,7 +14,7 @@ import { extension, hitPose, MOVES, repertoire, type HitStyle, type Move } from 
 import { drawWall } from './wall-art';
 import { hasPuppet, loadPuppets, NEUTRAL, Puppet, type Pose } from './puppet';
 import { Ragdoll } from './ragdoll';
-import { voiceFor, type Voice } from './voices';
+import { voiceFor, type Shout, type Voice } from './voices';
 
 /**
  * Battle renderer (04 R-3): PixiJS scene graph in a 3/4 "stage" projection
@@ -71,6 +71,7 @@ interface CharSprite {
   bubble: Container | null;
   bubbleUntil: number;
   lastBubbleAt: number;
+  lastShoutAt: number;
   knockX: number;
   moving: boolean;
   x: number;
@@ -655,6 +656,7 @@ export class BattleRenderer {
       bubble: null,
       bubbleUntil: 0,
       lastBubbleAt: -99999,
+      lastShoutAt: 0,
       knockX: 0,
       moving: false,
       x: 0,
@@ -780,6 +782,14 @@ export class BattleRenderer {
     if (!list?.length) return;
     const text = rand(list).replace(/\{(\w+)\}/g, (_, k: string) => slots[k] ?? k).replace(/\b([Aa]) ([aeiouAEIOU])/g, '$1n $2');
     this.say(s, text, 1500);
+  }
+
+  /** A wordless yell/scream/"oof" in the character's voice. */
+  private vox(s: CharSprite | undefined, kind: Shout, chance = 1, force = false): void {
+    if (!s || Math.random() > chance) return;
+    if (!force && this.now - s.lastShoutAt < 700) return;
+    s.lastShoutAt = this.now;
+    this.sfx.shout(kind, s.voice, force);
   }
 
   /** Show a speech bubble with exactly this text. */
@@ -1565,6 +1575,7 @@ export class BattleRenderer {
             if (MOVES[A.move].hit === 'legs' || MOVES[A.move].turn) this.sfx.play('whoosh', 0.9);
           }
           this.setExpr(A, 'angry', 450);
+          this.vox(A, Math.random() < 0.5 ? 'yell' : 'grunt', 0.3);
           this.bark(A, Math.random() < 0.5 && bundle.live[`job_${A.career}`] ? `job_${A.career}` : 'bark_attack', 0.14);
         }
         this.sfx.play('whoosh', 0.6);
@@ -1595,6 +1606,7 @@ export class BattleRenderer {
           const byProp = ea?.kind === 'prop' || (ev.cause >= 0 && ev.s === 'blunt' && !A);
           const hurtKey = !byProp && B.kind === 'char' && Math.random() < 0.45 && bundle.live[`jobhurt_${B.career}`] ? `jobhurt_${B.career}` : byProp ? 'bark_hit_by_prop' : B.kind === 'npc' ? 'bark_ref_card' : 'bark_hurt';
           this.bark(B, hurtKey, crit ? 0.6 : ev.s === 'body' ? 0.8 : 0.2, { prop: ea ? nameOf(ea.def).toLowerCase() : 'thing' });
+          if (B.kind === 'char') this.vox(B, byProp && ev.v >= 12 ? 'scream' : 'ouch', crit || ev.s === 'body' ? 0.9 : 0.5, crit);
           // Knock the ragdoll (if they're floppy) away from the hitter.
           const dir = ea && eb ? Math.sign(eb.x - ea.x) || 1 : 1;
           this.kick(B, dir * B.r * (0.4 + ev.v / 25), -B.r * (0.3 + ev.v / 40));
@@ -1659,6 +1671,7 @@ export class BattleRenderer {
         if (m) {
           if (m[0]) this.bark(B, m[0], ev.s === 'status.burning' || ev.s === 'status.electrified' ? 0.8 : 0.4);
           if (m[1]) this.sfx.play(m[1]);
+          if (ev.s === 'status.burning' || ev.s === 'status.electrified') this.vox(B, 'scream', 0.6);
           this.setExpr(B, m[2], 700);
         }
         break;
@@ -1666,6 +1679,7 @@ export class BattleRenderer {
       case 'throw':
         if (A) {
           A.throwUntil = this.now + 320;
+          this.vox(A, 'grunt', 0.5);
           this.bark(A, 'bark_throw', 0.25);
         }
         this.sfx.play('whoosh', 1);
@@ -1687,10 +1701,12 @@ export class BattleRenderer {
           A.throwUntil = this.now + 450;
           this.setExpr(A, 'angry', 700);
           this.bark(A, 'bark_thrower', 0.5);
+          this.vox(A, 'yell', 0.8);
         }
         if (B) {
           this.setExpr(B, 'scared', 1200);
           this.bark(B, 'bark_thrown', 0.7, {}, true);
+          this.vox(B, 'scream', 1, true);
           const dir = ea && eb ? Math.sign(eb.x - ea.x) || 1 : 1;
           const spin = ev.s === 'behind' ? -1.4 * dir : ev.s === 'up' ? 0.6 * dir : 0.9 * dir;
           this.kick(B, dir * B.r * 0.5, -B.r * 1.4, spin);
@@ -1824,6 +1840,7 @@ export class BattleRenderer {
       case 'landed':
         if (ev.v >= 14) {
           this.hitStop(90, 0.16);
+          this.vox(this.chars.get(ev.b), 'ouch', 1, true);
           // The floor remembers a good slam.
           const at = this.posOf(ev.b, byId);
           if (at) {
@@ -1909,6 +1926,7 @@ export class BattleRenderer {
         });
         this.sfx.play('down');
         this.sfx.play('ooh');
+        this.vox(B, Math.random() < 0.5 ? 'wail' : 'ouch', 1, true);
         if (B) {
           const victim = B;
           setTimeout(() => this.ready && this.bark(victim, 'bark_downed_crawl', 0.6), 1400);
@@ -1920,7 +1938,9 @@ export class BattleRenderer {
         if (A && A.kind === 'char' && B && A.team !== B.team) {
           this.setExpr(A, 'happy', 1200);
           this.bark(A, 'bark_ko_win', 0.8, {}, true);
+          this.vox(A, 'cheer', 0.7);
         }
+        this.vox(B, 'wail', 1, true);
         this.witnesses(eb, (s, same) => {
           if (s === A) return;
           this.setExpr(s, same ? 'scared' : 'happy', 1000);
@@ -1932,11 +1952,13 @@ export class BattleRenderer {
       case 'revived':
         this.float('REVIVED!', this.posOf(ev.b, byId), 0x4ade80, 18);
         this.bark(B, 'bark_revived', 0.8, {}, true);
+        this.vox(B, 'gasp', 1, true);
         this.bark(A, 'bark_reviver', 0.4);
         this.sfx.play('heal');
         break;
       case 'panic':
         this.bark(A, 'bark_panic', 0.9, {}, true);
+        this.vox(A, 'scream', 0.8, true);
         this.sfx.play('ooh');
         break;
       case 'card': {
@@ -1999,6 +2021,7 @@ export class BattleRenderer {
           if (ev.v >= 0 && s.team === ev.v) {
             this.setExpr(s, 'happy', 99999);
             this.bark(s, 'bark_win', 0.6, {}, true);
+            this.vox(s, 'cheer', 0.8, true);
           }
         }
         this.announce(ev.v >= 0 ? `${this.input.teams[ev.v]?.playerName ?? 'Winners'} WIN!` : 'DRAW!');

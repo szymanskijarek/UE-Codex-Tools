@@ -30,7 +30,7 @@ export type SfxName =
   | 'squeak'
   | 'slurp';
 
-import { babble, type Voice } from './voices';
+import { babble, shout, type Shout, type Voice } from './voices';
 
 const MIN_GAP_MS: Partial<Record<SfxName, number>> = { punch: 70, thud: 90, whoosh: 90, pop: 120, blah: 200, ooh: 900, cheer: 1500, fire: 400, zap: 150, splash: 200 };
 const MUTE_KEY = 'cc.muted';
@@ -144,6 +144,16 @@ export class Sfx {
     this.talking = this.talking.filter((t) => t > now);
     if (this.talking.length >= (force ? 3 : 2)) return;
     const len = babble(this.ctx, this.master, this.noise, text, voice, now + 0.01, this.rate);
+    this.talking.push(now + len);
+  }
+
+  /** A wordless yell / scream / cheer (up to three voices at once, counting talkers). */
+  shout(kind: Shout, voice: Voice, force = false): void {
+    if (this.muted || !this.ctx || !this.master || !this.noise || this.ctx.state !== 'running') return;
+    const now = this.ctx.currentTime;
+    this.talking = this.talking.filter((t) => t > now);
+    if (this.talking.length >= (force ? 4 : 3)) return;
+    const len = shout(this.ctx, this.master, this.noise, kind, voice, now + 0.005, this.rate, Math.floor(Math.random() * 3));
     this.talking.push(now + len);
   }
 
