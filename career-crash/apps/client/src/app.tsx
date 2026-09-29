@@ -11,6 +11,7 @@ import { Office } from './screens/Office';
 import { Lab } from './screens/Lab';
 import { Sandbox } from './screens/Sandbox';
 import { CareerScreen } from './career/Career';
+import { music } from './replay/music';
 
 function useRoute(): string[] {
   const read = () => (window.location.hash.replace(/^#\/?/, '') || (STANDALONE ? 'career' : 'home')).split('/');
@@ -51,6 +52,24 @@ export function App() {
     void refreshMe();
   }, []);
   const [page, arg, arg2] = route;
+  // Menu music everywhere outside a fight (the replay screen plays the arena's own song).
+  useEffect(() => {
+    if (page !== 'replay' && page !== 'lab') music.play('menu');
+  }, [page]);
+  const [musicOn, setMusicOn] = useState(music.enabled);
+  const musicBtn = (
+    <button
+      class="music-btn"
+      title={musicOn ? 'Music off' : 'Music on'}
+      aria-label={musicOn ? 'Music off' : 'Music on'}
+      onClick={() => {
+        music.setEnabled(!music.enabled);
+        setMusicOn(music.enabled);
+      }}
+    >
+      {musicOn ? '🎵' : '🔇'}
+    </button>
+  );
   let screen;
   switch (page) {
     case 'roster':
@@ -104,6 +123,7 @@ export function App() {
                 </a>
               ))}
             </nav>
+            {musicBtn}
           </div>
         </header>
         <main>{screen}</main>
@@ -117,7 +137,10 @@ export function App() {
         <a class="logo" href="#/home">
           Career<span>Crash</span>
         </a>
-        {player ? <Money wallet={player.wallet} /> : <span class="muted">{STANDALONE ? 'Offline' : online.value === 'offline' ? 'Offline — Sandbox only' : 'Connecting…'}</span>}
+        <span class="row">
+          {player ? <Money wallet={player.wallet} /> : <span class="muted">{STANDALONE ? 'Offline' : online.value === 'offline' ? 'Offline — Sandbox only' : 'Connecting…'}</span>}
+          {musicBtn}
+        </span>
       </header>
       <main>{screen}</main>
       <nav class="tabs">

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
+import { arenaSong, matchTempo, music } from '../replay/music';
 import { buildReport, LiveCommentator, type BattleReport, type LiveLine } from '@cc/commentary';
 import { bundle } from '@cc/content';
 import { simulate, type BattleEvent } from '@cc/sim';
@@ -134,6 +135,7 @@ export function Replay({ battleId }: { battleId?: string }) {
       return best;
     };
     setFeed([{ ...commentator.intro(), key: keyRef.current++ }]);
+    music.play(arenaSong(rep.input.arenaId));
     const renderer = new BattleRenderer(rep.input);
     rendererRef.current = renderer;
     setMuted(renderer.sfx.muted);
@@ -258,6 +260,12 @@ export function Replay({ battleId }: { battleId?: string }) {
         if (player.done && !grudgesRecordedRef.current && rep.id === 'local') {
           grudgesRecordedRef.current = true;
           recordGrudges(player.world.events, player.world.byId);
+        }
+        // The arena's song speeds up as the match heads for its finish, and fades out at the end.
+        if (player.done) music.finish();
+        else {
+          music.play(arenaSong(rep.input.arenaId));
+          music.setTempo(matchTempo(player.tick, player.totalTicks));
         }
         setTick(player.tick);
         raf = requestAnimationFrame(loop);
