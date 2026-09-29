@@ -28,7 +28,7 @@ v0.3 additions: 36 careers (Barista, Hairdresser, Lifeguard, Personal Trainer, G
 
 v0.4 additions: grapples and throws (`toss` effect, Airborne status, body-to-body collisions, landings; 02 §5.6) with 10 new grapple abilities; 95 career synergies — profession-vs-profession banter lines with behavioural effects (02 §8.1.1); client: Verlet ragdolls for thrown/knocked-down/KO'd characters, grab/landing/banter reactions, action replays of big throws and body hits.
 
-v0.5 additions: sprite-puppet characters from sliced career art (32 of 36 careers; tools/art-pipeline `puppets`), crawling (after low-HP knockdowns and while downed), longer downed window + faster revives, replays/report moments retargeted to the decisive blow, replay lens follows off-centre action.
+v0.5 additions: sprite-puppet characters from sliced career art (32 of 36 careers; tools/art-pipeline `puppets`), crawling (after low-HP knockdowns and while downed), longer downed window + faster revives, replays/report moments retargeted to the decisive blow, replay lens follows off-centre action. Painted arena backdrops (art/arenas; `client/replay/arena-art.ts` maps each arena rectangle onto the painting's floor trapezoid with a mild perspective projection and depth scaling), 4 new arenas (Train Station, Diner, Construction Site, Warehouse) with their own hazards, stations and furniture art, and a forklift mover that flings fighters into each other.
 
 ---
 

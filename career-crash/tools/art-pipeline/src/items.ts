@@ -1,0 +1,152 @@
+/**
+ * Item slicer: prop sheets (art/items/<sheet>.png — 2 rows × 4 items on a
+ * transparent background) → one packed atlas for the client:
+ * apps/client/src/replay/items/items.png + items.json ({ name: rect }).
+ *
+ *   pnpm --filter @cc/art-pipeline items
+ *
+ * Item names per sheet, in reading order, live in art/items/manifest.json.
+ * Each item is everything opaque in its cell (cells found from the gaps
+ * between blobs), so multi-part items (a rope post, the mime's box) stay whole.
+ */
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { join } from 'node:path';
+import sharp, { type OverlayOptions } from 'sharp';
+
+const ROOT = new URL('../../../', import.meta.url).pathname;
+const SHEETS = join(ROOT, 'art/items');
+const OUT = join(ROOT, 'apps/client/src/replay/items');
+/** Longest side of an item in the atlas (px). */
+const ITEM_PX = 96;
+const ATLAS_W = 1024;
+const PAD = 2;
+
+interface Blob {
+  x0: number;
+  y0: number;
+  x1: number;
+  y1: number;
+  cx: number;
+  cy: number;
+  area: number;
+}
+
+function blobs(data: Buffer, W: number, H: number): Blob[] {
+  const seen = new Uint8Array(W * H);
+  const stack = new Int32Array(W * H);
+  const out: Blob[] = [];
+  for (let s = 0; s < W * H; s++) {
+    if (seen[s] || data[s * 4 + 3]! < 128) continue;
+    let sp = 0;
+    stack[sp++] = s;
+    seen[s] = 1;
+    const b: Blob = { x0: W, y0: H, x1: 0, y1: 0, cx: 0, cy: 0, area: 0 };
+    while (sp) {
+      const p = stack[--sp]!;
+      const x = p % W;
+      const y = (p / W) | 0;
+      b.area++;
+      b.cx += x;
+      b.cy += y;
+      b.x0 = Math.min(b.x0, x);
+      b.x1 = Math.max(b.x1, x);
+      b.y0 = Math.min(b.y0, y);
+      b.y1 = Math.max(b.y1, y);
+      for (let dy = -1; dy <= 1; dy++)
+        for (let dx = -1; dx <= 1; dx++) {
+          const nx = x + dx;
+          const ny = y + dy;
+          if (nx < 0 || ny < 0 || nx >= W || ny >= H) continue;
+          const q = ny * W + nx;
+          if (!seen[q] && data[q * 4 + 3]! >= 128) {
+            seen[q] = 1;
+            stack[sp++] = q;
+          }
+        }
+    }
+    b.cx /= b.area;
+    b.cy /= b.area;
+    if (b.area >= 150) out.push(b);
+  }
+  return out;
+}
+
+/** Split sorted values into `n` groups at the n−1 largest gaps. */
+function groups<T>(items: T[], key: (t: T) => number, n: number): T[][] {
+  const s = [...items].sort((a, b) => key(a) - key(b));
+  const gaps = s.slice(1).map((t, i) => ({ i: i + 1, g: key(t) - key(s[i]!) }));
+  const cuts = gaps
+    .sort((a, b) => b.g - a.g)
+    .slice(0, n - 1)
+    .map((g) => g.i)
+    .sort((a, b) => a - b);
+  const out: T[][] = [];
+  let prev = 0;
+  for (const c of [...cuts, s.length]) {
+    out.push(s.slice(prev, c));
+    prev = c;
+  }
+  return out;
+}
+
+async function main(): Promise<void> {
+  const manifest = JSON.parse(readFileSync(join(SHEETS, 'manifest.json'), 'utf8')) as Record<string, string[]>;
+  const pieces: { name: string; png: Buffer; w: number; h: number }[] = [];
+  for (const [sheet, names] of Object.entries(manifest)) {
+    const file = join(SHEETS, `${sheet}.png`);
+    if (!existsSync(file)) {
+      console.warn(`✗ ${sheet}: missing ${file}`);
+      continue;
+    }
+    const { data, info } = await sharp(file).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+    const all = blobs(data, info.width, info.height);
+    const rows = groups(all, (b) => b.cy, 2);
+    const cells = rows.flatMap((row) => groups(row, (b) => b.cx, 4));
+    if (cells.length !== names.length) {
+      console.warn(`✗ ${sheet}: found ${cells.length} cells for ${names.length} names`);
+      continue;
+    }
+    for (let i = 0; i < cells.length; i++) {
+      const c = cells[i]!;
+      const x0 = Math.min(...c.map((b) => b.x0));
+      const y0 = Math.min(...c.map((b) => b.y0));
+      const x1 = Math.max(...c.map((b) => b.x1));
+      const y1 = Math.max(...c.map((b) => b.y1));
+      const w = x1 - x0 + 1;
+      const h = y1 - y0 + 1;
+      const k = ITEM_PX / Math.max(w, h);
+      const tw = Math.max(1, Math.round(w * k));
+      const th = Math.max(1, Math.round(h * k));
+      const png = await sharp(file).extract({ left: x0, top: y0, width: w, height: h }).resize(tw, th, { kernel: 'lanczos3' }).png().toBuffer();
+      pieces.push({ name: names[i]!, png, w: tw, h: th });
+    }
+    console.log(`✓ ${sheet}: ${names.join(', ')}`);
+  }
+  let x = PAD;
+  let y = PAD;
+  let rowH = 0;
+  const rects: Record<string, { x: number; y: number; w: number; h: number }> = {};
+  const comp: OverlayOptions[] = [];
+  for (const p of [...pieces].sort((a, b) => b.h - a.h || a.name.localeCompare(b.name))) {
+    if (x + p.w + PAD > ATLAS_W) {
+      x = PAD;
+      y += rowH + PAD;
+      rowH = 0;
+    }
+    rects[p.name] = { x, y, w: p.w, h: p.h };
+    comp.push({ input: p.png, left: x, top: y });
+    x += p.w + PAD;
+    rowH = Math.max(rowH, p.h);
+  }
+  const H = y + rowH + PAD;
+  mkdirSync(OUT, { recursive: true });
+  await sharp({ create: { width: ATLAS_W, height: H, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
+    .composite(comp)
+    .png({ compressionLevel: 9, palette: true, quality: 95, effort: 10 })
+    .toFile(join(OUT, 'items.png'));
+  const sorted = Object.fromEntries(Object.entries(rects).sort(([a], [b]) => a.localeCompare(b)));
+  writeFileSync(join(OUT, 'items.json'), JSON.stringify({ w: ATLAS_W, h: H, items: sorted }, null, 1) + '\n');
+  console.log(`${pieces.length} items → ${ATLAS_W}×${H}`);
+}
+
+await main();

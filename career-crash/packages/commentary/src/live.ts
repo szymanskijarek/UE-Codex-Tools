@@ -135,6 +135,7 @@ export class LiveCommentator {
         if (!bi) return null;
         if (ai?.kind === 'prop' && ai.def === 'prop.floor-scrubber') return this.make(e.t, 'mover_scrubber', 3, base, [e.b]);
         if (ai?.kind === 'prop' && ai.def === 'prop.robot-vacuum') return this.make(e.t, 'mover_vacuum', 2, base, [e.b]);
+        if (ai?.kind === 'prop' && this.bundle.live[`mover_${ai.def.replace('prop.', '')}`]) return this.make(e.t, `mover_${ai.def.replace('prop.', '')}`, 3, base, [e.b]);
         if (e.s === 'body') return this.make(e.t, 'body_hit', 3, base, [e.b]);
         if (bi.kind === 'npc') return this.make(e.t, 'referee_hit', 2, base, [e.a, e.b]);
         if (cause?.type === 'throw') return this.make(e.t, 'throw_hit', 2, { ...base, a: this.label(cause.a), prop: this.nm(cause.s) }, [cause.a, e.b]);
@@ -172,6 +173,7 @@ export class LiveCommentator {
       case 'use': {
         if (ai?.kind === 'prop' && ai.def === 'prop.robot-vacuum') return this.make(e.t, 'vacuum_eats', 2, { ...base, prop: this.nm(e.s) }, [e.a]);
         if (ai?.kind === 'prop' && ai.def === 'prop.floor-scrubber') return this.make(e.t, 'scrubber_eats', 2, { ...base, prop: this.nm(e.s) }, [e.a]);
+        if (ai?.kind === 'prop' && this.bundle.live[`${ai.def.replace('prop.', '')}_eats`]) return this.make(e.t, `${ai.def.replace('prop.', '')}_eats`, 2, { ...base, prop: this.nm(e.s) }, [e.a]);
         const def = this.bundle.props.find((p) => p.id === e.s);
         const kind = def?.tags.includes('drink') ? 'use_coffee' : def?.tags.includes('food') ? 'use_food' : 'use_machine';
         return this.make(e.t, kind, 1, { ...base, prop: this.nm(e.s) }, [e.a]);

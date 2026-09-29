@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "prompts": "tsx src/prompts.ts",
-    "puppets": "tsx src/puppets.ts"
+    "puppets": "tsx src/puppets.ts",
+    "items": "tsx src/items.ts"
   },
   "dependencies": {
     "@cc/content": "workspace:*",

@@ -806,7 +806,9 @@
    "Who's driving that?!",
    "It ran me over!",
    "Not the {prop}!",
-   "AAARGH!"
+   "AAARGH!",
+   "Who gave that thing a licence?!",
+   "PUT ME DOWN, FORKLIFT!"
   ],
   "bark_rake": [
    "OW! Who leaves a rake here?!",
@@ -1224,6 +1226,69 @@
    "Tell my manager...",
    "I can see the light... it's the exit sign.",
    "Revive me, cowards!"
+  ],
+  "mover_forklift": [
+   "The forklift scoops up {b} and yeets them!",
+   "{b} gets forklifted. Straight into the air.",
+   "Forklift 1, {b} 0.",
+   "{b} has been delivered. By forklift. At speed.",
+   "The forklift driver did not see {b}. Nobody's driving."
+  ],
+  "forklift_eats": [
+   "The forklift shoves a {prop} out of the way."
+  ],
+  "hazard_start_forklift": [
+   "BEEP BEEP BEEP — the forklift is reversing through the fight!",
+   "A forklift! Who gave it the keys?!",
+   "Forklift incoming. Health and safety has left the building."
+  ],
+  "hazard_start_rush-hour": [
+   "Rush hour! Coffee everywhere!",
+   "Commuters incoming — watch the coffee!"
+  ],
+  "hazard_start_platform-announcement": [
+   "\"The 17:45 is delayed by... everything.\" Everyone stops to listen.",
+   "Platform announcement! Nobody can understand a word."
+  ],
+  "hazard_start_lost-luggage": [
+   "Unattended luggage raining from the racks!",
+   "Lost property is having a moment."
+  ],
+  "hazard_start_order-up": [
+   "ORDER UP! Food flying off the pass!",
+   "The chef is throwing plates. As a service."
+  ],
+  "hazard_start_grease-fire": [
+   "Grease fire on the grill!",
+   "The kitchen is on fire. That's the special."
+  ],
+  "hazard_start_milkshake-spill": [
+   "Milkshake down! Sticky floor ahead.",
+   "Someone dropped a strawberry shake. It's everywhere."
+  ],
+  "hazard_start_falling-rebar": [
+   "Rebar falling from the crane!",
+   "Hard hats on! Metal from above!"
+  ],
+  "hazard_start_cement-splash": [
+   "The cement mixer burps all over the slab!",
+   "Wet cement! Everyone's slowing down."
+  ],
+  "hazard_start_lunch-break": [
+   "Lunch break! Sandwiches on the slab.",
+   "The foreman brought snacks. Truce? No."
+  ],
+  "hazard_start_falling-boxes": [
+   "Boxes tumbling off the top racks!",
+   "Stock is falling. It's always falling."
+  ],
+  "hazard_start_delivery-arrives": [
+   "A delivery just arrived at the dock. Mid-fight.",
+   "Parcels! Somebody sign for these!"
+  ],
+  "hazard_start_leaking-drum": [
+   "A drum is leaking something slippery.",
+   "Oil on the warehouse floor. Of course."
   ]
  }
 }

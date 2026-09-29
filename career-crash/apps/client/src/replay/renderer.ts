@@ -1,13 +1,17 @@
 // CSP-safe shader/uniform code paths: the artifact host and strict deployments forbid eval.
 import 'pixi.js/unsafe-eval';
-import { Application, Container, Graphics, Text, type TextStyleOptions } from 'pixi.js';
+import { Application, Container, Graphics, Sprite, Text, Texture, type TextStyleOptions } from 'pixi.js';
 import { bundle } from '@cc/content';
 import type { AbilityDef, ArenaDef } from '@cc/content-schema';
 import type { BattleEvent, BattleInput, FrameEntity } from '@cc/sim';
 import { nameOf, STATUS_ICONS } from '../i18n';
 import { Sfx, type SfxName } from './audio';
 import type { ReplayPlayer } from './player';
+import { arenaArt, type ArenaArt } from './arena-art';
 import { drawArea, drawProp } from './props-art';
+import { heldSprite, loadItems, propSprite } from './items';
+import { extension, hitPose, MOVES, repertoire, type HitStyle, type Move } from './moves';
+import { drawWall } from './wall-art';
 import { hasPuppet, loadPuppets, NEUTRAL, Puppet, type Pose } from './puppet';
 import { Ragdoll } from './ragdoll';
 
@@ -25,6 +29,8 @@ const TEAM_COLORS = [0x3b82f6, 0xef4444, 0x22c55e, 0xf59e0b, 0xa855f7, 0x14b8a6,
 const OUTLINE = 0x1b1f2a;
 const FONT = 'system-ui, -apple-system, "Segoe UI", sans-serif';
 
+const MOVERS = new Set(bundle.props.filter((p) => p.mover).map((p) => p.id));
+const isMover = (def: string): boolean => MOVERS.has(def);
 const hex = (s: string): number => parseInt(s.replace('#', ''), 16);
 const rand = <T,>(arr: readonly T[]): T => arr[Math.floor(Math.random() * arr.length)]!;
 
@@ -38,7 +44,9 @@ interface CharSprite {
   torso: Container;
   armBack: Graphics;
   armFront: Container;
-  held: Graphics;
+  /** Held item: a container at the hand holding either item art or a drawn stand-in (heldG). */
+  held: Container;
+  heldG: Graphics;
   head: Container;
   face: Graphics;
   feet: Graphics;
@@ -80,6 +88,16 @@ interface CharSprite {
   /** When the current ragdoll started (ms) and whether the puppet is in crawl mode. */
   ragAt: number;
   crawling: boolean;
+  /** Melee move being wound up / struck (puppets), its end time and the character's repertoire. */
+  move: Move | null;
+  moveUntil: number;
+  wasWinding: boolean;
+  repertoire: Move[] | null;
+  lastMove: Move | null;
+  lastMove2: Move | null;
+  hitStyle: HitStyle;
+  /** Perspective size factor at the character's depth. */
+  depth: number;
   lastEmote: string;
   kick: { dx: number; dy: number; spin: number; at: number } | null;
   colors: { body: number; skin: number; hair: number };
@@ -148,6 +166,13 @@ export class BattleRenderer {
   private ready = false;
   private observer: ResizeObserver | null = null;
   private now = 0;
+  /** Projection: vertical squash, and back-row width relative to the front row (perspective). */
+  private ysq = Y_SQUASH;
+  private persp = 1;
+  private art: ArenaArt | null = null;
+  private artTex: Texture | null = null;
+  /** Screen-space extent of the world (painted backdrop or arena + wall band), for the camera. */
+  private bounds = { x0: 0, y0: 0, x1: 1, y1: 1 };
   private frameDt = 16;
   private shake = 0;
   private cam = { x: 0, y: 0, z: 1 };
@@ -166,7 +191,8 @@ export class BattleRenderer {
     this.arena = bundle.arenas.find((a) => a.id === this.input.arenaId)!;
     await this.app.init({ preference: 'webgl', resizeTo: el, background: hex(this.arena.theme.wall), antialias: true, autoDensity: true, resolution: Math.min(2, window.devicePixelRatio || 1) });
     el.appendChild(this.app.canvas);
-    await loadPuppets();
+    this.art = arenaArt(this.arena.id);
+    await Promise.all([loadPuppets(), this.loadBackdrop(), loadItems()]);
     this.bodies.sortableChildren = true;
     this.world.addChild(this.floor, this.areas, this.bodies, this.fxLayer, this.uiLayer);
     this.app.stage.addChild(this.world);
@@ -217,15 +243,46 @@ export class BattleRenderer {
     return (e.state === 'downed' || e.statuses.includes('status.crawling')) && !e.statuses.includes('status.knocked-down') && !e.statuses.includes('status.airborne') && e.z <= 60;
   }
 
+  private async loadBackdrop(): Promise<void> {
+    if (!this.art) return;
+    const img = new Image();
+    img.src = this.art.url;
+    try {
+      await img.decode();
+      this.artTex = Texture.from(img);
+    } catch {
+      this.art = null;
+    }
+  }
+
   private layout(): void {
     const [W, H] = this.arena.sizeMm;
     const sw = this.app.screen.width;
     const sh = this.app.screen.height;
-    const worldH = H * Y_SQUASH + WALL_H * Z_LIFT;
     this.compact = sw < 700;
-    // Phones: fit the arena's height and let the camera pan sideways, so fighters stay readable.
-    this.scale = this.compact ? (sh - 16) / worldH : Math.min((sw - 16) / W, (sh - 40) / worldH);
-    this.cam = { x: (W * this.scale) / 2, y: (H * Y_SQUASH * this.scale) / 2, z: 1 };
+    const art = this.artTex ? this.art : null;
+    if (art) {
+      // Map the arena rectangle onto the painting's floor trapezoid.
+      const f = art.floor;
+      this.persp = f.topHalf / f.bottomHalf;
+      this.ysq = ((f.bottom - f.top) * art.h * W) / (2 * f.bottomHalf * art.w * H);
+      // Screen px of the whole painting per unit of `scale`.
+      const imgW = W / (2 * f.bottomHalf);
+      const imgH = (imgW * art.h) / art.w;
+      // Desktop: the whole painting fits. Phones: fit its height and pan sideways.
+      this.scale = this.compact ? sh / imgH : Math.min(sw / imgW, sh / imgH);
+      const x0 = (W / 2 - imgW / 2) * this.scale;
+      const y0 = -f.top * imgH * this.scale;
+      this.bounds = { x0, y0, x1: x0 + imgW * this.scale, y1: y0 + imgH * this.scale };
+    } else {
+      this.persp = 1;
+      this.ysq = Y_SQUASH;
+      const worldH = H * this.ysq + WALL_H * Z_LIFT;
+      // Phones: fit the arena's height and let the camera pan sideways, so fighters stay readable.
+      this.scale = this.compact ? (sh - 16) / worldH : Math.min((sw - 16) / W, (sh - 40) / worldH);
+      this.bounds = { x0: 0, y0: -WALL_H * Z_LIFT * this.scale, x1: W * this.scale, y1: H * this.ysq * this.scale };
+    }
+    this.cam = { x: (this.bounds.x0 + this.bounds.x1) / 2, y: (this.bounds.y0 + this.bounds.y1) / 2, z: 1 };
     this.banner.x = sw / 2;
     this.banner.y = 8;
     this.banner.style.fontSize = this.compact ? 16 : 22;
@@ -243,7 +300,15 @@ export class BattleRenderer {
   }
 
   private px(x: number, y: number, z = 0): [number, number] {
-    return [x * this.scale, (y * Y_SQUASH - z * Z_LIFT) * this.scale];
+    const W = this.arena.sizeMm[0];
+    return [(W / 2 + (x - W / 2) * this.depth(y)) * this.scale, (y * this.ysq - z * Z_LIFT) * this.scale];
+  }
+
+  /** Size factor at arena depth y: 1 at the front edge, `persp` at the back. */
+  private depth(y: number): number {
+    if (this.persp === 1) return 1;
+    const H = this.arena.sizeMm[1];
+    return this.persp + (1 - this.persp) * Math.max(-0.1, Math.min(1.1, y / H));
   }
 
   private drawFloor(): void {
@@ -252,6 +317,17 @@ export class BattleRenderer {
     const [W, H] = this.arena.sizeMm;
     const g = new Graphics();
     const [fw, fh] = this.px(W, H);
+    if (this.artTex) {
+      const b = this.bounds;
+      const bg = new Sprite(this.artTex);
+      bg.position.set(b.x0, b.y0);
+      bg.width = b.x1 - b.x0;
+      bg.height = b.y1 - b.y0;
+      this.floor.addChild(bg);
+      this.drawStations(0.1);
+      this.drawWalls();
+      return;
+    }
     g.rect(0, 0, fw, fh).fill(hex(this.arena.theme.floor));
     for (let x = 0; x <= W; x += 1000) {
       const [sx] = this.px(x, 0);
@@ -264,22 +340,36 @@ export class BattleRenderer {
     g.stroke({ width: 1, color: 0x000000, alpha: 0.06 });
     g.rect(0, 0, fw, fh).stroke({ width: 4, color: OUTLINE });
     this.floor.addChild(g);
-    // Location signage painted on the floor, so viewers know where each scrap is happening.
+    this.drawStations(0.18);
+    this.drawWalls();
+  }
+
+  /** Location signage painted on the floor, so viewers know where each scrap is happening. */
+  private drawStations(fill: number): void {
     for (const st of this.arena.stations) {
       const [sx, sy] = this.px(st.at[0], st.at[1]);
-      const mark = new Graphics().ellipse(sx, sy, 2200 * this.scale, 2200 * this.scale * Y_SQUASH).fill({ color: 0xffffff, alpha: 0.18 }).stroke({ width: 2, color: hex(this.arena.theme.accent), alpha: 0.35 });
+      const k = this.depth(st.at[1]);
+      const mark = new Graphics().ellipse(sx, sy, 2200 * this.scale * k, 2200 * this.scale * this.ysq).fill({ color: 0xffffff, alpha: fill }).stroke({ width: 2, color: hex(this.arena.theme.accent), alpha: 0.35 });
       const label = new Text({ text: st.name.replace(/^the /i, '').toUpperCase(), style: { fontFamily: FONT, fontSize: Math.max(8, 420 * this.scale), fontWeight: '900', fill: hex(this.arena.theme.accent), letterSpacing: 1 }, resolution: 3 });
       label.alpha = 0.55;
       label.anchor.set(0.5, 0.5);
-      label.position.set(sx, sy + 1500 * this.scale * Y_SQUASH);
+      label.position.set(sx, sy + 1500 * this.scale * this.ysq);
       this.floor.addChild(mark, label);
     }
+  }
+
+  private drawWalls(): void {
     for (const [x, y, w, h] of this.arena.walls) {
       const wall = new Graphics() as Graphics & { isWall?: boolean };
       wall.isWall = true;
       const [x0, y0] = this.px(x, y);
       const [x1, y1] = this.px(x + w, y + h);
-      const lift = WALL_H * Z_LIFT * this.scale;
+      const lift = WALL_H * Z_LIFT * this.scale * this.depth(y + h);
+      if (drawWall(wall, this.arena.id, x0, y0, x1, y1, lift)) {
+        wall.zIndex = y + h;
+        this.bodies.addChild(wall);
+        continue;
+      }
       wall.rect(x0, y1 - lift, x1 - x0, lift).fill(hex(this.arena.theme.wall)).stroke({ width: 2, color: OUTLINE });
       wall.rect(x0, y0 - lift, x1 - x0, y1 - y0).fill(hex(this.arena.theme.accent)).stroke({ width: 2, color: OUTLINE });
       // Shelf goods: little coloured blocks so walls read as shelves/desks.
@@ -331,7 +421,9 @@ export class BattleRenderer {
     armFront.position.set(r * 0.55, -r * 1.95);
     const armG = new Graphics().roundRect(-r * 0.18, 0, r * 0.36, r * 1.05, r * 0.18).fill(armColor).stroke({ width: line * 0.8, color: OUTLINE });
     const hand = new Graphics().circle(0, r * 1.08, r * 0.2).fill(skin).stroke({ width: line * 0.6, color: OUTLINE });
-    const held = new Graphics();
+    const held = new Container();
+    const heldG = new Graphics();
+    held.addChild(heldG);
     held.position.set(0, r * 1.08);
     armFront.addChild(armG, held, hand);
     torso.addChild(armBack, body, armFront);
@@ -394,6 +486,7 @@ export class BattleRenderer {
       armBack,
       armFront,
       held,
+      heldG,
       head,
       face,
       feet,
@@ -431,6 +524,14 @@ export class BattleRenderer {
       emote,
       ragAt: 0,
       crawling: false,
+      move: null,
+      moveUntil: 0,
+      wasWinding: false,
+      repertoire: null,
+      lastMove: null,
+      lastMove2: null,
+      hitStyle: 'side',
+      depth: 1,
       lastEmote: '',
       kick: null,
       colors: { body: bodyColor, skin, hair },
@@ -496,16 +597,22 @@ export class BattleRenderer {
     const key = `${e.held}:${this.snapOf(e)?.held ?? ''}`;
     if (key === s.lastHeldKey) return;
     s.lastHeldKey = key;
-    s.held.clear();
+    s.heldG.clear();
+    for (const c of s.held.removeChildren(1)) c.destroy();
     if (e.held >= 0 && byId.get(e.held)) return; // carried props render themselves
     const item = this.snapOf(e)?.held;
     if (!item) return;
     const def = bundle.equipment.find((x) => x.id === item);
+    const len = r * ((def?.attack?.rangeMm ?? 1000) > 1500 ? 1.9 : 1.2);
+    const art = heldSprite(item, len * 1.25);
+    if (art) {
+      s.held.addChild(art);
+      return;
+    }
     const tags = def?.tags ?? [];
     const color = tags.includes('material:metal') ? 0x9ca3af : tags.includes('material:wood') ? 0x92400e : tags.includes('material:paper') ? 0xf8fafc : tags.includes('material:tech') ? 0x374151 : tags.includes('silly') ? 0xfacc15 : 0x475569;
-    const len = r * ((def?.attack?.rangeMm ?? 1000) > 1500 ? 1.9 : 1.2);
-    s.held.roundRect(-r * 0.14, -r * 0.1, r * 0.28, len, r * 0.1).fill(color).stroke({ width: 1, color: OUTLINE });
-    if (tags.includes('material:tech') || tags.includes('material:paper')) s.held.rect(-r * 0.35, len * 0.55, r * 0.7, len * 0.4).fill(color).stroke({ width: 1, color: OUTLINE });
+    s.heldG.roundRect(-r * 0.14, -r * 0.1, r * 0.28, len, r * 0.1).fill(color).stroke({ width: 1, color: OUTLINE });
+    if (tags.includes('material:tech') || tags.includes('material:paper')) s.heldG.rect(-r * 0.35, len * 0.55, r * 0.7, len * 0.4).fill(color).stroke({ width: 1, color: OUTLINE });
   }
 
   private setExpr(s: CharSprite, expr: Expr, ms: number): void {
@@ -563,10 +670,15 @@ export class BattleRenderer {
     const color = hex(def?.art.color ?? '#999999');
     const s: PropSprite = { root, g, area: -1, isArea, animated: isArea && ['prop.fire-patch', 'prop.sparks', 'prop.foam-cloud', 'prop.puddle-water', 'prop.flood', 'prop.oil-spill', 'prop.soda-spill'].includes(e.def), color, seed: e.id };
     if (isArea) {
-      root.scale.y = Y_SQUASH;
+      root.scale.y = this.ysq;
       this.areas.addChild(root);
     } else {
-      drawProp(g, e.def, e.r * this.scale, color, def?.art.shape === 'square');
+      // Item art when we have it (props read ~2.6× their collision radius), else the drawn version.
+      const art = propSprite(e.def, e.r * this.scale * 2.6);
+      if (art) {
+        g.ellipse(0, 0, e.r * this.scale * 1.1, e.r * this.scale * 0.45).fill({ color: 0x000000, alpha: 0.18 });
+        root.addChild(art);
+      } else drawProp(g, e.def, e.r * this.scale, color, def?.art.shape === 'square');
       this.bodies.addChild(root);
     }
     return s;
@@ -603,6 +715,8 @@ export class BattleRenderer {
         if (!s) this.props.set(e.id, (s = this.makeProp(e)));
         s.root.position.set(sx, sy);
         if (s.isArea) {
+          const dk = this.depth(y);
+          s.root.scale.set(dk, this.ysq * dk);
           if (s.animated || Math.abs(e.area - s.area) > 5) {
             drawArea(s.g, e.def, e.area * this.scale, s.color, t, s.seed);
             s.area = e.area;
@@ -610,7 +724,8 @@ export class BattleRenderer {
         } else {
           s.root.zIndex = y + (e.z > 0 ? 400 : 0);
           s.root.rotation = e.flying ? t * 12 : 0;
-          if (e.def === 'prop.floor-scrubber' || e.def === 'prop.robot-vacuum') s.root.scale.x = e.fx < 0 ? -1 : 1;
+          const dk = this.depth(y);
+          s.root.scale.set(isMover(e.def) && e.fx < 0 ? -dk : dk, dk);
           const live = e.statuses.includes('status.burning') || e.statuses.includes('status.electrified') || e.statuses.includes('status.live');
           s.root.alpha = live && Math.floor(t * 8) % 2 === 0 ? 0.7 : 1;
         }
@@ -625,6 +740,8 @@ export class BattleRenderer {
       s.y = sy;
       s.root.position.set(sx, sy);
       s.root.zIndex = y;
+      s.depth = this.depth(y);
+      s.root.scale.set(s.depth);
       if (e.state !== 'ko' && e.kind === 'char') {
         minX = Math.min(minX, sx);
         maxX = Math.max(maxX, sx);
@@ -633,6 +750,11 @@ export class BattleRenderer {
       }
       this.animateChar(s, e, t, byId);
       this.updateRagdoll(s, e, sx, sy, this.px(x, y, 0)[1], y, dtMs);
+      // Puppets and ragdolls draw in world coordinates: scale them about the character's anchor.
+      for (const c of [s.puppet?.root, s.ragG]) if (c) {
+        c.scale.set(s.depth);
+        c.position.set(sx * (1 - s.depth), sy * (1 - s.depth));
+      }
     }
     for (const [id, s] of this.chars) {
       if (!seenC.has(id)) {
@@ -814,19 +936,19 @@ export class BattleRenderer {
         p.armB = 2.7 - Math.sin(t * 20) * 0.2;
         p.elbowF = p.elbowB = 0;
       } else {
-        p.armF = -2.3;
-        p.elbowF = -0.9;
-        p.lean = -0.12;
+        // Pick the blow as the wind-up starts, so the wind-up telegraphs it.
+        if (!s.wasWinding || !s.move) s.move = this.pickMove(s, e);
+        MOVES[s.move].wind(p, r);
       }
     }
-    if (this.now < s.lungeUntil) {
-      const k = (s.lungeUntil - this.now) / 220;
-      p.offX = r * 0.6 * k;
-      p.armF = -1.55;
-      p.elbowF = 0;
-      p.lean = 0.2 * k;
-      p.legB = 0.35 * k;
-    }
+    s.wasWinding = st.winding;
+    let facing = f;
+    if (s.move && this.now < s.moveUntil) {
+      const def = MOVES[s.move];
+      def.strike(p, r, extension(1 - (s.moveUntil - this.now) / def.ms));
+    } else if (!st.winding) s.move = null;
+    // Spinning back kick: body turned away from the target for the whole move.
+    if (s.move && MOVES[s.move].turn) facing = -f;
     if (this.now < s.throwUntil) {
       const k = (s.throwUntil - this.now) / 320;
       p.armF = -2.9 + (1 - k) * 3.2;
@@ -835,11 +957,7 @@ export class BattleRenderer {
     }
     if (this.now < s.hitUntil) {
       const k = (s.hitUntil - this.now) / 300;
-      p.lean = -0.35 * k * (s.knockX >= 0 ? 1 : -1) * f;
-      p.armF = -1.4 * k - 0.1;
-      p.armB = 1.4 * k + 0.1;
-      p.offX = -r * 0.3 * k;
-      p.headRot = -0.3 * k;
+      hitPose(p, s.hitStyle, r, k, (s.knockX >= 0 ? 1 : -1) * f);
     }
     if (e.panicking && !st.down) {
       p.armF = -2.6 + Math.sin(t * 25) * 0.6;
@@ -857,10 +975,20 @@ export class BattleRenderer {
       p.armB += (Math.random() - 0.5) * 1.2;
       p.offX += (Math.random() - 0.5) * r * 0.4;
     } else if (e.statuses.includes('status.caffeinated')) p.offX += (Math.random() - 0.5) * r * 0.15;
-    pu.poseBlended(p, s.x, s.y, f, this.frameDt);
+    pu.poseBlended(p, s.x, s.y, facing, this.frameDt);
     s.held.position.set(pu.hand.x, pu.hand.y);
     s.held.rotation = pu.hand.rot;
-    s.held.scale.x = f;
+    s.held.scale.x = facing;
+  }
+
+  /** Next melee move from this character's repertoire (never the same one three times running). */
+  private pickMove(s: CharSprite, e: FrameEntity | undefined): Move {
+    if (!s.repertoire) s.repertoire = repertoire(s.career, s.personality, !!(e && this.snapOf(e)?.held));
+    let m = rand(s.repertoire);
+    if (m === s.lastMove && m === s.lastMove2) m = rand(s.repertoire);
+    s.lastMove2 = s.lastMove;
+    s.lastMove = m;
+    return m;
   }
 
   /**
@@ -1125,13 +1253,13 @@ export class BattleRenderer {
     const ring = (x: number, y: number, rad: number, life = 520) =>
       this.addShape((g, k) => {
         const p = 1 - k;
-        g.ellipse(x, y, rad * (0.2 + p * 0.8), rad * (0.2 + p * 0.8) * Y_SQUASH).fill({ color, alpha: 0.25 * k });
-        g.ellipse(x, y, rad * (0.2 + p * 0.8), rad * (0.2 + p * 0.8) * Y_SQUASH).stroke({ width: Math.max(2, 5 * k), color, alpha: k });
+        g.ellipse(x, y, rad * (0.2 + p * 0.8), rad * (0.2 + p * 0.8) * this.ysq).fill({ color, alpha: 0.25 * k });
+        g.ellipse(x, y, rad * (0.2 + p * 0.8), rad * (0.2 + p * 0.8) * this.ysq).stroke({ width: Math.max(2, 5 * k), color, alpha: k });
       }, life);
     switch (tg.type) {
       case 'cone': {
         if (!target) break;
-        const ang = Math.atan2((target.y - caster.y) * Y_SQUASH, target.x - caster.x);
+        const ang = Math.atan2((target.y - caster.y) * this.ysq, target.x - caster.x);
         const half = Math.acos(Math.max(-1, Math.min(1, (tg.coneCosBp ?? 7071) / 10000)));
         const R = tg.rangeMm * S;
         this.addShape((g, k) => {
@@ -1234,6 +1362,11 @@ export class BattleRenderer {
       case 'attack':
         if (A) {
           A.lungeUntil = this.now + 220;
+          if (A.puppet) {
+            if (!A.move) A.move = this.pickMove(A, ea);
+            A.moveUntil = this.now + MOVES[A.move].ms;
+            if (MOVES[A.move].hit === 'legs' || MOVES[A.move].turn) this.sfx.play('whoosh', 0.9);
+          }
           this.setExpr(A, 'angry', 450);
           this.bark(A, Math.random() < 0.5 && bundle.live[`job_${A.career}`] ? `job_${A.career}` : 'bark_attack', 0.14);
         }
@@ -1242,12 +1375,18 @@ export class BattleRenderer {
       case 'hit':
       case 'crit': {
         const crit = ev.type === 'crit';
-        if (ea?.def === 'prop.floor-scrubber' || ea?.def === 'prop.robot-vacuum') {
+        if (ea && isMover(ea.def)) {
           this.sfx.play('thud', 1.2);
           this.sfx.play('boing');
           if (B) this.bark(B, 'bark_mover', 0.9, { prop: nameOf(ea.def).toLowerCase() }, true);
         }
         if (B) {
+          // Flinch where the blow landed: uppercut snaps the head back, a low kick makes them hop.
+          B.hitStyle = A?.move ? MOVES[A.move].hit : ea?.kind === 'prop' ? 'head' : 'side';
+          if (A?.move && B.puppet) {
+            const style = MOVES[A.move].hit;
+            if (style === 'head' && A.move === 'uppercut') this.kick(B, 0, -B.r * 0.8);
+          }
           B.hitUntil = this.now + 300;
           B.flashUntil = this.now + 140;
           B.flashColor = 0xff6b6b;
@@ -1399,7 +1538,7 @@ export class BattleRenderer {
         }
         break;
       case 'hazardStart':
-        if (ev.s === 'hazard.floor-scrubber' || ev.s === 'hazard.robot-vacuum') {
+        if (isMover(ev.s.replace('hazard.', 'prop.'))) {
           this.announce(`⚠ ${nameOf(ev.s.replace('hazard.', 'prop.'))} incoming!`);
           this.sfx.play('alarm');
         }
@@ -1607,13 +1746,14 @@ export class BattleRenderer {
     const [W, H] = this.arena.sizeMm;
     const sw = this.app.screen.width;
     const sh = this.app.screen.height;
-    const fullW = W * this.scale;
-    const top = -WALL_H * Z_LIFT * this.scale;
-    const bottom = H * Y_SQUASH * this.scale;
+    const { x0: left, x1: right, y0: top, y1: bottom } = this.bounds;
+    const fullW = right - left;
+    void W;
+    void H;
     const decay = Math.exp(-dt / 2500);
     for (const c of this.chars.values()) c.heat *= decay;
     let tz = 1;
-    let tx = fullW / 2;
+    let tx = (left + right) / 2;
     let ty = (top + bottom) / 2;
     let speed = 600;
     const frame = (xs: CharSprite[], maxZ: number, pad: number) => {
@@ -1647,7 +1787,7 @@ export class BattleRenderer {
       }
       if (!this.compact && tz < 1.05) {
         tz = 1;
-        tx = fullW / 2;
+        tx = (left + right) / 2;
         ty = (top + bottom) / 2;
       }
     }
@@ -1658,7 +1798,7 @@ export class BattleRenderer {
     // Keep the view inside the arena (centre it when the arena is smaller than the view).
     const halfW = sw / 2 / this.cam.z;
     const halfH = sh / 2 / this.cam.z;
-    const cx = fullW < halfW * 2 ? fullW / 2 : Math.min(fullW - halfW, Math.max(halfW, this.cam.x));
+    const cx = fullW < halfW * 2 ? (left + right) / 2 : Math.min(right - halfW, Math.max(left + halfW, this.cam.x));
     const cy = bottom - top < halfH * 2 ? (top + bottom) / 2 : Math.min(bottom - halfH, Math.max(top + halfH, this.cam.y));
     this.shake = Math.max(0, this.shake - dt * 0.03);
     const jx = (Math.random() - 0.5) * this.shake;

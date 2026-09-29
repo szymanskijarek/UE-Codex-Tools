@@ -1,0 +1,422 @@
+{
+ "id": "arena.construction",
+ "sizeMm": [
+  22000,
+  10000
+ ],
+ "navCellMm": 500,
+ "walls": [
+  [
+   6200,
+   2600,
+   1800,
+   900
+  ],
+  [
+   14000,
+   2600,
+   1800,
+   900
+  ],
+  [
+   9800,
+   6200,
+   2400,
+   800
+  ]
+ ],
+ "spawns": {
+  "a": [
+   [
+    2000,
+    5000
+   ],
+   [
+    2000,
+    3200
+   ],
+   [
+    2000,
+    6800
+   ],
+   [
+    3200,
+    1800
+   ],
+   [
+    3200,
+    8200
+   ]
+  ],
+  "b": [
+   [
+    20000,
+    5000
+   ],
+   [
+    20000,
+    3200
+   ],
+   [
+    20000,
+    6800
+   ],
+   [
+    18800,
+    1800
+   ],
+   [
+    18800,
+    8200
+   ]
+  ],
+  "ffa": [
+   [
+    2500,
+    1800
+   ],
+   [
+    19500,
+    1800
+   ],
+   [
+    2500,
+    8200
+   ],
+   [
+    19500,
+    8200
+   ],
+   [
+    7500,
+    5000
+   ],
+   [
+    14500,
+    5000
+   ],
+   [
+    11000,
+    1500
+   ],
+   [
+    11000,
+    8600
+   ]
+  ]
+ },
+ "refereeSpawn": [
+  11000,
+  4200
+ ],
+ "props": [
+  {
+   "prop": "prop.scrap-metal",
+   "at": [
+    3600,
+    1800
+   ]
+  },
+  {
+   "prop": "prop.scrap-metal",
+   "at": [
+    18400,
+    1800
+   ]
+  },
+  {
+   "prop": "prop.cardboard-box",
+   "at": [
+    5200,
+    8400
+   ]
+  },
+  {
+   "prop": "prop.cardboard-box",
+   "at": [
+    16800,
+    8400
+   ]
+  },
+  {
+   "prop": "prop.gas-canister",
+   "at": [
+    2000,
+    8600
+   ]
+  },
+  {
+   "prop": "prop.gas-canister",
+   "at": [
+    20000,
+    8600
+   ]
+  },
+  {
+   "prop": "prop.fire-extinguisher",
+   "at": [
+    7400,
+    9300
+   ]
+  },
+  {
+   "prop": "prop.fire-extinguisher",
+   "at": [
+    14600,
+    9300
+   ]
+  },
+  {
+   "prop": "prop.wet-floor-sign",
+   "at": [
+    8200,
+    3600
+   ]
+  },
+  {
+   "prop": "prop.wet-floor-sign",
+   "at": [
+    13800,
+    3600
+   ]
+  },
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    6400,
+    5000
+   ]
+  },
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    15600,
+    5000
+   ]
+  },
+  {
+   "prop": "prop.garden-rake",
+   "at": [
+    9200,
+    7600
+   ]
+  },
+  {
+   "prop": "prop.garden-rake",
+   "at": [
+    12800,
+    7600
+   ]
+  },
+  {
+   "prop": "prop.power-strip",
+   "at": [
+    4400,
+    4200
+   ]
+  },
+  {
+   "prop": "prop.power-strip",
+   "at": [
+    17600,
+    4200
+   ]
+  },
+  {
+   "prop": "prop.scrap-metal",
+   "at": [
+    11000,
+    5000
+   ]
+  },
+  {
+   "prop": "prop.cake",
+   "at": [
+    11000,
+    8800
+   ]
+  },
+  {
+   "prop": "prop.shopping-trolley",
+   "at": [
+    11000,
+    1400
+   ]
+  }
+ ],
+ "hazards": [
+  {
+   "id": "hazard.falling-rebar",
+   "startTick": 350,
+   "everyTicks": 450,
+   "telegraphTicks": 35,
+   "region": [
+    3000,
+    1000,
+    16000,
+    8000
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.scrap-metal",
+     "count": 2,
+     "dropFromMm": 4000
+    }
+   }
+  },
+  {
+   "id": "hazard.cement-splash",
+   "startTick": 700,
+   "everyTicks": 600,
+   "telegraphTicks": 40,
+   "region": [
+    13000,
+    500,
+    7000,
+    3000
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.oil-spill",
+     "count": 1
+    },
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.slowed",
+      "durationTicks": 80
+     }
+    ]
+   }
+  },
+  {
+   "id": "hazard.lunch-break",
+   "startTick": 1000,
+   "everyTicks": 800,
+   "telegraphTicks": 30,
+   "region": [
+    6000,
+    3000,
+    10000,
+    4000
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.snack",
+     "count": 2
+    }
+   }
+  }
+ ],
+ "suddenDeath": {
+  "everyTicks": 200,
+  "region": [
+   0,
+   0,
+   22000,
+   10000
+  ],
+  "action": {
+   "spawn": {
+    "prop": "prop.scrap-metal",
+    "count": 2,
+    "dropFromMm": 5000
+   },
+   "effects": [
+    {
+     "type": "applyStatus",
+     "status": "status.stunned",
+     "durationTicks": 20
+    }
+   ]
+  }
+ },
+ "stations": [
+  {
+   "id": "scaffold",
+   "name": "the Scaffolding",
+   "at": [
+    3600,
+    2600
+   ]
+  },
+  {
+   "id": "mixer",
+   "name": "the Cement Mixer",
+   "at": [
+    18000,
+    2600
+   ]
+  },
+  {
+   "id": "slab",
+   "name": "the Fresh Slab",
+   "at": [
+    11000,
+    4800
+   ]
+  },
+  {
+   "id": "rebar-w",
+   "name": "the Rebar Pile",
+   "at": [
+    4400,
+    7600
+   ]
+  },
+  {
+   "id": "edge",
+   "name": "the Edge",
+   "at": [
+    17600,
+    7600
+   ]
+  }
+ ],
+ "movers": [
+  {
+   "id": "hazard.forklift",
+   "prop": "prop.forklift",
+   "path": [
+    [
+     500,
+     5000
+    ],
+    [
+     21500,
+     5000
+    ]
+   ],
+   "startTick": 550,
+   "telegraphTicks": 60,
+   "speedMm": 120,
+   "loop": false
+  },
+  {
+   "id": "hazard.forklift",
+   "prop": "prop.forklift",
+   "path": [
+    [
+     21500,
+     4200
+    ],
+    [
+     500,
+     4200
+    ]
+   ],
+   "startTick": 1500,
+   "telegraphTicks": 60,
+   "speedMm": 130,
+   "loop": false
+  }
+ ],
+ "theme": {
+  "floor": "#a69c90",
+  "wall": "#7c2d12",
+  "accent": "#f97316"
+ },
+ "unlock": {
+  "league": "intern"
+ }
+}

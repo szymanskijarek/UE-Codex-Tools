@@ -30,7 +30,8 @@ pnpm dev                        # worker on :8787, client on :5173 (proxied /api
   input record.
 - **Content** (`packages/content/data`): 36 careers (28 tier 1, 7 tier 2,
   1 tier 3), 134 abilities (incl. 10 grapples/throws), 95 career synergies (banter), 6 hidden masteries, 10 personalities, 12 traits,
-  43 items, 41 props, 27 interaction rules, 2 arenas (Supermarket, Office).
+  43 items, 42 props, 27 interaction rules, 6 arenas (Supermarket, Office,
+  Train Station, Diner, Construction Site, Warehouse) on painted backdrops.
 - **Commentary**: 21 moment detectors for the battle report, plus a live feed
   (~300 lines: ability-specific jokes, irony, location cuts) and ~180 fighter
   barks.

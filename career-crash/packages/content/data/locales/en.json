@@ -483,5 +483,10 @@
  "trait.referee-menace.name": "Referee Menace",
  "trait.team-medic.name": "Team Medic",
  "trait.trolley-pilot.name": "Trolley Pilot",
- "trait.veteran.name": "Veteran"
+ "trait.veteran.name": "Veteran",
+ "prop.forklift.name": "Forklift",
+ "arena.construction.name": "Construction Site",
+ "arena.diner.name": "Diner",
+ "arena.station.name": "Train Station",
+ "arena.warehouse.name": "Warehouse"
 }

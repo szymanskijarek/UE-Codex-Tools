@@ -216,6 +216,18 @@ const DRAWERS: Record<string, Drawer> = {
     g.circle(-u * 0.9, -u * 1.35, u * 0.12).fill(0xf97316).stroke({ width: 1, color: O });
     g.circle(u * 0.75, -u * 0.12, u * 0.2).circle(-u * 0.75, -u * 0.12, u * 0.2).fill(0x111827);
   },
+  'prop.forklift': (g, u) => {
+    shadow(g, u, 1.3);
+    // Counterweight body, cab cage, mast and forks sticking out front (the engine mirrors by heading).
+    g.roundRect(-u * 1.2, -u * 1.0, u * 1.7, u * 0.8, u * 0.18).fill(0xf59e0b).stroke({ width: ow(u), color: O });
+    g.rect(-u * 1.2, -u * 0.55, u * 1.7, u * 0.12).fill(0x111827);
+    g.moveTo(-u * 0.9, -u * 1.0).lineTo(-u * 0.9, -u * 2.0).lineTo(u * 0.3, -u * 2.0).lineTo(u * 0.3, -u * 1.0).stroke({ width: Math.max(1.5, u * 0.12), color: 0x111827 });
+    g.roundRect(-u * 0.75, -u * 1.55, u * 0.45, u * 0.5, u * 0.1).fill(0x111827);
+    g.rect(u * 0.5, -u * 2.3, u * 0.14, u * 2.1).fill(0x374151).stroke({ width: 1, color: O });
+    g.rect(u * 0.62, -u * 0.35, u * 0.9, u * 0.1).rect(u * 0.62, -u * 0.18, u * 0.9, u * 0.08).fill(0x9ca3af);
+    g.circle(-u * 0.9, -u * 0.15, u * 0.26).circle(u * 0.25, -u * 0.15, u * 0.22).fill(0x111827);
+    g.circle(-u * 1.05, -u * 2.08, u * 0.12).fill(0xf97316).stroke({ width: 1, color: O });
+  },
   'prop.robot-vacuum': (g, u) => {
     shadow(g, u, 1);
     g.ellipse(0, -u * 0.25, u * 1.0, u * 0.45).fill(0x374151).stroke({ width: ow(u), color: O });

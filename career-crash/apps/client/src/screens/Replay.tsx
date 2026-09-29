@@ -165,7 +165,7 @@ export function Replay({ battleId }: { battleId?: string }) {
                 e.type === 'refereeDown' ||
                 (e.type === 'landed' && e.v >= 14) ||
                 (e.type === 'hit' && e.s === 'body') ||
-                (e.type === 'hit' && player.world.byId.get(e.a)?.def === 'prop.floor-scrubber'),
+                (e.type === 'hit' && ['prop.floor-scrubber', 'prop.forklift'].includes(player.world.byId.get(e.a)?.def ?? '')),
             );
             if (big) {
               replayCountRef.current++;
