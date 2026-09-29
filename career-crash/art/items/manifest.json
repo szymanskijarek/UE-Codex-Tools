@@ -1,10 +1,106 @@
 {
- "diner-station": ["diner-tray", "coffee-pot", "ketchup", "diner-stool", "suitcase", "umbrella", "departures-board", "luggage-trolley"],
- "construction": ["pallet", "crate", "hard-hat", "paint-bucket", "road-barrier", "brick-pallet", "toolbox", "cable-spool"],
- "shop-office": ["tin-cans", "melon", "shopping-basket", "soda-crate", "office-chair", "desk-lamp", "paper-ream", "waste-bin"],
- "misc-a": ["speaker", "brick", "traffic-cone", "parcel", "mop-bucket", "plunger", "milk-jug", "hairspray"],
- "careers-a": ["rescue-tube", "kettlebell", "watering-can", "invisible-box", "blueprints", "desk-mic", "cushion", "megaphone"],
- "careers-b": ["news-mic", "cloche", "tinfoil-hat", "oxygen-tank", "apple", "rolling-pin", "hay-bale", "fire-hose"],
- "careers-c": ["board-brush", "cable-reel", "frying-pan", "taxi-sign", "first-aid-kit", "keyboard", "ring-light", "dental-mirror"],
- "careers-d": ["wrench", "pitchfork", "books", "binder", "fire-extinguisher", "velvet-rope", "notepad", "camera"]
+ "diner-station": [
+  "diner-tray",
+  "coffee-pot",
+  "ketchup",
+  "diner-stool",
+  "suitcase",
+  "umbrella",
+  "departures-board",
+  "luggage-trolley"
+ ],
+ "construction": [
+  "pallet",
+  "crate",
+  "hard-hat",
+  "paint-bucket",
+  "road-barrier",
+  "brick-pallet",
+  "toolbox",
+  "cable-spool"
+ ],
+ "shop-office": [
+  "tin-cans",
+  "melon",
+  "shopping-basket",
+  "soda-crate",
+  "office-chair",
+  "desk-lamp",
+  "paper-ream",
+  "waste-bin"
+ ],
+ "misc-a": [
+  "speaker",
+  "brick",
+  "traffic-cone",
+  "parcel",
+  "mop-bucket",
+  "plunger",
+  "milk-jug",
+  "hairspray"
+ ],
+ "careers-a": [
+  "rescue-tube",
+  "kettlebell",
+  "watering-can",
+  "invisible-box",
+  "blueprints",
+  "desk-mic",
+  "cushion",
+  "megaphone"
+ ],
+ "careers-b": [
+  "news-mic",
+  "cloche",
+  "tinfoil-hat",
+  "oxygen-tank",
+  "apple",
+  "rolling-pin",
+  "hay-bale",
+  "fire-hose"
+ ],
+ "careers-c": [
+  "board-brush",
+  "cable-reel",
+  "frying-pan",
+  "taxi-sign",
+  "first-aid-kit",
+  "keyboard",
+  "ring-light",
+  "dental-mirror"
+ ],
+ "careers-d": [
+  "wrench",
+  "pitchfork",
+  "books",
+  "binder",
+  "fire-extinguisher",
+  "velvet-rope",
+  "notepad",
+  "camera"
+ ],
+ "heavy-1": {
+  "cols": 3,
+  "px": 160,
+  "names": [
+   "beer-keg",
+   "pepper-grinder",
+   "sledgehammer",
+   "road-sign",
+   "wooden-pallet",
+   "rolled-carpet"
+  ]
+ },
+ "heavy-2": {
+  "cols": 3,
+  "px": 160,
+  "names": [
+   "frozen-salmon",
+   "sale-sign",
+   "coat-stand",
+   "novelty-cheque",
+   "platform-bench",
+   "platform-sign"
+  ]
+ }
 }

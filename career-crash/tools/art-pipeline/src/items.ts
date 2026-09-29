@@ -5,7 +5,9 @@
  *
  *   pnpm --filter @cc/art-pipeline items
  *
- * Item names per sheet, in reading order, live in art/items/manifest.json.
+ * Item names per sheet, in reading order, live in art/items/manifest.json —
+ * either a list, or { cols, px, names } for sheets with a different number of
+ * items per row or a different size in the atlas (heavy weapons: 3 per row, 160 px).
  * Each item is everything opaque in its cell (cells found from the gaps
  * between blobs), so multi-part items (a rope post, the mime's box) stay whole.
  */
@@ -36,10 +38,13 @@ interface Blob {
   cx: number;
   cy: number;
   area: number;
+  /** Label in the sheet's label map (pixels of this blob). */
+  id: number;
 }
 
-function blobs(data: Buffer, W: number, H: number): Blob[] {
+function blobs(data: Buffer, W: number, H: number, labels = new Int32Array(W * H)): Blob[] {
   const seen = new Uint8Array(W * H);
+  let next = 0;
   const stack = new Int32Array(W * H);
   const out: Blob[] = [];
   for (let s = 0; s < W * H; s++) {
@@ -47,9 +52,10 @@ function blobs(data: Buffer, W: number, H: number): Blob[] {
     let sp = 0;
     stack[sp++] = s;
     seen[s] = 1;
-    const b: Blob = { x0: W, y0: H, x1: 0, y1: 0, cx: 0, cy: 0, area: 0 };
+    const b: Blob = { x0: W, y0: H, x1: 0, y1: 0, cx: 0, cy: 0, area: 0, id: ++next };
     while (sp) {
       const p = stack[--sp]!;
+      labels[p] = b.id;
       const x = p % W;
       const y = (p / W) | 0;
       b.area++;
@@ -97,18 +103,22 @@ function groups<T>(items: T[], key: (t: T) => number, n: number): T[][] {
 }
 
 async function main(): Promise<void> {
-  const manifest = JSON.parse(readFileSync(join(SHEETS, 'manifest.json'), 'utf8')) as Record<string, string[]>;
+  const manifest = JSON.parse(readFileSync(join(SHEETS, 'manifest.json'), 'utf8')) as Record<string, string[] | { cols: number; px?: number; names: string[] }>;
   const pieces: { name: string; png: Buffer; w: number; h: number }[] = [];
-  for (const [sheet, names] of Object.entries(manifest)) {
+  for (const [sheet, entry] of Object.entries(manifest)) {
+    const names = Array.isArray(entry) ? entry : entry.names;
+    const cols = Array.isArray(entry) ? COLS : entry.cols;
+    const px = Array.isArray(entry) ? ITEM_PX : (entry.px ?? ITEM_PX);
     const file = join(SHEETS, `${sheet}.png`);
     if (!existsSync(file)) {
       console.warn(`✗ ${sheet}: missing ${file}`);
       continue;
     }
     const { data, info } = await sharp(file).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
-    const all = blobs(data, info.width, info.height);
+    const labels = new Int32Array(info.width * info.height);
+    const all = blobs(data, info.width, info.height, labels);
     const rows = groups(all, (b) => b.cy, 2);
-    const cells = rows.flatMap((row) => groups(row, (b) => b.cx, COLS));
+    const cells = rows.flatMap((row) => groups(row, (b) => b.cx, cols));
     if (cells.length !== names.length) {
       console.warn(`✗ ${sheet}: found ${cells.length} cells for ${names.length} names`);
       continue;
@@ -121,10 +131,21 @@ async function main(): Promise<void> {
       const y1 = Math.max(...c.map((b) => b.y1));
       const w = x1 - x0 + 1;
       const h = y1 - y0 + 1;
-      const k = ITEM_PX / Math.max(w, h);
+      const k = px / Math.max(w, h);
       const tw = Math.max(1, Math.round(w * k));
       const th = Math.max(1, Math.round(h * k));
-      const png = await sharp(file).extract({ left: x0, top: y0, width: w, height: h }).resize(tw, th, { kernel: 'lanczos3' }).png().toBuffer();
+      // Items can overlap each other's boxes (diagonal art): drop pixels that belong to another item.
+      const mine = new Set(c.map((b) => b.id));
+      const others = new Set(cells.flatMap((o, j) => (j === i ? [] : o.map((b) => b.id))));
+      const crop = Buffer.alloc(w * h * 4);
+      for (let yy = 0; yy < h; yy++)
+        for (let xx = 0; xx < w; xx++) {
+          const src = (y0 + yy) * info.width + x0 + xx;
+          const lab = labels[src]!;
+          if (lab && others.has(lab) && !mine.has(lab)) continue;
+          data.copy(crop, (yy * w + xx) * 4, src * 4, src * 4 + 4);
+        }
+      const png = await sharp(crop, { raw: { width: w, height: h, channels: 4 } }).resize(tw, th, { kernel: 'lanczos3' }).png().toBuffer();
       pieces.push({ name: names[i]!, png, w: tw, h: th });
     }
     console.log(`✓ ${sheet}: ${names.join(', ')}`);

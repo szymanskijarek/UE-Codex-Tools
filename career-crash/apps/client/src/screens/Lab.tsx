@@ -24,7 +24,11 @@ function holdIn(pu: Puppet, layer: Container, f: number, tool: boolean, draw: (c
   const g = new Graphics();
   g.rotation = -Math.PI / 2;
   c.addChild(g);
-  draw(c, g);
+  // Tools are mirrored back across their own axis when facing left, as in battle.
+  const inner = new Container();
+  if (tool) inner.scale.y = f;
+  c.addChild(inner);
+  draw(inner, g);
   c.position.set(pu.hand.x, pu.hand.y);
   // Same wrist bend as the battle renderer (gripRot).
   c.rotation = pu.hand.rot + (tool ? f * 1.9 * Math.max(0, f * Math.cos(pu.hand.rot + Math.PI / 2)) : 0);

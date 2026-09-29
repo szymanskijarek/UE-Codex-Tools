@@ -76,11 +76,13 @@ obstacles to atlas names; anything unmapped keeps its drawn fallback.
 
 ## Heavy weapons (two-handed)
 
-Twelve two-handed weapons (list and atlas names in 02 §5.2c): frozen-salmon,
-sale-sign, coat-stand, novelty-cheque, platform-bench, platform-sign, beer-keg,
-pepper-grinder, sledgehammer, road-sign, wooden-pallet, rolled-carpet. Paint
-them like the other items (same outline weight and palette), **upright, with
-the end you hold at the top** and the heavy end at the bottom, on the usual
-2 × 4 item sheets (`art/items/heavy-1.png`, `heavy-2.png`) with the names in
-`art/items/manifest.json`. They're shown both in a fighter's hands (rotated
-with the arms) and lying on the floor, so avoid a ground shadow in the art.
+Twelve two-handed weapons (list and atlas names in 02 §5.2c), on two sheets of
+2 × 3 (`art/items/heavy-1.png`, `heavy-2.png`; manifest entries use
+`{ "cols": 3, "px": 160, "names": [...] }` so they're sliced three per row and
+kept larger in the atlas). They can be painted at any angle: each one's grip
+point and head point on its art live in `HEAVY_GRIP` (client/replay/items.ts),
+and the sprite is anchored on the grip and turned so the head points away from
+the fists. Overlapping bounding boxes are fine — the slicer drops pixels that
+belong to a neighbouring item. Check them in the pose lab (`#/lab`). Signs are
+mirrored back across their own axis when a fighter faces left, so text stays
+readable.

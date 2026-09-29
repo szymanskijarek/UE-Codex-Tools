@@ -43,15 +43,36 @@ export const HEAVY_ART: Record<string, string> = {
   'prop.rolled-carpet': 'rolled-carpet',
 };
 
-/** Heavy weapon sprite in hand (grip at the top of the image), `len` px long; null until the art exists. */
+/**
+ * Where heavy weapons are held on their (diagonal) art: grip point and the far
+ * end of the business end, as fractions of the image. The sprite is anchored
+ * on the grip and turned so grip → head points across the fists (+x).
+ */
+const HEAVY_GRIP: Record<string, [number, number, number, number]> = {
+  'beer-keg': [0.55, 0.12, 0.4, 0.9],
+  'coat-stand': [0.2, 0.8, 0.7, 0.12],
+  'frozen-salmon': [0.65, 0.72, 0.2, 0.12],
+  'novelty-cheque': [0.12, 0.93, 0.6, 0.3],
+  'pepper-grinder': [0.6, 0.15, 0.4, 0.85],
+  'platform-bench': [0.2, 0.2, 0.8, 0.8],
+  'platform-sign': [0.35, 0.93, 0.62, 0.2],
+  'road-sign': [0.1, 0.93, 0.72, 0.2],
+  'rolled-carpet': [0.72, 0.1, 0.3, 0.88],
+  'sale-sign': [0.2, 0.92, 0.6, 0.3],
+  sledgehammer: [0.1, 0.94, 0.78, 0.13],
+  'wooden-pallet': [0.2, 0.2, 0.8, 0.8],
+};
+
+/** Heavy weapon sprite in hand, `len` px along its longest side; null until the art exists. */
 export function heavySprite(propId: string, len: number): Sprite | null {
-  const t = tex(HEAVY_ART[propId]);
+  const name = HEAVY_ART[propId];
+  const t = tex(name);
   if (!t) return null;
   const s = new Sprite(t);
   s.scale.set(len / Math.max(t.width, t.height));
-  s.anchor.set(0.5, 0.08);
-  // Art is upright with the grip at the top: turn the head end out across the fists.
-  s.rotation = -Math.PI / 2;
+  const [gu, gv, hu, hv] = HEAVY_GRIP[name!] ?? [0.5, 0.08, 0.5, 0.95];
+  s.anchor.set(gu, gv);
+  s.rotation = -Math.atan2((hv - gv) * t.height, (hu - gu) * t.width);
   return s;
 }
 

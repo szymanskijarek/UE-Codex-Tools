@@ -108,6 +108,8 @@ interface CharSprite {
   repFor: string;
   /** The item in hand is gripped like a tool (bends at the wrist through a swing). */
   heldTool: boolean;
+  /** Wrapper that mirrors tool art back across its own axis when facing left (keeps sign text readable). */
+  heldFlip: Container | null;
   wasWinding: boolean;
   repertoire: Move[] | null;
   lastMove: Move | null;
@@ -697,6 +699,7 @@ export class BattleRenderer {
       flightHint: null,
       repFor: '',
       heldTool: false,
+      heldFlip: null,
       wasWinding: false,
       repertoire: null,
       lastMove: null,
@@ -775,6 +778,7 @@ export class BattleRenderer {
     if (key === s.lastHeldKey) return;
     s.lastHeldKey = key;
     s.heldG.clear();
+    s.heldFlip = null;
     // Drawn stand-ins run along +y; turn them across the fist like the art.
     s.heldG.rotation = -Math.PI / 2;
     for (const c of s.held.children.slice(1)) c.destroy();
@@ -783,7 +787,7 @@ export class BattleRenderer {
       // Two-handed heavy weapon: drawn in the hands (the world prop hides while carried).
       const len = heavyLength(heavy, r);
       const art = heavySprite(heavy, len);
-      if (art) s.held.addChild(art);
+      if (art) s.held.addChild((s.heldFlip = this.flipWrap(art)));
       else drawHeavy(s.heldG, heavy, len);
       return;
     }
@@ -794,7 +798,7 @@ export class BattleRenderer {
     const len = r * ((def?.attack?.rangeMm ?? 1000) > 1500 ? 1.9 : 1.2);
     const art = heldSprite(item, len * 1.25);
     if (art) {
-      s.held.addChild(art);
+      s.held.addChild(s.heldTool ? (s.heldFlip = this.flipWrap(art)) : art);
       return;
     }
     const tags = def?.tags ?? [];
@@ -878,6 +882,15 @@ export class BattleRenderer {
         lying.rotation = -Math.PI / 2 + 0.25;
         const len = e.def === 'prop.weapon' ? u * 3.2 : u * 3.6;
         const art = e.def === 'prop.weapon' ? heldSprite(e.weapon, len) : heavySprite(e.def, len);
+        if (art && e.def !== 'prop.weapon') {
+          // Heavy weapon art is painted lying at an angle already: show it as painted.
+          art.rotation = 0;
+          art.anchor.set(0.5, 0.8);
+          art.scale.set(art.scale.x * 0.9);
+          root.addChild(art);
+          this.bodies.addChild(root);
+          return s;
+        }
         if (art) {
           // On the floor the art lies as painted (upright art turned onto its side), not in its grip pose.
           art.rotation = 0;
@@ -1262,6 +1275,7 @@ export class BattleRenderer {
     s.held.position.set(pu.hand.x, pu.hand.y);
     s.held.rotation = this.gripRot(s, pu.hand.rot, facing);
     s.held.scale.x = facing;
+    if (s.heldFlip) s.heldFlip.scale.y = facing;
   }
 
   /** Next melee move from this character's repertoire (never the same one three times running). */
@@ -1373,7 +1387,15 @@ export class BattleRenderer {
    * down or raised (wind-up), dipping forward past the fist as the arm extends
    * into a strike, like a hammer at impact.
    */
+  private flipWrap(art: Container): Container {
+    const c = new Container();
+    c.addChild(art);
+    return c;
+  }
+
   private gripRot(s: CharSprite, handRot: number, f: number): number {
+    // Keep tool art readable (not mirrored) whichever way they face.
+    if (s.heldFlip) s.heldFlip.scale.y = s.held.scale.x < 0 ? -1 : 1;
     if (!s.heldTool) return handRot;
     const theta = handRot + Math.PI / 2; // forearm direction
     const ext = Math.max(0, f * Math.cos(theta));
