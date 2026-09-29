@@ -1090,3 +1090,174 @@ button.locked {
     font-size: 0.8rem;
   }
 }
+
+/* Full-body previews, shop and match summary ------------------------------ */
+.puppet-view {
+  flex: none;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  background: radial-gradient(ellipse 45% 8% at 50% 94%, #0002 60%, transparent 62%);
+}
+
+.puppet-view canvas {
+  display: block;
+}
+
+.puppet-btn {
+  flex: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background: none;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+.puppet-btn:hover {
+  transform: none;
+}
+
+.squad-slot .puppet-view {
+  max-width: 100%;
+}
+
+.loadout-icons {
+  display: inline-flex;
+  gap: 2px;
+  font-size: 0.9rem;
+  vertical-align: middle;
+}
+
+.slots {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-top: 8px;
+}
+
+.slot-item {
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  min-height: 86px;
+  padding: 6px 4px;
+  border: 2px dashed #0005;
+  border-radius: 12px;
+  background: #0000000a;
+  box-shadow: none;
+  text-align: center;
+}
+
+.slot-item.full {
+  border: 2px solid var(--ink);
+  background: var(--card);
+}
+
+.slot-icon {
+  font-size: 1.6rem;
+  line-height: 1.2;
+}
+
+.stash {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.stash-item {
+  margin: 0;
+  padding: 4px 10px;
+  font-size: 0.9rem;
+  background: var(--card);
+}
+
+.shop-list {
+  display: grid;
+  gap: 6px;
+}
+
+.shop-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 0;
+  border-bottom: 1px dashed #0002;
+}
+
+.shop-item button {
+  margin: 0;
+  white-space: nowrap;
+}
+
+.shop-icon {
+  font-size: 1.8rem;
+  width: 2.2rem;
+  text-align: center;
+}
+
+.pay {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  align-items: baseline;
+}
+
+.pay span {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #0000000d;
+}
+
+.board {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin-bottom: 12px;
+  font-size: 0.9rem;
+}
+
+.board th,
+.board td {
+  padding: 4px 6px;
+  text-align: right;
+  border-bottom: 1px dashed #0002;
+  white-space: nowrap;
+}
+
+.board th.left {
+  width: 38%;
+}
+
+.board .left {
+  text-align: left;
+  white-space: normal;
+}
+
+.board td.left {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.board tr.out td {
+  opacity: 0.65;
+}
+
+@media (max-width: 560px) {
+  .board {
+    font-size: 0.75rem;
+  }
+
+  .board th,
+  .board td {
+    padding: 3px 2px;
+  }
+
+  .slot-item {
+    min-height: 72px;
+    font-size: 0.75rem;
+  }
+}

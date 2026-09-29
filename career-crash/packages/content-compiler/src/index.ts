@@ -146,6 +146,7 @@ export function compileContent(dataDir: string): CompileResult {
     names: names.data,
     live: live.data.templates,
     synergies: collections.synergies as ContentBundle['synergies'],
+    shopItems: collections.shopItems as ContentBundle['shopItems'],
   };
 
   errors.push(...validateBundle(bundle));
@@ -231,7 +232,7 @@ export function validateBundle(b: ContentBundle): string[] {
 
   // Effects anywhere in content must reference existing statuses/props.
   const refs = { statuses: new Set<string>(), props: new Set<string>() };
-  collectEffectRefs([b.statuses, b.abilities, b.props, b.rules, b.arenas, b.equipment, b.synergies], refs);
+  collectEffectRefs([b.statuses, b.abilities, b.props, b.rules, b.arenas, b.equipment, b.synergies, b.shopItems], refs);
   for (const s of refs.statuses) if (!statuses.has(s)) errors.push(`effect references unknown status ${s}`);
   for (const p of refs.props) if (!props.has(p)) errors.push(`effect references unknown prop ${p}`);
 
@@ -244,7 +245,11 @@ export function validateBundle(b: ContentBundle): string[] {
   const needKey = (k: string): void => {
     if (!(k in b.locale)) errors.push(`locale: missing key ${k}`);
   };
-  for (const coll of [b.statuses, b.abilities, b.careers, b.masteries, b.props, b.arenas, b.personalities, b.traits, b.equipment]) for (const x of coll) needKey(`${x.id}.name`);
+  for (const coll of [b.statuses, b.abilities, b.careers, b.masteries, b.props, b.arenas, b.personalities, b.traits, b.equipment, b.shopItems]) for (const x of coll) needKey(`${x.id}.name`);
+  for (const it of b.shopItems) {
+    needKey(`${it.id}.desc`);
+    if (it.kind === 'consumable' && (!it.trigger || !it.effects?.length)) errors.push(`${it.id}: consumables need a trigger and effects`);
+  }
   for (const c of b.careers) needKey(`${c.id}.desc`);
   for (const d of b.detectors) for (const t of d.templates) needKey(t);
   for (const l of b.economy.leagues) needKey(`league.${l.id}`);

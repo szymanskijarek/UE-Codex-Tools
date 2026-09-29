@@ -3,7 +3,7 @@ import type { ContentIndex } from './content';
 import type { Rng } from './core/rng';
 import type { NavGrid } from './systems/nav';
 
-export const SIM_VERSION = '0.7.0';
+export const SIM_VERSION = '0.8.0';
 export const TICKS_PER_SECOND = 20;
 export const MAX_TICKS = 2400;
 export const ENTITY_CAP = 256;
@@ -42,6 +42,8 @@ export interface CharacterSnapshot {
   unlocked?: string[];
   /** Reflex perks from skill trees, added on top of stats/career/personality. */
   defenseBonus?: { parryBp?: number; evadeBp?: number; dashBp?: number };
+  /** Up to 3 shop items taken into the fight (gear = stat bonus, consumables fire once). */
+  loadout?: string[];
 }
 
 export interface TeamSnapshot {
@@ -106,6 +108,7 @@ export type EventType =
   | 'wallBroken'
   | 'rivalry'
   | 'revenge'
+  | 'consume'
   | 'battleEnd';
 
 export interface BattleEvent {
@@ -278,6 +281,8 @@ export interface Entity {
   dashVy: number;
   /** Who put this character on the floor this fight (-1 none): they want payback. */
   grudgeId: number;
+  /** Consumables carried into the fight that haven't fired yet. */
+  consumables: string[];
 }
 
 export interface World {

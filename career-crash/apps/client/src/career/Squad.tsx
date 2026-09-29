@@ -1,14 +1,17 @@
+import { useState } from 'preact/hooks';
 import { bundle } from '@cc/content';
 import { careerRank, RANK_XP, RANKS, SQUAD_UNLOCK_RANK } from '@cc/game-rules';
 import { abilitySummary, nameOf } from '../i18n';
 import { navigate, notify } from '../state';
 import { Card, CareerChip, Portrait } from '../ui/components';
-import { RankBar, skillAlert } from './Career';
+import { PuppetView } from './PuppetView';
+import { Loadout, RankBar, skillAlert } from './Career';
 import { applicants, currentCareer, dismiss, hire, HIRE_COST, lineup, mainChar, rarityOf, ROSTER_CAP, squadUnlocked, toggleSquad, type CareerSave } from './model';
 
 /** Squad builder: hire applicants, choose the two teammates who fight with you, manage their skills. */
 export function SquadScreen({ save: s }: { save: CareerSave }) {
   const m = mainChar(s);
+  const [hype, setHype] = useState(1);
   if (!squadUnlocked(s)) {
     const cid = currentCareer(m);
     const need = RANK_XP[SQUAD_UNLOCK_RANK - 1]!;
@@ -48,8 +51,9 @@ export function SquadScreen({ save: s }: { save: CareerSave }) {
         <div class="squad-slots">
           {team.map((cc, i) => (
             <div class={`squad-slot ${cc.temp ? 'temp' : ''}`}>
-              <Portrait c={cc.c} size={56} />
+              <PuppetView careerId={cc.c.careers[cc.c.careers.length - 1]!} personality={cc.c.personality} appearance={cc.c.appearance} size={130} hype={cc.temp ? 0 : hype} flip={i > 0} />
               <b>{cc.c.name}</b>
+              {!cc.temp && <Loadout ids={cc.loadout} />}
               <span class="muted small">{i === 0 ? 'You' : cc.temp ? 'Agency temp' : `Lv ${cc.c.level} ${nameOf(currentCareer(cc))}`}</span>
             </div>
           ))}
@@ -126,7 +130,10 @@ export function SquadScreen({ save: s }: { save: CareerSave }) {
                   onClick={() => {
                     const err = hire(s, c);
                     if (err) notify(err, 'error');
-                    else notify(`${c.name} joins the team!`, 'good');
+                    else {
+                      notify(`${c.name} joins the team!`, 'good');
+                      setHype((h) => h + 1);
+                    }
                   }}
                 >
                   Hire · 💵 {HIRE_COST[rarity]}

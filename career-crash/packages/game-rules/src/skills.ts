@@ -124,6 +124,8 @@ export interface CareerChar {
   nodes: string[];
   /** Agency temp: filled in automatically, can't be customised. */
   temp?: boolean;
+  /** Up to 3 shop items taken into fights. */
+  loadout?: string[];
 }
 
 export function careerRank(cc: CareerChar, careerId: string): number {
@@ -181,7 +183,7 @@ export function careerSnapshot(bundle: ContentBundle, cc: CareerChar): Character
       defense.dashBp += n.defense?.dashBp ?? 0;
     }
   }
-  return { ...snap, stats, unlocked, defenseBonus: defense };
+  return { ...snap, stats, unlocked, defenseBonus: defense, loadout: (cc.loadout ?? []).slice(0, 3) };
 }
 
 // ---------------------------------------------------------------------------
@@ -302,6 +304,7 @@ export function opponentTeam(bundle: ContentBundle, seed: string, stage: number,
     const boss = info.boss && i === 0;
     const f = generatedFighter(bundle, rng, `opp-${seed}-${stage}-${i}`, info.level + diff.levelOffset + (boss ? 2 : 0), info.rank + diff.rankOffset + (boss ? 1 : 0), diff);
     for (const k of STAT_KEYS) f.c.stats[k] = Math.max(1, f.c.stats[k] + diff.statOffset);
+    f.loadout = aiLoadout(bundle, rng, diff, stage);
     out.push(f);
   }
   return out;
@@ -312,6 +315,8 @@ export function agencyTemp(bundle: ContentBundle, seed: string, slot: number, le
   const rng = Rng.fromSeed(`temp:${seed}:${slot}:${level}`);
   const t = generatedFighter(bundle, rng, `temp-${seed}-${slot}`, level, rank, difficulty('normal'));
   t.temp = true;
+  // The agency sends them with a packed lunch.
+  t.loadout = ['item.meal-deal'];
   return t;
 }
 
@@ -334,4 +339,42 @@ export function grow(bundle: ContentBundle, cc: CareerChar, xp: number): GrowthR
   const levelsGained = addXp(bundle.economy, cc.c, xp);
   cc.careerXp[career] = (cc.careerXp[career] ?? 0) + xp;
   return { id: cc.c.id, xp, levelsGained, rankBefore, rankAfter: careerRank(cc, career), career };
+}
+
+// ---------------------------------------------------------------------------
+// Economy (03 §3.6): fight pay and what opponents bring into a fight.
+// ---------------------------------------------------------------------------
+export const LOADOUT_SLOTS = 3;
+
+/** Which shop tier is on sale at a ladder stage. */
+export function shopTierAt(stage: number): number {
+  return stage >= 12 ? 3 : stage >= 5 ? 2 : 1;
+}
+
+/** Opponents shop too: more (and better) items on harder difficulties and later stages. */
+export function aiLoadout(bundle: ContentBundle, rng: Rng, diff: DifficultyDef, stage: number): string[] {
+  const [lo, hi] = diff.id === 'relaxed' ? [0, 1] : diff.id === 'normal' ? [1, 2] : diff.id === 'hard' ? [2, 3] : [3, 3];
+  const count = rng.range(lo, hi);
+  const pool = (bundle.shopItems ?? []).filter((i) => i.tier <= shopTierAt(stage)).map((i) => i.id);
+  const out: string[] = [];
+  for (let i = 0; i < count && pool.length; i++) out.push(pool[rng.int(pool.length)]!);
+  return out;
+}
+
+export interface FightPay {
+  base: number;
+  stage: number;
+  kos: number;
+  koCount: number;
+  multiplier: number;
+  total: number;
+}
+
+/** Cash for a fight: something for showing up, more for winning, a bonus per enemy knocked out. */
+export function fightPay(outcome: 'win' | 'draw' | 'loss', stage: number, koCount: number, diff: DifficultyDef): FightPay {
+  const base = outcome === 'win' ? 150 : outcome === 'draw' ? 70 : 40;
+  const stageBonus = outcome === 'win' ? stage * 12 : 0;
+  const kos = koCount * 30;
+  const multiplier = diff.rewardBp / 10000;
+  return { base, stage: stageBonus, kos, koCount, multiplier, total: Math.round((base + stageBonus + kos) * multiplier) };
 }

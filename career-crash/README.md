@@ -48,6 +48,13 @@ pnpm dev                        # worker on :8787, client on :5173 (proxied /api
 - **Tooling**: balance reports, replay CLI + 16 golden replays, art prompt
   generator and style guide, character-sheet slicer (`pnpm --filter @cc/art-pipeline puppets`), CI workflow.
 
+## Career mode (v0.9)
+
+Create a fighter, climb the ladder, spend stat and skill points, hire a squad at
+Senior rank, and spend fight pay in the Corner Shop: each fighter packs up to 3
+items — consumables that fire at kick-off or at low HP, and gear that adds a
+little to their stats. Opponents carry items too (03 §3.6).
+
 ## Checks
 
 ```bash

@@ -1,0 +1,16 @@
+[
+  {"id": "item.meal-deal", "kind": "consumable", "price": 60, "icon": "🥪", "tier": 1, "trigger": {"when": "hpBelow", "hpBp": 4500}, "effects": [{"type": "applyStatus", "status": "status.regen", "durationTicks": 160}], "art": "diner-tray"},
+  {"id": "item.cigarettes", "kind": "consumable", "price": 45, "icon": "🚬", "tier": 1, "trigger": {"when": "start"}, "effects": [{"type": "applyStatus", "status": "status.buzzed", "durationTicks": 500}]},
+  {"id": "item.energy-drink", "kind": "consumable", "price": 40, "icon": "🥤", "tier": 1, "trigger": {"when": "start"}, "effects": [{"type": "applyStatus", "status": "status.caffeinated", "durationTicks": 300}]},
+  {"id": "item.protein-bar", "kind": "consumable", "price": 55, "icon": "🍫", "tier": 2, "trigger": {"when": "hpBelow", "hpBp": 6000}, "effects": [{"type": "applyStatus", "status": "status.pumped", "durationTicks": 220}]},
+  {"id": "item.painkillers", "kind": "consumable", "price": 70, "icon": "💊", "tier": 2, "trigger": {"when": "hpBelow", "hpBp": 3000}, "effects": [{"type": "applyStatus", "status": "status.numb", "durationTicks": 220}]},
+  {"id": "item.smelling-salts", "kind": "consumable", "price": 95, "icon": "🧂", "tier": 3, "trigger": {"when": "hpBelow", "hpBp": 1500}, "effects": [{"type": "heal", "amount": 45}, {"type": "applyStatus", "status": "status.inspired", "durationTicks": 160}]},
+  {"id": "item.steel-toe-boots", "kind": "gear", "price": 220, "icon": "🥾", "tier": 1, "statMods": {"strength": 1, "health": 1}},
+  {"id": "item.hi-vis-vest", "kind": "gear", "price": 180, "icon": "🦺", "tier": 1, "statMods": {"awareness": 2}},
+  {"id": "item.lucky-socks", "kind": "gear", "price": 150, "icon": "🧦", "tier": 1, "statMods": {"luck": 2}},
+  {"id": "item.company-lanyard", "kind": "gear", "price": 150, "icon": "🪪", "tier": 1, "statMods": {"confidence": 2}},
+  {"id": "item.comfy-trainers", "kind": "gear", "price": 240, "icon": "👟", "tier": 2, "statMods": {"speed": 2}},
+  {"id": "item.reading-glasses", "kind": "gear", "price": 160, "icon": "👓", "tier": 2, "statMods": {"intelligence": 2}},
+  {"id": "item.thermos", "kind": "gear", "price": 170, "icon": "🧉", "tier": 2, "statMods": {"recovery": 2}},
+  {"id": "item.gym-gloves", "kind": "gear", "price": 260, "icon": "🥊", "tier": 3, "statMods": {"strength": 1, "throwing": 2}}
+]

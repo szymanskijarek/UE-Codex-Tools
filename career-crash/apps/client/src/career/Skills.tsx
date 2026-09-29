@@ -4,6 +4,7 @@ import { allocatePoints, careerRank, pointsLeft, RANKS, skillPointsAt, skillTree
 import { abilitySummary, nameOf } from '../i18n';
 import { navigate, notify } from '../state';
 import { Card, CareerChip, Portrait } from '../ui/components';
+import { PuppetView } from './PuppetView';
 import { RankBar, StatBars } from './Career';
 import { pickCareer, save, type CareerSave } from './model';
 
@@ -22,6 +23,7 @@ function nodeDesc(n: SkillNode): string {
 export function SkillsScreen({ save: s, id }: { save: CareerSave; id: string }) {
   const cc = s.chars[id];
   const [tab, setTab] = useState(0);
+  const [hype, setHype] = useState(1);
   if (!cc) {
     return (
       <section>
@@ -47,6 +49,7 @@ export function SkillsScreen({ save: s, id }: { save: CareerSave; id: string }) 
     if (err) notify(err, 'error');
     else {
       notify(`${nodeTitle(n)} unlocked!`, 'good');
+      setHype((h) => h + 1);
       save({ ...s });
     }
   };
@@ -57,7 +60,7 @@ export function SkillsScreen({ save: s, id }: { save: CareerSave; id: string }) 
         ← {id === s.mainId ? 'Career' : 'Squad'}
       </button>
       <div class="row hero">
-        <Portrait c={cc.c} size={80} />
+        <PuppetView careerId={cc.c.careers[cc.c.careers.length - 1]!} personality={cc.c.personality} appearance={cc.c.appearance} size={140} hype={hype} />
         <div class="grow">
           <h1>{cc.c.name}</h1>
           <div class="muted">

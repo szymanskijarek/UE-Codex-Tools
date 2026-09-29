@@ -36,6 +36,8 @@ v0.7 additions: hit stop + impact flash on big hits; destructible, toppling obst
 
 v0.8 additions: offline career mode in the client (character creation, ladder, results, stat/skill spending, career milestones), generated per-career skill trees with ranks (03 §3.4), difficulty levels where opponents only have the skills their rank/difficulty allows (03 §3.5), squad builder unlocked at Senior rank.
 
+v0.9 additions: fight pay (win, stage and KO bonuses), the Corner Shop with consumables and gear, 3-item loadouts used by the player and the AI (03 §3.6), full-body animated character previews with per-character idles and a selection animation, and a post-fight match summary.
+
 ---
 
 ## 1. How agents work on this project

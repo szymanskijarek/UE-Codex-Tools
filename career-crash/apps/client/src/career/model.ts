@@ -10,6 +10,9 @@ import {
   chooseCareer,
   difficulty,
   ensureRoots,
+  fightPay,
+  LOADOUT_SLOTS,
+  shopTierAt,
   evaluateTraits,
   generateRecruit,
   grow,
@@ -22,6 +25,7 @@ import {
   type CareerChar,
   type Character,
   type DifficultyId,
+  type FightPay,
   type GrowthReport,
 } from '@cc/game-rules';
 import { Rng, SIM_VERSION, simulate, type BattleInput } from '@cc/sim';
@@ -47,12 +51,31 @@ export interface CareerSave {
   last: FightSummary | null;
   wins: number;
   losses: number;
+  /** Shop items owned but not equipped (count per item id). */
+  inventory: Record<string, number>;
+}
+
+/** One line of the post-fight board. */
+export interface BoardRow {
+  name: string;
+  team: number;
+  career: string;
+  appearance: Character['appearance'];
+  dealt: number;
+  taken: number;
+  kos: number;
+  downs: number;
+  state: 'active' | 'downed' | 'ko';
+  mvp: boolean;
+  used: string[];
 }
 
 export interface FightSummary {
   stage: number;
   outcome: 'win' | 'draw' | 'loss';
   cash: number;
+  pay: FightPay;
+  board: BoardRow[];
   growth: (GrowthReport & { name: string; newTraits: string[]; milestone: boolean })[];
   unlockedSquad: boolean;
 }
@@ -70,7 +93,14 @@ function load(): CareerSave | null {
   }
 }
 
-export const career = signal<CareerSave | null>(load());
+function migrate(s: CareerSave | null): CareerSave | null {
+  if (!s) return s;
+  s.inventory ??= {};
+  for (const c of Object.values(s.chars)) c.loadout ??= [];
+  return s;
+}
+
+export const career = signal<CareerSave | null>(migrate(load()));
 
 export function save(s: CareerSave): void {
   career.value = { ...s };
@@ -127,6 +157,7 @@ export function startCareer(main: Character, diff: DifficultyId): void {
     last: null,
     wins: 0,
     losses: 0,
+    inventory: { 'item.meal-deal': 1 },
   };
   save(s);
 }
@@ -174,10 +205,21 @@ export function collectResults(s: CareerSave): CareerSave {
   const wasUnlocked = squadUnlocked(s);
   const rel = relationshipDeltas(out.result, out.events);
   const growth: FightSummary['growth'] = [];
+  // Consumables that fired are gone; unused ones stay packed.
+  const used = new Map<number, string[]>();
+  for (const e of out.events) if (e.type === 'consume') used.set(e.a, [...(used.get(e.a) ?? []), e.s]);
+  const board: BoardRow[] = out.result.characters.map((r) => {
+    const snap = input.teams[r.team]!.characters.find((c) => c.id === r.snapshotId)!;
+    return { name: r.name, team: r.team, career: snap.careers[snap.careers.length - 1]!, appearance: snap.appearance, dealt: r.counters.damageDealt, taken: r.counters.damageTaken, kos: r.counters.kos, downs: r.counters.downs, state: r.state, mvp: out.result.mvp === r.entityId, used: used.get(r.entityId) ?? [] };
+  });
   for (const r of out.result.characters) {
     if (r.team !== 0) continue;
     const cc = s.chars[r.snapshotId];
     if (!cc) continue; // agency temps don't persist
+    for (const itemId of used.get(r.entityId) ?? []) {
+      const i = (cc.loadout ?? []).indexOf(itemId);
+      if (i >= 0) cc.loadout!.splice(i, 1);
+    }
     const mvp = out.result.mvp === r.entityId;
     const xp = Math.round((battleXp(bundle.economy, outcome, r.counters.kos, mvp, false) * diff.rewardBp) / 10000);
     const g = grow(bundle, cc, xp);
@@ -188,8 +230,9 @@ export function collectResults(s: CareerSave): CareerSave {
     if (milestone && !cc.c.pendingOffer) cc.c.pendingOffer = careerOffers(bundle, cc.c, bundle.careers.filter((x) => !x.deprecated).map((x) => x.id), `${s.seed}:${cc.c.id}:${cc.c.level}`);
     growth.push({ ...g, name: cc.c.name, newTraits, milestone });
   }
-  const base = outcome === 'win' ? 120 + stage * 20 : outcome === 'draw' ? 60 : 40;
-  const cash = Math.round((base * diff.rewardBp) / 10000);
+  const teamKos = out.result.characters.filter((r) => r.team === 0).reduce((n, r) => n + r.counters.kos, 0);
+  const pay = fightPay(outcome, stage, teamKos, diff);
+  const cash = pay.total;
   const next: CareerSave = {
     ...s,
     stage: outcome === 'win' ? stage + 1 : stage,
@@ -200,7 +243,7 @@ export function collectResults(s: CareerSave): CareerSave {
     applicants: outcome === 'win' ? [] : s.applicants,
     last: null,
   };
-  next.last = { stage, outcome, cash, growth, unlockedSquad: !wasUnlocked && squadUnlocked(next) };
+  next.last = { stage, outcome, cash, pay, board, growth, unlockedSquad: !wasUnlocked && squadUnlocked(next) };
   save(next);
   return next;
 }
@@ -249,8 +292,11 @@ export function toggleSquad(s: CareerSave, id: string): string | null {
 export function dismiss(s: CareerSave, id: string): void {
   if (id === s.mainId) return;
   const chars = { ...s.chars };
+  // Whatever they had packed goes back into the stockroom.
+  const inventory = { ...s.inventory };
+  for (const itemId of chars[id]?.loadout ?? []) inventory[itemId] = (inventory[itemId] ?? 0) + 1;
   delete chars[id];
-  save({ ...s, chars, squad: s.squad.filter((x) => x !== id) });
+  save({ ...s, chars, inventory, squad: s.squad.filter((x) => x !== id) });
 }
 
 export function pickCareer(s: CareerSave, charId: string, careerId: string): string | null {
@@ -262,4 +308,46 @@ export function pickCareer(s: CareerSave, charId: string, careerId: string): str
   ensureRoots(bundle, cc);
   save({ ...s });
   return null;
+}
+
+// ---------------------------------------------------------------------------
+// Shop & loadouts
+// ---------------------------------------------------------------------------
+export function shopStock(s: CareerSave) {
+  return (bundle.shopItems ?? []).filter((i) => i.tier <= shopTierAt(s.stage)).sort((a, b) => (a.kind === b.kind ? a.price - b.price : a.kind === 'consumable' ? -1 : 1));
+}
+
+export function owned(s: CareerSave, itemId: string): number {
+  const packed = Object.values(s.chars).reduce((n, c) => n + (c.loadout ?? []).filter((x) => x === itemId).length, 0);
+  return (s.inventory[itemId] ?? 0) + packed;
+}
+
+export function buy(s: CareerSave, itemId: string): string | null {
+  const item = bundle.shopItems.find((i) => i.id === itemId);
+  if (!item) return 'Unknown item';
+  if (s.cash < item.price) return `Needs $${item.price}`;
+  if (item.kind === 'gear' && owned(s, itemId) >= Object.keys(s.chars).length) return 'You already have one for everyone';
+  save({ ...s, cash: s.cash - item.price, inventory: { ...s.inventory, [itemId]: (s.inventory[itemId] ?? 0) + 1 } });
+  return null;
+}
+
+export function equip(s: CareerSave, charId: string, itemId: string): string | null {
+  const cc = s.chars[charId];
+  if (!cc) return 'Unknown character';
+  cc.loadout ??= [];
+  if (cc.loadout.length >= LOADOUT_SLOTS) return `Only ${LOADOUT_SLOTS} items per fighter`;
+  if ((s.inventory[itemId] ?? 0) <= 0) return 'None left — buy one in the shop';
+  const item = bundle.shopItems.find((i) => i.id === itemId);
+  if (item?.kind === 'gear' && cc.loadout.includes(itemId)) return 'Already wearing one';
+  cc.loadout.push(itemId);
+  save({ ...s, inventory: { ...s.inventory, [itemId]: s.inventory[itemId]! - 1 } });
+  return null;
+}
+
+export function unequip(s: CareerSave, charId: string, slot: number): void {
+  const cc = s.chars[charId];
+  const itemId = cc?.loadout?.[slot];
+  if (!cc || !itemId) return;
+  cc.loadout!.splice(slot, 1);
+  save({ ...s, inventory: { ...s.inventory, [itemId]: (s.inventory[itemId] ?? 0) + 1 } });
 }

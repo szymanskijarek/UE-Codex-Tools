@@ -1382,6 +1382,23 @@
    "Who put that there?!",
    "Ow, shelf!",
    "Not the merchandise!"
+  ],
+  "consume": [
+   "{a} cracks open a {item} mid-fight.",
+   "{a} reaches for the {item}. Refuel!",
+   "Quick {item} break for {a}.",
+   "{a} goes for the {item}. Bold choice."
+  ],
+  "consume_start": [
+   "{a} starts with a {item}. Professional.",
+   "{a} fuels up with a {item} before the bell."
+  ],
+  "bark_consume": [
+   "Snack time!",
+   "Hold on, I need this.",
+   "Don't mind me.",
+   "Lunch break!",
+   "Ahh, that's the stuff."
   ]
  }
 }

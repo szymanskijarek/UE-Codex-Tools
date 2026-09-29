@@ -1,7 +1,7 @@
 import { clamp, dist } from '../core/math';
 import type { World } from '../types';
 import { derived, emit } from '../world';
-import { dropHeld, knockOut } from './effects';
+import { applyEffect, dropHeld, knockOut } from './effects';
 
 /** Energy regen, morale drift and panic, downed timers (02 §5.4–5.5). */
 export function resources(w: World): void {
@@ -32,6 +32,26 @@ export function resources(w: World): void {
       dropHeld(w, e, e.lastCause);
     } else if (e.panicking && e.morale >= 25) {
       e.panicking = false;
+    }
+  }
+}
+
+/**
+ * Shop consumables (03 §3.6): each fires once — at kick-off, or the first time
+ * its owner drops below the item's HP threshold.
+ */
+export function useConsumables(w: World): void {
+  for (const e of w.entities) {
+    if (e.kind !== 'char' || e.removed || e.state !== 'active' || e.consumables.length === 0) continue;
+    for (let i = e.consumables.length - 1; i >= 0; i--) {
+      const item = w.content.shopItems.get(e.consumables[i]!);
+      const trig = item?.trigger;
+      if (!item || !trig) continue;
+      const fire = trig.when === 'start' ? w.tick === 2 : e.hp * 10000 < e.maxHp * (trig.hpBp ?? 5000);
+      if (!fire) continue;
+      e.consumables.splice(i, 1);
+      const ev = emit(w, 'consume', e.id, e.id, trig.when === 'start' ? 0 : 1, item.id, -1);
+      for (const eff of item.effects ?? []) applyEffect(w, eff, e, { sourceId: e.id, cause: ev, powerBp: 10000, scale: 'none' });
     }
   }
 }

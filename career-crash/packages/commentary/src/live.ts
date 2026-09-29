@@ -229,6 +229,8 @@ export class LiveCommentator {
         return this.make(e.t, 'rivalry', 3, base, [e.a, e.b]);
       case 'revenge':
         return this.make(e.t, 'revenge', 3, base, [e.a, e.b]);
+      case 'consume':
+        return this.make(e.t, e.v === 0 ? 'consume_start' : 'consume', e.v === 0 ? 1 : 2, { ...base, item: this.nm(e.s) }, [e.a]);
       case 'parry':
         return this.make(e.t, 'parry', 2, base, [e.a, e.b]);
       case 'evade':

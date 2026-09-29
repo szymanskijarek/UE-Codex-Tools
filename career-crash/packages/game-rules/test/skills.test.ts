@@ -1,9 +1,11 @@
 import { bundle } from '@cc/content';
-import { createBattle, Rng } from '@cc/sim';
+import { createBattle, Rng, step, type BattleInput } from '@cc/sim';
 import { describe, expect, it } from 'vitest';
 import {
   careerSnapshot,
+  aiLoadout,
   difficulty,
+  fightPay,
   ensureRoots,
   generateRecruit,
   grow,
@@ -83,5 +85,66 @@ describe('career skill trees', () => {
     expect(skills('hard')).toBeLessThan(skills('brutal'));
     const lvl = (id: 'relaxed' | 'brutal') => opponentTeam(bundle, 'seed', 6, difficulty(id), 3)[0]!.c.level;
     expect(lvl('brutal')).toBeGreaterThan(lvl('relaxed'));
+  });
+});
+
+describe('items and pay', () => {
+  function duel(loadout: string[]): { input: BattleInput; cc: CareerChar } {
+    const cc = fresh();
+    cc.loadout = loadout;
+    const input: BattleInput = {
+      schemaVersion: 1,
+      contentHash: bundle.hash,
+      simVersion: '0',
+      seed: 'items',
+      arenaId: 'arena.office',
+      mode: 'duel_3v3',
+      teams: [
+        { playerId: 'a', playerName: 'A', rating: 1000, characters: [careerSnapshot(bundle, cc)] },
+        { playerId: 'b', playerName: 'B', rating: 1000, characters: [careerSnapshot(bundle, fresh('career.chef'))] },
+      ],
+      modifiers: [],
+    };
+    return { input, cc };
+  }
+
+  it('gear raises stats and only the first three items are carried', () => {
+    const plain = createBattle(duel([]).input, bundle).world.entities.find((e) => e.team === 0 && e.kind === 'char')!;
+    const { input } = duel(['item.steel-toe-boots', 'item.hi-vis-vest', 'item.meal-deal', 'item.cigarettes']);
+    expect(input.teams[0]!.characters[0]!.loadout).toHaveLength(3);
+    const geared = createBattle(input, bundle).world.entities.find((e) => e.team === 0 && e.kind === 'char')!;
+    expect(geared.stats!.strength).toBe(plain.stats!.strength + 1);
+    expect(geared.stats!.awareness).toBe(plain.stats!.awareness + 2);
+    expect(geared.consumables).toEqual(['item.meal-deal']);
+  });
+
+  it('kick-off consumables fire at the start, others at their HP threshold', () => {
+    const b = createBattle(duel(['item.cigarettes', 'item.meal-deal']).input, bundle);
+    const me = b.world.entities.find((e) => e.team === 0 && e.kind === 'char')!;
+    for (let i = 0; i < 5; i++) step(b.world);
+    const used = () => b.world.events.filter((e) => e.type === 'consume' && e.a === me.id).map((e) => e.s);
+    expect(used()).toEqual(['item.cigarettes']);
+    expect(me.statuses.some((st) => st.id === 'status.buzzed')).toBe(true);
+    me.hp = Math.floor(me.maxHp * 0.3);
+    step(b.world);
+    expect(used()).toEqual(['item.cigarettes', 'item.meal-deal']);
+    expect(me.consumables).toEqual([]);
+  });
+
+  it('AI opponents pack more items on harder difficulties', () => {
+    const count = (id: 'relaxed' | 'brutal') => {
+      let n = 0;
+      for (let i = 0; i < 20; i++) n += aiLoadout(bundle, Rng.fromSeed(`ai${i}`), difficulty(id), 8).length;
+      return n;
+    };
+    expect(count('brutal')).toBeGreaterThan(count('relaxed'));
+    expect(opponentTeam(bundle, 'seed', 6, difficulty('brutal'), 3).every((c) => (c.loadout ?? []).length === 3)).toBe(true);
+  });
+
+  it('pays more for a win and for each KO', () => {
+    const d = difficulty('normal');
+    expect(fightPay('win', 0, 0, d).total).toBeGreaterThan(fightPay('loss', 0, 0, d).total);
+    expect(fightPay('win', 0, 2, d).total - fightPay('win', 0, 0, d).total).toBe(60);
+    expect(fightPay('win', 5, 0, d).total).toBeGreaterThan(fightPay('win', 0, 0, d).total);
   });
 });

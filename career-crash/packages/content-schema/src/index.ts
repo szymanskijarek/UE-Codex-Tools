@@ -440,6 +440,7 @@ export interface ContentBundle {
   /** Live commentary templates by event kind (02 §11). */
   live: Record<string, string[]>;
   synergies: SynergyDef[];
+  shopItems: ShopItemDef[];
 }
 
 export const liveSchema = z.object({ templates: z.record(z.string(), z.array(z.string()).min(1)) });
@@ -457,6 +458,26 @@ export const synergySchema = z.object({
 });
 export type SynergyDef = z.infer<typeof synergySchema>;
 
+/**
+ * Things you can buy and take into a fight (up to 3 per fighter, 03 §3.6).
+ * Consumables fire once, at kick-off or when HP drops below a threshold;
+ * gear gives small permanent stat bonuses.
+ */
+export const shopItemSchema = z.object({
+  id: ref('item'),
+  kind: z.enum(['consumable', 'gear']),
+  price: int.min(0),
+  icon: z.string().max(8),
+  /** Shop tier: 1 from the start, 2 from stage 5, 3 from stage 12 (AI loadouts follow the same). */
+  tier: int.min(1).max(3),
+  trigger: z.object({ when: z.enum(['start', 'hpBelow']), hpBp: bp.optional() }).optional(),
+  effects: z.array(effectSchema).optional(),
+  statMods: statModsSchema.optional(),
+  /** Sprite name in the client's item atlas, if any. */
+  art: z.string().optional(),
+});
+export type ShopItemDef = z.infer<typeof shopItemSchema>;
+
 export const namesSchema = z.object({ first: z.array(z.string()).min(10), last: z.array(z.string()).min(10) });
 
 /** Maps content folder → schema. Order matters only for error messages. */
@@ -473,6 +494,7 @@ export const COLLECTIONS = {
   equipment: equipmentSchema,
   detectors: detectorSchema,
   synergies: synergySchema,
+  shopItems: shopItemSchema,
 } as const;
 export type CollectionName = keyof typeof COLLECTIONS;
 

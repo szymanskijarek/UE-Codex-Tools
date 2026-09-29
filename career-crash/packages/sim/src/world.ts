@@ -139,6 +139,7 @@ function blankEntity(id: number, kind: Entity['kind'], def: string): Entity {
     dashVx: 0,
     dashVy: 0,
     grudgeId: -1,
+    consumables: [],
   };
 }
 
@@ -327,6 +328,13 @@ function spawnCharacter(w: World, snap: CharacterSnapshot, team: number, x: numb
   const c = w.content;
   const e = blankEntity(w.nextId++, 'char', snap.careers[snap.careers.length - 1] ?? 'char');
   const stats = finalStats(c, snap);
+  // Gear from the shop: small permanent bonuses. Consumables wait for their trigger.
+  for (const itemId of (snap.loadout ?? []).slice(0, 3)) {
+    const item = c.shopItems.get(itemId);
+    if (!item) continue;
+    if (item.kind === 'gear') for (const [k, v] of Object.entries(item.statMods ?? {}) as [keyof Stats, number][]) stats[k] = Math.max(1, stats[k] + v);
+    else e.consumables.push(itemId);
+  }
   e.snap = snap;
   e.snapshotId = snap.id;
   e.name = snap.name;

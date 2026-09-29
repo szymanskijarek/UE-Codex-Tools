@@ -4,16 +4,19 @@ import { careerRank, DIFFICULTIES, difficulty, pointsLeft, RANK_XP, RANKS, SQUAD
 import { abilitySummary, descOf, nameOf } from '../i18n';
 import { currentReplay, navigate, notify } from '../state';
 import { Card, CareerChip, Portrait } from '../ui/components';
-import { abandon, career, collectResults, currentCareer, draftCharacter, lineup, mainChar, nextOpponents, prepareFight, save, squadUnlocked, startCareer, type CareerSave } from './model';
+import { abandon, type BoardRow, career, collectResults, currentCareer, draftCharacter, lineup, mainChar, nextOpponents, prepareFight, save, squadUnlocked, startCareer, type CareerSave } from './model';
+import { PuppetView } from './PuppetView';
+import { ShopScreen } from './Shop';
 import { SkillsScreen } from './Skills';
 import { SquadScreen } from './Squad';
 
-/** Career mode router: #/career, #/career/skills/:id, #/career/squad, #/career/results. */
+/** Career mode router: #/career, #/career/skills/:id, #/career/squad, #/career/shop, #/career/results. */
 export function CareerScreen({ sub, arg }: { sub?: string; arg?: string }) {
   const s = career.value;
   if (!s) return <CreateCharacter />;
   if (sub === 'skills') return <SkillsScreen save={s} id={arg ?? s.mainId} />;
   if (sub === 'squad') return <SquadScreen save={s} />;
+  if (sub === 'shop') return <ShopScreen save={s} />;
   if (sub === 'results') return <Results save={s} />;
   return <Hub save={s} />;
 }
@@ -41,6 +44,7 @@ function CreateCharacter() {
   const [name, setName] = useState('');
   const [personality, setPersonality] = useState('');
   const [diff, setDiff] = useState<DifficultyId>('normal');
+  const [hype, setHype] = useState(1);
   const draft = useMemo(() => (careerId ? draftCharacter(seed, careerId) : null), [seed, careerId]);
 
   if (!careerId || !draft) {
@@ -81,7 +85,9 @@ function CreateCharacter() {
         ← Pick another job
       </button>
       <div class="row hero">
-        <Portrait c={shown} size={96} />
+        <button class="puppet-btn" title="Show us a move" onClick={() => setHype((h) => h + 1)}>
+          <PuppetView careerId={careerId} personality={shown.personality} appearance={shown.appearance} size={220} hype={hype} />
+        </button>
         <div class="grow">
           <h1>{shown.name}</h1>
           <CareerChip id={careerId} /> <span class="muted small">{styleOf(careerId)}</span>
@@ -110,6 +116,7 @@ function CreateCharacter() {
                 onClick={() => {
                   setSeed(Math.random().toString(16).slice(2, 8));
                   setName('');
+                  setHype((h) => h + 1);
                 }}
               >
                 🎲
@@ -118,7 +125,10 @@ function CreateCharacter() {
           </label>
           <label class="field">
             Personality
-            <select value={shown.personality} onChange={(e) => setPersonality((e.target as HTMLSelectElement).value)}>
+            <select value={shown.personality} onChange={(e) => {
+                setPersonality((e.target as HTMLSelectElement).value);
+                setHype((h) => h + 1);
+              }}>
               {bundle.personalities.map((p) => (
                 <option value={p.id}>{nameOf(p.id)}</option>
               ))}
@@ -210,6 +220,18 @@ export function skillAlert(cc: CareerChar): boolean {
   return cc.c.unspentPoints > 0 || !!cc.c.pendingOffer || cc.c.careers.some((cid) => pointsLeft(bundle, cc, cid) > 0);
 }
 
+/** Packed items as a row of icons. */
+export function Loadout({ ids }: { ids?: string[] }) {
+  if (!ids?.length) return null;
+  return (
+    <span class="loadout-icons">
+      {ids.map((id) => (
+        <span title={nameOf(id)}>{bundle.shopItems.find((i) => i.id === id)?.icon ?? '❔'}</span>
+      ))}
+    </span>
+  );
+}
+
 function FighterRow({ cc, tag }: { cc: CareerChar; tag?: string }) {
   const cid = currentCareer(cc);
   const skills = cc.nodes.filter((n) => !n.endsWith(':active')).length;
@@ -217,7 +239,7 @@ function FighterRow({ cc, tag }: { cc: CareerChar; tag?: string }) {
     <div class="fighter-row">
       <Portrait c={cc.c} size={40} />
       <div class="grow">
-        <b>{cc.c.name}</b> {tag && <span class="badge">{tag}</span>}
+        <b>{cc.c.name}</b> {tag && <span class="badge">{tag}</span>} <Loadout ids={cc.loadout} />
         <div class="muted small">
           Lv {cc.c.level} · {nameOf(cid)} ({RANKS[careerRank(cc, cid) - 1]}) · {skills} skill{skills === 1 ? '' : 's'}
         </div>
@@ -229,6 +251,7 @@ function FighterRow({ cc, tag }: { cc: CareerChar; tag?: string }) {
 function Hub({ save: s }: { save: CareerSave }) {
   const m = mainChar(s);
   const cid = currentCareer(m);
+  const [hype, setHype] = useState(1);
   const info = stageInfo(bundle, s.stage);
   const diff = difficulty(s.difficulty);
   const opp = nextOpponents(s);
@@ -240,6 +263,7 @@ function Hub({ save: s }: { save: CareerSave }) {
     navigate('/replay/career');
   };
   const chapter = Math.floor(s.stage / STAGES_PER_ARENA);
+  const packed = (m.loadout ?? []).length;
   return (
     <section>
       {s.pending && (
@@ -251,7 +275,9 @@ function Hub({ save: s }: { save: CareerSave }) {
         </Card>
       )}
       <div class="row hero">
-        <Portrait c={m.c} size={96} />
+        <button class="puppet-btn" title="Show us a move" onClick={() => setHype((h) => h + 1)}>
+          <PuppetView careerId={cid} personality={m.c.personality} appearance={m.c.appearance} size={180} hype={hype} />
+        </button>
         <div class="grow">
           <h1>{m.c.name}</h1>
           <div class="muted">
@@ -272,6 +298,9 @@ function Hub({ save: s }: { save: CareerSave }) {
         </button>
         <button class={`ghost ${unlocked ? '' : 'locked'}`} onClick={() => navigate('/career/squad')} title={unlocked ? 'Build your squad' : `Unlocks at ${RANKS[SQUAD_UNLOCK_RANK - 1]} rank`}>
           {unlocked ? '👥 Squad' : `🔒 Squad (${RANKS[SQUAD_UNLOCK_RANK - 1]} rank)`}
+        </button>
+        <button class={`ghost ${packed === 0 && Object.values(s.inventory).some((n) => n > 0) ? 'alert' : ''}`} onClick={() => navigate('/career/shop')}>
+          🛒 Shop & gear · 💵 {s.cash}
         </button>
       </div>
 
@@ -352,12 +381,38 @@ function Results({ save: s0 }: { save: CareerSave }) {
     );
   }
   const title = r.outcome === 'win' ? '🏆 Victory!' : r.outcome === 'draw' ? '🤝 Draw' : '💥 Defeat';
+  const m = mainChar(s);
   return (
     <section>
-      <h1>{title}</h1>
-      <p class="lead">
-        Stage {r.stage + 1} {r.outcome === 'win' ? 'cleared' : 'still to beat'} · 💵 +{r.cash}
-      </p>
+      <div class="row hero">
+        <PuppetView careerId={currentCareer(m)} personality={r.outcome === 'win' ? m.c.personality : 'personality.lazy'} appearance={m.c.appearance} size={170} hype={r.outcome === 'win' ? 1 : 0} />
+        <div class="grow">
+          <h1>{title}</h1>
+          <p class="lead">
+            Stage {r.stage + 1} {r.outcome === 'win' ? 'cleared' : 'still to beat'} · 💵 +{r.cash}
+          </p>
+          {r.pay && (
+            <div class="pay small">
+              <span>{r.outcome === 'win' ? 'Win' : r.outcome === 'draw' ? 'Draw' : 'Turning up'} 💵 {r.pay.base}</span>
+              {r.pay.stage > 0 && <span>Stage bonus 💵 {r.pay.stage}</span>}
+              {r.pay.koCount > 0 && (
+                <span>
+                  {r.pay.koCount} KO{r.pay.koCount === 1 ? '' : 's'} 💵 {r.pay.kos}
+                </span>
+              )}
+              {r.pay.multiplier !== 1 && <span>Difficulty ×{r.pay.multiplier.toFixed(2).replace(/0$/, '')}</span>}
+              <b>= 💵 {r.pay.total}</b>
+            </div>
+          )}
+        </div>
+      </div>
+      {r.board && (
+        <Card>
+          <h2>Match summary</h2>
+          <Board rows={r.board.filter((b) => b.team === 0)} title="Your squad" />
+          <Board rows={r.board.filter((b) => b.team !== 0)} title={stageInfo(bundle, r.stage).company} />
+        </Card>
+      )}
       {r.unlockedSquad && (
         <Card class="highlight">
           <h2>👥 Squad building unlocked!</h2>
@@ -399,5 +454,41 @@ function Results({ save: s0 }: { save: CareerSave }) {
         </button>
       </div>
     </section>
+  );
+}
+
+function Board({ rows, title }: { rows: BoardRow[]; title: string }) {
+  return (
+    <table class="board">
+      <thead>
+        <tr>
+          <th class="left">{title}</th>
+          <th title="Damage dealt">⚔️ Dealt</th>
+          <th title="Damage received">🩹 Taken</th>
+          <th title="Enemies knocked out">💀 KOs</th>
+          <th title="Times floored">⬇️ Downs</th>
+          <th title="Items used">🎒</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((b) => (
+          <tr class={b.state === 'ko' ? 'out' : ''}>
+            <td class="left">
+              <Portrait c={{ careers: [b.career], appearance: b.appearance }} size={28} /> {b.name} {b.mvp && <span class="badge gold">MVP</span>}
+              {b.state === 'ko' && <span class="muted small"> · KO'd</span>}
+            </td>
+            <td>{b.dealt}</td>
+            <td>{b.taken}</td>
+            <td>{b.kos}</td>
+            <td>{b.downs}</td>
+            <td>
+              {b.used.map((id) => (
+                <span title={nameOf(id)}>{bundle.shopItems.find((i) => i.id === id)?.icon}</span>
+              ))}
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }

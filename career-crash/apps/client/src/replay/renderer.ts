@@ -1762,6 +1762,18 @@ export class BattleRenderer {
         this.sfx.play('fanfare');
         break;
       }
+      case 'consume': {
+        // A packed item fires: a snack/smoke/pill pops over their head.
+        const item = bundle.shopItems.find((i) => i.id === ev.s);
+        if (A) {
+          this.bark(A, 'bark_consume', ev.v === 0 ? 0.3 : 0.7);
+          this.setExpr(A, 'happy', 900);
+        }
+        this.float(`${item?.icon ?? '🎒'} ${nameOf(ev.s)}`, this.posOf(ev.a, byId), 0x86efac, 15);
+        this.sfx.play(item?.effects?.some((f) => f.type === 'heal' || (f.type === 'applyStatus' && f.status === 'status.regen')) ? 'slurp' : 'pop');
+        this.sfx.play('heal', 0.6);
+        break;
+      }
       case 'evade': {
         if (A) {
           A.dashUntil = this.now + 320;

@@ -140,6 +140,32 @@ Difficulty shapes opponents, never the player:
 | Hard | +1 | ±0 | 100% | ±0 | ×1.3 | ~32–45% |
 | Brutal | +2 | +2 | all unlocked | ±0 | ×1.7 | ~10–35% |
 
+### 3.6 Fight pay, the shop and loadouts (v0.9)
+
+**Pay.** Every career fight pays cash, multiplied by the difficulty's reward
+multiplier: 💵 40 for turning up, 70 for a draw, 150 for a win, plus 12 × stage on a
+win and 30 per enemy knocked out by your squad. The Results screen shows the
+breakdown and a match summary for both teams (damage dealt and received, KOs,
+times floored, items used, MVP).
+
+**Shop.** The Corner Shop (`packages/content/data/shopItems`) stocks tier 1 items
+from the start, tier 2 from stage 6 and tier 3 from stage 13. Each fighter packs
+up to **3 items**:
+
+- **Consumables** fire once, automatically, then they're gone: at kick-off
+  (cigarettes → Buzzed, energy drink → Caffeinated) or when HP first drops below
+  a threshold (meal deal < 45% → regeneration, protein bar < 60% → Pumped,
+  painkillers < 30% → Numb, smelling salts < 15% → heal + Inspired). Unused ones
+  stay packed.
+- **Gear** (steel-toe boots, hi-vis vest, lucky socks, comfy trainers...) adds
+  +1–2 to a stat for every fight and is never used up; one of each per fighter.
+
+The snapshot carries `loadout`; the sim applies gear `statMods` on spawn and fires
+consumables from `useConsumables` (a `consume` event). AI opponents pack items by
+difficulty: relaxed 0–1, normal 1–2, hard 2–3, brutal 3; agency temps bring a
+meal deal. Measured with a proxy squad, items change win rates by under 15
+points per difficulty and add ~5 s to a fight.
+
 ## 4. Unlocks
 
 ### 4.1 The Job Board (careers)
