@@ -14,6 +14,7 @@ import { extension, hitPose, MOVES, repertoire, type HitStyle, type Move } from 
 import { drawWall } from './wall-art';
 import { hasPuppet, loadPuppets, NEUTRAL, Puppet, type Pose } from './puppet';
 import { Ragdoll } from './ragdoll';
+import { voiceFor, type Voice } from './voices';
 
 /**
  * Battle renderer (04 R-3): PixiJS scene graph in a 3/4 "stage" projection
@@ -106,6 +107,7 @@ interface CharSprite {
   kick: { dx: number; dy: number; spin: number; at: number } | null;
   colors: { body: number; skin: number; hair: number };
   career: string;
+  voice: Voice;
   alive: boolean;
   intent: Text;
   lastIntent: string;
@@ -682,6 +684,7 @@ export class BattleRenderer {
       kick: null,
       colors: { body: bodyColor, skin, hair },
       career: (career?.id ?? '').replace('career.', ''),
+      voice: voiceFor((career?.id ?? '').replace('career.', ''), snap?.id ?? `${e.id}`, snap?.personality ?? '', isRef),
       alive: true,
       intent,
       lastIntent: '',
@@ -802,6 +805,7 @@ export class BattleRenderer {
     s.bubble = c;
     s.bubbleUntil = this.now + ms;
     s.lastBubbleAt = this.now;
+    this.sfx.speak(text, s.voice, ms > 2000);
   }
 
   // ---------------------------------------------------------------------------

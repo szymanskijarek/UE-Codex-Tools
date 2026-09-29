@@ -30,6 +30,8 @@ export type SfxName =
   | 'squeak'
   | 'slurp';
 
+import { babble, type Voice } from './voices';
+
 const MIN_GAP_MS: Partial<Record<SfxName, number>> = { punch: 70, thud: 90, whoosh: 90, pop: 120, blah: 200, ooh: 900, cheer: 1500, fire: 400, zap: 150, splash: 200 };
 const MUTE_KEY = 'cc.muted';
 
@@ -49,6 +51,8 @@ export class Sfx {
   muted = readMuted();
   /** Playback rate: < 1 lowers pitch and stretches sounds (slow-motion replays). */
   rate = 1;
+  /** End times (context seconds) of voices still talking; at most two at once. */
+  private talking: number[] = [];
 
   /** Create/resume the audio context; call from a user gesture when possible. */
   unlock(): void {
@@ -131,6 +135,16 @@ export class Sfx {
     s.connect(f).connect(g).connect(this.master!);
     s.start(t, Math.random() * 0.5);
     s.stop(t + attack + dur + 0.05);
+  }
+
+  /** Babble a speech-bubble line in this voice (skipped if two others are already talking). */
+  speak(text: string, voice: Voice, force = false): void {
+    if (this.muted || !this.ctx || !this.master || !this.noise || this.ctx.state !== 'running') return;
+    const now = this.ctx.currentTime;
+    this.talking = this.talking.filter((t) => t > now);
+    if (this.talking.length >= (force ? 3 : 2)) return;
+    const len = babble(this.ctx, this.master, this.noise, text, voice, now + 0.01, this.rate);
+    this.talking.push(now + len);
   }
 
   play(name: SfxName, intensity = 1): void {
