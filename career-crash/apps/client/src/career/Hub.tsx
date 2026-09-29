@@ -6,9 +6,9 @@ import { arenaArt } from '../replay/arena-art';
 import { currentReplay, navigate } from '../state';
 import { Portrait } from '../ui/components';
 import { levelProgress, Loadout, RankBar, skillAlert } from './Career';
-import { abandon, applicants, currentCareer, lineup, mainChar, nextOpponents, prepareFight, save, squadUnlocked, type CareerSave } from './model';
+import { abandon, applicants, setPostMine, currentCareer, lineup, mainChar, nextOpponents, prepareFight, save, squadUnlocked, type CareerSave } from './model';
 import { PuppetView } from './PuppetView';
-import { promotedPosts, starterPosts, type FeedPost } from './feed';
+import { discussion, promotedPosts, REACTIONS, starterPosts, type FeedPost, type ReactionKind } from './feed';
 
 /**
  * The career home, styled after a professional networking site: a profile card
@@ -46,7 +46,7 @@ function Feed({ s }: { s: CareerSave }) {
   return (
     <>
       {posts.slice(0, shown).map((p) => (
-        <PostCard key={p.id} p={p} fights={fights} />
+        <PostCard key={p.id} p={p} fights={fights} s={s} />
       ))}
       {more > 0 ? (
         <button class="li-card li-more" onClick={() => setShown(shown + 10)}>
@@ -63,8 +63,26 @@ function Feed({ s }: { s: CareerSave }) {
   );
 }
 
-function PostCard({ p, fights }: { p: FeedPost; fights: number }) {
-  const [liked, setLiked] = useState(false);
+function PostCard({ p, fights, s }: { p: FeedPost; fights: number; s: CareerSave }) {
+  const [mine, setMine] = useState(p.mine ?? {});
+  const [open, setOpen] = useState(false);
+  const [draft, setDraft] = useState('');
+  const post = { ...p, mine };
+  const talk = discussion(post, s);
+  const update = (next: NonNullable<FeedPost['mine']>) => {
+    setMine(next);
+    setPostMine(s, p.id, next);
+  };
+  const react = (k: ReactionKind) => update({ ...mine, react: mine.react === k ? undefined : k });
+  const current = REACTIONS.find(([k]) => k === mine.react);
+  const shown = open ? talk.comments : talk.comments.slice(0, 1);
+  const submit = () => {
+    const text = draft.trim();
+    if (!text) return;
+    update({ ...mine, said: [...(mine.said ?? []), text.slice(0, 280)] });
+    setDraft('');
+    setOpen(true);
+  };
   return (
     <article class="li-card li-post">
       <header>
@@ -78,24 +96,75 @@ function PostCard({ p, fights }: { p: FeedPost; fights: number }) {
       <p>{p.text}</p>
       {p.tags && <p class="li-tags">{p.tags}</p>}
       <div class="li-counts muted small">
-        <span>
-          👍❤️👏 {p.reacts + (liked ? 1 : 0)}
+        <span class="li-reacts" title={talk.reactions.map(([k, n]) => `${REACTIONS.find(([x]) => x === k)?.[2]}: ${n}`).join(' · ')}>
+          <span class="li-react-icons">
+            {talk.reactions.slice(0, 3).map(([k]) => (
+              <span>{REACTIONS.find(([x]) => x === k)?.[1]}</span>
+            ))}
+          </span>
+          {talk.total > 1 ? `${talk.reactedBy} and ${talk.total - 1} others` : talk.reactedBy}
         </span>
-        <span>
-          {p.comments} comment{p.comments === 1 ? '' : 's'}
-        </span>
+        <button class="li-link-btn" onClick={() => setOpen(!open)}>
+          {talk.commentCount} comment{talk.commentCount === 1 ? '' : 's'}
+        </button>
       </div>
       <div class="li-actions">
-        <button class={liked ? 'on' : ''} onClick={() => setLiked(!liked)}>
-          👍 Like
-        </button>
-        <button disabled title="Nobody reads the comments">
-          💬 Comment
-        </button>
+        <span class="li-react-wrap">
+          <button class={mine.react ? 'on' : ''} onClick={() => react(mine.react ?? 'like')}>
+            {current ? `${current[1]} ${current[2]}` : '👍 Like'}
+          </button>
+          <span class="li-react-pick">
+            {REACTIONS.map(([k, icon, label]) => (
+              <button title={label} class={mine.react === k ? 'on' : ''} onClick={() => react(k)}>
+                {icon}
+              </button>
+            ))}
+          </span>
+        </span>
+        <button onClick={() => setOpen(true)}>💬 Comment</button>
         <button disabled title="Coming soon">
           🔁 Repost
         </button>
       </div>
+      {shown.length > 0 && (
+        <div class="li-thread">
+          {!open && <div class="muted tiny">Most relevant ▾</div>}
+          {shown.map((c) => (
+            <div class={`li-comment ${c.reply ? 'reply' : ''} ${c.mine ? 'mine' : ''}`}>
+              {c.who ? <Portrait c={c.who} size={c.reply ? 26 : 32} /> : <span class="li-logo-sq sm">{c.icon}</span>}
+              <div class="li-bubble">
+                <b>{c.author}</b>
+                {c.author === p.author && <span class="li-pill">Author</span>}
+                <div class="muted tiny">{c.sub}</div>
+                <div>{c.text}</div>
+                <div class="muted tiny li-c-meta">
+                  {c.likes > 0 ? `👍 ${c.likes} · ` : ''}Reply
+                </div>
+              </div>
+            </div>
+          ))}
+          {!open && talk.comments.length > 1 && (
+            <button class="li-link-btn" onClick={() => setOpen(true)}>
+              Load more comments ({talk.comments.length - 1})
+            </button>
+          )}
+        </div>
+      )}
+      {open && (
+        <form
+          class="li-compose"
+          onSubmit={(e) => {
+            e.preventDefault();
+            submit();
+          }}
+        >
+          <Portrait c={mainChar(s).c} size={32} />
+          <input value={draft} maxLength={280} placeholder="Add a comment…" onInput={(e) => setDraft((e.target as HTMLInputElement).value)} />
+          <button class="li-btn primary small" type="submit" disabled={!draft.trim()}>
+            Post
+          </button>
+        </form>
+      )}
     </article>
   );
 }

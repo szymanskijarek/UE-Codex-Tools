@@ -357,3 +357,13 @@ export function unequip(s: CareerSave, charId: string, slot: number): void {
   cc.loadout!.splice(slot, 1);
   save({ ...s, inventory: { ...s.inventory, [itemId]: (s.inventory[itemId] ?? 0) + 1 } });
 }
+
+/** Record the player's reaction / comments on a saved feed post. */
+export function setPostMine(s: CareerSave, id: string, mine: NonNullable<FeedPost['mine']>): void {
+  const feed = s.feed ?? [];
+  const i = feed.findIndex((p) => p.id === id);
+  if (i < 0) return;
+  const next = [...feed];
+  next[i] = { ...feed[i]!, mine };
+  save({ ...s, feed: next });
+}
