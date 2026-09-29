@@ -4,7 +4,7 @@ import { generateRecruit, toSnapshot } from '@cc/game-rules';
 import { Rng, SIM_VERSION, type BattleInput, type BattleMode, type CharacterSnapshot } from '@cc/sim';
 import { nameOf } from '../i18n';
 import { currentReplay, navigate } from '../state';
-import { Card } from '../ui/components';
+import { Card, Portrait } from '../ui/components';
 
 interface Slot {
   careers: string[];
@@ -20,6 +20,9 @@ const PRESETS: { name: string; a: string[][]; b: string[][] }[] = [
   { name: 'Fire vs Water', a: [['career.chef'], ['career.chef'], ['career.delivery-driver']], b: [['career.firefighter'], ['career.plumber'], ['career.paramedic']] },
   { name: 'Wet & Wired', a: [['career.plumber'], ['career.janitor'], ['career.electrician']], b: [['career.farmer'], ['career.builder'], ['career.security-guard']] },
   { name: 'Talkers vs Doers', a: [['career.lawyer'], ['career.journalist'], ['career.influencer']], b: [['career.mechanic'], ['career.builder'], ['career.farmer']] },
+  { name: 'Pixel Pals', a: [['career.barista'], ['career.hairdresser'], ['career.mime']], b: [['career.lifeguard'], ['career.personal-trainer'], ['career.gardener']] },
+  { name: 'Pixel VIPs', a: [['career.politician'], ['career.tv-host'], ['career.food-critic']], b: [['career.astronaut'], ['career.conspiracy-podcaster'], ['career.psychologist']] },
+  { name: 'Pixel Workshop', a: [['career.plumber'], ['career.mechanic'], ['career.engineer']], b: [['career.life-coach'], ['career.mime'], ['career.barista']] },
   { name: 'Masters', a: [['career.chef', 'career.firefighter', 'career.paramedic'], ['career.electrician', 'career.mechanic', 'career.engineer'], ['career.teacher', 'career.psychologist', 'career.life-coach']], b: [['career.lawyer', 'career.journalist', 'career.politician'], ['career.dj', 'career.tv-host'], ['career.police-officer', 'career.taxi-driver']] },
 ];
 
@@ -110,6 +113,7 @@ export function Sandbox() {
             <h2>{ti === 0 ? '🔵 Blue' : '🔴 Red'}</h2>
             {t.slice(0, mode === 'ffa' ? 3 : size).map((s, si) => (
               <div class="slot">
+                <Portrait c={{ careers: s.careers, appearance: { skin: '#e0ac69', hair: '#3b2a1a', hairStyle: si } }} size={34} />
                 {[0, 1, 2].map((ci) => (
                   <select
                     value={s.careers[ci] ?? ''}

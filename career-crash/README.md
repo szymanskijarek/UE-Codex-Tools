@@ -39,12 +39,13 @@ pnpm dev                        # worker on :8787, client on :5173 (proxied /api
   opponent matching with bot fill, server-run battles, defence rewards,
   reports, leaderboard, idempotent writes, append-only currency ledger.
 - **Client** (`apps/client`): Preact UI + PixiJS replay viewer with animated
-  paper-doll characters with floppy ragdolls (expressions, speech bubbles, reactions), drawn props,
+  sprite-puppet characters built from sliced career art (16 careers so far;
+  the rest use paper dolls) with floppy ragdolls (expressions, speech bubbles, reactions), drawn props,
   ability effects, a director camera, slow-motion action replays, synthesised
   sound, battle reports with jump-to-moment, and the Sandbox. A standalone
   single-file build of the Sandbox: `pnpm --filter @cc/client build:standalone`.
 - **Tooling**: balance reports, replay CLI + 16 golden replays, art prompt
-  generator and style guide, CI workflow.
+  generator and style guide, character-sheet slicer (`pnpm --filter @cc/art-pipeline puppets`), CI workflow.
 
 ## Checks
 

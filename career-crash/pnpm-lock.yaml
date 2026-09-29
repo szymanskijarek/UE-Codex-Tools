@@ -185,6 +185,9 @@ importers:
       '@cc/content-schema':
         specifier: workspace:*
         version: link:../../packages/content-schema
+      sharp:
+        specifier: 0.35.4
+        version: 0.35.4(@types/node@22.20.4)
 
   tools/balance:
     dependencies:

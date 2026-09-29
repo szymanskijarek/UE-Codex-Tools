@@ -29,6 +29,12 @@ const SOFT: [number, number, number, number][] = [
   [3, 5, 1.2, 0.05],
 ];
 
+/** Custom proportions (sprite puppets): links as [a, b, restPx], soft links as [a, b, minPx, stiffness]. */
+export interface RagdollSpec {
+  links: [number, number, number][];
+  soft: [number, number, number, number][];
+}
+
 export interface RagdollStyle {
   r: number;
   body: number;
@@ -47,13 +53,18 @@ export class Ragdoll {
   /** Rotational kick applied while airborne (tumbling). */
   spin = 0;
   settledMs = 0;
+  private links: [number, number, number][];
+  private soft: [number, number, number, number][];
 
   constructor(
     private r: number,
     ax: number,
     ay: number,
     facing: number,
+    spec?: RagdollSpec,
   ) {
+    this.links = spec?.links ?? LINKS.map(([a, b, l]) => [a, b, l * r]);
+    this.soft = spec?.soft ?? SOFT.map(([a, b, l, k]) => [a, b, l * r, k]);
     // Start from an upright pose at the anchor (feet on the floor).
     const pose: [number, number][] = [
       [0.1, -3.3],
@@ -72,6 +83,14 @@ export class Ragdoll {
       this.x[i] = this.px[i] = ax + dx * r * facing;
       this.y[i] = this.py[i] = ay + dy * r;
     });
+  }
+
+  /** Start from an existing pose (e.g. the puppet's current stance). */
+  setPoints(xs: ArrayLike<number>, ys: ArrayLike<number>): void {
+    for (let i = 0; i < 11; i++) {
+      this.x[i] = this.px[i] = xs[i]!;
+      this.y[i] = this.py[i] = ys[i]!;
+    }
   }
 
   /** Add velocity (px per frame-ish) to the upper body, falling off toward the feet. */
@@ -124,8 +143,8 @@ export class Ragdoll {
     this.y[2]! += (ty - this.y[2]!) * (airborne ? k : k * 0.5);
     // Constraints.
     for (let it = 0; it < 6; it++) {
-      for (const [a, b, len] of LINKS) this.solve(a, b, len * r, 1);
-      for (const [a, b, len, stiff] of SOFT) this.solveMin(a, b, len * r, stiff);
+      for (const [a, b, len] of this.links) this.solve(a, b, len, 1);
+      for (const [a, b, len, stiff] of this.soft) this.solveMin(a, b, len, stiff);
       // Floor: nothing goes below the floor line (with a sliver of depth for lying bodies).
       const floor = floorY - r * 0.1;
       for (let i = 0; i < 11; i++) {
@@ -137,7 +156,7 @@ export class Ragdoll {
       }
     }
     // Safety net: never let a limb leave the body (tunnelling, NaN, camera jumps).
-    const maxD = r * 5;
+    const maxD = r * 6;
     for (let i = 0; i < 11; i++) {
       let dx = this.x[i]! - ax;
       let dy = this.y[i]! - ay;

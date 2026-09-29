@@ -38,3 +38,27 @@ Area props (spills, fire, sparks) are top-down tiling blobs with 40 % opacity.
 1. Generate from `tools/art-pipeline/out/prompts.json` (run `pnpm --filter @cc/art-pipeline prompts`).
 2. Reject outputs that fail: silhouette readable at 48 px, palette ≤ 12 colours after quantisation, outline present on ≥ 90 % of the edge.
 3. Assets are referenced **only** by art ids in content, never by filenames in code, so any asset can be regenerated.
+
+## Character sheets → ragdoll puppets (v0.5)
+
+Career art ships as **character sheets**: `art/sheets/<career-slug>.png`, transparent
+background, the posed character on the left and the same character cut into
+separated parts on the right — head, torso, pelvis, 2 upper arms, 2 forearms
+(with hands), 2 thighs, 2 shins, 2 feet (feet optional: shins may include shoes).
+Leave a clear gap between parts; extra items (props, back views) are ignored.
+
+```bash
+pnpm --filter @cc/art-pipeline puppets            # all sheets
+pnpm --filter @cc/art-pipeline puppets mime       # one sheet
+```
+
+The slicer finds each part, measures its joint anchors, downsizes it (figure
+≈ 300 px) and packs `apps/client/src/replay/puppets/<career>.png` plus
+`puppets.json`. Labelled previews land in `tools/art-pipeline/out/puppets/`;
+when a sheet uses an unusual layout, map part names to the numbers shown there
+in `art/sheets/manifest.json` (see barista, hairdresser, plumber, mime).
+
+In game the parts hang on the same 11-point skeleton as the ragdoll: a
+procedural pose while standing (walk, wind-up, strike, throw, carry, panic)
+and Verlet physics when thrown or knocked down. Careers without a sheet keep
+the drawn paper doll.

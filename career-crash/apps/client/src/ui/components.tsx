@@ -3,6 +3,7 @@ import { bundle } from '@cc/content';
 import type { Character } from '@cc/game-rules';
 import type { Wallet } from '@cc/protocol';
 import { descOf, nameOf } from '../i18n';
+import { PUPPET_DEFS, puppetUrl } from '../replay/puppet-art';
 
 export function Money({ wallet }: { wallet: Wallet }) {
   return (
@@ -46,6 +47,20 @@ export function Portrait({ c, size = 56 }: { c: Pick<Character, 'appearance' | '
   const career = bundle.careers.find((x) => x.id === c.careers[c.careers.length - 1]);
   const body = career?.art.color ?? '#999999';
   const hat = career?.art.hat;
+  const art = career ? PUPPET_DEFS[career.id] : undefined;
+  const url = career ? puppetUrl(career.id) : null;
+  const head = art?.parts.head;
+  if (art && url && head) {
+    // Career art: the sliced head sprite, cropped out of the atlas by a nested (clipping) svg.
+    const S = Math.max(head.w, head.h) * 1.08;
+    return (
+      <svg class="portrait" width={size} height={size} viewBox={`0 0 ${S} ${S}`} aria-hidden="true">
+        <svg x={(S - head.w) / 2} y={(S - head.h) / 2} width={head.w} height={head.h} viewBox={`${head.x} ${head.y} ${head.w} ${head.h}`}>
+          <image href={url} width={art.w} height={art.h} />
+        </svg>
+      </svg>
+    );
+  }
   return (
     <svg class="portrait" width={size} height={size} viewBox="0 0 64 64" aria-hidden="true">
       <rect x="14" y="40" width="36" height="26" rx="9" fill={body} stroke="#1b1f2a" stroke-width="3" />

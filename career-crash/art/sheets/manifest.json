@@ -1,0 +1,6 @@
+{
+ "barista": { "parts": { "head": 1, "torso": 2, "upperArmL": 3, "upperArmR": 4, "pelvis": 5, "foreArmL": 6, "foreArmR": 7, "thighL": 8, "thighR": 9, "shinL": 10, "shinR": 11, "footL": 12, "footR": 13 } },
+ "hairdresser": { "parts": { "head": 0, "torso": 2, "pelvis": 3, "upperArmL": 4, "upperArmR": 5, "foreArmL": 6, "foreArmR": 7, "thighL": 8, "thighR": 9, "shinL": 10, "shinR": 11, "footL": 12, "footR": 13 } },
+ "mime": { "parts": { "head": 0, "torso": 3, "pelvis": 7, "upperArmL": 2, "upperArmR": 4, "foreArmL": 5, "foreArmR": 6, "thighL": 8, "thighR": 9, "shinL": 10, "shinR": 11 } },
+ "plumber": { "noFeet": true, "parts": { "head": 1, "torso": 4, "pelvis": 9, "upperArmL": 3, "upperArmR": 5, "foreArmL": 7, "foreArmR": 8, "thighL": 10, "thighR": 11, "shinL": 12, "shinR": 13 } }
+}

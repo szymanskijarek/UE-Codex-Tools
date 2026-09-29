@@ -8,6 +8,7 @@ import { nameOf, STATUS_ICONS } from '../i18n';
 import { Sfx, type SfxName } from './audio';
 import type { ReplayPlayer } from './player';
 import { drawArea, drawProp } from './props-art';
+import { hasPuppet, loadPuppets, NEUTRAL, Puppet, type Pose } from './puppet';
 import { Ragdoll } from './ragdoll';
 
 /**
@@ -73,6 +74,10 @@ interface CharSprite {
   /** Floppy ragdoll while thrown / knocked down / KO'd (cosmetic). */
   rag: Ragdoll | null;
   ragG: Graphics | null;
+  /** Sprite puppet built from career art (replaces the paper doll when available). */
+  puppet: Puppet | null;
+  emote: Text | null;
+  lastEmote: string;
   kick: { dx: number; dy: number; spin: number; at: number } | null;
   colors: { body: number; skin: number; hair: number };
   career: string;
@@ -154,6 +159,7 @@ export class BattleRenderer {
     this.arena = bundle.arenas.find((a) => a.id === this.input.arenaId)!;
     await this.app.init({ preference: 'webgl', resizeTo: el, background: hex(this.arena.theme.wall), antialias: true, autoDensity: true, resolution: Math.min(2, window.devicePixelRatio || 1) });
     el.appendChild(this.app.canvas);
+    await loadPuppets();
     this.bodies.sortableChildren = true;
     this.world.addChild(this.floor, this.areas, this.bodies, this.fxLayer, this.uiLayer);
     this.app.stage.addChild(this.world);
@@ -195,7 +201,7 @@ export class BattleRenderer {
     s.ragG?.destroy();
     s.ragG = null;
     s.rag = null;
-    s.doll.visible = true;
+    s.doll.visible = !s.puppet;
   }
 
   private layout(): void {
@@ -212,7 +218,11 @@ export class BattleRenderer {
     this.banner.style.fontSize = this.compact ? 16 : 22;
     this.drawFloor();
     this.drawOverlay();
-    for (const s of this.chars.values()) s.root.destroy({ children: true });
+    for (const s of this.chars.values()) {
+      s.root.destroy({ children: true });
+      s.ragG?.destroy();
+      s.puppet?.root.destroy({ children: true });
+    }
     this.chars.clear();
     for (const s of this.props.values()) s.root.destroy({ children: true });
     this.props.clear();
@@ -348,6 +358,20 @@ export class BattleRenderer {
     intent.position.set(r * 1.25, -r * 3.4);
     root.addChild(fxG, bar, label, icons, intent);
     this.bodies.addChild(root);
+    // Career art available → sprite puppet instead of the paper doll.
+    const puppet = !isRef && career && hasPuppet(career.id) ? new Puppet(career.id, r) : null;
+    let emote: Text | null = null;
+    if (puppet) {
+      doll.visible = false;
+      puppet.root.addChild(held);
+      this.bodies.addChild(puppet.root);
+      for (const t of [bar, label, icons]) t.y -= r * 0.9;
+      intent.y -= r * 0.8;
+      emote = new Text({ text: '', style: { fontSize: Math.max(10, r * 0.95) }, resolution: 3 });
+      emote.anchor.set(0.5, 1);
+      emote.position.set(-r * 1.4, -r * 4.2);
+      root.addChild(emote);
+    }
     return {
       id: e.id,
       r,
@@ -390,6 +414,9 @@ export class BattleRenderer {
       heat: 0,
       rag: null,
       ragG: null,
+      puppet,
+      emote,
+      lastEmote: '',
       kick: null,
       colors: { body: bodyColor, skin, hair },
       career: (career?.id ?? '').replace('career.', ''),
@@ -594,13 +621,14 @@ export class BattleRenderer {
     for (const [id, s] of this.chars) {
       if (!seenC.has(id)) {
         s.root.visible = false;
+        if (s.puppet) s.puppet.root.visible = false;
         if (s.rag) this.dropRagdoll(s);
       }
       if (s.bubble) {
         if (this.now > s.bubbleUntil || !s.root.visible) {
           s.bubble.destroy({ children: true });
           s.bubble = null;
-        } else s.bubble.position.set(s.x, s.y - s.r * 4.6);
+        } else s.bubble.position.set(s.x, s.y - s.r * (s.puppet ? 5.5 : 4.6));
       }
     }
     for (const [id, s] of this.props) {
@@ -699,6 +727,7 @@ export class BattleRenderer {
     else if (e.statuses.includes('status.embarrassed')) tint = 0xffc4c4;
     s.torso.tint = tint;
     s.root.alpha = e.state === 'ko' ? 0.55 : 1;
+    if (s.puppet) this.animatePuppet(s, s.puppet, e, t, tint, expr, { down, stunned, winding, casting });
 
     this.drawStatusFx(s, e, t, casting);
     this.drawHeld(s, e, byId);
@@ -725,6 +754,100 @@ export class BattleRenderer {
     }
   }
 
+  /** Procedural pose for a sprite puppet (the ragdoll takes over when it falls). */
+  private animatePuppet(s: CharSprite, pu: Puppet, e: FrameEntity, t: number, tint: number, expr: Expr, st: { down: boolean; stunned: boolean; winding: boolean; casting: boolean }): void {
+    const f = e.fx < 0 ? -1 : 1;
+    pu.root.visible = s.root.visible;
+    pu.root.zIndex = (s.root.zIndex as number) + 0.5;
+    pu.root.tint = tint;
+    pu.root.alpha = e.state === 'ko' ? 0.8 : 1;
+    const emote = { angry: '💢', scared: '💦', stunned: '💫', happy: '✨', ko: '😵', hurt: '💥', sleepy: '💤', neutral: '' }[expr];
+    if (s.emote && emote !== s.lastEmote) {
+      s.emote.text = emote;
+      s.lastEmote = emote;
+    }
+    if (s.emote) s.emote.visible = !s.rag;
+    if (s.rag) {
+      s.held.position.set(pu.hand.x, pu.hand.y);
+      s.held.rotation = pu.hand.rot;
+      return;
+    }
+    const r = s.r;
+    const p: Pose = { ...NEUTRAL };
+    const idle = Math.sin(t * 3 + s.id);
+    p.bob = idle * r * 0.04;
+    p.armF += idle * 0.05;
+    p.armB -= idle * 0.05;
+    if (s.moving) {
+      const w = Math.sin(t * 14);
+      p.bob = Math.abs(w) * r * 0.18;
+      p.legF = w * 0.5;
+      p.legB = -w * 0.5;
+      p.kneeF = Math.max(0, -w) * 0.7;
+      p.kneeB = Math.max(0, w) * 0.7;
+      p.armF = -w * 0.55 - 0.1;
+      p.armB = w * 0.55 + 0.1;
+      p.elbowF = -0.35;
+      p.elbowB = 0.35;
+      p.lean = 0.06;
+    }
+    const action = e.action;
+    if (st.winding) {
+      if (st.casting) {
+        p.armF = -2.7 + Math.sin(t * 20) * 0.2;
+        p.armB = 2.7 - Math.sin(t * 20) * 0.2;
+        p.elbowF = p.elbowB = 0;
+      } else {
+        p.armF = -2.3;
+        p.elbowF = -0.9;
+        p.lean = -0.12;
+      }
+    }
+    if (this.now < s.lungeUntil) {
+      const k = (s.lungeUntil - this.now) / 220;
+      p.offX = r * 0.6 * k;
+      p.armF = -1.55;
+      p.elbowF = 0;
+      p.lean = 0.2 * k;
+      p.legB = 0.35 * k;
+    }
+    if (this.now < s.throwUntil) {
+      const k = (s.throwUntil - this.now) / 320;
+      p.armF = -2.9 + (1 - k) * 3.2;
+      p.armB = 2.9 - (1 - k) * 3.2;
+      p.lean = -0.2 + (1 - k) * 0.4;
+    }
+    if (this.now < s.hitUntil) {
+      const k = (s.hitUntil - this.now) / 300;
+      p.lean = -0.35 * k * (s.knockX >= 0 ? 1 : -1) * f;
+      p.armF = -1.4 * k - 0.1;
+      p.armB = 1.4 * k + 0.1;
+      p.offX = -r * 0.3 * k;
+      p.headRot = -0.3 * k;
+    }
+    if (e.panicking && !st.down) {
+      p.armF = -2.6 + Math.sin(t * 25) * 0.6;
+      p.armB = 2.6 - Math.sin(t * 25) * 0.6;
+    }
+    if (e.held >= 0 && !action.startsWith('throw')) {
+      // Carrying a prop overhead.
+      p.armF = -2.9;
+      p.armB = 2.9;
+      p.elbowF = p.elbowB = 0;
+    }
+    if (st.stunned) p.headRot = Math.sin(t * 8) * 0.35;
+    if (e.statuses.includes('status.electrified')) {
+      p.armF += (Math.random() - 0.5) * 1.2;
+      p.armB += (Math.random() - 0.5) * 1.2;
+      p.offX += (Math.random() - 0.5) * r * 0.4;
+    } else if (e.statuses.includes('status.caffeinated')) p.offX += (Math.random() - 0.5) * r * 0.15;
+    pu.pose(p, s.x, s.y, f);
+    pu.render(pu.xs, pu.ys, f);
+    s.held.position.set(pu.hand.x, pu.hand.y);
+    s.held.rotation = pu.hand.rot;
+    s.held.scale.x = f;
+  }
+
   /**
    * Switch between the animated doll and the floppy ragdoll. The ragdoll takes
    * over when a character is airborne, knocked down, downed or KO'd.
@@ -734,16 +857,21 @@ export class BattleRenderer {
     const want = e.state !== 'active' || e.statuses.includes('status.knocked-down') || airborne;
     if (s.rag && Math.hypot(s.rag.x[2]! - sx, s.rag.y[2]! - sy) > s.r * 8) this.dropRagdoll(s);
     if (want && !s.rag) {
-      s.rag = new Ragdoll(s.r, sx, sy, e.fx < 0 ? -1 : 1);
-      s.ragG = new Graphics();
-      this.bodies.addChild(s.ragG);
+      if (s.puppet) {
+        s.rag = new Ragdoll(s.r, sx, sy, e.fx < 0 ? -1 : 1, s.puppet.ragdollSpec());
+        s.rag.setPoints(s.puppet.xs, s.puppet.ys);
+      } else {
+        s.rag = new Ragdoll(s.r, sx, sy, e.fx < 0 ? -1 : 1);
+        s.ragG = new Graphics();
+        this.bodies.addChild(s.ragG);
+      }
       if (s.kick && this.now - s.kick.at < 400) {
         s.rag.impulse(s.kick.dx, s.kick.dy);
         s.rag.spin = s.kick.spin;
       } else s.rag.impulse((e.fx < 0 ? 1 : -1) * s.r * 0.3, -s.r * 0.2);
       s.kick = null;
     }
-    if (!s.rag || !s.ragG) return;
+    if (!s.rag || (!s.ragG && !s.puppet)) return;
     if (!want) {
       this.dropRagdoll(s);
       return;
@@ -755,6 +883,14 @@ export class BattleRenderer {
     }
     if (!airborne) s.rag.spin *= 0.9;
     s.rag.step(dt, sx, sy, floorY, airborne, e.statuses.includes('status.electrified'));
+    if (s.puppet) {
+      s.puppet.render(s.rag.x, s.rag.y, e.fx < 0 ? -1 : 1);
+      s.puppet.root.zIndex = depth + 1;
+      s.held.position.set(s.puppet.hand.x, s.puppet.hand.y);
+      s.held.rotation = s.puppet.hand.rot;
+      return;
+    }
+    if (!s.ragG) return;
     s.rag.draw(s.ragG, { r: s.r, body: s.colors.body, skin: s.colors.skin, hair: s.colors.hair, legs: 0x1f2937, outline: OUTLINE, ko: e.state === 'ko' });
     s.ragG.zIndex = depth + 1;
     s.ragG.alpha = e.state === 'ko' ? 0.75 : 1;
