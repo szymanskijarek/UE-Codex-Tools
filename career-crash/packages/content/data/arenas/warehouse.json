@@ -580,5 +580,11 @@
    ],
    "chanceBp": 6000
   }
+ ],
+ "debris": [
+  "prop.cardboard-box",
+  "prop.crate",
+  "prop.scrap-metal",
+  "prop.tin-cans"
  ]
 }

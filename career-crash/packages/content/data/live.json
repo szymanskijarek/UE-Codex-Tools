@@ -1339,6 +1339,49 @@
   "hazard_start_jukebox": [
    "The jukebox drops a banger — everyone near it stops to dance.",
    "Jukebox! Nobody can resist this tune."
+  ],
+  "wall_broken": [
+   "CRASH! The {obstacle} comes down!",
+   "TIMBER! There goes the {obstacle}.",
+   "That {obstacle} was load-bearing. Was.",
+   "The {obstacle} has left the building. Horizontally.",
+   "Health and safety would like a word about that {obstacle}."
+  ],
+  "wall_broken_by": [
+   "{a} brings the whole {obstacle} down!",
+   "{a} demolishes the {obstacle}. Someone's paying for that.",
+   "Thanks to {a}, the {obstacle} is now floor."
+  ],
+  "rivalry": [
+   "Grudge match! {a} hasn't forgotten what {b} did last time.",
+   "{a} spots {b}. Oh, this is personal.",
+   "Old wounds: {a} vs {b}, round two.",
+   "{a} has been waiting for this rematch with {b}."
+  ],
+  "revenge": [
+   "REVENGE! {a} settles the score with {b}!",
+   "{a} pays {b} back in full. With interest.",
+   "Revenge is a dish best served... right now. {a} floors {b}!",
+   "The grudge is settled: {a} gets {b}!"
+  ],
+  "bark_rivalry": [
+   "You again?!",
+   "Remember me?",
+   "This time it's personal.",
+   "We meet again.",
+   "I've been practising."
+  ],
+  "bark_revenge": [
+   "That's for last time!",
+   "Payback!",
+   "Now we're even!",
+   "Who's laughing now?"
+  ],
+  "bark_wall": [
+   "MY SPINE!",
+   "Who put that there?!",
+   "Ow, shelf!",
+   "Not the merchandise!"
   ]
  }
 }

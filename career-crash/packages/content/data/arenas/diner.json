@@ -583,5 +583,11 @@
    ],
    "chanceBp": 6000
   }
+ ],
+ "debris": [
+  "prop.ketchup",
+  "prop.diner-tray",
+  "prop.coffee-cup",
+  "prop.diner-stool"
  ]
 }

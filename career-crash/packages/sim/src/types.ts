@@ -3,7 +3,7 @@ import type { ContentIndex } from './content';
 import type { Rng } from './core/rng';
 import type { NavGrid } from './systems/nav';
 
-export const SIM_VERSION = '0.6.1';
+export const SIM_VERSION = '0.7.0';
 export const TICKS_PER_SECOND = 20;
 export const MAX_TICKS = 2400;
 export const ENTITY_CAP = 256;
@@ -94,6 +94,10 @@ export type EventType =
   | 'parry'
   | 'evade'
   | 'dash'
+  | 'wallHit'
+  | 'wallBroken'
+  | 'rivalry'
+  | 'revenge'
   | 'battleEnd';
 
 export interface BattleEvent {
@@ -264,6 +268,8 @@ export interface Entity {
   dashUntil: number;
   dashVx: number;
   dashVy: number;
+  /** Who put this character on the floor this fight (-1 none): they want payback. */
+  grudgeId: number;
 }
 
 export interface World {
@@ -292,6 +298,10 @@ export interface World {
   firedThisTick: Set<string>;
   /** Career banter cooldowns: "attackerSnap>victimSnap" → next allowed tick. */
   banter: Map<string, number>;
+  /** Obstacle (wall) health and toppled state, parallel to arena.walls. */
+  wallHp: number[];
+  wallMaxHp: number[];
+  wallBroken: boolean[];
   /** Conveyor belts from the layout: rect + carry velocity. */
   belts: { rect: [number, number, number, number]; vx: number; vy: number }[];
   /** Props spawned this tick; capped to stop runaway rule loops. */

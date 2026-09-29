@@ -164,14 +164,14 @@ export class Repo {
     return this.db.prepare('UPDATE defences SET rating = ? WHERE player_id = ?').bind(rating, playerId);
   }
 
-  async defencePool(mode: BattleMode, lo: number, hi: number, excludePlayer: string): Promise<{ player_id: string; display_name: string; rating: number; power: number }[]> {
+  async defencePool(mode: BattleMode, lo: number, hi: number, excludePlayer: string): Promise<{ player_id: string; display_name: string; rating: number; power: number; character_ids: string }[]> {
     const { results } = await this.db
       .prepare(
-        `SELECT d.player_id, p.display_name, d.rating, d.power FROM defences d JOIN players p ON p.id = d.player_id
+        `SELECT d.player_id, p.display_name, d.rating, d.power, d.character_ids FROM defences d JOIN players p ON p.id = d.player_id
          WHERE d.mode = ? AND d.rating BETWEEN ? AND ? AND d.player_id != ? ORDER BY d.rating LIMIT 200`,
       )
       .bind(mode, lo, hi, excludePlayer)
-      .all<{ player_id: string; display_name: string; rating: number; power: number }>();
+      .all<{ player_id: string; display_name: string; rating: number; power: number; character_ids: string }>();
     return results;
   }
 }

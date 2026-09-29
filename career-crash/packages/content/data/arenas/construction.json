@@ -554,5 +554,11 @@
    ],
    "chanceBp": 6000
   }
+ ],
+ "debris": [
+  "prop.brick",
+  "prop.scrap-metal",
+  "prop.paint-bucket",
+  "prop.hard-hat"
  ]
 }

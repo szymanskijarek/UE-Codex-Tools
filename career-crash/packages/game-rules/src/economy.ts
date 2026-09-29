@@ -97,6 +97,8 @@ export interface DefenceCandidate {
   rating: number;
   power: number;
   ghost: boolean;
+  /** Fields a character one of mine holds a grudge against. */
+  rival?: boolean;
 }
 
 export interface OpponentCard extends DefenceCandidate {
@@ -119,6 +121,9 @@ export function pickOpponents(pool: DefenceCandidate[], myRating: number, myPowe
     // Real players first; bots only fill bands that have no humans (03 §5.2).
     const humans = cands.filter((p) => !p.ghost);
     if (humans.length > 0) cands = humans;
+    // Grudge matches first: rivals find each other.
+    const rivals = cands.filter((p) => p.rival);
+    if (rivals.length > 0) cands = rivals;
     if (cands.length === 0) {
       // Nothing in the band: fall back to the closest rating, preferring bots (a human outside the band is a mismatch).
       const mid = (lo + hi) / 2;

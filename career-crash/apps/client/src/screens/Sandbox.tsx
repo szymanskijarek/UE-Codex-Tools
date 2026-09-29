@@ -4,6 +4,7 @@ import { generateRecruit, toSnapshot } from '@cc/game-rules';
 import { Rng, SIM_VERSION, type BattleInput, type BattleMode, type CharacterSnapshot } from '@cc/sim';
 import { nameOf } from '../i18n';
 import { currentReplay, navigate } from '../state';
+import { clearGrudges, grudgeCount, rivalsOf } from '../sandbox-rivals';
 import { Card, Portrait } from '../ui/components';
 
 interface Slot {
@@ -33,14 +34,21 @@ function randomSlot(rng: Rng): Slot {
   return { careers: [c.id], personality: rng.pick(personalities), held: c.art.heldItem ?? '' };
 }
 
-function snapshot(slot: Slot, id: string, rng: Rng): CharacterSnapshot {
-  const base = toSnapshot(generateRecruit(bundle, rng, id));
+/**
+ * A Sandbox fighter keeps the same identity (name, looks, stats) across fights
+ * for as long as their slot's careers stay the same, so grudges can carry over.
+ */
+function snapshot(slot: Slot, slotKey: string): CharacterSnapshot {
+  const id = `sb-${slotKey}-${slot.careers.join('+')}`;
+  const base = toSnapshot(generateRecruit(bundle, Rng.fromSeed(`sandbox-person:${id}`), id));
+  base.rivals = rivalsOf(id);
   const masteries = bundle.masteries.filter((m) => m.requires.careers.every((c) => slot.careers.includes(c))).map((m) => m.id);
   return { ...base, careers: slot.careers, masteries: masteries.slice(0, 2), personality: slot.personality, held: slot.held || null, level: 1 + (slot.careers.length - 1) * 8 };
 }
 
 /** Local battles with no server: build two teams, pick an arena, watch (04 Gate 3 — "is it funny?"). */
 export function Sandbox() {
+  const [grudges, setGrudges] = useState(() => grudgeCount());
   const [seed, setSeed] = useState(() => Math.random().toString(16).slice(2, 10));
   const [mode, setMode] = useState<BattleMode>('duel_3v3');
   const [arena, setArena] = useState(bundle.arenas[0]!.id);
@@ -64,10 +72,9 @@ export function Sandbox() {
   };
 
   const fight = () => {
-    const rng = Rng.fromSeed(`sandbox:${seed}`);
     const teamSnaps = mode === 'ffa'
-      ? [...teams[0]!.slice(0, 3), ...teams[1]!.slice(0, 3)].map((s, i) => ({ playerId: `p${i}`, playerName: `Player ${i + 1}`, rating: 1000, characters: [snapshot(s, `ffa${i}`, rng)] }))
-      : teams.map((t, ti) => ({ playerId: `sandbox-${ti}`, playerName: ti === 0 ? 'Blue Team' : 'Red Team', rating: 1000, characters: t.slice(0, size).map((s, i) => snapshot(s, `t${ti}c${i}`, rng)) }));
+      ? [...teams[0]!.slice(0, 3), ...teams[1]!.slice(0, 3)].map((s, i) => ({ playerId: `p${i}`, playerName: `Player ${i + 1}`, rating: 1000, characters: [snapshot(s, `${i < 3 ? 0 : 1}-${i % 3}`)] }))
+      : teams.map((t, ti) => ({ playerId: `sandbox-${ti}`, playerName: ti === 0 ? 'Blue Team' : 'Red Team', rating: 1000, characters: t.slice(0, size).map((s, i) => snapshot(s, `${ti}-${i}`)) }));
     const input: BattleInput = { schemaVersion: 1, contentHash: bundle.hash, simVersion: SIM_VERSION, seed, arenaId: arena, mode, teams: teamSnaps, modifiers: [] };
     currentReplay.value = { id: 'local', input, title: `Sandbox · seed ${seed}`, back: '/sandbox' };
     navigate('/replay/local');
@@ -108,6 +115,18 @@ export function Sandbox() {
         <button class="ghost small" onClick={randomize}>
           🎲 Random
         </button>
+        {grudges > 0 && (
+          <button
+            class="ghost small"
+            title="Fighters remember who knocked them down in earlier Sandbox fights"
+            onClick={() => {
+              clearGrudges();
+              setGrudges(0);
+            }}
+          >
+            😤 {grudges} grudge{grudges === 1 ? '' : 's'} · forget
+          </button>
+        )}
       </div>
       <div class="grid two">
         {teams.map((t, ti) => (

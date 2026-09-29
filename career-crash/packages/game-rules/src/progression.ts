@@ -207,8 +207,10 @@ export function relationshipDeltas(result: BattleResult, events: { type: string;
     const b = byEntity.get(e.b);
     if (!a || !b) continue;
     if (e.type === 'ko' || e.type === 'downed') {
+      // Whoever floors you becomes your rival straight away (rivals are ≤ −3); it takes the floorer longer to care.
+      if (a.team !== b.team) bump(b.snapshotId, a.snapshotId, -3);
+      else bump(b.snapshotId, a.snapshotId, -1);
       bump(a.snapshotId, b.snapshotId, -1);
-      bump(b.snapshotId, a.snapshotId, -1);
     } else if (e.type === 'revived') {
       bump(a.snapshotId, b.snapshotId, 1);
       bump(b.snapshotId, a.snapshotId, 1);

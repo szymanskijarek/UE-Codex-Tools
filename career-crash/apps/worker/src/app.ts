@@ -469,7 +469,16 @@ export function createApp() {
     const myPower = Math.trunc(teamPower(bundle, [...roster].sort((a, b) => b.level - a.level).slice(0, size).map(toSnapshot)));
     const refreshList = c.req.query('refresh') === '1' || !p.state.opponents || p.state.opponents.mode !== mode || now - p.state.opponents.at > OPPONENT_TTL;
     const rows = await repo.defencePool(mode, p.rating - 300, p.rating + 400, p.id);
-    const pool: DefenceCandidate[] = rows.map((r) => ({ playerId: r.player_id, playerName: r.display_name, rating: r.rating, power: r.power, ghost: false }));
+    // Grudges: teams fielding someone one of my characters has a rivalry with get priority.
+    const myRivals = new Set(roster.flatMap((ch) => toSnapshot(ch).rivals ?? []));
+    const pool: DefenceCandidate[] = rows.map((r) => ({
+      playerId: r.player_id,
+      playerName: r.display_name,
+      rating: r.rating,
+      power: r.power,
+      ghost: false,
+      rival: (JSON.parse(r.character_ids) as string[]).some((id) => myRivals.has(id)),
+    }));
     // Thin pool → add deterministic bot teams around my rating (03 §5.2).
     if (pool.length < 12) {
       for (const off of [-120, -60, -30, 0, 30, 60, 120, 180]) {
@@ -497,6 +506,7 @@ export function createApp() {
         power: cand.power,
         difficulty: difficulties[i] ?? 'even',
         ghost: cand.ghost,
+        rival: !!cand.rival,
         preview: team.characters.map((ch) => ({ name: ch.name, careers: ch.careers, level: ch.level })),
       });
     }

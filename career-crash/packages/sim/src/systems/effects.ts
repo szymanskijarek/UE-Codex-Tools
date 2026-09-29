@@ -1,6 +1,7 @@
 import type { Effect, TagMatch } from '@cc/content-schema';
 import { bpMul, clamp, dir1000, dist, idiv, isqrt } from '../core/math';
 import type { Entity, World } from '../types';
+import { explosionHitsWalls } from './destruction';
 import { derived, emit, get, isAlive, removeEntity, spawnProp, statusMod, tagSetMatches, tagsOf } from '../world';
 
 /** Context for applying an effect: who caused it, and which event it descends from. */
@@ -88,6 +89,11 @@ export function applyDamage(w: World, target: Entity, amount: number, damageType
   if (target.hp <= 0) {
     target.hp = 0;
     const noRevive = w.mode === 'ffa' || target.revived;
+    // Grudges: remember who floored you; flooring your grudge/rival is revenge.
+    if (src && src.kind === 'char' && src.team !== target.team) {
+      if (src.grudgeId === target.id || src.snap?.rivals?.includes(target.snapshotId)) emit(w, 'revenge', src.id, target.id, 0, '', hitEv);
+      target.grudgeId = src.id;
+    }
     if (noRevive) knockOut(w, target, sourceId, hitEv);
     else {
       target.state = 'downed';
@@ -267,6 +273,7 @@ export function explode(w: World, p: Entity): void {
   if (!def || p.removed) return;
   const ev = emit(w, 'explosion', p.lastHitBy, p.id, def.radiusMm, p.def, p.lastCause);
   removeEntity(w, p);
+  explosionHitsWalls(w, p.x, p.y, def.radiusMm, p.lastHitBy, ev);
   for (const e of w.entities) {
     if (e.removed || e.id === p.id) continue;
     if (e.kind === 'prop' && e.areaRadius > 0) continue;

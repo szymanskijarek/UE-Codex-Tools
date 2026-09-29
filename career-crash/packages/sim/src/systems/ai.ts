@@ -215,7 +215,8 @@ export function candidates(w: World, e: Entity): Candidate[] {
   for (const t of attackTargets) {
     const d = dist(e.x, e.y, t.x, t.y);
     let base = idiv(near(d, e.attack.rangeMm, 12000) * 6 + prefScore(w, e, t, d) * 4, 10);
-    if (e.snap?.rivals?.includes(t.snapshotId)) base = idiv(base * 14, 10);
+    if (e.snap?.rivals?.includes(t.snapshotId)) base = idiv(base * 20, 10);
+    if (e.grudgeId === t.id) base = idiv(base * 22, 10);
     if (e.quirks.includes('grudge') && e.lastHitBy === t.id) base = idiv(base * 15, 10);
     if (e.preferTags.length && matchTags(w, t, { hasAny: e.preferTags })) base = idiv(base * 13, 10);
     if (t.state === 'downed') base = idiv(base, 3);

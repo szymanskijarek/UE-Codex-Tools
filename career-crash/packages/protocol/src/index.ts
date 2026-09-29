@@ -79,6 +79,8 @@ export interface OpponentDTO {
   power: number;
   difficulty: Difficulty;
   ghost: boolean;
+  /** One of my characters has a grudge against someone on this team. */
+  rival?: boolean;
   preview: { name: string; careers: string[]; level: number }[];
 }
 

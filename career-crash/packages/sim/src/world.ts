@@ -1,3 +1,4 @@
+import { initWalls } from './systems/destruction';
 import { layoutArena } from './layout';
 import { GOALS, STAT_KEYS, type AttackDef, type ContentBundle, type Goal, type Stats, type TagMatch } from '@cc/content-schema';
 import { indexContent, must, type ContentIndex } from './content';
@@ -137,6 +138,7 @@ function blankEntity(id: number, kind: Entity['kind'], def: string): Entity {
     dashUntil: 0,
     dashVx: 0,
     dashVy: 0,
+    grudgeId: -1,
   };
 }
 
@@ -414,6 +416,14 @@ function spawnCharacter(w: World, snap: CharacterSnapshot, team: number, x: numb
   return e;
 }
 
+/** One second in, rivals from earlier fights spot each other (02 §8.6). */
+export function announceRivalries(w: World): void {
+  for (const e of w.entities) {
+    if (e.kind !== 'char' || !e.snap?.rivals?.length) continue;
+    for (const o of w.entities) if (o.kind === 'char' && o.team !== e.team && e.snap.rivals.includes(o.snapshotId)) emit(w, 'rivalry', e.id, o.id, 0, '', -1);
+  }
+}
+
 function spawnReferee(w: World): void {
   const e = blankEntity(w.nextId++, 'npc', 'npc.referee');
   e.name = 'The Referee';
@@ -451,6 +461,15 @@ function assignStations(w: World): void {
   }
   const a = chars.filter((e) => e.team === 0);
   const b = chars.filter((e) => e.team === 1);
+  // Grudge matches: rivals are paired into the same duel.
+  const rivals = (x: Entity, y: Entity) => !!(x.snap?.rivals?.includes(y.snapshotId) || y.snap?.rivals?.includes(x.snapshotId));
+  const locked = new Set<number>();
+  for (let i = 0; i < a.length && i < b.length; i++) {
+    const j = b.findIndex((y, k) => !locked.has(k) && rivals(a[i]!, y));
+    if (j < 0) continue;
+    if (j !== i) [b[i], b[j]] = [b[j]!, b[i]!];
+    locked.add(i);
+  }
   // Rotate the station list by seed so the same pairing doesn't always meet in the same place.
   const offset = w.envRng.int(st.length);
   const n = Math.max(a.length, b.length);
@@ -499,8 +518,12 @@ export function createWorld(input: BattleInput, bundle: ContentBundle): World {
     firedThisTick: new Set(),
     spawnedThisTick: 0,
     banter: new Map(),
+    wallHp: [],
+    wallMaxHp: [],
+    wallBroken: [],
     belts: obstacles.filter((o) => o.belt).map((o) => ({ rect: o.rect, vx: o.belt![0], vy: o.belt![1] })),
   };
+  initWalls(w);
   for (const p of arena.props) spawnProp(w, p.prop, p.at[0], p.at[1]);
   if (input.mode === 'ffa') {
     let k = 0;

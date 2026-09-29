@@ -593,5 +593,11 @@
    ],
    "chanceBp": 6000
   }
+ ],
+ "debris": [
+  "prop.suitcase",
+  "prop.umbrella",
+  "prop.paper-stack",
+  "prop.coffee-cup"
  ]
 }

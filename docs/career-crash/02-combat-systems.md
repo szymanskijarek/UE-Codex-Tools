@@ -440,6 +440,18 @@ points), jitters loose props by up to 0.7 m and sits 15% of them out. Conveyor
 belts carry anything standing on them. The diner's jukebox periodically
 distracts everyone nearby.
 
+### 7.4b Destruction
+
+Every obstacle has health (120, or 170 for big ones). Bodies thrown into it
+(30 damage; they take 8 themselves), fighters knocked into it at speed (12),
+flying props (2 × their throw damage) and explosions (45) wear it down; it
+wobbles and looks battered as it goes. At 0 it **topples** towards whichever
+side has more people, crushing them (16 damage + knockdown) and scattering the
+arena's `debris` props; it stops blocking movement for the rest of the fight.
+~1–2.5 topples per battle depending on the arena (supermarket shelves are the
+flimsiest). The client keeps rubble, splats of broken props and floor cracks
+from big slams as decals.
+
 ### 7.5 The referee
 
 Every duel has a neutral **referee** entity (content: `npc.referee`). It:
@@ -477,6 +489,17 @@ NOT real milk!" — spoken by the attacker or victim. Optional `effects` apply t
 the speaker (e.g. Inspired + Taunt = rage at the other; Embarrassed = shame),
 so professional rivalries change behaviour, not just text. Every career also
 has a mirror synergy for same-career fights ("Two of us? Awkward.").
+
+### 8.1.2 Grudges
+
+Whoever floors you (down or KO) becomes your rival immediately (relationship
+−3). Rivals are paired into the same duel, spot each other 1 s in (`rivalry`:
+"You again?!"), target each other harder (×2), and matchmaking prefers teams
+fielding one of your rivals ("grudge match" badge). Within a fight, being
+downed gives a grudge against the one who did it (×2.2 targeting after a
+revive). Flooring your rival or grudge is `revenge`: its own lines, hit stop
+and an always-shown, extra-slow "GRUDGE SETTLED" replay. The Sandbox keeps
+fighter identities per slot and remembers grudges in the browser.
 
 ### 8.2 Masteries
 

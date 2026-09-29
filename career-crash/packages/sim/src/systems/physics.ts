@@ -1,6 +1,7 @@
 import { clamp, dir1000, dist2, idiv, isqrt } from '../core/math';
 import type { Entity, World } from '../types';
 import { derived, emit, get, hasFlag, maskOverlap, removeEntity, tagsOf } from '../world';
+import { wallImpact } from './destruction';
 import { applyDamage, applyEffect, applyStatus, push, removeStatus } from './effects';
 
 const GRAVITY = 12;
@@ -9,8 +10,12 @@ const PROP_FRICTION = 86;
 const SLIP_FRICTION = 97;
 const IMPACT_SPEED = 110;
 
+/** Index of the obstacle the last resolveWalls call bumped into (-1 none). */
+let touchedWall = -1;
+
 function resolveWalls(w: World, e: Entity): boolean {
   let hit = false;
+  touchedWall = -1;
   const r = e.radius;
   const [W, H] = w.arena.sizeMm;
   const cx0 = clamp(e.x, r, W - r);
@@ -21,12 +26,14 @@ function resolveWalls(w: World, e: Entity): boolean {
     hit = true;
   }
   if (e.z > 1600) return hit; // flying over counters/shelves
-  for (const [x, y, ww, hh] of w.arena.walls) {
+  for (const [i, [x, y, ww, hh]] of w.arena.walls.entries()) {
+    if (w.wallBroken[i]) continue;
     const cx = clamp(e.x, x, x + ww);
     const cy = clamp(e.y, y, y + hh);
     const d2 = dist2(e.x, e.y, cx, cy);
     if (d2 >= r * r) continue;
     hit = true;
+    touchedWall = i;
     if (d2 === 0) {
       // Centre inside the wall: push out along the shortest axis.
       const left = e.x - x;
@@ -135,7 +142,10 @@ export function physics(w: World): void {
       if (Math.abs(e.vy) < 3) e.vy = 0;
     }
     const resting = e.kind === 'prop' && e.vx === 0 && e.vy === 0 && e.z === 0;
-    if (e.areaRadius === 0 && !resting && resolveWalls(w, e) && e.kind === 'prop') {
+    const speed = Math.abs(e.vx) + Math.abs(e.vy);
+    const bumped = e.areaRadius === 0 && !resting && resolveWalls(w, e);
+    if (bumped && touchedWall >= 0 && e.carriedBy < 0) wallImpact(w, e, touchedWall, speed);
+    if (bumped && e.kind === 'prop') {
       e.vx = -idiv(e.vx, 2);
       e.vy = -idiv(e.vy, 2);
     }

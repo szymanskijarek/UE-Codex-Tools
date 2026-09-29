@@ -102,6 +102,7 @@ export function Fight() {
             <div class="row">
               <b class="grow">{o.playerName}</b>
               <span class={`badge ${o.difficulty === 'hard' ? 'red' : o.difficulty === 'easy' ? 'green' : 'gold'}`}>{o.difficulty}</span>
+              {o.rival && <span class="badge red" title="Someone on this team knocked one of yours out — rematch!">😤 grudge match</span>}
             </div>
             <div class="muted small">
               rating {o.rating} · power {o.power}

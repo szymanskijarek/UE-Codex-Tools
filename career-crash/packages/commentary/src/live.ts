@@ -5,7 +5,7 @@
  * always getting through. Deterministic for a given battle seed.
  */
 import type { ContentBundle } from '@cc/content-schema';
-import { Rng, type BattleEvent, type BattleInput } from '@cc/sim';
+import { layoutArena, Rng, type BattleEvent, type BattleInput } from '@cc/sim';
 
 export interface LiveLine {
   tick: number;
@@ -42,6 +42,15 @@ export class LiveCommentator {
     private input: BattleInput,
   ) {
     this.rng = Rng.fromSeed(input.seed).fork('live');
+  }
+
+  /** Friendly name of obstacle (wall index) `i` in this battle's layout. */
+  private obstacleName(i: number): string {
+    const arena = this.bundle.arenas.find((a) => a.id === this.input.arenaId);
+    if (!arena) return 'shelf';
+    const art = layoutArena(arena, this.input.seed).obstacles.filter((o) => !o.belt)[i - arena.walls.length]?.art ?? '';
+    const NAMES: Record<string, string> = { 'gondola-shelf': 'shelf', 'fridge-wall': 'fridge wall', 'chest-freezer': 'freezer', 'produce-stand': 'fruit stand', 'cubicle-cluster': 'cubicle', 'bench-desks': 'row of desks', 'filing-cabinets': 'filing cabinet', 'pallet-rack': 'pallet rack', 'crate-stack': 'stack of crates', 'cage-pallet': 'cage', 'drum-rack': 'oil drum rack', 'news-kiosk': 'news kiosk', 'coffee-kiosk': 'coffee kiosk', 'ticket-booth': 'ticket booth', 'timetable-board': 'timetable', 'station-bench': 'bench', 'ticket-gates': 'ticket gates', 'diner-booth': 'booth', 'diner-table': 'table', 'diner-counter': 'counter', 'diner-pass': 'kitchen pass', 'brick-stack': 'brick stack', 'rebar-bundle': 'rebar pile', 'jersey-barrier': 'barrier', 'site-cabin': 'site cabin' };
+    return NAMES[art] ?? (art.replace(/-/g, ' ') || 'shelf');
   }
 
   private nm(id: string): string {
@@ -212,6 +221,14 @@ export class LiveCommentator {
         return this.make(e.t, 'referee_down', 3, base, [e.a]);
       case 'hazardWarn':
         return this.make(e.t, 'hazard_warn', 3, { ...base, hazard: e.s.replace(/^hazard\./, '').replace(/-/g, ' ') }, []);
+      case 'wallBroken': {
+        const obstacle = this.obstacleName(e.b);
+        return ai?.kind === 'char' ? this.make(e.t, 'wall_broken_by', 3, { ...base, obstacle }, [e.a]) : this.make(e.t, 'wall_broken', 3, { ...base, obstacle }, []);
+      }
+      case 'rivalry':
+        return this.make(e.t, 'rivalry', 3, base, [e.a, e.b]);
+      case 'revenge':
+        return this.make(e.t, 'revenge', 3, base, [e.a, e.b]);
       case 'parry':
         return this.make(e.t, 'parry', 2, base, [e.a, e.b]);
       case 'evade':

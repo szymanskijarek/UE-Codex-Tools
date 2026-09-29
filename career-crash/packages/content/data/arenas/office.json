@@ -600,5 +600,11 @@
    ],
    "chanceBp": 8000
   }
+ ],
+ "debris": [
+  "prop.paper-stack",
+  "prop.stapler",
+  "prop.laptop",
+  "prop.desk-lamp"
  ]
 }

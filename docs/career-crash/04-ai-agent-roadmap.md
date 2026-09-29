@@ -32,6 +32,8 @@ v0.5 additions: sprite-puppet characters from sliced career art (32 of 36 career
 
 v0.6 additions: melee parry / evade / dash with per-character reflex styles (02 §5.2a); per-battle seeded arena layouts with optional obstacles, art variants, jitter, conveyor belts and a jukebox hazard (02 §7.4a); every obstacle and machine uses painted art; attack move set; item atlas.
 
+v0.7 additions: hit stop + impact flash on big hits; destructible, toppling obstacles with persistent rubble/splat/crack decals (02 §7.4b); grudges with rival pairing, rivalry/revenge beats, dramatic revenge replays and rival-first matchmaking (02 §8.1.2); throw-first AI and escalating sudden death (02 §5.2b); one replay per machine run.
+
 ---
 
 ## 1. How agents work on this project

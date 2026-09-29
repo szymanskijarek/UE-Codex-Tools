@@ -171,6 +171,16 @@ export class BattleRenderer {
   private observer: ResizeObserver | null = null;
   private now = 0;
   private obstacles: PlacedObstacle[] = [];
+  /** One view per arena wall (index-aligned with the sim): toppling, wobble and damage looks. */
+  private wallViews: { c: Container; cx: number; by: number; z: number; brokenAt: number; wobbleUntil: number; dir: number; h: number }[] = [];
+  /** Persistent floor decals (splats, rubble, cracks): shown only from the tick they happened. */
+  private decalLayer = new Container();
+  private decals: { g: Graphics; tick: number }[] = [];
+  /** Hit stop: real-time instant until which the battle is frozen, and the impact flash. */
+  private freezeUntil = 0;
+  private impactFlash = new Graphics();
+  private impactAlpha = 0;
+  private curTick = 0;
   /** Animated arrows on conveyor belts. */
   private beltG: Graphics | null = null;
   /** Projection: vertical squash, and back-row width relative to the front row (perspective). */
@@ -188,6 +198,7 @@ export class BattleRenderer {
   private overlay = new Container();
   private replayFocus: number[] | null = null;
   private replayBadge: Text | null = null;
+  private replayLabel = '● ACTION REPLAY';
   /** Replay zoom lens: follows the action on screen when the camera can't (arena edges). */
   private lens: Graphics | null = null;
   private lensPos = { x: 0, y: 0 };
@@ -204,12 +215,13 @@ export class BattleRenderer {
     this.art = arenaArt(this.arena.id);
     await Promise.all([loadPuppets(), this.loadBackdrop(), loadItems()]);
     this.bodies.sortableChildren = true;
-    this.world.addChild(this.floor, this.areas, this.bodies, this.fxLayer, this.uiLayer);
+    this.world.addChild(this.floor, this.decalLayer, this.areas, this.bodies, this.fxLayer, this.uiLayer);
     this.app.stage.addChild(this.world);
     this.banner = new Text({ text: '', style: { fontFamily: FONT, fontSize: 22, fontWeight: '900', fill: 0xffffff, stroke: { color: OUTLINE, width: 5 }, align: 'center' } });
     this.banner.anchor.set(0.5, 0);
     this.app.stage.addChild(this.banner);
     this.app.stage.addChild(this.overlay);
+    this.app.stage.addChild(this.impactFlash);
     this.layout();
     this.app.renderer.on('resize', () => this.layout());
     // resizeTo only tracks window resizes; the stage box can change size on its own (fonts, wrapping, phones).
@@ -246,6 +258,69 @@ export class BattleRenderer {
     s.rag = null;
     s.doll.visible = !s.puppet;
     s.puppet?.settle(300);
+  }
+
+  /** Hit stop: freeze the battle for a beat on big impacts (a little longer in slow-mo replays). */
+  hitStop(ms: number, flash = 0): void {
+    this.freezeUntil = Math.max(this.freezeUntil, performance.now() + ms * (this.replayFocus ? 1.8 : 1));
+    if (flash > 0) {
+      const sw = this.app.screen.width;
+      const sh = this.app.screen.height;
+      this.impactFlash.clear().rect(0, 0, sw, sh).fill(0xffffff);
+      this.impactAlpha = Math.max(this.impactAlpha, flash);
+    }
+  }
+
+  /** 0 while frozen by hit stop, else 1: the replay loop scales simulation time by this. */
+  timeScale(): number {
+    return performance.now() < this.freezeUntil ? 0 : 1;
+  }
+
+  /** Obstacles wobble when hit, look battered as they lose health, and topple over when broken. */
+  private updateWalls(player: ReplayPlayer): void {
+    const w = player.world;
+    this.wallViews.forEach((v, i) => {
+      const broken = !!w.wallBroken[i];
+      const frac = w.wallMaxHp[i] ? (w.wallHp[i] ?? 0) / w.wallMaxHp[i]! : 1;
+      v.c.pivot.set(v.cx, v.by);
+      if (broken) {
+        if (v.brokenAt < 0) v.brokenAt = this.now;
+        const k = Math.min(1, (this.now - v.brokenAt) / 480);
+        // Ease-in fall with a little bounce at the end.
+        const fall = k < 0.8 ? (k / 0.8) ** 2 : 1 - Math.sin(((k - 0.8) / 0.2) * Math.PI) * 0.06;
+        v.c.rotation = v.dir * 1.35 * fall;
+        v.c.position.set(v.cx + v.dir * v.h * 0.15 * fall, v.by + v.h * 0.12 * fall);
+        v.c.tint = 0xb8b8b8;
+        v.c.zIndex = v.z - 1500;
+        return;
+      }
+      if (v.brokenAt >= 0) v.brokenAt = -1; // replay seeked back to before it fell
+      let rot = (1 - frac) * 0.06 * v.dir;
+      if (this.now < v.wobbleUntil) rot += Math.sin((v.wobbleUntil - this.now) / 22) * 0.05 * ((v.wobbleUntil - this.now) / 300);
+      v.c.rotation = rot;
+      v.c.position.set(v.cx, v.by);
+      v.c.tint = frac > 0.66 ? 0xffffff : frac > 0.33 ? 0xe8e2da : 0xd2c8bc;
+      v.c.zIndex = v.z;
+    });
+  }
+
+  private decal(draw: (g: Graphics) => void): void {
+    const g = new Graphics();
+    draw(g);
+    this.decalLayer.addChild(g);
+    this.decals.push({ g, tick: this.curTick });
+    if (this.decals.length > 80) this.decals.shift()!.g.destroy();
+  }
+
+  /** A splat of bits in the colour of whatever broke. */
+  private splat(at: [number, number] | null, color: number, size: number): void {
+    if (!at) return;
+    const [x, y] = at;
+    const bits = Array.from({ length: 9 }, () => [(Math.random() - 0.5) * size * 2.2, (Math.random() - 0.5) * size * 0.9, size * (0.12 + Math.random() * 0.22)] as const);
+    this.decal((g) => {
+      g.ellipse(x, y, size * 0.8, size * 0.32).fill({ color, alpha: 0.35 });
+      for (const [dx, dy, r] of bits) g.circle(x + dx, y + dy, r).fill({ color, alpha: 0.85 });
+    });
   }
 
   private drawBelts(t: number): void {
@@ -319,6 +394,8 @@ export class BattleRenderer {
     this.banner.style.fontSize = this.compact ? 16 : 22;
     this.drawFloor();
     this.drawOverlay();
+    for (const d of this.decals) d.g.destroy();
+    this.decals = [];
     for (const s of this.chars.values()) {
       s.root.destroy({ children: true });
       s.ragG?.destroy();
@@ -405,7 +482,12 @@ export class BattleRenderer {
       this.beltG ??= new Graphics();
     }
     if (this.beltG) this.floor.addChild(this.beltG);
+    this.wallViews = [];
     for (const [x, y, w, h] of this.arena.walls) {
+      const [vx0] = this.px(x, y);
+      const [vx1, vy1] = this.px(x + w, y + h);
+      const view = { c: new Container(), cx: (vx0 + vx1) / 2, by: vy1, z: y + h, brokenAt: -1, wobbleUntil: 0, dir: 1, h: WALL_H * Z_LIFT * this.scale };
+      this.wallViews.push(view);
       const ob = this.obstacles.find((o) => !o.belt && o.rect[0] === x && o.rect[1] === y && o.rect[2] === w && o.rect[3] === h);
       const wall = new Graphics() as Graphics & { isWall?: boolean };
       wall.isWall = true;
@@ -421,8 +503,11 @@ export class BattleRenderer {
         c.addChild(art);
         c.zIndex = y + h;
         this.bodies.addChild(c);
+        view.c = c;
+        view.h = art.height;
         continue;
       }
+      view.c = wall;
       if (drawWall(wall, this.arena.id, x0, y0, x1, y1, lift)) {
         wall.zIndex = y + h;
         this.bodies.addChild(wall);
@@ -842,8 +927,13 @@ export class BattleRenderer {
         this.props.delete(id);
       }
     }
+    this.curTick = player.tick;
     for (const ev of events) this.onEvent(ev, byId);
     this.drawBelts(t);
+    this.updateWalls(player);
+    for (const d of this.decals) d.g.visible = player.tick >= d.tick;
+    this.impactAlpha = Math.max(0, this.impactAlpha - dtMs / 90);
+    this.impactFlash.alpha = this.impactAlpha;
     this.tickFx(dtMs);
     this.updateCamera(dtMs, minX);
   }
@@ -1478,7 +1568,10 @@ export class BattleRenderer {
       case 'hit':
       case 'crit': {
         const crit = ev.type === 'crit';
+        if (crit) this.hitStop(70, 0.18);
+        else if (ev.s === 'body') this.hitStop(70, 0.12);
         if (ea && isMover(ea.def)) {
+          this.hitStop(90, 0.15);
           this.sfx.play('thud', 1.2);
           this.sfx.play('boing');
           if (B) this.bark(B, 'bark_mover', 0.9, { prop: nameOf(ea.def).toLowerCase() }, true);
@@ -1603,6 +1696,72 @@ export class BattleRenderer {
         this.shake = Math.max(this.shake, 3);
         break;
       }
+      case 'wallHit': {
+        const v = this.wallViews[ev.b];
+        if (v) {
+          v.wobbleUntil = this.now + 300;
+          this.sparks([v.cx, v.by - v.h * 0.4], 0xd6d3d1, 10);
+          if (A) this.bark(A, 'bark_wall', 0.15);
+        }
+        this.sfx.play('thud', 0.7);
+        break;
+      }
+      case 'wallBroken': {
+        const v = this.wallViews[ev.b];
+        if (v) {
+          v.dir = ev.v >= 0 ? 1 : -1;
+          v.brokenAt = this.now;
+          const at: [number, number] = [v.cx, v.by];
+          for (let i = 0; i < 3; i++) this.sparks([at[0] + (i - 1) * v.h * 0.5, at[1] - v.h * 0.3], 0xd6d3d1, 26);
+          this.float(Math.random() < 0.5 ? 'CRASH!' : 'TIMBER!', [at[0], at[1] + v.h * 0.3], 0xfb923c, 24);
+          // Rubble stays where it fell.
+          const w = v.h * 1.3;
+          const bits = Array.from({ length: 14 }, () => [(Math.random() - 0.5) * w * 1.6, v.dir * Math.random() * v.h * 0.35, 3 + Math.random() * v.h * 0.08, Math.random()] as const);
+          this.decal((g) => {
+            g.ellipse(at[0], at[1] + v.dir * v.h * 0.15, w * 0.9, v.h * 0.18).fill({ color: 0x78716c, alpha: 0.35 });
+            for (const [dx, dy, r, c] of bits) g.rect(at[0] + dx, at[1] + dy, r * 1.6, r).fill(c < 0.5 ? 0x9ca3af : 0xa16207);
+          });
+        }
+        this.hitStop(130, 0.25);
+        this.shake = Math.max(this.shake, 14);
+        this.sfx.play('boom', 0.8);
+        this.sfx.play('glass');
+        this.sfx.play('ooh');
+        break;
+      }
+      case 'rivalry': {
+        if (A && B) {
+          this.bark(A, 'bark_rivalry', 1, {}, true);
+          this.setExpr(A, 'angry', 2500);
+          this.setExpr(B, 'angry', 2500);
+          const pa = this.posOf(ev.a, byId);
+          const pb = this.posOf(ev.b, byId);
+          this.float('RIVAL!', pa, 0xef4444, 18);
+          this.float('RIVAL!', pb, 0xef4444, 18);
+          if (pa && pb) {
+            this.addShape((g, k) => {
+              const n = 10;
+              g.moveTo(pa[0], pa[1] - A.r * 3);
+              for (let i = 1; i <= n; i++) g.lineTo(pa[0] + ((pb[0] - pa[0]) * i) / n + (i < n ? (Math.random() - 0.5) * 16 : 0), pa[1] - A.r * 3 + ((pb[1] - pa[1]) * i) / n + (i < n ? (Math.random() - 0.5) * 16 : 0));
+              g.stroke({ width: 3, color: 0xef4444, alpha: k });
+            }, 1600);
+          }
+          this.sfx.play('zap');
+        }
+        break;
+      }
+      case 'revenge': {
+        this.hitStop(170, 0.3);
+        if (A) {
+          this.bark(A, 'bark_revenge', 1, {}, true);
+          this.setExpr(A, 'happy', 2000);
+        }
+        this.float('REVENGE!', this.posOf(ev.b, byId), 0xfacc15, 28);
+        this.shake = Math.max(this.shake, 12);
+        this.sfx.play('cheer');
+        this.sfx.play('fanfare');
+        break;
+      }
       case 'evade': {
         if (A) {
           A.dashUntil = this.now + 320;
@@ -1618,6 +1777,7 @@ export class BattleRenderer {
         break;
       }
       case 'parry': {
+        this.hitStop(60, 0.1);
         if (A) {
           A.parryUntil = this.now + 350;
           this.setExpr(A, 'angry', 600);
@@ -1646,6 +1806,19 @@ export class BattleRenderer {
         break;
       }
       case 'landed':
+        if (ev.v >= 14) {
+          this.hitStop(90, 0.16);
+          // The floor remembers a good slam.
+          const at = this.posOf(ev.b, byId);
+          if (at) {
+            const r = 420 * this.scale;
+            const cracks = Array.from({ length: 6 }, (_, i) => (i / 6) * Math.PI * 2 + Math.random() * 0.5);
+            this.decal((g) => {
+              for (const a of cracks) g.moveTo(at[0], at[1]).lineTo(at[0] + Math.cos(a) * r * (0.8 + Math.random() * 0.8), at[1] + Math.sin(a) * r * 0.45);
+              g.stroke({ width: Math.max(1, 25 * this.scale), color: 0x1f2937, alpha: 0.45 });
+            });
+          }
+        }
         if (ev.v > 0) {
           this.float(ev.v >= 14 ? 'SLAM!' : 'THUD', this.posOf(ev.b, byId), ev.v >= 14 ? 0xffd000 : 0xffffff, ev.v >= 14 ? 22 : 15);
           this.sparks(this.posOf(ev.b, byId), 0xe5e7eb, 18);
@@ -1703,6 +1876,7 @@ export class BattleRenderer {
       case 'propBroken': {
         const def = bundle.props.find((p) => p.id === ev.s);
         if (def?.area) break;
+        this.splat(this.posOf(ev.b, byId), hex(def?.art.color ?? '#9ca3af'), Math.max(10, (eb?.r ?? 300) * this.scale * 1.6));
         this.sfx.play(def?.tags.includes('material:glass') ? 'glass' : def?.tags.includes('food') || def?.tags.includes('liquid') ? 'splash' : 'thud');
         this.sparks(this.posOf(ev.b, byId), 0xe5e7eb, 16);
         break;
@@ -1711,6 +1885,7 @@ export class BattleRenderer {
         this.sfx.play('thud', 0.5);
         break;
       case 'downed':
+        this.hitStop(100, 0.2);
         this.float('DOWN!', this.posOf(ev.b, byId), 0xffffff, 18);
         this.witnesses(eb, (s, same) => {
           this.setExpr(s, same ? 'scared' : 'happy', 800);
@@ -1840,7 +2015,8 @@ export class BattleRenderer {
    * Action replay mode (slow motion): zoom lens on the given entities,
    * cinematic bars, a REPLAY badge and lower-pitched sound. Pass null to exit.
    */
-  setReplay(ids: number[] | null): void {
+  setReplay(ids: number[] | null, label = '● ACTION REPLAY'): void {
+    this.replayLabel = label;
     this.replayFocus = ids;
     this.sfx.rate = ids ? 0.5 : 1;
     this.drawOverlay();
@@ -1860,7 +2036,7 @@ export class BattleRenderer {
     const g = new Graphics();
     g.rect(0, 0, sw, bar).fill(0x000000).rect(0, sh - bar, sw, bar).fill(0x000000);
     this.overlay.addChild(this.lens);
-    const badge = new Text({ text: '● ACTION REPLAY', style: { fontFamily: FONT, fontSize: Math.max(12, bar * 0.45), fontWeight: '900', fill: 0xffffff, letterSpacing: 2 }, resolution: 2 });
+    const badge = new Text({ text: this.replayLabel, style: { fontFamily: FONT, fontSize: Math.max(12, bar * 0.45), fontWeight: '900', fill: 0xffffff, letterSpacing: 2 }, resolution: 2 });
     badge.anchor.set(0, 0.5);
     badge.position.set(12, bar / 2);
     const slow = new Text({ text: '½× SLOW-MO', style: { fontFamily: FONT, fontSize: Math.max(10, bar * 0.35), fontWeight: '800', fill: 0xfde047 }, resolution: 2 });

@@ -151,4 +151,39 @@ describe('systems', () => {
     expect(counts.evade).toBeGreaterThan(0);
     expect(counts.dash).toBeGreaterThan(0);
   });
+
+  it('obstacles topple under punishment and stay down', () => {
+    const rng = Rng.fromSeed('topple');
+    let broken = 0;
+    for (let i = 0; i < 24 && broken === 0; i++) {
+      const b = createBattle(battleInput(bundle, `tp${i}`, [randomTeam(bundle, rng, 3, 'A'), randomTeam(bundle, rng, 3, 'B')], 'arena.supermarket'), bundle);
+      while (!b.done()) b.step();
+      const w = b.world;
+      for (const [k, gone] of w.wallBroken.entries()) {
+        if (!gone) continue;
+        broken++;
+        expect(w.wallHp[k]).toBe(0);
+        expect(w.events.some((e) => e.type === 'wallBroken' && e.b === k)).toBe(true);
+      }
+    }
+    expect(broken).toBeGreaterThan(0);
+  });
+
+  it('rivals are paired, recognise each other and can take revenge', () => {
+    const rng = Rng.fromSeed('grudge');
+    let revenge = 0;
+    for (let i = 0; i < 10; i++) {
+      const A = randomTeam(bundle, rng, 3, 'A');
+      const B = randomTeam(bundle, rng, 3, 'B');
+      A.characters[2]!.rivals = [B.characters[0]!.id];
+      const b = createBattle(battleInput(bundle, `gr${i}`, [A, B]), bundle);
+      const holder = b.world.entities.find((e) => e.snapshotId === A.characters[2]!.id)!;
+      const rival = b.world.entities.find((e) => e.snapshotId === B.characters[0]!.id)!;
+      expect(holder.duelTarget).toBe(rival.id);
+      while (!b.done()) b.step();
+      expect(b.world.events.some((e) => e.type === 'rivalry' && e.a === holder.id && e.b === rival.id)).toBe(true);
+      revenge += b.world.events.filter((e) => e.type === 'revenge').length;
+    }
+    expect(revenge).toBeGreaterThan(0);
+  });
 });

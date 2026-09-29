@@ -57,7 +57,7 @@ const DASH_COOLDOWN = 70;
 function freeSpot(w: World, x: number, y: number, r: number): boolean {
   const [W, H] = w.arena.sizeMm;
   if (x < r || y < r || x > W - r || y > H - r) return false;
-  for (const [wx, wy, ww, wh] of w.arena.walls) if (x > wx - r && x < wx + ww + r && y > wy - r && y < wy + wh + r) return false;
+  for (const [i, [wx, wy, ww, wh]] of w.arena.walls.entries()) if (!w.wallBroken[i] && x > wx - r && x < wx + ww + r && y > wy - r && y < wy + wh + r) return false;
   return true;
 }
 

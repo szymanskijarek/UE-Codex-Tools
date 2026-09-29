@@ -721,5 +721,11 @@
    ],
    "chanceBp": 5000
   }
+ ],
+ "debris": [
+  "prop.cereal-box",
+  "prop.tin-cans",
+  "prop.soda-can",
+  "prop.olive-oil"
  ]
 }

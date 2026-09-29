@@ -9,7 +9,7 @@ import { contacts, physics, slipChecks } from './systems/physics';
 import { resources } from './systems/resources';
 import { processRules } from './systems/rules';
 import { MAX_TICKS, type BattleInput, type BattleOutput, type BattleResult, type Entity, type World } from './types';
-import { createWorld, emit } from './world';
+import { createWorld, emit, announceRivalries } from './world';
 
 /** Canonical serialization of world state for hashing (01 §4.3). */
 export function serializeState(w: World): string {
@@ -19,6 +19,7 @@ export function serializeState(w: World): string {
     parts.push(e.id, e.x, e.y, e.z, e.vx, e.vy, e.hp, e.energy, e.morale, e.heldId, e.statuses.length);
     for (const s of e.statuses) parts.push(s.remaining);
   }
+  parts.push(...w.wallHp);
   return parts.join(',');
 }
 
@@ -119,6 +120,7 @@ export function step(w: World): void {
   w.tick++;
   w.firedThisTick.clear();
   w.spawnedThisTick = 0;
+  if (w.tick === 20) announceRivalries(w);
   scheduled(w);
   decide(w);
   progressActions(w);

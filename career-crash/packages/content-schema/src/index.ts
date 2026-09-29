@@ -290,6 +290,8 @@ export const arenaSchema = z.object({
    */
   obstacles: z.array(z.object({ at: rect, art: z.array(z.string()).min(1), chanceBp: bp.optional(), belt: point.optional() })).optional(),
   layoutJitterMm: int.min(0).optional(),
+  /** Props scattered when an obstacle topples. */
+  debris: z.array(ref('prop')).optional(),
   theme: z.object({ floor: z.string(), wall: z.string(), accent: z.string() }),
   unlock: z.object({ league: z.string() }),
 });
