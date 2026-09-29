@@ -83,6 +83,7 @@
   "state:burning",
   "state:caffeinated",
   "state:cold",
+  "state:crawling",
   "state:distracted",
   "state:down",
   "state:electrified",

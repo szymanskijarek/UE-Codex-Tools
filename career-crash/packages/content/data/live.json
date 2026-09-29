@@ -1193,6 +1193,37 @@
   "jobhurt_astronaut": [
    "Houston, we have a problem!",
    "Mayday!"
+  ],
+  "status_crawling": [
+   "{b} is crawling for it!",
+   "{b} drags themselves along the floor.",
+   "Not getting up yet, {b}?",
+   "{b} commando-crawls to safety.",
+   "{b} is taking the scenic route. On their belly.",
+   "Army crawl from {b}! Inspirational."
+  ],
+  "ko_bleed": [
+   "{b} crawls one last metre and gives up.",
+   "{b} has stopped crawling. {b} is OUT.",
+   "Nobody came for {b}. Knocked out!",
+   "{b} waited for help. Help did not come. OUT!",
+   "Lights out for {b}, face-down on the floor."
+  ],
+  "bark_crawl": [
+   "I'm fine! I'm fine!",
+   "Just... resting...",
+   "Medic?",
+   "Tactical crawl!",
+   "Nobody look at me.",
+   "My legs are on strike.",
+   "Five more minutes..."
+  ],
+  "bark_downed_crawl": [
+   "Help...",
+   "Someone... anyone...",
+   "Tell my manager...",
+   "I can see the light... it's the exit sign.",
+   "Revive me, cowards!"
   ]
  }
 }

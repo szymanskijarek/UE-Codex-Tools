@@ -162,12 +162,22 @@ Core v1 set:
 
 ### 5.4 Downed, revive, KO
 
-- HP 0 → **Downed** for 100 ticks. Downed characters can be revived by an ally
-  (channel 40 ticks with `skill:heal`, 80 without). Revived at 30% HP. Each
-  character can be revived **once per battle**.
+- HP 0 → **Downed** for 140 ticks (7 s). Downed characters **crawl** slowly
+  towards the nearest standing ally and stop when one comes to help. Allies
+  within 20 m weigh a revive highly; the revive channels 35 ticks with
+  `skill:heal`, 60 without. Revived at 30% HP. Each character can be revived
+  **once per battle**. (v0.5: with the old 5 s / 12 m / 80-tick numbers ~92%
+  of KOs were silent bleed-outs; now ~0.4 revives per 3v3 battle.)
 - Downed timer expires, or downed again after a revive → **KO** (out of the
   battle, body remains as a trippable obstacle — intentionally).
 - Hitting a downed character is a foul (§7.5).
+- **Crawling after a knockdown.** When `status.knocked-down` wears off, a
+  character below 50% HP doesn't spring up: they get `status.crawling`
+  (0.6 s at 50% HP up to 3.6 s near 0) — belly-crawling towards an ally or away
+  from the nearest enemy at 30% speed, dealing half damage, unable to start
+  attacks, and still very much attackable.
+- Replays and report moments show the **decisive blow** (the hit that downed
+  someone, or a finishing hit), never the moment a timer ran out.
 
 ### 5.5 Morale
 

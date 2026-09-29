@@ -27,6 +27,29 @@ function moveSpeed(w: World, e: Entity): number {
 }
 
 /** Steer toward (x, y): direct if the line is clear, otherwise follow an A* path. */
+/**
+ * Downed (0 HP) characters don't just lie there: they crawl towards the
+ * nearest standing ally, hoping for a revive, and stop once help arrives.
+ */
+function crawlDowned(w: World, e: Entity): void {
+  if (hasFlag(w, e, 'down') || hasFlag(w, e, 'noMove')) return;
+  let ally: Entity | null = null;
+  let best = 20000;
+  for (const o of w.entities) {
+    if (o.kind !== 'char' || o.team !== e.team || o.id === e.id || o.state !== 'active' || o.removed) continue;
+    if (o.action?.kind === 'revive' && o.action.targetId === e.id && dist(o.x, o.y, e.x, e.y) < 2500) return;
+    const d = dist(e.x, e.y, o.x, o.y);
+    if (d < best) {
+      best = d;
+      ally = o;
+    }
+  }
+  if (!ally) return;
+  moveToward(w, e, ally.x, ally.y, 1300);
+  e.mx = idiv(e.mx * 3, 10);
+  e.my = idiv(e.my * 3, 10);
+}
+
 function moveToward(w: World, e: Entity, x: number, y: number, stopAt: number): void {
   const d = dist(e.x, e.y, x, y);
   if (d <= stopAt) return;
@@ -97,7 +120,7 @@ function windupFor(w: World, e: Entity, a: Action): number {
     case 'push':
       return Math.max(3, inter);
     case 'revive':
-      return e.baseTags.includes('skill:heal') ? 40 : 80;
+      return e.baseTags.includes('skill:heal') ? 35 : 60;
     case 'taunt':
       return 15;
     default:
@@ -274,6 +297,10 @@ export function progressActions(w: World): void {
     }
     if (e.kind !== 'char') continue;
     if (e.rideId >= 0 && (w.tick >= e.rideUntil || !canAct(w, e))) dismount(w, e);
+    if (e.state === 'downed') {
+      crawlDowned(w, e);
+      continue;
+    }
     if (!canAct(w, e)) continue;
     const a = e.action;
     if (!a) continue;

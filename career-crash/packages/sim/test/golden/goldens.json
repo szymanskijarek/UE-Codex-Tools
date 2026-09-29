@@ -1,13 +1,13 @@
 {
- "simVersion": "0.4.0",
- "contentHash": "e8ce78347be3e1e5",
+ "simVersion": "0.5.0",
+ "contentHash": "fde56f089c0ac243",
  "cases": [
   {
    "name": "arena.office-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "e8ce78347be3e1e5",
-    "simVersion": "0.4.0",
+    "contentHash": "fde56f089c0ac243",
+    "simVersion": "0.5.0",
     "seed": "1942b39aeff3f829",
     "arenaId": "arena.office",
     "mode": "duel_3v3",
@@ -235,7 +235,7 @@
     ],
     "modifiers": []
    },
-   "resultHash": "186db26508c08d56",
+   "resultHash": "fdb5f29dfa6348c2",
    "hashes": [
     "a151f7bc90296807",
     "a93b6bfd23076102",
@@ -243,25 +243,22 @@
     "b98bb0bb9d64fafc",
     "ac86b4ae88eeae0f",
     "77fa79ceeaa6737f",
-    "74ac95b6f816ae33",
-    "2161ee081d31816d",
-    "7ddc782235b80855",
-    "eb935a1c1301fae3",
-    "a0a8b9110137fa18",
-    "467410eb5b7b3de8",
-    "c617707980065e64",
-    "3cf41f8832c0812d",
-    "576f9a0f97f6e976"
+    "92326e937cdf0c0a",
+    "09ab1c4d0415f57e",
+    "67495a18bf2a457b",
+    "930e2a576854d938",
+    "7d91038ed26ba17d",
+    "633720e716e819ce"
    ],
    "winner": 0,
-   "ticks": 1509
+   "ticks": 1221
   },
   {
    "name": "arena.office-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "e8ce78347be3e1e5",
-    "simVersion": "0.4.0",
+    "contentHash": "fde56f089c0ac243",
+    "simVersion": "0.5.0",
     "seed": "5e7b098fded2d143",
     "arenaId": "arena.office",
     "mode": "duel_3v3",
@@ -489,7 +486,7 @@
     ],
     "modifiers": []
    },
-   "resultHash": "cbea471418f0cd4b",
+   "resultHash": "f9c3b08ce28e8391",
    "hashes": [
     "42ec16ebef7bbbf6",
     "ca9595fcf62d72e3",
@@ -497,29 +494,34 @@
     "1b5aa2932520d064",
     "95b8ed41e06d851c",
     "852e16b4f555e595",
-    "9e997bdfbb595482",
-    "362409ec33aae6bd",
-    "f7d38b5554c4e5b2",
-    "698436d7835f2b0a",
-    "f6e6eefad4a67e5d",
-    "617a0c9c8699830b",
-    "85e5c43828d1af2f",
-    "fd178fc7ffdfe5da",
-    "4c20aada1a0f2fe3",
-    "f84a59139843be3e",
-    "28d8fe835d8d60c2",
-    "76c658e7d614d6f6",
-    "018224f9e13fc71a"
+    "ede1091e6a62ce09",
+    "e39279307fd6724f",
+    "a1d16f7bfce7f8aa",
+    "442345906d575555",
+    "fdf2126e13a9a6e5",
+    "707a11e81389b871",
+    "27f540571f9dd3fe",
+    "dee637e47263186b",
+    "d4da6146fcf33ec3",
+    "089e09f6808bc561",
+    "f2b3f4e45980a0f3",
+    "5180f508e0e345eb",
+    "b8c0feeab358dc69",
+    "a1e6daf1fac0b056",
+    "fba93fc1f4add702",
+    "576e4c85a96aed84",
+    "28eac028d1f9e0db",
+    "f9c3b08ce28e8391"
    ],
    "winner": 1,
-   "ticks": 1924
+   "ticks": 2400
   },
   {
    "name": "arena.office-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "e8ce78347be3e1e5",
-    "simVersion": "0.4.0",
+    "contentHash": "fde56f089c0ac243",
+    "simVersion": "0.5.0",
     "seed": "e9aac648f664d750",
     "arenaId": "arena.office",
     "mode": "duel_3v3",
@@ -747,7 +749,7 @@
     ],
     "modifiers": []
    },
-   "resultHash": "175883957057620a",
+   "resultHash": "88e0a959097fbcda",
    "hashes": [
     "37639419796dac6e",
     "87891c5528307cd4",
@@ -755,8 +757,8 @@
     "9e1b3bca36fe2f01",
     "737cbce5f561964e",
     "89bf4c9b1cf0bc74",
-    "a0ddec01e074f01a",
-    "8eb5b3608fcaeb19"
+    "698b4d15a3b6095a",
+    "0291209aaa33952b"
    ],
    "winner": 1,
    "ticks": 867
@@ -765,8 +767,8 @@
    "name": "arena.office-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "e8ce78347be3e1e5",
-    "simVersion": "0.4.0",
+    "contentHash": "fde56f089c0ac243",
+    "simVersion": "0.5.0",
     "seed": "a1c6d770c6ab0fd2",
     "arenaId": "arena.office",
     "mode": "duel_3v3",
@@ -994,30 +996,34 @@
     ],
     "modifiers": []
    },
-   "resultHash": "21a1ebd48b4344f3",
+   "resultHash": "1c649d5846d54851",
    "hashes": [
     "1ce5212a8bbe61a7",
     "5090df88109a518d",
     "f76dd9ec36a3330d",
     "899a58c4b90e8c43",
-    "f57b578f11dfa2de",
-    "9a0fe7c49d409729",
-    "a07823b151fb5688",
-    "cce2cd5457a0da19",
-    "441af0991e0ff898",
-    "eb7bcb9669c535f9",
-    "cfab436d4ac64f9a",
-    "5a99bd11aae5fadc"
+    "7506e5c3653a9ed0",
+    "23550cb41cec72a7",
+    "be01cda312e7da18",
+    "e1bf5574caac286b",
+    "e0a5fd20794762f1",
+    "29b52871a8a46a4e",
+    "59e45da29c3dbd67",
+    "cde8950b3d73d570",
+    "f8f7676ecd39eb87",
+    "542adc4a11ba759f",
+    "f5a2848a29adbc6b",
+    "9099e1cd34c5ccda"
    ],
    "winner": 1,
-   "ticks": 1281
+   "ticks": 1651
   },
   {
    "name": "arena.office-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "e8ce78347be3e1e5",
-    "simVersion": "0.4.0",
+    "contentHash": "fde56f089c0ac243",
+    "simVersion": "0.5.0",
     "seed": "ca541a546174fe1c",
     "arenaId": "arena.office",
     "mode": "duel_3v3",
@@ -1245,7 +1251,7 @@
     ],
     "modifiers": []
    },
-   "resultHash": "f7972a4b5522aab8",
+   "resultHash": "27f34fa9d29f2040",
    "hashes": [
     "46037039a23e4156",
     "fbd17250c0577d07",
@@ -1253,29 +1259,31 @@
     "731c9155962deff8",
     "dea3e2b6c80224b5",
     "f9b866be3670a427",
-    "4536aec9d9ca9f6e",
-    "11495bb521c78eac",
-    "9ffc5d2011eeef0b",
-    "70470bfbc6f007d0",
-    "825104484aff5045",
-    "d92c3c38357c0347",
-    "7b744278c19da9dd",
-    "16412c1d7a28e0e6",
-    "9aa0bdbf1c706f58",
-    "bcf332915dae8eea",
-    "3db3786643450b15",
-    "1c65d14c21e77d7f",
-    "399b8e5e435e92c3"
+    "dc21c4da82cce5c1",
+    "ed5a616328f4d62a",
+    "a616cf85b8d5d3de",
+    "d807479fa4a4c214",
+    "61c4835a58290a27",
+    "b0ab10e9ff89deaa",
+    "88469e6eaabb0147",
+    "e386bc814766469a",
+    "425d648ef200efaf",
+    "ac7e781edd3b0e0b",
+    "f351e51ecefbf06f",
+    "7d4ebe4f6927cc08",
+    "5612c4e72ce29ff4",
+    "e8f99fcfdbb50194",
+    "6d1e1d120964aff3"
    ],
-   "winner": 0,
-   "ticks": 1988
+   "winner": 1,
+   "ticks": 2131
   },
   {
    "name": "arena.office-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "e8ce78347be3e1e5",
-    "simVersion": "0.4.0",
+    "contentHash": "fde56f089c0ac243",
+    "simVersion": "0.5.0",
     "seed": "64179e10dfbbf1c5",
     "arenaId": "arena.office",
     "mode": "duel_5v5",
@@ -1641,29 +1649,36 @@
     ],
     "modifiers": []
    },
-   "resultHash": "49da35075f06c054",
+   "resultHash": "3f2080a843e2d335",
    "hashes": [
     "5d0f845aed1defa9",
     "16076546b8c18ca3",
     "f355189d316a724e",
     "f1896efcd6f0de15",
     "a12e7906c74b14e9",
-    "fdaaf4c4e8768485",
-    "8cd5627601fd8223",
-    "caeda7878e40f776",
-    "a26fbfbb079f3fe6",
-    "4a7e2899c488f86c",
-    "3056f0c04cb7e421"
+    "3cc8adc291178dad",
+    "c6646479b03bffba",
+    "98ef8a8ad4deeb2f",
+    "7eb61835ca25c250",
+    "1ed48fc74230abfe",
+    "f9364aaa3021998b",
+    "bb5b2d6297fc30cb",
+    "abed03f4f2baf16b",
+    "92a85bd7a4b359c0",
+    "86b3d0f8864b300f",
+    "cf712e71046fb8f4",
+    "b0b9bfdab3a2eaeb",
+    "7774f79cbc6251a9"
    ],
-   "winner": 0,
-   "ticks": 1182
+   "winner": 1,
+   "ticks": 1861
   },
   {
    "name": "arena.office-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "e8ce78347be3e1e5",
-    "simVersion": "0.4.0",
+    "contentHash": "fde56f089c0ac243",
+    "simVersion": "0.5.0",
     "seed": "6ef4a751697087ad",
     "arenaId": "arena.office",
     "mode": "duel_5v5",
@@ -2029,7 +2044,7 @@
     ],
     "modifiers": []
    },
-   "resultHash": "4545e09844795e47",
+   "resultHash": "4479922616c53ddf",
    "hashes": [
     "8c50dd67b5009b60",
     "e040044e439fffdb",
@@ -2038,21 +2053,21 @@
     "f0d4ac35b6dbcb8e",
     "fed4ec430073d480",
     "1afc3a612473e7b4",
-    "6a1d953cd9ee9e75",
-    "3e4cfca7157f15a2",
-    "de9681d097430835",
-    "8ddeb5060a96f48d",
-    "d0c9d584794db4a7"
+    "7b566de67616cf83",
+    "9f999c4227d3c2c7",
+    "0d7b2d822a2013bf",
+    "c5416d8e7f9ae26b",
+    "8e297e7b304976f2"
    ],
    "winner": 0,
-   "ticks": 1219
+   "ticks": 1247
   },
   {
    "name": "arena.office-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "e8ce78347be3e1e5",
-    "simVersion": "0.4.0",
+    "contentHash": "fde56f089c0ac243",
+    "simVersion": "0.5.0",
     "seed": "8ee11f25ead1b54",
     "arenaId": "arena.office",
     "mode": "ffa",
@@ -2306,7 +2321,7 @@
     ],
     "modifiers": []
    },
-   "resultHash": "28c999abfe1e7b66",
+   "resultHash": "bfe78f0678a0cf0d",
    "hashes": [
     "6dfcaf99ffb07a96",
     "245dcec4a544c76d",
@@ -2317,31 +2332,31 @@
     "850e6b45ed3f8432",
     "48d6d13f4e07e382",
     "5e6d42118431e65a",
-    "fd6c38c3ae4448a6",
-    "8edab5b41fc76535",
-    "93d6cebdc1f4ae82",
-    "f81df60c1a688937",
-    "2a2770870f2a0224",
-    "009c4c65277b5748",
-    "ac7d2615c6d897bc",
-    "c7bd804d781ab480",
-    "5bce6d3884976217",
-    "ebdf46a6dd2032cb",
-    "f714617b8d9b633e",
-    "58d9f351e9739d26",
-    "302500e5289741a0",
-    "5020c82b0028e864",
-    "28c999abfe1e7b66"
+    "272e8591889da4c8",
+    "2105170ca8c8c1bf",
+    "9228dc758457ff60",
+    "0d3917f4b59e3de1",
+    "cb4f58b0ce5a34b9",
+    "fa48b1ac43c1d791",
+    "6d3bb9b2ad3aed99",
+    "dfdffc7749f7befa",
+    "19c568d9276a91ba",
+    "8c7fc997f3e0a0c8",
+    "589b3050e26bae23",
+    "eeadf4f2303788a5",
+    "f98a877ef0b993f3",
+    "b5b706b168ecd744",
+    "bfe78f0678a0cf0d"
    ],
-   "winner": 1,
+   "winner": 4,
    "ticks": 2400
   },
   {
    "name": "arena.supermarket-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "e8ce78347be3e1e5",
-    "simVersion": "0.4.0",
+    "contentHash": "fde56f089c0ac243",
+    "simVersion": "0.5.0",
     "seed": "9ae2eb0a49d70d1c",
     "arenaId": "arena.supermarket",
     "mode": "duel_3v3",
@@ -2569,29 +2584,27 @@
     ],
     "modifiers": []
    },
-   "resultHash": "feab7f83a8f3318e",
+   "resultHash": "173858c9d8c0feba",
    "hashes": [
     "9114a136887b383b",
     "15ae7af40e4fe131",
     "a8c9d3908904e985",
     "74a7bb368f60e105",
     "ef820c55fa6a3630",
-    "10e04c3db9a93a76",
-    "3526f50374f4e598",
-    "0949851e6592ae47",
-    "6a2458ce800d46f3",
-    "2058afb90cdb40f0",
-    "7e16842169b1062e"
+    "b2c1afb35c7e83c0",
+    "d2554581b97fb5c6",
+    "c1d455a820d5b0b1",
+    "b5ee27f9f1321104"
    ],
    "winner": 1,
-   "ticks": 1137
+   "ticks": 994
   },
   {
    "name": "arena.supermarket-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "e8ce78347be3e1e5",
-    "simVersion": "0.4.0",
+    "contentHash": "fde56f089c0ac243",
+    "simVersion": "0.5.0",
     "seed": "f27e04ed5de877d6",
     "arenaId": "arena.supermarket",
     "mode": "duel_3v3",
@@ -2819,7 +2832,7 @@
     ],
     "modifiers": []
    },
-   "resultHash": "cba307b9c117b318",
+   "resultHash": "0545e892cd154011",
    "hashes": [
     "3cfdc9e8a1a78767",
     "84660938f1c5e32f",
@@ -2828,19 +2841,20 @@
     "657eb6a526db1576",
     "e87916fe1f768301",
     "9bd52df2c1f7efc1",
-    "3cb10ad3be6497f4",
-    "27d316cf742a5e2a",
-    "7b41b26b4e1d913c"
+    "6701eb4f9d72d7a2",
+    "69ff3eb30c40e95a",
+    "aff1291f24a9024c",
+    "e0f80578d3407403"
    ],
    "winner": 1,
-   "ticks": 1034
+   "ticks": 1109
   },
   {
    "name": "arena.supermarket-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "e8ce78347be3e1e5",
-    "simVersion": "0.4.0",
+    "contentHash": "fde56f089c0ac243",
+    "simVersion": "0.5.0",
     "seed": "29fc562148eb9ed3",
     "arenaId": "arena.supermarket",
     "mode": "duel_3v3",
@@ -3068,27 +3082,25 @@
     ],
     "modifiers": []
    },
-   "resultHash": "5a0b96e06f061fc3",
+   "resultHash": "6ec03f9e6fb1463d",
    "hashes": [
     "c3e845868c2635fb",
     "2558374f05eb76dc",
     "16781140a52aacb9",
     "d933b721770c8de2",
     "3764a6752a9cca64",
-    "0fc1bae8f8b7d665",
-    "4afb78bd10f2bbb2",
-    "d04fdad87784e6f1",
-    "e5638c3d21f9921e"
+    "3ee17db968d83386",
+    "e07f32eb054c385a"
    ],
    "winner": 0,
-   "ticks": 920
+   "ticks": 794
   },
   {
    "name": "arena.supermarket-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "e8ce78347be3e1e5",
-    "simVersion": "0.4.0",
+    "contentHash": "fde56f089c0ac243",
+    "simVersion": "0.5.0",
     "seed": "81a072b6f39a2f04",
     "arenaId": "arena.supermarket",
     "mode": "duel_3v3",
@@ -3316,7 +3328,7 @@
     ],
     "modifiers": []
    },
-   "resultHash": "dcb82010008be6c1",
+   "resultHash": "2ea6d7c46e5cd169",
    "hashes": [
     "0d34454ff2504fb8",
     "48ffa07d2d6e47dc",
@@ -3324,31 +3336,31 @@
     "3b69e96ef36f6d6d",
     "56014b59291d34de",
     "2927767a3c8aa739",
-    "fb497d46962135c9",
-    "da6d7b987c841fb5",
-    "3817237d3bcaea16",
-    "ad3dfd6aece64ba5",
-    "87c26cf11450edc2",
-    "7917b204717628f9",
-    "a229b90fe1efc062",
-    "6f21be1445a59ab9",
-    "eab2c90806a8c66d",
-    "b48faaea2862df69",
-    "60f362fb616a2652",
-    "a5b0698d4ecff124",
-    "33e730795826fc32",
-    "cfe00997cad51374",
-    "7343a7800d3325b9"
+    "1fded89a2ed751dd",
+    "f95eae16c8d4a551",
+    "c1910ff9e14c7308",
+    "00f32200544a7da1",
+    "fb5ae84a16d943b7",
+    "7ba1d9893c4f743a",
+    "b93741b625feb7c3",
+    "191a807dc2d85398",
+    "5dc03dd49a16dfc7",
+    "89623646a42ea45d",
+    "717f432300178ab0",
+    "12000052832a1ead",
+    "03c685e95a21c1b6",
+    "726d6f181f0000db",
+    "45d795288ed3ab37"
    ],
    "winner": 0,
-   "ticks": 2131
+   "ticks": 2172
   },
   {
    "name": "arena.supermarket-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "e8ce78347be3e1e5",
-    "simVersion": "0.4.0",
+    "contentHash": "fde56f089c0ac243",
+    "simVersion": "0.5.0",
     "seed": "3092dba1fbfc3c02",
     "arenaId": "arena.supermarket",
     "mode": "duel_3v3",
@@ -3576,32 +3588,42 @@
     ],
     "modifiers": []
    },
-   "resultHash": "1abe8d2057f7b9a1",
+   "resultHash": "d4c05d1864bf5c81",
    "hashes": [
     "1e2190fcf32a331b",
     "303ca9ec155c4e45",
     "c1a2495cb88ee603",
     "0252c2613c5b5b82",
     "e262ee4602c97759",
-    "eb15993185502372",
-    "1389c9c7fed2f544",
-    "2dcad13aab75f13d",
-    "d4171176ad4b8a7f",
-    "c553bb4ed511a18f",
-    "efe914dcb554279f",
-    "2c412b1a1acf4fcd",
-    "5f3d6f2fc656a402",
-    "42d3a4861fee158d"
+    "3ce9264becce7060",
+    "1ee21736268f3237",
+    "0550aff906aeddc2",
+    "de19c0a25dc88701",
+    "a0fbe2e2e5da006d",
+    "dfdde381a4667696",
+    "12c9c90f727b72b4",
+    "e3575e2335763f74",
+    "a935069ad90d9193",
+    "90ea4e07fe52ace8",
+    "60db88e45403e9c3",
+    "75ae2be05281a859",
+    "a88213a3cdcd9fca",
+    "8f7e2666d2a3ce41",
+    "61e0ee60d0af4e4d",
+    "f7d9194134b1be1c",
+    "e3c1884bb883fb5a",
+    "99b3aad4f066c92f",
+    "d4c05d1864bf5c81"
    ],
    "winner": 0,
-   "ticks": 1401
+   "ticks": 2400
   },
   {
    "name": "arena.supermarket-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "e8ce78347be3e1e5",
-    "simVersion": "0.4.0",
+    "contentHash": "fde56f089c0ac243",
+    "simVersion": "0.5.0",
     "seed": "15b9ea93d29325f1",
     "arenaId": "arena.supermarket",
     "mode": "duel_5v5",
@@ -3967,34 +3989,38 @@
     ],
     "modifiers": []
    },
-   "resultHash": "ea2ba0aa991fbec9",
+   "resultHash": "9f459cd1679d6210",
    "hashes": [
     "89f0d3000a185c71",
     "b26b68bc90cf4f83",
     "874595fd2d70a3b6",
     "86b156cffba9b238",
     "70dbc3ffc67a5d90",
-    "d32a6b477cd14ff2",
-    "0648583d8316125a",
-    "b0267bc7c452cb62",
-    "e62ba69dde25aafc",
-    "0a9bf73316b742dc",
-    "b55a1d8d7c6cbc24",
-    "474e8d07ea04ad08",
-    "4255a3cbf59140b4",
-    "0575adff7a03c3be",
-    "8b3d3e273a9be090",
-    "609deaccb300e489"
+    "1f07ef5f909ebda8",
+    "26840963012e7172",
+    "ea23f2411e66524e",
+    "208a84fd34ea6a50",
+    "acee16d1259f4550",
+    "3876f8bcee57211d",
+    "7949892684976c29",
+    "216fa511c8acc2fa",
+    "0c1f1ef0d2fb6a8d",
+    "c1f92ebe1f9734bf",
+    "cca4c94639c5b443",
+    "111f6a3a447ca689",
+    "aebb8b05dea714be",
+    "2f5ec83b50aa0e04",
+    "0c1d6b3b5952bbd0"
    ],
    "winner": 1,
-   "ticks": 1695
+   "ticks": 2077
   },
   {
    "name": "arena.supermarket-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "e8ce78347be3e1e5",
-    "simVersion": "0.4.0",
+    "contentHash": "fde56f089c0ac243",
+    "simVersion": "0.5.0",
     "seed": "e3db234b698108ca",
     "arenaId": "arena.supermarket",
     "mode": "duel_5v5",
@@ -4360,28 +4386,31 @@
     ],
     "modifiers": []
    },
-   "resultHash": "ffd012625a9f6629",
+   "resultHash": "26862aef02d453ba",
    "hashes": [
     "fb7b58a3ea57b2d4",
     "8ed03352f0818bb3",
     "f92bd2c83e02b8c5",
     "449bd24ec6d1e26f",
     "24e48a74f700e6a5",
-    "06ca10f30acfca64",
-    "d5686f8c6f0111f1",
-    "bc0bd9cc39079b2b",
-    "6dfb9e4e049965a7",
-    "3b7ab4414655ac90"
+    "6ba7d26cc51db169",
+    "d5265d56256c5e93",
+    "2e674f1c56c073ef",
+    "961810b3fa9ac5c2",
+    "20c7496e56accf0f",
+    "957d9e1a80d8da13",
+    "a6b56cf1fe79536e",
+    "2e57dd84a7316e73"
    ],
    "winner": 1,
-   "ticks": 1064
+   "ticks": 1389
   },
   {
    "name": "arena.supermarket-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "e8ce78347be3e1e5",
-    "simVersion": "0.4.0",
+    "contentHash": "fde56f089c0ac243",
+    "simVersion": "0.5.0",
     "seed": "466b3a4eb135955b",
     "arenaId": "arena.supermarket",
     "mode": "ffa",
@@ -4635,24 +4664,27 @@
     ],
     "modifiers": []
    },
-   "resultHash": "e5d436dd42ae4fd6",
+   "resultHash": "e8740462329a090f",
    "hashes": [
     "b7171cab96c6b56c",
     "656087df52b67f2a",
     "04b25ed85b32060b",
-    "9ae3be4fc1e401ea",
-    "f33aaf54faab57df",
-    "53d97ab7b5f9a218",
-    "2b0dc0814b356966",
-    "2ca3504cb2ce70dd",
-    "0f6d131f028b7974",
-    "732f092634b694b7",
-    "201f1da8dbe444e3",
-    "909ba16ad74ad3e9",
-    "c5824c2082ee7ebb"
+    "51ad0ef655a56ebd",
+    "4e1359c964eb472c",
+    "544e0b0409f112c3",
+    "a0773b2185f77a0e",
+    "5ee18e2cf38823a5",
+    "51f2ab6f616905e6",
+    "3080882a97661405",
+    "735b03d58fd95ba4",
+    "5f4061526234f113",
+    "567056f1a2e1f5f6",
+    "4ae82c31f48710f2",
+    "68ca69d1eddf9e4e",
+    "ca91cb2d8ca9a47c"
    ],
-   "winner": 2,
-   "ticks": 1333
+   "winner": 3,
+   "ticks": 1615
   }
  ]
 }

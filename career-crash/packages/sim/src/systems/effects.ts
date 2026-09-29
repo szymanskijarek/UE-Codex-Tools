@@ -89,7 +89,7 @@ export function applyDamage(w: World, target: Entity, amount: number, damageType
     if (noRevive) knockOut(w, target, sourceId, hitEv);
     else {
       target.state = 'downed';
-      target.downTimer = 100;
+      target.downTimer = DOWNED_TICKS;
       target.action = null;
       target.tagsDirty = true;
       target.counters.downs++;
@@ -99,6 +99,22 @@ export function applyDamage(w: World, target: Entity, amount: number, damageType
   }
   return final;
 }
+
+/**
+ * Getting up hurts: after a knockdown, a hurt character crawls for a while
+ * before standing — the lower their HP, the longer (0.6 s at 50% HP up to
+ * 3.6 s near 0). Crawlers are slow, hit softly and can still be attacked.
+ */
+function startCrawl(w: World, e: Entity, cause: number): void {
+  if (e.kind !== 'char' || e.state !== 'active' || e.maxHp <= 0 || e.removed) return;
+  const hpBp = idiv(e.hp * 10000, e.maxHp);
+  if (hpBp >= 5000) return;
+  applyStatus(w, e, 'status.crawling', 12 + idiv((5000 - hpBp) * 60, 5000), e.id, cause);
+  e.action = null;
+}
+
+/** How long a character stays downed (crawling for help) before the KO (02 §5.4). */
+export const DOWNED_TICKS = 140;
 
 export function knockOut(w: World, target: Entity, sourceId: number, cause: number): void {
   if (target.state === 'ko') return;
@@ -216,6 +232,7 @@ export function tickStatuses(w: World): void {
       const ev = emit(w, 'statusExpired', -1, e.id, 0, s.id, s.cause);
       const def = w.content.statuses.get(s.id);
       for (const eff of def?.onExpire ?? []) applyEffect(w, eff, e, { sourceId: e.id, cause: ev, powerBp: 10000, scale: 'none' });
+      if (s.id === 'status.knocked-down') startCrawl(w, e, ev);
     }
   }
 }

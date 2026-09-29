@@ -22,7 +22,7 @@ const PRESETS: { name: string; a: string[][]; b: string[][] }[] = [
   { name: 'Talkers vs Doers', a: [['career.lawyer'], ['career.journalist'], ['career.influencer']], b: [['career.mechanic'], ['career.builder'], ['career.farmer']] },
   { name: 'Pixel Pals', a: [['career.barista'], ['career.hairdresser'], ['career.mime']], b: [['career.lifeguard'], ['career.personal-trainer'], ['career.gardener']] },
   { name: 'Pixel VIPs', a: [['career.politician'], ['career.tv-host'], ['career.food-critic']], b: [['career.astronaut'], ['career.conspiracy-podcaster'], ['career.psychologist']] },
-  { name: 'Pixel Workshop', a: [['career.plumber'], ['career.mechanic'], ['career.engineer']], b: [['career.life-coach'], ['career.mime'], ['career.barista']] },
+  { name: 'Pixel Workshop', a: [['career.plumber'], ['career.mechanic'], ['career.builder']], b: [['career.life-coach'], ['career.mime'], ['career.barista']] },
   { name: 'Staff Room Brawl', a: [['career.teacher'], ['career.librarian'], ['career.accountant']], b: [['career.dj'], ['career.influencer'], ['career.programmer']] },
   { name: 'Emergency Services', a: [['career.chef'], ['career.farmer'], ['career.taxi-driver']], b: [['career.firefighter'], ['career.police-officer'], ['career.paramedic']] },
   { name: 'Masters', a: [['career.chef', 'career.firefighter', 'career.paramedic'], ['career.electrician', 'career.mechanic', 'career.engineer'], ['career.teacher', 'career.psychologist', 'career.life-coach']], b: [['career.lawyer', 'career.journalist', 'career.politician'], ['career.dj', 'career.tv-host'], ['career.police-officer', 'career.taxi-driver']] },

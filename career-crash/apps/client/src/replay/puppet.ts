@@ -75,6 +75,10 @@ export class Puppet {
   readonly root = new Container();
   readonly xs = new Float32Array(11);
   readonly ys = new Float32Array(11);
+  private tx = new Float32Array(11);
+  private ty = new Float32Array(11);
+  /** While > 0, poses ease in from the current points (mode changes: stand ↔ ragdoll ↔ crawl). */
+  private blendMs = 0;
   /** Screen px per atlas px. */
   readonly k: number;
   private sprites = new Map<Slot, Sprite>();
@@ -146,6 +150,66 @@ export class Puppet {
         [3, 5, dist(3, 5) * 0.6, 0.05],
       ],
     };
+  }
+
+  /** Ease the next poses in from wherever the body is now. */
+  settle(ms: number): void {
+    this.blendMs = Math.max(this.blendMs, ms);
+  }
+
+  private blend(dt: number, f: number): void {
+    const k = this.blendMs > 0 ? Math.min(1, dt / 90) : 1;
+    this.blendMs = Math.max(0, this.blendMs - dt);
+    for (let i = 0; i < 11; i++) {
+      this.xs[i]! += (this.tx[i]! - this.xs[i]!) * k;
+      this.ys[i]! += (this.ty[i]! - this.ys[i]!) * k;
+    }
+    this.render(this.xs, this.ys, f);
+  }
+
+  /** Standing/acting pose, eased in after a mode change. */
+  poseBlended(p: Pose, X: number, Y: number, f: number, dt: number): void {
+    this.pose(p, X, Y, f, this.tx, this.ty);
+    this.blend(dt, f);
+  }
+
+  /**
+   * Belly crawl at (X, Y) facing f: body flat, head up, arms reaching forward
+   * in turn and dragging the body, legs trailing with a feeble kick.
+   */
+  crawl(X: number, Y: number, f: number, t: number, dt: number, moving: boolean, weak: boolean): void {
+    const d = this.d;
+    const r = this.r;
+    const ph = t * (moving ? (weak ? 5 : 8) : 1.5);
+    const body = d.torso + d.pelvis;
+    const xs = this.tx;
+    const ys = this.ty;
+    const set = (i: number, x: number, y: number) => {
+      xs[i] = X + f * x;
+      ys[i] = Y + y;
+    };
+    const heave = Math.max(0, Math.sin(ph)) * r * 0.12;
+    set(2, -body * 0.45, -r * 0.3);
+    set(1, body * 0.55, -r * 0.45 - heave);
+    set(0, body * 0.55 + d.head * 0.75, -r * 0.45 - heave - d.head * 0.65);
+    const reach = d.upper + d.fore;
+    const arm = (ie: number, ih: number, phase: number) => {
+      const c = Math.sin(phase);
+      const hx = body * 0.55 + reach * (0.45 + 0.35 * c);
+      const lift = Math.max(0, Math.cos(phase)) * r * 0.45;
+      set(ih, hx, -r * 0.08 - lift);
+      set(ie, body * 0.55 + (hx - body * 0.55) * 0.45, -r * 0.45 - heave - r * 0.5 - lift * 0.4);
+    };
+    arm(5, 6, ph);
+    arm(3, 4, ph + Math.PI);
+    const leg = (ik: number, ia: number, phase: number) => {
+      const kick = Math.max(0, Math.sin(phase)) * r * 0.5;
+      set(ik, -body * 0.45 - d.thigh * 0.95, -r * 0.2);
+      set(ia, -body * 0.45 - d.thigh * 0.95 - d.shin * 0.85, -r * 0.15 - kick);
+    };
+    leg(9, 10, ph + Math.PI / 2);
+    leg(7, 8, ph - Math.PI / 2);
+    this.blend(dt, f);
   }
 
   /** Forward kinematics: feet at (X, Y), facing f = ±1. Writes the 11 skeleton points. */

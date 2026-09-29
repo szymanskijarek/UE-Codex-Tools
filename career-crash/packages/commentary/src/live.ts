@@ -192,6 +192,8 @@ export class LiveCommentator {
       case 'ko':
         if (!bi || bi.kind !== 'char') return null;
         if (ai?.kind === 'char' && ai.team === bi.team && e.a !== e.b) return this.make(e.t, 'ko_friendly', 3, base, [e.a, e.b]);
+        // Bled out on the floor (the downed timer ran out) rather than finished by a hit.
+        if (!['hit', 'crit'].includes(all[e.cause]?.type ?? '') || all[e.cause]!.t !== e.t) return this.make(e.t, 'ko_bleed', 2, base, [e.b]);
         if (ai?.kind !== 'char') return this.make(e.t, 'ko_env', 3, base, [e.b]);
         return this.make(e.t, 'ko', 3, base, [e.a, e.b]);
       case 'revived':

@@ -77,6 +77,9 @@ interface CharSprite {
   /** Sprite puppet built from career art (replaces the paper doll when available). */
   puppet: Puppet | null;
   emote: Text | null;
+  /** When the current ragdoll started (ms) and whether the puppet is in crawl mode. */
+  ragAt: number;
+  crawling: boolean;
   lastEmote: string;
   kick: { dx: number; dy: number; spin: number; at: number } | null;
   colors: { body: number; skin: number; hair: number };
@@ -145,6 +148,7 @@ export class BattleRenderer {
   private ready = false;
   private observer: ResizeObserver | null = null;
   private now = 0;
+  private frameDt = 16;
   private shake = 0;
   private cam = { x: 0, y: 0, z: 1 };
   private compact = false;
@@ -152,6 +156,9 @@ export class BattleRenderer {
   private overlay = new Container();
   private replayFocus: number[] | null = null;
   private replayBadge: Text | null = null;
+  /** Replay zoom lens: follows the action on screen when the camera can't (arena edges). */
+  private lens: Graphics | null = null;
+  private lensPos = { x: 0, y: 0 };
 
   constructor(private input: BattleInput) {}
 
@@ -202,6 +209,12 @@ export class BattleRenderer {
     s.ragG = null;
     s.rag = null;
     s.doll.visible = !s.puppet;
+    s.puppet?.settle(300);
+  }
+
+  /** Belly-crawling: after a knockdown at low HP, or downed and dragging towards help. */
+  private isCrawling(e: FrameEntity): boolean {
+    return (e.state === 'downed' || e.statuses.includes('status.crawling')) && !e.statuses.includes('status.knocked-down') && !e.statuses.includes('status.airborne') && e.z <= 60;
   }
 
   private layout(): void {
@@ -416,6 +429,8 @@ export class BattleRenderer {
       ragG: null,
       puppet,
       emote,
+      ragAt: 0,
+      crawling: false,
       lastEmote: '',
       kick: null,
       colors: { body: bodyColor, skin, hair },
@@ -563,6 +578,7 @@ export class BattleRenderer {
   render(player: ReplayPlayer, dtMs: number, events: BattleEvent[]): void {
     if (!this.ready) return;
     this.now += dtMs;
+    this.frameDt = dtMs;
     const t = this.now / 1000;
     const a = player.alpha;
     const prev = new Map(player.prev.entities.map((e) => [e.id, e]));
@@ -767,7 +783,7 @@ export class BattleRenderer {
       s.lastEmote = emote;
     }
     if (s.emote) s.emote.visible = !s.rag;
-    if (s.rag) {
+    if (s.rag || s.crawling) {
       s.held.position.set(pu.hand.x, pu.hand.y);
       s.held.rotation = pu.hand.rot;
       return;
@@ -841,8 +857,7 @@ export class BattleRenderer {
       p.armB += (Math.random() - 0.5) * 1.2;
       p.offX += (Math.random() - 0.5) * r * 0.4;
     } else if (e.statuses.includes('status.caffeinated')) p.offX += (Math.random() - 0.5) * r * 0.15;
-    pu.pose(p, s.x, s.y, f);
-    pu.render(pu.xs, pu.ys, f);
+    pu.poseBlended(p, s.x, s.y, f, this.frameDt);
     s.held.position.set(pu.hand.x, pu.hand.y);
     s.held.rotation = pu.hand.rot;
     s.held.scale.x = f;
@@ -854,9 +869,26 @@ export class BattleRenderer {
    */
   private updateRagdoll(s: CharSprite, e: FrameEntity, sx: number, sy: number, floorY: number, depth: number, dt: number): void {
     const airborne = e.z > 60 || e.statuses.includes('status.airborne');
-    const want = e.state !== 'active' || e.statuses.includes('status.knocked-down') || airborne;
+    const want = e.state !== 'active' || e.statuses.includes('status.knocked-down') || airborne || e.statuses.includes('status.crawling');
     if (s.rag && Math.hypot(s.rag.x[2]! - sx, s.rag.y[2]! - sy) > s.r * 8) this.dropRagdoll(s);
+    // Puppets crawl for real once they've finished falling; paper dolls just drag their ragdoll.
+    const crawl = !!s.puppet && this.isCrawling(e);
+    if (s.puppet && crawl && !(s.rag && s.rag.settledMs < 250 && this.now - s.ragAt < 900)) {
+      if (s.rag) this.dropRagdoll(s);
+      if (!s.crawling) s.puppet.settle(350);
+      s.crawling = true;
+      s.puppet.crawl(sx, sy, e.fx < 0 ? -1 : 1, this.now / 1000 + s.id, dt, s.moving, e.state === 'downed');
+      s.puppet.root.zIndex = depth + 1;
+      s.held.position.set(s.puppet.hand.x, s.puppet.hand.y);
+      s.held.rotation = s.puppet.hand.rot;
+      return;
+    }
+    if (s.crawling && !crawl) {
+      s.crawling = false;
+      s.puppet?.settle(300);
+    }
     if (want && !s.rag) {
+      s.ragAt = this.now;
       if (s.puppet) {
         s.rag = new Ragdoll(s.r, sx, sy, e.fx < 0 ? -1 : 1, s.puppet.ragdollSpec());
         s.rag.setPoints(s.puppet.xs, s.puppet.ys);
@@ -1278,6 +1310,7 @@ export class BattleRenderer {
           'status.slipping': ['bark_slip', 'boing', 'scared'],
           'status.caffeinated': ['bark_coffee', 'slurp', 'happy'],
           'status.knocked-down': ['bark_hurt', 'thud', 'hurt'],
+          'status.crawling': ['bark_crawl', null, 'scared'],
           'status.embarrassed': ['', 'blah', 'hurt'],
           'status.stunned': ['', null, 'stunned'],
           'status.inspired': ['', 'pop', 'happy'],
@@ -1401,6 +1434,10 @@ export class BattleRenderer {
         });
         this.sfx.play('down');
         this.sfx.play('ooh');
+        if (B) {
+          const victim = B;
+          setTimeout(() => this.ready && this.bark(victim, 'bark_downed_crawl', 0.6), 1400);
+        }
         break;
       case 'ko':
         this.float('KO!', this.posOf(ev.b, byId), 0xff3b3b, 26);
@@ -1528,15 +1565,17 @@ export class BattleRenderer {
   private drawOverlay(): void {
     this.overlay.removeChildren().forEach((c) => c.destroy({ children: true }));
     this.replayBadge = null;
+    this.lens = null;
     if (!this.replayFocus) return;
     const sw = this.app.screen.width;
     const sh = this.app.screen.height;
     const bar = Math.round(sh * 0.09);
-    const lensR = Math.min(sw, sh - bar * 2) * 0.5;
+    this.lens = new Graphics();
+    this.lensPos = { x: sw / 2, y: sh / 2 };
+    this.drawLens();
     const g = new Graphics();
-    g.rect(0, 0, sw, sh).fill({ color: 0x0b0d12, alpha: 0.45 }).circle(sw / 2, sh / 2, lensR).cut();
-    g.circle(sw / 2, sh / 2, lensR).stroke({ width: 3, color: 0xffffff, alpha: 0.6 });
     g.rect(0, 0, sw, bar).fill(0x000000).rect(0, sh - bar, sw, bar).fill(0x000000);
+    this.overlay.addChild(this.lens);
     const badge = new Text({ text: '● ACTION REPLAY', style: { fontFamily: FONT, fontSize: Math.max(12, bar * 0.45), fontWeight: '900', fill: 0xffffff, letterSpacing: 2 }, resolution: 2 });
     badge.anchor.set(0, 0.5);
     badge.position.set(12, bar / 2);
@@ -1545,6 +1584,18 @@ export class BattleRenderer {
     slow.position.set(sw - 12, sh - bar / 2);
     this.overlay.addChild(g, badge, slow);
     this.replayBadge = badge;
+  }
+
+  private drawLens(): void {
+    if (!this.lens) return;
+    const sw = this.app.screen.width;
+    const sh = this.app.screen.height;
+    const bar = Math.round(sh * 0.09);
+    const r = Math.min(sw, sh - bar * 2) * 0.46;
+    const { x, y } = this.lensPos;
+    this.lens.clear();
+    this.lens.rect(0, 0, sw, sh).fill({ color: 0x0b0d12, alpha: 0.45 }).circle(x, y, r).cut();
+    this.lens.circle(x, y, r).stroke({ width: 3, color: 0xffffff, alpha: 0.6 });
   }
 
   /**
@@ -1615,6 +1666,17 @@ export class BattleRenderer {
     this.world.scale.set(this.cam.z);
     this.world.x = sw / 2 - cx * this.cam.z + jx;
     this.world.y = sh / 2 - cy * this.cam.z + jy;
+    if (this.lens) {
+      // Where the replayed action actually is on screen (off-centre when the camera hit an edge).
+      const bar = Math.round(sh * 0.09);
+      const r = Math.min(sw, sh - bar * 2) * 0.46;
+      const lx = Math.min(sw - r * 0.7, Math.max(r * 0.7, sw / 2 + (tx - cx) * this.cam.z));
+      const ly = Math.min(sh - bar - r * 0.5, Math.max(bar + r * 0.5, sh / 2 + (ty - cy) * this.cam.z));
+      const lk = Math.min(1, dt / 200);
+      this.lensPos.x += (lx - this.lensPos.x) * lk;
+      this.lensPos.y += (ly - this.lensPos.y) * lk;
+      this.drawLens();
+    }
   }
 }
 

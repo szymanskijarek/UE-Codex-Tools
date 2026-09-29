@@ -28,6 +28,8 @@ v0.3 additions: 36 careers (Barista, Hairdresser, Lifeguard, Personal Trainer, G
 
 v0.4 additions: grapples and throws (`toss` effect, Airborne status, body-to-body collisions, landings; 02 §5.6) with 10 new grapple abilities; 95 career synergies — profession-vs-profession banter lines with behavioural effects (02 §8.1.1); client: Verlet ragdolls for thrown/knocked-down/KO'd characters, grab/landing/banter reactions, action replays of big throws and body hits.
 
+v0.5 additions: sprite-puppet characters from sliced career art (32 of 36 careers; tools/art-pipeline `puppets`), crawling (after low-HP knockdowns and while downed), longer downed window + faster revives, replays/report moments retargeted to the decisive blow, replay lens follows off-centre action.
+
 ---
 
 ## 1. How agents work on this project

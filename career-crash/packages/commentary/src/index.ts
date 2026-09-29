@@ -127,11 +127,22 @@ type Detector = (c: Ctx, d: DetectorDef) => Found | null;
 
 const kos = (c: Ctx): BattleEvent[] => c.out.events.filter((e) => e.type === 'ko' && c.chars.has(e.b));
 
+/** When a KO is a bleed-out, the moment worth watching is the blow that downed them. */
+function koTick(c: Ctx, ko: BattleEvent): number {
+  const cause = c.out.events[ko.cause];
+  if (cause && (cause.type === 'hit' || cause.type === 'crit') && cause.t === ko.t) return ko.t;
+  for (let i = ko.i - 1; i >= 0; i--) {
+    const e = c.out.events[i]!;
+    if (e.type === 'downed' && e.b === ko.b) return e.t;
+  }
+  return ko.t;
+}
+
 const DETECTORS: Record<DetectorKind, Detector> = {
   ironicKo: (c) => {
     for (const ko of kos(c)) {
       const cause = ironic(c, ko);
-      if (cause) return { tick: ko.t, actors: [ko.b], slots: { victim: charName(c, ko.b), victimCareer: careerTitle(c, ko.b), cause } };
+      if (cause) return { tick: koTick(c, ko), actors: [ko.b], slots: { victim: charName(c, ko.b), victimCareer: careerTitle(c, ko.b), cause } };
     }
     return null;
   },
@@ -143,7 +154,7 @@ const DETECTORS: Record<DetectorKind, Detector> = {
     for (const ko of kos(c)) {
       const a = c.chars.get(ko.a);
       const b = c.chars.get(ko.b);
-      if (a && b && a.team === b.team && a.entityId !== b.entityId) return { tick: ko.t, actors: [ko.a, ko.b], slots: { killer: a.name, victim: b.name } };
+      if (a && b && a.team === b.team && a.entityId !== b.entityId) return { tick: koTick(c, ko), actors: [ko.a, ko.b], slots: { killer: a.name, victim: b.name } };
     }
     return null;
   },
@@ -151,7 +162,7 @@ const DETECTORS: Record<DetectorKind, Detector> = {
     for (const ko of kos(c)) {
       const killer = snapOf(c, ko.a);
       const victim = c.chars.get(ko.b);
-      if (killer && victim && killer.rivals?.includes(victim.snapshotId)) return { tick: ko.t, actors: [ko.a, ko.b], slots: { killer: killer.name, victim: victim.name } };
+      if (killer && victim && killer.rivals?.includes(victim.snapshotId)) return { tick: koTick(c, ko), actors: [ko.a, ko.b], slots: { killer: killer.name, victim: victim.name } };
     }
     return null;
   },
@@ -169,7 +180,7 @@ const DETECTORS: Record<DetectorKind, Detector> = {
     if (list.length < 2) return null;
     const careers = new Set(list.map((k) => careerTitle(c, k.a)));
     if (careers.size !== 1) return null;
-    return { tick: list[list.length - 1]!.t, actors: list.map((k) => k.a), slots: { career: [...careers][0]! }, bonus: list.length * 3 };
+    return { tick: koTick(c, list[list.length - 1]!), actors: list.map((k) => k.a), slots: { career: [...careers][0]! }, bonus: list.length * 3 };
   },
   chainReaction: (c) => {
     let best: { ev: BattleEvent; parts: string[] } | null = null;

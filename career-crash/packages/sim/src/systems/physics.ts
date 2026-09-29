@@ -82,7 +82,7 @@ export function physics(w: World): void {
     }
     const slipping = hasFlag(w, e, 'slipping');
     const moveMul = slipping ? 3 : 10;
-    if (e.kind !== 'prop' && e.state === 'active' && !hasFlag(w, e, 'noMove')) {
+    if (e.kind !== 'prop' && (e.state === 'active' || e.state === 'downed') && !hasFlag(w, e, 'noMove')) {
       e.x += idiv(e.mx * moveMul, 10);
       e.y += idiv(e.my * moveMul, 10);
       if (slipping && (e.mx !== 0 || e.my !== 0)) {

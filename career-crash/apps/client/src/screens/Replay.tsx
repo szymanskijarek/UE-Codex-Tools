@@ -157,7 +157,10 @@ export function Replay({ battleId }: { battleId?: string }) {
           if (replaysOnRef.current && !actionRef.current && replayCountRef.current < MAX_REPLAYS) {
             const big = events.find(
               (e) =>
-                (e.type === 'ko' && player.world.byId.get(e.b)?.kind === 'char') ||
+                // The decisive blow, not the bleed-out: replay the hit that downs someone, or a KO
+                // that a hit delivered (a timer running out on the floor is nothing to watch).
+                (e.type === 'downed' && player.world.byId.get(e.b)?.kind === 'char') ||
+                (e.type === 'ko' && player.world.byId.get(e.b)?.kind === 'char' && ['hit', 'crit'].includes(player.world.events[e.cause]?.type ?? '') && player.world.events[e.cause]!.t === e.t) ||
                 e.type === 'explosion' ||
                 e.type === 'refereeDown' ||
                 (e.type === 'landed' && e.v >= 14) ||

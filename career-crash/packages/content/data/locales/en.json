@@ -457,6 +457,7 @@
  "status.inspired.name": "Inspired",
  "status.knocked-down.adj": "on the floor",
  "status.knocked-down.name": "Knocked Down",
+ "status.crawling.name": "Crawling",
  "status.lectured.adj": "being lectured",
  "status.lectured.name": "Lectured",
  "status.live.adj": "live with current",

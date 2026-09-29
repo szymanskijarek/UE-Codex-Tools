@@ -313,9 +313,10 @@ export function candidates(w: World, e: Entity): Candidate[] {
   for (const a of allies) {
     if (a.state !== 'downed') continue;
     const d = dist(e.x, e.y, a.x, a.y);
-    if (d > 12000) continue;
+    if (d > 20000) continue;
     const skilled = tags.has('skill:heal') ? 12 : 10;
-    out.push({ kind: 'revive', targetId: a.id, tx: a.x, ty: a.y, abilityId: '', goal: 'support', base: idiv(bpMul(8500, near(d, 0, 12000)) * skilled, 10) });
+    // Downed allies crawl towards help; going to get them is worth a lot.
+    out.push({ kind: 'revive', targetId: a.id, tx: a.x, ty: a.y, abilityId: '', goal: 'support', base: idiv(bpMul(12000, near(d, 0, 20000)) * skilled, 10) });
   }
   if (e.quirks.includes('bodyguard')) {
     const weakest = [...allies].filter((a) => a.state === 'active').sort((p, q) => hpBp(p) - hpBp(q) || p.id - q.id)[0];
@@ -361,6 +362,38 @@ export function score(w: World, e: Entity, c: Candidate): number {
   return s;
 }
 
+/** Crawling characters drag themselves towards the nearest ally, or away from the nearest enemy. */
+function crawlAway(w: World, e: Entity): void {
+  let ally: Entity | null = null;
+  let foe: Entity | null = null;
+  let da = 15000;
+  let df = 1 << 30;
+  for (const o of w.entities) {
+    if (o.kind !== 'char' || o.id === e.id || o.state !== 'active' || o.removed) continue;
+    const d = dist(e.x, e.y, o.x, o.y);
+    if (o.team === e.team && d < da) {
+      da = d;
+      ally = o;
+    } else if (o.team !== e.team && d < df) {
+      df = d;
+      foe = o;
+    }
+  }
+  let tx = e.x;
+  let ty = e.y;
+  if (ally && da > 1800) {
+    tx = ally.x;
+    ty = ally.y;
+  } else if (foe) {
+    const [dx, dy] = dir1000(e.x - foe.x, e.y - foe.y);
+    const [W, H] = w.arena.sizeMm;
+    tx = clamp(e.x + dx * 3, 600, W - 600);
+    ty = clamp(e.y + dy * 3, 600, H - 600);
+  }
+  e.action = { kind: 'retreat', targetId: -1, tx, ty, abilityId: '', phase: 'approach', timer: 0, goal: 'survive', expires: w.tick + 20 };
+  e.decideAt = w.tick + 10;
+}
+
 /** Decide the next action for every character whose timer expired (02 §4 step 3). */
 export function decide(w: World): void {
   for (const e of w.entities) {
@@ -373,6 +406,10 @@ export function decide(w: World): void {
     if (e.panicking) {
       const [dx, dy] = DIRS8[w.aiRng.int(8)]!;
       e.action = { kind: 'wander', targetId: -1, tx: e.x + dx * 4, ty: e.y + dy * 4, abilityId: '', phase: 'approach', timer: 0, goal: 'survive', expires: w.tick + 30 };
+      continue;
+    }
+    if (tagsOf(w, e).has('state:crawling')) {
+      crawlAway(w, e);
       continue;
     }
     const taunter = e.tauntUntil > w.tick ? get(w, e.tauntedBy) : undefined;
