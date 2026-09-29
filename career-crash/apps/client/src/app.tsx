@@ -8,6 +8,7 @@ import { Fight } from './screens/Fight';
 import { Replay } from './screens/Replay';
 import { Reports } from './screens/Reports';
 import { Office } from './screens/Office';
+import { Lab } from './screens/Lab';
 import { Sandbox } from './screens/Sandbox';
 import { CareerScreen } from './career/Career';
 
@@ -72,6 +73,9 @@ export function App() {
       break;
     case 'sandbox':
       screen = <Sandbox />;
+      break;
+    case 'lab':
+      screen = <Lab />;
       break;
     case 'career':
       screen = <CareerScreen sub={arg} arg={arg2} />;

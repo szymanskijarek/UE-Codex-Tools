@@ -93,6 +93,14 @@ export class Ragdoll {
     }
   }
 
+  /** Give every point the same velocity (px per step), e.g. carrying on from a flight pose. */
+  setVelocity(vx: number, vy: number): void {
+    for (let i = 0; i < 11; i++) {
+      this.px[i] = this.x[i]! - vx;
+      this.py[i] = this.y[i]! - vy;
+    }
+  }
+
   /** Add velocity (px per frame-ish) to the upper body, falling off toward the feet. */
   impulse(dx: number, dy: number): void {
     const w = [1, 0.8, 0.45, 0.9, 1, 0.9, 1, 0.3, 0.2, 0.3, 0.2];
@@ -124,15 +132,24 @@ export class Ragdoll {
         this.y[i]! += (Math.random() - 0.5) * r * 0.25;
       }
     }
-    // Tumble while airborne: head and feet swing in opposite directions around the pelvis.
+    // Tumble while airborne: turn the whole body rigidly about its centre (mid torso),
+    // current and previous positions alike, so it spins in place instead of orbiting.
     if (airborne && this.spin !== 0) {
-      const cx = this.x[2]!;
-      const cy = this.y[2]!;
-      for (const i of [0, 4, 6, 8, 10]) {
-        const rx = this.x[i]! - cx;
-        const ry = this.y[i]! - cy;
-        this.x[i]! += -ry * this.spin * dt * 6;
-        this.y[i]! += rx * this.spin * dt * 6;
+      const cx = (this.x[1]! + this.x[2]!) / 2;
+      const cy = (this.y[1]! + this.y[2]!) / 2;
+      const a = this.spin * dt * 6;
+      const c = Math.cos(a);
+      const s = Math.sin(a);
+      for (let i = 0; i < 11; i++) {
+        for (const [X, Y] of [
+          [this.x, this.y],
+          [this.px, this.py],
+        ] as const) {
+          const rx = X[i]! - cx;
+          const ry = Y[i]! - cy;
+          X[i] = cx + rx * c - ry * s;
+          Y[i] = cy + rx * s + ry * c;
+        }
       }
     }
     // Pelvis follows the simulated position: tightly in the air, loosely on the ground.

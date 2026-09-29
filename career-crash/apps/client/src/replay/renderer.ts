@@ -10,7 +10,7 @@ import type { ReplayPlayer } from './player';
 import { arenaArt, type ArenaArt } from './arena-art';
 import { drawArea, drawProp } from './props-art';
 import { drawHeavy, heavyLength } from './heavy-art';
-import { heavySprite, heldSprite, loadItems, propSprite, wallSprite } from './items';
+import { heavySprite, heldIsTool, heldSprite, loadItems, propSprite, wallSprite } from './items';
 import { extension, hitPose, MOVES, repertoire, type HitStyle, type Move } from './moves';
 import { drawWall } from './wall-art';
 import { hasPuppet, loadPuppets, NEUTRAL, Puppet, type Pose } from './puppet';
@@ -32,6 +32,13 @@ const OUTLINE = 0x1b1f2a;
 const FONT = 'system-ui, -apple-system, "Segoe UI", sans-serif';
 
 const MOVERS = new Set(bundle.props.filter((p) => p.mover).map((p) => p.id));
+/**
+ * How a launched body looks in the air: `launch` — beat-'em-up knockback, body
+ * tipping back towards horizontal with arms and legs thrown forward; `spin` —
+ * tucked somersaults; `flail` — windmilling arms and running legs.
+ */
+type FlightStyle = 'launch' | 'spin' | 'flail';
+
 const HEAVY = new Set(bundle.props.filter((p) => p.heavy).map((p) => p.id));
 const isMover = (def: string): boolean => MOVERS.has(def);
 const hex = (s: string): number => parseInt(s.replace('#', ''), 16);
@@ -99,6 +106,8 @@ interface CharSprite {
   heavyUntil: number;
   /** What the repertoire was built for ('' bare hands, 'w' weapon, 'h' heavy). */
   repFor: string;
+  /** The item in hand is gripped like a tool (bends at the wrist through a swing). */
+  heldTool: boolean;
   wasWinding: boolean;
   repertoire: Move[] | null;
   lastMove: Move | null;
@@ -108,6 +117,10 @@ interface CharSprite {
   dashUntil: number;
   dashDir: number;
   parryUntil: number;
+  /** Airborne flight (puppets): style, start time, travel direction, spin rate and last centre. */
+  flight: { style: FlightStyle; t0: number; dir: number; spin: number; x: number; y: number; vx: number; vy: number } | null;
+  /** How the next flight should look (set by the hit that causes it). */
+  flightHint: { style: FlightStyle; at: number } | null;
   /** Perspective size factor at the character's depth. */
   depth: number;
   lastEmote: string;
@@ -680,7 +693,10 @@ export class BattleRenderer {
       move: null,
       moveUntil: 0,
       heavyUntil: 0,
+      flight: null,
+      flightHint: null,
       repFor: '',
+      heldTool: false,
       wasWinding: false,
       repertoire: null,
       lastMove: null,
@@ -759,7 +775,10 @@ export class BattleRenderer {
     if (key === s.lastHeldKey) return;
     s.lastHeldKey = key;
     s.heldG.clear();
+    // Drawn stand-ins run along +y; turn them across the fist like the art.
+    s.heldG.rotation = -Math.PI / 2;
     for (const c of s.held.children.slice(1)) c.destroy();
+    s.heldTool = !!heavy || (!!e.weapon && heldIsTool(e.weapon));
     if (heavy) {
       // Two-handed heavy weapon: drawn in the hands (the world prop hides while carried).
       const len = heavyLength(heavy, r);
@@ -859,7 +878,13 @@ export class BattleRenderer {
         lying.rotation = -Math.PI / 2 + 0.25;
         const len = e.def === 'prop.weapon' ? u * 3.2 : u * 3.6;
         const art = e.def === 'prop.weapon' ? heldSprite(e.weapon, len) : heavySprite(e.def, len);
-        if (art) lying.addChild(art);
+        if (art) {
+          // On the floor the art lies as painted (upright art turned onto its side), not in its grip pose.
+          art.rotation = 0;
+          art.anchor.set(0.5, 0.5);
+          art.position.set(0, len * 0.45);
+          lying.addChild(art);
+        }
         else {
           const lg = new Graphics();
           if (e.def === 'prop.weapon') lg.roundRect(-u * 0.25, 0, u * 0.5, len, u * 0.2).fill(0x94a3b8).stroke({ width: 1, color: OUTLINE });
@@ -1118,7 +1143,7 @@ export class BattleRenderer {
     if (s.emote) s.emote.visible = !s.rag;
     if (s.rag || s.crawling) {
       s.held.position.set(pu.hand.x, pu.hand.y);
-      s.held.rotation = pu.hand.rot;
+      s.held.rotation = this.gripRot(s, pu.hand.rot, e.fx < 0 ? -1 : 1);
       return;
     }
     const r = s.r;
@@ -1197,11 +1222,11 @@ export class BattleRenderer {
     const heavyHeld = e.held >= 0 && HEAVY.has(byId.get(e.held)?.def ?? '');
     if (heavyHeld && !s.move) {
       // Two hands on a heavy weapon, resting on the shoulder.
-      p.armF = -2.2;
-      p.elbowF = -0.9;
-      p.armB = -1.9;
-      p.elbowB = -1.1;
-      p.lean = 0.08;
+      p.armF = -0.9;
+      p.elbowF = -1.9;
+      p.armB = -0.7;
+      p.elbowB = -2.0;
+      p.lean = 0.06;
     } else if (e.held >= 0 && !heavyHeld && !action.startsWith('throw')) {
       // Carrying a prop overhead.
       p.armF = -2.9;
@@ -1235,7 +1260,7 @@ export class BattleRenderer {
     } else if (e.statuses.includes('status.caffeinated')) p.offX += (Math.random() - 0.5) * r * 0.15;
     pu.poseBlended(p, s.x, s.y, facing, this.frameDt);
     s.held.position.set(pu.hand.x, pu.hand.y);
-    s.held.rotation = pu.hand.rot;
+    s.held.rotation = this.gripRot(s, pu.hand.rot, facing);
     s.held.scale.x = facing;
   }
 
@@ -1260,7 +1285,8 @@ export class BattleRenderer {
    * over when a character is airborne, knocked down, downed or KO'd.
    */
   private updateRagdoll(s: CharSprite, e: FrameEntity, sx: number, sy: number, floorY: number, depth: number, dt: number): void {
-    const airborne = e.z > 60 || e.statuses.includes('status.airborne');
+    // Launched (tossed, heavy hit) or high in the air; small knockback hops stay on their feet (puppets).
+    const airborne = e.statuses.includes('status.airborne') || e.z > (s.puppet ? 250 : 60);
     const want = e.state !== 'active' || e.statuses.includes('status.knocked-down') || airborne || e.statuses.includes('status.crawling');
     if (s.rag && Math.hypot(s.rag.x[2]! - sx, s.rag.y[2]! - sy) > s.r * 8) this.dropRagdoll(s);
     // Puppets crawl for real once they've finished falling; paper dolls just drag their ragdoll.
@@ -1272,12 +1298,33 @@ export class BattleRenderer {
       s.puppet.crawl(sx, sy, e.fx < 0 ? -1 : 1, this.now / 1000 + s.id, dt, s.moving, e.state === 'downed');
       s.puppet.root.zIndex = depth + 1;
       s.held.position.set(s.puppet.hand.x, s.puppet.hand.y);
-      s.held.rotation = s.puppet.hand.rot;
+      s.held.rotation = this.gripRot(s, s.puppet.hand.rot, e.fx < 0 ? -1 : 1);
       return;
     }
     if (s.crawling && !crawl) {
       s.crawling = false;
       s.puppet?.settle(300);
+    }
+    // Puppets in the air fly in a posed style, pivoting about their own centre.
+    if (s.puppet && airborne) {
+      this.fly(s, s.puppet, e, sx, sy, dt);
+      s.puppet.root.zIndex = depth + 1;
+      s.held.position.set(s.puppet.hand.x, s.puppet.hand.y);
+      s.held.rotation = this.gripRot(s, s.puppet.hand.rot, e.fx < 0 ? -1 : 1);
+      return;
+    }
+    if (s.flight && s.puppet) {
+      // Touchdown: hand the flying pose to the ragdoll so the body slams and flops.
+      const fl = s.flight;
+      s.flight = null;
+      s.kick = null;
+      if (want) {
+        if (s.rag) this.dropRagdoll(s);
+        s.ragAt = this.now;
+        s.rag = new Ragdoll(s.r, sx, sy, e.fx < 0 ? -1 : 1, s.puppet.ragdollSpec());
+        s.rag.setPoints(s.puppet.xs, s.puppet.ys);
+        s.rag.setVelocity(fl.vx * 0.5, Math.max(0, fl.vy) * 0.3);
+      } else s.puppet.settle(260);
     }
     if (want && !s.rag) {
       s.ragAt = this.now;
@@ -1311,7 +1358,7 @@ export class BattleRenderer {
       s.puppet.render(s.rag.x, s.rag.y, e.fx < 0 ? -1 : 1);
       s.puppet.root.zIndex = depth + 1;
       s.held.position.set(s.puppet.hand.x, s.puppet.hand.y);
-      s.held.rotation = s.puppet.hand.rot;
+      s.held.rotation = this.gripRot(s, s.puppet.hand.rot, e.fx < 0 ? -1 : 1);
       return;
     }
     if (!s.ragG) return;
@@ -1319,6 +1366,91 @@ export class BattleRenderer {
     s.ragG.zIndex = depth + 1;
     s.ragG.alpha = e.state === 'ko' ? 0.75 : 1;
     s.doll.visible = false;
+  }
+
+  /**
+   * Hand → item rotation. Tools bend at the wrist: across the fist with the arm
+   * down or raised (wind-up), dipping forward past the fist as the arm extends
+   * into a strike, like a hammer at impact.
+   */
+  private gripRot(s: CharSprite, handRot: number, f: number): number {
+    if (!s.heldTool) return handRot;
+    const theta = handRot + Math.PI / 2; // forearm direction
+    const ext = Math.max(0, f * Math.cos(theta));
+    return handRot + f * 1.9 * ext;
+  }
+
+  /** Posed flight for a launched puppet (see FlightStyle). */
+  private fly(s: CharSprite, pu: Puppet, e: FrameEntity, sx: number, sy: number, dt: number): void {
+    const r = s.r;
+    if (!s.flight) {
+      if (s.rag) this.dropRagdoll(s);
+      const hint = s.flightHint && this.now - s.flightHint.at < 600 ? s.flightHint.style : null;
+      const kick = s.kick && this.now - s.kick.at < 600 ? s.kick : null;
+      const style: FlightStyle = hint ?? (kick && Math.abs(kick.spin) >= 1.2 ? 'spin' : kick && Math.abs(kick.spin) >= 0.8 ? 'launch' : Math.random() < 0.5 ? 'launch' : Math.random() < 0.5 ? 'flail' : 'spin');
+      const dir = kick && kick.dx !== 0 ? Math.sign(kick.dx) : e.fx < 0 ? 1 : -1;
+      s.flight = { style, t0: this.now, dir, spin: (9 + Math.random() * 5) * (kick && kick.spin ? Math.sign(kick.spin) * dir : dir), x: sx, y: sy, vx: 0, vy: 0 };
+      s.flightHint = null;
+      s.kick = null;
+      pu.settle(140);
+    }
+    const fl = s.flight;
+    // Travel direction follows the actual motion once it's clear.
+    const k = Math.min(1, dt / 40);
+    fl.vx += (sx - fl.x - fl.vx) * k;
+    fl.vy += (sy - fl.y - fl.vy) * k;
+    fl.x = sx;
+    fl.y = sy;
+    if (Math.abs(fl.vx) > r * 0.05) fl.dir = Math.sign(fl.vx);
+    const age = (this.now - fl.t0) / 1000;
+    const f = e.fx < 0 ? -1 : 1;
+    // Pose angles are relative to facing; `back` = away from where they're facing.
+    const back = fl.dir === f ? -1 : 1;
+    const p: Pose = { ...NEUTRAL };
+    let angle = 0;
+    switch (fl.style) {
+      case 'launch': {
+        // Knocked flat on their back in mid-air: tip over towards the direction of travel.
+        angle = fl.dir * Math.min(1.35, age * 3.2);
+        const w = Math.sin(age * 22) * 0.25;
+        p.armF = -1.9 * back + w;
+        p.armB = -1.4 * back - w;
+        p.elbowF = p.elbowB = -0.5 * back;
+        p.legF = -0.9 * back;
+        p.legB = -0.5 * back;
+        p.kneeF = 0.7;
+        p.kneeB = 0.4;
+        p.headRot = 0.35 * back;
+        break;
+      }
+      case 'spin': {
+        // Tucked somersaults.
+        angle = fl.spin * age;
+        p.legF = -1.5;
+        p.legB = -1.2;
+        p.kneeF = p.kneeB = 2.3;
+        p.armF = -1.1;
+        p.elbowF = -1.9;
+        p.armB = -0.8;
+        p.elbowB = -1.9;
+        p.headRot = 0.4;
+        break;
+      }
+      default: {
+        // Windmilling arms, running on air.
+        angle = fl.dir * (0.3 + Math.sin(age * 7) * 0.15);
+        p.armF = age * 17;
+        p.armB = age * 17 + Math.PI;
+        p.elbowF = p.elbowB = -0.4;
+        const run = Math.sin(age * 20);
+        p.legF = run * 0.9;
+        p.legB = -run * 0.9;
+        p.kneeF = Math.max(0, -run) * 1.3;
+        p.kneeB = Math.max(0, run) * 1.3;
+        p.headRot = Math.sin(age * 11) * 0.25;
+      }
+    }
+    pu.flight(p, sx, sy, f, angle, dt);
   }
 
   /** Queue a ragdoll impulse for a character (applied now or when their ragdoll starts). */
@@ -1701,6 +1833,7 @@ export class BattleRenderer {
           this.hitStop(130, 0.25);
           this.shake = Math.max(this.shake, 11);
           this.float('WHAM!', this.posOf(ev.b, byId), 0xfb923c, 24);
+          B.flightHint = { style: Math.random() < 0.75 ? 'launch' : 'spin', at: this.now };
           this.sfx.play('thud', 1.4);
           this.vox(B, 'scream', 1, true);
         }

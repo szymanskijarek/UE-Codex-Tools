@@ -1,5 +1,5 @@
 import type { AttackDef, PropDef } from '@cc/content-schema';
-import { bpMul, clamp, dir1000, dist, idiv } from '../core/math';
+import { bpMul, clamp, dir1000, dist, idiv, isqrt } from '../core/math';
 import type { Entity, World } from '../types';
 import { emit, get, SHOVE, spawnProp, tagsOf } from '../world';
 import { applyStatus, dropHeld, removeStatus } from './effects';
@@ -172,6 +172,29 @@ export function chokes(w: World): void {
       if (w.rng.chance(breakFree)) releaseChoke(w, e, -1);
     }
   }
+}
+
+/**
+ * A heavy-weapon blow launches the victim, beat-'em-up style: a high arc away
+ * from the attacker over `distanceMm`, knocking them down on landing and
+ * bowling over anyone they fly into (same flight rules as grapple throws).
+ */
+export function launch(w: World, t: Entity, src: Entity, distanceMm: number, cause: number): void {
+  if (t.kind !== 'char' || t.state !== 'active' || t.z > 0) return;
+  const vz = isqrt(2 * 12 * 650);
+  const flight = Math.max(4, idiv(2 * vz, 12));
+  const [dx, dy] = dir1000(t.x - src.x, t.y - src.y);
+  const sp = idiv(distanceMm, flight);
+  if (t.rideId >= 0) t.rideId = -1;
+  t.action = null;
+  t.z = 1;
+  t.vz = vz;
+  t.vx = idiv(dx * sp, 1000);
+  t.vy = idiv(dy * sp, 1000);
+  t.tossedBy = src.id;
+  t.tossLand = 4;
+  t.tossCause = cause;
+  applyStatus(w, t, 'status.airborne', flight + 2, src.id, cause);
 }
 
 /** Heavy weapons slow their carrier down. */

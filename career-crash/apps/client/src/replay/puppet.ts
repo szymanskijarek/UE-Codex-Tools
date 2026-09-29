@@ -174,6 +174,29 @@ export class Puppet {
   }
 
   /**
+   * Airborne: pose the body (feet at X, Y), then turn the whole skeleton
+   * rigidly by `angle` about its centre of mass (mid torso), so spins and
+   * tilts pivot inside the silhouette. Eased in after a mode change.
+   */
+  flight(p: Pose, X: number, Y: number, f: number, angle: number, dt: number): { cx: number; cy: number } {
+    this.pose(p, X, Y, f, this.tx, this.ty);
+    const cx = (this.tx[1]! + this.tx[2]!) / 2;
+    const cy = (this.ty[1]! + this.ty[2]!) / 2;
+    // Keep the centre where a standing body's centre would be, so the pivot doesn't drift with the pose.
+    const oy = Y - this.r * 2.2 - cy;
+    const c = Math.cos(angle);
+    const s = Math.sin(angle);
+    for (let i = 0; i < 11; i++) {
+      const dx = this.tx[i]! - cx;
+      const dy = this.ty[i]! - cy;
+      this.tx[i] = cx + dx * c - dy * s;
+      this.ty[i] = cy + oy + dx * s + dy * c;
+    }
+    this.blend(dt, f);
+    return { cx, cy: cy + oy };
+  }
+
+  /**
    * Belly crawl at (X, Y) facing f: body flat, head up, arms reaching forward
    * in turn and dragging the body, legs trailing with a feeble kick.
    */

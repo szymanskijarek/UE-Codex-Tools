@@ -4,7 +4,7 @@ import { canAct, derived, emit, get, hasFlag, spawnProp, statusMod } from '../wo
 import { affectedBy } from './ai';
 import { applyEffect, applyStatus, dismount, push, type EffectCtx } from './effects';
 import { cellCenter, cellOf, findPath, lineClear } from './nav';
-import { chokeChance, heavySlow, heldProp, maybeDisarm, rearm, startChoke, takeWeapon, wearHeavy } from './weapons';
+import { chokeChance, heavySlow, heldProp, launch, maybeDisarm, rearm, startChoke, takeWeapon, wearHeavy } from './weapons';
 
 const THROW_SPEED = 380;
 
@@ -237,7 +237,8 @@ function execute(w: World, e: Entity, a: Action, t: Entity | undefined): void {
       const ctx: EffectCtx = { sourceId: e.id, cause: ev, powerBp: 10000, scale: 'melee' };
       const hp0 = t.hp;
       applyEffect(w, { type: 'damage', amount: e.attack.base, damageType: e.attack.damageType }, t, ctx);
-      if (e.attack.knockbackMm > 0) push(w, t, e.x, e.y, e.attack.knockbackMm);
+      if (heavy && t.kind === 'char') launch(w, t, e, e.attack.knockbackMm, ev);
+      else if (e.attack.knockbackMm > 0) push(w, t, e.x, e.y, e.attack.knockbackMm);
       for (const eff of e.attack.effects ?? []) applyEffect(w, eff, t, ctx, e);
       // A hard blow can knock whatever they're holding out of their hands.
       if (t.kind === 'char' && t.maxHp > 0) maybeDisarm(w, t, idiv(Math.max(0, hp0 - t.hp) * 100, t.maxHp) + idiv(e.attack.knockbackMm, 100) + (heavy ? 25 : 0), e.x, e.y, ev);

@@ -50,6 +50,8 @@ export function heavySprite(propId: string, len: number): Sprite | null {
   const s = new Sprite(t);
   s.scale.set(len / Math.max(t.width, t.height));
   s.anchor.set(0.5, 0.08);
+  // Art is upright with the grip at the top: turn the head end out across the fists.
+  s.rotation = -Math.PI / 2;
   return s;
 }
 
@@ -169,13 +171,64 @@ export function wallSprite(art: string, width: number): Sprite | null {
 }
 
 /** Sprite for a held item, sized to `len` px along its long side, anchored at the grip. */
+/**
+ * How each held item sits in the fist: grip point (fraction of the image), the
+ * direction from the grip to the business end in image space (degrees, 0 =
+ * right, 90 = down), and the style: `tool` — gripped across the fist, head
+ * sticking out perpendicular to the forearm (hammers, pans, plungers); `hang`
+ * — carried by a handle, hanging along the forearm (cases, kits, bells).
+ */
+const GRIP: Record<string, [number, number, number, 'tool' | 'hang']> = {
+  binder: [0.12, 0.5, 0, 'tool'],
+  books: [0.15, 0.5, 0, 'tool'],
+  'dental-mirror': [0.5, 0.9, -95, 'tool'],
+  'desk-lamp': [0.5, 0.88, -100, 'tool'],
+  'fire-extinguisher': [0.55, 0.1, 90, 'hang'],
+  'first-aid-kit': [0.5, 0.06, 90, 'hang'],
+  'frying-pan': [0.92, 0.12, 136, 'tool'],
+  hairspray: [0.5, 0.65, -90, 'tool'],
+  kettlebell: [0.5, 0.1, 90, 'hang'],
+  keyboard: [0.06, 0.5, 0, 'tool'],
+  megaphone: [0.3, 0.82, -25, 'tool'],
+  'milk-jug': [0.78, 0.3, 90, 'hang'],
+  'news-mic': [0.62, 0.88, -115, 'tool'],
+  notepad: [0.1, 0.5, 0, 'tool'],
+  parcel: [0.5, 0.08, 90, 'hang'],
+  pitchfork: [0.22, 0.95, -71, 'tool'],
+  plunger: [0.72, 0.06, 101, 'tool'],
+  'rescue-tube': [0.75, 0.1, 111, 'tool'],
+  'ring-light': [0.5, 0.65, -90, 'tool'],
+  speaker: [0.5, 0.08, 90, 'hang'],
+  'taxi-sign': [0.06, 0.6, 0, 'tool'],
+  toolbox: [0.5, 0.08, 90, 'hang'],
+  'traffic-cone': [0.5, 0.06, 90, 'tool'],
+  umbrella: [0.62, 0.08, 99, 'tool'],
+  'watering-can': [0.4, 0.15, 90, 'hang'],
+  wrench: [0.6, 0.9, -100, 'tool'],
+};
+
+/** Whether a held item is gripped like a tool (true) or carried hanging by a handle. */
+export function heldIsTool(equipmentId: string): boolean {
+  const g = GRIP[HELD[equipmentId] ?? ''];
+  return !g || g[3] === 'tool';
+}
+
+/**
+ * Held equipment sprite, `len` px along its longest side, anchored on its grip
+ * and turned so that in the hand container's space (+y = along the forearm)
+ * tools point across the fist (+x) and hanging items hang along the arm (+y).
+ */
 export function heldSprite(equipmentId: string, len: number): Sprite | null {
-  const t = tex(HELD[equipmentId]);
+  const name = HELD[equipmentId];
+  const t = tex(name);
   if (!t) return null;
   const s = new Sprite(t);
   const k = len / Math.max(t.width, t.height);
   s.scale.set(k);
-  s.anchor.set(0.5, 0.15);
+  const [u, v, deg, style] = GRIP[name!] ?? [0.5, 0.15, 90, 'hang'];
+  s.anchor.set(u, v);
+  const a = (deg * Math.PI) / 180;
+  s.rotation = style === 'tool' ? -a : Math.PI / 2 - a;
   return s;
 }
 
