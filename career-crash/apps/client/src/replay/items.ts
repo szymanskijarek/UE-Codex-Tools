@@ -129,19 +129,9 @@ const BIG_PROPS: Record<string, { name: string; size: number; left?: boolean }> 
   'prop.filing-cabinet': { name: 'filing-cabinets', size: 3.0 },
 };
 
-/** Arena obstacles ("walls"), in the order they appear in the arena's wall list. */
-const WALLS: Record<string, string[]> = {
-  'arena.supermarket': ['gondola-shelf', 'produce-stand', 'chest-freezer', 'gondola-shelf', 'gondola-shelf', 'produce-stand'],
-  'arena.office': ['cubicle-cluster', 'bench-desks', 'bench-desks', 'cubicle-cluster', 'meeting-table'],
-  'arena.station': ['news-kiosk', 'ticket-booth', 'coffee-kiosk', 'timetable-board', 'station-bench'],
-  'arena.diner': ['diner-booth', 'diner-table', 'diner-table', 'diner-booth'],
-  'arena.construction': ['brick-stack', 'rebar-bundle', 'jersey-barrier'],
-  'arena.warehouse': ['pallet-rack', 'crate-stack', 'cage-pallet', 'drum-rack'],
-};
-
-/** Obstacle art for wall `index` of an arena, `width` px across, standing on its front edge. */
-export function wallSprite(arenaId: string, index: number, width: number): Sprite | null {
-  const t = tex(WALLS[arenaId]?.[index], OBSTACLES);
+/** Obstacle art by atlas name, `width` px across, standing on its front edge. */
+export function wallSprite(art: string, width: number): Sprite | null {
+  const t = tex(art, OBSTACLES);
   if (!t) return null;
   const s = new Sprite(t);
   s.scale.set(width / t.width);

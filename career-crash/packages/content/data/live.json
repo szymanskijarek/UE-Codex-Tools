@@ -1289,6 +1289,56 @@
   "hazard_start_leaking-drum": [
    "A drum is leaking something slippery.",
    "Oil on the warehouse floor. Of course."
+  ],
+  "parry": [
+   "{a} PARRIES {b}! Denied.",
+   "Blocked! {a} swats {b} away.",
+   "{a} reads {b} like a book. Parry!",
+   "Parry from {a}! {b} is seeing stars.",
+   "{a} catches it and shoves {b} back. Rude."
+  ],
+  "evade": [
+   "{a} dodges! {b} hits nothing but air.",
+   "Whiff! {a} is already somewhere else.",
+   "{a} sidesteps {b}. Matador stuff.",
+   "Missed! {a} hops out of the way.",
+   "{a} evades — {b} punches the breeze."
+  ],
+  "evade_back": [
+   "{a} backpedals out of range!",
+   "{a} leaps back. Not today, {b}."
+  ],
+  "dash": [
+   "{a} DASHES in!",
+   "{a} closes the gap in a blink!",
+   "Zoom — {a} is on the move.",
+   "{a} sprints across the floor!"
+  ],
+  "dash_retreat": [
+   "{a} dashes away. Tactical!",
+   "{a} legs it!"
+  ],
+  "bark_evade": [
+   "Too slow!",
+   "Nope!",
+   "Missed me!",
+   "Ole!",
+   "Try again!"
+  ],
+  "bark_parry": [
+   "Blocked!",
+   "Not today!",
+   "Denied!",
+   "Nice try!"
+  ],
+  "bark_dash": [
+   "Coming through!",
+   "Here I come!",
+   "Excuse me!"
+  ],
+  "hazard_start_jukebox": [
+   "The jukebox drops a banger — everyone near it stops to dance.",
+   "Jukebox! Nobody can resist this tune."
   ]
  }
 }

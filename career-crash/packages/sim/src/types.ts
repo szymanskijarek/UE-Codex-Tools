@@ -3,7 +3,7 @@ import type { ContentIndex } from './content';
 import type { Rng } from './core/rng';
 import type { NavGrid } from './systems/nav';
 
-export const SIM_VERSION = '0.5.0';
+export const SIM_VERSION = '0.6.0';
 export const TICKS_PER_SECOND = 20;
 export const MAX_TICKS = 2400;
 export const ENTITY_CAP = 256;
@@ -91,6 +91,9 @@ export type EventType =
   | 'grab'
   | 'landed'
   | 'banter'
+  | 'parry'
+  | 'evade'
+  | 'dash'
   | 'battleEnd';
 
 export interface BattleEvent {
@@ -253,6 +256,14 @@ export interface Entity {
   tossedBy: number;
   tossLand: number;
   tossCause: number;
+  /** Reflexes (bp): chance to parry / evade a melee blow, chance per check to dash. */
+  parryBp: number;
+  evadeBp: number;
+  dashBp: number;
+  /** Burst movement (evade or dash): mm per tick until dashUntil. */
+  dashUntil: number;
+  dashVx: number;
+  dashVy: number;
 }
 
 export interface World {
@@ -281,6 +292,8 @@ export interface World {
   firedThisTick: Set<string>;
   /** Career banter cooldowns: "attackerSnap>victimSnap" → next allowed tick. */
   banter: Map<string, number>;
+  /** Conveyor belts from the layout: rect + carry velocity. */
+  belts: { rect: [number, number, number, number]; vx: number; vy: number }[];
   /** Props spawned this tick; capped to stop runaway rule loops. */
   spawnedThisTick: number;
 }

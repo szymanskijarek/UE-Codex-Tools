@@ -3,7 +3,7 @@ import 'pixi.js/unsafe-eval';
 import { Application, Container, Graphics, Sprite, Text, Texture, type TextStyleOptions } from 'pixi.js';
 import { bundle } from '@cc/content';
 import type { AbilityDef, ArenaDef } from '@cc/content-schema';
-import type { BattleEvent, BattleInput, FrameEntity } from '@cc/sim';
+import { layoutArena, type BattleEvent, type BattleInput, type FrameEntity, type PlacedObstacle } from '@cc/sim';
 import { nameOf, STATUS_ICONS } from '../i18n';
 import { Sfx, type SfxName } from './audio';
 import type { ReplayPlayer } from './player';
@@ -96,6 +96,10 @@ interface CharSprite {
   lastMove: Move | null;
   lastMove2: Move | null;
   hitStyle: HitStyle;
+  /** Evade/dash burst (lean into the motion) and parry guard, with screen direction of travel. */
+  dashUntil: number;
+  dashDir: number;
+  parryUntil: number;
   /** Perspective size factor at the character's depth. */
   depth: number;
   lastEmote: string;
@@ -166,6 +170,9 @@ export class BattleRenderer {
   private ready = false;
   private observer: ResizeObserver | null = null;
   private now = 0;
+  private obstacles: PlacedObstacle[] = [];
+  /** Animated arrows on conveyor belts. */
+  private beltG: Graphics | null = null;
   /** Projection: vertical squash, and back-row width relative to the front row (perspective). */
   private ysq = Y_SQUASH;
   private persp = 1;
@@ -188,7 +195,10 @@ export class BattleRenderer {
   constructor(private input: BattleInput) {}
 
   async mount(el: HTMLElement): Promise<void> {
-    this.arena = bundle.arenas.find((a) => a.id === this.input.arenaId)!;
+    // Same per-battle layout the simulation used (obstacle picks, jitter, prop spots).
+    const layout = layoutArena(bundle.arenas.find((a) => a.id === this.input.arenaId)!, this.input.seed);
+    this.arena = layout.arena;
+    this.obstacles = layout.obstacles;
     await this.app.init({ preference: 'webgl', resizeTo: el, background: hex(this.arena.theme.wall), antialias: true, autoDensity: true, resolution: Math.min(2, window.devicePixelRatio || 1) });
     el.appendChild(this.app.canvas);
     this.art = arenaArt(this.arena.id);
@@ -236,6 +246,27 @@ export class BattleRenderer {
     s.rag = null;
     s.doll.visible = !s.puppet;
     s.puppet?.settle(300);
+  }
+
+  private drawBelts(t: number): void {
+    const g = this.beltG;
+    if (!g) return;
+    g.clear();
+    for (const o of this.obstacles) {
+      if (!o.belt) continue;
+      const [x, y, w, h] = o.rect;
+      const dir = Math.sign(o.belt[0]) || 1;
+      const step = 700;
+      const off = ((t * Math.abs(o.belt[0]) * 20) % step) * dir;
+      for (let ax = x - step; ax < x + w + step; ax += step) {
+        const cx = ax + off;
+        if (cx < x + 150 || cx > x + w - 150) continue;
+        const [px, py] = this.px(cx, y + h / 2);
+        const s = 160 * this.scale;
+        g.moveTo(px - s * dir, py - s * 0.6).lineTo(px, py).lineTo(px - s * dir, py + s * 0.6);
+      }
+    }
+    g.stroke({ width: Math.max(2, 70 * this.scale), color: 0xfacc15, alpha: 0.85 });
   }
 
   /** Belly-crawling: after a knockdown at low HP, or downed and dragging towards help. */
@@ -359,14 +390,30 @@ export class BattleRenderer {
   }
 
   private drawWalls(): void {
-    for (const [i, [x, y, w, h]] of this.arena.walls.entries()) {
+    // Conveyors lie on the floor, under everyone.
+    this.beltG = null;
+    for (const o of this.obstacles) {
+      if (!o.belt) continue;
+      const [x, y, w, h] = o.rect;
+      const [x0, y0] = this.px(x, y);
+      const [x1, y1] = this.px(x + w, y + h);
+      const art = wallSprite(o.art, (x1 - x0) * 1.05);
+      if (art) {
+        art.position.set((x0 + x1) / 2, y1 + (y1 - y0) * 0.4);
+        this.floor.addChild(art);
+      }
+      this.beltG ??= new Graphics();
+    }
+    if (this.beltG) this.floor.addChild(this.beltG);
+    for (const [x, y, w, h] of this.arena.walls) {
+      const ob = this.obstacles.find((o) => !o.belt && o.rect[0] === x && o.rect[1] === y && o.rect[2] === w && o.rect[3] === h);
       const wall = new Graphics() as Graphics & { isWall?: boolean };
       wall.isWall = true;
       const [x0, y0] = this.px(x, y);
       const [x1, y1] = this.px(x + w, y + h);
       const lift = WALL_H * Z_LIFT * this.scale * this.depth(y + h);
       // Painted obstacle art: sized to the footprint (a deep, narrow block gets a sideways-on piece of furniture).
-      const art = wallSprite(this.arena.id, i, Math.max(x1 - x0, (y1 - y0) * 1.2) * 1.12);
+      const art = ob ? wallSprite(ob.art, Math.max(x1 - x0, (y1 - y0) * 1.2) * 1.12) : null;
       if (art) {
         const c = new Container() as Container & { isWall?: boolean };
         c.isWall = true;
@@ -542,6 +589,9 @@ export class BattleRenderer {
       lastMove: null,
       lastMove2: null,
       hitStyle: 'side',
+      dashUntil: 0,
+      dashDir: 1,
+      parryUntil: 0,
       depth: 1,
       lastEmote: '',
       kick: null,
@@ -793,6 +843,7 @@ export class BattleRenderer {
       }
     }
     for (const ev of events) this.onEvent(ev, byId);
+    this.drawBelts(t);
     this.tickFx(dtMs);
     this.updateCamera(dtMs, minX);
   }
@@ -975,6 +1026,26 @@ export class BattleRenderer {
     if (this.now < s.hitUntil) {
       const k = (s.hitUntil - this.now) / 300;
       hitPose(p, s.hitStyle, r, k, (s.knockX >= 0 ? 1 : -1) * f);
+    }
+    if (this.now < s.dashUntil) {
+      // Low sprint lean into the direction of travel, legs split, arms swept back.
+      const k = (s.dashUntil - this.now) / 320;
+      const toward = s.dashDir * facing;
+      p.lean = 0.45 * toward * k;
+      p.legF = -0.9 * k;
+      p.legB = 0.9 * k;
+      p.kneeB = 0.6 * k;
+      p.armF = 1.2 * k * toward;
+      p.armB = 1.4 * k * toward;
+      p.bob = -r * 0.2 * k;
+    }
+    if (this.now < s.parryUntil) {
+      // Forearm guard up, weight back.
+      p.armF = -2.1;
+      p.elbowF = -1.3;
+      p.armB = -1.2;
+      p.elbowB = -1.6;
+      p.lean = -0.15;
     }
     if (e.panicking && !st.down) {
       p.armF = -2.6 + Math.sin(t * 25) * 0.6;
@@ -1232,6 +1303,21 @@ export class BattleRenderer {
         c.alpha = Math.min(1, k * 3);
       },
     });
+  }
+
+  /** Dust puff + motion streaks left behind by a dash or dodge. */
+  private speedLines(at: [number, number] | null, dir: number, r: number): void {
+    if (!at) return;
+    const [x, y] = at;
+    const lines = [0.8, 1.6, 2.4, 3.2].map((h) => ({ h, len: r * (1.6 + Math.random() * 1.4) }));
+    this.addShape((g, k) => {
+      for (const l of lines) {
+        const x0 = x - dir * r * 0.6;
+        g.moveTo(x0, y - l.h * r).lineTo(x0 - dir * l.len * (1.2 - k * 0.5), y - l.h * r);
+      }
+      g.stroke({ width: Math.max(1.5, r * 0.18), color: 0xffffff, alpha: 0.7 * k });
+      g.ellipse(x - dir * r * 0.4, y, r * (1.4 - k * 0.6), r * 0.35).fill({ color: 0xd6d3d1, alpha: 0.45 * k });
+    }, 380);
   }
 
   private addShape(draw: (g: Graphics, k: number) => void, life: number): void {
@@ -1515,6 +1601,48 @@ export class BattleRenderer {
         this.sfx.play('whoosh', 1.3);
         this.sfx.play('ooh');
         this.shake = Math.max(this.shake, 3);
+        break;
+      }
+      case 'evade': {
+        if (A) {
+          A.dashUntil = this.now + 320;
+          A.dashDir = ea && eb ? Math.sign(ea.x - eb.x) || 1 : 1;
+          if (ev.s !== 'back' && ea && eb) A.dashDir = Math.random() < 0.5 ? 1 : -1;
+          this.setExpr(A, 'happy', 700);
+          this.bark(A, 'bark_evade', 0.35);
+          this.speedLines(this.posOf(ev.a, byId), A.dashDir, A.r);
+        }
+        if (B) this.setExpr(B, 'angry', 600);
+        this.float(ev.s === 'back' ? 'BACKSTEP!' : 'DODGE!', this.posOf(ev.a, byId), 0x67e8f9, 15);
+        this.sfx.play('whoosh', 1.4);
+        break;
+      }
+      case 'parry': {
+        if (A) {
+          A.parryUntil = this.now + 350;
+          this.setExpr(A, 'angry', 600);
+          this.bark(A, 'bark_parry', 0.4);
+        }
+        if (B) {
+          B.hitUntil = this.now + 300;
+          B.hitStyle = 'head';
+          this.setExpr(B, 'stunned', 900);
+        }
+        this.float('PARRY!', this.posOf(ev.a, byId), 0xfde047, 17);
+        this.sparks(this.posOf(ev.a, byId), 0xfde047, 12);
+        this.sfx.play('bell', 1.6);
+        this.shake = Math.max(this.shake, 3);
+        break;
+      }
+      case 'dash': {
+        if (A) {
+          A.dashUntil = this.now + 320;
+          A.dashDir = ea && eb ? Math.sign(eb.x - ea.x) || 1 : ea && ea.fx < 0 ? -1 : 1;
+          if (ev.s === 'retreat') A.dashDir = -A.dashDir;
+          this.bark(A, 'bark_dash', 0.12);
+          this.speedLines(this.posOf(ev.a, byId), A.dashDir, A.r);
+        }
+        this.sfx.play('whoosh', 0.8);
         break;
       }
       case 'landed':

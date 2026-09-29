@@ -30,6 +30,8 @@ v0.4 additions: grapples and throws (`toss` effect, Airborne status, body-to-bod
 
 v0.5 additions: sprite-puppet characters from sliced career art (32 of 36 careers; tools/art-pipeline `puppets`), crawling (after low-HP knockdowns and while downed), longer downed window + faster revives, replays/report moments retargeted to the decisive blow, replay lens follows off-centre action. Painted arena backdrops (art/arenas; `client/replay/arena-art.ts` maps each arena rectangle onto the painting's floor trapezoid with a mild perspective projection and depth scaling), 4 new arenas (Train Station, Diner, Construction Site, Warehouse) with their own hazards, stations and furniture art, and a forklift mover that flings fighters into each other.
 
+v0.6 additions: melee parry / evade / dash with per-character reflex styles (02 §5.2a); per-battle seeded arena layouts with optional obstacles, art variants, jitter, conveyor belts and a jukebox hazard (02 §7.4a); every obstacle and machine uses painted art; attack move set; item atlas.
+
 ---
 
 ## 1. How agents work on this project

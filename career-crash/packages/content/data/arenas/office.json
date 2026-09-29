@@ -5,38 +5,7 @@
   14000
  ],
  "navCellMm": 500,
- "walls": [
-  [
-   5000,
-   3000,
-   3000,
-   1200
-  ],
-  [
-   5000,
-   9800,
-   3000,
-   1200
-  ],
-  [
-   14000,
-   3000,
-   3000,
-   1200
-  ],
-  [
-   14000,
-   9800,
-   3000,
-   1200
-  ],
-  [
-   9500,
-   6300,
-   3000,
-   1400
-  ]
- ],
+ "walls": [],
  "spawns": {
   "a": [
    [
@@ -532,6 +501,104 @@
    "telegraphTicks": 40,
    "speedMm": 55,
    "loop": true
+  }
+ ],
+ "obstacles": [
+  {
+   "at": [
+    5000,
+    3000,
+    3000,
+    1200
+   ],
+   "art": [
+    "cubicle-cluster",
+    "bench-desks"
+   ]
+  },
+  {
+   "at": [
+    5000,
+    9800,
+    3000,
+    1200
+   ],
+   "art": [
+    "bench-desks",
+    "cubicle-cluster"
+   ]
+  },
+  {
+   "at": [
+    14000,
+    3000,
+    3000,
+    1200
+   ],
+   "art": [
+    "bench-desks",
+    "cubicle-cluster"
+   ]
+  },
+  {
+   "at": [
+    14000,
+    9800,
+    3000,
+    1200
+   ],
+   "art": [
+    "cubicle-cluster",
+    "bench-desks"
+   ]
+  },
+  {
+   "at": [
+    9500,
+    6300,
+    3000,
+    1400
+   ],
+   "art": [
+    "meeting-table"
+   ]
+  },
+  {
+   "at": [
+    5500,
+    400,
+    2000,
+    700
+   ],
+   "art": [
+    "filing-cabinets"
+   ],
+   "chanceBp": 7000
+  },
+  {
+   "at": [
+    14500,
+    400,
+    2000,
+    700
+   ],
+   "art": [
+    "filing-cabinets",
+    "photocopier"
+   ],
+   "chanceBp": 7000
+  },
+  {
+   "at": [
+    16000,
+    12600,
+    2400,
+    900
+   ],
+   "art": [
+    "reception-desk"
+   ],
+   "chanceBp": 8000
   }
  ]
 }

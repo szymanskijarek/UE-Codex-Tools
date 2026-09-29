@@ -138,6 +138,21 @@ final    = max(1, crit × (10000 − mitig) / 10000)
 - **Time-to-KO target:** an average character dies to sustained focus from one
   average enemy in **~12 s**, from three in **~4 s**. Balance tools verify.
 
+### 5.2a Parry, evade, dash
+
+Every melee blow can be defended. The target (standing, able to act, not
+crawling, off a 1.5 s cooldown) rolls once: **parry** (attacker is stunned
+0.8 s and shoved back) or **evade** (a 2.4 m burst sideways, or backwards if
+boxed in by walls). Characters closing on a far goal can **dash** up to 3.2 m
+(3.5 s cooldown). Chances per character:
+
+- parry = 2.5% + 0.6% × (Strength + Awareness − 10), evade = 3.5% + 0.7% ×
+  (Speed + Awareness − 10), dash check = 15% + 2.5% × (Speed − 5) per 0.5 s;
+- plus career and personality styles (`defense` in careers/personalities):
+  security and police parry, mimes and politicians slip away, delivery
+  drivers and lifeguards dash, cowards evade, the lazy don't bother.
+- Caps: parry 30%, evade 35%. Typical 3v3: ~6 parries, ~6 evades, ~6 dashes.
+
 ### 5.3 Statuses
 
 Statuses are content (`status.*`). Each defines: duration, stacking rule
@@ -403,6 +418,16 @@ Current arena events: Supermarket — floor scrubber (two passes), clean-up on
 aisle three, falling stock, free samples at the bakery. Office — robot vacuum
 (patrols all battle, trips people, eats staplers and coffee cups), printer jam
 sparks, birthday cake, fire drill (sprinklers soak everyone).
+
+### 7.4a Per-battle layouts
+
+Arenas list art-backed `obstacles` (each with art variants, an optional
+`chanceBp`, and optional `belt` velocity for conveyors). `layoutArena(arena,
+seed)` (shared by sim and renderer) rolls which optional pieces appear, picks
+their art, shifts them up to `layoutJitterMm` (never onto mover paths or spawn
+points), jitters loose props by up to 0.7 m and sits 15% of them out. Conveyor
+belts carry anything standing on them. The diner's jukebox periodically
+distracts everyone nearby.
 
 ### 7.5 The referee
 

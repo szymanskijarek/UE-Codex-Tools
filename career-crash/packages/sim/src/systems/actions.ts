@@ -2,7 +2,7 @@ import { bpMul, clamp, dir1000, dist, idiv } from '../core/math';
 import type { Action, Entity, World } from '../types';
 import { canAct, derived, emit, get, hasFlag, spawnProp, statusMod } from '../world';
 import { affectedBy } from './ai';
-import { applyEffect, dismount, push, type EffectCtx } from './effects';
+import { applyEffect, applyStatus, dismount, push, type EffectCtx } from './effects';
 import { cellCenter, cellOf, findPath, lineClear } from './nav';
 
 const THROW_SPEED = 380;
@@ -48,6 +48,71 @@ function crawlDowned(w: World, e: Entity): void {
   moveToward(w, e, ally.x, ally.y, 1300);
   e.mx = idiv(e.mx * 3, 10);
   e.my = idiv(e.my * 3, 10);
+}
+
+const DASH_TICKS = 6;
+const DEFEND_COOLDOWN = 30;
+const DASH_COOLDOWN = 70;
+
+function freeSpot(w: World, x: number, y: number, r: number): boolean {
+  const [W, H] = w.arena.sizeMm;
+  if (x < r || y < r || x > W - r || y > H - r) return false;
+  for (const [wx, wy, ww, wh] of w.arena.walls) if (x > wx - r && x < wx + ww + r && y > wy - r && y < wy + wh + r) return false;
+  return true;
+}
+
+/** Burst movement over DASH_TICKS ticks (evades and dashes). */
+function burst(e: Entity, dx: number, dy: number, distance: number): void {
+  e.dashVx = idiv(idiv(dx * distance, 1000), DASH_TICKS);
+  e.dashVy = idiv(idiv(dy * distance, 1000), DASH_TICKS);
+}
+
+/**
+ * Melee defence (02 §5.2a): the target may parry (attacker is stunned and
+ * shoved back) or evade (hops ~2.4 m sideways, or back if boxed in). Chances
+ * come from stats, career and personality; a short cooldown stops chains.
+ */
+function defend(w: World, e: Entity, t: Entity, cause: number): boolean {
+  if (t.kind !== 'char' || t.state !== 'active' || t.z > 0 || !canAct(w, t)) return false;
+  if ((t.cooldowns['defend'] ?? 0) > w.tick || t.statuses.some((s) => s.id === 'status.crawling')) return false;
+  const roll = w.rng.int(10000);
+  if (roll >= t.parryBp + t.evadeBp) return false;
+  t.cooldowns['defend'] = w.tick + DEFEND_COOLDOWN;
+  faceToward(t, e.x, e.y);
+  if (roll < t.parryBp) {
+    const ev = emit(w, 'parry', t.id, e.id, 0, '', cause);
+    applyStatus(w, e, 'status.stunned', 16, t.id, ev);
+    push(w, e, t.x, t.y, 1400);
+    return true;
+  }
+  const [ax, ay] = dir1000(t.x - e.x, t.y - e.y);
+  const side = w.rng.chance(5000) ? 1 : -1;
+  const dist = 2400;
+  const options: [number, number, string][] = [
+    [-ay * side, ax * side, side > 0 ? 'left' : 'right'],
+    [ay * side, -ax * side, side > 0 ? 'right' : 'left'],
+    [ax, ay, 'back'],
+  ];
+  const pick = options.find(([dx, dy]) => freeSpot(w, t.x + idiv(dx * dist, 1000), t.y + idiv(dy * dist, 1000), t.radius)) ?? options[2]!;
+  burst(t, pick[0], pick[1], dist);
+  t.dashUntil = w.tick + DASH_TICKS;
+  emit(w, 'evade', t.id, e.id, dist, pick[2], cause);
+  return true;
+}
+
+/** Dash to close (or open) distance quickly while approaching a far-away goal. */
+function maybeDash(w: World, e: Entity, a: Action, t: Entity | undefined, px: number, py: number, d: number, range: number): void {
+  if (w.tick < e.dashUntil || (e.cooldowns['dash'] ?? 0) > w.tick || (w.tick + e.id) % 10 !== 0) return;
+  if (a.kind !== 'attack' && a.kind !== 'ability' && a.kind !== 'retreat' && a.kind !== 'pickUp') return;
+  if (d < range + 2500 || d > 12000 || e.rideId >= 0 || e.heldId >= 0) return;
+  if (!w.aiRng.chance(e.dashBp)) return;
+  const distance = Math.min(3200, d - range - 700);
+  const [dx, dy] = dir1000(px - e.x, py - e.y);
+  if (!freeSpot(w, e.x + idiv(dx * distance, 1000), e.y + idiv(dy * distance, 1000), e.radius)) return;
+  burst(e, dx, dy, distance);
+  e.dashUntil = w.tick + DASH_TICKS;
+  e.cooldowns['dash'] = w.tick + DASH_COOLDOWN;
+  emit(w, 'dash', e.id, t?.id ?? -1, distance, a.kind, -1);
 }
 
 function moveToward(w: World, e: Entity, x: number, y: number, stopAt: number): void {
@@ -156,6 +221,7 @@ function execute(w: World, e: Entity, a: Action, t: Entity | undefined): void {
       }
       const held = e.snap?.held ?? '';
       const ev = emit(w, 'attack', e.id, t.id, 0, held, -1);
+      if (defend(w, e, t, ev)) return;
       const ctx: EffectCtx = { sourceId: e.id, cause: ev, powerBp: 10000, scale: 'melee' };
       applyEffect(w, { type: 'damage', amount: e.attack.base, damageType: e.attack.damageType }, t, ctx);
       if (e.attack.knockbackMm > 0) push(w, t, e.x, e.y, e.attack.knockbackMm);
@@ -324,6 +390,7 @@ export function progressActions(w: World): void {
         continue;
       }
       if (d > range) {
+        maybeDash(w, e, a, t, px, py, d, range);
         moveToward(w, e, px, py, Math.max(0, range - 100));
         continue;
       }

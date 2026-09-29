@@ -1,3 +1,4 @@
+import { layoutArena } from './layout';
 import { GOALS, STAT_KEYS, type AttackDef, type ContentBundle, type Goal, type Stats, type TagMatch } from '@cc/content-schema';
 import { indexContent, must, type ContentIndex } from './content';
 import { clamp, idiv } from './core/math';
@@ -130,6 +131,12 @@ function blankEntity(id: number, kind: Entity['kind'], def: string): Entity {
     tossedBy: -1,
     tossLand: 0,
     tossCause: -1,
+    parryBp: 0,
+    evadeBp: 0,
+    dashBp: 0,
+    dashUntil: 0,
+    dashVx: 0,
+    dashVy: 0,
   };
 }
 
@@ -383,6 +390,19 @@ function spawnCharacter(w: World, snap: CharacterSnapshot, team: number, x: numb
   e.throwSpreadBp = pers.throwSpreadBp;
   e.moveCostBp = pers.moveCostBp;
   e.allyKoMoraleLoss = pers.allyKoMoraleLoss;
+  // Reflexes: stats set the baseline, career and personality give each character a style.
+  let parry = 250 + (stats.strength + stats.awareness - 10) * 60 + (pers.defense?.parryBp ?? 0);
+  let evade = 350 + (stats.speed + stats.awareness - 10) * 70 + (pers.defense?.evadeBp ?? 0);
+  let dash = 1500 + (stats.speed - 5) * 250 + (pers.defense?.dashBp ?? 0);
+  for (const cid of snap.careers) {
+    const d = c.careers.get(cid)?.defense;
+    parry += d?.parryBp ?? 0;
+    evade += d?.evadeBp ?? 0;
+    dash += d?.dashBp ?? 0;
+  }
+  e.parryBp = clamp(parry, 0, 3000);
+  e.evadeBp = clamp(evade, 0, 3500);
+  e.dashBp = clamp(dash, 0, 6000);
   e.preferTags = preferTags;
   e.baseTags = [...tags].sort(cmpStr);
   e.immune = [...immune].sort(cmpStr);
@@ -451,7 +471,7 @@ function assignStations(w: World): void {
 
 export function createWorld(input: BattleInput, bundle: ContentBundle): World {
   const content = indexContent(bundle);
-  const arena = must(content.arenas, input.arenaId, 'arena');
+  const { arena, obstacles } = layoutArena(must(content.arenas, input.arenaId, 'arena'), input.seed);
   const root = Rng.fromSeed(input.seed);
   const w: World = {
     tick: 0,
@@ -479,6 +499,7 @@ export function createWorld(input: BattleInput, bundle: ContentBundle): World {
     firedThisTick: new Set(),
     spawnedThisTick: 0,
     banter: new Map(),
+    belts: obstacles.filter((o) => o.belt).map((o) => ({ rect: o.rect, vx: o.belt![0], vy: o.belt![1] })),
   };
   for (const p of arena.props) spawnProp(w, p.prop, p.at[0], p.at[1]);
   if (input.mode === 'ffa') {

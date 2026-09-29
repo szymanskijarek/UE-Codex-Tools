@@ -176,6 +176,10 @@ export type AbilityDef = z.infer<typeof abilitySchema>;
 // ---------------------------------------------------------------------------
 // Careers & masteries
 // ---------------------------------------------------------------------------
+/** Defensive reflexes (bp chances / bonuses): parry a melee blow, evade it, or dash to close distance. */
+export const defenseSchema = z.object({ parryBp: int.optional(), evadeBp: int.optional(), dashBp: int.optional() });
+export type DefenseDef = z.infer<typeof defenseSchema>;
+
 export const careerSchema = z.object({
   id: ref('career'),
   tier: int.min(1).max(3),
@@ -186,6 +190,7 @@ export const careerSchema = z.object({
   interactionRules: z.array(ref('rule')).optional(),
   /** Additional signature actives beyond the main one. */
   extraActives: z.array(ref('ability')).optional(),
+  defense: defenseSchema.optional(),
   prerequisites: z.object({ anyOf: z.array(z.array(ref('career'))) }).nullable().optional(),
   unlock: z.object({ type: z.enum(['default', 'rep', 'achievement']), cost: int.optional(), achievement: z.string().optional() }),
   art: z.object({ color: z.string().regex(/^#[0-9a-f]{6}$/), hat: z.string().regex(/^#[0-9a-f]{6}$/).optional(), heldItem: ref('equipment').optional(), icon: z.string().max(8).optional() }),
@@ -278,6 +283,13 @@ export const arenaSchema = z.object({
   movers: z
     .array(z.object({ id: z.string(), prop: ref('prop'), path: z.array(point).min(2), startTick: int.min(0), telegraphTicks: int.min(0), speedMm: int.min(1), loop: z.boolean() }))
     .optional(),
+  /**
+   * Art-backed obstacles, laid out per battle from the seed: each rolls chanceBp,
+   * picks one art variant and may shift by up to layoutJitterMm. Belts are
+   * walkable conveyors that carry things along (mm/tick) instead of blocking.
+   */
+  obstacles: z.array(z.object({ at: rect, art: z.array(z.string()).min(1), chanceBp: bp.optional(), belt: point.optional() })).optional(),
+  layoutJitterMm: int.min(0).optional(),
   theme: z.object({ floor: z.string(), wall: z.string(), accent: z.string() }),
   unlock: z.object({ league: z.string() }),
 });
@@ -298,6 +310,7 @@ export const personalitySchema = z.object({
   moveCostBp: bp,
   /** Personality move every character with this personality can use. */
   ability: ref('ability').optional(),
+  defense: defenseSchema.optional(),
 });
 export type PersonalityDef = z.infer<typeof personalitySchema>;
 

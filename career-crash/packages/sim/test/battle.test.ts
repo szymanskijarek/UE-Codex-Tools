@@ -1,6 +1,7 @@
 import { bundle } from '@cc/content';
 import { describe, expect, it } from 'vitest';
 import { Rng } from '../src/core/rng';
+import { layoutArena } from '../src/layout';
 import { createBattle, simulate } from '../src/simulate';
 import { ENTITY_CAP, MAX_TICKS } from '../src/types';
 import { battleInput, char, randomTeam } from './fixtures';
@@ -122,5 +123,32 @@ describe('systems', () => {
     expect(counts.grab).toBeGreaterThan(0);
     expect(counts.landed).toBeGreaterThan(0);
     expect(counts.banter).toBeGreaterThan(0);
+  });
+
+  it('arena layouts are seeded: same seed same layout, different seeds vary, spawns stay clear', () => {
+    for (const arena of bundle.arenas) {
+      const a = layoutArena(arena, 'layout-1');
+      expect(layoutArena(arena, 'layout-1')).toEqual(a);
+      const variants = new Set(Array.from({ length: 12 }, (_, i) => JSON.stringify(layoutArena(arena, `layout-${i}`).obstacles)));
+      expect(variants.size).toBeGreaterThan(1);
+      for (let i = 0; i < 12; i++) {
+        const { arena: laid } = layoutArena(arena, `layout-${i}`);
+        for (const [sx, sy] of [...laid.spawns.a, ...laid.spawns.b]) {
+          for (const [x, y, w, h] of laid.walls) expect(sx >= x && sx <= x + w && sy >= y && sy <= y + h).toBe(false);
+        }
+      }
+    }
+  });
+
+  it('characters parry, evade and dash', () => {
+    const rng = Rng.fromSeed('reflex');
+    const counts = { parry: 0, evade: 0, dash: 0 };
+    for (let i = 0; i < 8; i++) {
+      const out = simulate(battleInput(bundle, `rf${i}`, [randomTeam(bundle, rng, 3, 'A'), randomTeam(bundle, rng, 3, 'B')]), bundle);
+      for (const e of out.events) if (e.type === 'parry' || e.type === 'evade' || e.type === 'dash') counts[e.type]++;
+    }
+    expect(counts.parry).toBeGreaterThan(0);
+    expect(counts.evade).toBeGreaterThan(0);
+    expect(counts.dash).toBeGreaterThan(0);
   });
 });

@@ -5,32 +5,7 @@
   16000
  ],
  "navCellMm": 500,
- "walls": [
-  [
-   5200,
-   5800,
-   2400,
-   1100
-  ],
-  [
-   14400,
-   5800,
-   2400,
-   1100
-  ],
-  [
-   5200,
-   10600,
-   2400,
-   1100
-  ],
-  [
-   14400,
-   10600,
-   2400,
-   1100
-  ]
- ],
+ "walls": [],
  "spawns": {
   "a": [
    [
@@ -389,6 +364,27 @@
      "count": 1
     }
    }
+  },
+  {
+   "id": "hazard.jukebox",
+   "startTick": 500,
+   "everyTicks": 650,
+   "telegraphTicks": 30,
+   "region": [
+    1500,
+    12000,
+    6500,
+    4000
+   ],
+   "action": {
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.distracted",
+      "durationTicks": 60
+     }
+    ]
+   }
   }
  ],
  "suddenDeath": {
@@ -490,5 +486,102 @@
  },
  "unlock": {
   "league": "intern"
- }
+ },
+ "obstacles": [
+  {
+   "at": [
+    5200,
+    5800,
+    2400,
+    1100
+   ],
+   "art": [
+    "diner-booth",
+    "diner-table"
+   ]
+  },
+  {
+   "at": [
+    14400,
+    5800,
+    2400,
+    1100
+   ],
+   "art": [
+    "diner-table",
+    "diner-booth"
+   ]
+  },
+  {
+   "at": [
+    5200,
+    10600,
+    2400,
+    1100
+   ],
+   "art": [
+    "diner-booth",
+    "diner-table"
+   ]
+  },
+  {
+   "at": [
+    14400,
+    10600,
+    2400,
+    1100
+   ],
+   "art": [
+    "diner-table",
+    "diner-booth"
+   ]
+  },
+  {
+   "at": [
+    4300,
+    15100,
+    1000,
+    700
+   ],
+   "art": [
+    "jukebox"
+   ]
+  },
+  {
+   "at": [
+    9800,
+    3600,
+    2400,
+    800
+   ],
+   "art": [
+    "diner-pass"
+   ],
+   "chanceBp": 6000
+  },
+  {
+   "at": [
+    20800,
+    600,
+    900,
+    800
+   ],
+   "art": [
+    "drinks-fridge"
+   ],
+   "chanceBp": 7000
+  },
+  {
+   "at": [
+    8800,
+    12300,
+    4400,
+    900
+   ],
+   "art": [
+    "diner-counter"
+   ],
+   "chanceBp": 6000
+  }
+ ]
 }

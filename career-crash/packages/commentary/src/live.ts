@@ -212,6 +212,12 @@ export class LiveCommentator {
         return this.make(e.t, 'referee_down', 3, base, [e.a]);
       case 'hazardWarn':
         return this.make(e.t, 'hazard_warn', 3, { ...base, hazard: e.s.replace(/^hazard\./, '').replace(/-/g, ' ') }, []);
+      case 'parry':
+        return this.make(e.t, 'parry', 2, base, [e.a, e.b]);
+      case 'evade':
+        return this.make(e.t, e.s === 'back' ? 'evade_back' : 'evade', 1, base, [e.a, e.b]);
+      case 'dash':
+        return this.make(e.t, e.s === 'retreat' ? 'dash_retreat' : 'dash', 1, base, [e.a]);
       case 'grab':
         return this.make(e.t, `grab_${e.s}`, e.s === 'away' ? 2 : 3, base, [e.a, e.b]);
       case 'landed':

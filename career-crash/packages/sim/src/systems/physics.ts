@@ -45,6 +45,9 @@ function resolveWalls(w: World, e: Entity): boolean {
     e.x += idiv(nx * (r - d), 1000);
     e.y += idiv(ny * (r - d), 1000);
   }
+  // Walls near the edge can push things out of the arena: clamp again.
+  e.x = clamp(e.x, r, W - r);
+  e.y = clamp(e.y, r, H - r);
   return hit;
 }
 
@@ -82,6 +85,22 @@ export function physics(w: World): void {
     }
     const slipping = hasFlag(w, e, 'slipping');
     const moveMul = slipping ? 3 : 10;
+    // Evades and dashes: a short, fixed burst of movement.
+    if (w.tick < e.dashUntil && e.z === 0) {
+      e.x += e.dashVx;
+      e.y += e.dashVy;
+    }
+    // Conveyor belts carry anything standing on them.
+    if (e.z === 0 && e.carriedBy < 0 && e.areaRadius === 0 && !(e.kind === 'prop' && w.content.props.get(e.def)?.anchored)) {
+      for (const b of w.belts) {
+        const [bx, by, bw, bh] = b.rect;
+        if (e.x >= bx && e.x <= bx + bw && e.y >= by && e.y <= by + bh) {
+          e.x += b.vx;
+          e.y += b.vy;
+          break;
+        }
+      }
+    }
     if (e.kind !== 'prop' && (e.state === 'active' || e.state === 'downed') && !hasFlag(w, e, 'noMove')) {
       e.x += idiv(e.mx * moveMul, 10);
       e.y += idiv(e.my * moveMul, 10);
