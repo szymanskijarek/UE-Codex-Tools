@@ -25,7 +25,7 @@ const CAREERS = [
 ];
 const GRID = 6;
 /** Longest side of a face in the atlas (px). */
-const FACE_PX = 112;
+const FACE_PX = 96;
 const ATLAS_W = 2048;
 const PAD = 2;
 
