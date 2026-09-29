@@ -4,6 +4,7 @@ import type { ActionKind, Entity, World } from '../types';
 import { canAct, derived, get, isAlive, tagsOf } from '../world';
 import { matchTags } from './effects';
 import { isBlockedAt } from './nav';
+import { DROPPED_WEAPON } from './weapons';
 
 /**
  * Utility AI (02 §6). Every decision enumerates a bounded set of candidate
@@ -195,6 +196,7 @@ export function candidates(w: World, e: Entity): Candidate[] {
     w.entities.filter((p) => p.kind === 'prop' && !p.removed && p.carriedBy < 0 && p.riddenBy < 0 && !p.flying && dist(e.x, e.y, p.x, p.y) <= per),
   );
   const held = e.heldId >= 0 ? w.byId.get(e.heldId) : undefined;
+  const heldHeavy = !!(held && w.content.props.get(held.def)?.heavy);
 
   // Duel bookkeeping: once the kick-off opponent is out, this character is free to roam.
   const duel = e.duelTarget >= 0 ? w.byId.get(e.duelTarget) : undefined;
@@ -223,7 +225,7 @@ export function candidates(w: World, e: Entity): Candidate[] {
     base = bpMul(base, leashBp(e, t));
     out.push({ kind: 'attack', targetId: t.id, tx: t.x, ty: t.y, abilityId: '', goal: 'damage', base });
     // Holding something throwable? Throwing it beats a punch at almost any range.
-    if (held && d > 800 && d < 10000 && !(e.quirks.includes('hoarder') && d > 4000)) {
+    if (held && !heldHeavy && d > 800 && d < 10000 && !(e.quirks.includes('hoarder') && d > 4000)) {
       out.push({ kind: 'throw', targetId: t.id, tx: t.x, ty: t.y, abilityId: '', goal: 'damage', base: 9500 + idiv(near(d, 4000, 9000) * 5, 10) });
     }
   }
@@ -240,7 +242,16 @@ export function candidates(w: World, e: Entity): Candidate[] {
     const d = dist(e.x, e.y, p.x, p.y);
     const closeness = near(d, 0, 9000);
     let used = false;
-    if (!held && def.carry && def.throwDamage && p.weightG <= derived.carryG(e.stats!)) {
+    // Empty hands: grab a dropped weapon (your own first) or a two-handed heavy weapon.
+    if (!held && e.weapon === '' && p.def === DROPPED_WEAPON && d < 9000) {
+      const mine = e.snap?.held === p.weapon;
+      out.push({ kind: 'pickUp', targetId: p.id, tx: p.x, ty: p.y, abilityId: '', goal: 'damage', base: bpMul(mine ? 12500 : 9500, near(d, 0, 9000)) });
+      used = true;
+    } else if (!held && e.weapon === '' && def.heavy && p.weightG <= derived.carryG(e.stats!) * 2 && d < 9000) {
+      out.push({ kind: 'pickUp', targetId: p.id, tx: p.x, ty: p.y, abilityId: '', goal: 'damage', base: bpMul(13000, near(d, 0, 9000)) });
+      used = true;
+    }
+    if (!used && !held && def.carry && def.throwDamage && p.weightG <= derived.carryG(e.stats!)) {
       // Something to throw is closer than the nearest enemy: grab it (it's a damage move, not looting).
       if (d < nearestFoe && d < 3500 && nearestFoe < 7000) {
         out.push({ kind: 'pickUp', targetId: p.id, tx: p.x, ty: p.y, abilityId: '', goal: 'damage', base: bpMul(clamp(8000 + def.throwDamage * 300, 0, 13000), near(d, 0, 9000)) });

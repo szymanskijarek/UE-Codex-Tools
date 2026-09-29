@@ -174,6 +174,8 @@ export class LiveCommentator {
       case 'miss':
         return null;
       case 'pickUp':
+        if (e.v === 2) return this.make(e.t, 'heavy_pickup', 3, { ...base, item: this.nm(e.s) }, [e.a]);
+        if (e.v === 1) return this.make(e.t, 'weapon_back', 1, { ...base, item: this.nm(e.s) }, [e.a]);
         return this.make(e.t, 'pickup', 1, { ...base, prop: this.nm(e.s) }, [e.a]);
       case 'push':
         return this.make(e.t, 'push', 1, { ...base, prop: this.nm(e.s) }, [e.a]);
@@ -229,6 +231,10 @@ export class LiveCommentator {
         return this.make(e.t, 'rivalry', 3, base, [e.a, e.b]);
       case 'revenge':
         return this.make(e.t, 'revenge', 3, base, [e.a, e.b]);
+      case 'disarm':
+        return this.make(e.t, 'disarm', 2, { ...base, item: this.nm(e.s) }, [e.a, e.b]);
+      case 'choke':
+        return this.make(e.t, 'choke', 3, base, [e.a, e.b]);
       case 'consume':
         return this.make(e.t, e.v === 0 ? 'consume_start' : 'consume', e.v === 0 ? 1 : 2, { ...base, item: this.nm(e.s) }, [e.a]);
       case 'parry':

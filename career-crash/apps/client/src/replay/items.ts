@@ -24,6 +24,35 @@ const sheet = (kind: string): Sheet => ({ atlas: JSON_FILES[`./${kind}/${kind}.j
 const ITEMS = sheet('items');
 const OBSTACLES = sheet('obstacles');
 
+/**
+ * Two-handed heavy weapons → item sprite names. Add art with these names to the
+ * items atlas (tools/art-pipeline `items`) and it replaces the drawn placeholder.
+ */
+export const HEAVY_ART: Record<string, string> = {
+  'prop.frozen-salmon': 'frozen-salmon',
+  'prop.sale-sign': 'sale-sign',
+  'prop.coat-stand': 'coat-stand',
+  'prop.novelty-cheque': 'novelty-cheque',
+  'prop.platform-bench': 'platform-bench',
+  'prop.platform-sign': 'platform-sign',
+  'prop.beer-keg': 'beer-keg',
+  'prop.pepper-grinder': 'pepper-grinder',
+  'prop.sledgehammer': 'sledgehammer',
+  'prop.road-sign': 'road-sign',
+  'prop.wooden-pallet': 'wooden-pallet',
+  'prop.rolled-carpet': 'rolled-carpet',
+};
+
+/** Heavy weapon sprite in hand (grip at the top of the image), `len` px long; null until the art exists. */
+export function heavySprite(propId: string, len: number): Sprite | null {
+  const t = tex(HEAVY_ART[propId]);
+  if (!t) return null;
+  const s = new Sprite(t);
+  s.scale.set(len / Math.max(t.width, t.height));
+  s.anchor.set(0.5, 0.08);
+  return s;
+}
+
 /** Held equipment → item sprite. */
 const HELD: Record<string, string> = {
   'equipment.clipboard': 'binder',

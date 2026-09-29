@@ -314,6 +314,34 @@
     11000,
     11400
    ]
+  },
+  {
+   "prop": "prop.coat-stand",
+   "at": [
+    6600,
+    4200
+   ]
+  },
+  {
+   "prop": "prop.coat-stand",
+   "at": [
+    15400,
+    9800
+   ]
+  },
+  {
+   "prop": "prop.novelty-cheque",
+   "at": [
+    6600,
+    9800
+   ]
+  },
+  {
+   "prop": "prop.novelty-cheque",
+   "at": [
+    15400,
+    4200
+   ]
   }
  ],
  "hazards": [

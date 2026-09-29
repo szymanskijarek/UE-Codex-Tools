@@ -9,7 +9,8 @@ import { Sfx, type SfxName } from './audio';
 import type { ReplayPlayer } from './player';
 import { arenaArt, type ArenaArt } from './arena-art';
 import { drawArea, drawProp } from './props-art';
-import { heldSprite, loadItems, propSprite, wallSprite } from './items';
+import { drawHeavy, heavyLength } from './heavy-art';
+import { heavySprite, heldSprite, loadItems, propSprite, wallSprite } from './items';
 import { extension, hitPose, MOVES, repertoire, type HitStyle, type Move } from './moves';
 import { drawWall } from './wall-art';
 import { hasPuppet, loadPuppets, NEUTRAL, Puppet, type Pose } from './puppet';
@@ -31,6 +32,7 @@ const OUTLINE = 0x1b1f2a;
 const FONT = 'system-ui, -apple-system, "Segoe UI", sans-serif';
 
 const MOVERS = new Set(bundle.props.filter((p) => p.mover).map((p) => p.id));
+const HEAVY = new Set(bundle.props.filter((p) => p.heavy).map((p) => p.id));
 const isMover = (def: string): boolean => MOVERS.has(def);
 const hex = (s: string): number => parseInt(s.replace('#', ''), 16);
 const rand = <T,>(arr: readonly T[]): T => arr[Math.floor(Math.random() * arr.length)]!;
@@ -93,6 +95,10 @@ interface CharSprite {
   /** Melee move being wound up / struck (puppets), its end time and the character's repertoire. */
   move: Move | null;
   moveUntil: number;
+  /** A heavy-weapon swing is landing until then (bigger hit reactions). */
+  heavyUntil: number;
+  /** What the repertoire was built for ('' bare hands, 'w' weapon, 'h' heavy). */
+  repFor: string;
   wasWinding: boolean;
   repertoire: Move[] | null;
   lastMove: Move | null;
@@ -673,6 +679,8 @@ export class BattleRenderer {
       crawling: false,
       move: null,
       moveUntil: 0,
+      heavyUntil: 0,
+      repFor: '',
       wasWinding: false,
       repertoire: null,
       lastMove: null,
@@ -745,13 +753,23 @@ export class BattleRenderer {
 
   private drawHeld(s: CharSprite, e: FrameEntity, byId: Map<number, FrameEntity>): void {
     const r = s.r;
-    const key = `${e.held}:${this.snapOf(e)?.held ?? ''}`;
+    const carried = e.held >= 0 ? byId.get(e.held) : undefined;
+    const heavy = carried && HEAVY.has(carried.def) ? carried.def : '';
+    const key = `${e.held}:${heavy}:${e.weapon}`;
     if (key === s.lastHeldKey) return;
     s.lastHeldKey = key;
     s.heldG.clear();
     for (const c of s.held.children.slice(1)) c.destroy();
-    if (e.held >= 0 && byId.get(e.held)) return; // carried props render themselves
-    const item = this.snapOf(e)?.held;
+    if (heavy) {
+      // Two-handed heavy weapon: drawn in the hands (the world prop hides while carried).
+      const len = heavyLength(heavy, r);
+      const art = heavySprite(heavy, len);
+      if (art) s.held.addChild(art);
+      else drawHeavy(s.heldG, heavy, len);
+      return;
+    }
+    if (carried) return; // carried throwables render themselves, overhead
+    const item = e.weapon;
     if (!item) return;
     const def = bundle.equipment.find((x) => x.id === item);
     const len = r * ((def?.attack?.rangeMm ?? 1000) > 1500 ? 1.9 : 1.2);
@@ -833,6 +851,26 @@ export class BattleRenderer {
       root.scale.y = this.ysq;
       this.areas.addChild(root);
     } else {
+      // Loose weapons lie on the floor: a knocked-away career weapon, or a heavy weapon.
+      if (e.def === 'prop.weapon' || HEAVY.has(e.def)) {
+        const u = e.r * this.scale;
+        g.ellipse(0, 0, u * 1.6, u * 0.5).fill({ color: 0x000000, alpha: 0.18 });
+        const lying = new Container();
+        lying.rotation = -Math.PI / 2 + 0.25;
+        const len = e.def === 'prop.weapon' ? u * 3.2 : u * 3.6;
+        const art = e.def === 'prop.weapon' ? heldSprite(e.weapon, len) : heavySprite(e.def, len);
+        if (art) lying.addChild(art);
+        else {
+          const lg = new Graphics();
+          if (e.def === 'prop.weapon') lg.roundRect(-u * 0.25, 0, u * 0.5, len, u * 0.2).fill(0x94a3b8).stroke({ width: 1, color: OUTLINE });
+          else drawHeavy(lg, e.def, len);
+          lying.addChild(lg);
+        }
+        lying.position.set(-len * 0.45, -u * 0.3);
+        root.addChild(lying);
+        this.bodies.addChild(root);
+        return s;
+      }
       // Item art when we have it (props read ~2.6× their collision radius), else the drawn version.
       const art = propSprite(e.def, e.r * this.scale * 2.6);
       if (art) {
@@ -880,6 +918,7 @@ export class BattleRenderer {
         const cs = cb !== undefined ? this.chars.get(cb) : undefined;
         if (cs && !cs.rag) s.root.position.set(cs.x, cs.y - cs.r * (cs.puppet ? 5.4 : 4.4) * cs.depth);
         else s.root.position.set(sx, sy);
+        s.root.visible = !(cs && HEAVY.has(e.def));
         if (s.isArea) {
           const dk = this.depth(y);
           s.root.scale.set(dk, this.ysq * dk);
@@ -1037,7 +1076,7 @@ export class BattleRenderer {
     else if (e.statuses.includes('status.embarrassed')) tint = 0xffc4c4;
     s.torso.tint = tint;
     s.root.alpha = e.state === 'ko' ? 0.55 : 1;
-    if (s.puppet) this.animatePuppet(s, s.puppet, e, t, tint, expr, { down, stunned, winding, casting });
+    if (s.puppet) this.animatePuppet(s, s.puppet, e, t, tint, expr, { down, stunned, winding, casting }, byId);
 
     this.drawStatusFx(s, e, t, casting);
     this.drawHeld(s, e, byId);
@@ -1065,7 +1104,7 @@ export class BattleRenderer {
   }
 
   /** Procedural pose for a sprite puppet (the ragdoll takes over when it falls). */
-  private animatePuppet(s: CharSprite, pu: Puppet, e: FrameEntity, t: number, tint: number, expr: Expr, st: { down: boolean; stunned: boolean; winding: boolean; casting: boolean }): void {
+  private animatePuppet(s: CharSprite, pu: Puppet, e: FrameEntity, t: number, tint: number, expr: Expr, st: { down: boolean; stunned: boolean; winding: boolean; casting: boolean }, byId: Map<number, FrameEntity>): void {
     const f = e.fx < 0 ? -1 : 1;
     pu.root.visible = s.root.visible;
     pu.root.zIndex = (s.root.zIndex as number) + 0.5;
@@ -1109,7 +1148,7 @@ export class BattleRenderer {
         p.elbowF = p.elbowB = 0;
       } else {
         // Pick the blow as the wind-up starts, so the wind-up telegraphs it.
-        if (!s.wasWinding || !s.move) s.move = this.pickMove(s, e);
+        if (!s.wasWinding || !s.move) s.move = this.pickMove(s, e, e.held >= 0 && HEAVY.has(byId.get(e.held)?.def ?? ''));
         MOVES[s.move].wind(p, r);
       }
     }
@@ -1155,11 +1194,38 @@ export class BattleRenderer {
       p.armF = -2.6 + Math.sin(t * 25) * 0.6;
       p.armB = 2.6 - Math.sin(t * 25) * 0.6;
     }
-    if (e.held >= 0 && !action.startsWith('throw')) {
+    const heavyHeld = e.held >= 0 && HEAVY.has(byId.get(e.held)?.def ?? '');
+    if (heavyHeld && !s.move) {
+      // Two hands on a heavy weapon, resting on the shoulder.
+      p.armF = -2.2;
+      p.elbowF = -0.9;
+      p.armB = -1.9;
+      p.elbowB = -1.1;
+      p.lean = 0.08;
+    } else if (e.held >= 0 && !heavyHeld && !action.startsWith('throw')) {
       // Carrying a prop overhead.
       p.armF = -2.9;
       p.armB = 2.9;
       p.elbowF = p.elbowB = 0;
+    }
+    if (e.statuses.includes('status.choking')) {
+      // Arms locked round someone's neck.
+      p.armF = -1.45;
+      p.elbowF = -2.3;
+      p.armB = -1.25;
+      p.elbowB = -2.1;
+      p.lean = 0.18;
+      p.bob += Math.sin(t * 18) * r * 0.03;
+    } else if (e.statuses.includes('status.choked')) {
+      // Clawing at the arm round their neck, legs kicking.
+      p.armF = -2.3 + Math.sin(t * 20) * 0.4;
+      p.elbowF = -2.4;
+      p.armB = -2.1 + Math.cos(t * 17) * 0.4;
+      p.elbowB = -2.4;
+      p.legF = Math.sin(t * 14) * 0.35;
+      p.legB = -Math.sin(t * 14) * 0.35;
+      p.headRot = -0.35 + Math.sin(t * 9) * 0.1;
+      p.lean = -0.2;
     }
     if (st.stunned) p.headRot = Math.sin(t * 8) * 0.35;
     if (e.statuses.includes('status.electrified')) {
@@ -1174,8 +1240,14 @@ export class BattleRenderer {
   }
 
   /** Next melee move from this character's repertoire (never the same one three times running). */
-  private pickMove(s: CharSprite, e: FrameEntity | undefined): Move {
-    if (!s.repertoire) s.repertoire = repertoire(s.career, s.personality, !!(e && this.snapOf(e)?.held));
+  private pickMove(s: CharSprite, e: FrameEntity | undefined, heavy = false): Move {
+    // Heavy weapons only swing big; bare hands and weapons use their own move sets.
+    if (heavy) return Math.random() < 0.5 ? 'overhead' : 'swing';
+    const kind = e?.weapon ? 'w' : '';
+    if (!s.repertoire || s.repFor !== kind) {
+      s.repertoire = repertoire(s.career, s.personality, kind === 'w');
+      s.repFor = kind;
+    }
     let m = rand(s.repertoire);
     if (m === s.lastMove && m === s.lastMove2) m = rand(s.repertoire);
     s.lastMove2 = s.lastMove;
@@ -1570,12 +1642,16 @@ export class BattleRenderer {
         if (A) {
           A.lungeUntil = this.now + 220;
           if (A.puppet) {
-            if (!A.move) A.move = this.pickMove(A, ea);
+            if (!A.move) A.move = this.pickMove(A, ea, ev.v === 2);
             A.moveUntil = this.now + MOVES[A.move].ms;
             if (MOVES[A.move].hit === 'legs' || MOVES[A.move].turn) this.sfx.play('whoosh', 0.9);
           }
           this.setExpr(A, 'angry', 450);
-          this.vox(A, Math.random() < 0.5 ? 'yell' : 'grunt', 0.3);
+          if (ev.v === 2) {
+            A.heavyUntil = this.now + 900;
+            this.vox(A, 'yell', 0.9, true);
+            this.sfx.play('whoosh', 1.4);
+          } else this.vox(A, Math.random() < 0.5 ? 'yell' : 'grunt', 0.3);
           this.bark(A, Math.random() < 0.5 && bundle.live[`job_${A.career}`] ? `job_${A.career}` : 'bark_attack', 0.14);
         }
         this.sfx.play('whoosh', 0.6);
@@ -1619,6 +1695,15 @@ export class BattleRenderer {
         this.float(crit ? `CRIT -${ev.v}` : `-${ev.v}`, this.posOf(ev.b, byId), crit ? 0xffd000 : 0xff5a5a, crit ? 18 : 13);
         this.sparks(this.posOf(ev.b, byId), crit ? 0xffd000 : 0xffffff, crit ? 22 : 12);
         if (crit) this.shake = Math.max(this.shake, 6);
+        if (A && A.heavyUntil > this.now && B) {
+          // Heavy weapon connects: WHAM, and they go flying.
+          A.heavyUntil = 0;
+          this.hitStop(130, 0.25);
+          this.shake = Math.max(this.shake, 11);
+          this.float('WHAM!', this.posOf(ev.b, byId), 0xfb923c, 24);
+          this.sfx.play('thud', 1.4);
+          this.vox(B, 'scream', 1, true);
+        }
         this.sfx.play(crit ? 'crit' : ev.s === 'electric' ? 'zap' : ev.s === 'fire' ? 'fire' : 'punch', Math.min(1.4, 0.5 + ev.v / 20));
         break;
       }
@@ -1685,8 +1770,22 @@ export class BattleRenderer {
         this.sfx.play('whoosh', 1);
         break;
       case 'pickUp':
-        if (A) this.bark(A, 'bark_pickup', 0.3, { prop: nameOf(ev.s).toLowerCase() });
-        this.sfx.play('pop');
+        if (ev.v === 2) {
+          // Picked up a heavy weapon.
+          this.float(`${nameOf(ev.s)}!`, this.posOf(ev.a, byId), 0xfacc15, 17);
+          if (A) {
+            this.bark(A, 'bark_heavy', 0.9, { prop: nameOf(ev.s).toLowerCase() }, true);
+            this.vox(A, 'yell', 0.8);
+          }
+          this.sfx.play('power');
+        } else if (ev.v === 1) {
+          this.float('REARMED', this.posOf(ev.a, byId), 0x93c5fd, 13);
+          if (A) this.bark(A, 'bark_rearmed', 0.5, { item: nameOf(ev.s).toLowerCase() });
+          this.sfx.play('pop');
+        } else {
+          if (A) this.bark(A, 'bark_pickup', 0.3, { prop: nameOf(ev.s).toLowerCase() });
+          this.sfx.play('pop');
+        }
         break;
       case 'push':
         if (A) A.lungeUntil = this.now + 250;
@@ -1906,8 +2005,33 @@ export class BattleRenderer {
         else this.sfx.play('pop');
         break;
       }
+      case 'disarm': {
+        if (B) {
+          this.setExpr(B, 'scared', 900);
+          this.bark(B, 'bark_disarmed', 0.8, { item: nameOf(ev.s).toLowerCase() }, true);
+        }
+        this.float('DISARMED!', this.posOf(ev.b, byId), 0xe5e7eb, 16);
+        this.sfx.play('boing', 1.2);
+        this.sfx.play('thud', 0.6);
+        break;
+      }
+      case 'choke': {
+        if (A) {
+          this.setExpr(A, 'angry', 2000);
+          this.bark(A, 'bark_choking', 0.7, {}, true);
+        }
+        if (B) {
+          this.setExpr(B, 'stunned', 2000);
+          this.vox(B, 'gasp', 1, true);
+        }
+        this.float('CHOKE HOLD!', this.posOf(ev.b, byId), 0xc084fc, 18);
+        this.sfx.play('squeak');
+        this.sfx.play('ooh');
+        break;
+      }
       case 'propBroken': {
         const def = bundle.props.find((p) => p.id === ev.s);
+        if (def?.heavy) this.float('BROKE!', this.posOf(ev.b, byId) ?? this.posOf(ev.a, byId), 0xfacc15, 16);
         if (def?.area) break;
         this.splat(this.posOf(ev.b, byId), hex(def?.art.color ?? '#9ca3af'), Math.max(10, (eb?.r ?? 300) * this.scale * 1.6));
         this.sfx.play(def?.tags.includes('material:glass') ? 'glass' : def?.tags.includes('food') || def?.tags.includes('liquid') ? 'splash' : 'thud');

@@ -2009,6 +2009,61 @@
    "Ask for the permanent contract!",
    "Can you cover my Thursday?",
    "Five-star temp. Would hire."
+  ],
+  "disarm": [
+   "{b} loses their grip — the {item} goes flying!",
+   "Disarmed! {b}'s {item} skids across the floor.",
+   "{a} knocks the {item} clean out of {b}'s hands!",
+   "There goes {b}'s {item}. Finders keepers?",
+   "{b} is empty-handed after that one!",
+   "The {item} leaves {b}'s hands at speed."
+  ],
+  "choke": [
+   "{a} gets {b} in a choke hold!",
+   "{a} wraps an arm round {b}'s neck. No weapon needed.",
+   "Choke hold! {b} is turning a funny colour.",
+   "{a} goes old-school on {b}: headlock!",
+   "{b} is in trouble — {a} won't let go!",
+   "Bare hands, big trouble: {a} has {b} in a sleeper hold."
+  ],
+  "heavy_pickup": [
+   "{a} picks up the {item}. Oh no.",
+   "{a} has found the {item}. Everybody back up.",
+   "Two hands, one {item}, zero mercy: {a} is armed.",
+   "{a} hefts the {item}. This is going to hurt someone.",
+   "The {item} is in play — and {a} is holding it!"
+  ],
+  "weapon_back": [
+   "{a} snatches up the {item}.",
+   "{a} is armed again — with a {item}.",
+   "{a} grabs the {item} off the floor."
+  ],
+  "bark_disarmed": [
+   "My {item}!",
+   "Hey, that's mine!",
+   "Butterfingers!",
+   "Not the {item}!",
+   "I needed that!"
+  ],
+  "bark_choking": [
+   "Nap time.",
+   "Shhh. Sleep.",
+   "Tap out!",
+   "Gotcha!",
+   "Say uncle!"
+  ],
+  "bark_heavy": [
+   "Oh, this is nice.",
+   "Now we're talking!",
+   "Stand back!",
+   "Who wants some {prop}?",
+   "Heavy lifting time!"
+  ],
+  "bark_rearmed": [
+   "Where were we?",
+   "Back in business!",
+   "Mine again!",
+   "Much better."
   ]
  }
 }

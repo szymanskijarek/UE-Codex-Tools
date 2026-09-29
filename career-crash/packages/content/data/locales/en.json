@@ -539,5 +539,22 @@
  "status.regen.name": "Regenerating",
  "status.buzzed.name": "Buzzed",
  "status.pumped.name": "Pumped",
- "status.numb.name": "Numb"
+ "status.numb.name": "Numb",
+ "prop.weapon.name": "Dropped weapon",
+ "prop.frozen-salmon.name": "Giant Frozen Salmon",
+ "prop.sale-sign.name": "SALE Aisle Sign",
+ "prop.coat-stand.name": "Coat Stand",
+ "prop.novelty-cheque.name": "Giant Novelty Cheque",
+ "prop.platform-bench.name": "Platform Bench",
+ "prop.platform-sign.name": "Platform Sign",
+ "prop.beer-keg.name": "Beer Keg",
+ "prop.pepper-grinder.name": "Giant Pepper Grinder",
+ "prop.sledgehammer.name": "Sledgehammer",
+ "prop.road-sign.name": "Road Sign",
+ "prop.wooden-pallet.name": "Wooden Pallet",
+ "prop.rolled-carpet.name": "Rolled-up Carpet",
+ "status.choked.name": "Choked",
+ "status.choking.name": "Choke hold",
+ "status.choked.desc": "In a choke hold: can't move or act, losing health.",
+ "status.choking.desc": "Holding someone in a choke hold."
 }

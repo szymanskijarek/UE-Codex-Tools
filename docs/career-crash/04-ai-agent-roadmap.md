@@ -36,7 +36,7 @@ v0.7 additions: hit stop + impact flash on big hits; destructible, toppling obst
 
 v0.8 additions: offline career mode in the client (character creation, ladder, results, stat/skill spending, career milestones), generated per-career skill trees with ranks (03 §3.4), difficulty levels where opponents only have the skills their rank/difficulty allows (03 §3.5), squad builder unlocked at Senior rank.
 
-v0.9 additions: fight pay (win, stage and KO bonuses), the Corner Shop with consumables and gear, 3-item loadouts used by the player and the AI (03 §3.6), full-body animated character previews with per-character idles and a selection animation, and a post-fight match summary.
+v0.9 additions: fight pay (win, stage and KO bonuses), the Corner Shop with consumables and gear, 3-item loadouts used by the player and the AI (03 §3.6), full-body animated character previews with per-character idles and a selection animation, and a post-fight match summary. Weapons in hand (02 §5.2c): disarms on hard hits, dropped weapons anyone can grab, throwables as weak clubs, bare-hand choke holds, and 12 two-handed heavy weapons with long knockback.
 
 ---
 

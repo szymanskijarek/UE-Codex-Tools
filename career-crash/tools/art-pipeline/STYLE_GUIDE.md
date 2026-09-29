@@ -73,3 +73,14 @@ each folder's `manifest.json`. `pnpm --filter @cc/art-pipeline items` and
 `… items obstacles` pack them into `apps/client/src/replay/{items,obstacles}/`.
 `client/replay/items.ts` maps equipment, props, machines and each arena's
 obstacles to atlas names; anything unmapped keeps its drawn fallback.
+
+## Heavy weapons (two-handed)
+
+Twelve two-handed weapons (list and atlas names in 02 §5.2c): frozen-salmon,
+sale-sign, coat-stand, novelty-cheque, platform-bench, platform-sign, beer-keg,
+pepper-grinder, sledgehammer, road-sign, wooden-pallet, rolled-carpet. Paint
+them like the other items (same outline weight and palette), **upright, with
+the end you hold at the top** and the heavy end at the bottom, on the usual
+2 × 4 item sheets (`art/items/heavy-1.png`, `heavy-2.png`) with the names in
+`art/items/manifest.json`. They're shown both in a fighter's hands (rotated
+with the arms) and lying on the floor, so avoid a ground shadow in the art.

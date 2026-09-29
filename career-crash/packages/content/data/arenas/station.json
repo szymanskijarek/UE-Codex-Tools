@@ -321,6 +321,34 @@
     15800,
     1800
    ]
+  },
+  {
+   "prop": "prop.platform-bench",
+   "at": [
+    7200,
+    4200
+   ]
+  },
+  {
+   "prop": "prop.platform-bench",
+   "at": [
+    16800,
+    9800
+   ]
+  },
+  {
+   "prop": "prop.platform-sign",
+   "at": [
+    7200,
+    9800
+   ]
+  },
+  {
+   "prop": "prop.platform-sign",
+   "at": [
+    16800,
+    4200
+   ]
   }
  ],
  "hazards": [

@@ -391,6 +391,34 @@
     9400,
     11000
    ]
+  },
+  {
+   "prop": "prop.frozen-salmon",
+   "at": [
+    7200,
+    4200
+   ]
+  },
+  {
+   "prop": "prop.frozen-salmon",
+   "at": [
+    16800,
+    9800
+   ]
+  },
+  {
+   "prop": "prop.sale-sign",
+   "at": [
+    7200,
+    9800
+   ]
+  },
+  {
+   "prop": "prop.sale-sign",
+   "at": [
+    16800,
+    4200
+   ]
   }
  ],
  "hazards": [

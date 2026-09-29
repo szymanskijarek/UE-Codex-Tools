@@ -3,6 +3,7 @@ import { bpMul, clamp, dir1000, dist, idiv, isqrt } from '../core/math';
 import type { Entity, World } from '../types';
 import { explosionHitsWalls } from './destruction';
 import { derived, emit, get, isAlive, removeEntity, spawnProp, statusMod, tagSetMatches, tagsOf } from '../world';
+import { maybeDisarm, rearm, releaseChoke } from './weapons';
 
 /** Context for applying an effect: who caused it, and which event it descends from. */
 export interface EffectCtx {
@@ -84,6 +85,8 @@ export function applyDamage(w: World, target: Entity, amount: number, damageType
     return final;
   }
   target.hp -= final;
+  // Getting hit breaks your own choke hold (unless it's your victim flailing).
+  if (target.chokeId >= 0 && target.chokeId !== sourceId) releaseChoke(w, target, hitEv);
   // Morale loss on big hits: −1 per 5% of max HP.
   target.morale = clamp(target.morale - idiv(final * 20, target.maxHp), 0, 100);
   if (target.hp <= 0) {
@@ -294,6 +297,7 @@ export function dropHeld(w: World, e: Entity, cause: number): void {
   p.carriedBy = -1;
   p.z = 0;
   e.counters.drops++;
+  rearm(w, e);
   emit(w, 'drop', e.id, p.id, 0, p.def, cause);
 }
 
@@ -316,6 +320,8 @@ export function push(w: World, e: Entity, ox: number, oy: number, forceMm: numbe
   e.vx += idiv(dx * impulse, 1000);
   e.vy += idiv(dy * impulse, 1000);
   if (e.z === 0) e.vz += Math.min(60, idiv(impulse, 4));
+  // Blasted off your feet (explosions, machines, big shoves): hard to hang on to things.
+  if (e.kind === 'char' && forceMm >= 2000) maybeDisarm(w, e, idiv(forceMm, 100), ox, oy, e.lastCause);
 }
 
 // ---------------------------------------------------------------------------

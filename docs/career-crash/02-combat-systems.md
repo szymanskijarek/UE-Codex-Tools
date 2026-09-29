@@ -164,6 +164,50 @@ deal 2.8× their listed damage (a good throw is worth the trip). ~23 throws per
 Sudden death (from 90 s) escalates: +30% damage taken per 10 s wave, up to
 +120%, so stalemates end.
 
+### 5.2c Weapons in hand, disarms, choke holds, heavy weapons (v0.9)
+
+What a fighter holds decides their basic attack (`sim/systems/weapons.ts`):
+
+| In hand | Attack |
+|---|---|
+| Career weapon (one-handed equipment) | its `attack` (8–13 dmg) |
+| A throwable, swung as a club | 6–9 dmg, short range, slow — throwing it is still better |
+| Two-handed heavy weapon | 13–20 dmg, slow wind-up, 4–5.5 m knockback, 45% knockdown |
+| Nothing | shove (6 dmg) — or a **choke hold** |
+
+**Disarms.** A hard blow (≈ % of max HP lost + knockback/100 mm, over 11) or
+a big blast (explosions, machines, ≥ 2 m shoves) may knock everything out of
+someone's hands; strength helps hold on. A career weapon lands on the floor as
+`prop.weapon` (remembering which weapon it is); anyone with free hands can pick
+it up, the owner most eagerly. ~3 disarms per 3v3 battle.
+
+**Choke holds.** An unarmed attack may become a choke hold (1.2% base, more
+with strength, +40% on stunned/crawling/prone targets, +25% from behind): the
+victim is held in front of the choker, can't act and loses 2 HP every 4 ticks
+for 1.5–3 s; either is frozen; it breaks when the choker is hit by someone
+else, when either goes down, or when the victim wriggles free (strength).
+~3 per battle.
+
+**Heavy weapons** (props with `heavy`) sit in every arena, two kinds per arena,
+mirrored for both teams. Only a fighter with *empty hands* can lift one; it
+slows them 20–35%, can't be thrown, and breaks after 5–7 swings. ~1 picked up
+per battle. Art: the item atlas names below (drawn placeholders until then).
+
+| Arena | Heavy weapon | Atlas name | Notes |
+|---|---|---|---|
+| Supermarket | Giant Frozen Salmon | `frozen-salmon` | chills (Cold) |
+| Supermarket | SALE Aisle Sign | `sale-sign` | sign on a pole |
+| Office | Coat Stand | `coat-stand` | |
+| Office | Giant Novelty Cheque | `novelty-cheque` | embarrasses |
+| Train Station | Platform Bench | `platform-bench` | heaviest, slowest, 5.5 m knockback |
+| Train Station | Platform Sign | `platform-sign` | |
+| Diner | Beer Keg | `beer-keg` | |
+| Diner | Giant Pepper Grinder | `pepper-grinder` | distracts |
+| Construction Site | Sledgehammer | `sledgehammer` | |
+| Construction Site | Road Sign | `road-sign` | |
+| Warehouse | Wooden Pallet | `wooden-pallet` | |
+| Warehouse | Rolled-up Carpet | `rolled-carpet` | longest reach |
+
 ### 5.3 Statuses
 
 Statuses are content (`status.*`). Each defines: duration, stacking rule

@@ -3,7 +3,7 @@ import type { ContentIndex } from './content';
 import type { Rng } from './core/rng';
 import type { NavGrid } from './systems/nav';
 
-export const SIM_VERSION = '0.8.0';
+export const SIM_VERSION = '0.9.0';
 export const TICKS_PER_SECOND = 20;
 export const MAX_TICKS = 2400;
 export const ENTITY_CAP = 256;
@@ -109,6 +109,8 @@ export type EventType =
   | 'rivalry'
   | 'revenge'
   | 'consume'
+  | 'disarm'
+  | 'choke'
   | 'battleEnd';
 
 export interface BattleEvent {
@@ -283,6 +285,10 @@ export interface Entity {
   grudgeId: number;
   /** Consumables carried into the fight that haven't fired yet. */
   consumables: string[];
+  /** Characters: the one-handed weapon in hand (equipment id, '' = none). Dropped weapons: which one it is. */
+  weapon: string;
+  /** Who this character is choking (-1 none). */
+  chokeId: number;
 }
 
 export interface World {

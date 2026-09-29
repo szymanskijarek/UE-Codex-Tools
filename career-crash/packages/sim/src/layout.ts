@@ -1,5 +1,5 @@
 import type { ArenaDef } from '@cc/content-schema';
-import { clamp, idiv } from './core/math';
+import { clamp, DIRS8, idiv } from './core/math';
 import { Rng } from './core/rng';
 
 type Rect = [number, number, number, number];
@@ -93,6 +93,17 @@ export function layoutArena(base: ArenaDef, seed: string): ArenaLayout {
     if (drop) continue;
     if (!blocked(x, y)) props.push({ prop: p.prop, at: [x, y] });
     else if (!blocked(p.at[0], p.at[1])) props.push(p);
+    else {
+      // Its spot is under an obstacle this time: find the nearest clear floor around it.
+      for (const [dx, dy] of DIRS8) {
+        const nx = clamp(p.at[0] + idiv(dx * 1500, 1000), 400, W - 400);
+        const ny = clamp(p.at[1] + idiv(dy * 1500, 1000), 400, H - 400);
+        if (!blocked(nx, ny)) {
+          props.push({ prop: p.prop, at: [nx, ny] });
+          break;
+        }
+      }
+    }
   }
   return { arena: { ...base, walls, props }, obstacles };
 }

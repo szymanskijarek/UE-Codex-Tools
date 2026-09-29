@@ -211,6 +211,17 @@ export type MasteryDef = z.infer<typeof masterySchema>;
 // ---------------------------------------------------------------------------
 // Props (component based, 01 §5.3 / 02 §7.1)
 // ---------------------------------------------------------------------------
+export const attackSchema = z.object({
+  base: int.min(0),
+  rangeMm: int.min(0),
+  windupTicks: int.min(0),
+  recoverTicks: int.min(0),
+  knockbackMm: int.min(0),
+  damageType: z.enum(DAMAGE_TYPES),
+  effects: z.array(effectSchema).optional(),
+});
+export type AttackDef = z.infer<typeof attackSchema>;
+
 export const propSchema = z.object({
   id: ref('prop'),
   tags: z.array(tag),
@@ -237,6 +248,11 @@ export const propSchema = z.object({
   mover: z
     .object({ hitEffects: z.array(effectSchema), trail: ref('prop').optional(), trailEveryTicks: int.min(1).optional(), eatsUpToG: int.min(0).optional() })
     .optional(),
+  /**
+   * Two-handed heavy weapon: only a character with empty hands can pick it up;
+   * it swings slowly, sends people flying and breaks after `swings` hits.
+   */
+  heavy: z.object({ attack: attackSchema, slowBp: int.min(0).max(8000), swings: int.min(1) }).optional(),
   art: z.object({ color: z.string().regex(/^#[0-9a-f]{6}$/), shape: z.enum(['circle', 'square', 'area']) }),
   deprecated: z.boolean().optional(),
 });
@@ -327,16 +343,6 @@ export const traitSchema = z.object({
 });
 export type TraitDef = z.infer<typeof traitSchema>;
 
-export const attackSchema = z.object({
-  base: int.min(0),
-  rangeMm: int.min(0),
-  windupTicks: int.min(0),
-  recoverTicks: int.min(0),
-  knockbackMm: int.min(0),
-  damageType: z.enum(DAMAGE_TYPES),
-  effects: z.array(effectSchema).optional(),
-});
-export type AttackDef = z.infer<typeof attackSchema>;
 
 export const equipmentSchema = z.object({
   id: ref('equipment'),

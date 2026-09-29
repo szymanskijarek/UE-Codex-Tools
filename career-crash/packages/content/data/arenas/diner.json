@@ -307,6 +307,34 @@
     11000,
     11800
    ]
+  },
+  {
+   "prop": "prop.beer-keg",
+   "at": [
+    6600,
+    4800
+   ]
+  },
+  {
+   "prop": "prop.beer-keg",
+   "at": [
+    15400,
+    11200
+   ]
+  },
+  {
+   "prop": "prop.pepper-grinder",
+   "at": [
+    6600,
+    11200
+   ]
+  },
+  {
+   "prop": "prop.pepper-grinder",
+   "at": [
+    15400,
+    4800
+   ]
   }
  ],
  "hazards": [

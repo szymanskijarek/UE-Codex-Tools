@@ -140,6 +140,8 @@ function blankEntity(id: number, kind: Entity['kind'], def: string): Entity {
     dashVy: 0,
     grudgeId: -1,
     consumables: [],
+    weapon: '',
+    chokeId: -1,
   };
 }
 
@@ -381,6 +383,7 @@ function spawnCharacter(w: World, snap: CharacterSnapshot, team: number, x: numb
     for (const s of eq.immuneTo ?? []) immune.add(s);
   }
   if (held?.attack) e.attack = held.attack;
+  e.weapon = held?.attack ? held.id : '';
 
   const pers = must(c.personalities, snap.personality, 'personality');
   if (pers.ability) actives.push(pers.ability);

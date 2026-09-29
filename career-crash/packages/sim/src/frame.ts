@@ -26,6 +26,8 @@ export interface FrameEntity {
   action: string;
   /** Entity the current action targets (-1 if none). */
   target: number;
+  /** Characters: one-handed weapon in hand (equipment id, '' none). Dropped weapons: which one. */
+  weapon: string;
   held: number;
   riding: number;
   panicking: boolean;
@@ -65,6 +67,7 @@ export function frameOf(w: World): Frame {
       action: e.action ? (e.action.kind === 'ability' ? e.action.abilityId : e.action.kind) + ':' + e.action.phase : '',
       target: e.action?.targetId ?? -1,
       held: e.heldId,
+      weapon: e.weapon,
       riding: e.rideId,
       panicking: e.panicking,
       flying: e.flying,

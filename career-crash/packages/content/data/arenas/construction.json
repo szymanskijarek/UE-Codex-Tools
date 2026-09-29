@@ -293,6 +293,34 @@
     11000,
     2200
    ]
+  },
+  {
+   "prop": "prop.sledgehammer",
+   "at": [
+    6600,
+    3000
+   ]
+  },
+  {
+   "prop": "prop.sledgehammer",
+   "at": [
+    15400,
+    7000
+   ]
+  },
+  {
+   "prop": "prop.road-sign",
+   "at": [
+    6600,
+    7000
+   ]
+  },
+  {
+   "prop": "prop.road-sign",
+   "at": [
+    15400,
+    3000
+   ]
   }
  ],
  "hazards": [

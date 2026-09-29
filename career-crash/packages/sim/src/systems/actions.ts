@@ -4,6 +4,7 @@ import { canAct, derived, emit, get, hasFlag, spawnProp, statusMod } from '../wo
 import { affectedBy } from './ai';
 import { applyEffect, applyStatus, dismount, push, type EffectCtx } from './effects';
 import { cellCenter, cellOf, findPath, lineClear } from './nav';
+import { chokeChance, heavySlow, heldProp, maybeDisarm, rearm, startChoke, takeWeapon, wearHeavy } from './weapons';
 
 const THROW_SPEED = 380;
 
@@ -23,7 +24,7 @@ function moveSpeed(w: World, e: Entity): number {
     const r = w.content.props.get(w.byId.get(e.rideId)?.def ?? '')?.ride;
     if (r) s = bpMul(s, 10000 + r.speedBonusBp);
   }
-  return Math.max(20, s);
+  return Math.max(20, heavySlow(w, e, s));
 }
 
 /** Steer toward (x, y): direct if the line is clear, otherwise follow an A* path. */
@@ -219,13 +220,28 @@ function execute(w: World, e: Entity, a: Action, t: Entity | undefined): void {
         emit(w, 'miss', e.id, t.id, 0, '', -1);
         return;
       }
-      const held = e.snap?.held ?? '';
-      const ev = emit(w, 'attack', e.id, t.id, 0, held, -1);
+      const inHand = heldProp(w, e);
+      const heavy = inHand?.def.heavy;
+      // What they're swinging: a heavy weapon, a throwable used as a club, their weapon, or fists.
+      const held = heavy || inHand ? inHand!.p.def : e.weapon;
+      const ev = emit(w, 'attack', e.id, t.id, heavy ? 2 : inHand ? 1 : 0, held, -1);
       if (defend(w, e, t, ev)) return;
+      // Bare hands: sometimes go for a choke hold instead of a feeble shove.
+      if (!held && t.kind === 'char') {
+        const c = chokeChance(w, e, t);
+        if (c > 0 && w.rng.chance(c)) {
+          startChoke(w, e, t, ev);
+          return;
+        }
+      }
       const ctx: EffectCtx = { sourceId: e.id, cause: ev, powerBp: 10000, scale: 'melee' };
+      const hp0 = t.hp;
       applyEffect(w, { type: 'damage', amount: e.attack.base, damageType: e.attack.damageType }, t, ctx);
       if (e.attack.knockbackMm > 0) push(w, t, e.x, e.y, e.attack.knockbackMm);
       for (const eff of e.attack.effects ?? []) applyEffect(w, eff, t, ctx, e);
+      // A hard blow can knock whatever they're holding out of their hands.
+      if (t.kind === 'char' && t.maxHp > 0) maybeDisarm(w, t, idiv(Math.max(0, hp0 - t.hp) * 100, t.maxHp) + idiv(e.attack.knockbackMm, 100) + (heavy ? 25 : 0), e.x, e.y, ev);
+      if (heavy) wearHeavy(w, e, ev);
       return;
     }
     case 'ability': {
@@ -250,16 +266,19 @@ function execute(w: World, e: Entity, a: Action, t: Entity | undefined): void {
     }
     case 'pickUp': {
       if (!t || t.carriedBy >= 0) return;
+      if (takeWeapon(w, e, t)) return;
+      if (e.heldId >= 0) return;
       t.carriedBy = e.id;
       t.vx = t.vy = t.vz = 0;
       e.heldId = t.id;
       e.tagsDirty = true;
       emit(w, 'pickUp', e.id, t.id, 0, t.def, -1);
+      rearm(w, e);
       return;
     }
     case 'throw': {
       const p = get(w, e.heldId);
-      if (!p || !t) return;
+      if (!p || !t || w.content.props.get(p.def)?.heavy) return;
       const d = dist(e.x, e.y, t.x, t.y);
       const thr = e.stats?.throwing ?? 5;
       const spread = idiv(idiv(d * clamp(22 - thr, 1, 22), 60) * (10000 + e.throwSpreadBp), 10000);
@@ -284,6 +303,7 @@ function execute(w: World, e: Entity, a: Action, t: Entity | undefined): void {
       p.vy = idiv(vy * THROW_SPEED, 1000);
       p.vz = idiv(12 * flight, 2) - idiv(1100, flight);
       e.counters.thrown[p.def] = (e.counters.thrown[p.def] ?? 0) + 1;
+      rearm(w, e);
       return;
     }
     case 'push': {

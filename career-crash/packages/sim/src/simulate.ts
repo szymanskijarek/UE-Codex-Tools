@@ -7,6 +7,7 @@ import { applyEffect, tickStatuses } from './systems/effects';
 import { propsTick, scheduled } from './systems/environment';
 import { contacts, physics, slipChecks } from './systems/physics';
 import { resources, useConsumables } from './systems/resources';
+import { chokes } from './systems/weapons';
 import { processRules } from './systems/rules';
 import { MAX_TICKS, type BattleInput, type BattleOutput, type BattleResult, type Entity, type World } from './types';
 import { createWorld, emit, announceRivalries } from './world';
@@ -131,6 +132,7 @@ export function step(w: World): void {
   tickStatuses(w);
   resources(w);
   useConsumables(w);
+  chokes(w);
   propsTick(w);
   // Referee enforcement happens inside effects (fouls/cards) as events occur.
   if (w.tick % 50 === 0) w.entities = w.entities.filter((e) => !e.removed);
