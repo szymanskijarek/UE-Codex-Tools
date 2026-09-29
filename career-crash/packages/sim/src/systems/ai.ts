@@ -221,14 +221,16 @@ export function candidates(w: World, e: Entity): Candidate[] {
     if (t.state === 'downed') base = idiv(base, 3);
     base = bpMul(base, leashBp(e, t));
     out.push({ kind: 'attack', targetId: t.id, tx: t.x, ty: t.y, abilityId: '', goal: 'damage', base });
-    if (held && d > 1500 && d < 10000 && !(e.quirks.includes('hoarder') && d > 4000)) {
-      out.push({ kind: 'throw', targetId: t.id, tx: t.x, ty: t.y, abilityId: '', goal: 'damage', base: idiv(near(d, 5000, 7000) * 11, 10) });
+    // Holding something throwable? Throwing it beats a punch at almost any range.
+    if (held && d > 800 && d < 10000 && !(e.quirks.includes('hoarder') && d > 4000)) {
+      out.push({ kind: 'throw', targetId: t.id, tx: t.x, ty: t.y, abilityId: '', goal: 'damage', base: 9500 + idiv(near(d, 4000, 9000) * 5, 10) });
     }
   }
 
   abilityCandidates(w, e, enemies, allies, out);
 
   // Props
+  const nearestFoe = activeEnemies.reduce((m, x) => Math.min(m, dist(e.x, e.y, x.x, x.y)), 1 << 30);
   let propsConsidered = 0;
   for (const p of props) {
     if (propsConsidered >= 5) break;
@@ -238,8 +240,13 @@ export function candidates(w: World, e: Entity): Candidate[] {
     const closeness = near(d, 0, 9000);
     let used = false;
     if (!held && def.carry && def.throwDamage && p.weightG <= derived.carryG(e.stats!)) {
-      const danger = activeEnemies.some((x) => dist(e.x, e.y, x.x, x.y) < 2500) ? 2 : 1;
-      out.push({ kind: 'pickUp', targetId: p.id, tx: p.x, ty: p.y, abilityId: '', goal: 'loot', base: idiv(bpMul(clamp(3500 + def.throwDamage * 300, 0, 9000), closeness), danger) });
+      // Something to throw is closer than the nearest enemy: grab it (it's a damage move, not looting).
+      if (d < nearestFoe && d < 3500 && nearestFoe < 7000) {
+        out.push({ kind: 'pickUp', targetId: p.id, tx: p.x, ty: p.y, abilityId: '', goal: 'damage', base: bpMul(clamp(8000 + def.throwDamage * 300, 0, 13000), near(d, 0, 9000)) });
+      } else {
+        const danger = activeEnemies.some((x) => dist(e.x, e.y, x.x, x.y) < 2500) ? 2 : 1;
+        out.push({ kind: 'pickUp', targetId: p.id, tx: p.x, ty: p.y, abilityId: '', goal: 'loot', base: idiv(bpMul(clamp(3500 + def.throwDamage * 300, 0, 9000), closeness), danger) });
+      }
       used = true;
     }
     if (def.use && e.rideId < 0 && p.uses > 0) {

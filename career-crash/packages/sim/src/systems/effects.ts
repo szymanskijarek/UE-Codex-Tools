@@ -49,6 +49,8 @@ export function applyDamage(w: World, target: Entity, amount: number, damageType
     final = idiv(final * 3, 2);
     crit = true;
   }
+  // Sudden death escalates: every wave (10 s) everyone takes +30% more damage, up to +120%.
+  if (w.tick >= w.suddenDeathTick && target.kind === 'char') final = bpMul(final, 10000 + 3000 * Math.min(4, 1 + idiv(w.tick - w.suddenDeathTick, 200)));
   final = Math.max(1, final);
   const hitEv = emit(w, crit ? 'crit' : 'hit', sourceId, target.id, final, damageType, cause);
   if (src && src.kind === 'char') {

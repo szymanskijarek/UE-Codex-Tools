@@ -153,6 +153,17 @@ boxed in by walls). Characters closing on a far goal can **dash** up to 3.2 m
   drivers and lifeguards dash, cowards evade, the lazy don't bother.
 - Caps: parry 30%, evade 35%. Typical 3v3: ~6 parries, ~6 evades, ~6 dashes.
 
+### 5.2b Throwing first
+
+If a throwable prop is within 3.5 m, closer than the nearest enemy, and an
+enemy is within 7 m, grabbing it is a *damage* move that outscores a punch;
+anyone holding something throws it at anything 0.8–10 m away. Thrown objects
+deal 2.8× their listed damage (a good throw is worth the trip). ~23 throws per
+3v3 battle (was ~6).
+
+Sudden death (from 90 s) escalates: +30% damage taken per 10 s wave, up to
++120%, so stalemates end.
+
 ### 5.3 Statuses
 
 Statuses are content (`status.*`). Each defines: duration, stacking rule

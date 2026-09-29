@@ -242,7 +242,8 @@ function impact(w: World, prop: Entity, victim: Entity): void {
     const thrower = get(w, prop.thrownBy);
     const base = def?.throwDamage ?? Math.max(2, idiv(prop.weightG, 1000));
     const mul = thrower?.stats ? derived.throwMulBp(thrower.stats) : 10000;
-    applyDamage(w, victim, Math.max(1, idiv(base * mul, 10000)), 'blunt', prop.thrownBy >= 0 ? prop.thrownBy : prop.id, prop.flightCause, prop.thrownBy >= 0);
+    // Thrown objects hit hard: a good throw should be worth the trip to pick it up.
+    applyDamage(w, victim, Math.max(1, idiv(base * mul * 28, 100000)), 'blunt', prop.thrownBy >= 0 ? prop.thrownBy : prop.id, prop.flightCause, prop.thrownBy >= 0);
     push(w, victim, prop.x - prop.vx, prop.y - prop.vy, 400 + idiv(prop.weightG, 20));
     if (prop.weightG >= 8000) applyEffect(w, { type: 'knockdown' }, victim, { sourceId: prop.thrownBy, cause: prop.flightCause, powerBp: 10000, scale: 'none' });
     prop.flying = false;
