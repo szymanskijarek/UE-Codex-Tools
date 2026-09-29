@@ -34,6 +34,14 @@ export interface CharacterSnapshot {
   appearance: Appearance;
   rivals?: string[];
   friends?: string[];
+  /**
+   * Career abilities this character has unlocked in their skill trees. Absent =
+   * everything (Sandbox, legacy snapshots); present = only these career
+   * actives/passives (masteries and the personality move are unaffected).
+   */
+  unlocked?: string[];
+  /** Reflex perks from skill trees, added on top of stats/career/personality. */
+  defenseBonus?: { parryBp?: number; evadeBp?: number; dashBp?: number };
 }
 
 export interface TeamSnapshot {

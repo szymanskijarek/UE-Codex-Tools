@@ -101,6 +101,45 @@ oldest-first. No purchase path touches traits.
 
 ---
 
+### 3.4 Career ranks and skill trees (v0.8)
+
+Each career a character holds ranks up on its own from the battle XP earned
+while it is their current career: **Trainee → Junior → Senior → Lead → Head**
+at 0 / 200 / 550 / 1100 / 1900 career XP. A career's tree has 1 skill point at
+Trainee and +2 per rank (9 at Head). Trees are generated from the career
+(`game-rules/skills.ts`):
+
+| Row (rank) | Nodes |
+|---|---|
+| Trainee | main move (free) · passive (1) · +2 best stat (1) |
+| Junior | reflex perk (parry/evade/dash by career style, 1) · first extra move (2) |
+| Senior | +2 second stat (1) · second extra move (2) |
+| Lead | Mastery capstone: +1 to every stat the career boosts (2) |
+
+Battle snapshots carry `unlocked` (only those career moves fight) and
+`defenseBonus`; stat perks are folded into stats. Snapshots without `unlocked`
+(Sandbox, legacy) keep everything.
+
+### 3.5 Offline career mode and difficulty (v0.8)
+
+The standalone client opens on **Career**: create a main character (pick one of
+28 starting jobs, name, personality, difficulty), climb a ladder of stages (4 per
+arena, every 4th a boss), spend stat and skill points, take new careers at level
+milestones. Agency temps fill the squad until the main character reaches
+**Senior** in a career; then the **Squad** screen unlocks: hire applicants
+(💵 250/450/700 by rarity, refreshed after each win, roster cap 6), pick the two
+who fight, and grow their own trees. Results are applied by re-simulating the
+pending battle, so replays can't be gamed.
+
+Difficulty shapes opponents, never the player:
+
+| | Level | Rank | Skills spent | Stats | Rewards | Typical win rate |
+|---|---|---|---|---|---|---|
+| Relaxed | −1 | −1 | 30% | −2 | ×0.8 | ~90% |
+| Normal | ±0 | ±0 | 70% | −1 | ×1.0 | ~68% |
+| Hard | +1 | ±0 | 100% | ±0 | ×1.3 | ~32–45% |
+| Brutal | +2 | +2 | all unlocked | ±0 | ×1.7 | ~10–35% |
+
 ## 4. Unlocks
 
 ### 4.1 The Job Board (careers)

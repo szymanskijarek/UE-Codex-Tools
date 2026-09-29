@@ -34,6 +34,8 @@ v0.6 additions: melee parry / evade / dash with per-character reflex styles (02 
 
 v0.7 additions: hit stop + impact flash on big hits; destructible, toppling obstacles with persistent rubble/splat/crack decals (02 §7.4b); grudges with rival pairing, rivalry/revenge beats, dramatic revenge replays and rival-first matchmaking (02 §8.1.2); throw-first AI and escalating sudden death (02 §5.2b); one replay per machine run.
 
+v0.8 additions: offline career mode in the client (character creation, ladder, results, stat/skill spending, career milestones), generated per-career skill trees with ranks (03 §3.4), difficulty levels where opponents only have the skills their rank/difficulty allows (03 §3.5), squad builder unlocked at Senior rank.
+
 ---
 
 ## 1. How agents work on this project

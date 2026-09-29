@@ -399,6 +399,11 @@ export function Replay({ battleId }: { battleId?: string }) {
         <div class="side">
           {finished && report ? (
             <Card class="report">
+              {rep.id === 'career' && (
+                <button class="primary big" onClick={() => navigate('/career/results')}>
+                  📋 Collect results
+                </button>
+              )}
               <h2>{report.winnerName ? `🏆 ${report.winnerName} wins` : 'Draw'}</h2>
               {report.headline && (
                 <p class="headline clickable" onClick={() => seek(Math.max(0, report.headline!.tick - 60))}>

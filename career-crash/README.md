@@ -11,8 +11,8 @@ cd career-crash
 pnpm install
 pnpm content:build              # compile game content → packages/content/dist/bundle.json
 
-# Play offline: the Sandbox runs battles in the browser, no server needed
-pnpm dev:client                 # http://localhost:5173/#/sandbox
+# Play offline: career mode and the Sandbox run in the browser, no server needed
+pnpm dev:client                 # http://localhost:5173/#/career  (or #/sandbox)
 
 # Full game (API + client)
 cp apps/worker/.dev.vars.example apps/worker/.dev.vars

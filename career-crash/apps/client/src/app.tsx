@@ -9,9 +9,10 @@ import { Replay } from './screens/Replay';
 import { Reports } from './screens/Reports';
 import { Office } from './screens/Office';
 import { Sandbox } from './screens/Sandbox';
+import { CareerScreen } from './career/Career';
 
 function useRoute(): string[] {
-  const read = () => (window.location.hash.replace(/^#\/?/, '') || (STANDALONE ? 'sandbox' : 'home')).split('/');
+  const read = () => (window.location.hash.replace(/^#\/?/, '') || (STANDALONE ? 'career' : 'home')).split('/');
   const [route, setRoute] = useState(read());
   useEffect(() => {
     const on = () => {
@@ -30,6 +31,7 @@ const TABS: [string, string, string][] = [
   ['fight', '🥊', 'Fight'],
   ['reports', '📰', 'Reports'],
   ['office', '🏢', 'Office'],
+  ['career', '🏆', 'Career'],
   ['sandbox', '🧪', 'Sandbox'],
 ];
 
@@ -38,7 +40,7 @@ export function App() {
   useEffect(() => {
     void refreshMe();
   }, []);
-  const [page, arg] = route;
+  const [page, arg, arg2] = route;
   let screen;
   switch (page) {
     case 'roster':
@@ -62,6 +64,9 @@ export function App() {
     case 'sandbox':
       screen = <Sandbox />;
       break;
+    case 'career':
+      screen = <CareerScreen sub={arg} arg={arg2} />;
+      break;
     default:
       screen = <Home />;
   }
@@ -72,11 +77,11 @@ export function App() {
         <a class="logo" href="#/home">
           Career<span>Crash</span>
         </a>
-        {player ? <Money wallet={player.wallet} /> : <span class="muted">{STANDALONE ? 'Sandbox' : online.value === 'offline' ? 'Offline — Sandbox only' : 'Connecting…'}</span>}
+        {player ? <Money wallet={player.wallet} /> : <span class="muted">{STANDALONE ? 'Offline' : online.value === 'offline' ? 'Offline — Sandbox only' : 'Connecting…'}</span>}
       </header>
       <main>{screen}</main>
       <nav class="tabs">
-        {TABS.filter(([id]) => !STANDALONE || id === 'sandbox').map(([id, icon, label]) => (
+        {TABS.filter(([id]) => !STANDALONE || id === 'sandbox' || id === 'career').map(([id, icon, label]) => (
           <a key={id} href={`#/${id}`} class={page === id || (id === 'roster' && page === 'character') ? 'active' : ''}>
             <span class="icon">{icon}</span>
             <span>{label}</span>

@@ -346,11 +346,12 @@ function spawnCharacter(w: World, snap: CharacterSnapshot, team: number, x: numb
   const immune = new Set<string>();
   const actives: string[] = [];
   const passives: string[] = [];
+  const allowed = snap.unlocked ? new Set(snap.unlocked) : null;
   for (const cid of snap.careers) {
     const career = must(c.careers, cid, 'career');
     for (const t of career.tags) tags.add(t);
-    actives.push(career.active, ...(career.extraActives ?? []));
-    passives.push(career.passive);
+    for (const a of [career.active, ...(career.extraActives ?? [])]) if (!allowed || allowed.has(a)) actives.push(a);
+    if (!allowed || allowed.has(career.passive)) passives.push(career.passive);
   }
   for (const mid of snap.masteries) {
     const m = c.masteries.get(mid);
@@ -393,9 +394,10 @@ function spawnCharacter(w: World, snap: CharacterSnapshot, team: number, x: numb
   e.moveCostBp = pers.moveCostBp;
   e.allyKoMoraleLoss = pers.allyKoMoraleLoss;
   // Reflexes: stats set the baseline, career and personality give each character a style.
-  let parry = 250 + (stats.strength + stats.awareness - 10) * 60 + (pers.defense?.parryBp ?? 0);
-  let evade = 350 + (stats.speed + stats.awareness - 10) * 70 + (pers.defense?.evadeBp ?? 0);
-  let dash = 1500 + (stats.speed - 5) * 250 + (pers.defense?.dashBp ?? 0);
+  const perk = snap.defenseBonus;
+  let parry = 250 + (stats.strength + stats.awareness - 10) * 60 + (pers.defense?.parryBp ?? 0) + (perk?.parryBp ?? 0);
+  let evade = 350 + (stats.speed + stats.awareness - 10) * 70 + (pers.defense?.evadeBp ?? 0) + (perk?.evadeBp ?? 0);
+  let dash = 1500 + (stats.speed - 5) * 250 + (pers.defense?.dashBp ?? 0) + (perk?.dashBp ?? 0);
   for (const cid of snap.careers) {
     const d = c.careers.get(cid)?.defense;
     parry += d?.parryBp ?? 0;
