@@ -11,10 +11,18 @@ interface Atlas {
   items: Record<string, { x: number; y: number; w: number; h: number }>;
 }
 
-const JSON_FILES = import.meta.glob('./items/items.json', { eager: true, import: 'default' }) as Record<string, Atlas>;
-const PNG_FILES = import.meta.glob('./items/items.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
-const ATLAS = Object.values(JSON_FILES)[0] ?? null;
-const URL_ = Object.values(PNG_FILES)[0] ?? null;
+const JSON_FILES = import.meta.glob('./{items,obstacles}/*.json', { eager: true, import: 'default' }) as Record<string, Atlas>;
+const PNG_FILES = import.meta.glob('./{items,obstacles}/*.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+
+interface Sheet {
+  atlas: Atlas | null;
+  url: string | null;
+  base: Texture | null;
+  cache: Map<string, Texture>;
+}
+const sheet = (kind: string): Sheet => ({ atlas: JSON_FILES[`./${kind}/${kind}.json`] ?? null, url: PNG_FILES[`./${kind}/${kind}.png`] ?? null, base: null, cache: new Map() });
+const ITEMS = sheet('items');
+const OBSTACLES = sheet('obstacles');
 
 /** Held equipment → item sprite. */
 const HELD: Record<string, string> = {
@@ -83,31 +91,62 @@ const PROPS: Record<string, string> = {
   'prop.speaker': 'speaker',
 };
 
-let base: Texture | null = null;
-const cache = new Map<string, Texture>();
-
-export async function loadItems(): Promise<void> {
-  if (base || !ATLAS || !URL_) return;
+async function load(sh: Sheet): Promise<void> {
+  if (sh.base || !sh.atlas || !sh.url) return;
   const img = new Image();
-  img.src = URL_;
+  img.src = sh.url;
   try {
     await img.decode();
-    base = Texture.from(img);
+    sh.base = Texture.from(img);
   } catch {
-    base = null;
+    sh.base = null;
   }
 }
 
-function tex(name: string | undefined): Texture | null {
-  if (!name || !base || !ATLAS) return null;
-  const r = ATLAS.items[name];
+export async function loadItems(): Promise<void> {
+  await Promise.all([load(ITEMS), load(OBSTACLES)]);
+}
+
+function tex(name: string | undefined, sh: Sheet = ITEMS): Texture | null {
+  if (!name || !sh.base || !sh.atlas) return null;
+  const r = sh.atlas.items[name];
   if (!r) return null;
-  let t = cache.get(name);
+  let t = sh.cache.get(name);
   if (!t) {
-    t = new Texture({ source: base.source, frame: new Rectangle(r.x, r.y, r.w, r.h) });
-    cache.set(name, t);
+    t = new Texture({ source: sh.base.source, frame: new Rectangle(r.x, r.y, r.w, r.h) });
+    sh.cache.set(name, t);
   }
   return t;
+}
+
+/** Big props drawn from the obstacle atlas; `left` = the art faces left (mirrored so it faces right like other props). */
+const BIG_PROPS: Record<string, { name: string; size: number; left?: boolean }> = {
+  'prop.forklift': { name: 'forklift', size: 3.4, left: true },
+  'prop.floor-scrubber': { name: 'floor-scrubber', size: 3.0, left: true },
+  'prop.freezer': { name: 'chest-freezer', size: 3.2 },
+  'prop.vending-machine': { name: 'drinks-fridge', size: 3.4 },
+  'prop.printer': { name: 'photocopier', size: 3.0 },
+  'prop.filing-cabinet': { name: 'filing-cabinets', size: 3.0 },
+};
+
+/** Arena obstacles ("walls"), in the order they appear in the arena's wall list. */
+const WALLS: Record<string, string[]> = {
+  'arena.supermarket': ['gondola-shelf', 'produce-stand', 'chest-freezer', 'gondola-shelf', 'gondola-shelf', 'produce-stand'],
+  'arena.office': ['cubicle-cluster', 'bench-desks', 'bench-desks', 'cubicle-cluster', 'meeting-table'],
+  'arena.station': ['news-kiosk', 'ticket-booth', 'coffee-kiosk', 'timetable-board', 'station-bench'],
+  'arena.diner': ['diner-booth', 'diner-table', 'diner-table', 'diner-booth'],
+  'arena.construction': ['brick-stack', 'rebar-bundle', 'jersey-barrier'],
+  'arena.warehouse': ['pallet-rack', 'crate-stack', 'cage-pallet', 'drum-rack'],
+};
+
+/** Obstacle art for wall `index` of an arena, `width` px across, standing on its front edge. */
+export function wallSprite(arenaId: string, index: number, width: number): Sprite | null {
+  const t = tex(WALLS[arenaId]?.[index], OBSTACLES);
+  if (!t) return null;
+  const s = new Sprite(t);
+  s.scale.set(width / t.width);
+  s.anchor.set(0.5, 0.94);
+  return s;
 }
 
 /** Sprite for a held item, sized to `len` px along its long side, anchored at the grip. */
@@ -123,6 +162,15 @@ export function heldSprite(equipmentId: string, len: number): Sprite | null {
 
 /** Sprite for a world prop, standing on its footprint, `size` px across. */
 export function propSprite(propId: string, size: number): Sprite | null {
+  const big = BIG_PROPS[propId];
+  const bt = big && tex(big.name, OBSTACLES);
+  if (big && bt) {
+    const s = new Sprite(bt);
+    const k = (size / 2.6) * big.size / Math.max(bt.width, bt.height);
+    s.scale.set(big.left ? -k : k, k);
+    s.anchor.set(0.5, 0.92);
+    return s;
+  }
   const t = tex(PROPS[propId]);
   if (!t) return null;
   const s = new Sprite(t);

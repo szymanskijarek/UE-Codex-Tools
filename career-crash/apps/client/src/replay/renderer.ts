@@ -9,7 +9,7 @@ import { Sfx, type SfxName } from './audio';
 import type { ReplayPlayer } from './player';
 import { arenaArt, type ArenaArt } from './arena-art';
 import { drawArea, drawProp } from './props-art';
-import { heldSprite, loadItems, propSprite } from './items';
+import { heldSprite, loadItems, propSprite, wallSprite } from './items';
 import { extension, hitPose, MOVES, repertoire, type HitStyle, type Move } from './moves';
 import { drawWall } from './wall-art';
 import { hasPuppet, loadPuppets, NEUTRAL, Puppet, type Pose } from './puppet';
@@ -359,12 +359,23 @@ export class BattleRenderer {
   }
 
   private drawWalls(): void {
-    for (const [x, y, w, h] of this.arena.walls) {
+    for (const [i, [x, y, w, h]] of this.arena.walls.entries()) {
       const wall = new Graphics() as Graphics & { isWall?: boolean };
       wall.isWall = true;
       const [x0, y0] = this.px(x, y);
       const [x1, y1] = this.px(x + w, y + h);
       const lift = WALL_H * Z_LIFT * this.scale * this.depth(y + h);
+      // Painted obstacle art: sized to the footprint (a deep, narrow block gets a sideways-on piece of furniture).
+      const art = wallSprite(this.arena.id, i, Math.max(x1 - x0, (y1 - y0) * 1.2) * 1.12);
+      if (art) {
+        const c = new Container() as Container & { isWall?: boolean };
+        c.isWall = true;
+        art.position.set((x0 + x1) / 2, y1);
+        c.addChild(art);
+        c.zIndex = y + h;
+        this.bodies.addChild(c);
+        continue;
+      }
       if (drawWall(wall, this.arena.id, x0, y0, x1, y1, lift)) {
         wall.zIndex = y + h;
         this.bodies.addChild(wall);

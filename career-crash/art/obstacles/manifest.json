@@ -1,0 +1,8 @@
+{
+ "station": ["ticket-gates", "station-bench", "news-kiosk", "coffee-kiosk", "ticket-booth", "timetable-board"],
+ "diner": ["diner-counter", "diner-booth", "jukebox", "diner-table", "diner-pass", "drinks-fridge"],
+ "construction": ["scaffold", "jersey-barrier", "cement-mixer", "rebar-bundle", "brick-stack", "site-cabin"],
+ "warehouse": ["pallet-rack", "crate-stack", "forklift", "conveyor", "cage-pallet", "drum-rack"],
+ "supermarket": ["gondola-shelf", "fridge-wall", "checkout", "chest-freezer", "produce-stand", "floor-scrubber"],
+ "office": ["cubicle-cluster", "meeting-table", "bench-desks", "filing-cabinets", "photocopier", "reception-desk"]
+}

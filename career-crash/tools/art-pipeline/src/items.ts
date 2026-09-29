@@ -14,11 +14,18 @@ import { join } from 'node:path';
 import sharp, { type OverlayOptions } from 'sharp';
 
 const ROOT = new URL('../../../', import.meta.url).pathname;
-const SHEETS = join(ROOT, 'art/items');
-const OUT = join(ROOT, 'apps/client/src/replay/items');
+/**
+ * Two atlases: small hand-held/throwable items (4 per row on their sheets) and
+ * large obstacles/machines (3 per row), which need more pixels.
+ *   pnpm --filter @cc/art-pipeline items [obstacles]
+ */
+const KIND = process.argv[2] === 'obstacles' ? 'obstacles' : 'items';
+const SHEETS = join(ROOT, `art/${KIND}`);
+const OUT = join(ROOT, `apps/client/src/replay/${KIND}`);
 /** Longest side of an item in the atlas (px). */
-const ITEM_PX = 96;
-const ATLAS_W = 1024;
+const ITEM_PX = KIND === 'obstacles' ? 200 : 96;
+const COLS = KIND === 'obstacles' ? 3 : 4;
+const ATLAS_W = KIND === 'obstacles' ? 2048 : 1024;
 const PAD = 2;
 
 interface Blob {
@@ -101,7 +108,7 @@ async function main(): Promise<void> {
     const { data, info } = await sharp(file).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
     const all = blobs(data, info.width, info.height);
     const rows = groups(all, (b) => b.cy, 2);
-    const cells = rows.flatMap((row) => groups(row, (b) => b.cx, 4));
+    const cells = rows.flatMap((row) => groups(row, (b) => b.cx, COLS));
     if (cells.length !== names.length) {
       console.warn(`✗ ${sheet}: found ${cells.length} cells for ${names.length} names`);
       continue;
@@ -143,9 +150,9 @@ async function main(): Promise<void> {
   await sharp({ create: { width: ATLAS_W, height: H, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
     .composite(comp)
     .png({ compressionLevel: 9, palette: true, quality: 95, effort: 10 })
-    .toFile(join(OUT, 'items.png'));
+    .toFile(join(OUT, `${KIND}.png`));
   const sorted = Object.fromEntries(Object.entries(rects).sort(([a], [b]) => a.localeCompare(b)));
-  writeFileSync(join(OUT, 'items.json'), JSON.stringify({ w: ATLAS_W, h: H, items: sorted }, null, 1) + '\n');
+  writeFileSync(join(OUT, `${KIND}.json`), JSON.stringify({ w: ATLAS_W, h: H, items: sorted }, null, 1) + '\n');
   console.log(`${pieces.length} items → ${ATLAS_W}×${H}`);
 }
 

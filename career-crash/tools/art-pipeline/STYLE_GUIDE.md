@@ -64,3 +64,12 @@ In game the parts hang on the same 11-point skeleton as the ragdoll: a
 procedural pose while standing (walk, wind-up, strike, throw, carry, panic)
 and Verlet physics when thrown or knocked down. Careers without a sheet keep
 the drawn paper doll.
+
+## Item and obstacle sheets (v0.6)
+
+`art/items/*.png` (2 rows × 4 small items) and `art/obstacles/*.png` (2 rows ×
+3 large pieces) on transparent backgrounds; item names in reading order go in
+each folder's `manifest.json`. `pnpm --filter @cc/art-pipeline items` and
+`… items obstacles` pack them into `apps/client/src/replay/{items,obstacles}/`.
+`client/replay/items.ts` maps equipment, props, machines and each arena's
+obstacles to atlas names; anything unmapped keeps its drawn fallback.
