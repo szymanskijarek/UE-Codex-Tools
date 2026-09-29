@@ -310,6 +310,41 @@
     11000,
     5400
    ]
+  },
+  {
+   "prop": "prop.desk-lamp",
+   "at": [
+    6000,
+    2600
+   ]
+  },
+  {
+   "prop": "prop.desk-lamp",
+   "at": [
+    16000,
+    2600
+   ]
+  },
+  {
+   "prop": "prop.waste-bin",
+   "at": [
+    3200,
+    11000
+   ]
+  },
+  {
+   "prop": "prop.waste-bin",
+   "at": [
+    18800,
+    11000
+   ]
+  },
+  {
+   "prop": "prop.umbrella",
+   "at": [
+    11000,
+    11400
+   ]
   }
  ],
  "hazards": [

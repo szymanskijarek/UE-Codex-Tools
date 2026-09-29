@@ -598,7 +598,7 @@ export class BattleRenderer {
     if (key === s.lastHeldKey) return;
     s.lastHeldKey = key;
     s.heldG.clear();
-    for (const c of s.held.removeChildren(1)) c.destroy();
+    for (const c of s.held.children.slice(1)) c.destroy();
     if (e.held >= 0 && byId.get(e.held)) return; // carried props render themselves
     const item = this.snapOf(e)?.held;
     if (!item) return;
@@ -703,6 +703,9 @@ export class BattleRenderer {
     let minY = Infinity;
     let maxY = -Infinity;
 
+    // Who is carrying what: carried props ride above the carrier's head.
+    const carrier = new Map<number, number>();
+    for (const e of cur) if (e.kind !== 'prop' && e.held >= 0) carrier.set(e.held, e.id);
     for (const e of cur) {
       const p = prev.get(e.id) ?? e;
       const x = p.x + (e.x - p.x) * a;
@@ -713,7 +716,10 @@ export class BattleRenderer {
         seenP.add(e.id);
         let s = this.props.get(e.id);
         if (!s) this.props.set(e.id, (s = this.makeProp(e)));
-        s.root.position.set(sx, sy);
+        const cb = carrier.get(e.id);
+        const cs = cb !== undefined ? this.chars.get(cb) : undefined;
+        if (cs && !cs.rag) s.root.position.set(cs.x, cs.y - cs.r * (cs.puppet ? 5.4 : 4.4) * cs.depth);
+        else s.root.position.set(sx, sy);
         if (s.isArea) {
           const dk = this.depth(y);
           s.root.scale.set(dk, this.ysq * dk);
@@ -722,7 +728,7 @@ export class BattleRenderer {
             s.area = e.area;
           }
         } else {
-          s.root.zIndex = y + (e.z > 0 ? 400 : 0);
+          s.root.zIndex = cs ? (cs.root.zIndex as number) + 1 : y + (e.z > 0 ? 400 : 0);
           s.root.rotation = e.flying ? t * 12 : 0;
           const dk = this.depth(y);
           s.root.scale.set(isMover(e.def) && e.fx < 0 ? -dk : dk, dk);

@@ -386,6 +386,48 @@
     12000,
     7000
    ]
+  },
+  {
+   "prop": "prop.tin-cans",
+   "at": [
+    9400,
+    3000
+   ]
+  },
+  {
+   "prop": "prop.tin-cans",
+   "at": [
+    14600,
+    11000
+   ]
+  },
+  {
+   "prop": "prop.shopping-basket",
+   "at": [
+    5400,
+    6000
+   ]
+  },
+  {
+   "prop": "prop.shopping-basket",
+   "at": [
+    18600,
+    8000
+   ]
+  },
+  {
+   "prop": "prop.soda-crate",
+   "at": [
+    14600,
+    3000
+   ]
+  },
+  {
+   "prop": "prop.soda-crate",
+   "at": [
+    9400,
+    11000
+   ]
   }
  ],
  "hazards": [

@@ -339,8 +339,12 @@ const BY_PERSONALITY: Record<string, Move[]> = {
 
 /** A character's repertoire: career signatures + personality flavour + generics. */
 export function repertoire(career: string, personality: string, armed: boolean): Move[] {
-  if (armed) return ['overhead', 'swing', 'jab', 'overhead', 'swing', ...(BY_PERSONALITY[personality]?.includes('backKick') ? (['backKick'] as Move[]) : [])];
   const sig = BY_CAREER[career] ?? [];
+  if (armed) {
+    // Hands are busy with the weapon, but legs and head aren't.
+    const free = (m: Move) => ['lowKick', 'frontKick', 'backKick', 'sweep', 'headbutt', 'shoulder'].includes(m);
+    return ['overhead', 'swing', 'jab', 'overhead', 'swing', 'jab', ...sig.filter(free), ...(BY_PERSONALITY[personality] ?? []).filter(free), 'lowKick', 'frontKick'];
+  }
   // Signature moves count double so a character's style is recognisable.
   return [...sig, ...sig, ...(BY_PERSONALITY[personality] ?? []), ...UNARMED];
 }

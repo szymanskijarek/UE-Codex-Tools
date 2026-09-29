@@ -269,6 +269,48 @@
     12000,
     4400
    ]
+  },
+  {
+   "prop": "prop.crate",
+   "at": [
+    3200,
+    8600
+   ]
+  },
+  {
+   "prop": "prop.crate",
+   "at": [
+    20800,
+    8600
+   ]
+  },
+  {
+   "prop": "prop.crate",
+   "at": [
+    10400,
+    2200
+   ]
+  },
+  {
+   "prop": "prop.cable-spool",
+   "at": [
+    13600,
+    11600
+   ]
+  },
+  {
+   "prop": "prop.soda-crate",
+   "at": [
+    9600,
+    6200
+   ]
+  },
+  {
+   "prop": "prop.toolbox",
+   "at": [
+    14400,
+    6200
+   ]
   }
  ],
  "hazards": [

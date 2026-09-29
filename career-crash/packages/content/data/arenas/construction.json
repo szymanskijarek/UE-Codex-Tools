@@ -242,6 +242,76 @@
     11000,
     1400
    ]
+  },
+  {
+   "prop": "prop.traffic-cone",
+   "at": [
+    5600,
+    5000
+   ]
+  },
+  {
+   "prop": "prop.traffic-cone",
+   "at": [
+    16400,
+    5000
+   ]
+  },
+  {
+   "prop": "prop.brick",
+   "at": [
+    8600,
+    1400
+   ]
+  },
+  {
+   "prop": "prop.brick",
+   "at": [
+    13400,
+    1400
+   ]
+  },
+  {
+   "prop": "prop.brick",
+   "at": [
+    11000,
+    3400
+   ]
+  },
+  {
+   "prop": "prop.paint-bucket",
+   "at": [
+    3000,
+    6200
+   ]
+  },
+  {
+   "prop": "prop.paint-bucket",
+   "at": [
+    19000,
+    6200
+   ]
+  },
+  {
+   "prop": "prop.hard-hat",
+   "at": [
+    9800,
+    8600
+   ]
+  },
+  {
+   "prop": "prop.toolbox",
+   "at": [
+    12200,
+    8600
+   ]
+  },
+  {
+   "prop": "prop.cable-spool",
+   "at": [
+    11000,
+    2200
+   ]
   }
  ],
  "hazards": [

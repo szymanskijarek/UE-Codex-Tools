@@ -303,6 +303,55 @@
     12000,
     11600
    ]
+  },
+  {
+   "prop": "prop.suitcase",
+   "at": [
+    3000,
+    5200
+   ]
+  },
+  {
+   "prop": "prop.suitcase",
+   "at": [
+    21000,
+    5200
+   ]
+  },
+  {
+   "prop": "prop.suitcase",
+   "at": [
+    9600,
+    12400
+   ]
+  },
+  {
+   "prop": "prop.umbrella",
+   "at": [
+    6200,
+    8200
+   ]
+  },
+  {
+   "prop": "prop.umbrella",
+   "at": [
+    17800,
+    8200
+   ]
+  },
+  {
+   "prop": "prop.luggage-trolley",
+   "at": [
+    8200,
+    1800
+   ]
+  },
+  {
+   "prop": "prop.luggage-trolley",
+   "at": [
+    15800,
+    1800
+   ]
   }
  ],
  "hazards": [
