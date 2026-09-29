@@ -2064,6 +2064,156 @@
    "Back in business!",
    "Mine again!",
    "Much better."
+  ],
+  "job_archaeologist": [
+   "It belongs in a museum!",
+   "Mind the artefacts!",
+   "Careful, that's Bronze Age!"
+  ],
+  "job_baker": [
+   "Fresh out of the oven!",
+   "Proving time!",
+   "Knead it!"
+  ],
+  "job_beekeeper": [
+   "Easy, girls...",
+   "Bzzzzz!",
+   "You're upsetting the hive!"
+  ],
+  "job_bus-driver": [
+   "Move down the bus!",
+   "Exact change only!",
+   "Next stop: pain!"
+  ],
+  "job_carpenter": [
+   "Measure twice!",
+   "Nailed it!",
+   "Solid oak, this."
+  ],
+  "job_chimney-sweep": [
+   "Chim-chiminey!",
+   "Shake for luck?",
+   "Mind the soot!"
+  ],
+  "job_clown": [
+   "Honk honk!",
+   "Tada!",
+   "Want to see a trick?"
+  ],
+  "job_dog-groomer": [
+   "Who's a good boy?",
+   "Hold still!",
+   "Needs a trim!"
+  ],
+  "job_fashion-designer": [
+   "Darling, no.",
+   "That colour? Really?",
+   "It's giving... defeat."
+  ],
+  "job_flight-attendant": [
+   "Please remain seated.",
+   "Chicken or pasta?",
+   "Cabin crew, seats for landing!"
+  ],
+  "job_florist": [
+   "These are for you!",
+   "Mind the thorns!",
+   "Roses are red..."
+  ],
+  "job_fortune-teller": [
+   "I see... pain.",
+   "The cards never lie.",
+   "Your future is... short."
+  ],
+  "job_hotel-concierge": [
+   "Right this way.",
+   "Will that be all?",
+   "Enjoy your stay!"
+  ],
+  "job_ice-cream-vendor": [
+   "Ninety-nine flake?",
+   "Brain freeze!",
+   "Who wants sprinkles?"
+  ],
+  "job_magician": [
+   "Abracadabra!",
+   "Is this your card?",
+   "And for my next trick..."
+  ],
+  "job_marine-biologist": [
+   "Fascinating specimen!",
+   "Mind the tentacles!",
+   "Stay hydrated!"
+  ],
+  "job_museum-curator": [
+   "Please do not touch!",
+   "That's 3,000 years old!",
+   "Fascinating. Primitive."
+  ],
+  "job_nurse": [
+   "Deep breaths.",
+   "Sharp scratch!",
+   "Back in bed, now!"
+  ],
+  "job_painter": [
+   "Wet paint!",
+   "Needs a second coat!",
+   "Art is pain!"
+  ],
+  "job_photographer": [
+   "Say cheese!",
+   "Hold that pose!",
+   "Great light for a KO."
+  ],
+  "job_postal-worker": [
+   "Special delivery!",
+   "Sign here!",
+   "Return to sender!"
+  ],
+  "job_sailor": [
+   "Ahoy!",
+   "All hands on deck!",
+   "Heave ho!"
+  ],
+  "job_scientist": [
+   "Fascinating!",
+   "For science!",
+   "Stand back — it might explode!"
+  ],
+  "job_tailor": [
+   "A perfect fit!",
+   "Hold still, I'm measuring!",
+   "Hemmed in!"
+  ],
+  "job_tattoo-artist": [
+   "That'll scar nicely.",
+   "No regrets!",
+   "Hold still, this won't hurt. Much."
+  ],
+  "job_train-conductor": [
+   "Tickets, please!",
+   "All aboard!",
+   "Mind the gap!"
+  ],
+  "job_veterinarian": [
+   "Who's been bitten?",
+   "Easy, easy...",
+   "Open wide!"
+  ],
+  "job_welder": [
+   "Mask down!",
+   "Sparks flying!",
+   "Solid bead, that."
+  ],
+  "job_window-cleaner": [
+   "Streak-free!",
+   "Mind the drips!",
+   "Nothing a squeegee can't fix!"
+  ],
+  "job_zookeeper": [
+   "Feeding time!",
+   "Easy, big fella!",
+   "Back in your enclosure!"
   ]
  }
 }

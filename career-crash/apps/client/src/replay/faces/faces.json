@@ -1,6 +1,6 @@
 {
  "w": 2048,
- "h": 812,
+ "h": 1442,
  "faces": {
   "career.accountant:neutral": {
    "x": 2,
@@ -1165,6 +1165,1062 @@
    "y": 722,
    "w": 71,
    "h": 88
+  },
+  "career.archaeologist:neutral": {
+   "x": 75,
+   "y": 722,
+   "w": 88,
+   "h": 67
+  },
+  "career.archaeologist:angry": {
+   "x": 165,
+   "y": 722,
+   "w": 88,
+   "h": 68
+  },
+  "career.archaeologist:surprised": {
+   "x": 255,
+   "y": 722,
+   "w": 88,
+   "h": 69
+  },
+  "career.archaeologist:hurt": {
+   "x": 345,
+   "y": 722,
+   "w": 88,
+   "h": 69
+  },
+  "career.archaeologist:blink": {
+   "x": 435,
+   "y": 722,
+   "w": 88,
+   "h": 67
+  },
+  "career.archaeologist:talk": {
+   "x": 525,
+   "y": 722,
+   "w": 88,
+   "h": 67
+  },
+  "career.baker:neutral": {
+   "x": 615,
+   "y": 722,
+   "w": 84,
+   "h": 88
+  },
+  "career.baker:angry": {
+   "x": 701,
+   "y": 722,
+   "w": 85,
+   "h": 88
+  },
+  "career.baker:surprised": {
+   "x": 788,
+   "y": 722,
+   "w": 85,
+   "h": 88
+  },
+  "career.baker:hurt": {
+   "x": 875,
+   "y": 722,
+   "w": 85,
+   "h": 88
+  },
+  "career.baker:blink": {
+   "x": 962,
+   "y": 722,
+   "w": 84,
+   "h": 88
+  },
+  "career.baker:talk": {
+   "x": 1048,
+   "y": 722,
+   "w": 84,
+   "h": 88
+  },
+  "career.beekeeper:neutral": {
+   "x": 1134,
+   "y": 722,
+   "w": 88,
+   "h": 71
+  },
+  "career.beekeeper:angry": {
+   "x": 1224,
+   "y": 722,
+   "w": 88,
+   "h": 72
+  },
+  "career.beekeeper:surprised": {
+   "x": 1314,
+   "y": 722,
+   "w": 88,
+   "h": 73
+  },
+  "career.beekeeper:hurt": {
+   "x": 1404,
+   "y": 722,
+   "w": 88,
+   "h": 73
+  },
+  "career.beekeeper:blink": {
+   "x": 1494,
+   "y": 722,
+   "w": 88,
+   "h": 71
+  },
+  "career.beekeeper:talk": {
+   "x": 1584,
+   "y": 722,
+   "w": 88,
+   "h": 71
+  },
+  "career.bus-driver:neutral": {
+   "x": 1674,
+   "y": 722,
+   "w": 84,
+   "h": 88
+  },
+  "career.bus-driver:angry": {
+   "x": 1760,
+   "y": 722,
+   "w": 88,
+   "h": 88
+  },
+  "career.bus-driver:surprised": {
+   "x": 1850,
+   "y": 722,
+   "w": 85,
+   "h": 88
+  },
+  "career.bus-driver:hurt": {
+   "x": 1937,
+   "y": 722,
+   "w": 86,
+   "h": 88
+  },
+  "career.bus-driver:blink": {
+   "x": 2,
+   "y": 812,
+   "w": 84,
+   "h": 88
+  },
+  "career.bus-driver:talk": {
+   "x": 88,
+   "y": 812,
+   "w": 84,
+   "h": 88
+  },
+  "career.carpenter:neutral": {
+   "x": 174,
+   "y": 812,
+   "w": 78,
+   "h": 88
+  },
+  "career.carpenter:angry": {
+   "x": 254,
+   "y": 812,
+   "w": 81,
+   "h": 88
+  },
+  "career.carpenter:surprised": {
+   "x": 337,
+   "y": 812,
+   "w": 79,
+   "h": 88
+  },
+  "career.carpenter:hurt": {
+   "x": 418,
+   "y": 812,
+   "w": 79,
+   "h": 88
+  },
+  "career.carpenter:blink": {
+   "x": 499,
+   "y": 812,
+   "w": 78,
+   "h": 88
+  },
+  "career.carpenter:talk": {
+   "x": 579,
+   "y": 812,
+   "w": 78,
+   "h": 88
+  },
+  "career.chimney-sweep:neutral": {
+   "x": 659,
+   "y": 812,
+   "w": 73,
+   "h": 88
+  },
+  "career.chimney-sweep:angry": {
+   "x": 734,
+   "y": 812,
+   "w": 75,
+   "h": 88
+  },
+  "career.chimney-sweep:surprised": {
+   "x": 811,
+   "y": 812,
+   "w": 73,
+   "h": 88
+  },
+  "career.chimney-sweep:hurt": {
+   "x": 886,
+   "y": 812,
+   "w": 75,
+   "h": 88
+  },
+  "career.chimney-sweep:blink": {
+   "x": 963,
+   "y": 812,
+   "w": 73,
+   "h": 88
+  },
+  "career.chimney-sweep:talk": {
+   "x": 1038,
+   "y": 812,
+   "w": 73,
+   "h": 88
+  },
+  "career.clown:neutral": {
+   "x": 1113,
+   "y": 812,
+   "w": 88,
+   "h": 69
+  },
+  "career.clown:angry": {
+   "x": 1203,
+   "y": 812,
+   "w": 88,
+   "h": 69
+  },
+  "career.clown:surprised": {
+   "x": 1293,
+   "y": 812,
+   "w": 88,
+   "h": 70
+  },
+  "career.clown:hurt": {
+   "x": 1383,
+   "y": 812,
+   "w": 88,
+   "h": 70
+  },
+  "career.clown:talk": {
+   "x": 1473,
+   "y": 812,
+   "w": 88,
+   "h": 69
+  },
+  "career.dog-groomer:neutral": {
+   "x": 1563,
+   "y": 812,
+   "w": 78,
+   "h": 88
+  },
+  "career.dog-groomer:angry": {
+   "x": 1643,
+   "y": 812,
+   "w": 80,
+   "h": 88
+  },
+  "career.dog-groomer:surprised": {
+   "x": 1725,
+   "y": 812,
+   "w": 79,
+   "h": 88
+  },
+  "career.dog-groomer:hurt": {
+   "x": 1806,
+   "y": 812,
+   "w": 77,
+   "h": 88
+  },
+  "career.dog-groomer:blink": {
+   "x": 1885,
+   "y": 812,
+   "w": 78,
+   "h": 88
+  },
+  "career.dog-groomer:talk": {
+   "x": 1965,
+   "y": 812,
+   "w": 78,
+   "h": 88
+  },
+  "career.fashion-designer:neutral": {
+   "x": 2,
+   "y": 902,
+   "w": 86,
+   "h": 88
+  },
+  "career.fashion-designer:angry": {
+   "x": 90,
+   "y": 902,
+   "w": 88,
+   "h": 87
+  },
+  "career.fashion-designer:surprised": {
+   "x": 180,
+   "y": 902,
+   "w": 88,
+   "h": 88
+  },
+  "career.fashion-designer:hurt": {
+   "x": 270,
+   "y": 902,
+   "w": 88,
+   "h": 88
+  },
+  "career.fashion-designer:blink": {
+   "x": 360,
+   "y": 902,
+   "w": 86,
+   "h": 88
+  },
+  "career.fashion-designer:talk": {
+   "x": 448,
+   "y": 902,
+   "w": 86,
+   "h": 88
+  },
+  "career.flight-attendant:neutral": {
+   "x": 536,
+   "y": 902,
+   "w": 75,
+   "h": 88
+  },
+  "career.flight-attendant:angry": {
+   "x": 613,
+   "y": 902,
+   "w": 75,
+   "h": 88
+  },
+  "career.flight-attendant:surprised": {
+   "x": 690,
+   "y": 902,
+   "w": 75,
+   "h": 88
+  },
+  "career.flight-attendant:hurt": {
+   "x": 767,
+   "y": 902,
+   "w": 75,
+   "h": 88
+  },
+  "career.flight-attendant:blink": {
+   "x": 844,
+   "y": 902,
+   "w": 75,
+   "h": 88
+  },
+  "career.flight-attendant:talk": {
+   "x": 921,
+   "y": 902,
+   "w": 75,
+   "h": 88
+  },
+  "career.florist:neutral": {
+   "x": 998,
+   "y": 902,
+   "w": 88,
+   "h": 87
+  },
+  "career.florist:angry": {
+   "x": 1088,
+   "y": 902,
+   "w": 88,
+   "h": 85
+  },
+  "career.florist:surprised": {
+   "x": 1178,
+   "y": 902,
+   "w": 88,
+   "h": 86
+  },
+  "career.florist:hurt": {
+   "x": 1268,
+   "y": 902,
+   "w": 88,
+   "h": 87
+  },
+  "career.florist:blink": {
+   "x": 1358,
+   "y": 902,
+   "w": 88,
+   "h": 87
+  },
+  "career.florist:talk": {
+   "x": 1448,
+   "y": 902,
+   "w": 88,
+   "h": 87
+  },
+  "career.fortune-teller:neutral": {
+   "x": 1538,
+   "y": 902,
+   "w": 88,
+   "h": 73
+  },
+  "career.fortune-teller:angry": {
+   "x": 1628,
+   "y": 902,
+   "w": 88,
+   "h": 71
+  },
+  "career.fortune-teller:surprised": {
+   "x": 1718,
+   "y": 902,
+   "w": 88,
+   "h": 73
+  },
+  "career.fortune-teller:hurt": {
+   "x": 1808,
+   "y": 902,
+   "w": 88,
+   "h": 73
+  },
+  "career.fortune-teller:blink": {
+   "x": 1898,
+   "y": 902,
+   "w": 88,
+   "h": 73
+  },
+  "career.fortune-teller:talk": {
+   "x": 2,
+   "y": 992,
+   "w": 88,
+   "h": 73
+  },
+  "career.hotel-concierge:neutral": {
+   "x": 92,
+   "y": 992,
+   "w": 77,
+   "h": 88
+  },
+  "career.hotel-concierge:angry": {
+   "x": 171,
+   "y": 992,
+   "w": 78,
+   "h": 88
+  },
+  "career.hotel-concierge:surprised": {
+   "x": 251,
+   "y": 992,
+   "w": 76,
+   "h": 88
+  },
+  "career.hotel-concierge:hurt": {
+   "x": 329,
+   "y": 992,
+   "w": 77,
+   "h": 88
+  },
+  "career.hotel-concierge:blink": {
+   "x": 408,
+   "y": 992,
+   "w": 77,
+   "h": 88
+  },
+  "career.hotel-concierge:talk": {
+   "x": 487,
+   "y": 992,
+   "w": 77,
+   "h": 88
+  },
+  "career.ice-cream-vendor:neutral": {
+   "x": 566,
+   "y": 992,
+   "w": 73,
+   "h": 88
+  },
+  "career.ice-cream-vendor:angry": {
+   "x": 641,
+   "y": 992,
+   "w": 73,
+   "h": 88
+  },
+  "career.ice-cream-vendor:surprised": {
+   "x": 716,
+   "y": 992,
+   "w": 72,
+   "h": 88
+  },
+  "career.ice-cream-vendor:hurt": {
+   "x": 790,
+   "y": 992,
+   "w": 72,
+   "h": 88
+  },
+  "career.ice-cream-vendor:blink": {
+   "x": 864,
+   "y": 992,
+   "w": 73,
+   "h": 88
+  },
+  "career.ice-cream-vendor:talk": {
+   "x": 939,
+   "y": 992,
+   "w": 73,
+   "h": 88
+  },
+  "career.magician:neutral": {
+   "x": 1014,
+   "y": 992,
+   "w": 80,
+   "h": 88
+  },
+  "career.magician:angry": {
+   "x": 1096,
+   "y": 992,
+   "w": 81,
+   "h": 88
+  },
+  "career.magician:surprised": {
+   "x": 1179,
+   "y": 992,
+   "w": 80,
+   "h": 88
+  },
+  "career.magician:hurt": {
+   "x": 1261,
+   "y": 992,
+   "w": 80,
+   "h": 88
+  },
+  "career.magician:blink": {
+   "x": 1343,
+   "y": 992,
+   "w": 80,
+   "h": 88
+  },
+  "career.magician:talk": {
+   "x": 1425,
+   "y": 992,
+   "w": 80,
+   "h": 88
+  },
+  "career.marine-biologist:neutral": {
+   "x": 1507,
+   "y": 992,
+   "w": 77,
+   "h": 88
+  },
+  "career.marine-biologist:angry": {
+   "x": 1586,
+   "y": 992,
+   "w": 77,
+   "h": 88
+  },
+  "career.marine-biologist:surprised": {
+   "x": 1665,
+   "y": 992,
+   "w": 77,
+   "h": 88
+  },
+  "career.marine-biologist:hurt": {
+   "x": 1744,
+   "y": 992,
+   "w": 78,
+   "h": 88
+  },
+  "career.marine-biologist:blink": {
+   "x": 1824,
+   "y": 992,
+   "w": 77,
+   "h": 88
+  },
+  "career.museum-curator:neutral": {
+   "x": 1903,
+   "y": 992,
+   "w": 87,
+   "h": 88
+  },
+  "career.museum-curator:angry": {
+   "x": 2,
+   "y": 1082,
+   "w": 86,
+   "h": 88
+  },
+  "career.museum-curator:surprised": {
+   "x": 90,
+   "y": 1082,
+   "w": 86,
+   "h": 88
+  },
+  "career.museum-curator:hurt": {
+   "x": 178,
+   "y": 1082,
+   "w": 87,
+   "h": 88
+  },
+  "career.museum-curator:blink": {
+   "x": 267,
+   "y": 1082,
+   "w": 87,
+   "h": 88
+  },
+  "career.museum-curator:talk": {
+   "x": 356,
+   "y": 1082,
+   "w": 87,
+   "h": 88
+  },
+  "career.nurse:neutral": {
+   "x": 445,
+   "y": 1082,
+   "w": 78,
+   "h": 88
+  },
+  "career.nurse:angry": {
+   "x": 525,
+   "y": 1082,
+   "w": 79,
+   "h": 88
+  },
+  "career.nurse:surprised": {
+   "x": 606,
+   "y": 1082,
+   "w": 77,
+   "h": 88
+  },
+  "career.nurse:hurt": {
+   "x": 685,
+   "y": 1082,
+   "w": 78,
+   "h": 88
+  },
+  "career.nurse:blink": {
+   "x": 765,
+   "y": 1082,
+   "w": 78,
+   "h": 88
+  },
+  "career.nurse:talk": {
+   "x": 845,
+   "y": 1082,
+   "w": 78,
+   "h": 88
+  },
+  "career.painter:neutral": {
+   "x": 925,
+   "y": 1082,
+   "w": 88,
+   "h": 77
+  },
+  "career.painter:angry": {
+   "x": 1015,
+   "y": 1082,
+   "w": 88,
+   "h": 79
+  },
+  "career.painter:surprised": {
+   "x": 1105,
+   "y": 1082,
+   "w": 88,
+   "h": 78
+  },
+  "career.painter:hurt": {
+   "x": 1195,
+   "y": 1082,
+   "w": 88,
+   "h": 79
+  },
+  "career.painter:blink": {
+   "x": 1285,
+   "y": 1082,
+   "w": 88,
+   "h": 77
+  },
+  "career.photographer:neutral": {
+   "x": 1375,
+   "y": 1082,
+   "w": 84,
+   "h": 88
+  },
+  "career.photographer:angry": {
+   "x": 1461,
+   "y": 1082,
+   "w": 86,
+   "h": 88
+  },
+  "career.photographer:surprised": {
+   "x": 1549,
+   "y": 1082,
+   "w": 85,
+   "h": 88
+  },
+  "career.photographer:hurt": {
+   "x": 1636,
+   "y": 1082,
+   "w": 85,
+   "h": 88
+  },
+  "career.photographer:blink": {
+   "x": 1723,
+   "y": 1082,
+   "w": 84,
+   "h": 88
+  },
+  "career.photographer:talk": {
+   "x": 1809,
+   "y": 1082,
+   "w": 84,
+   "h": 88
+  },
+  "career.postal-worker:neutral": {
+   "x": 1895,
+   "y": 1082,
+   "w": 84,
+   "h": 88
+  },
+  "career.postal-worker:angry": {
+   "x": 2,
+   "y": 1172,
+   "w": 86,
+   "h": 88
+  },
+  "career.postal-worker:surprised": {
+   "x": 90,
+   "y": 1172,
+   "w": 83,
+   "h": 88
+  },
+  "career.postal-worker:hurt": {
+   "x": 175,
+   "y": 1172,
+   "w": 84,
+   "h": 88
+  },
+  "career.postal-worker:blink": {
+   "x": 261,
+   "y": 1172,
+   "w": 84,
+   "h": 88
+  },
+  "career.postal-worker:talk": {
+   "x": 347,
+   "y": 1172,
+   "w": 84,
+   "h": 88
+  },
+  "career.sailor:neutral": {
+   "x": 433,
+   "y": 1172,
+   "w": 72,
+   "h": 88
+  },
+  "career.sailor:angry": {
+   "x": 507,
+   "y": 1172,
+   "w": 75,
+   "h": 88
+  },
+  "career.sailor:surprised": {
+   "x": 584,
+   "y": 1172,
+   "w": 71,
+   "h": 88
+  },
+  "career.sailor:hurt": {
+   "x": 657,
+   "y": 1172,
+   "w": 74,
+   "h": 88
+  },
+  "career.sailor:blink": {
+   "x": 733,
+   "y": 1172,
+   "w": 72,
+   "h": 88
+  },
+  "career.sailor:talk": {
+   "x": 807,
+   "y": 1172,
+   "w": 72,
+   "h": 88
+  },
+  "career.scientist:neutral": {
+   "x": 881,
+   "y": 1172,
+   "w": 78,
+   "h": 88
+  },
+  "career.scientist:angry": {
+   "x": 961,
+   "y": 1172,
+   "w": 78,
+   "h": 88
+  },
+  "career.scientist:surprised": {
+   "x": 1041,
+   "y": 1172,
+   "w": 81,
+   "h": 88
+  },
+  "career.scientist:hurt": {
+   "x": 1124,
+   "y": 1172,
+   "w": 80,
+   "h": 88
+  },
+  "career.scientist:blink": {
+   "x": 1206,
+   "y": 1172,
+   "w": 78,
+   "h": 88
+  },
+  "career.scientist:talk": {
+   "x": 1286,
+   "y": 1172,
+   "w": 78,
+   "h": 88
+  },
+  "career.tailor:neutral": {
+   "x": 1366,
+   "y": 1172,
+   "w": 87,
+   "h": 88
+  },
+  "career.tailor:angry": {
+   "x": 1455,
+   "y": 1172,
+   "w": 88,
+   "h": 88
+  },
+  "career.tailor:surprised": {
+   "x": 1545,
+   "y": 1172,
+   "w": 86,
+   "h": 88
+  },
+  "career.tailor:hurt": {
+   "x": 1633,
+   "y": 1172,
+   "w": 88,
+   "h": 87
+  },
+  "career.tailor:blink": {
+   "x": 1723,
+   "y": 1172,
+   "w": 87,
+   "h": 88
+  },
+  "career.tailor:talk": {
+   "x": 1812,
+   "y": 1172,
+   "w": 87,
+   "h": 88
+  },
+  "career.tattoo-artist:neutral": {
+   "x": 1901,
+   "y": 1172,
+   "w": 72,
+   "h": 88
+  },
+  "career.tattoo-artist:angry": {
+   "x": 2,
+   "y": 1262,
+   "w": 74,
+   "h": 88
+  },
+  "career.tattoo-artist:surprised": {
+   "x": 78,
+   "y": 1262,
+   "w": 72,
+   "h": 88
+  },
+  "career.tattoo-artist:hurt": {
+   "x": 152,
+   "y": 1262,
+   "w": 75,
+   "h": 88
+  },
+  "career.tattoo-artist:blink": {
+   "x": 229,
+   "y": 1262,
+   "w": 72,
+   "h": 88
+  },
+  "career.tattoo-artist:talk": {
+   "x": 303,
+   "y": 1262,
+   "w": 72,
+   "h": 88
+  },
+  "career.train-conductor:neutral": {
+   "x": 377,
+   "y": 1262,
+   "w": 79,
+   "h": 88
+  },
+  "career.train-conductor:angry": {
+   "x": 458,
+   "y": 1262,
+   "w": 79,
+   "h": 88
+  },
+  "career.train-conductor:surprised": {
+   "x": 539,
+   "y": 1262,
+   "w": 80,
+   "h": 88
+  },
+  "career.train-conductor:hurt": {
+   "x": 621,
+   "y": 1262,
+   "w": 80,
+   "h": 88
+  },
+  "career.train-conductor:blink": {
+   "x": 703,
+   "y": 1262,
+   "w": 79,
+   "h": 88
+  },
+  "career.train-conductor:talk": {
+   "x": 784,
+   "y": 1262,
+   "w": 79,
+   "h": 88
+  },
+  "career.veterinarian:neutral": {
+   "x": 865,
+   "y": 1262,
+   "w": 78,
+   "h": 88
+  },
+  "career.veterinarian:angry": {
+   "x": 945,
+   "y": 1262,
+   "w": 79,
+   "h": 88
+  },
+  "career.veterinarian:surprised": {
+   "x": 1026,
+   "y": 1262,
+   "w": 78,
+   "h": 88
+  },
+  "career.veterinarian:hurt": {
+   "x": 1106,
+   "y": 1262,
+   "w": 79,
+   "h": 88
+  },
+  "career.veterinarian:blink": {
+   "x": 1187,
+   "y": 1262,
+   "w": 78,
+   "h": 88
+  },
+  "career.veterinarian:talk": {
+   "x": 1267,
+   "y": 1262,
+   "w": 78,
+   "h": 88
+  },
+  "career.welder:neutral": {
+   "x": 1347,
+   "y": 1262,
+   "w": 69,
+   "h": 88
+  },
+  "career.welder:angry": {
+   "x": 1418,
+   "y": 1262,
+   "w": 70,
+   "h": 88
+  },
+  "career.welder:surprised": {
+   "x": 1490,
+   "y": 1262,
+   "w": 68,
+   "h": 88
+  },
+  "career.welder:hurt": {
+   "x": 1560,
+   "y": 1262,
+   "w": 73,
+   "h": 88
+  },
+  "career.welder:blink": {
+   "x": 1635,
+   "y": 1262,
+   "w": 69,
+   "h": 88
+  },
+  "career.window-cleaner:neutral": {
+   "x": 1706,
+   "y": 1262,
+   "w": 85,
+   "h": 88
+  },
+  "career.window-cleaner:angry": {
+   "x": 1793,
+   "y": 1262,
+   "w": 86,
+   "h": 88
+  },
+  "career.window-cleaner:surprised": {
+   "x": 1881,
+   "y": 1262,
+   "w": 85,
+   "h": 88
+  },
+  "career.window-cleaner:hurt": {
+   "x": 2,
+   "y": 1352,
+   "w": 86,
+   "h": 88
+  },
+  "career.window-cleaner:blink": {
+   "x": 90,
+   "y": 1352,
+   "w": 85,
+   "h": 88
+  },
+  "career.window-cleaner:talk": {
+   "x": 177,
+   "y": 1352,
+   "w": 85,
+   "h": 88
+  },
+  "career.zookeeper:neutral": {
+   "x": 264,
+   "y": 1352,
+   "w": 88,
+   "h": 67
+  },
+  "career.zookeeper:angry": {
+   "x": 354,
+   "y": 1352,
+   "w": 88,
+   "h": 66
+  },
+  "career.zookeeper:surprised": {
+   "x": 444,
+   "y": 1352,
+   "w": 88,
+   "h": 67
+  },
+  "career.zookeeper:hurt": {
+   "x": 534,
+   "y": 1352,
+   "w": 88,
+   "h": 66
+  },
+  "career.zookeeper:blink": {
+   "x": 624,
+   "y": 1352,
+   "w": 88,
+   "h": 67
+  },
+  "career.zookeeper:talk": {
+   "x": 714,
+   "y": 1352,
+   "w": 88,
+   "h": 67
   }
  }
 }

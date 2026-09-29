@@ -102,5 +102,60 @@
    "platform-bench",
    "platform-sign"
   ]
+ },
+ "tools-b1": {
+  "cols": 3,
+  "names": [
+   "tool-archaeologist",
+   "tool-baker",
+   "tool-beekeeper",
+   "tool-bus-driver",
+   "tool-carpenter",
+   "tool-chimney-sweep"
+  ]
+ },
+ "tools-b2": {
+  "cols": 3,
+  "names": [
+   "tool-clown",
+   "tool-dog-groomer",
+   "tool-fashion-designer",
+   "tool-flight-attendant",
+   "tool-florist",
+   "tool-fortune-teller"
+  ]
+ },
+ "tools-b3": {
+  "cols": 3,
+  "names": [
+   "tool-hotel-concierge",
+   "tool-ice-cream-vendor",
+   "tool-magician",
+   "tool-marine-biologist",
+   "tool-museum-curator",
+   "tool-nurse"
+  ]
+ },
+ "tools-b4": {
+  "cols": 3,
+  "names": [
+   "tool-painter",
+   "tool-photographer",
+   "tool-postal-worker",
+   "tool-sailor",
+   "tool-scientist",
+   "tool-tailor"
+  ]
+ },
+ "tools-b5": {
+  "cols": 3,
+  "names": [
+   "tool-tattoo-artist",
+   "tool-train-conductor",
+   "tool-veterinarian",
+   "tool-welder",
+   "tool-window-cleaner",
+   "tool-zookeeper"
+  ]
  }
 }

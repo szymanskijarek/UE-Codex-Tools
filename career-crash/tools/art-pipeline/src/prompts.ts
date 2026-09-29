@@ -23,11 +23,26 @@ interface Prompt {
 const prompts: Prompt[] = [];
 for (const c of bundle.careers) {
   const career = name(c.id);
-  prompts.push({ id: `art.${c.id}.hat`, kind: 'hat', size: [128, 96], prompt: `${STYLE} Headwear only for a ${career}. Main colour ${c.art.hat ?? c.art.color}. Everyday modern workwear, slightly exaggerated.` });
-  prompts.push({ id: `art.${c.id}.upper`, kind: 'upper', size: [128, 128], prompt: `${STYLE} Upper-body outfit only (no head, no arms beyond sleeves) for a ${career}. Main colour ${c.art.color}. Recognisable at 48 px.` });
+  prompts.push({
+    id: `art.${c.id}.hat`,
+    kind: 'hat',
+    size: [128, 96],
+    prompt: `${STYLE} Headwear only for a ${career}. Main colour ${c.art.hat ?? c.art.color}. Everyday modern workwear, slightly exaggerated.`,
+  });
+  prompts.push({
+    id: `art.${c.id}.upper`,
+    kind: 'upper',
+    size: [128, 128],
+    prompt: `${STYLE} Upper-body outfit only (no head, no arms beyond sleeves) for a ${career}. Main colour ${c.art.color}. Recognisable at 48 px.`,
+  });
 }
 for (const e of bundle.equipment) {
-  prompts.push({ id: `art.${e.id}`, kind: e.slot === 'held' ? 'held' : 'accessory', size: e.slot === 'held' ? [96, 96] : [64, 64], prompt: `${STYLE} A single ${name(e.id).toLowerCase()} as a ${e.slot === 'held' ? 'hand-held item' : 'wearable accessory'}. Everyday object, comedic but realistic.` });
+  prompts.push({
+    id: `art.${e.id}`,
+    kind: e.slot === 'held' ? 'held' : 'accessory',
+    size: e.slot === 'held' ? [96, 96] : [64, 64],
+    prompt: `${STYLE} A single ${name(e.id).toLowerCase()} as a ${e.slot === 'held' ? 'hand-held item' : 'wearable accessory'}. Everyday object, comedic but realistic.`,
+  });
 }
 for (const p of bundle.props) {
   const area = p.art.shape === 'area';

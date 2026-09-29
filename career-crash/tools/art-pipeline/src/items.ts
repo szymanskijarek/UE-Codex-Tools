@@ -145,7 +145,10 @@ async function main(): Promise<void> {
           if (lab && others.has(lab) && !mine.has(lab)) continue;
           data.copy(crop, (yy * w + xx) * 4, src * 4, src * 4 + 4);
         }
-      const png = await sharp(crop, { raw: { width: w, height: h, channels: 4 } }).resize(tw, th, { kernel: 'lanczos3' }).png().toBuffer();
+      const png = await sharp(crop, { raw: { width: w, height: h, channels: 4 } })
+        .resize(tw, th, { kernel: 'lanczos3' })
+        .png()
+        .toBuffer();
       pieces.push({ name: names[i]!, png, w: tw, h: th });
     }
     console.log(`✓ ${sheet}: ${names.join(', ')}`);

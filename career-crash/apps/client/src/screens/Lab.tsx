@@ -5,7 +5,7 @@ import { useEffect, useRef } from 'preact/hooks';
 import { bundle } from '@cc/content';
 import { drawHeavy, heavyLength } from '../replay/heavy-art';
 import { heavySprite, heldIsTool, heldSprite, loadItems } from '../replay/items';
-import { loadPuppets, NEUTRAL, Puppet, PUPPET_HEIGHT, type Pose } from '../replay/puppet';
+import { hasPuppet, loadPuppets, NEUTRAL, Puppet, PUPPET_HEIGHT, type Pose } from '../replay/puppet';
 import { hypePose, idlePose, type IdleStyle } from '../career/PuppetView';
 
 /**
@@ -50,7 +50,7 @@ export function Lab() {
       const cellW = 96;
       const cellH = r * PUPPET_HEIGHT + 40;
       const cols = ARMS.length * 2;
-      const rows = weapons.length + heavies.length + 3 + 4 + 9;
+      const rows = weapons.length + heavies.length + 3 + 4 + 9 + Math.ceil(bundle.careers.length / cols) + 1;
       await app.init({ width: cols * cellW + 150, height: rows * cellH, background: 0xf3efe6, antialias: true, preference: 'webgl' });
       if (!alive || !host.current) return;
       host.current.appendChild(app.canvas);
@@ -98,6 +98,19 @@ export function Lab() {
               else drawHeavy(g, h.id, len);
             });
           }, careers[row % careers.length]!);
+        }
+        row++;
+      }
+      // Every career with body art: standing, then arms out (checks each sliced part landed in the right slot).
+      const all = bundle.careers.filter((c) => hasPuppet(c.id)).map((c) => c.id);
+      for (let k = 0; k < all.length; k += cols) {
+        label(all.slice(k, k + cols).map((c) => c.replace('career.', '')).join(', ').slice(0, 26), 4, row * cellH + 8);
+        for (let i = 0; i < cols && k + i < all.length; i++) {
+          cell(i, (pu, x, y, f) => {
+            pu.pose(row % 2 ? { ...NEUTRAL, armF: -1.3, armB: 1.3, legF: -0.35, legB: 0.35, elbowF: -0.6, elbowB: 0.6 } : { ...NEUTRAL }, x, y, 1);
+            pu.render(pu.xs, pu.ys, 1);
+            void f;
+          }, all[k + i]!);
         }
         row++;
       }

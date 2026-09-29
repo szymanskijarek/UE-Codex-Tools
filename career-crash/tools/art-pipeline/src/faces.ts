@@ -20,14 +20,137 @@ const OUT = join(ROOT, 'apps/client/src/replay/faces');
 const EMOTIONS = ['neutral', 'angry', 'surprised', 'hurt'] as const;
 /** Grid order on every sheet. */
 const CAREERS = [
-  'accountant', 'astronaut', 'barista', 'builder', 'chef', 'conspiracy-podcaster',
-  'delivery-driver', 'dentist', 'dj', 'electrician', 'engineer', 'farmer',
-  'firefighter', 'food-critic', 'gardener', 'hairdresser', 'influencer', 'janitor',
-  'journalist', 'lawyer', 'librarian', 'life-coach', 'lifeguard', 'mechanic',
-  'mime', 'paramedic', 'personal-trainer', 'plumber', 'police-officer', 'politician',
-  'programmer', 'psychologist', 'security-guard', 'taxi-driver', 'teacher', 'tv-host',
+  'accountant',
+  'astronaut',
+  'barista',
+  'builder',
+  'chef',
+  'conspiracy-podcaster',
+  'delivery-driver',
+  'dentist',
+  'dj',
+  'electrician',
+  'engineer',
+  'farmer',
+  'firefighter',
+  'food-critic',
+  'gardener',
+  'hairdresser',
+  'influencer',
+  'janitor',
+  'journalist',
+  'lawyer',
+  'librarian',
+  'life-coach',
+  'lifeguard',
+  'mechanic',
+  'mime',
+  'paramedic',
+  'personal-trainer',
+  'plumber',
+  'police-officer',
+  'politician',
+  'programmer',
+  'psychologist',
+  'security-guard',
+  'taxi-driver',
+  'teacher',
+  'tv-host',
 ];
 const GRID = 6;
+/** Second batch: labelled JPG sheets on a flat grey background, 6 × 5. */
+const CAREERS_B = [
+  'archaeologist',
+  'baker',
+  'beekeeper',
+  'bus-driver',
+  'carpenter',
+  'chimney-sweep',
+  'clown',
+  'dog-groomer',
+  'fashion-designer',
+  'flight-attendant',
+  'florist',
+  'fortune-teller',
+  'hotel-concierge',
+  'ice-cream-vendor',
+  'magician',
+  'marine-biologist',
+  'museum-curator',
+  'nurse',
+  'painter',
+  'photographer',
+  'postal-worker',
+  'sailor',
+  'scientist',
+  'tailor',
+  'tattoo-artist',
+  'train-conductor',
+  'veterinarian',
+  'welder',
+  'window-cleaner',
+  'zookeeper',
+];
+interface FaceSet {
+  dir: string;
+  ext: 'png' | 'jpg';
+  cols: number;
+  rows: number;
+  careers: string[];
+  /** Flat background to key out (JPG sheets), keeping only the biggest shape per cell (drops the labels). */
+  key: boolean;
+}
+const SETS: FaceSet[] = [
+  { dir: SHEETS, ext: 'png', cols: GRID, rows: GRID, careers: CAREERS, key: false },
+  { dir: join(ROOT, 'art/faces-b'), ext: 'jpg', cols: 6, rows: 5, careers: CAREERS_B, key: true },
+];
+
+/** Flood-fill the flat background out of every cell and keep each cell's biggest shape. */
+function keySheet(im: Img, H: number, cols: number, rows: number): void {
+  const W = im.W;
+  const cw = W / cols;
+  const ch = H / rows;
+  for (let r = 0; r < rows; r++)
+    for (let c = 0; c < cols; c++) {
+      const x0 = Math.round(c * cw);
+      const y0 = Math.round(r * ch);
+      const w = Math.round((c + 1) * cw) - x0;
+      const h = Math.round((r + 1) * ch) - y0;
+      const b0 = px(im, x0 + 1, y0 + 1);
+      const bg = [im.data[b0]!, im.data[b0 + 1]!, im.data[b0 + 2]!];
+      const isBg = (i: number) => Math.abs(im.data[i]! - bg[0]!) + Math.abs(im.data[i + 1]! - bg[1]!) + Math.abs(im.data[i + 2]! - bg[2]!) < 40;
+      const seen = new Uint8Array(w * h);
+      const st: number[] = [];
+      for (let x = 0; x < w; x++) st.push(x, (h - 1) * w + x);
+      for (let y = 0; y < h; y++) st.push(y * w, y * w + w - 1);
+      while (st.length) {
+        const p = st.pop()!;
+        if (seen[p]) continue;
+        const x = p % w;
+        const y = (p / w) | 0;
+        const i = px(im, x0 + x, y0 + y);
+        if (!isBg(i)) continue;
+        seen[p] = 1;
+        im.data[i + 3] = 0;
+        if (x > 0) st.push(p - 1);
+        if (x < w - 1) st.push(p + 1);
+        if (y > 0) st.push(p - w);
+        if (y < h - 1) st.push(p + w);
+      }
+      // Keep the biggest shape (the head); labels and specks go.
+      const mask = new Uint8Array(w * h);
+      for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) mask[y * w + x] = im.data[px(im, x0 + x, y0 + y) + 3]! > 0 ? 1 : 0;
+      const comps = components(mask, w, h).sort((a, b) => b.area - a.area);
+      const keep = comps[0];
+      if (!keep) continue;
+      for (let y = 0; y < h; y++)
+        for (let x = 0; x < w; x++) {
+          if (!mask[y * w + x]) continue;
+          if (x >= keep.x0 && x <= keep.x1 && y >= keep.y0 && y <= keep.y1) continue;
+          im.data[px(im, x0 + x, y0 + y) + 3] = 0;
+        }
+    }
+}
 /** Longest side of a face in the atlas (px). */
 const FACE_PX = 88;
 const ATLAS_W = 2048;
@@ -226,58 +349,78 @@ function talk(neutral: Img, surprised: Img, w: number, h: number): Img | null {
 
 async function main(): Promise<void> {
   const pieces: { name: string; png: Buffer; w: number; h: number }[] = [];
-  const sheets = new Map<string, Img>();
-  let cw = 0;
-  let ch = 0;
-  for (const emo of EMOTIONS) {
-    const { data, info } = await sharp(join(SHEETS, `${emo}.png`)).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
-    sheets.set(emo, { data, W: info.width });
-    cw = info.width / GRID;
-    ch = info.height / GRID;
-  }
   const add = async (name: string, im: Img, w: number, h: number) => {
     const k = FACE_PX / Math.max(w, h);
     const tw = Math.max(1, Math.round(w * k));
     const th = Math.max(1, Math.round(h * k));
-    const png = await sharp(im.data, { raw: { width: w, height: h, channels: 4 } }).resize(tw, th, { kernel: 'lanczos3' }).png().toBuffer();
+    const png = await sharp(im.data, { raw: { width: w, height: h, channels: 4 } })
+      .resize(tw, th, { kernel: 'lanczos3' })
+      .png()
+      .toBuffer();
     pieces.push({ name, png, w: tw, h: th });
   };
   let blinks = 0;
   let talks = 0;
-  for (let i = 0; i < CAREERS.length; i++) {
-    const cell: Box = { x0: Math.round((i % GRID) * cw), y0: Math.round(Math.floor(i / GRID) * ch), x1: Math.round(((i % GRID) + 1) * cw), y1: Math.round((Math.floor(i / GRID) + 1) * ch) };
-    const crops = new Map<string, { im: Img; w: number; h: number }>();
+  let total = 0;
+  for (const set of SETS) {
+    const sheets = new Map<string, Img>();
+    let cw = 0;
+    let ch = 0;
     for (const emo of EMOTIONS) {
-      const im = sheets.get(emo)!;
-      const b = bbox(im, cell);
-      if (!b) {
-        console.warn(`✗ ${emo}: empty cell for ${CAREERS[i]}`);
-        continue;
+      const { data, info } = await sharp(join(set.dir, `${emo}.${set.ext}`))
+        .ensureAlpha()
+        .raw()
+        .toBuffer({ resolveWithObject: true });
+      const im = { data, W: info.width };
+      if (set.key) keySheet(im, info.height, set.cols, set.rows);
+      sheets.set(emo, im);
+      cw = info.width / set.cols;
+      ch = info.height / set.rows;
+    }
+    total += set.careers.length;
+    for (let i = 0; i < set.careers.length; i++) {
+      const cell: Box = {
+        x0: Math.round((i % set.cols) * cw),
+        y0: Math.round(Math.floor(i / set.cols) * ch),
+        x1: Math.round(((i % set.cols) + 1) * cw),
+        y1: Math.round((Math.floor(i / set.cols) + 1) * ch),
+      };
+      const crops = new Map<string, { im: Img; w: number; h: number }>();
+      for (const emo of EMOTIONS) {
+        const im = sheets.get(emo)!;
+        const b = bbox(im, cell);
+        if (!b) {
+          console.warn(`✗ ${emo}: empty cell for ${set.careers[i]}`);
+          continue;
+        }
+        const c = crop(im, b);
+        crops.set(emo, { im: c, w: b.x1 - b.x0 + 1, h: b.y1 - b.y0 + 1 });
+        await add(`career.${set.careers[i]}:${emo}`, c, b.x1 - b.x0 + 1, b.y1 - b.y0 + 1);
       }
-      const c = crop(im, b);
-      crops.set(emo, { im: c, w: b.x1 - b.x0 + 1, h: b.y1 - b.y0 + 1 });
-      await add(`career.${CAREERS[i]}:${emo}`, c, b.x1 - b.x0 + 1, b.y1 - b.y0 + 1);
-    }
-    const n = crops.get('neutral');
-    const sp = crops.get('surprised');
-    if (!n) continue;
-    // Visors and other faceless heads can't blink.
-    const bl = CAREERS[i] === 'astronaut' ? null : blink(n.im, n.h);
-    if (bl) {
-      blinks++;
-      await add(`career.${CAREERS[i]}:blink`, bl, n.w, n.h);
-    }
-    // Talking: scale the surprised head onto the neutral head's box (they're drawn at slightly different sizes).
-    if (sp) {
-      const data = await sharp(sp.im.data, { raw: { width: sp.w, height: sp.h, channels: 4 } }).resize(n.w, n.h, { fit: 'fill', kernel: 'lanczos3' }).raw().toBuffer();
-      const tk = talk(n.im, { data, W: n.w }, n.w, n.h);
-      if (tk) {
-        talks++;
-        await add(`career.${CAREERS[i]}:talk`, tk, n.w, n.h);
+      const n = crops.get('neutral');
+      const sp = crops.get('surprised');
+      if (!n) continue;
+      // Visors and other faceless heads can't blink.
+      const bl = set.careers[i] === 'astronaut' ? null : blink(n.im, n.h);
+      if (bl) {
+        blinks++;
+        await add(`career.${set.careers[i]}:blink`, bl, n.w, n.h);
+      }
+      // Talking: scale the surprised head onto the neutral head's box (they're drawn at slightly different sizes).
+      if (sp) {
+        const data = await sharp(sp.im.data, { raw: { width: sp.w, height: sp.h, channels: 4 } })
+          .resize(n.w, n.h, { fit: 'fill', kernel: 'lanczos3' })
+          .raw()
+          .toBuffer();
+        const tk = talk(n.im, { data, W: n.w }, n.w, n.h);
+        if (tk) {
+          talks++;
+          await add(`career.${set.careers[i]}:talk`, tk, n.w, n.h);
+        }
       }
     }
   }
-  console.log(`✓ ${CAREERS.length} careers × ${EMOTIONS.length} emotions, ${blinks} blink frames, ${talks} talk frames`);
+  console.log(`✓ ${total} careers × ${EMOTIONS.length} emotions, ${blinks} blink frames, ${talks} talk frames`);
   let x = PAD;
   let y = PAD;
   let rowH = 0;

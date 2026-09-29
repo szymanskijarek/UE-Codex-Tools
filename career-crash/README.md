@@ -28,7 +28,7 @@ pnpm dev                        # worker on :8787, client on :5173 (proxied /api
   patrolling machines (floor scrubber, robot vacuum), duels spread across
   named arena stations, and sudden death. Every battle replays from a ~5 KB
   input record.
-- **Content** (`packages/content/data`): 36 careers (28 tier 1, 7 tier 2,
+- **Content** (`packages/content/data`): 66 careers (58 tier 1, 7 tier 2,
   1 tier 3), 134 abilities (incl. 10 grapples/throws), 95 career synergies (banter), 6 hidden masteries, 10 personalities, 12 traits,
   43 items, 42 props, 27 interaction rules, 6 arenas (Supermarket, Office,
   Train Station, Diner, Construction Site, Warehouse) on painted backdrops.
