@@ -6,6 +6,7 @@ import { bundle } from '@cc/content';
 import { extension, MOVES, repertoire } from '../replay/moves';
 import { hasPuppet, loadPuppets, NEUTRAL, Puppet, PUPPET_HEIGHT, type Pose } from '../replay/puppet';
 import { Portrait } from '../ui/components';
+import type { Emotion } from '../replay/face-art';
 import { voiceFor } from '../replay/voices';
 import { menuSfx } from './menuVoice';
 import type { Appearance } from '@cc/sim';
@@ -188,6 +189,7 @@ export function PuppetView({
   talk = true,
   lines = 'menu_hello',
   voiceId = '',
+  mood = 'neutral',
 }: {
   careerId: string;
   personality: string;
@@ -201,6 +203,8 @@ export function PuppetView({
   lines?: string;
   /** Character id, for their personal voice pitch. */
   voiceId?: string;
+  /** Resting face (painted face art). */
+  mood?: Emotion;
 }) {
   const [bubble, setBubble] = useState<{ text: string; key: number } | null>(null);
   const voice = voiceFor(careerId.replace('career.', ''), voiceId || careerId, personality);
@@ -266,6 +270,8 @@ export function PuppetView({
         if (hypeAt.current === 0) hypeAt.current = now;
         const since = hypeAt.current < 0 ? Infinity : (now - hypeAt.current) / 1600;
         const p = since < 1 ? hypePose(since, r, moves[Math.floor(seed) % moves.length]!) : idlePose(style, t, r, seed);
+        // Angry face on the signature move, their mood otherwise.
+        pu.setEmotion(since >= 0.4 && since < 0.8 ? 'angry' : mood);
         pu.poseBlended(p, w / 2 - f * r * 0.2, size - r * 0.25, f, dt);
       });
     })();
@@ -273,7 +279,7 @@ export function PuppetView({
       alive = false;
       if (ready) app.destroy(true, { children: true });
     };
-  }, [careerId, personality, size, flip, loaded]);
+  }, [careerId, personality, size, flip, loaded, mood]);
 
   if (!loaded) return <div class="puppet-view" style={{ width: `${Math.round(size * 0.8)}px`, height: `${size}px` }} />;
   const say = bubble && (
@@ -284,7 +290,7 @@ export function PuppetView({
   if (!art)
     return (
       <div class="puppet-wrap">
-        <Portrait c={{ careers: [careerId], appearance }} size={Math.round(size * 0.6)} />
+        <Portrait c={{ careers: [careerId], appearance }} size={Math.round(size * 0.6)} mood={mood} />
         {say}
       </div>
     );

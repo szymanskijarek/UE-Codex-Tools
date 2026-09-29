@@ -86,3 +86,13 @@ the fists. Overlapping bounding boxes are fine — the slicer drops pixels that
 belong to a neighbouring item. Check them in the pose lab (`#/lab`). Signs are
 mirrored back across their own axis when a fighter faces left, so text stays
 readable.
+
+## Faces (four emotions)
+
+`art/faces/{neutral,angry,surprised,hurt}.png`: 6 × 6 grids of heads on a
+transparent background, careers in alphabetical order (accountant … tv-host,
+36 careers). `pnpm --filter @cc/art-pipeline faces` slices them into
+`client/replay/faces/`. In battle the puppet's head is replaced by the face for
+its expression (happy/neutral → neutral, angry → angry, scared/stunned →
+surprised, hurt/KO → hurt); UI portraits use them too. Paint heads frontal,
+chin at the bottom of the cell, including hats/headgear, like the puppet head.

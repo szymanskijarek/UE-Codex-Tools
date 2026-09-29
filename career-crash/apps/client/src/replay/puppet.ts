@@ -1,4 +1,5 @@
 import { Container, Rectangle, Sprite, Texture } from 'pixi.js';
+import { FACE_ATLAS, faceRect, type Emotion } from './face-art';
 import { PUPPET_DEFS as DEFS, puppetUrl, type PuppetDef } from './puppet-art';
 import type { RagdollSpec } from './ragdoll';
 
@@ -14,6 +15,36 @@ import type { RagdollSpec } from './ragdoll';
  */
 const TEXTURES = new Map<string, Record<string, Texture>>();
 let loading: Promise<void> | null = null;
+/** Face atlas (four emotions per career) and cut-out textures. */
+let faceBase: Texture | null = null;
+const FACE_TEX = new Map<string, Texture>();
+
+/** Face texture for a career in an emotion (null until loaded, or if there's no art). */
+export function faceTexture(career: string, emotion: Emotion): Texture | null {
+  if (!faceBase) return null;
+  const key = `${career}:${emotion}`;
+  let t = FACE_TEX.get(key);
+  if (!t) {
+    const rc = faceRect(career, emotion);
+    if (!rc) return null;
+    t = new Texture({ source: faceBase.source, frame: new Rectangle(rc.x, rc.y, rc.w, rc.h) });
+    FACE_TEX.set(key, t);
+  }
+  return t;
+}
+
+async function loadFaces(): Promise<void> {
+  if (faceBase || !FACE_ATLAS.url) return;
+  const img = new Image();
+  img.src = FACE_ATLAS.url;
+  try {
+    await img.decode();
+    faceBase = Texture.from(img);
+    faceBase.source.scaleMode = 'linear';
+  } catch {
+    faceBase = null;
+  }
+}
 
 /** Load every puppet atlas once (data URIs in the standalone build). Safe to call repeatedly. */
 export function loadPuppets(): Promise<void> {
@@ -34,7 +65,9 @@ export function loadPuppets(): Promise<void> {
       for (const [name, p] of Object.entries(def.parts)) parts[name] = new Texture({ source: base.source, frame: new Rectangle(p.x, p.y, p.w, p.h) });
       TEXTURES.set(career, parts);
     }),
-  ).then(() => undefined);
+  )
+    .then(() => loadFaces())
+    .then(() => undefined);
   return loading;
 }
 
@@ -84,6 +117,10 @@ export class Puppet {
   private sprites = new Map<Slot, Sprite>();
   private def: PuppetDef;
   private d: { head: number; torso: number; pelvis: number; upper: number; fore: number; hand: number; thigh: number; shin: number; foot: number; shoulder: number; shoulderDrop: number; hip: number };
+  /** Painted face over the head (per emotion), when the career has face art. */
+  private face: Sprite | null = null;
+  private emotion: Emotion = 'neutral';
+  private career: string;
   /** Where the held item sits, updated every render (screen coords). */
   hand = { x: 0, y: 0, rot: 0 };
 
@@ -93,6 +130,7 @@ export class Puppet {
     readonly r: number,
   ) {
     this.def = DEFS[career]!;
+    this.career = career;
     const P = this.def.parts;
     const tex = TEXTURES.get(career)!;
     const avg = (a: string, b: string) => (len(P[a]) + len(P[b])) / 2;
@@ -121,7 +159,26 @@ export class Puppet {
       const s = new Sprite(t);
       this.sprites.set(slot, s);
       this.root.addChild(s);
+      if (slot === 'head') {
+        const ft = faceTexture(career, 'neutral');
+        if (ft) {
+          // The painted face replaces the sliced head, in the head's place in the draw order.
+          this.face = new Sprite(ft);
+          this.face.anchor.set(0.5, 0.93);
+          this.root.addChild(this.face);
+          s.visible = false;
+        }
+      }
     }
+  }
+
+  /** Switch the painted face (no-op without face art). */
+  setEmotion(e: Emotion): void {
+    if (!this.face || e === this.emotion) return;
+    const t = faceTexture(this.career, e);
+    if (!t) return;
+    this.emotion = e;
+    this.face.texture = t;
   }
 
   /** Rest lengths for the ragdoll, measured on the neutral pose. */
@@ -309,6 +366,14 @@ export class Puppet {
     hx /= hl;
     hy /= hl;
     this.place('head', X[1]!, Y[1]!, X[1]! + hx * d.head * 2, Y[1]! + hy * d.head * 2, f, false);
+    if (this.face) {
+      // Chin on the neck point, standing along the neck → crown axis, as tall as the sliced head.
+      const hp = this.def.parts.head!;
+      const k = (hp.h * this.k * HEAD_SCALE) / this.face.texture.height;
+      this.face.scale.set(k * f, k);
+      this.face.position.set(X[1]!, Y[1]!);
+      this.face.rotation = Math.atan2(hy, hx) + Math.PI / 2;
+    }
     for (const [side, up, fo, el, ha] of [
       [1, 'upperArmR', 'foreArmR', 5, 6],
       [-1, 'upperArmL', 'foreArmL', 3, 4],

@@ -252,7 +252,7 @@ function Results({ save: s0 }: { save: CareerSave }) {
   return (
     <section>
       <div class="row hero">
-        <PuppetView careerId={currentCareer(m)} personality={r.outcome === 'win' ? m.c.personality : 'personality.lazy'} appearance={m.c.appearance} size={170} hype={r.outcome === 'win' ? 1 : 0} voiceId={m.c.id} lines="bark_win" />
+        <PuppetView careerId={currentCareer(m)} personality={r.outcome === 'win' ? m.c.personality : 'personality.lazy'} appearance={m.c.appearance} size={170} hype={r.outcome === 'win' ? 1 : 0} voiceId={m.c.id} lines="bark_win" mood={r.outcome === 'loss' ? 'hurt' : 'neutral'} />
         <div class="grow">
           <h1>{title}</h1>
           <p class="lead">
@@ -341,7 +341,7 @@ function Board({ rows, title }: { rows: BoardRow[]; title: string }) {
         {rows.map((b) => (
           <tr class={b.state === 'ko' ? 'out' : ''}>
             <td class="left">
-              <Portrait c={{ careers: [b.career], appearance: b.appearance }} size={28} /> {b.name} {b.mvp && <span class="badge gold">MVP</span>}
+              <Portrait c={{ careers: [b.career], appearance: b.appearance }} size={28} mood={b.state === 'ko' ? 'hurt' : b.mvp ? 'neutral' : b.team === 0 ? 'neutral' : 'angry'} /> {b.name} {b.mvp && <span class="badge gold">MVP</span>}
               {b.state === 'ko' && <span class="muted small"> · KO'd</span>}
             </td>
             <td>{b.dealt}</td>

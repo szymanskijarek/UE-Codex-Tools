@@ -13,7 +13,8 @@ import { drawHeavy, heavyLength } from './heavy-art';
 import { heavySprite, heldIsTool, heldSprite, loadItems, propSprite, wallSprite } from './items';
 import { extension, hitPose, MOVES, repertoire, type HitStyle, type Move } from './moves';
 import { drawWall } from './wall-art';
-import { hasPuppet, loadPuppets, NEUTRAL, Puppet, type Pose } from './puppet';
+import { emotionFor } from './face-art';
+import { faceTexture, hasPuppet, loadPuppets, NEUTRAL, Puppet, type Pose } from './puppet';
 import { Ragdoll } from './ragdoll';
 import { voiceFor, type Shout, type Voice } from './voices';
 
@@ -110,6 +111,8 @@ interface CharSprite {
   heldTool: boolean;
   /** Wrapper that mirrors tool art back across its own axis when facing left (keeps sign text readable). */
   heldFlip: Container | null;
+  /** Paper dolls with painted face art: the face sprite over the drawn head. */
+  faceSprite: Sprite | null;
   wasWinding: boolean;
   repertoire: Move[] | null;
   lastMove: Move | null;
@@ -644,6 +647,16 @@ export class BattleRenderer {
       emote.position.set(-r * 1.4, -r * 4.2);
       root.addChild(emote);
     }
+    // No body art but a painted face: put the face on the paper doll's head.
+    const ft = !puppet && !isRef && career ? faceTexture(career.id, 'neutral') : null;
+    let faceSprite: Sprite | null = null;
+    if (ft) {
+      for (const c of head.children) c.visible = false;
+      faceSprite = new Sprite(ft);
+      faceSprite.anchor.set(0.5, 0.62);
+      faceSprite.scale.set((r * 2.6) / ft.height);
+      head.addChild(faceSprite);
+    }
     return {
       id: e.id,
       r,
@@ -700,6 +713,7 @@ export class BattleRenderer {
       repFor: '',
       heldTool: false,
       heldFlip: null,
+      faceSprite,
       wasWinding: false,
       repertoire: null,
       lastMove: null,
@@ -721,6 +735,13 @@ export class BattleRenderer {
   }
 
   private drawFace(s: CharSprite, expr: Expr): void {
+    // Painted faces (career art) follow the expression; drawn faces are the fallback.
+    s.puppet?.setEmotion(emotionFor(expr));
+    if (s.faceSprite) {
+      const t = faceTexture(`career.${s.career}`, emotionFor(expr));
+      if (t) s.faceSprite.texture = t;
+      return;
+    }
     const r = s.r;
     const g = s.face;
     g.clear();

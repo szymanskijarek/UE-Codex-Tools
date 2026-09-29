@@ -1,0 +1,42 @@
+import atlas from './faces/faces.json';
+
+/**
+ * Career faces in four emotions (tools/art-pipeline `faces` → faces/). No Pixi
+ * here, so the UI (portraits) can use it too; puppet.ts loads the texture.
+ */
+export type Emotion = 'neutral' | 'angry' | 'surprised' | 'hurt';
+
+export interface FaceRect {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+const FACES = (atlas as unknown as { w: number; h: number; faces: Record<string, FaceRect> }).faces;
+const URLS = import.meta.glob('./faces/faces.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+export const FACE_ATLAS = { url: URLS['./faces/faces.png'] ?? '', w: (atlas as { w: number }).w, h: (atlas as { h: number }).h };
+
+export function faceRect(careerId: string, emotion: Emotion = 'neutral'): FaceRect | null {
+  return FACES[`${careerId}:${emotion}`] ?? null;
+}
+
+export function hasFaces(careerId: string): boolean {
+  return !!FACES[`${careerId}:neutral`];
+}
+
+/** Battle expressions → the four painted emotions. */
+export function emotionFor(expr: string): Emotion {
+  switch (expr) {
+    case 'angry':
+      return 'angry';
+    case 'scared':
+    case 'stunned':
+      return 'surprised';
+    case 'hurt':
+    case 'ko':
+      return 'hurt';
+    default:
+      return 'neutral';
+  }
+}

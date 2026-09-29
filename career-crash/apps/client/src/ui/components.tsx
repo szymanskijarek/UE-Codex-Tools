@@ -4,6 +4,7 @@ import type { Character } from '@cc/game-rules';
 import type { Wallet } from '@cc/protocol';
 import { descOf, nameOf } from '../i18n';
 import { PUPPET_DEFS, puppetUrl } from '../replay/puppet-art';
+import { FACE_ATLAS, faceRect, type Emotion } from '../replay/face-art';
 
 export function Money({ wallet }: { wallet: Wallet }) {
   return (
@@ -43,8 +44,20 @@ export function textOn(bg: string): string {
   return lum > 150 ? '#1b1f2a' : '#ffffff';
 }
 
-export function Portrait({ c, size = 56 }: { c: Pick<Character, 'appearance' | 'careers'>; size?: number }) {
+export function Portrait({ c, size = 56, mood = 'neutral' }: { c: Pick<Character, 'appearance' | 'careers'>; size?: number; mood?: Emotion }) {
   const career = bundle.careers.find((x) => x.id === c.careers[c.careers.length - 1]);
+  const fr = career ? faceRect(career.id, mood) : null;
+  if (fr && FACE_ATLAS.url) {
+    // Painted face (four emotions per career), cropped out of the face atlas.
+    const S = Math.max(fr.w, fr.h) * 1.04;
+    return (
+      <svg class="portrait" width={size} height={size} viewBox={`0 0 ${S} ${S}`} aria-hidden="true">
+        <svg x={(S - fr.w) / 2} y={(S - fr.h) / 2} width={fr.w} height={fr.h} viewBox={`${fr.x} ${fr.y} ${fr.w} ${fr.h}`}>
+          <image href={FACE_ATLAS.url} width={FACE_ATLAS.w} height={FACE_ATLAS.h} />
+        </svg>
+      </svg>
+    );
+  }
   const body = career?.art.color ?? '#999999';
   const hat = career?.art.hat;
   const art = career ? PUPPET_DEFS[career.id] : undefined;

@@ -6,7 +6,8 @@
   "scripts": {
     "prompts": "tsx src/prompts.ts",
     "puppets": "tsx src/puppets.ts",
-    "items": "tsx src/items.ts"
+    "items": "tsx src/items.ts",
+    "faces": "tsx src/faces.ts"
   },
   "dependencies": {
     "@cc/content": "workspace:*",

@@ -49,7 +49,7 @@ export function Lab() {
       const cellW = 96;
       const cellH = r * PUPPET_HEIGHT + 40;
       const cols = ARMS.length * 2;
-      const rows = weapons.length + heavies.length + 3;
+      const rows = weapons.length + heavies.length + 3 + 4;
       await app.init({ width: cols * cellW + 150, height: rows * cellH, background: 0xf3efe6, antialias: true, preference: 'webgl' });
       if (!alive || !host.current) return;
       host.current.appendChild(app.canvas);
@@ -97,6 +97,19 @@ export function Lab() {
               else drawHeavy(g, h.id, len);
             });
           }, careers[row % careers.length]!);
+        }
+        row++;
+      }
+      // Painted faces: each emotion on a few careers (both facings).
+      const EMO = ['neutral', 'angry', 'surprised', 'hurt'] as const;
+      for (const group of [['career.builder', 'career.chef', 'career.teacher', 'career.mime'], ['career.astronaut', 'career.influencer', 'career.police-officer', 'career.politician'], ['career.farmer', 'career.dj', 'career.firefighter', 'career.librarian'], ['career.accountant', 'career.plumber', 'career.hairdresser', 'career.tv-host']]) {
+        label(group.map((g) => g.replace('career.', '')).join(', '), 4, row * cellH + 8);
+        for (let i = 0; i < cols; i++) {
+          cell(i, (pu, x, y, f) => {
+            pu.setEmotion(EMO[i % 4]!);
+            pu.pose({ ...NEUTRAL }, x, y, f);
+            pu.render(pu.xs, pu.ys, f);
+          }, group[i >> 1]!);
         }
         row++;
       }

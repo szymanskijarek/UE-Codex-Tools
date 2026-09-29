@@ -1,0 +1,870 @@
+{
+ "w": 2048,
+ "h": 914,
+ "faces": {
+  "career.accountant:neutral": {
+   "x": 2,
+   "y": 2,
+   "w": 109,
+   "h": 112
+  },
+  "career.astronaut:neutral": {
+   "x": 113,
+   "y": 2,
+   "w": 112,
+   "h": 95
+  },
+  "career.barista:neutral": {
+   "x": 227,
+   "y": 2,
+   "w": 92,
+   "h": 112
+  },
+  "career.builder:neutral": {
+   "x": 321,
+   "y": 2,
+   "w": 102,
+   "h": 112
+  },
+  "career.chef:neutral": {
+   "x": 425,
+   "y": 2,
+   "w": 102,
+   "h": 112
+  },
+  "career.conspiracy-podcaster:neutral": {
+   "x": 529,
+   "y": 2,
+   "w": 107,
+   "h": 112
+  },
+  "career.delivery-driver:neutral": {
+   "x": 638,
+   "y": 2,
+   "w": 103,
+   "h": 112
+  },
+  "career.dentist:neutral": {
+   "x": 743,
+   "y": 2,
+   "w": 103,
+   "h": 112
+  },
+  "career.dj:neutral": {
+   "x": 848,
+   "y": 2,
+   "w": 112,
+   "h": 98
+  },
+  "career.electrician:neutral": {
+   "x": 962,
+   "y": 2,
+   "w": 93,
+   "h": 112
+  },
+  "career.engineer:neutral": {
+   "x": 1057,
+   "y": 2,
+   "w": 98,
+   "h": 112
+  },
+  "career.farmer:neutral": {
+   "x": 1157,
+   "y": 2,
+   "w": 112,
+   "h": 85
+  },
+  "career.firefighter:neutral": {
+   "x": 1271,
+   "y": 2,
+   "w": 112,
+   "h": 99
+  },
+  "career.food-critic:neutral": {
+   "x": 1385,
+   "y": 2,
+   "w": 112,
+   "h": 108
+  },
+  "career.gardener:neutral": {
+   "x": 1499,
+   "y": 2,
+   "w": 91,
+   "h": 112
+  },
+  "career.hairdresser:neutral": {
+   "x": 1592,
+   "y": 2,
+   "w": 93,
+   "h": 112
+  },
+  "career.influencer:neutral": {
+   "x": 1687,
+   "y": 2,
+   "w": 112,
+   "h": 100
+  },
+  "career.janitor:neutral": {
+   "x": 1801,
+   "y": 2,
+   "w": 110,
+   "h": 112
+  },
+  "career.journalist:neutral": {
+   "x": 1913,
+   "y": 2,
+   "w": 97,
+   "h": 112
+  },
+  "career.lawyer:neutral": {
+   "x": 2,
+   "y": 116,
+   "w": 105,
+   "h": 112
+  },
+  "career.librarian:neutral": {
+   "x": 109,
+   "y": 116,
+   "w": 112,
+   "h": 102
+  },
+  "career.life-coach:neutral": {
+   "x": 223,
+   "y": 116,
+   "w": 93,
+   "h": 112
+  },
+  "career.lifeguard:neutral": {
+   "x": 318,
+   "y": 116,
+   "w": 104,
+   "h": 112
+  },
+  "career.mechanic:neutral": {
+   "x": 424,
+   "y": 116,
+   "w": 101,
+   "h": 112
+  },
+  "career.mime:neutral": {
+   "x": 527,
+   "y": 116,
+   "w": 112,
+   "h": 112
+  },
+  "career.paramedic:neutral": {
+   "x": 641,
+   "y": 116,
+   "w": 107,
+   "h": 112
+  },
+  "career.personal-trainer:neutral": {
+   "x": 750,
+   "y": 116,
+   "w": 92,
+   "h": 112
+  },
+  "career.plumber:neutral": {
+   "x": 844,
+   "y": 116,
+   "w": 104,
+   "h": 112
+  },
+  "career.police-officer:neutral": {
+   "x": 950,
+   "y": 116,
+   "w": 103,
+   "h": 112
+  },
+  "career.politician:neutral": {
+   "x": 1055,
+   "y": 116,
+   "w": 98,
+   "h": 112
+  },
+  "career.programmer:neutral": {
+   "x": 1155,
+   "y": 116,
+   "w": 98,
+   "h": 112
+  },
+  "career.psychologist:neutral": {
+   "x": 1255,
+   "y": 116,
+   "w": 99,
+   "h": 112
+  },
+  "career.security-guard:neutral": {
+   "x": 1356,
+   "y": 116,
+   "w": 104,
+   "h": 112
+  },
+  "career.taxi-driver:neutral": {
+   "x": 1462,
+   "y": 116,
+   "w": 97,
+   "h": 112
+  },
+  "career.teacher:neutral": {
+   "x": 1561,
+   "y": 116,
+   "w": 102,
+   "h": 112
+  },
+  "career.tv-host:neutral": {
+   "x": 1665,
+   "y": 116,
+   "w": 90,
+   "h": 112
+  },
+  "career.accountant:angry": {
+   "x": 1757,
+   "y": 116,
+   "w": 111,
+   "h": 112
+  },
+  "career.astronaut:angry": {
+   "x": 1870,
+   "y": 116,
+   "w": 112,
+   "h": 94
+  },
+  "career.barista:angry": {
+   "x": 2,
+   "y": 230,
+   "w": 93,
+   "h": 112
+  },
+  "career.builder:angry": {
+   "x": 97,
+   "y": 230,
+   "w": 103,
+   "h": 112
+  },
+  "career.chef:angry": {
+   "x": 202,
+   "y": 230,
+   "w": 102,
+   "h": 112
+  },
+  "career.conspiracy-podcaster:angry": {
+   "x": 306,
+   "y": 230,
+   "w": 109,
+   "h": 112
+  },
+  "career.delivery-driver:angry": {
+   "x": 417,
+   "y": 230,
+   "w": 103,
+   "h": 112
+  },
+  "career.dentist:angry": {
+   "x": 522,
+   "y": 230,
+   "w": 105,
+   "h": 112
+  },
+  "career.dj:angry": {
+   "x": 629,
+   "y": 230,
+   "w": 112,
+   "h": 99
+  },
+  "career.electrician:angry": {
+   "x": 743,
+   "y": 230,
+   "w": 94,
+   "h": 112
+  },
+  "career.engineer:angry": {
+   "x": 839,
+   "y": 230,
+   "w": 100,
+   "h": 112
+  },
+  "career.farmer:angry": {
+   "x": 941,
+   "y": 230,
+   "w": 112,
+   "h": 86
+  },
+  "career.firefighter:angry": {
+   "x": 1055,
+   "y": 230,
+   "w": 112,
+   "h": 99
+  },
+  "career.food-critic:angry": {
+   "x": 1169,
+   "y": 230,
+   "w": 112,
+   "h": 107
+  },
+  "career.gardener:angry": {
+   "x": 1283,
+   "y": 230,
+   "w": 94,
+   "h": 112
+  },
+  "career.hairdresser:angry": {
+   "x": 1379,
+   "y": 230,
+   "w": 94,
+   "h": 112
+  },
+  "career.influencer:angry": {
+   "x": 1475,
+   "y": 230,
+   "w": 112,
+   "h": 100
+  },
+  "career.janitor:angry": {
+   "x": 1589,
+   "y": 230,
+   "w": 110,
+   "h": 112
+  },
+  "career.journalist:angry": {
+   "x": 1701,
+   "y": 230,
+   "w": 99,
+   "h": 112
+  },
+  "career.lawyer:angry": {
+   "x": 1802,
+   "y": 230,
+   "w": 106,
+   "h": 112
+  },
+  "career.librarian:angry": {
+   "x": 1910,
+   "y": 230,
+   "w": 112,
+   "h": 102
+  },
+  "career.life-coach:angry": {
+   "x": 2,
+   "y": 344,
+   "w": 93,
+   "h": 112
+  },
+  "career.lifeguard:angry": {
+   "x": 97,
+   "y": 344,
+   "w": 106,
+   "h": 112
+  },
+  "career.mechanic:angry": {
+   "x": 205,
+   "y": 344,
+   "w": 104,
+   "h": 112
+  },
+  "career.mime:angry": {
+   "x": 311,
+   "y": 344,
+   "w": 112,
+   "h": 112
+  },
+  "career.paramedic:angry": {
+   "x": 425,
+   "y": 344,
+   "w": 108,
+   "h": 112
+  },
+  "career.personal-trainer:angry": {
+   "x": 535,
+   "y": 344,
+   "w": 93,
+   "h": 112
+  },
+  "career.plumber:angry": {
+   "x": 630,
+   "y": 344,
+   "w": 109,
+   "h": 112
+  },
+  "career.police-officer:angry": {
+   "x": 741,
+   "y": 344,
+   "w": 105,
+   "h": 112
+  },
+  "career.politician:angry": {
+   "x": 848,
+   "y": 344,
+   "w": 101,
+   "h": 112
+  },
+  "career.programmer:angry": {
+   "x": 951,
+   "y": 344,
+   "w": 99,
+   "h": 112
+  },
+  "career.psychologist:angry": {
+   "x": 1052,
+   "y": 344,
+   "w": 98,
+   "h": 112
+  },
+  "career.security-guard:angry": {
+   "x": 1152,
+   "y": 344,
+   "w": 106,
+   "h": 112
+  },
+  "career.taxi-driver:angry": {
+   "x": 1260,
+   "y": 344,
+   "w": 98,
+   "h": 112
+  },
+  "career.teacher:angry": {
+   "x": 1360,
+   "y": 344,
+   "w": 104,
+   "h": 112
+  },
+  "career.tv-host:angry": {
+   "x": 1466,
+   "y": 344,
+   "w": 91,
+   "h": 112
+  },
+  "career.accountant:surprised": {
+   "x": 1559,
+   "y": 344,
+   "w": 110,
+   "h": 112
+  },
+  "career.astronaut:surprised": {
+   "x": 1671,
+   "y": 344,
+   "w": 112,
+   "h": 94
+  },
+  "career.barista:surprised": {
+   "x": 1785,
+   "y": 344,
+   "w": 93,
+   "h": 112
+  },
+  "career.builder:surprised": {
+   "x": 1880,
+   "y": 344,
+   "w": 102,
+   "h": 112
+  },
+  "career.chef:surprised": {
+   "x": 2,
+   "y": 458,
+   "w": 102,
+   "h": 112
+  },
+  "career.conspiracy-podcaster:surprised": {
+   "x": 106,
+   "y": 458,
+   "w": 108,
+   "h": 112
+  },
+  "career.delivery-driver:surprised": {
+   "x": 216,
+   "y": 458,
+   "w": 105,
+   "h": 112
+  },
+  "career.dentist:surprised": {
+   "x": 323,
+   "y": 458,
+   "w": 105,
+   "h": 112
+  },
+  "career.dj:surprised": {
+   "x": 430,
+   "y": 458,
+   "w": 112,
+   "h": 102
+  },
+  "career.electrician:surprised": {
+   "x": 544,
+   "y": 458,
+   "w": 93,
+   "h": 112
+  },
+  "career.engineer:surprised": {
+   "x": 639,
+   "y": 458,
+   "w": 99,
+   "h": 112
+  },
+  "career.farmer:surprised": {
+   "x": 740,
+   "y": 458,
+   "w": 112,
+   "h": 90
+  },
+  "career.firefighter:surprised": {
+   "x": 854,
+   "y": 458,
+   "w": 112,
+   "h": 100
+  },
+  "career.food-critic:surprised": {
+   "x": 968,
+   "y": 458,
+   "w": 112,
+   "h": 108
+  },
+  "career.gardener:surprised": {
+   "x": 1082,
+   "y": 458,
+   "w": 92,
+   "h": 112
+  },
+  "career.hairdresser:surprised": {
+   "x": 1176,
+   "y": 458,
+   "w": 91,
+   "h": 112
+  },
+  "career.influencer:surprised": {
+   "x": 1269,
+   "y": 458,
+   "w": 112,
+   "h": 102
+  },
+  "career.janitor:surprised": {
+   "x": 1383,
+   "y": 458,
+   "w": 110,
+   "h": 112
+  },
+  "career.journalist:surprised": {
+   "x": 1495,
+   "y": 458,
+   "w": 100,
+   "h": 112
+  },
+  "career.lawyer:surprised": {
+   "x": 1597,
+   "y": 458,
+   "w": 106,
+   "h": 112
+  },
+  "career.librarian:surprised": {
+   "x": 1705,
+   "y": 458,
+   "w": 112,
+   "h": 102
+  },
+  "career.life-coach:surprised": {
+   "x": 1819,
+   "y": 458,
+   "w": 95,
+   "h": 112
+  },
+  "career.lifeguard:surprised": {
+   "x": 1916,
+   "y": 458,
+   "w": 107,
+   "h": 112
+  },
+  "career.mechanic:surprised": {
+   "x": 2,
+   "y": 572,
+   "w": 104,
+   "h": 112
+  },
+  "career.mime:surprised": {
+   "x": 108,
+   "y": 572,
+   "w": 112,
+   "h": 111
+  },
+  "career.paramedic:surprised": {
+   "x": 222,
+   "y": 572,
+   "w": 109,
+   "h": 112
+  },
+  "career.personal-trainer:surprised": {
+   "x": 333,
+   "y": 572,
+   "w": 94,
+   "h": 112
+  },
+  "career.plumber:surprised": {
+   "x": 429,
+   "y": 572,
+   "w": 105,
+   "h": 112
+  },
+  "career.police-officer:surprised": {
+   "x": 536,
+   "y": 572,
+   "w": 103,
+   "h": 112
+  },
+  "career.politician:surprised": {
+   "x": 641,
+   "y": 572,
+   "w": 98,
+   "h": 112
+  },
+  "career.programmer:surprised": {
+   "x": 741,
+   "y": 572,
+   "w": 99,
+   "h": 112
+  },
+  "career.psychologist:surprised": {
+   "x": 842,
+   "y": 572,
+   "w": 99,
+   "h": 112
+  },
+  "career.security-guard:surprised": {
+   "x": 943,
+   "y": 572,
+   "w": 105,
+   "h": 112
+  },
+  "career.taxi-driver:surprised": {
+   "x": 1050,
+   "y": 572,
+   "w": 98,
+   "h": 112
+  },
+  "career.teacher:surprised": {
+   "x": 1150,
+   "y": 572,
+   "w": 102,
+   "h": 112
+  },
+  "career.tv-host:surprised": {
+   "x": 1254,
+   "y": 572,
+   "w": 91,
+   "h": 112
+  },
+  "career.accountant:hurt": {
+   "x": 1347,
+   "y": 572,
+   "w": 111,
+   "h": 112
+  },
+  "career.astronaut:hurt": {
+   "x": 1460,
+   "y": 572,
+   "w": 112,
+   "h": 94
+  },
+  "career.barista:hurt": {
+   "x": 1574,
+   "y": 572,
+   "w": 95,
+   "h": 112
+  },
+  "career.builder:hurt": {
+   "x": 1671,
+   "y": 572,
+   "w": 103,
+   "h": 112
+  },
+  "career.chef:hurt": {
+   "x": 1776,
+   "y": 572,
+   "w": 101,
+   "h": 112
+  },
+  "career.conspiracy-podcaster:hurt": {
+   "x": 1879,
+   "y": 572,
+   "w": 109,
+   "h": 112
+  },
+  "career.delivery-driver:hurt": {
+   "x": 2,
+   "y": 686,
+   "w": 104,
+   "h": 112
+  },
+  "career.dentist:hurt": {
+   "x": 108,
+   "y": 686,
+   "w": 105,
+   "h": 112
+  },
+  "career.dj:hurt": {
+   "x": 215,
+   "y": 686,
+   "w": 112,
+   "h": 98
+  },
+  "career.electrician:hurt": {
+   "x": 329,
+   "y": 686,
+   "w": 92,
+   "h": 112
+  },
+  "career.engineer:hurt": {
+   "x": 423,
+   "y": 686,
+   "w": 97,
+   "h": 112
+  },
+  "career.farmer:hurt": {
+   "x": 522,
+   "y": 686,
+   "w": 112,
+   "h": 88
+  },
+  "career.firefighter:hurt": {
+   "x": 636,
+   "y": 686,
+   "w": 112,
+   "h": 99
+  },
+  "career.food-critic:hurt": {
+   "x": 750,
+   "y": 686,
+   "w": 112,
+   "h": 108
+  },
+  "career.gardener:hurt": {
+   "x": 864,
+   "y": 686,
+   "w": 92,
+   "h": 112
+  },
+  "career.hairdresser:hurt": {
+   "x": 958,
+   "y": 686,
+   "w": 93,
+   "h": 112
+  },
+  "career.influencer:hurt": {
+   "x": 1053,
+   "y": 686,
+   "w": 112,
+   "h": 99
+  },
+  "career.janitor:hurt": {
+   "x": 1167,
+   "y": 686,
+   "w": 112,
+   "h": 112
+  },
+  "career.journalist:hurt": {
+   "x": 1281,
+   "y": 686,
+   "w": 98,
+   "h": 112
+  },
+  "career.lawyer:hurt": {
+   "x": 1381,
+   "y": 686,
+   "w": 107,
+   "h": 112
+  },
+  "career.librarian:hurt": {
+   "x": 1490,
+   "y": 686,
+   "w": 112,
+   "h": 102
+  },
+  "career.life-coach:hurt": {
+   "x": 1604,
+   "y": 686,
+   "w": 94,
+   "h": 112
+  },
+  "career.lifeguard:hurt": {
+   "x": 1700,
+   "y": 686,
+   "w": 106,
+   "h": 112
+  },
+  "career.mechanic:hurt": {
+   "x": 1808,
+   "y": 686,
+   "w": 102,
+   "h": 112
+  },
+  "career.mime:hurt": {
+   "x": 1912,
+   "y": 686,
+   "w": 112,
+   "h": 112
+  },
+  "career.paramedic:hurt": {
+   "x": 2,
+   "y": 800,
+   "w": 108,
+   "h": 112
+  },
+  "career.personal-trainer:hurt": {
+   "x": 112,
+   "y": 800,
+   "w": 93,
+   "h": 112
+  },
+  "career.plumber:hurt": {
+   "x": 207,
+   "y": 800,
+   "w": 105,
+   "h": 112
+  },
+  "career.police-officer:hurt": {
+   "x": 314,
+   "y": 800,
+   "w": 103,
+   "h": 112
+  },
+  "career.politician:hurt": {
+   "x": 419,
+   "y": 800,
+   "w": 100,
+   "h": 112
+  },
+  "career.programmer:hurt": {
+   "x": 521,
+   "y": 800,
+   "w": 98,
+   "h": 112
+  },
+  "career.psychologist:hurt": {
+   "x": 621,
+   "y": 800,
+   "w": 98,
+   "h": 112
+  },
+  "career.security-guard:hurt": {
+   "x": 721,
+   "y": 800,
+   "w": 105,
+   "h": 112
+  },
+  "career.taxi-driver:hurt": {
+   "x": 828,
+   "y": 800,
+   "w": 97,
+   "h": 112
+  },
+  "career.teacher:hurt": {
+   "x": 927,
+   "y": 800,
+   "w": 103,
+   "h": 112
+  },
+  "career.tv-host:hurt": {
+   "x": 1032,
+   "y": 800,
+   "w": 95,
+   "h": 112
+  }
+ }
+}
