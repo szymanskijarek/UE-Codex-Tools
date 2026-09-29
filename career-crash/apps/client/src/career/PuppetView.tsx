@@ -33,113 +33,123 @@ export function idleStyle(careerId: string, personality: string): IdleStyle {
   return 'breathe';
 }
 
-function idlePose(style: IdleStyle, t: number, r: number, seed: number): Pose {
+export function idlePose(style: IdleStyle, t: number, r: number, seed: number): Pose {
+  // Puppets are drawn facing the viewer, so arm angles swing arms out to the sides:
+  // keep idles small and mirrored (back arm = −front arm), elbows bending inwards.
   const p: Pose = { ...NEUTRAL };
   const s = Math.sin(t * 2.2 + seed);
   p.bob = s * r * 0.04;
+  const mirror = () => {
+    p.armB = -p.armF;
+    p.elbowB = -p.elbowF;
+  };
   switch (style) {
     case 'bounce': {
-      // Boxer on their toes, guard up, the odd jab.
+      // Boxer on their toes: fists up by the chin, the odd jab.
       const b = Math.abs(Math.sin(t * 5 + seed));
-      p.bob = b * r * 0.18;
-      p.kneeF = p.kneeB = 0.25 - b * 0.2;
-      p.armF = -1.1;
-      p.elbowF = -1.9;
-      p.armB = -0.9;
-      p.elbowB = -2.0;
-      p.lean = 0.08;
+      p.bob = b * r * 0.14;
+      p.kneeF = p.kneeB = 0.15 + (1 - b) * 0.2;
+      // (Front view: a bent elbow brings the fist inwards, up to the chin.)
+      p.armF = -0.45;
+      p.elbowF = 2.5;
+      mirror();
       const jab = (t + seed) % 3.2;
-      if (jab < 0.25) {
-        p.armF = -1.55;
-        p.elbowF = -0.1;
-        p.lean = 0.18;
+      if (jab < 0.22) {
+        p.armF = -1.2;
+        p.elbowF = 0.25;
       }
       break;
     }
     case 'sway':
-      p.lean = Math.sin(t * 1.8 + seed) * 0.16;
-      p.offX = Math.sin(t * 1.8 + seed) * r * 0.25;
-      p.armF = -0.6 + Math.sin(t * 1.8) * 0.2;
-      p.elbowF = -1.2;
-      p.armB = 0.2;
-      p.headRot = -p.lean * 0.6;
+      // Easy weight shift from foot to foot.
+      p.offX = Math.sin(t * 1.8 + seed) * r * 0.18;
+      p.lean = Math.sin(t * 1.8 + seed) * 0.06;
+      p.armF = -0.14 + Math.sin(t * 1.8) * 0.06;
+      p.elbowF = -0.15;
+      mirror();
+      p.headRot = -p.lean * 0.8;
       break;
     case 'jog': {
+      // Jogging on the spot: knees up, fists pumping in front of the chest.
       const w = Math.sin(t * 9 + seed);
-      p.bob = Math.abs(w) * r * 0.14;
-      p.legF = w * 0.35;
-      p.legB = -w * 0.35;
-      p.kneeF = Math.max(0, -w) * 1.1;
-      p.kneeB = Math.max(0, w) * 1.1;
-      p.armF = -w * 0.6 - 0.2;
-      p.armB = w * 0.6 + 0.2;
-      p.elbowF = -1.2;
-      p.elbowB = 1.2;
+      p.bob = Math.abs(w) * r * 0.1;
+      p.legF = 0.06;
+      p.legB = -0.06;
+      p.kneeF = Math.max(0, w) * 1.1;
+      p.kneeB = Math.max(0, -w) * 1.1;
+      p.legF -= Math.max(0, w) * 0.35;
+      p.legB += Math.max(0, -w) * 0.35;
+      p.armF = -0.25 - Math.max(0, -w) * 0.2;
+      p.elbowF = 2.2;
+      p.armB = 0.25 + Math.max(0, w) * 0.2;
+      p.elbowB = -2.2;
       break;
     }
     case 'slump': {
-      p.lean = 0.12;
-      p.headRot = 0.25 + Math.sin(t * 0.7) * 0.05;
-      p.armF = 0.05;
-      p.armB = -0.05;
-      p.bob = Math.sin(t * 1.2) * r * 0.03 - r * 0.08;
-      p.kneeF = p.kneeB = 0.15;
-      // A big yawn every few seconds.
+      // Shoulders down, head drooping, a big yawn every few seconds.
+      p.bob = Math.sin(t * 1.2) * r * 0.02 - r * 0.04;
+      p.headRot = 0.22 + Math.sin(t * 0.7) * 0.04;
+      p.armF = 0.04;
+      p.elbowF = -0.05;
+      mirror();
+      p.kneeF = p.kneeB = 0.08;
       const y = (t + seed) % 6;
       if (y < 1.2) {
         const k = Math.sin((y / 1.2) * Math.PI);
-        p.armF = -2.6 * k;
-        p.armB = 2.6 * k;
-        p.headRot = -0.35 * k;
-        p.lean = -0.1 * k;
+        p.armF = -2.7 * k + 0.04 * (1 - k);
+        p.elbowF = -0.3 * k;
+        mirror();
+        p.headRot = -0.3 * k;
       }
       break;
     }
     case 'nervous':
-      p.offX = (Math.sin(t * 37) + Math.sin(t * 23)) * r * 0.02;
-      p.armF = -1.3;
-      p.elbowF = -2.2;
-      p.armB = -1.2;
-      p.elbowB = -2.2;
-      p.headRot = Math.sin(t * 0.9 + seed) > 0.6 ? 0.45 : Math.sin(t * 0.9 + seed) < -0.6 ? -0.45 : 0;
-      p.lean = -0.06;
+      // Hands wringing in front of the belly, glancing about, a slight tremble.
+      p.offX = (Math.sin(t * 37) + Math.sin(t * 23)) * r * 0.015;
+      p.armF = 0.3 + Math.sin(t * 9) * 0.05;
+      p.elbowF = 0.9;
+      p.armB = -0.3 + Math.sin(t * 9 + 1) * 0.05;
+      p.elbowB = -0.9;
+      p.headRot = Math.sin(t * 0.9 + seed) > 0.6 ? 0.35 : Math.sin(t * 0.9 + seed) < -0.6 ? -0.35 : 0;
       break;
     case 'proud': {
-      p.lean = -0.06;
-      p.armF = 0.5;
-      p.elbowF = -2.4;
-      p.armB = -0.5;
-      p.elbowB = 2.4;
+      // Hands on hips, chin up; now and then a double-biceps flex.
+      p.armF = -0.55;
+      p.elbowF = 1.35;
+      mirror();
+      p.headRot = -0.08;
       const f = (t + seed) % 5;
       if (f < 1) {
         const k = Math.sin(f * Math.PI);
-        p.armF = -1.6 * k + 0.5 * (1 - k);
-        p.elbowF = -2.6;
-        p.armB = 1.6 * k - 0.5 * (1 - k);
-        p.elbowB = 2.6;
-        p.bob = r * 0.1 * k;
+        p.armF = -0.55 * (1 - k) - 1.55 * k;
+        p.elbowF = 1.35 * (1 - k) - 1.7 * k;
+        mirror();
+        p.bob = r * 0.06 * k;
       }
       break;
     }
     case 'chaos': {
-      p.lean = Math.sin(t * 3.1 + seed) * 0.2;
-      p.armF = Math.sin(t * 4.3) * 1.8;
-      p.armB = Math.sin(t * 3.7 + 1) * 1.8;
-      p.legF = Math.sin(t * 2.9) * 0.25;
-      p.headRot = Math.sin(t * 5) * 0.3;
-      p.bob = Math.abs(Math.sin(t * 6)) * r * 0.1;
+      // Can't keep still: arms flapping, head bobbing to music only they can hear.
+      p.lean = Math.sin(t * 3.1 + seed) * 0.08;
+      p.armF = -0.5 + Math.sin(t * 4.3) * 0.5;
+      p.elbowF = -0.6 + Math.sin(t * 5.1) * 0.4;
+      p.armB = 0.5 + Math.sin(t * 3.7 + 1) * 0.5;
+      p.elbowB = 0.6 - Math.sin(t * 4.7) * 0.4;
+      p.headRot = Math.sin(t * 5) * 0.2;
+      p.bob = Math.abs(Math.sin(t * 6)) * r * 0.08;
       break;
     }
     default:
-      p.armF = -0.15 + s * 0.05;
-      p.armB = 0.15 - s * 0.05;
-      p.headRot = Math.sin(t * 0.6 + seed) * 0.2;
+      p.armF = -0.12 + s * 0.03;
+      p.elbowF = -0.1;
+      mirror();
+      p.headRot = Math.sin(t * 0.6 + seed) * 0.12;
   }
   return p;
 }
 
 /** Selection animation over 1.6 s: crouch, jump with arms up, signature move, triumphant pose. */
-function hypePose(u: number, r: number, move: keyof typeof MOVES): Pose {
+export function hypePose(u: number, r: number, move: keyof typeof MOVES): Pose {
   const p: Pose = { ...NEUTRAL };
   if (u < 0.15) {
     const k = u / 0.15;
@@ -206,6 +216,7 @@ export function PuppetView({
   /** Resting face (painted face art). */
   mood?: Emotion;
 }) {
+  const talkUntil = useRef(0);
   const [bubble, setBubble] = useState<{ text: string; key: number } | null>(null);
   const voice = voiceFor(careerId.replace('career.', ''), voiceId || careerId, personality);
   useEffect(() => {
@@ -215,6 +226,7 @@ export function PuppetView({
     const say = window.setTimeout(() => {
       const text = menuLine(careerId, lines);
       setBubble({ text, key: Date.now() });
+      talkUntil.current = performance.now() + 350 + text.length * 45;
       menuSfx.speak(text, voice, true);
     }, 900);
     const hide = window.setTimeout(() => setBubble(null), 3200);
@@ -272,6 +284,7 @@ export function PuppetView({
         const p = since < 1 ? hypePose(since, r, moves[Math.floor(seed) % moves.length]!) : idlePose(style, t, r, seed);
         // Angry face on the signature move, their mood otherwise.
         pu.setEmotion(since >= 0.4 && since < 0.8 ? 'angry' : mood);
+        pu.talkUntil = talkUntil.current;
         pu.poseBlended(p, w / 2 - f * r * 0.2, size - r * 0.25, f, dt);
       });
     })();
@@ -290,7 +303,10 @@ export function PuppetView({
   if (!art)
     return (
       <div class="puppet-wrap">
-        <Portrait c={{ careers: [careerId], appearance }} size={Math.round(size * 0.6)} mood={mood} />
+        {/* No body art: the painted face, in a box the size of a full-body preview so layouts line up. */}
+        <div class="puppet-view" style={{ width: `${Math.round(size * 0.8)}px`, height: `${size}px`, alignItems: 'center' }}>
+          <Portrait c={{ careers: [careerId], appearance }} size={Math.round(size * 0.6)} mood={mood} />
+        </div>
         {say}
       </div>
     );

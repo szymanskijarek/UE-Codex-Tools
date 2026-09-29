@@ -94,5 +94,8 @@ transparent background, careers in alphabetical order (accountant … tv-host,
 36 careers). `pnpm --filter @cc/art-pipeline faces` slices them into
 `client/replay/faces/`. In battle the puppet's head is replaced by the face for
 its expression (happy/neutral → neutral, angry → angry, scared/stunned →
-surprised, hurt/KO → hurt); UI portraits use them too. Paint heads frontal,
+surprised, hurt/KO → hurt); UI portraits use them too. The slicer also
+derives `blink` (eye whites painted over with lids) and `talk` (the surprised
+face's open mouth pasted into the neutral face) frames where it can find the
+eyes/mouth — faces hidden behind visors or sunglasses just don't blink. Paint heads frontal,
 chin at the bottom of the cell, including hats/headgear, like the puppet head.

@@ -2043,3 +2043,47 @@ body:has(.shell.li) {
   transform: none;
   opacity: 0.8;
 }
+
+/* Squad line-up: three columns that never overflow the card. */
+.squad-slots {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.squad-slot {
+  min-width: 0;
+}
+
+.squad-slot .puppet-wrap,
+.squad-slot .puppet-view {
+  max-width: 100%;
+}
+
+.puppet-view canvas {
+  max-width: 100%;
+  height: auto !important;
+}
+
+/* Staff rows: name block takes the space, actions sit on the right border (wrap under on phones). */
+.staff-row {
+  flex-wrap: wrap;
+}
+
+.staff-row .grow {
+  min-width: 150px;
+}
+
+.row-actions {
+  margin-left: auto;
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.row-actions button {
+  margin: 0;
+}
+
+.squad-slots {
+  margin-top: 34px;
+}

@@ -6,6 +6,7 @@ import { bundle } from '@cc/content';
 import { drawHeavy, heavyLength } from '../replay/heavy-art';
 import { heavySprite, heldIsTool, heldSprite, loadItems } from '../replay/items';
 import { loadPuppets, NEUTRAL, Puppet, PUPPET_HEIGHT, type Pose } from '../replay/puppet';
+import { hypePose, idlePose, type IdleStyle } from '../career/PuppetView';
 
 /**
  * Pose lab (#/lab, not linked): checks art against the puppet rig — every held
@@ -49,7 +50,7 @@ export function Lab() {
       const cellW = 96;
       const cellH = r * PUPPET_HEIGHT + 40;
       const cols = ARMS.length * 2;
-      const rows = weapons.length + heavies.length + 3 + 4;
+      const rows = weapons.length + heavies.length + 3 + 4 + 9;
       await app.init({ width: cols * cellW + 150, height: rows * cellH, background: 0xf3efe6, antialias: true, preference: 'webgl' });
       if (!alive || !host.current) return;
       host.current.appendChild(app.canvas);
@@ -100,6 +101,26 @@ export function Lab() {
         }
         row++;
       }
+      // Menu idles (one row per style, frames through the loop) and the selection animation.
+      const STYLES: IdleStyle[] = ['bounce', 'sway', 'jog', 'slump', 'nervous', 'proud', 'chaos', 'breathe'];
+      for (const st of STYLES) {
+        label(`idle: ${st}`, 4, row * cellH + cellH / 2);
+        for (let i = 0; i < cols; i++) {
+          cell(i, (pu, x, y, f) => {
+            pu.pose(idlePose(st, i * 0.37, r, 1.3), x, y, f);
+            pu.render(pu.xs, pu.ys, f);
+          }, careers[i % careers.length]!);
+        }
+        row++;
+      }
+      label('selection', 4, row * cellH + cellH / 2);
+      for (let i = 0; i < cols; i++) {
+        cell(i, (pu, x, y, f) => {
+          pu.pose(hypePose(i / (cols - 1), r, 'hook'), x, y, f);
+          pu.render(pu.xs, pu.ys, f);
+        }, careers[i % careers.length]!);
+      }
+      row++;
       // Painted faces: each emotion on a few careers (both facings).
       const EMO = ['neutral', 'angry', 'surprised', 'hurt'] as const;
       for (const group of [['career.builder', 'career.chef', 'career.teacher', 'career.mime'], ['career.astronaut', 'career.influencer', 'career.police-officer', 'career.politician'], ['career.farmer', 'career.dj', 'career.firefighter', 'career.librarian'], ['career.accountant', 'career.plumber', 'career.hairdresser', 'career.tv-host']]) {

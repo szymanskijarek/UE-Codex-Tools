@@ -5,6 +5,8 @@ import atlas from './faces/faces.json';
  * here, so the UI (portraits) can use it too; puppet.ts loads the texture.
  */
 export type Emotion = 'neutral' | 'angry' | 'surprised' | 'hurt';
+/** Animation frames derived from the neutral face (not every career has both). */
+export type FaceFrame = Emotion | 'blink' | 'talk';
 
 export interface FaceRect {
   x: number;
@@ -17,7 +19,7 @@ const FACES = (atlas as unknown as { w: number; h: number; faces: Record<string,
 const URLS = import.meta.glob('./faces/faces.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 export const FACE_ATLAS = { url: URLS['./faces/faces.png'] ?? '', w: (atlas as { w: number }).w, h: (atlas as { h: number }).h };
 
-export function faceRect(careerId: string, emotion: Emotion = 'neutral'): FaceRect | null {
+export function faceRect(careerId: string, emotion: FaceFrame = 'neutral'): FaceRect | null {
   return FACES[`${careerId}:${emotion}`] ?? null;
 }
 

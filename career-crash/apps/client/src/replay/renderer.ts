@@ -876,6 +876,8 @@ export class BattleRenderer {
     this.uiLayer.addChild(c);
     s.bubble = c;
     s.bubbleUntil = this.now + ms;
+    // Mouth moves while they talk (roughly as long as the babble).
+    if (s.puppet) s.puppet.talkUntil = performance.now() + Math.min(ms, 350 + text.length * 45);
     s.lastBubbleAt = this.now;
     this.sfx.speak(text, s.voice, ms > 2000);
   }

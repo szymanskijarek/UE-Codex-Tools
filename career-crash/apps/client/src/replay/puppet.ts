@@ -1,5 +1,5 @@
 import { Container, Rectangle, Sprite, Texture } from 'pixi.js';
-import { FACE_ATLAS, faceRect, type Emotion } from './face-art';
+import { FACE_ATLAS, faceRect, type Emotion, type FaceFrame } from './face-art';
 import { PUPPET_DEFS as DEFS, puppetUrl, type PuppetDef } from './puppet-art';
 import type { RagdollSpec } from './ragdoll';
 
@@ -20,7 +20,7 @@ let faceBase: Texture | null = null;
 const FACE_TEX = new Map<string, Texture>();
 
 /** Face texture for a career in an emotion (null until loaded, or if there's no art). */
-export function faceTexture(career: string, emotion: Emotion): Texture | null {
+export function faceTexture(career: string, emotion: FaceFrame): Texture | null {
   if (!faceBase) return null;
   const key = `${career}:${emotion}`;
   let t = FACE_TEX.get(key);
@@ -120,6 +120,12 @@ export class Puppet {
   /** Painted face over the head (per emotion), when the career has face art. */
   private face: Sprite | null = null;
   private emotion: Emotion = 'neutral';
+  private frame: FaceFrame = 'neutral';
+  /** Blink/talk animation state (ms clock from animateFace). */
+  private nextBlink = 1500 + Math.random() * 3000;
+  private blinkUntil = 0;
+  /** Talking until this time (ms); the mouth flaps while it's in the future. */
+  talkUntil = 0;
   private career: string;
   /** Where the held item sits, updated every render (screen coords). */
   hand = { x: 0, y: 0, rot: 0 };
@@ -174,10 +180,30 @@ export class Puppet {
 
   /** Switch the painted face (no-op without face art). */
   setEmotion(e: Emotion): void {
-    if (!this.face || e === this.emotion) return;
-    const t = faceTexture(this.career, e);
-    if (!t) return;
+    if (!this.face || e === this.emotion || !faceTexture(this.career, e)) return;
     this.emotion = e;
+  }
+
+  /**
+   * Blinks and talking, on top of the emotion (call every frame with a ms clock).
+   * Only the neutral face has blink/talk frames; the others hold still.
+   */
+  animateFace(now: number): void {
+    if (!this.face) return;
+    let f: FaceFrame = this.emotion;
+    if (this.emotion === 'neutral') {
+      if (now >= this.nextBlink) {
+        this.blinkUntil = now + 110;
+        // Now and then a quick double blink.
+        this.nextBlink = now + (Math.random() < 0.15 ? 220 : 2200 + Math.random() * 3500);
+      }
+      if (now < this.blinkUntil && faceTexture(this.career, 'blink')) f = 'blink';
+      else if (now < this.talkUntil && faceTexture(this.career, 'talk') && Math.floor(now / 95) % 3 !== 2) f = 'talk';
+    }
+    if (f === this.frame) return;
+    const t = faceTexture(this.career, f);
+    if (!t) return;
+    this.frame = f;
     this.face.texture = t;
   }
 
@@ -367,6 +393,7 @@ export class Puppet {
     hy /= hl;
     this.place('head', X[1]!, Y[1]!, X[1]! + hx * d.head * 2, Y[1]! + hy * d.head * 2, f, false);
     if (this.face) {
+      this.animateFace(performance.now());
       // Chin on the neck point, standing along the neck → crown axis, as tall as the sliced head.
       const hp = this.def.parts.head!;
       const k = (hp.h * this.k * HEAD_SCALE) / this.face.texture.height;

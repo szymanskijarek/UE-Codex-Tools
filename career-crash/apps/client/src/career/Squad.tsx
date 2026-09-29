@@ -51,7 +51,17 @@ export function SquadScreen({ save: s }: { save: CareerSave }) {
         <div class="squad-slots">
           {team.map((cc, i) => (
             <div class={`squad-slot ${cc.temp ? 'temp' : ''}`}>
-              <PuppetView careerId={cc.c.careers[cc.c.careers.length - 1]!} personality={cc.c.personality} appearance={cc.c.appearance} size={130} hype={cc.temp ? 0 : hype} flip={i > 0} voiceId={cc.c.id} talk={hype > 1 ? i === team.map((x) => !x.temp).lastIndexOf(true) : i === 0} lines={hype > 1 ? 'menu_hire' : 'menu_hello'} />
+              <PuppetView
+                careerId={cc.c.careers[cc.c.careers.length - 1]!}
+                personality={cc.c.personality}
+                appearance={cc.c.appearance}
+                size={130}
+                hype={cc.temp ? 0 : hype}
+                flip={i > 0}
+                voiceId={cc.c.id}
+                talk={hype > 1 ? i === team.map((x) => !x.temp).lastIndexOf(true) : i === 0}
+                lines={hype > 1 ? 'menu_hire' : 'menu_hello'}
+              />
               <b>{cc.c.name}</b>
               {!cc.temp && <Loadout ids={cc.loadout} />}
               <span class="muted small">{i === 0 ? 'You' : cc.temp ? 'Agency temp' : `Lv ${cc.c.level} ${nameOf(currentCareer(cc))}`}</span>
@@ -75,27 +85,29 @@ export function SquadScreen({ save: s }: { save: CareerSave }) {
                   Lv {cc.c.level} · {nameOf(cc.c.personality)} · {RANKS[careerRank(cc, cid) - 1]} {nameOf(cid)}
                 </div>
               </div>
-              <button class={`ghost small ${skillAlert(cc) ? 'alert' : ''}`} onClick={() => navigate(`/career/skills/${cc.c.id}`)}>
-                🌳 Skills
-              </button>
-              <button
-                class="ghost small"
-                onClick={() => {
-                  const err = toggleSquad(s, cc.c.id);
-                  if (err) notify(err, 'error');
-                }}
-              >
-                {inSquad ? 'Bench' : 'Add to squad'}
-              </button>
-              <button
-                class="ghost small"
-                title="Let them go"
-                onClick={() => {
-                  if (window.confirm(`Let ${cc.c.name} go?`)) dismiss(s, cc.c.id);
-                }}
-              >
-                ✖
-              </button>
+              <div class="row-actions">
+                <button class={`ghost small ${skillAlert(cc) ? 'alert' : ''}`} onClick={() => navigate(`/career/skills/${cc.c.id}`)}>
+                  🌳 Skills
+                </button>
+                <button
+                  class="ghost small"
+                  onClick={() => {
+                    const err = toggleSquad(s, cc.c.id);
+                    if (err) notify(err, 'error');
+                  }}
+                >
+                  {inSquad ? 'Bench' : 'Add to squad'}
+                </button>
+                <button
+                  class="ghost small"
+                  title="Let them go"
+                  onClick={() => {
+                    if (window.confirm(`Let ${cc.c.name} go?`)) dismiss(s, cc.c.id);
+                  }}
+                >
+                  ✖
+                </button>
+              </div>
             </div>
           );
         })}
