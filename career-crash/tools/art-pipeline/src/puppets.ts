@@ -25,7 +25,9 @@ const FIGURE_PX = 300;
 const MIN_AREA = 1200;
 const PAD = 2;
 
-export const PARTS = ['head', 'torso', 'pelvis', 'upperArmL', 'upperArmR', 'foreArmL', 'foreArmR', 'thighL', 'thighR', 'shinL', 'shinR', 'footL', 'footR'] as const;
+export const PARTS = ['head', 'torso', 'pelvis', 'upperArmL', 'upperArmR', 'foreArmL', 'foreArmR', 'thighL', 'thighR', 'shinL', 'shinR', 'footL', 'footR', 'handL', 'handR'] as const;
+/** Hands are optional: most sheets draw them on the forearm. */
+const OPTIONAL: Part[] = ['handL', 'handR'];
 type Part = (typeof PARTS)[number];
 
 interface Comp {
@@ -46,6 +48,8 @@ interface SheetOverride {
   parts?: Partial<Record<Part, number>>;
   /** Lower legs include the shoes (no separate foot parts). */
   noFeet?: boolean;
+  /** Parts drawn upside down relative to the body (e.g. hands with the wrist at the bottom). */
+  flip?: Part[];
 }
 
 interface PartOut {
@@ -258,7 +262,7 @@ async function sliceSheet(name: string, override: SheetOverride): Promise<[strin
     delete parts.footL;
     delete parts.footR;
   }
-  const wanted = PARTS.filter((p) => !(noFeet && p.startsWith('foot')));
+  const wanted = PARTS.filter((p) => !(noFeet && p.startsWith('foot')) && (!OPTIONAL.includes(p) || parts[p]));
   const missing = wanted.filter((p) => !parts[p]);
   if (missing.length) {
     console.warn(`✗ ${name}: missing ${missing.join(', ')} — see out/puppets/${name}.png and add overrides to art/sheets/manifest.json`);
@@ -278,7 +282,8 @@ async function sliceSheet(name: string, override: SheetOverride): Promise<[strin
       .resize(tw, th, { kernel: 'lanczos3' })
       .png()
       .toBuffer();
-    const an = anchors(part, data, labels, W, c);
+    const raw = anchors(part, data, labels, W, c);
+    const an = override.flip?.includes(part) ? { a: raw.b, b: raw.a } : raw;
     const sc = (p: [number, number]): [number, number] => [Math.round(p[0] * scale * 10) / 10, Math.round(p[1] * scale * 10) / 10];
     pieces.push({ part, png, w: tw, h: th, a: sc(an.a), b: sc(an.b) });
   }

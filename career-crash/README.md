@@ -39,7 +39,7 @@ pnpm dev                        # worker on :8787, client on :5173 (proxied /api
   opponent matching with bot fill, server-run battles, defence rewards,
   reports, leaderboard, idempotent writes, append-only currency ledger.
 - **Client** (`apps/client`): Preact UI + PixiJS replay viewer with animated
-  sprite-puppet characters built from sliced career art (16 careers so far;
+  sprite-puppet characters built from sliced career art (32 of 36 careers;
   the rest use paper dolls) with floppy ragdolls (expressions, speech bubbles, reactions), drawn props,
   ability effects, a director camera, slow-motion action replays, synthesised
   sound, battle reports with jump-to-moment, and the Sandbox. A standalone

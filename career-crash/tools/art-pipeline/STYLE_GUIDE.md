@@ -44,7 +44,8 @@ Area props (spills, fire, sparks) are top-down tiling blobs with 40 % opacity.
 Career art ships as **character sheets**: `art/sheets/<career-slug>.png`, transparent
 background, the posed character on the left and the same character cut into
 separated parts on the right — head, torso, pelvis, 2 upper arms, 2 forearms
-(with hands), 2 thighs, 2 shins, 2 feet (feet optional: shins may include shoes).
+(with hands), 2 thighs, 2 shins, 2 feet (feet optional: shins may include shoes;
+separate hands are optional too — the chef and teacher have them).
 Leave a clear gap between parts; extra items (props, back views) are ignored.
 
 ```bash
@@ -56,7 +57,8 @@ The slicer finds each part, measures its joint anchors, downsizes it (figure
 ≈ 300 px) and packs `apps/client/src/replay/puppets/<career>.png` plus
 `puppets.json`. Labelled previews land in `tools/art-pipeline/out/puppets/`;
 when a sheet uses an unusual layout, map part names to the numbers shown there
-in `art/sheets/manifest.json` (see barista, hairdresser, plumber, mime).
+in `art/sheets/manifest.json` (see barista, hairdresser, plumber, mime, chef, teacher); `flip` lists parts
+drawn upside down (the teacher's wrist-down hands).
 
 In game the parts hang on the same 11-point skeleton as the ragdoll: a
 procedural pose while standing (walk, wind-up, strike, throw, carry, panic)

@@ -62,9 +62,9 @@ export const NEUTRAL: Pose = { bob: 0, lean: 0, offX: 0, armF: -0.12, armB: 0.12
 const len = (p: { a: [number, number]; b: [number, number] } | undefined): number => (p ? Math.hypot(p.b[0] - p.a[0], p.b[1] - p.a[1]) : 0);
 const clamp = (v: number, lo: number, hi: number): number => Math.max(lo, Math.min(hi, v));
 
-type Slot = 'head' | 'torso' | 'pelvis' | 'upperArmL' | 'upperArmR' | 'foreArmL' | 'foreArmR' | 'thighL' | 'thighR' | 'shinL' | 'shinR' | 'footL' | 'footR';
+type Slot = 'head' | 'torso' | 'pelvis' | 'upperArmL' | 'upperArmR' | 'foreArmL' | 'foreArmR' | 'handL' | 'handR' | 'thighL' | 'thighR' | 'shinL' | 'shinR' | 'footL' | 'footR';
 /** Back-to-front. Front limbs use the art's right-hand pieces so an unmirrored puppet reads naturally. */
-const ORDER: Slot[] = ['upperArmL', 'foreArmL', 'thighL', 'shinL', 'footL', 'thighR', 'shinR', 'footR', 'pelvis', 'torso', 'head', 'upperArmR', 'foreArmR'];
+const ORDER: Slot[] = ['upperArmL', 'foreArmL', 'handL', 'thighL', 'shinL', 'footL', 'thighR', 'shinR', 'footR', 'pelvis', 'torso', 'head', 'upperArmR', 'foreArmR', 'handR'];
 
 /** Heads drawn a little oversized: reads better at arena scale (and it's funnier). */
 const HEAD_SCALE = 1.3;
@@ -79,7 +79,7 @@ export class Puppet {
   readonly k: number;
   private sprites = new Map<Slot, Sprite>();
   private def: PuppetDef;
-  private d: { head: number; torso: number; pelvis: number; upper: number; fore: number; thigh: number; shin: number; foot: number; shoulder: number; shoulderDrop: number; hip: number };
+  private d: { head: number; torso: number; pelvis: number; upper: number; fore: number; hand: number; thigh: number; shin: number; foot: number; shoulder: number; shoulderDrop: number; hip: number };
   /** Where the held item sits, updated every render (screen coords). */
   hand = { x: 0, y: 0, rot: 0 };
 
@@ -97,7 +97,9 @@ export class Puppet {
       torso: len(P.torso),
       pelvis: len(P.pelvis),
       upper: avg('upperArmL', 'upperArmR'),
-      fore: avg('foreArmL', 'foreArmR'),
+      // Forearm bone runs elbow → fingertips; separate hand art (if any) sits on its end.
+      fore: avg('foreArmL', 'foreArmR') + (P.handL ? avg('handL', 'handR') : 0),
+      hand: P.handL ? avg('handL', 'handR') : 0,
       thigh: avg('thighL', 'thighR'),
       shin: avg('shinL', 'shinR'),
       foot: P.footL ? avg('footL', 'footR') : 0,
@@ -108,7 +110,7 @@ export class Puppet {
     const figure = len(P.head) * HEAD_SCALE + d.torso + d.pelvis + d.thigh + d.shin + d.foot;
     this.k = (r * PUPPET_HEIGHT) / figure;
     const k = this.k;
-    this.d = { head: d.head * k * HEAD_SCALE, torso: d.torso * k, pelvis: d.pelvis * k, upper: d.upper * k, fore: d.fore * k, thigh: d.thigh * k, shin: d.shin * k, foot: d.foot * k, shoulder: d.shoulder * k, shoulderDrop: d.shoulderDrop * k, hip: d.hip * k };
+    this.d = { head: d.head * k * HEAD_SCALE, torso: d.torso * k, pelvis: d.pelvis * k, upper: d.upper * k, fore: d.fore * k, hand: d.hand * k, thigh: d.thigh * k, shin: d.shin * k, foot: d.foot * k, shoulder: d.shoulder * k, shoulderDrop: d.shoulderDrop * k, hip: d.hip * k };
     for (const slot of ORDER) {
       const t = tex[slot];
       if (!t) continue;
@@ -227,7 +229,14 @@ export class Puppet {
       const sx = X[1]! + px * d.shoulder * side + dx * d.shoulderDrop;
       const sy = Y[1]! + py * d.shoulder * side + dy * d.shoulderDrop;
       this.place(up, sx, sy, X[el]!, Y[el]!, f, true);
-      this.place(fo, X[el]!, Y[el]!, X[ha]!, Y[ha]!, f, true);
+      if (d.hand > 0) {
+        // Split the forearm bone at the wrist and hang the hand off it.
+        const w = 1 - d.hand / d.fore;
+        const wx = X[el]! + (X[ha]! - X[el]!) * w;
+        const wy = Y[el]! + (Y[ha]! - Y[el]!) * w;
+        this.place(fo, X[el]!, Y[el]!, wx, wy, f, true);
+        this.place(side > 0 ? 'handR' : 'handL', wx, wy, X[ha]!, Y[ha]!, f, true);
+      } else this.place(fo, X[el]!, Y[el]!, X[ha]!, Y[ha]!, f, true);
     }
     for (const [side, th, sh, ft, kn, an] of [
       [1, 'thighR', 'shinR', 'footR', 9, 10],
