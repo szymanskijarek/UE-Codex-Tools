@@ -105,5 +105,17 @@
    "footL": 17,
    "footR": 18
   }
+ },
+ "baker": {
+  "splitPelvis": [
+   3,
+   0.64
+  ]
+ },
+ "painter": {
+  "splitPelvis": [
+   3,
+   0.66
+  ]
  }
 }

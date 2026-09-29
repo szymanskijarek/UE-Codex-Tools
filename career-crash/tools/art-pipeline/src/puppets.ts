@@ -21,7 +21,7 @@ const SHEETS = join(ROOT, 'art/sheets');
 const OUT = join(ROOT, 'apps/client/src/replay/puppets');
 const PREVIEW = join(ROOT, 'tools/art-pipeline/out/puppets');
 /** Height of the whole figure in the atlas (px). Big enough for the zoom lens on retina. */
-const FIGURE_PX = 300;
+const FIGURE_PX = 230;
 const MIN_AREA = 1200;
 const PAD = 2;
 
@@ -50,6 +50,8 @@ interface SheetOverride {
   noFeet?: boolean;
   /** Parts drawn upside down relative to the body (e.g. hands with the wrist at the bottom). */
   flip?: Part[];
+  /** Sheet has no separate pelvis: cut component [n] at this fraction of its height; the lower piece becomes the pelvis. */
+  splitPelvis?: [number, number];
 }
 
 interface PartOut {
@@ -253,6 +255,29 @@ async function sliceSheet(name: string, override: SheetOverride): Promise<[strin
   const { data, W, H } = await load(file);
   const { labels, comps: raw } = components(data, W, H);
   const comps = mergeSmall(raw, labels);
+  if (override.splitPelvis) {
+    const [n, at] = override.splitPelvis;
+    const c = comps.find((k) => k.n === n)!;
+    const cut = c.y0 + Math.round((c.y1 - c.y0) * at);
+    const lower: Comp = { n: 100, label: Math.max(...comps.map((k) => k.label)) + 1, x0: W, y0: cut, x1: 0, y1: c.y1, area: 0, cx: 0, cy: 0 };
+    for (let y = cut; y <= c.y1; y++) {
+      for (let x = c.x0; x <= c.x1; x++) {
+        if (labels[y * W + x] !== c.label) continue;
+        labels[y * W + x] = lower.label;
+        lower.x0 = Math.min(lower.x0, x);
+        lower.x1 = Math.max(lower.x1, x);
+        lower.area++;
+        lower.cx += x;
+        lower.cy += y;
+      }
+    }
+    lower.cx /= lower.area;
+    lower.cy /= lower.area;
+    c.y1 = cut - 1;
+    c.cy = (c.y0 + c.y1) / 2;
+    c.area -= lower.area;
+    comps.push(lower);
+  }
   const auto = classify(comps);
   const parts: Partial<Record<Part, Comp>> = { ...auto };
   for (const [k, n] of Object.entries(override.parts ?? {})) parts[k as Part] = comps.find((c) => c.n === n);

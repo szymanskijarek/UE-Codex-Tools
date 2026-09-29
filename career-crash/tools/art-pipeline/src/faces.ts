@@ -152,7 +152,7 @@ function keySheet(im: Img, H: number, cols: number, rows: number): void {
     }
 }
 /** Longest side of a face in the atlas (px). */
-const FACE_PX = 88;
+const FACE_PX = 64;
 const ATLAS_W = 2048;
 const PAD = 2;
 

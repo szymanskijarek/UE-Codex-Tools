@@ -25,7 +25,7 @@ const KIND = process.argv[2] === 'obstacles' ? 'obstacles' : 'items';
 const SHEETS = join(ROOT, `art/${KIND}`);
 const OUT = join(ROOT, `apps/client/src/replay/${KIND}`);
 /** Longest side of an item in the atlas (px). */
-const ITEM_PX = KIND === 'obstacles' ? 200 : 96;
+const ITEM_PX = KIND === 'obstacles' ? 170 : 96;
 const COLS = KIND === 'obstacles' ? 3 : 4;
 const ATLAS_W = KIND === 'obstacles' ? 2048 : 1024;
 const PAD = 2;

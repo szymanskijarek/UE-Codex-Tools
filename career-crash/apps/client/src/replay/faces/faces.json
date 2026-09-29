@@ -1,2226 +1,2226 @@
 {
  "w": 2048,
- "h": 1442,
+ "h": 779,
  "faces": {
   "career.accountant:neutral": {
    "x": 2,
    "y": 2,
-   "w": 86,
-   "h": 88
+   "w": 63,
+   "h": 64
   },
   "career.accountant:angry": {
-   "x": 90,
+   "x": 67,
    "y": 2,
-   "w": 87,
-   "h": 88
+   "w": 63,
+   "h": 64
   },
   "career.accountant:surprised": {
-   "x": 179,
+   "x": 132,
    "y": 2,
-   "w": 86,
-   "h": 88
+   "w": 63,
+   "h": 64
   },
   "career.accountant:hurt": {
-   "x": 267,
+   "x": 197,
    "y": 2,
-   "w": 87,
-   "h": 88
+   "w": 63,
+   "h": 64
   },
   "career.accountant:talk": {
-   "x": 356,
+   "x": 262,
    "y": 2,
-   "w": 86,
-   "h": 88
+   "w": 63,
+   "h": 64
   },
   "career.astronaut:neutral": {
-   "x": 444,
+   "x": 327,
    "y": 2,
-   "w": 88,
-   "h": 74
+   "w": 64,
+   "h": 54
   },
   "career.astronaut:angry": {
-   "x": 534,
+   "x": 393,
    "y": 2,
-   "w": 88,
-   "h": 74
+   "w": 64,
+   "h": 54
   },
   "career.astronaut:surprised": {
-   "x": 624,
+   "x": 459,
    "y": 2,
-   "w": 88,
-   "h": 74
+   "w": 64,
+   "h": 54
   },
   "career.astronaut:hurt": {
-   "x": 714,
+   "x": 525,
    "y": 2,
-   "w": 88,
-   "h": 74
+   "w": 64,
+   "h": 54
   },
   "career.barista:neutral": {
-   "x": 804,
+   "x": 591,
    "y": 2,
-   "w": 72,
-   "h": 88
+   "w": 53,
+   "h": 64
   },
   "career.barista:angry": {
-   "x": 878,
+   "x": 646,
    "y": 2,
-   "w": 73,
-   "h": 88
+   "w": 53,
+   "h": 64
   },
   "career.barista:surprised": {
-   "x": 953,
+   "x": 701,
    "y": 2,
-   "w": 73,
-   "h": 88
+   "w": 53,
+   "h": 64
   },
   "career.barista:hurt": {
-   "x": 1028,
+   "x": 756,
    "y": 2,
-   "w": 75,
-   "h": 88
+   "w": 54,
+   "h": 64
   },
   "career.barista:blink": {
-   "x": 1105,
+   "x": 812,
    "y": 2,
-   "w": 72,
-   "h": 88
+   "w": 53,
+   "h": 64
   },
   "career.barista:talk": {
-   "x": 1179,
+   "x": 867,
    "y": 2,
-   "w": 72,
-   "h": 88
+   "w": 53,
+   "h": 64
   },
   "career.builder:neutral": {
-   "x": 1253,
+   "x": 922,
    "y": 2,
-   "w": 80,
-   "h": 88
+   "w": 58,
+   "h": 64
   },
   "career.builder:angry": {
-   "x": 1335,
+   "x": 982,
    "y": 2,
-   "w": 81,
-   "h": 88
+   "w": 59,
+   "h": 64
   },
   "career.builder:surprised": {
-   "x": 1418,
+   "x": 1043,
    "y": 2,
-   "w": 80,
-   "h": 88
+   "w": 58,
+   "h": 64
   },
   "career.builder:hurt": {
-   "x": 1500,
+   "x": 1103,
    "y": 2,
-   "w": 81,
-   "h": 88
+   "w": 59,
+   "h": 64
   },
   "career.builder:blink": {
-   "x": 1583,
+   "x": 1164,
    "y": 2,
-   "w": 80,
-   "h": 88
+   "w": 58,
+   "h": 64
   },
   "career.builder:talk": {
-   "x": 1665,
+   "x": 1224,
    "y": 2,
-   "w": 80,
-   "h": 88
+   "w": 58,
+   "h": 64
   },
   "career.chef:neutral": {
-   "x": 1747,
+   "x": 1284,
    "y": 2,
-   "w": 80,
-   "h": 88
+   "w": 58,
+   "h": 64
   },
   "career.chef:angry": {
-   "x": 1829,
+   "x": 1344,
    "y": 2,
-   "w": 80,
-   "h": 88
+   "w": 58,
+   "h": 64
   },
   "career.chef:surprised": {
-   "x": 1911,
+   "x": 1404,
    "y": 2,
-   "w": 80,
-   "h": 88
+   "w": 58,
+   "h": 64
   },
   "career.chef:hurt": {
-   "x": 2,
-   "y": 92,
-   "w": 80,
-   "h": 88
+   "x": 1464,
+   "y": 2,
+   "w": 58,
+   "h": 64
   },
   "career.chef:blink": {
-   "x": 84,
-   "y": 92,
-   "w": 80,
-   "h": 88
+   "x": 1524,
+   "y": 2,
+   "w": 58,
+   "h": 64
   },
   "career.conspiracy-podcaster:neutral": {
-   "x": 166,
-   "y": 92,
-   "w": 84,
-   "h": 88
+   "x": 1584,
+   "y": 2,
+   "w": 61,
+   "h": 64
   },
   "career.conspiracy-podcaster:angry": {
-   "x": 252,
-   "y": 92,
-   "w": 86,
-   "h": 88
+   "x": 1647,
+   "y": 2,
+   "w": 62,
+   "h": 64
   },
   "career.conspiracy-podcaster:surprised": {
-   "x": 340,
-   "y": 92,
-   "w": 85,
-   "h": 88
+   "x": 1711,
+   "y": 2,
+   "w": 62,
+   "h": 64
   },
   "career.conspiracy-podcaster:hurt": {
-   "x": 427,
-   "y": 92,
-   "w": 86,
-   "h": 88
+   "x": 1775,
+   "y": 2,
+   "w": 62,
+   "h": 64
   },
   "career.conspiracy-podcaster:blink": {
-   "x": 515,
-   "y": 92,
-   "w": 84,
-   "h": 88
+   "x": 1839,
+   "y": 2,
+   "w": 61,
+   "h": 64
   },
   "career.conspiracy-podcaster:talk": {
-   "x": 601,
-   "y": 92,
-   "w": 84,
-   "h": 88
+   "x": 1902,
+   "y": 2,
+   "w": 61,
+   "h": 64
   },
   "career.delivery-driver:neutral": {
-   "x": 687,
-   "y": 92,
-   "w": 81,
-   "h": 88
+   "x": 1965,
+   "y": 2,
+   "w": 59,
+   "h": 64
   },
   "career.delivery-driver:angry": {
-   "x": 770,
-   "y": 92,
-   "w": 81,
-   "h": 88
+   "x": 2,
+   "y": 68,
+   "w": 59,
+   "h": 64
   },
   "career.delivery-driver:surprised": {
-   "x": 853,
-   "y": 92,
-   "w": 83,
-   "h": 88
+   "x": 63,
+   "y": 68,
+   "w": 60,
+   "h": 64
   },
   "career.delivery-driver:hurt": {
-   "x": 938,
-   "y": 92,
-   "w": 82,
-   "h": 88
+   "x": 125,
+   "y": 68,
+   "w": 60,
+   "h": 64
   },
   "career.delivery-driver:blink": {
-   "x": 1022,
-   "y": 92,
-   "w": 81,
-   "h": 88
+   "x": 187,
+   "y": 68,
+   "w": 59,
+   "h": 64
   },
   "career.dentist:neutral": {
-   "x": 1105,
-   "y": 92,
-   "w": 81,
-   "h": 88
+   "x": 248,
+   "y": 68,
+   "w": 59,
+   "h": 64
   },
   "career.dentist:angry": {
-   "x": 1188,
-   "y": 92,
-   "w": 82,
-   "h": 88
+   "x": 309,
+   "y": 68,
+   "w": 60,
+   "h": 64
   },
   "career.dentist:surprised": {
-   "x": 1272,
-   "y": 92,
-   "w": 83,
-   "h": 88
+   "x": 371,
+   "y": 68,
+   "w": 60,
+   "h": 64
   },
   "career.dentist:hurt": {
-   "x": 1357,
-   "y": 92,
-   "w": 82,
-   "h": 88
+   "x": 433,
+   "y": 68,
+   "w": 60,
+   "h": 64
   },
   "career.dj:neutral": {
-   "x": 1441,
-   "y": 92,
-   "w": 88,
-   "h": 77
+   "x": 495,
+   "y": 68,
+   "w": 64,
+   "h": 56
   },
   "career.dj:angry": {
-   "x": 1531,
-   "y": 92,
-   "w": 88,
-   "h": 78
+   "x": 561,
+   "y": 68,
+   "w": 64,
+   "h": 57
   },
   "career.dj:surprised": {
-   "x": 1621,
-   "y": 92,
-   "w": 88,
-   "h": 80
+   "x": 627,
+   "y": 68,
+   "w": 64,
+   "h": 58
   },
   "career.dj:hurt": {
-   "x": 1711,
-   "y": 92,
-   "w": 88,
-   "h": 77
+   "x": 693,
+   "y": 68,
+   "w": 64,
+   "h": 56
   },
   "career.dj:blink": {
-   "x": 1801,
-   "y": 92,
-   "w": 88,
-   "h": 77
+   "x": 759,
+   "y": 68,
+   "w": 64,
+   "h": 56
   },
   "career.electrician:neutral": {
-   "x": 1891,
-   "y": 92,
-   "w": 73,
-   "h": 88
+   "x": 825,
+   "y": 68,
+   "w": 53,
+   "h": 64
   },
   "career.electrician:angry": {
-   "x": 1966,
-   "y": 92,
-   "w": 74,
-   "h": 88
+   "x": 880,
+   "y": 68,
+   "w": 54,
+   "h": 64
   },
   "career.electrician:surprised": {
-   "x": 2,
-   "y": 182,
-   "w": 73,
-   "h": 88
+   "x": 936,
+   "y": 68,
+   "w": 53,
+   "h": 64
   },
   "career.electrician:hurt": {
-   "x": 77,
-   "y": 182,
-   "w": 73,
-   "h": 88
+   "x": 991,
+   "y": 68,
+   "w": 53,
+   "h": 64
   },
   "career.electrician:blink": {
-   "x": 152,
-   "y": 182,
-   "w": 73,
-   "h": 88
+   "x": 1046,
+   "y": 68,
+   "w": 53,
+   "h": 64
   },
   "career.electrician:talk": {
-   "x": 227,
-   "y": 182,
-   "w": 73,
-   "h": 88
+   "x": 1101,
+   "y": 68,
+   "w": 53,
+   "h": 64
   },
   "career.engineer:neutral": {
-   "x": 302,
-   "y": 182,
-   "w": 77,
-   "h": 88
+   "x": 1156,
+   "y": 68,
+   "w": 56,
+   "h": 64
   },
   "career.engineer:angry": {
-   "x": 381,
-   "y": 182,
-   "w": 79,
-   "h": 88
+   "x": 1214,
+   "y": 68,
+   "w": 57,
+   "h": 64
   },
   "career.engineer:surprised": {
-   "x": 462,
-   "y": 182,
-   "w": 78,
-   "h": 88
+   "x": 1273,
+   "y": 68,
+   "w": 56,
+   "h": 64
   },
   "career.engineer:hurt": {
-   "x": 542,
-   "y": 182,
-   "w": 76,
-   "h": 88
+   "x": 1331,
+   "y": 68,
+   "w": 55,
+   "h": 64
   },
   "career.engineer:talk": {
-   "x": 620,
-   "y": 182,
-   "w": 77,
-   "h": 88
+   "x": 1388,
+   "y": 68,
+   "w": 56,
+   "h": 64
   },
   "career.farmer:neutral": {
-   "x": 699,
-   "y": 182,
-   "w": 88,
-   "h": 67
+   "x": 1446,
+   "y": 68,
+   "w": 64,
+   "h": 49
   },
   "career.farmer:angry": {
-   "x": 789,
-   "y": 182,
-   "w": 88,
-   "h": 68
+   "x": 1512,
+   "y": 68,
+   "w": 64,
+   "h": 49
   },
   "career.farmer:surprised": {
-   "x": 879,
-   "y": 182,
-   "w": 88,
-   "h": 71
+   "x": 1578,
+   "y": 68,
+   "w": 64,
+   "h": 52
   },
   "career.farmer:hurt": {
-   "x": 969,
-   "y": 182,
-   "w": 88,
-   "h": 69
+   "x": 1644,
+   "y": 68,
+   "w": 64,
+   "h": 50
   },
   "career.farmer:blink": {
-   "x": 1059,
-   "y": 182,
-   "w": 88,
-   "h": 67
+   "x": 1710,
+   "y": 68,
+   "w": 64,
+   "h": 49
   },
   "career.farmer:talk": {
-   "x": 1149,
-   "y": 182,
-   "w": 88,
-   "h": 67
+   "x": 1776,
+   "y": 68,
+   "w": 64,
+   "h": 49
   },
   "career.firefighter:neutral": {
-   "x": 1239,
-   "y": 182,
-   "w": 88,
-   "h": 78
+   "x": 1842,
+   "y": 68,
+   "w": 64,
+   "h": 57
   },
   "career.firefighter:angry": {
-   "x": 1329,
-   "y": 182,
-   "w": 88,
-   "h": 78
+   "x": 1908,
+   "y": 68,
+   "w": 64,
+   "h": 56
   },
   "career.firefighter:surprised": {
-   "x": 1419,
-   "y": 182,
-   "w": 88,
-   "h": 79
+   "x": 1974,
+   "y": 68,
+   "w": 64,
+   "h": 57
   },
   "career.firefighter:hurt": {
-   "x": 1509,
-   "y": 182,
-   "w": 88,
-   "h": 78
+   "x": 2,
+   "y": 134,
+   "w": 64,
+   "h": 57
   },
   "career.firefighter:talk": {
-   "x": 1599,
-   "y": 182,
-   "w": 88,
-   "h": 78
+   "x": 68,
+   "y": 134,
+   "w": 64,
+   "h": 57
   },
   "career.food-critic:neutral": {
-   "x": 1689,
-   "y": 182,
-   "w": 88,
-   "h": 85
+   "x": 134,
+   "y": 134,
+   "w": 64,
+   "h": 62
   },
   "career.food-critic:angry": {
-   "x": 1779,
-   "y": 182,
-   "w": 88,
-   "h": 84
+   "x": 200,
+   "y": 134,
+   "w": 64,
+   "h": 61
   },
   "career.food-critic:surprised": {
-   "x": 1869,
-   "y": 182,
-   "w": 88,
-   "h": 85
+   "x": 266,
+   "y": 134,
+   "w": 64,
+   "h": 62
   },
   "career.food-critic:hurt": {
-   "x": 2,
-   "y": 272,
-   "w": 88,
-   "h": 85
+   "x": 332,
+   "y": 134,
+   "w": 64,
+   "h": 62
   },
   "career.food-critic:blink": {
-   "x": 92,
-   "y": 272,
-   "w": 88,
-   "h": 85
+   "x": 398,
+   "y": 134,
+   "w": 64,
+   "h": 62
   },
   "career.gardener:neutral": {
-   "x": 182,
-   "y": 272,
-   "w": 72,
-   "h": 88
+   "x": 464,
+   "y": 134,
+   "w": 52,
+   "h": 64
   },
   "career.gardener:angry": {
-   "x": 256,
-   "y": 272,
-   "w": 74,
-   "h": 88
+   "x": 518,
+   "y": 134,
+   "w": 54,
+   "h": 64
   },
   "career.gardener:surprised": {
-   "x": 332,
-   "y": 272,
-   "w": 73,
-   "h": 88
+   "x": 574,
+   "y": 134,
+   "w": 53,
+   "h": 64
   },
   "career.gardener:hurt": {
-   "x": 407,
-   "y": 272,
-   "w": 73,
-   "h": 88
+   "x": 629,
+   "y": 134,
+   "w": 53,
+   "h": 64
   },
   "career.gardener:blink": {
-   "x": 482,
-   "y": 272,
-   "w": 72,
-   "h": 88
+   "x": 684,
+   "y": 134,
+   "w": 52,
+   "h": 64
   },
   "career.gardener:talk": {
-   "x": 556,
-   "y": 272,
-   "w": 72,
-   "h": 88
+   "x": 738,
+   "y": 134,
+   "w": 52,
+   "h": 64
   },
   "career.hairdresser:neutral": {
-   "x": 630,
-   "y": 272,
-   "w": 73,
-   "h": 88
+   "x": 792,
+   "y": 134,
+   "w": 53,
+   "h": 64
   },
   "career.hairdresser:angry": {
-   "x": 705,
-   "y": 272,
-   "w": 74,
-   "h": 88
+   "x": 847,
+   "y": 134,
+   "w": 54,
+   "h": 64
   },
   "career.hairdresser:surprised": {
-   "x": 781,
-   "y": 272,
-   "w": 72,
-   "h": 88
+   "x": 903,
+   "y": 134,
+   "w": 52,
+   "h": 64
   },
   "career.hairdresser:hurt": {
-   "x": 855,
-   "y": 272,
-   "w": 73,
-   "h": 88
+   "x": 957,
+   "y": 134,
+   "w": 53,
+   "h": 64
   },
   "career.hairdresser:blink": {
-   "x": 930,
-   "y": 272,
-   "w": 73,
-   "h": 88
+   "x": 1012,
+   "y": 134,
+   "w": 53,
+   "h": 64
   },
   "career.hairdresser:talk": {
-   "x": 1005,
-   "y": 272,
-   "w": 73,
-   "h": 88
+   "x": 1067,
+   "y": 134,
+   "w": 53,
+   "h": 64
   },
   "career.influencer:neutral": {
-   "x": 1080,
-   "y": 272,
-   "w": 88,
-   "h": 78
+   "x": 1122,
+   "y": 134,
+   "w": 64,
+   "h": 57
   },
   "career.influencer:angry": {
-   "x": 1170,
-   "y": 272,
-   "w": 88,
-   "h": 78
+   "x": 1188,
+   "y": 134,
+   "w": 64,
+   "h": 57
   },
   "career.influencer:surprised": {
-   "x": 1260,
-   "y": 272,
-   "w": 88,
-   "h": 80
+   "x": 1254,
+   "y": 134,
+   "w": 64,
+   "h": 58
   },
   "career.influencer:hurt": {
-   "x": 1350,
-   "y": 272,
-   "w": 88,
-   "h": 78
+   "x": 1320,
+   "y": 134,
+   "w": 64,
+   "h": 57
   },
   "career.influencer:blink": {
-   "x": 1440,
-   "y": 272,
-   "w": 88,
-   "h": 78
+   "x": 1386,
+   "y": 134,
+   "w": 64,
+   "h": 57
   },
   "career.influencer:talk": {
-   "x": 1530,
-   "y": 272,
-   "w": 88,
-   "h": 78
+   "x": 1452,
+   "y": 134,
+   "w": 64,
+   "h": 57
   },
   "career.janitor:neutral": {
-   "x": 1620,
-   "y": 272,
-   "w": 87,
-   "h": 88
+   "x": 1518,
+   "y": 134,
+   "w": 63,
+   "h": 64
   },
   "career.janitor:angry": {
-   "x": 1709,
-   "y": 272,
-   "w": 86,
-   "h": 88
+   "x": 1583,
+   "y": 134,
+   "w": 63,
+   "h": 64
   },
   "career.janitor:surprised": {
-   "x": 1797,
-   "y": 272,
-   "w": 86,
-   "h": 88
+   "x": 1648,
+   "y": 134,
+   "w": 63,
+   "h": 64
   },
   "career.janitor:hurt": {
-   "x": 1885,
-   "y": 272,
-   "w": 88,
-   "h": 88
+   "x": 1713,
+   "y": 134,
+   "w": 64,
+   "h": 64
   },
   "career.janitor:blink": {
-   "x": 2,
-   "y": 362,
-   "w": 87,
-   "h": 88
+   "x": 1779,
+   "y": 134,
+   "w": 63,
+   "h": 64
   },
   "career.journalist:neutral": {
-   "x": 91,
-   "y": 362,
-   "w": 76,
-   "h": 88
+   "x": 1844,
+   "y": 134,
+   "w": 55,
+   "h": 64
   },
   "career.journalist:angry": {
-   "x": 169,
-   "y": 362,
-   "w": 78,
-   "h": 88
+   "x": 1901,
+   "y": 134,
+   "w": 57,
+   "h": 64
   },
   "career.journalist:surprised": {
-   "x": 249,
-   "y": 362,
-   "w": 79,
-   "h": 88
+   "x": 1960,
+   "y": 134,
+   "w": 57,
+   "h": 64
   },
   "career.journalist:hurt": {
-   "x": 330,
-   "y": 362,
-   "w": 77,
-   "h": 88
+   "x": 2,
+   "y": 200,
+   "w": 56,
+   "h": 64
   },
   "career.journalist:blink": {
-   "x": 409,
-   "y": 362,
-   "w": 76,
-   "h": 88
+   "x": 60,
+   "y": 200,
+   "w": 55,
+   "h": 64
   },
   "career.journalist:talk": {
-   "x": 487,
-   "y": 362,
-   "w": 76,
-   "h": 88
+   "x": 117,
+   "y": 200,
+   "w": 55,
+   "h": 64
   },
   "career.lawyer:neutral": {
-   "x": 565,
-   "y": 362,
-   "w": 82,
-   "h": 88
+   "x": 174,
+   "y": 200,
+   "w": 60,
+   "h": 64
   },
   "career.lawyer:angry": {
-   "x": 649,
-   "y": 362,
-   "w": 83,
-   "h": 88
+   "x": 236,
+   "y": 200,
+   "w": 60,
+   "h": 64
   },
   "career.lawyer:surprised": {
-   "x": 734,
-   "y": 362,
-   "w": 83,
-   "h": 88
+   "x": 298,
+   "y": 200,
+   "w": 61,
+   "h": 64
   },
   "career.lawyer:hurt": {
-   "x": 819,
-   "y": 362,
-   "w": 84,
-   "h": 88
+   "x": 361,
+   "y": 200,
+   "w": 61,
+   "h": 64
   },
   "career.lawyer:blink": {
-   "x": 905,
-   "y": 362,
-   "w": 82,
-   "h": 88
+   "x": 424,
+   "y": 200,
+   "w": 60,
+   "h": 64
   },
   "career.lawyer:talk": {
-   "x": 989,
-   "y": 362,
-   "w": 82,
-   "h": 88
+   "x": 486,
+   "y": 200,
+   "w": 60,
+   "h": 64
   },
   "career.librarian:neutral": {
-   "x": 1073,
-   "y": 362,
-   "w": 88,
-   "h": 80
+   "x": 548,
+   "y": 200,
+   "w": 64,
+   "h": 58
   },
   "career.librarian:angry": {
-   "x": 1163,
-   "y": 362,
-   "w": 88,
-   "h": 80
+   "x": 614,
+   "y": 200,
+   "w": 64,
+   "h": 58
   },
   "career.librarian:surprised": {
-   "x": 1253,
-   "y": 362,
-   "w": 88,
-   "h": 80
+   "x": 680,
+   "y": 200,
+   "w": 64,
+   "h": 58
   },
   "career.librarian:hurt": {
-   "x": 1343,
-   "y": 362,
-   "w": 88,
-   "h": 80
+   "x": 746,
+   "y": 200,
+   "w": 64,
+   "h": 58
   },
   "career.librarian:blink": {
-   "x": 1433,
-   "y": 362,
-   "w": 88,
-   "h": 80
+   "x": 812,
+   "y": 200,
+   "w": 64,
+   "h": 58
   },
   "career.librarian:talk": {
-   "x": 1523,
-   "y": 362,
-   "w": 88,
-   "h": 80
+   "x": 878,
+   "y": 200,
+   "w": 64,
+   "h": 58
   },
   "career.life-coach:neutral": {
-   "x": 1613,
-   "y": 362,
-   "w": 73,
-   "h": 88
+   "x": 944,
+   "y": 200,
+   "w": 53,
+   "h": 64
   },
   "career.life-coach:angry": {
-   "x": 1688,
-   "y": 362,
-   "w": 73,
-   "h": 88
+   "x": 999,
+   "y": 200,
+   "w": 53,
+   "h": 64
   },
   "career.life-coach:surprised": {
-   "x": 1763,
-   "y": 362,
-   "w": 75,
-   "h": 88
+   "x": 1054,
+   "y": 200,
+   "w": 54,
+   "h": 64
   },
   "career.life-coach:hurt": {
-   "x": 1840,
-   "y": 362,
-   "w": 74,
-   "h": 88
+   "x": 1110,
+   "y": 200,
+   "w": 54,
+   "h": 64
   },
   "career.life-coach:blink": {
-   "x": 1916,
-   "y": 362,
-   "w": 73,
-   "h": 88
+   "x": 1166,
+   "y": 200,
+   "w": 53,
+   "h": 64
   },
   "career.life-coach:talk": {
-   "x": 2,
-   "y": 452,
-   "w": 73,
-   "h": 88
+   "x": 1221,
+   "y": 200,
+   "w": 53,
+   "h": 64
   },
   "career.lifeguard:neutral": {
-   "x": 77,
-   "y": 452,
-   "w": 82,
-   "h": 88
+   "x": 1276,
+   "y": 200,
+   "w": 59,
+   "h": 64
   },
   "career.lifeguard:angry": {
-   "x": 161,
-   "y": 452,
-   "w": 83,
-   "h": 88
+   "x": 1337,
+   "y": 200,
+   "w": 60,
+   "h": 64
   },
   "career.lifeguard:surprised": {
-   "x": 246,
-   "y": 452,
-   "w": 84,
-   "h": 88
+   "x": 1399,
+   "y": 200,
+   "w": 61,
+   "h": 64
   },
   "career.lifeguard:hurt": {
-   "x": 332,
-   "y": 452,
-   "w": 83,
-   "h": 88
+   "x": 1462,
+   "y": 200,
+   "w": 61,
+   "h": 64
   },
   "career.mechanic:neutral": {
-   "x": 417,
-   "y": 452,
-   "w": 79,
-   "h": 88
+   "x": 1525,
+   "y": 200,
+   "w": 58,
+   "h": 64
   },
   "career.mechanic:angry": {
-   "x": 498,
-   "y": 452,
-   "w": 81,
-   "h": 88
+   "x": 1585,
+   "y": 200,
+   "w": 59,
+   "h": 64
   },
   "career.mechanic:surprised": {
-   "x": 581,
-   "y": 452,
-   "w": 82,
-   "h": 88
+   "x": 1646,
+   "y": 200,
+   "w": 60,
+   "h": 64
   },
   "career.mechanic:hurt": {
-   "x": 665,
-   "y": 452,
-   "w": 80,
-   "h": 88
+   "x": 1708,
+   "y": 200,
+   "w": 58,
+   "h": 64
   },
   "career.mechanic:blink": {
-   "x": 747,
-   "y": 452,
-   "w": 79,
-   "h": 88
+   "x": 1768,
+   "y": 200,
+   "w": 58,
+   "h": 64
   },
   "career.mechanic:talk": {
-   "x": 828,
-   "y": 452,
-   "w": 79,
-   "h": 88
+   "x": 1828,
+   "y": 200,
+   "w": 58,
+   "h": 64
   },
   "career.mime:neutral": {
-   "x": 909,
-   "y": 452,
-   "w": 88,
-   "h": 88
+   "x": 1888,
+   "y": 200,
+   "w": 64,
+   "h": 64
   },
   "career.mime:angry": {
-   "x": 999,
-   "y": 452,
-   "w": 88,
-   "h": 88
+   "x": 1954,
+   "y": 200,
+   "w": 64,
+   "h": 64
   },
   "career.mime:surprised": {
-   "x": 1089,
-   "y": 452,
-   "w": 88,
-   "h": 87
+   "x": 2,
+   "y": 266,
+   "w": 64,
+   "h": 63
   },
   "career.mime:hurt": {
-   "x": 1179,
-   "y": 452,
-   "w": 88,
-   "h": 88
+   "x": 68,
+   "y": 266,
+   "w": 64,
+   "h": 64
   },
   "career.mime:talk": {
-   "x": 1269,
-   "y": 452,
-   "w": 88,
-   "h": 88
+   "x": 134,
+   "y": 266,
+   "w": 64,
+   "h": 64
   },
   "career.paramedic:neutral": {
-   "x": 1359,
-   "y": 452,
-   "w": 84,
-   "h": 88
+   "x": 200,
+   "y": 266,
+   "w": 61,
+   "h": 64
   },
   "career.paramedic:angry": {
-   "x": 1445,
-   "y": 452,
-   "w": 85,
-   "h": 88
+   "x": 263,
+   "y": 266,
+   "w": 61,
+   "h": 64
   },
   "career.paramedic:surprised": {
-   "x": 1532,
-   "y": 452,
-   "w": 86,
-   "h": 88
+   "x": 326,
+   "y": 266,
+   "w": 62,
+   "h": 64
   },
   "career.paramedic:hurt": {
-   "x": 1620,
-   "y": 452,
-   "w": 85,
-   "h": 88
+   "x": 390,
+   "y": 266,
+   "w": 61,
+   "h": 64
   },
   "career.paramedic:blink": {
-   "x": 1707,
-   "y": 452,
-   "w": 84,
-   "h": 88
+   "x": 453,
+   "y": 266,
+   "w": 61,
+   "h": 64
   },
   "career.paramedic:talk": {
-   "x": 1793,
-   "y": 452,
-   "w": 84,
-   "h": 88
+   "x": 516,
+   "y": 266,
+   "w": 61,
+   "h": 64
   },
   "career.personal-trainer:neutral": {
-   "x": 1879,
-   "y": 452,
-   "w": 72,
-   "h": 88
+   "x": 579,
+   "y": 266,
+   "w": 53,
+   "h": 64
   },
   "career.personal-trainer:angry": {
-   "x": 1953,
-   "y": 452,
-   "w": 73,
-   "h": 88
+   "x": 634,
+   "y": 266,
+   "w": 53,
+   "h": 64
   },
   "career.personal-trainer:surprised": {
-   "x": 2,
-   "y": 542,
-   "w": 74,
-   "h": 88
+   "x": 689,
+   "y": 266,
+   "w": 54,
+   "h": 64
   },
   "career.personal-trainer:hurt": {
-   "x": 78,
-   "y": 542,
-   "w": 73,
-   "h": 88
+   "x": 745,
+   "y": 266,
+   "w": 53,
+   "h": 64
   },
   "career.personal-trainer:blink": {
-   "x": 153,
-   "y": 542,
-   "w": 72,
-   "h": 88
+   "x": 800,
+   "y": 266,
+   "w": 53,
+   "h": 64
   },
   "career.personal-trainer:talk": {
-   "x": 227,
-   "y": 542,
-   "w": 72,
-   "h": 88
+   "x": 855,
+   "y": 266,
+   "w": 53,
+   "h": 64
   },
   "career.plumber:neutral": {
-   "x": 301,
-   "y": 542,
-   "w": 82,
-   "h": 88
+   "x": 910,
+   "y": 266,
+   "w": 59,
+   "h": 64
   },
   "career.plumber:angry": {
-   "x": 385,
-   "y": 542,
-   "w": 85,
-   "h": 88
+   "x": 971,
+   "y": 266,
+   "w": 62,
+   "h": 64
   },
   "career.plumber:surprised": {
-   "x": 472,
-   "y": 542,
-   "w": 82,
-   "h": 88
+   "x": 1035,
+   "y": 266,
+   "w": 60,
+   "h": 64
   },
   "career.plumber:hurt": {
-   "x": 556,
-   "y": 542,
-   "w": 82,
-   "h": 88
+   "x": 1097,
+   "y": 266,
+   "w": 60,
+   "h": 64
   },
   "career.plumber:blink": {
-   "x": 640,
-   "y": 542,
-   "w": 82,
-   "h": 88
+   "x": 1159,
+   "y": 266,
+   "w": 59,
+   "h": 64
   },
   "career.police-officer:neutral": {
-   "x": 724,
-   "y": 542,
-   "w": 81,
-   "h": 88
+   "x": 1220,
+   "y": 266,
+   "w": 59,
+   "h": 64
   },
   "career.police-officer:angry": {
-   "x": 807,
-   "y": 542,
-   "w": 83,
-   "h": 88
+   "x": 1281,
+   "y": 266,
+   "w": 60,
+   "h": 64
   },
   "career.police-officer:surprised": {
-   "x": 892,
-   "y": 542,
-   "w": 81,
-   "h": 88
+   "x": 1343,
+   "y": 266,
+   "w": 59,
+   "h": 64
   },
   "career.police-officer:hurt": {
-   "x": 975,
-   "y": 542,
-   "w": 81,
-   "h": 88
+   "x": 1404,
+   "y": 266,
+   "w": 59,
+   "h": 64
   },
   "career.police-officer:blink": {
-   "x": 1058,
-   "y": 542,
-   "w": 81,
-   "h": 88
+   "x": 1465,
+   "y": 266,
+   "w": 59,
+   "h": 64
   },
   "career.politician:neutral": {
-   "x": 1141,
-   "y": 542,
-   "w": 77,
-   "h": 88
+   "x": 1526,
+   "y": 266,
+   "w": 56,
+   "h": 64
   },
   "career.politician:angry": {
-   "x": 1220,
-   "y": 542,
-   "w": 79,
-   "h": 88
+   "x": 1584,
+   "y": 266,
+   "w": 58,
+   "h": 64
   },
   "career.politician:surprised": {
-   "x": 1301,
-   "y": 542,
-   "w": 77,
-   "h": 88
+   "x": 1644,
+   "y": 266,
+   "w": 56,
+   "h": 64
   },
   "career.politician:hurt": {
-   "x": 1380,
-   "y": 542,
-   "w": 79,
-   "h": 88
+   "x": 1702,
+   "y": 266,
+   "w": 57,
+   "h": 64
   },
   "career.politician:blink": {
-   "x": 1461,
-   "y": 542,
-   "w": 77,
-   "h": 88
+   "x": 1761,
+   "y": 266,
+   "w": 56,
+   "h": 64
   },
   "career.programmer:neutral": {
-   "x": 1540,
-   "y": 542,
-   "w": 77,
-   "h": 88
+   "x": 1819,
+   "y": 266,
+   "w": 56,
+   "h": 64
   },
   "career.programmer:angry": {
-   "x": 1619,
-   "y": 542,
-   "w": 78,
-   "h": 88
+   "x": 1877,
+   "y": 266,
+   "w": 56,
+   "h": 64
   },
   "career.programmer:surprised": {
-   "x": 1699,
-   "y": 542,
-   "w": 78,
-   "h": 88
+   "x": 1935,
+   "y": 266,
+   "w": 57,
+   "h": 64
   },
   "career.programmer:hurt": {
-   "x": 1779,
-   "y": 542,
-   "w": 77,
-   "h": 88
+   "x": 2,
+   "y": 332,
+   "w": 56,
+   "h": 64
   },
   "career.programmer:blink": {
-   "x": 1858,
-   "y": 542,
-   "w": 77,
-   "h": 88
+   "x": 60,
+   "y": 332,
+   "w": 56,
+   "h": 64
   },
   "career.programmer:talk": {
-   "x": 1937,
-   "y": 542,
-   "w": 77,
-   "h": 88
+   "x": 118,
+   "y": 332,
+   "w": 56,
+   "h": 64
   },
   "career.psychologist:neutral": {
-   "x": 2,
-   "y": 632,
-   "w": 78,
-   "h": 88
+   "x": 176,
+   "y": 332,
+   "w": 56,
+   "h": 64
   },
   "career.psychologist:angry": {
-   "x": 82,
-   "y": 632,
-   "w": 77,
-   "h": 88
+   "x": 234,
+   "y": 332,
+   "w": 56,
+   "h": 64
   },
   "career.psychologist:surprised": {
-   "x": 161,
-   "y": 632,
-   "w": 78,
-   "h": 88
+   "x": 292,
+   "y": 332,
+   "w": 57,
+   "h": 64
   },
   "career.psychologist:hurt": {
-   "x": 241,
-   "y": 632,
-   "w": 77,
-   "h": 88
+   "x": 351,
+   "y": 332,
+   "w": 56,
+   "h": 64
   },
   "career.psychologist:talk": {
-   "x": 320,
-   "y": 632,
-   "w": 78,
-   "h": 88
+   "x": 409,
+   "y": 332,
+   "w": 56,
+   "h": 64
   },
   "career.security-guard:neutral": {
-   "x": 400,
-   "y": 632,
-   "w": 82,
-   "h": 88
+   "x": 467,
+   "y": 332,
+   "w": 59,
+   "h": 64
   },
   "career.security-guard:angry": {
-   "x": 484,
-   "y": 632,
-   "w": 83,
-   "h": 88
+   "x": 528,
+   "y": 332,
+   "w": 60,
+   "h": 64
   },
   "career.security-guard:surprised": {
-   "x": 569,
-   "y": 632,
-   "w": 83,
-   "h": 88
+   "x": 590,
+   "y": 332,
+   "w": 60,
+   "h": 64
   },
   "career.security-guard:hurt": {
-   "x": 654,
-   "y": 632,
-   "w": 83,
-   "h": 88
+   "x": 652,
+   "y": 332,
+   "w": 60,
+   "h": 64
   },
   "career.taxi-driver:neutral": {
-   "x": 739,
-   "y": 632,
-   "w": 76,
-   "h": 88
+   "x": 714,
+   "y": 332,
+   "w": 56,
+   "h": 64
   },
   "career.taxi-driver:angry": {
-   "x": 817,
-   "y": 632,
-   "w": 77,
-   "h": 88
+   "x": 772,
+   "y": 332,
+   "w": 56,
+   "h": 64
   },
   "career.taxi-driver:surprised": {
-   "x": 896,
-   "y": 632,
-   "w": 77,
-   "h": 88
+   "x": 830,
+   "y": 332,
+   "w": 56,
+   "h": 64
   },
   "career.taxi-driver:hurt": {
-   "x": 975,
-   "y": 632,
-   "w": 77,
-   "h": 88
+   "x": 888,
+   "y": 332,
+   "w": 56,
+   "h": 64
   },
   "career.taxi-driver:blink": {
-   "x": 1054,
-   "y": 632,
-   "w": 76,
-   "h": 88
+   "x": 946,
+   "y": 332,
+   "w": 56,
+   "h": 64
   },
   "career.teacher:neutral": {
-   "x": 1132,
-   "y": 632,
-   "w": 80,
-   "h": 88
+   "x": 1004,
+   "y": 332,
+   "w": 58,
+   "h": 64
   },
   "career.teacher:angry": {
-   "x": 1214,
-   "y": 632,
-   "w": 82,
-   "h": 88
+   "x": 1064,
+   "y": 332,
+   "w": 60,
+   "h": 64
   },
   "career.teacher:surprised": {
-   "x": 1298,
-   "y": 632,
-   "w": 80,
-   "h": 88
+   "x": 1126,
+   "y": 332,
+   "w": 58,
+   "h": 64
   },
   "career.teacher:hurt": {
-   "x": 1380,
-   "y": 632,
-   "w": 81,
-   "h": 88
+   "x": 1186,
+   "y": 332,
+   "w": 59,
+   "h": 64
   },
   "career.teacher:blink": {
-   "x": 1463,
-   "y": 632,
-   "w": 80,
-   "h": 88
+   "x": 1247,
+   "y": 332,
+   "w": 58,
+   "h": 64
   },
   "career.teacher:talk": {
-   "x": 1545,
-   "y": 632,
-   "w": 80,
-   "h": 88
+   "x": 1307,
+   "y": 332,
+   "w": 58,
+   "h": 64
   },
   "career.tv-host:neutral": {
-   "x": 1627,
-   "y": 632,
-   "w": 71,
-   "h": 88
+   "x": 1367,
+   "y": 332,
+   "w": 51,
+   "h": 64
   },
   "career.tv-host:angry": {
-   "x": 1700,
-   "y": 632,
-   "w": 72,
-   "h": 88
+   "x": 1420,
+   "y": 332,
+   "w": 52,
+   "h": 64
   },
   "career.tv-host:surprised": {
-   "x": 1774,
-   "y": 632,
-   "w": 72,
-   "h": 88
+   "x": 1474,
+   "y": 332,
+   "w": 52,
+   "h": 64
   },
   "career.tv-host:hurt": {
-   "x": 1848,
-   "y": 632,
-   "w": 75,
-   "h": 88
+   "x": 1528,
+   "y": 332,
+   "w": 54,
+   "h": 64
   },
   "career.tv-host:blink": {
-   "x": 1925,
-   "y": 632,
-   "w": 71,
-   "h": 88
+   "x": 1584,
+   "y": 332,
+   "w": 51,
+   "h": 64
   },
   "career.tv-host:talk": {
-   "x": 2,
-   "y": 722,
-   "w": 71,
-   "h": 88
+   "x": 1637,
+   "y": 332,
+   "w": 51,
+   "h": 64
   },
   "career.archaeologist:neutral": {
-   "x": 75,
-   "y": 722,
-   "w": 88,
-   "h": 67
+   "x": 1690,
+   "y": 332,
+   "w": 64,
+   "h": 49
   },
   "career.archaeologist:angry": {
-   "x": 165,
-   "y": 722,
-   "w": 88,
-   "h": 68
+   "x": 1756,
+   "y": 332,
+   "w": 64,
+   "h": 50
   },
   "career.archaeologist:surprised": {
-   "x": 255,
-   "y": 722,
-   "w": 88,
-   "h": 69
+   "x": 1822,
+   "y": 332,
+   "w": 64,
+   "h": 50
   },
   "career.archaeologist:hurt": {
-   "x": 345,
-   "y": 722,
-   "w": 88,
-   "h": 69
+   "x": 1888,
+   "y": 332,
+   "w": 64,
+   "h": 50
   },
   "career.archaeologist:blink": {
-   "x": 435,
-   "y": 722,
-   "w": 88,
-   "h": 67
+   "x": 1954,
+   "y": 332,
+   "w": 64,
+   "h": 49
   },
   "career.archaeologist:talk": {
-   "x": 525,
-   "y": 722,
-   "w": 88,
-   "h": 67
+   "x": 2,
+   "y": 398,
+   "w": 64,
+   "h": 49
   },
   "career.baker:neutral": {
-   "x": 615,
-   "y": 722,
-   "w": 84,
-   "h": 88
+   "x": 68,
+   "y": 398,
+   "w": 61,
+   "h": 64
   },
   "career.baker:angry": {
-   "x": 701,
-   "y": 722,
-   "w": 85,
-   "h": 88
+   "x": 131,
+   "y": 398,
+   "w": 62,
+   "h": 64
   },
   "career.baker:surprised": {
-   "x": 788,
-   "y": 722,
-   "w": 85,
-   "h": 88
+   "x": 195,
+   "y": 398,
+   "w": 61,
+   "h": 64
   },
   "career.baker:hurt": {
-   "x": 875,
-   "y": 722,
-   "w": 85,
-   "h": 88
+   "x": 258,
+   "y": 398,
+   "w": 62,
+   "h": 64
   },
   "career.baker:blink": {
-   "x": 962,
-   "y": 722,
-   "w": 84,
-   "h": 88
+   "x": 322,
+   "y": 398,
+   "w": 61,
+   "h": 64
   },
   "career.baker:talk": {
-   "x": 1048,
-   "y": 722,
-   "w": 84,
-   "h": 88
+   "x": 385,
+   "y": 398,
+   "w": 61,
+   "h": 64
   },
   "career.beekeeper:neutral": {
-   "x": 1134,
-   "y": 722,
-   "w": 88,
-   "h": 71
+   "x": 448,
+   "y": 398,
+   "w": 64,
+   "h": 52
   },
   "career.beekeeper:angry": {
-   "x": 1224,
-   "y": 722,
-   "w": 88,
-   "h": 72
+   "x": 514,
+   "y": 398,
+   "w": 64,
+   "h": 52
   },
   "career.beekeeper:surprised": {
-   "x": 1314,
-   "y": 722,
-   "w": 88,
-   "h": 73
+   "x": 580,
+   "y": 398,
+   "w": 64,
+   "h": 53
   },
   "career.beekeeper:hurt": {
-   "x": 1404,
-   "y": 722,
-   "w": 88,
-   "h": 73
+   "x": 646,
+   "y": 398,
+   "w": 64,
+   "h": 53
   },
   "career.beekeeper:blink": {
-   "x": 1494,
-   "y": 722,
-   "w": 88,
-   "h": 71
+   "x": 712,
+   "y": 398,
+   "w": 64,
+   "h": 52
   },
   "career.beekeeper:talk": {
-   "x": 1584,
-   "y": 722,
-   "w": 88,
-   "h": 71
+   "x": 778,
+   "y": 398,
+   "w": 64,
+   "h": 52
   },
   "career.bus-driver:neutral": {
-   "x": 1674,
-   "y": 722,
-   "w": 84,
-   "h": 88
+   "x": 844,
+   "y": 398,
+   "w": 61,
+   "h": 64
   },
   "career.bus-driver:angry": {
-   "x": 1760,
-   "y": 722,
-   "w": 88,
-   "h": 88
+   "x": 907,
+   "y": 398,
+   "w": 64,
+   "h": 64
   },
   "career.bus-driver:surprised": {
-   "x": 1850,
-   "y": 722,
-   "w": 85,
-   "h": 88
+   "x": 973,
+   "y": 398,
+   "w": 62,
+   "h": 64
   },
   "career.bus-driver:hurt": {
-   "x": 1937,
-   "y": 722,
-   "w": 86,
-   "h": 88
+   "x": 1037,
+   "y": 398,
+   "w": 62,
+   "h": 64
   },
   "career.bus-driver:blink": {
-   "x": 2,
-   "y": 812,
-   "w": 84,
-   "h": 88
+   "x": 1101,
+   "y": 398,
+   "w": 61,
+   "h": 64
   },
   "career.bus-driver:talk": {
-   "x": 88,
-   "y": 812,
-   "w": 84,
-   "h": 88
+   "x": 1164,
+   "y": 398,
+   "w": 61,
+   "h": 64
   },
   "career.carpenter:neutral": {
-   "x": 174,
-   "y": 812,
-   "w": 78,
-   "h": 88
+   "x": 1227,
+   "y": 398,
+   "w": 57,
+   "h": 64
   },
   "career.carpenter:angry": {
-   "x": 254,
-   "y": 812,
-   "w": 81,
-   "h": 88
+   "x": 1286,
+   "y": 398,
+   "w": 59,
+   "h": 64
   },
   "career.carpenter:surprised": {
-   "x": 337,
-   "y": 812,
-   "w": 79,
-   "h": 88
+   "x": 1347,
+   "y": 398,
+   "w": 57,
+   "h": 64
   },
   "career.carpenter:hurt": {
-   "x": 418,
-   "y": 812,
-   "w": 79,
-   "h": 88
+   "x": 1406,
+   "y": 398,
+   "w": 57,
+   "h": 64
   },
   "career.carpenter:blink": {
-   "x": 499,
-   "y": 812,
-   "w": 78,
-   "h": 88
+   "x": 1465,
+   "y": 398,
+   "w": 57,
+   "h": 64
   },
   "career.carpenter:talk": {
-   "x": 579,
-   "y": 812,
-   "w": 78,
-   "h": 88
+   "x": 1524,
+   "y": 398,
+   "w": 57,
+   "h": 64
   },
   "career.chimney-sweep:neutral": {
-   "x": 659,
-   "y": 812,
-   "w": 73,
-   "h": 88
+   "x": 1583,
+   "y": 398,
+   "w": 53,
+   "h": 64
   },
   "career.chimney-sweep:angry": {
-   "x": 734,
-   "y": 812,
-   "w": 75,
-   "h": 88
+   "x": 1638,
+   "y": 398,
+   "w": 54,
+   "h": 64
   },
   "career.chimney-sweep:surprised": {
-   "x": 811,
-   "y": 812,
-   "w": 73,
-   "h": 88
+   "x": 1694,
+   "y": 398,
+   "w": 53,
+   "h": 64
   },
   "career.chimney-sweep:hurt": {
-   "x": 886,
-   "y": 812,
-   "w": 75,
-   "h": 88
+   "x": 1749,
+   "y": 398,
+   "w": 54,
+   "h": 64
   },
   "career.chimney-sweep:blink": {
-   "x": 963,
-   "y": 812,
-   "w": 73,
-   "h": 88
+   "x": 1805,
+   "y": 398,
+   "w": 53,
+   "h": 64
   },
   "career.chimney-sweep:talk": {
-   "x": 1038,
-   "y": 812,
-   "w": 73,
-   "h": 88
+   "x": 1860,
+   "y": 398,
+   "w": 53,
+   "h": 64
   },
   "career.clown:neutral": {
-   "x": 1113,
-   "y": 812,
-   "w": 88,
-   "h": 69
+   "x": 1915,
+   "y": 398,
+   "w": 64,
+   "h": 50
   },
   "career.clown:angry": {
-   "x": 1203,
-   "y": 812,
-   "w": 88,
-   "h": 69
+   "x": 1981,
+   "y": 398,
+   "w": 64,
+   "h": 50
   },
   "career.clown:surprised": {
-   "x": 1293,
-   "y": 812,
-   "w": 88,
-   "h": 70
+   "x": 2,
+   "y": 464,
+   "w": 64,
+   "h": 51
   },
   "career.clown:hurt": {
-   "x": 1383,
-   "y": 812,
-   "w": 88,
-   "h": 70
+   "x": 68,
+   "y": 464,
+   "w": 64,
+   "h": 51
   },
   "career.clown:talk": {
-   "x": 1473,
-   "y": 812,
-   "w": 88,
-   "h": 69
+   "x": 134,
+   "y": 464,
+   "w": 64,
+   "h": 50
   },
   "career.dog-groomer:neutral": {
-   "x": 1563,
-   "y": 812,
-   "w": 78,
-   "h": 88
+   "x": 200,
+   "y": 464,
+   "w": 57,
+   "h": 64
   },
   "career.dog-groomer:angry": {
-   "x": 1643,
-   "y": 812,
-   "w": 80,
-   "h": 88
+   "x": 259,
+   "y": 464,
+   "w": 58,
+   "h": 64
   },
   "career.dog-groomer:surprised": {
-   "x": 1725,
-   "y": 812,
-   "w": 79,
-   "h": 88
+   "x": 319,
+   "y": 464,
+   "w": 57,
+   "h": 64
   },
   "career.dog-groomer:hurt": {
-   "x": 1806,
-   "y": 812,
-   "w": 77,
-   "h": 88
+   "x": 378,
+   "y": 464,
+   "w": 56,
+   "h": 64
   },
   "career.dog-groomer:blink": {
-   "x": 1885,
-   "y": 812,
-   "w": 78,
-   "h": 88
+   "x": 436,
+   "y": 464,
+   "w": 57,
+   "h": 64
   },
   "career.dog-groomer:talk": {
-   "x": 1965,
-   "y": 812,
-   "w": 78,
-   "h": 88
+   "x": 495,
+   "y": 464,
+   "w": 57,
+   "h": 64
   },
   "career.fashion-designer:neutral": {
-   "x": 2,
-   "y": 902,
-   "w": 86,
-   "h": 88
+   "x": 554,
+   "y": 464,
+   "w": 63,
+   "h": 64
   },
   "career.fashion-designer:angry": {
-   "x": 90,
-   "y": 902,
-   "w": 88,
-   "h": 87
+   "x": 619,
+   "y": 464,
+   "w": 64,
+   "h": 63
   },
   "career.fashion-designer:surprised": {
-   "x": 180,
-   "y": 902,
-   "w": 88,
-   "h": 88
+   "x": 685,
+   "y": 464,
+   "w": 64,
+   "h": 64
   },
   "career.fashion-designer:hurt": {
-   "x": 270,
-   "y": 902,
-   "w": 88,
-   "h": 88
+   "x": 751,
+   "y": 464,
+   "w": 64,
+   "h": 64
   },
   "career.fashion-designer:blink": {
-   "x": 360,
-   "y": 902,
-   "w": 86,
-   "h": 88
+   "x": 817,
+   "y": 464,
+   "w": 63,
+   "h": 64
   },
   "career.fashion-designer:talk": {
-   "x": 448,
-   "y": 902,
-   "w": 86,
-   "h": 88
+   "x": 882,
+   "y": 464,
+   "w": 63,
+   "h": 64
   },
   "career.flight-attendant:neutral": {
-   "x": 536,
-   "y": 902,
-   "w": 75,
-   "h": 88
+   "x": 947,
+   "y": 464,
+   "w": 54,
+   "h": 64
   },
   "career.flight-attendant:angry": {
-   "x": 613,
-   "y": 902,
-   "w": 75,
-   "h": 88
+   "x": 1003,
+   "y": 464,
+   "w": 54,
+   "h": 64
   },
   "career.flight-attendant:surprised": {
-   "x": 690,
-   "y": 902,
-   "w": 75,
-   "h": 88
+   "x": 1059,
+   "y": 464,
+   "w": 55,
+   "h": 64
   },
   "career.flight-attendant:hurt": {
-   "x": 767,
-   "y": 902,
-   "w": 75,
-   "h": 88
+   "x": 1116,
+   "y": 464,
+   "w": 55,
+   "h": 64
   },
   "career.flight-attendant:blink": {
-   "x": 844,
-   "y": 902,
-   "w": 75,
-   "h": 88
+   "x": 1173,
+   "y": 464,
+   "w": 54,
+   "h": 64
   },
   "career.flight-attendant:talk": {
-   "x": 921,
-   "y": 902,
-   "w": 75,
-   "h": 88
+   "x": 1229,
+   "y": 464,
+   "w": 54,
+   "h": 64
   },
   "career.florist:neutral": {
-   "x": 998,
-   "y": 902,
-   "w": 88,
-   "h": 87
+   "x": 1285,
+   "y": 464,
+   "w": 64,
+   "h": 63
   },
   "career.florist:angry": {
-   "x": 1088,
-   "y": 902,
-   "w": 88,
-   "h": 85
+   "x": 1351,
+   "y": 464,
+   "w": 64,
+   "h": 62
   },
   "career.florist:surprised": {
-   "x": 1178,
-   "y": 902,
-   "w": 88,
-   "h": 86
+   "x": 1417,
+   "y": 464,
+   "w": 64,
+   "h": 62
   },
   "career.florist:hurt": {
-   "x": 1268,
-   "y": 902,
-   "w": 88,
-   "h": 87
+   "x": 1483,
+   "y": 464,
+   "w": 64,
+   "h": 63
   },
   "career.florist:blink": {
-   "x": 1358,
-   "y": 902,
-   "w": 88,
-   "h": 87
+   "x": 1549,
+   "y": 464,
+   "w": 64,
+   "h": 63
   },
   "career.florist:talk": {
-   "x": 1448,
-   "y": 902,
-   "w": 88,
-   "h": 87
+   "x": 1615,
+   "y": 464,
+   "w": 64,
+   "h": 63
   },
   "career.fortune-teller:neutral": {
-   "x": 1538,
-   "y": 902,
-   "w": 88,
-   "h": 73
+   "x": 1681,
+   "y": 464,
+   "w": 64,
+   "h": 53
   },
   "career.fortune-teller:angry": {
-   "x": 1628,
-   "y": 902,
-   "w": 88,
-   "h": 71
+   "x": 1747,
+   "y": 464,
+   "w": 64,
+   "h": 51
   },
   "career.fortune-teller:surprised": {
-   "x": 1718,
-   "y": 902,
-   "w": 88,
-   "h": 73
+   "x": 1813,
+   "y": 464,
+   "w": 64,
+   "h": 53
   },
   "career.fortune-teller:hurt": {
-   "x": 1808,
-   "y": 902,
-   "w": 88,
-   "h": 73
+   "x": 1879,
+   "y": 464,
+   "w": 64,
+   "h": 53
   },
   "career.fortune-teller:blink": {
-   "x": 1898,
-   "y": 902,
-   "w": 88,
-   "h": 73
+   "x": 1945,
+   "y": 464,
+   "w": 64,
+   "h": 53
   },
   "career.fortune-teller:talk": {
    "x": 2,
-   "y": 992,
-   "w": 88,
-   "h": 73
+   "y": 530,
+   "w": 64,
+   "h": 53
   },
   "career.hotel-concierge:neutral": {
-   "x": 92,
-   "y": 992,
-   "w": 77,
-   "h": 88
+   "x": 68,
+   "y": 530,
+   "w": 56,
+   "h": 64
   },
   "career.hotel-concierge:angry": {
-   "x": 171,
-   "y": 992,
-   "w": 78,
-   "h": 88
+   "x": 126,
+   "y": 530,
+   "w": 57,
+   "h": 64
   },
   "career.hotel-concierge:surprised": {
-   "x": 251,
-   "y": 992,
-   "w": 76,
-   "h": 88
+   "x": 185,
+   "y": 530,
+   "w": 55,
+   "h": 64
   },
   "career.hotel-concierge:hurt": {
-   "x": 329,
-   "y": 992,
-   "w": 77,
-   "h": 88
+   "x": 242,
+   "y": 530,
+   "w": 56,
+   "h": 64
   },
   "career.hotel-concierge:blink": {
-   "x": 408,
-   "y": 992,
-   "w": 77,
-   "h": 88
+   "x": 300,
+   "y": 530,
+   "w": 56,
+   "h": 64
   },
   "career.hotel-concierge:talk": {
-   "x": 487,
-   "y": 992,
-   "w": 77,
-   "h": 88
+   "x": 358,
+   "y": 530,
+   "w": 56,
+   "h": 64
   },
   "career.ice-cream-vendor:neutral": {
-   "x": 566,
-   "y": 992,
-   "w": 73,
-   "h": 88
+   "x": 416,
+   "y": 530,
+   "w": 53,
+   "h": 64
   },
   "career.ice-cream-vendor:angry": {
-   "x": 641,
-   "y": 992,
-   "w": 73,
-   "h": 88
+   "x": 471,
+   "y": 530,
+   "w": 53,
+   "h": 64
   },
   "career.ice-cream-vendor:surprised": {
-   "x": 716,
-   "y": 992,
-   "w": 72,
-   "h": 88
+   "x": 526,
+   "y": 530,
+   "w": 53,
+   "h": 64
   },
   "career.ice-cream-vendor:hurt": {
-   "x": 790,
-   "y": 992,
-   "w": 72,
-   "h": 88
+   "x": 581,
+   "y": 530,
+   "w": 52,
+   "h": 64
   },
   "career.ice-cream-vendor:blink": {
-   "x": 864,
-   "y": 992,
-   "w": 73,
-   "h": 88
+   "x": 635,
+   "y": 530,
+   "w": 53,
+   "h": 64
   },
   "career.ice-cream-vendor:talk": {
-   "x": 939,
-   "y": 992,
-   "w": 73,
-   "h": 88
+   "x": 690,
+   "y": 530,
+   "w": 53,
+   "h": 64
   },
   "career.magician:neutral": {
-   "x": 1014,
-   "y": 992,
-   "w": 80,
-   "h": 88
+   "x": 745,
+   "y": 530,
+   "w": 58,
+   "h": 64
   },
   "career.magician:angry": {
-   "x": 1096,
-   "y": 992,
-   "w": 81,
-   "h": 88
+   "x": 805,
+   "y": 530,
+   "w": 59,
+   "h": 64
   },
   "career.magician:surprised": {
-   "x": 1179,
-   "y": 992,
-   "w": 80,
-   "h": 88
+   "x": 866,
+   "y": 530,
+   "w": 58,
+   "h": 64
   },
   "career.magician:hurt": {
-   "x": 1261,
-   "y": 992,
-   "w": 80,
-   "h": 88
+   "x": 926,
+   "y": 530,
+   "w": 58,
+   "h": 64
   },
   "career.magician:blink": {
-   "x": 1343,
-   "y": 992,
-   "w": 80,
-   "h": 88
+   "x": 986,
+   "y": 530,
+   "w": 58,
+   "h": 64
   },
   "career.magician:talk": {
-   "x": 1425,
-   "y": 992,
-   "w": 80,
-   "h": 88
+   "x": 1046,
+   "y": 530,
+   "w": 58,
+   "h": 64
   },
   "career.marine-biologist:neutral": {
-   "x": 1507,
-   "y": 992,
-   "w": 77,
-   "h": 88
+   "x": 1106,
+   "y": 530,
+   "w": 56,
+   "h": 64
   },
   "career.marine-biologist:angry": {
-   "x": 1586,
-   "y": 992,
-   "w": 77,
-   "h": 88
+   "x": 1164,
+   "y": 530,
+   "w": 56,
+   "h": 64
   },
   "career.marine-biologist:surprised": {
-   "x": 1665,
-   "y": 992,
-   "w": 77,
-   "h": 88
+   "x": 1222,
+   "y": 530,
+   "w": 56,
+   "h": 64
   },
   "career.marine-biologist:hurt": {
-   "x": 1744,
-   "y": 992,
-   "w": 78,
-   "h": 88
+   "x": 1280,
+   "y": 530,
+   "w": 57,
+   "h": 64
   },
   "career.marine-biologist:blink": {
-   "x": 1824,
-   "y": 992,
-   "w": 77,
-   "h": 88
+   "x": 1339,
+   "y": 530,
+   "w": 56,
+   "h": 64
   },
   "career.museum-curator:neutral": {
-   "x": 1903,
-   "y": 992,
-   "w": 87,
-   "h": 88
+   "x": 1397,
+   "y": 530,
+   "w": 63,
+   "h": 64
   },
   "career.museum-curator:angry": {
-   "x": 2,
-   "y": 1082,
-   "w": 86,
-   "h": 88
+   "x": 1462,
+   "y": 530,
+   "w": 63,
+   "h": 64
   },
   "career.museum-curator:surprised": {
-   "x": 90,
-   "y": 1082,
-   "w": 86,
-   "h": 88
+   "x": 1527,
+   "y": 530,
+   "w": 63,
+   "h": 64
   },
   "career.museum-curator:hurt": {
-   "x": 178,
-   "y": 1082,
-   "w": 87,
-   "h": 88
+   "x": 1592,
+   "y": 530,
+   "w": 63,
+   "h": 64
   },
   "career.museum-curator:blink": {
-   "x": 267,
-   "y": 1082,
-   "w": 87,
-   "h": 88
+   "x": 1657,
+   "y": 530,
+   "w": 63,
+   "h": 64
   },
   "career.museum-curator:talk": {
-   "x": 356,
-   "y": 1082,
-   "w": 87,
-   "h": 88
+   "x": 1722,
+   "y": 530,
+   "w": 63,
+   "h": 64
   },
   "career.nurse:neutral": {
-   "x": 445,
-   "y": 1082,
-   "w": 78,
-   "h": 88
+   "x": 1787,
+   "y": 530,
+   "w": 57,
+   "h": 64
   },
   "career.nurse:angry": {
-   "x": 525,
-   "y": 1082,
-   "w": 79,
-   "h": 88
+   "x": 1846,
+   "y": 530,
+   "w": 58,
+   "h": 64
   },
   "career.nurse:surprised": {
-   "x": 606,
-   "y": 1082,
-   "w": 77,
-   "h": 88
+   "x": 1906,
+   "y": 530,
+   "w": 56,
+   "h": 64
   },
   "career.nurse:hurt": {
-   "x": 685,
-   "y": 1082,
-   "w": 78,
-   "h": 88
+   "x": 1964,
+   "y": 530,
+   "w": 57,
+   "h": 64
   },
   "career.nurse:blink": {
-   "x": 765,
-   "y": 1082,
-   "w": 78,
-   "h": 88
+   "x": 2,
+   "y": 596,
+   "w": 57,
+   "h": 64
   },
   "career.nurse:talk": {
-   "x": 845,
-   "y": 1082,
-   "w": 78,
-   "h": 88
+   "x": 61,
+   "y": 596,
+   "w": 57,
+   "h": 64
   },
   "career.painter:neutral": {
-   "x": 925,
-   "y": 1082,
-   "w": 88,
-   "h": 77
+   "x": 120,
+   "y": 596,
+   "w": 64,
+   "h": 56
   },
   "career.painter:angry": {
-   "x": 1015,
-   "y": 1082,
-   "w": 88,
-   "h": 79
+   "x": 186,
+   "y": 596,
+   "w": 64,
+   "h": 57
   },
   "career.painter:surprised": {
-   "x": 1105,
-   "y": 1082,
-   "w": 88,
-   "h": 78
+   "x": 252,
+   "y": 596,
+   "w": 64,
+   "h": 57
   },
   "career.painter:hurt": {
-   "x": 1195,
-   "y": 1082,
-   "w": 88,
-   "h": 79
+   "x": 318,
+   "y": 596,
+   "w": 64,
+   "h": 57
   },
   "career.painter:blink": {
-   "x": 1285,
-   "y": 1082,
-   "w": 88,
-   "h": 77
+   "x": 384,
+   "y": 596,
+   "w": 64,
+   "h": 56
   },
   "career.photographer:neutral": {
-   "x": 1375,
-   "y": 1082,
-   "w": 84,
-   "h": 88
+   "x": 450,
+   "y": 596,
+   "w": 61,
+   "h": 64
   },
   "career.photographer:angry": {
-   "x": 1461,
-   "y": 1082,
-   "w": 86,
-   "h": 88
+   "x": 513,
+   "y": 596,
+   "w": 63,
+   "h": 64
   },
   "career.photographer:surprised": {
-   "x": 1549,
-   "y": 1082,
-   "w": 85,
-   "h": 88
+   "x": 578,
+   "y": 596,
+   "w": 61,
+   "h": 64
   },
   "career.photographer:hurt": {
-   "x": 1636,
-   "y": 1082,
-   "w": 85,
-   "h": 88
+   "x": 641,
+   "y": 596,
+   "w": 61,
+   "h": 64
   },
   "career.photographer:blink": {
-   "x": 1723,
-   "y": 1082,
-   "w": 84,
-   "h": 88
+   "x": 704,
+   "y": 596,
+   "w": 61,
+   "h": 64
   },
   "career.photographer:talk": {
-   "x": 1809,
-   "y": 1082,
-   "w": 84,
-   "h": 88
+   "x": 767,
+   "y": 596,
+   "w": 61,
+   "h": 64
   },
   "career.postal-worker:neutral": {
-   "x": 1895,
-   "y": 1082,
-   "w": 84,
-   "h": 88
+   "x": 830,
+   "y": 596,
+   "w": 61,
+   "h": 64
   },
   "career.postal-worker:angry": {
-   "x": 2,
-   "y": 1172,
-   "w": 86,
-   "h": 88
+   "x": 893,
+   "y": 596,
+   "w": 62,
+   "h": 64
   },
   "career.postal-worker:surprised": {
-   "x": 90,
-   "y": 1172,
-   "w": 83,
-   "h": 88
+   "x": 957,
+   "y": 596,
+   "w": 61,
+   "h": 64
   },
   "career.postal-worker:hurt": {
-   "x": 175,
-   "y": 1172,
-   "w": 84,
-   "h": 88
+   "x": 1020,
+   "y": 596,
+   "w": 61,
+   "h": 64
   },
   "career.postal-worker:blink": {
-   "x": 261,
-   "y": 1172,
-   "w": 84,
-   "h": 88
+   "x": 1083,
+   "y": 596,
+   "w": 61,
+   "h": 64
   },
   "career.postal-worker:talk": {
-   "x": 347,
-   "y": 1172,
-   "w": 84,
-   "h": 88
+   "x": 1146,
+   "y": 596,
+   "w": 61,
+   "h": 64
   },
   "career.sailor:neutral": {
-   "x": 433,
-   "y": 1172,
-   "w": 72,
-   "h": 88
+   "x": 1209,
+   "y": 596,
+   "w": 52,
+   "h": 64
   },
   "career.sailor:angry": {
-   "x": 507,
-   "y": 1172,
-   "w": 75,
-   "h": 88
+   "x": 1263,
+   "y": 596,
+   "w": 54,
+   "h": 64
   },
   "career.sailor:surprised": {
-   "x": 584,
-   "y": 1172,
-   "w": 71,
-   "h": 88
+   "x": 1319,
+   "y": 596,
+   "w": 52,
+   "h": 64
   },
   "career.sailor:hurt": {
-   "x": 657,
-   "y": 1172,
-   "w": 74,
-   "h": 88
+   "x": 1373,
+   "y": 596,
+   "w": 54,
+   "h": 64
   },
   "career.sailor:blink": {
-   "x": 733,
-   "y": 1172,
-   "w": 72,
-   "h": 88
+   "x": 1429,
+   "y": 596,
+   "w": 52,
+   "h": 64
   },
   "career.sailor:talk": {
-   "x": 807,
-   "y": 1172,
-   "w": 72,
-   "h": 88
+   "x": 1483,
+   "y": 596,
+   "w": 52,
+   "h": 64
   },
   "career.scientist:neutral": {
-   "x": 881,
-   "y": 1172,
-   "w": 78,
-   "h": 88
+   "x": 1537,
+   "y": 596,
+   "w": 57,
+   "h": 64
   },
   "career.scientist:angry": {
-   "x": 961,
-   "y": 1172,
-   "w": 78,
-   "h": 88
+   "x": 1596,
+   "y": 596,
+   "w": 57,
+   "h": 64
   },
   "career.scientist:surprised": {
-   "x": 1041,
-   "y": 1172,
-   "w": 81,
-   "h": 88
+   "x": 1655,
+   "y": 596,
+   "w": 59,
+   "h": 64
   },
   "career.scientist:hurt": {
-   "x": 1124,
-   "y": 1172,
-   "w": 80,
-   "h": 88
+   "x": 1716,
+   "y": 596,
+   "w": 58,
+   "h": 64
   },
   "career.scientist:blink": {
-   "x": 1206,
-   "y": 1172,
-   "w": 78,
-   "h": 88
+   "x": 1776,
+   "y": 596,
+   "w": 57,
+   "h": 64
   },
   "career.scientist:talk": {
-   "x": 1286,
-   "y": 1172,
-   "w": 78,
-   "h": 88
+   "x": 1835,
+   "y": 596,
+   "w": 57,
+   "h": 64
   },
   "career.tailor:neutral": {
-   "x": 1366,
-   "y": 1172,
-   "w": 87,
-   "h": 88
+   "x": 1894,
+   "y": 596,
+   "w": 63,
+   "h": 64
   },
   "career.tailor:angry": {
-   "x": 1455,
-   "y": 1172,
-   "w": 88,
-   "h": 88
+   "x": 1959,
+   "y": 596,
+   "w": 64,
+   "h": 64
   },
   "career.tailor:surprised": {
-   "x": 1545,
-   "y": 1172,
-   "w": 86,
-   "h": 88
+   "x": 2,
+   "y": 662,
+   "w": 63,
+   "h": 64
   },
   "career.tailor:hurt": {
-   "x": 1633,
-   "y": 1172,
-   "w": 88,
-   "h": 87
+   "x": 67,
+   "y": 662,
+   "w": 64,
+   "h": 63
   },
   "career.tailor:blink": {
-   "x": 1723,
-   "y": 1172,
-   "w": 87,
-   "h": 88
+   "x": 133,
+   "y": 662,
+   "w": 63,
+   "h": 64
   },
   "career.tailor:talk": {
-   "x": 1812,
-   "y": 1172,
-   "w": 87,
-   "h": 88
+   "x": 198,
+   "y": 662,
+   "w": 63,
+   "h": 64
   },
   "career.tattoo-artist:neutral": {
-   "x": 1901,
-   "y": 1172,
-   "w": 72,
-   "h": 88
+   "x": 263,
+   "y": 662,
+   "w": 52,
+   "h": 64
   },
   "career.tattoo-artist:angry": {
-   "x": 2,
-   "y": 1262,
-   "w": 74,
-   "h": 88
+   "x": 317,
+   "y": 662,
+   "w": 54,
+   "h": 64
   },
   "career.tattoo-artist:surprised": {
-   "x": 78,
-   "y": 1262,
-   "w": 72,
-   "h": 88
+   "x": 373,
+   "y": 662,
+   "w": 53,
+   "h": 64
   },
   "career.tattoo-artist:hurt": {
-   "x": 152,
-   "y": 1262,
-   "w": 75,
-   "h": 88
+   "x": 428,
+   "y": 662,
+   "w": 54,
+   "h": 64
   },
   "career.tattoo-artist:blink": {
-   "x": 229,
-   "y": 1262,
-   "w": 72,
-   "h": 88
+   "x": 484,
+   "y": 662,
+   "w": 52,
+   "h": 64
   },
   "career.tattoo-artist:talk": {
-   "x": 303,
-   "y": 1262,
-   "w": 72,
-   "h": 88
+   "x": 538,
+   "y": 662,
+   "w": 52,
+   "h": 64
   },
   "career.train-conductor:neutral": {
-   "x": 377,
-   "y": 1262,
-   "w": 79,
-   "h": 88
+   "x": 592,
+   "y": 662,
+   "w": 57,
+   "h": 64
   },
   "career.train-conductor:angry": {
-   "x": 458,
-   "y": 1262,
-   "w": 79,
-   "h": 88
+   "x": 651,
+   "y": 662,
+   "w": 57,
+   "h": 64
   },
   "career.train-conductor:surprised": {
-   "x": 539,
-   "y": 1262,
-   "w": 80,
-   "h": 88
+   "x": 710,
+   "y": 662,
+   "w": 58,
+   "h": 64
   },
   "career.train-conductor:hurt": {
-   "x": 621,
-   "y": 1262,
-   "w": 80,
-   "h": 88
+   "x": 770,
+   "y": 662,
+   "w": 58,
+   "h": 64
   },
   "career.train-conductor:blink": {
-   "x": 703,
-   "y": 1262,
-   "w": 79,
-   "h": 88
+   "x": 830,
+   "y": 662,
+   "w": 57,
+   "h": 64
   },
   "career.train-conductor:talk": {
-   "x": 784,
-   "y": 1262,
-   "w": 79,
-   "h": 88
+   "x": 889,
+   "y": 662,
+   "w": 57,
+   "h": 64
   },
   "career.veterinarian:neutral": {
-   "x": 865,
-   "y": 1262,
-   "w": 78,
-   "h": 88
+   "x": 948,
+   "y": 662,
+   "w": 57,
+   "h": 64
   },
   "career.veterinarian:angry": {
-   "x": 945,
-   "y": 1262,
-   "w": 79,
-   "h": 88
+   "x": 1007,
+   "y": 662,
+   "w": 58,
+   "h": 64
   },
   "career.veterinarian:surprised": {
-   "x": 1026,
-   "y": 1262,
-   "w": 78,
-   "h": 88
+   "x": 1067,
+   "y": 662,
+   "w": 56,
+   "h": 64
   },
   "career.veterinarian:hurt": {
-   "x": 1106,
-   "y": 1262,
-   "w": 79,
-   "h": 88
+   "x": 1125,
+   "y": 662,
+   "w": 57,
+   "h": 64
   },
   "career.veterinarian:blink": {
-   "x": 1187,
-   "y": 1262,
-   "w": 78,
-   "h": 88
+   "x": 1184,
+   "y": 662,
+   "w": 57,
+   "h": 64
   },
   "career.veterinarian:talk": {
-   "x": 1267,
-   "y": 1262,
-   "w": 78,
-   "h": 88
+   "x": 1243,
+   "y": 662,
+   "w": 57,
+   "h": 64
   },
   "career.welder:neutral": {
-   "x": 1347,
-   "y": 1262,
-   "w": 69,
-   "h": 88
+   "x": 1302,
+   "y": 662,
+   "w": 50,
+   "h": 64
   },
   "career.welder:angry": {
-   "x": 1418,
-   "y": 1262,
-   "w": 70,
-   "h": 88
+   "x": 1354,
+   "y": 662,
+   "w": 51,
+   "h": 64
   },
   "career.welder:surprised": {
-   "x": 1490,
-   "y": 1262,
-   "w": 68,
-   "h": 88
+   "x": 1407,
+   "y": 662,
+   "w": 50,
+   "h": 64
   },
   "career.welder:hurt": {
-   "x": 1560,
-   "y": 1262,
-   "w": 73,
-   "h": 88
+   "x": 1459,
+   "y": 662,
+   "w": 53,
+   "h": 64
   },
   "career.welder:blink": {
-   "x": 1635,
-   "y": 1262,
-   "w": 69,
-   "h": 88
+   "x": 1514,
+   "y": 662,
+   "w": 50,
+   "h": 64
   },
   "career.window-cleaner:neutral": {
-   "x": 1706,
-   "y": 1262,
-   "w": 85,
-   "h": 88
+   "x": 1566,
+   "y": 662,
+   "w": 62,
+   "h": 64
   },
   "career.window-cleaner:angry": {
-   "x": 1793,
-   "y": 1262,
-   "w": 86,
-   "h": 88
+   "x": 1630,
+   "y": 662,
+   "w": 62,
+   "h": 64
   },
   "career.window-cleaner:surprised": {
-   "x": 1881,
-   "y": 1262,
-   "w": 85,
-   "h": 88
+   "x": 1694,
+   "y": 662,
+   "w": 61,
+   "h": 64
   },
   "career.window-cleaner:hurt": {
-   "x": 2,
-   "y": 1352,
-   "w": 86,
-   "h": 88
+   "x": 1757,
+   "y": 662,
+   "w": 63,
+   "h": 64
   },
   "career.window-cleaner:blink": {
-   "x": 90,
-   "y": 1352,
-   "w": 85,
-   "h": 88
+   "x": 1822,
+   "y": 662,
+   "w": 62,
+   "h": 64
   },
   "career.window-cleaner:talk": {
-   "x": 177,
-   "y": 1352,
-   "w": 85,
-   "h": 88
+   "x": 1886,
+   "y": 662,
+   "w": 62,
+   "h": 64
   },
   "career.zookeeper:neutral": {
-   "x": 264,
-   "y": 1352,
-   "w": 88,
-   "h": 67
+   "x": 1950,
+   "y": 662,
+   "w": 64,
+   "h": 48
   },
   "career.zookeeper:angry": {
-   "x": 354,
-   "y": 1352,
-   "w": 88,
-   "h": 66
+   "x": 2,
+   "y": 728,
+   "w": 64,
+   "h": 48
   },
   "career.zookeeper:surprised": {
-   "x": 444,
-   "y": 1352,
-   "w": 88,
-   "h": 67
+   "x": 68,
+   "y": 728,
+   "w": 64,
+   "h": 49
   },
   "career.zookeeper:hurt": {
-   "x": 534,
-   "y": 1352,
-   "w": 88,
-   "h": 66
+   "x": 134,
+   "y": 728,
+   "w": 64,
+   "h": 48
   },
   "career.zookeeper:blink": {
-   "x": 624,
-   "y": 1352,
-   "w": 88,
-   "h": 67
+   "x": 200,
+   "y": 728,
+   "w": 64,
+   "h": 48
   },
   "career.zookeeper:talk": {
-   "x": 714,
-   "y": 1352,
-   "w": 88,
-   "h": 67
+   "x": 266,
+   "y": 728,
+   "w": 64,
+   "h": 48
   }
  }
 }
