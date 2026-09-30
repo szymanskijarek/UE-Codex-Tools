@@ -3,3 +3,4 @@ export * from './progression';
 export * from './economy';
 export * from './skills';
 export * from './company';
+export * from './names';

@@ -112,6 +112,8 @@ compresses them (WebP, palette-quantised).
   (placeholder rules are in `PIPELINES.md` §1).
 - **Career banter:** `data/synergies/`.
 - **Company name words** (the adjective, noun and suffix players pick from): `packages/game-rules/src/company.ts`.
+- **Character names and titles** (first and last names, titles before and after a name): `packages/content/data/names.json`.
+  Add freely. If an entry is removed, characters keep their saved name; the rename picker starts from a fresh name for them.
   Only add words; renaming or removing one resets saves that used it to a random name.
 - **Careers, abilities, props, arenas, bosses:** follow the checklists in
   `PIPELINES.md` (*Adding an arena*, *Adding or changing a ladder boss*,

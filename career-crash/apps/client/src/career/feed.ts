@@ -1,5 +1,5 @@
 import { bundle } from '@cc/content';
-import { careerRank, RANKS, stageInfo } from '@cc/game-rules';
+import { careerRank, RANKS, shortName, stageInfo } from '@cc/game-rules';
 import { Rng } from '@cc/sim';
 import { nameOf } from '../i18n';
 import { companyName, currentCareer, mainChar, type CareerSave, type FightSummary } from './model';
@@ -336,7 +336,7 @@ export function discussion(p: FeedPost, s: CareerSave): Discussion {
   const stranger = (): Speaker => persona(rng);
   const reactedBy = p.mine?.react ? 'You' : (staff.length && rng.int(2) ? pick(staff).author : stranger().author);
 
-  const first = p.author.split(' ')[0]!;
+  const first = shortName(bundle, p.author);
   const slots = { first, author: p.author, company: p.company ?? 'them', me: m.c.name, arena: 'arena' };
   const say = (key: string, extra: Record<string, string> = {}) => {
     const l = bundle.live[key] ?? bundle.live.feed_c_generic ?? ['Nice.'];
@@ -386,14 +386,14 @@ export function discussion(p: FeedPost, s: CareerSave): Discussion {
     if (!who || seen.has(who.author)) continue;
     seen.add(who.author);
     comments.push({ ...who, text: say(key), likes: rng.int(40) });
-    if (rng.int(10) < 4) comments.push({ ...author, text: say('feed_c_reply', { commenter: who.author.split(' ')[0]! }), likes: rng.int(12), reply: true });
+    if (rng.int(10) < 4) comments.push({ ...author, text: say('feed_c_reply', { commenter: shortName(bundle, who.author) }), likes: rng.int(12), reply: true });
   }
   // The player's own comments, each answered by the author (or a passer-by on your own posts).
   (p.mine?.said ?? []).forEach((text, i) => {
     comments.push({ ...me, text, likes: 0, mine: true });
     const r = Rng.fromSeed(`reply:${p.id}:${i}`);
     const l = bundle.live.feed_c_reply ?? ['Thanks!'];
-    if (!own) comments.push({ ...author, text: fill(l[r.int(l.length)]!, { commenter: first === m.c.name.split(' ')[0] ? 'you' : m.c.name.split(' ')[0]! }), likes: r.int(5), reply: true });
+    if (!own) comments.push({ ...author, text: fill(l[r.int(l.length)]!, { commenter: first === shortName(bundle, m.c.name) ? 'you' : shortName(bundle, m.c.name) }), likes: r.int(5), reply: true });
     else {
       const g = bundle.live.feed_c_generic ?? ['Agree.'];
       comments.push({ ...persona(r), text: g[r.int(g.length)]!, likes: r.int(5) });

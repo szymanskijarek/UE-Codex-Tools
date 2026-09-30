@@ -1,13 +1,14 @@
 import { useState } from 'preact/hooks';
 import { bundle } from '@cc/content';
-import { careerRank, DIFFICULTIES, difficulty, RANKS, SQUAD_UNLOCK_RANK, stageInfo, STAGES_PER_ARENA, type CareerChar, type DifficultyId } from '@cc/game-rules';
+import { careerRank, DIFFICULTIES, isNameParts, partsFromName, difficulty, RANKS, SQUAD_UNLOCK_RANK, stageInfo, STAGES_PER_ARENA, type CareerChar, type DifficultyId } from '@cc/game-rules';
 import { descOf, nameOf } from '../i18n';
 import { arenaArt } from '../replay/arena-art';
 import { currentReplay, navigate } from '../state';
 import { Portrait } from '../ui/components';
 import { levelProgress, Loadout, RankBar, skillAlert } from './Career';
 import { CompanyPicker } from './CompanyPicker';
-import { abandon, applicants, companyName, renameCompany, setPostMine, currentCareer, lineup, mainChar, nextOpponents, prepareFight, save, squadUnlocked, type CareerSave } from './model';
+import { NamePicker } from './NamePicker';
+import { abandon, applicants, companyName, renameCharacter, renameCompany, setPostMine, currentCareer, lineup, mainChar, nextOpponents, prepareFight, save, squadUnlocked, type CareerSave } from './model';
 import { PuppetView } from './PuppetView';
 import { discussion, promotedPosts, REACTIONS, starterPosts, type FeedPost, type ReactionKind } from './feed';
 
@@ -218,6 +219,8 @@ export function Hub({ save: s }: { save: CareerSave }) {
   const cid = currentCareer(m);
   const [hype, setHype] = useState(1);
   const [editCompany, setEditCompany] = useState(false);
+  const [editName, setEditName] = useState(false);
+  const nameParts = (isNameParts(bundle, m.c.nameParts) ? m.c.nameParts : null) ?? partsFromName(bundle, m.c.name) ?? { pre: [], first: bundle.names.first[0]!, last: bundle.names.last[0]!, post: [] };
   const info = stageInfo(bundle, s.stage);
   const diff = difficulty(s.difficulty);
   const opp = nextOpponents(s);
@@ -250,7 +253,13 @@ export function Hub({ save: s }: { save: CareerSave }) {
               <PuppetView careerId={cid} personality={m.c.personality} appearance={m.c.appearance} size={170} hype={hype} voiceId={m.c.id} />
             </button>
             <div class="li-body">
-              <h1>{m.c.name}</h1>
+              <h1>
+                {m.c.name}{' '}
+                <button class="ghost small li-rename" title="Change your name and titles" onClick={() => setEditName(!editName)}>
+                  {editName ? 'Done' : '✏️'}
+                </button>
+              </h1>
+              {editName && <NamePicker value={nameParts} onChange={(n) => renameCharacter(s, m.c.id, n)} />}
               <div class="li-headline">{headline(m)}</div>
               <div class="li-company small">
                 🏢 {companyName(s)}

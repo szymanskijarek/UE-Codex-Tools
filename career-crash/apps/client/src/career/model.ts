@@ -10,6 +10,8 @@ import {
   chooseCareer,
   companyLabel,
   isCompanyName,
+  isNameParts,
+  formatName,
   randomCompany,
   difficulty,
   ensureRoots,
@@ -28,6 +30,7 @@ import {
   type CareerChar,
   type Character,
   type CompanyName,
+  type NameParts,
   type DifficultyId,
   type FightPay,
   type GrowthReport,
@@ -139,6 +142,13 @@ export function companyName(s: CareerSave): string {
 
 export function renameCompany(s: CareerSave, company: CompanyName): void {
   if (isCompanyName(company)) save({ ...s, company });
+}
+
+/** Rename a character with parts from the name picker. */
+export function renameCharacter(s: CareerSave, id: string, parts: NameParts): void {
+  const cc = s.chars[id];
+  if (!cc || !isNameParts(bundle, parts)) return;
+  save({ ...s, chars: { ...s.chars, [id]: { ...cc, c: { ...cc.c, name: formatName(parts), nameParts: parts } } } });
 }
 
 export function mainChar(s: CareerSave): CareerChar {

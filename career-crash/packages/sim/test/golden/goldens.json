@@ -1,12 +1,12 @@
 {
  "simVersion": "0.9.1",
- "contentHash": "0ce333be668641ff",
+ "contentHash": "5a175eb451c95043",
  "cases": [
   {
    "name": "arena.airport-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "e78fe815442a19cb",
     "arenaId": "arena.airport",
@@ -19,7 +19,7 @@
       "characters": [
        {
         "id": "arena.airport-3v3-0-0-0",
-        "name": "Anya Brown",
+        "name": "Wanjiru Harrison",
         "level": 1,
         "careers": [
          "career.nurse"
@@ -53,7 +53,7 @@
        },
        {
         "id": "arena.airport-3v3-0-0-1",
-        "name": "Nadia Jensen",
+        "name": "Beatriz Ferreira",
         "level": 5,
         "careers": [
          "career.hotel-concierge",
@@ -88,7 +88,7 @@
        },
        {
         "id": "arena.airport-3v3-0-0-2",
-        "name": "Sade Kowalski",
+        "name": "Lily Robinson",
         "level": 1,
         "careers": [
          "career.chef"
@@ -129,7 +129,7 @@
       "characters": [
        {
         "id": "arena.airport-3v3-0-1-0",
-        "name": "Gary Ahmed",
+        "name": "Wendy Pennywhistle",
         "level": 1,
         "careers": [
          "career.baker"
@@ -163,7 +163,7 @@
        },
        {
         "id": "arena.airport-3v3-0-1-1",
-        "name": "Wendy Mbeki",
+        "name": "Gary Yilmaz",
         "level": 5,
         "careers": [
          "career.flight-attendant",
@@ -198,7 +198,7 @@
        },
        {
         "id": "arena.airport-3v3-0-1-2",
-        "name": "Dmitri Smith",
+        "name": "Vikram Nguyen",
         "level": 1,
         "careers": [
          "career.security-guard"
@@ -265,7 +265,7 @@
    "name": "arena.airport-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "130dafe166b4ffc",
     "arenaId": "arena.airport",
@@ -278,7 +278,7 @@
       "characters": [
        {
         "id": "arena.airport-3v3-1-0-0",
-        "name": "Beth Moreau",
+        "name": "Leilani Khan",
         "level": 1,
         "careers": [
          "career.influencer"
@@ -312,7 +312,7 @@
        },
        {
         "id": "arena.airport-3v3-1-0-1",
-        "name": "Luis Brown",
+        "name": "Pierre Johansson",
         "level": 5,
         "careers": [
          "career.postal-worker",
@@ -347,7 +347,7 @@
        },
        {
         "id": "arena.airport-3v3-1-0-2",
-        "name": "Pat Haddad",
+        "name": "Leila King",
         "level": 1,
         "careers": [
          "career.taxi-driver"
@@ -388,7 +388,7 @@
       "characters": [
        {
         "id": "arena.airport-3v3-1-1-0",
-        "name": "Nadia Silva",
+        "name": "Linh Crumb",
         "level": 1,
         "careers": [
          "career.farmer"
@@ -422,7 +422,7 @@
        },
        {
         "id": "arena.airport-3v3-1-1-1",
-        "name": "Omar Müller",
+        "name": "Omar Li",
         "level": 5,
         "careers": [
          "career.veterinarian",
@@ -457,7 +457,7 @@
        },
        {
         "id": "arena.airport-3v3-1-1-2",
-        "name": "Kenji Mensah",
+        "name": "Carlos Dubois",
         "level": 1,
         "careers": [
          "career.dog-groomer"
@@ -518,7 +518,7 @@
    "name": "arena.airport-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "196dafab8b2928a0",
     "arenaId": "arena.airport",
@@ -531,7 +531,7 @@
       "characters": [
        {
         "id": "arena.airport-3v3-2-0-0",
-        "name": "Tariq Brown",
+        "name": "Mei Williams",
         "level": 1,
         "careers": [
          "career.ice-cream-vendor"
@@ -565,7 +565,7 @@
        },
        {
         "id": "arena.airport-3v3-2-0-1",
-        "name": "Linda Ahmed",
+        "name": "Linda Lambert",
         "level": 5,
         "careers": [
          "career.electrician",
@@ -600,7 +600,7 @@
        },
        {
         "id": "arena.airport-3v3-2-0-2",
-        "name": "Tomasz Kowalski",
+        "name": "Felix Moreno",
         "level": 1,
         "careers": [
          "career.tailor"
@@ -641,7 +641,7 @@
       "characters": [
        {
         "id": "arena.airport-3v3-2-1-0",
-        "name": "Hugo Walsh",
+        "name": "Minh Leroy",
         "level": 1,
         "careers": [
          "career.photographer"
@@ -675,7 +675,7 @@
        },
        {
         "id": "arena.airport-3v3-2-1-1",
-        "name": "Gary Fischer",
+        "name": "Siobhan Thomas",
         "level": 5,
         "careers": [
          "career.fortune-teller",
@@ -710,7 +710,7 @@
        },
        {
         "id": "arena.airport-3v3-2-1-2",
-        "name": "Pat Nakamura",
+        "name": "Carmen Adeyemi",
         "level": 1,
         "careers": [
          "career.delivery-driver"
@@ -771,7 +771,7 @@
    "name": "arena.airport-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "aa4c5cdbcd009f1",
     "arenaId": "arena.airport",
@@ -784,7 +784,7 @@
       "characters": [
        {
         "id": "arena.airport-3v3-3-0-0",
-        "name": "Mei Chen",
+        "name": "Theo Mazur",
         "level": 1,
         "careers": [
          "career.personal-trainer"
@@ -818,7 +818,7 @@
        },
        {
         "id": "arena.airport-3v3-3-0-1",
-        "name": "Björn Novak",
+        "name": "Agnieszka Zhang",
         "level": 5,
         "careers": [
          "career.ice-cream-vendor",
@@ -853,7 +853,7 @@
        },
        {
         "id": "arena.airport-3v3-3-0-2",
-        "name": "Beth Silva",
+        "name": "Ananya Nwosu",
         "level": 1,
         "careers": [
          "career.mime"
@@ -894,7 +894,7 @@
       "characters": [
        {
         "id": "arena.airport-3v3-3-1-0",
-        "name": "Kofi Smith",
+        "name": "Zofia Thomas",
         "level": 1,
         "careers": [
          "career.museum-curator"
@@ -928,7 +928,7 @@
        },
        {
         "id": "arena.airport-3v3-3-1-1",
-        "name": "Mei Park",
+        "name": "Theo Álvarez",
         "level": 5,
         "careers": [
          "career.police-officer",
@@ -963,7 +963,7 @@
        },
        {
         "id": "arena.airport-3v3-3-1-2",
-        "name": "Wendy Rossi",
+        "name": "Siobhan Nair",
         "level": 1,
         "careers": [
          "career.archaeologist"
@@ -1020,7 +1020,7 @@
    "name": "arena.airport-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "e7b3572412fd6f4",
     "arenaId": "arena.airport",
@@ -1033,7 +1033,7 @@
       "characters": [
        {
         "id": "arena.airport-3v3-4-0-0",
-        "name": "Marek Tanaka",
+        "name": "Valentina Haddad",
         "level": 1,
         "careers": [
          "career.personal-trainer"
@@ -1067,7 +1067,7 @@
        },
        {
         "id": "arena.airport-3v3-4-0-1",
-        "name": "Zara Tanaka",
+        "name": "Bogdan King",
         "level": 5,
         "careers": [
          "career.firefighter",
@@ -1102,7 +1102,7 @@
        },
        {
         "id": "arena.airport-3v3-4-0-2",
-        "name": "Tomasz Brown",
+        "name": "Trevor Romano",
         "level": 1,
         "careers": [
          "career.archaeologist"
@@ -1143,7 +1143,7 @@
       "characters": [
        {
         "id": "arena.airport-3v3-4-1-0",
-        "name": "Wendy Haddad",
+        "name": "Magdalena Korhonen",
         "level": 1,
         "careers": [
          "career.scientist"
@@ -1177,7 +1177,7 @@
        },
        {
         "id": "arena.airport-3v3-4-1-1",
-        "name": "Maria Walsh",
+        "name": "Frieda Jones",
         "level": 5,
         "careers": [
          "career.zookeeper",
@@ -1212,7 +1212,7 @@
        },
        {
         "id": "arena.airport-3v3-4-1-2",
-        "name": "Tariq Costa",
+        "name": "Dave Thompson",
         "level": 1,
         "careers": [
          "career.tattoo-artist"
@@ -1282,7 +1282,7 @@
    "name": "arena.airport-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "f7c0a6eb3c420a9c",
     "arenaId": "arena.airport",
@@ -1295,7 +1295,7 @@
       "characters": [
        {
         "id": "arena.airport-5v5-0-0-0",
-        "name": "Zara Chen",
+        "name": "Jun Hoffmann",
         "level": 1,
         "careers": [
          "career.chimney-sweep"
@@ -1329,7 +1329,7 @@
        },
        {
         "id": "arena.airport-5v5-0-0-1",
-        "name": "Chloe Tanaka",
+        "name": "Isaac Butterworth",
         "level": 5,
         "careers": [
          "career.farmer",
@@ -1364,7 +1364,7 @@
        },
        {
         "id": "arena.airport-5v5-0-0-2",
-        "name": "Jordan Haddad",
+        "name": "Lukas Kuznetsov",
         "level": 1,
         "careers": [
          "career.window-cleaner"
@@ -1398,7 +1398,7 @@
        },
        {
         "id": "arena.airport-5v5-0-0-3",
-        "name": "Wendy O'Brien",
+        "name": "Siobhan Harris",
         "level": 5,
         "careers": [
          "career.beekeeper",
@@ -1433,7 +1433,7 @@
        },
        {
         "id": "arena.airport-5v5-0-0-4",
-        "name": "Aisha Silva",
+        "name": "Willow Schmidt",
         "level": 1,
         "careers": [
          "career.painter"
@@ -1474,7 +1474,7 @@
       "characters": [
        {
         "id": "arena.airport-5v5-0-1-0",
-        "name": "Marek Kowalski",
+        "name": "Abigail Hassan",
         "level": 1,
         "careers": [
          "career.chimney-sweep"
@@ -1508,7 +1508,7 @@
        },
        {
         "id": "arena.airport-5v5-0-1-1",
-        "name": "Dev Popescu",
+        "name": "Vikram Lewandowski",
         "level": 5,
         "careers": [
          "career.magician",
@@ -1543,7 +1543,7 @@
        },
        {
         "id": "arena.airport-5v5-0-1-2",
-        "name": "Imani Müller",
+        "name": "Lan Crumb",
         "level": 1,
         "careers": [
          "career.museum-curator"
@@ -1577,7 +1577,7 @@
        },
        {
         "id": "arena.airport-5v5-0-1-3",
-        "name": "Ravi Jensen",
+        "name": "Chidi Kuznetsov",
         "level": 5,
         "careers": [
          "career.museum-curator",
@@ -1612,7 +1612,7 @@
        },
        {
         "id": "arena.airport-5v5-0-1-4",
-        "name": "Maria Nakamura",
+        "name": "Sophia Wilson",
         "level": 1,
         "careers": [
          "career.archaeologist"
@@ -1677,7 +1677,7 @@
    "name": "arena.airport-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "3dcdf6fe217c7d93",
     "arenaId": "arena.airport",
@@ -1690,7 +1690,7 @@
       "characters": [
        {
         "id": "arena.airport-5v5-1-0-0",
-        "name": "Frank García",
+        "name": "Frank Fernández",
         "level": 1,
         "careers": [
          "career.painter"
@@ -1724,7 +1724,7 @@
        },
        {
         "id": "arena.airport-5v5-1-0-1",
-        "name": "Olu Moreau",
+        "name": "Olu Dąbrowski",
         "level": 5,
         "careers": [
          "career.hotel-concierge",
@@ -1759,7 +1759,7 @@
        },
        {
         "id": "arena.airport-5v5-1-0-2",
-        "name": "Greta Mbeki",
+        "name": "Greta Bondarenko",
         "level": 1,
         "careers": [
          "career.plumber"
@@ -1793,7 +1793,7 @@
        },
        {
         "id": "arena.airport-5v5-1-0-3",
-        "name": "Olu Patel",
+        "name": "Lily Jackson",
         "level": 5,
         "careers": [
          "career.firefighter",
@@ -1828,7 +1828,7 @@
        },
        {
         "id": "arena.airport-5v5-1-0-4",
-        "name": "Rafael Moreau",
+        "name": "Katarzyna Romano",
         "level": 1,
         "careers": [
          "career.builder"
@@ -1869,7 +1869,7 @@
       "characters": [
        {
         "id": "arena.airport-5v5-1-1-0",
-        "name": "Sade Jensen",
+        "name": "Meera Dąbrowski",
         "level": 1,
         "careers": [
          "career.painter"
@@ -1903,7 +1903,7 @@
        },
        {
         "id": "arena.airport-5v5-1-1-1",
-        "name": "Maria Dubois",
+        "name": "Amara Sato",
         "level": 5,
         "careers": [
          "career.archaeologist",
@@ -1938,7 +1938,7 @@
        },
        {
         "id": "arena.airport-5v5-1-1-2",
-        "name": "Gary O'Brien",
+        "name": "Tracy Schmidt",
         "level": 1,
         "careers": [
          "career.clown"
@@ -1972,7 +1972,7 @@
        },
        {
         "id": "arena.airport-5v5-1-1-3",
-        "name": "Frank Park",
+        "name": "Andrei Cooper",
         "level": 5,
         "careers": [
          "career.electrician",
@@ -2007,7 +2007,7 @@
        },
        {
         "id": "arena.airport-5v5-1-1-4",
-        "name": "Jordan Fischer",
+        "name": "Derek Chen",
         "level": 1,
         "careers": [
          "career.marine-biologist"
@@ -2075,7 +2075,7 @@
    "name": "arena.airport-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "34b26a319a491cd8",
     "arenaId": "arena.airport",
@@ -2088,7 +2088,7 @@
       "characters": [
        {
         "id": "arena.airport-ffa-0-0",
-        "name": "Zara Costa",
+        "name": "Zara Becker",
         "level": 1,
         "careers": [
          "career.paramedic"
@@ -2129,7 +2129,7 @@
       "characters": [
        {
         "id": "arena.airport-ffa-1-0",
-        "name": "Olu O'Brien",
+        "name": "Freya Davies",
         "level": 1,
         "careers": [
          "career.clown"
@@ -2170,7 +2170,7 @@
       "characters": [
        {
         "id": "arena.airport-ffa-2-0",
-        "name": "Aisha Ahmed",
+        "name": "Aisha Romero",
         "level": 1,
         "careers": [
          "career.programmer"
@@ -2211,7 +2211,7 @@
       "characters": [
        {
         "id": "arena.airport-ffa-3-0",
-        "name": "Priya Mensah",
+        "name": "Isla Weber",
         "level": 1,
         "careers": [
          "career.security-guard"
@@ -2252,7 +2252,7 @@
       "characters": [
        {
         "id": "arena.airport-ffa-4-0",
-        "name": "Greta Chen",
+        "name": "Sharon Byrne",
         "level": 1,
         "careers": [
          "career.museum-curator"
@@ -2293,7 +2293,7 @@
       "characters": [
        {
         "id": "arena.airport-ffa-5-0",
-        "name": "Tomasz Mensah",
+        "name": "Noah Bianchi",
         "level": 1,
         "careers": [
          "career.builder"
@@ -2364,7 +2364,7 @@
    "name": "arena.construction-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "e5d404c1baff6cf2",
     "arenaId": "arena.construction",
@@ -2377,7 +2377,7 @@
       "characters": [
        {
         "id": "arena.construction-3v3-0-0-0",
-        "name": "Olu Ivanova",
+        "name": "Paloma Young",
         "level": 1,
         "careers": [
          "career.clown"
@@ -2411,7 +2411,7 @@
        },
        {
         "id": "arena.construction-3v3-0-0-1",
-        "name": "Kenji Kaur",
+        "name": "Tunde Johnson",
         "level": 5,
         "careers": [
          "career.archaeologist",
@@ -2446,7 +2446,7 @@
        },
        {
         "id": "arena.construction-3v3-0-0-2",
-        "name": "Nadia Smith",
+        "name": "Elena Fischer",
         "level": 1,
         "careers": [
          "career.marine-biologist"
@@ -2487,7 +2487,7 @@
       "characters": [
        {
         "id": "arena.construction-3v3-0-1-0",
-        "name": "Zara García",
+        "name": "Pablo Otieno",
         "level": 1,
         "careers": [
          "career.gardener"
@@ -2521,7 +2521,7 @@
        },
        {
         "id": "arena.construction-3v3-0-1-1",
-        "name": "Olu Popescu",
+        "name": "Lorraine Robinson",
         "level": 5,
         "careers": [
          "career.paramedic",
@@ -2556,7 +2556,7 @@
        },
        {
         "id": "arena.construction-3v3-0-1-2",
-        "name": "Gary Mensah",
+        "name": "Ivana Patel",
         "level": 1,
         "careers": [
          "career.lawyer"
@@ -2616,7 +2616,7 @@
    "name": "arena.construction-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "d37092579e094390",
     "arenaId": "arena.construction",
@@ -2629,7 +2629,7 @@
       "characters": [
        {
         "id": "arena.construction-3v3-1-0-0",
-        "name": "Noor O'Brien",
+        "name": "Zofia Stewart",
         "level": 1,
         "careers": [
          "career.chimney-sweep"
@@ -2663,7 +2663,7 @@
        },
        {
         "id": "arena.construction-3v3-1-0-1",
-        "name": "Luis Mbeki",
+        "name": "Mateo Moreno",
         "level": 5,
         "careers": [
          "career.dentist",
@@ -2698,7 +2698,7 @@
        },
        {
         "id": "arena.construction-3v3-1-0-2",
-        "name": "Maria Rossi",
+        "name": "Yuki Zhang",
         "level": 1,
         "careers": [
          "career.plumber"
@@ -2739,7 +2739,7 @@
       "characters": [
        {
         "id": "arena.construction-3v3-1-1-0",
-        "name": "Omar Moreau",
+        "name": "Lucas Choi",
         "level": 1,
         "careers": [
          "career.barista"
@@ -2773,7 +2773,7 @@
        },
        {
         "id": "arena.construction-3v3-1-1-1",
-        "name": "Tomasz Dubois",
+        "name": "Arjun Lindqvist",
         "level": 5,
         "careers": [
          "career.beekeeper",
@@ -2808,7 +2808,7 @@
        },
        {
         "id": "arena.construction-3v3-1-1-2",
-        "name": "Jordan Walsh",
+        "name": "Alfie Thompson",
         "level": 1,
         "careers": [
          "career.firefighter"
@@ -2866,7 +2866,7 @@
    "name": "arena.construction-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "ef119c884e630bb",
     "arenaId": "arena.construction",
@@ -2879,7 +2879,7 @@
       "characters": [
        {
         "id": "arena.construction-3v3-2-0-0",
-        "name": "Fatima Tanaka",
+        "name": "Nils Wójcik",
         "level": 1,
         "careers": [
          "career.teacher"
@@ -2913,7 +2913,7 @@
        },
        {
         "id": "arena.construction-3v3-2-0-1",
-        "name": "Mei Ahmed",
+        "name": "Ethan Thomas",
         "level": 5,
         "careers": [
          "career.museum-curator",
@@ -2948,7 +2948,7 @@
        },
        {
         "id": "arena.construction-3v3-2-0-2",
-        "name": "Linda Kaur",
+        "name": "Dylan Schmidt",
         "level": 1,
         "careers": [
          "career.tailor"
@@ -2989,7 +2989,7 @@
       "characters": [
        {
         "id": "arena.construction-3v3-2-1-0",
-        "name": "Ingrid Novak",
+        "name": "Diego Kuznetsov",
         "level": 1,
         "careers": [
          "career.mechanic"
@@ -3023,7 +3023,7 @@
        },
        {
         "id": "arena.construction-3v3-2-1-1",
-        "name": "Sade Costa",
+        "name": "Sade Hall",
         "level": 5,
         "careers": [
          "career.dj",
@@ -3058,7 +3058,7 @@
        },
        {
         "id": "arena.construction-3v3-2-1-2",
-        "name": "Zara Lindqvist",
+        "name": "James Adeyemi",
         "level": 1,
         "careers": [
          "career.firefighter"
@@ -3117,7 +3117,7 @@
    "name": "arena.construction-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "a9e446455532085a",
     "arenaId": "arena.construction",
@@ -3130,7 +3130,7 @@
       "characters": [
        {
         "id": "arena.construction-3v3-3-0-0",
-        "name": "Chloe Ahmed",
+        "name": "Kevin Koch",
         "level": 1,
         "careers": [
          "career.carpenter"
@@ -3164,7 +3164,7 @@
        },
        {
         "id": "arena.construction-3v3-3-0-1",
-        "name": "Greta Mbeki",
+        "name": "Zoe Moore",
         "level": 5,
         "careers": [
          "career.hotel-concierge",
@@ -3199,7 +3199,7 @@
        },
        {
         "id": "arena.construction-3v3-3-0-2",
-        "name": "Olu Park",
+        "name": "Abena Crumb",
         "level": 1,
         "careers": [
          "career.tattoo-artist"
@@ -3240,7 +3240,7 @@
       "characters": [
        {
         "id": "arena.construction-3v3-3-1-0",
-        "name": "Nadia Moreau",
+        "name": "Priya Mazur",
         "level": 1,
         "careers": [
          "career.influencer"
@@ -3274,7 +3274,7 @@
        },
        {
         "id": "arena.construction-3v3-3-1-1",
-        "name": "Chloe Costa",
+        "name": "Mikko Thompson",
         "level": 5,
         "careers": [
          "career.mime",
@@ -3309,7 +3309,7 @@
        },
        {
         "id": "arena.construction-3v3-3-1-2",
-        "name": "Sade Ahmed",
+        "name": "Olu Moreno",
         "level": 1,
         "careers": [
          "career.programmer"
@@ -3376,7 +3376,7 @@
    "name": "arena.construction-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "8b05775e9bae3247",
     "arenaId": "arena.construction",
@@ -3389,7 +3389,7 @@
       "characters": [
        {
         "id": "arena.construction-3v3-4-0-0",
-        "name": "Mei Fischer",
+        "name": "Mei Okafor",
         "level": 1,
         "careers": [
          "career.tattoo-artist"
@@ -3423,7 +3423,7 @@
        },
        {
         "id": "arena.construction-3v3-4-0-1",
-        "name": "Björn Nowak",
+        "name": "Björn Mensah",
         "level": 5,
         "careers": [
          "career.teacher",
@@ -3458,7 +3458,7 @@
        },
        {
         "id": "arena.construction-3v3-4-0-2",
-        "name": "Jordan Tanaka",
+        "name": "Alfie Price",
         "level": 1,
         "careers": [
          "career.lawyer"
@@ -3499,7 +3499,7 @@
       "characters": [
        {
         "id": "arena.construction-3v3-4-1-0",
-        "name": "Hugo Ahmed",
+        "name": "Joao Sánchez",
         "level": 1,
         "careers": [
          "career.hairdresser"
@@ -3533,7 +3533,7 @@
        },
        {
         "id": "arena.construction-3v3-4-1-1",
-        "name": "Noor Nakamura",
+        "name": "Seo-yeon Crumb",
         "level": 5,
         "careers": [
          "career.nurse",
@@ -3568,7 +3568,7 @@
        },
        {
         "id": "arena.construction-3v3-4-1-2",
-        "name": "Priya Walsh",
+        "name": "Priya Schulz",
         "level": 1,
         "careers": [
          "career.chef"
@@ -3628,7 +3628,7 @@
    "name": "arena.construction-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "2e9a959a60ee0e3d",
     "arenaId": "arena.construction",
@@ -3641,7 +3641,7 @@
       "characters": [
        {
         "id": "arena.construction-5v5-0-0-0",
-        "name": "Linda Haddad",
+        "name": "Min-jun Ward",
         "level": 1,
         "careers": [
          "career.dog-groomer"
@@ -3675,7 +3675,7 @@
        },
        {
         "id": "arena.construction-5v5-0-0-1",
-        "name": "Priya Jensen",
+        "name": "Emily Pennywhistle",
         "level": 5,
         "careers": [
          "career.zookeeper",
@@ -3710,7 +3710,7 @@
        },
        {
         "id": "arena.construction-5v5-0-0-2",
-        "name": "Zara García",
+        "name": "James Park",
         "level": 1,
         "careers": [
          "career.train-conductor"
@@ -3744,7 +3744,7 @@
        },
        {
         "id": "arena.construction-5v5-0-0-3",
-        "name": "Olu Brown",
+        "name": "Freya Szymański",
         "level": 5,
         "careers": [
          "career.chef",
@@ -3779,7 +3779,7 @@
        },
        {
         "id": "arena.construction-5v5-0-0-4",
-        "name": "Frank Patel",
+        "name": "Clive Mensah",
         "level": 1,
         "careers": [
          "career.programmer"
@@ -3820,7 +3820,7 @@
       "characters": [
        {
         "id": "arena.construction-5v5-0-1-0",
-        "name": "Chloe Kaur",
+        "name": "Isaac Young",
         "level": 1,
         "careers": [
          "career.archaeologist"
@@ -3854,7 +3854,7 @@
        },
        {
         "id": "arena.construction-5v5-0-1-1",
-        "name": "Gary Walsh",
+        "name": "Harper Zieliński",
         "level": 5,
         "careers": [
          "career.tailor",
@@ -3889,7 +3889,7 @@
        },
        {
         "id": "arena.construction-5v5-0-1-2",
-        "name": "Jordan Novak",
+        "name": "Minh Romano",
         "level": 1,
         "careers": [
          "career.taxi-driver"
@@ -3923,7 +3923,7 @@
        },
        {
         "id": "arena.construction-5v5-0-1-3",
-        "name": "Mei Walsh",
+        "name": "Takeshi Murphy",
         "level": 5,
         "careers": [
          "career.flight-attendant",
@@ -3958,7 +3958,7 @@
        },
        {
         "id": "arena.construction-5v5-0-1-4",
-        "name": "Aisha Chen",
+        "name": "Ella Taylor",
         "level": 1,
         "careers": [
          "career.hairdresser"
@@ -4024,7 +4024,7 @@
    "name": "arena.construction-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "d13182ca106255c4",
     "arenaId": "arena.construction",
@@ -4037,7 +4037,7 @@
       "characters": [
        {
         "id": "arena.construction-5v5-1-0-0",
-        "name": "Ingrid Ivanova",
+        "name": "Ingrid Gupta",
         "level": 1,
         "careers": [
          "career.museum-curator"
@@ -4071,7 +4071,7 @@
        },
        {
         "id": "arena.construction-5v5-1-0-1",
-        "name": "Linda Moreau",
+        "name": "Arthur Khan",
         "level": 5,
         "careers": [
          "career.hairdresser",
@@ -4106,7 +4106,7 @@
        },
        {
         "id": "arena.construction-5v5-1-0-2",
-        "name": "Imani Novak",
+        "name": "Lan Kim",
         "level": 1,
         "careers": [
          "career.window-cleaner"
@@ -4140,7 +4140,7 @@
        },
        {
         "id": "arena.construction-5v5-1-0-3",
-        "name": "Olu Rossi",
+        "name": "Lorraine Novak",
         "level": 5,
         "careers": [
          "career.teacher",
@@ -4175,7 +4175,7 @@
        },
        {
         "id": "arena.construction-5v5-1-0-4",
-        "name": "Chloe Mensah",
+        "name": "Chloe Crumb",
         "level": 1,
         "careers": [
          "career.gardener"
@@ -4216,7 +4216,7 @@
       "characters": [
        {
         "id": "arena.construction-5v5-1-1-0",
-        "name": "Frank Mensah",
+        "name": "Clive Walsh",
         "level": 1,
         "careers": [
          "career.chef"
@@ -4250,7 +4250,7 @@
        },
        {
         "id": "arena.construction-5v5-1-1-1",
-        "name": "Tomasz Silva",
+        "name": "Kai Almeida",
         "level": 5,
         "careers": [
          "career.accountant",
@@ -4285,7 +4285,7 @@
        },
        {
         "id": "arena.construction-5v5-1-1-2",
-        "name": "Aisha Haddad",
+        "name": "Ananya Lambert",
         "level": 1,
         "careers": [
          "career.beekeeper"
@@ -4319,7 +4319,7 @@
        },
        {
         "id": "arena.construction-5v5-1-1-3",
-        "name": "Ravi Mbeki",
+        "name": "Chidi Smith",
         "level": 5,
         "careers": [
          "career.carpenter",
@@ -4354,7 +4354,7 @@
        },
        {
         "id": "arena.construction-5v5-1-1-4",
-        "name": "Tariq Walsh",
+        "name": "Krzysztof Petit",
         "level": 1,
         "careers": [
          "career.firefighter"
@@ -4418,7 +4418,7 @@
    "name": "arena.construction-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "68388aab60306d3",
     "arenaId": "arena.construction",
@@ -4431,7 +4431,7 @@
       "characters": [
        {
         "id": "arena.construction-ffa-0-0",
-        "name": "Linda Haddad",
+        "name": "Jarek López",
         "level": 1,
         "careers": [
          "career.carpenter"
@@ -4472,7 +4472,7 @@
       "characters": [
        {
         "id": "arena.construction-ffa-1-0",
-        "name": "Kenji Tanaka",
+        "name": "Jonas Novak",
         "level": 1,
         "careers": [
          "career.train-conductor"
@@ -4513,7 +4513,7 @@
       "characters": [
        {
         "id": "arena.construction-ffa-2-0",
-        "name": "Kofi Lindqvist",
+        "name": "Layla Gupta",
         "level": 1,
         "careers": [
          "career.janitor"
@@ -4554,7 +4554,7 @@
       "characters": [
        {
         "id": "arena.construction-ffa-3-0",
-        "name": "Yuki Rossi",
+        "name": "Camila Wagner",
         "level": 1,
         "careers": [
          "career.beekeeper"
@@ -4595,7 +4595,7 @@
       "characters": [
        {
         "id": "arena.construction-ffa-4-0",
-        "name": "Zara Fischer",
+        "name": "Andrew Volkov",
         "level": 1,
         "careers": [
          "career.dj"
@@ -4636,7 +4636,7 @@
       "characters": [
        {
         "id": "arena.construction-ffa-5-0",
-        "name": "Noor Ivanova",
+        "name": "Noor Gupta",
         "level": 1,
         "careers": [
          "career.marine-biologist"
@@ -4707,7 +4707,7 @@
    "name": "arena.diner-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "3a61d0d75aeb8652",
     "arenaId": "arena.diner",
@@ -4720,7 +4720,7 @@
       "characters": [
        {
         "id": "arena.diner-3v3-0-0-0",
-        "name": "Dmitri Mbeki",
+        "name": "Vikram Lambert",
         "level": 1,
         "careers": [
          "career.paramedic"
@@ -4754,7 +4754,7 @@
        },
        {
         "id": "arena.diner-3v3-0-0-1",
-        "name": "Ravi Popescu",
+        "name": "Felix Boateng",
         "level": 5,
         "careers": [
          "career.plumber",
@@ -4789,7 +4789,7 @@
        },
        {
         "id": "arena.diner-3v3-0-0-2",
-        "name": "Gary Novak",
+        "name": "Ivana Wójcik",
         "level": 1,
         "careers": [
          "career.security-guard"
@@ -4830,7 +4830,7 @@
       "characters": [
        {
         "id": "arena.diner-3v3-0-1-0",
-        "name": "Hugo O'Brien",
+        "name": "Lukas Nakamura",
         "level": 1,
         "careers": [
          "career.firefighter"
@@ -4864,7 +4864,7 @@
        },
        {
         "id": "arena.diner-3v3-0-1-1",
-        "name": "Kenji Novak",
+        "name": "Tunde Byrne",
         "level": 5,
         "careers": [
          "career.firefighter",
@@ -4899,7 +4899,7 @@
        },
        {
         "id": "arena.diner-3v3-0-1-2",
-        "name": "Carlos Müller",
+        "name": "Sven Owusu",
         "level": 1,
         "careers": [
          "career.lawyer"
@@ -4962,7 +4962,7 @@
    "name": "arena.diner-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "b80a4ed5a8f03ba2",
     "arenaId": "arena.diner",
@@ -4975,7 +4975,7 @@
       "characters": [
        {
         "id": "arena.diner-3v3-1-0-0",
-        "name": "Nadia Nowak",
+        "name": "Linh Schmidt",
         "level": 1,
         "careers": [
          "career.police-officer"
@@ -5009,7 +5009,7 @@
        },
        {
         "id": "arena.diner-3v3-1-0-1",
-        "name": "Gary Jensen",
+        "name": "Magdalena Doyle",
         "level": 5,
         "careers": [
          "career.janitor",
@@ -5044,7 +5044,7 @@
        },
        {
         "id": "arena.diner-3v3-1-0-2",
-        "name": "Jordan Patel",
+        "name": "Joao Ali",
         "level": 1,
         "careers": [
          "career.painter"
@@ -5085,7 +5085,7 @@
       "characters": [
        {
         "id": "arena.diner-3v3-1-1-0",
-        "name": "Mei Okafor",
+        "name": "Theo Hussein",
         "level": 1,
         "careers": [
          "career.barista"
@@ -5119,7 +5119,7 @@
        },
        {
         "id": "arena.diner-3v3-1-1-1",
-        "name": "Jarek Lindqvist",
+        "name": "Nigel Das",
         "level": 5,
         "careers": [
          "career.window-cleaner",
@@ -5154,7 +5154,7 @@
        },
        {
         "id": "arena.diner-3v3-1-1-2",
-        "name": "Aisha Moreau",
+        "name": "Beth Fischer",
         "level": 1,
         "careers": [
          "career.dentist"
@@ -5222,7 +5222,7 @@
    "name": "arena.diner-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "3a8374489539a1fe",
     "arenaId": "arena.diner",
@@ -5235,7 +5235,7 @@
       "characters": [
        {
         "id": "arena.diner-3v3-2-0-0",
-        "name": "Kofi Nowak",
+        "name": "Cerys Leroy",
         "level": 1,
         "careers": [
          "career.personal-trainer"
@@ -5269,7 +5269,7 @@
        },
        {
         "id": "arena.diner-3v3-2-0-1",
-        "name": "Pat Kowalski",
+        "name": "Leila Gómez",
         "level": 5,
         "careers": [
          "career.window-cleaner",
@@ -5304,7 +5304,7 @@
        },
        {
         "id": "arena.diner-3v3-2-0-2",
-        "name": "Fatima Jensen",
+        "name": "Omar Wright",
         "level": 1,
         "careers": [
          "career.flight-attendant"
@@ -5345,7 +5345,7 @@
       "characters": [
        {
         "id": "arena.diner-3v3-2-1-0",
-        "name": "Kofi Lindqvist",
+        "name": "Noor Colombo",
         "level": 1,
         "careers": [
          "career.firefighter"
@@ -5379,7 +5379,7 @@
        },
        {
         "id": "arena.diner-3v3-2-1-1",
-        "name": "Mei Okafor",
+        "name": "Ethan Suzuki",
         "level": 5,
         "careers": [
          "career.zookeeper",
@@ -5414,7 +5414,7 @@
        },
        {
         "id": "arena.diner-3v3-2-1-2",
-        "name": "Zara Brown",
+        "name": "Oscar Wagner",
         "level": 1,
         "careers": [
          "career.veterinarian"
@@ -5475,7 +5475,7 @@
    "name": "arena.diner-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "5fae8acf38f681a4",
     "arenaId": "arena.diner",
@@ -5488,7 +5488,7 @@
       "characters": [
        {
         "id": "arena.diner-3v3-3-0-0",
-        "name": "Jordan Jensen",
+        "name": "Derek Butterworth",
         "level": 1,
         "careers": [
          "career.plumber"
@@ -5522,7 +5522,7 @@
        },
        {
         "id": "arena.diner-3v3-3-0-1",
-        "name": "Sam Kaur",
+        "name": "Brenda Levi",
         "level": 5,
         "careers": [
          "career.chimney-sweep",
@@ -5557,7 +5557,7 @@
        },
        {
         "id": "arena.diner-3v3-3-0-2",
-        "name": "Greta García",
+        "name": "Björn Walsh",
         "level": 1,
         "careers": [
          "career.window-cleaner"
@@ -5598,7 +5598,7 @@
       "characters": [
        {
         "id": "arena.diner-3v3-3-1-0",
-        "name": "Rafael Kaur",
+        "name": "Karen Li",
         "level": 1,
         "careers": [
          "career.police-officer"
@@ -5632,7 +5632,7 @@
        },
        {
         "id": "arena.diner-3v3-3-1-1",
-        "name": "Alex Popescu",
+        "name": "Bogdan Pennywhistle",
         "level": 5,
         "careers": [
          "career.window-cleaner",
@@ -5667,7 +5667,7 @@
        },
        {
         "id": "arena.diner-3v3-3-1-2",
-        "name": "Linda Chen",
+        "name": "Dylan Kuznetsov",
         "level": 1,
         "careers": [
          "career.scientist"
@@ -5728,7 +5728,7 @@
    "name": "arena.diner-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "a946e60a39cd4c21",
     "arenaId": "arena.diner",
@@ -5741,7 +5741,7 @@
       "characters": [
        {
         "id": "arena.diner-3v3-4-0-0",
-        "name": "Maria Müller",
+        "name": "Amara Fernández",
         "level": 1,
         "careers": [
          "career.florist"
@@ -5775,7 +5775,7 @@
        },
        {
         "id": "arena.diner-3v3-4-0-1",
-        "name": "Chloe Park",
+        "name": "Luis Owusu",
         "level": 5,
         "careers": [
          "career.veterinarian",
@@ -5810,7 +5810,7 @@
        },
        {
         "id": "arena.diner-3v3-4-0-2",
-        "name": "Fatima Brown",
+        "name": "Nils Greco",
         "level": 1,
         "careers": [
          "career.electrician"
@@ -5851,7 +5851,7 @@
       "characters": [
        {
         "id": "arena.diner-3v3-4-1-0",
-        "name": "Dmitri Moreau",
+        "name": "Dev Bondarenko",
         "level": 1,
         "careers": [
          "career.plumber"
@@ -5885,7 +5885,7 @@
        },
        {
         "id": "arena.diner-3v3-4-1-1",
-        "name": "Mei Müller",
+        "name": "Theo Becker",
         "level": 5,
         "careers": [
          "career.marine-biologist",
@@ -5920,7 +5920,7 @@
        },
        {
         "id": "arena.diner-3v3-4-1-2",
-        "name": "Rafael Müller",
+        "name": "Katarzyna Watson",
         "level": 1,
         "careers": [
          "career.chef"
@@ -5982,7 +5982,7 @@
    "name": "arena.diner-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "fea959419759d29e",
     "arenaId": "arena.diner",
@@ -5995,7 +5995,7 @@
       "characters": [
        {
         "id": "arena.diner-5v5-0-0-0",
-        "name": "Olu Mbeki",
+        "name": "Sade Williams",
         "level": 1,
         "careers": [
          "career.bus-driver"
@@ -6029,7 +6029,7 @@
        },
        {
         "id": "arena.diner-5v5-0-0-1",
-        "name": "Fatima Rossi",
+        "name": "Lucas Szymański",
         "level": 5,
         "careers": [
          "career.dentist",
@@ -6064,7 +6064,7 @@
        },
        {
         "id": "arena.diner-5v5-0-0-2",
-        "name": "Marek García",
+        "name": "Ola Walker",
         "level": 1,
         "careers": [
          "career.archaeologist"
@@ -6098,7 +6098,7 @@
        },
        {
         "id": "arena.diner-5v5-0-0-3",
-        "name": "Zara Okafor",
+        "name": "Andrew Johansson",
         "level": 5,
         "careers": [
          "career.flight-attendant",
@@ -6133,7 +6133,7 @@
        },
        {
         "id": "arena.diner-5v5-0-0-4",
-        "name": "Tomasz Nowak",
+        "name": "Felix Levi",
         "level": 1,
         "careers": [
          "career.tailor"
@@ -6174,7 +6174,7 @@
       "characters": [
        {
         "id": "arena.diner-5v5-0-1-0",
-        "name": "Mei Ahmed",
+        "name": "Tomas Romero",
         "level": 1,
         "careers": [
          "career.clown"
@@ -6208,7 +6208,7 @@
        },
        {
         "id": "arena.diner-5v5-0-1-1",
-        "name": "Greta Tanaka",
+        "name": "Sharon Mitchell",
         "level": 5,
         "careers": [
          "career.dentist",
@@ -6243,7 +6243,7 @@
        },
        {
         "id": "arena.diner-5v5-0-1-2",
-        "name": "Imani Ivanova",
+        "name": "Valentina Baker",
         "level": 1,
         "careers": [
          "career.paramedic"
@@ -6277,7 +6277,7 @@
        },
        {
         "id": "arena.diner-5v5-0-1-3",
-        "name": "Alex Mbeki",
+        "name": "Oscar Dlamini",
         "level": 5,
         "careers": [
          "career.lifeguard",
@@ -6312,7 +6312,7 @@
        },
        {
         "id": "arena.diner-5v5-0-1-4",
-        "name": "Imani Silva",
+        "name": "Doreen Crumb",
         "level": 1,
         "careers": [
          "career.police-officer"
@@ -6380,7 +6380,7 @@
    "name": "arena.diner-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "ddde2e0011e5fb49",
     "arenaId": "arena.diner",
@@ -6393,7 +6393,7 @@
       "characters": [
        {
         "id": "arena.diner-5v5-1-0-0",
-        "name": "Yuki Brown",
+        "name": "Grace Fischer",
         "level": 1,
         "careers": [
          "career.programmer"
@@ -6427,7 +6427,7 @@
        },
        {
         "id": "arena.diner-5v5-1-0-1",
-        "name": "Greta Ahmed",
+        "name": "Sigrid López",
         "level": 5,
         "careers": [
          "career.lifeguard",
@@ -6462,7 +6462,7 @@
        },
        {
         "id": "arena.diner-5v5-1-0-2",
-        "name": "Maria Lindqvist",
+        "name": "Sophia Li",
         "level": 1,
         "careers": [
          "career.marine-biologist"
@@ -6496,7 +6496,7 @@
        },
        {
         "id": "arena.diner-5v5-1-0-3",
-        "name": "Imani Patel",
+        "name": "Abigail García",
         "level": 5,
         "careers": [
          "career.influencer",
@@ -6531,7 +6531,7 @@
        },
        {
         "id": "arena.diner-5v5-1-0-4",
-        "name": "Luis Smith",
+        "name": "Piotr Scott",
         "level": 1,
         "careers": [
          "career.security-guard"
@@ -6572,7 +6572,7 @@
       "characters": [
        {
         "id": "arena.diner-5v5-1-1-0",
-        "name": "Noor Fischer",
+        "name": "Lucia Kobayashi",
         "level": 1,
         "careers": [
          "career.bus-driver"
@@ -6606,7 +6606,7 @@
        },
        {
         "id": "arena.diner-5v5-1-1-1",
-        "name": "Greta Moreau",
+        "name": "Thandiwe Ward",
         "level": 5,
         "careers": [
          "career.photographer",
@@ -6641,7 +6641,7 @@
        },
        {
         "id": "arena.diner-5v5-1-1-2",
-        "name": "Hugo Chen",
+        "name": "Derek Pham",
         "level": 1,
         "careers": [
          "career.archaeologist"
@@ -6675,7 +6675,7 @@
        },
        {
         "id": "arena.diner-5v5-1-1-3",
-        "name": "Dev Mensah",
+        "name": "Rafa Johnson",
         "level": 5,
         "careers": [
          "career.baker",
@@ -6710,7 +6710,7 @@
        },
        {
         "id": "arena.diner-5v5-1-1-4",
-        "name": "Greta Brown",
+        "name": "Thandiwe Thomas",
         "level": 1,
         "careers": [
          "career.firefighter"
@@ -6771,7 +6771,7 @@
    "name": "arena.diner-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "6f1103f0ad21f524",
     "arenaId": "arena.diner",
@@ -6784,7 +6784,7 @@
       "characters": [
        {
         "id": "arena.diner-ffa-0-0",
-        "name": "Fatima Mbeki",
+        "name": "Owen Williams",
         "level": 1,
         "careers": [
          "career.zookeeper"
@@ -6825,7 +6825,7 @@
       "characters": [
        {
         "id": "arena.diner-ffa-1-0",
-        "name": "Priya Nakamura",
+        "name": "Elena Owusu",
         "level": 1,
         "careers": [
          "career.zookeeper"
@@ -6866,7 +6866,7 @@
       "characters": [
        {
         "id": "arena.diner-ffa-2-0",
-        "name": "Rafael Silva",
+        "name": "Anya Llewellyn",
         "level": 1,
         "careers": [
          "career.chef"
@@ -6907,7 +6907,7 @@
       "characters": [
        {
         "id": "arena.diner-ffa-3-0",
-        "name": "Tomasz Nakamura",
+        "name": "Noah Pereira",
         "level": 1,
         "careers": [
          "career.photographer"
@@ -6948,7 +6948,7 @@
       "characters": [
        {
         "id": "arena.diner-ffa-4-0",
-        "name": "Nadia Mbeki",
+        "name": "Elena Brown",
         "level": 1,
         "careers": [
          "career.fashion-designer"
@@ -6989,7 +6989,7 @@
       "characters": [
        {
         "id": "arena.diner-ffa-5-0",
-        "name": "Omar Silva",
+        "name": "Fatima MacDonald",
         "level": 1,
         "careers": [
          "career.farmer"
@@ -7060,7 +7060,7 @@
    "name": "arena.docks-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "889ff1ea4bd284d6",
     "arenaId": "arena.docks",
@@ -7073,7 +7073,7 @@
       "characters": [
        {
         "id": "arena.docks-3v3-0-0-0",
-        "name": "Beth Popescu",
+        "name": "Ava Choi",
         "level": 1,
         "careers": [
          "career.welder"
@@ -7107,7 +7107,7 @@
        },
        {
         "id": "arena.docks-3v3-0-0-1",
-        "name": "Carlos Jensen",
+        "name": "Jack Haddad",
         "level": 5,
         "careers": [
          "career.marine-biologist",
@@ -7142,7 +7142,7 @@
        },
        {
         "id": "arena.docks-3v3-0-0-2",
-        "name": "Pat O'Brien",
+        "name": "Sam Ivanova",
         "level": 1,
         "careers": [
          "career.archaeologist"
@@ -7183,7 +7183,7 @@
       "characters": [
        {
         "id": "arena.docks-3v3-0-1-0",
-        "name": "Greta Mensah",
+        "name": "Mia Kennedy",
         "level": 1,
         "careers": [
          "career.personal-trainer"
@@ -7217,7 +7217,7 @@
        },
        {
         "id": "arena.docks-3v3-0-1-1",
-        "name": "Sam García",
+        "name": "Hanna Walker",
         "level": 5,
         "careers": [
          "career.scientist",
@@ -7252,7 +7252,7 @@
        },
        {
         "id": "arena.docks-3v3-0-1-2",
-        "name": "Dmitri Lindqvist",
+        "name": "Rafa Mensah",
         "level": 1,
         "careers": [
          "career.window-cleaner"
@@ -7317,7 +7317,7 @@
    "name": "arena.docks-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "72806976f55cc53",
     "arenaId": "arena.docks",
@@ -7330,7 +7330,7 @@
       "characters": [
        {
         "id": "arena.docks-3v3-1-0-0",
-        "name": "Jordan Lindqvist",
+        "name": "Derek Richter",
         "level": 1,
         "careers": [
          "career.hairdresser"
@@ -7364,7 +7364,7 @@
        },
        {
         "id": "arena.docks-3v3-1-0-1",
-        "name": "Sade Popescu",
+        "name": "Lorraine Brown",
         "level": 5,
         "careers": [
          "career.beekeeper",
@@ -7399,7 +7399,7 @@
        },
        {
         "id": "arena.docks-3v3-1-0-2",
-        "name": "Kofi Müller",
+        "name": "Pam Martínez",
         "level": 1,
         "careers": [
          "career.paramedic"
@@ -7440,7 +7440,7 @@
       "characters": [
        {
         "id": "arena.docks-3v3-1-1-0",
-        "name": "Luis Patel",
+        "name": "Mikko Johnson",
         "level": 1,
         "careers": [
          "career.archaeologist"
@@ -7474,7 +7474,7 @@
        },
        {
         "id": "arena.docks-3v3-1-1-1",
-        "name": "Ingrid Ahmed",
+        "name": "Bartek Klein",
         "level": 5,
         "careers": [
          "career.influencer",
@@ -7509,7 +7509,7 @@
        },
        {
         "id": "arena.docks-3v3-1-1-2",
-        "name": "Priya Tanaka",
+        "name": "Nadia Williams",
         "level": 1,
         "careers": [
          "career.chimney-sweep"
@@ -7569,7 +7569,7 @@
    "name": "arena.docks-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "8993a8401124d9cb",
     "arenaId": "arena.docks",
@@ -7582,7 +7582,7 @@
       "characters": [
        {
         "id": "arena.docks-3v3-2-0-0",
-        "name": "Beth Ivanova",
+        "name": "Klara Walsh",
         "level": 1,
         "careers": [
          "career.hairdresser"
@@ -7616,7 +7616,7 @@
        },
        {
         "id": "arena.docks-3v3-2-0-1",
-        "name": "Björn Chen",
+        "name": "Fiona Friedman",
         "level": 5,
         "careers": [
          "career.tailor",
@@ -7651,7 +7651,7 @@
        },
        {
         "id": "arena.docks-3v3-2-0-2",
-        "name": "Jordan Kowalski",
+        "name": "Karim Thomas",
         "level": 1,
         "careers": [
          "career.baker"
@@ -7692,7 +7692,7 @@
       "characters": [
        {
         "id": "arena.docks-3v3-2-1-0",
-        "name": "Jordan Nakamura",
+        "name": "Stefan Papadopoulos",
         "level": 1,
         "careers": [
          "career.dj"
@@ -7726,7 +7726,7 @@
        },
        {
         "id": "arena.docks-3v3-2-1-1",
-        "name": "Jarek Smith",
+        "name": "Linda Greco",
         "level": 5,
         "careers": [
          "career.delivery-driver",
@@ -7761,7 +7761,7 @@
        },
        {
         "id": "arena.docks-3v3-2-1-2",
-        "name": "Björn O'Brien",
+        "name": "Zoe Schulz",
         "level": 1,
         "careers": [
          "career.carpenter"
@@ -7817,7 +7817,7 @@
    "name": "arena.docks-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "9f81d5802592743c",
     "arenaId": "arena.docks",
@@ -7830,7 +7830,7 @@
       "characters": [
        {
         "id": "arena.docks-3v3-3-0-0",
-        "name": "Björn Novak",
+        "name": "Fiona Pham",
         "level": 1,
         "careers": [
          "career.barista"
@@ -7864,7 +7864,7 @@
        },
        {
         "id": "arena.docks-3v3-3-0-1",
-        "name": "Jarek Fischer",
+        "name": "Ahmed Johansson",
         "level": 5,
         "careers": [
          "career.personal-trainer",
@@ -7899,7 +7899,7 @@
        },
        {
         "id": "arena.docks-3v3-3-0-2",
-        "name": "Tomasz Haddad",
+        "name": "Ravi Dlamini",
         "level": 1,
         "careers": [
          "career.nurse"
@@ -7940,7 +7940,7 @@
       "characters": [
        {
         "id": "arena.docks-3v3-3-1-0",
-        "name": "Priya Kowalski",
+        "name": "Maureen Kobayashi",
         "level": 1,
         "careers": [
          "career.electrician"
@@ -7974,7 +7974,7 @@
        },
        {
         "id": "arena.docks-3v3-3-1-1",
-        "name": "Maria Kaur",
+        "name": "Astrid Andersson",
         "level": 5,
         "careers": [
          "career.zookeeper",
@@ -8009,7 +8009,7 @@
        },
        {
         "id": "arena.docks-3v3-3-1-2",
-        "name": "Noor Ivanova",
+        "name": "Ruby Kozłowski",
         "level": 1,
         "careers": [
          "career.carpenter"
@@ -8063,7 +8063,7 @@
    "name": "arena.docks-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "d36abe03765dd29c",
     "arenaId": "arena.docks",
@@ -8076,7 +8076,7 @@
       "characters": [
        {
         "id": "arena.docks-3v3-4-0-0",
-        "name": "Tomasz Silva",
+        "name": "Chidi Roberts",
         "level": 1,
         "careers": [
          "career.firefighter"
@@ -8110,7 +8110,7 @@
        },
        {
         "id": "arena.docks-3v3-4-0-1",
-        "name": "Fatima Popescu",
+        "name": "Sipho Moreau",
         "level": 5,
         "careers": [
          "career.dog-groomer",
@@ -8145,7 +8145,7 @@
        },
        {
         "id": "arena.docks-3v3-4-0-2",
-        "name": "Linda Walsh",
+        "name": "Dylan Shevchenko",
         "level": 1,
         "careers": [
          "career.accountant"
@@ -8186,7 +8186,7 @@
       "characters": [
        {
         "id": "arena.docks-3v3-4-1-0",
-        "name": "Maria Kowalski",
+        "name": "Astrid Evans",
         "level": 1,
         "careers": [
          "career.security-guard"
@@ -8220,7 +8220,7 @@
        },
        {
         "id": "arena.docks-3v3-4-1-1",
-        "name": "Linda Nakamura",
+        "name": "Jarek Schulz",
         "level": 5,
         "careers": [
          "career.chef",
@@ -8255,7 +8255,7 @@
        },
        {
         "id": "arena.docks-3v3-4-1-2",
-        "name": "Maria Park",
+        "name": "Sophia Díaz",
         "level": 1,
         "careers": [
          "career.gardener"
@@ -8320,7 +8320,7 @@
    "name": "arena.docks-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "f7f61a0da7bffbfa",
     "arenaId": "arena.docks",
@@ -8333,7 +8333,7 @@
       "characters": [
        {
         "id": "arena.docks-5v5-0-0-0",
-        "name": "Aisha Tanaka",
+        "name": "Leilani Okafor",
         "level": 1,
         "careers": [
          "career.dentist"
@@ -8367,7 +8367,7 @@
        },
        {
         "id": "arena.docks-5v5-0-0-1",
-        "name": "Pat Brown",
+        "name": "Hanna Thomas",
         "level": 5,
         "careers": [
          "career.fashion-designer",
@@ -8402,7 +8402,7 @@
        },
        {
         "id": "arena.docks-5v5-0-0-2",
-        "name": "Gary Kaur",
+        "name": "Harper Sprocket",
         "level": 1,
         "careers": [
          "career.barista"
@@ -8436,7 +8436,7 @@
        },
        {
         "id": "arena.docks-5v5-0-0-3",
-        "name": "Luis Rossi",
+        "name": "Mateo López",
         "level": 5,
         "careers": [
          "career.chimney-sweep",
@@ -8471,7 +8471,7 @@
        },
        {
         "id": "arena.docks-5v5-0-0-4",
-        "name": "Noor Novak",
+        "name": "Pam White",
         "level": 1,
         "careers": [
          "career.dentist"
@@ -8512,7 +8512,7 @@
       "characters": [
        {
         "id": "arena.docks-5v5-0-1-0",
-        "name": "Ingrid Walsh",
+        "name": "Freddie Patel",
         "level": 1,
         "careers": [
          "career.nurse"
@@ -8546,7 +8546,7 @@
        },
        {
         "id": "arena.docks-5v5-0-1-1",
-        "name": "Kenji Mbeki",
+        "name": "Mateus Boateng",
         "level": 5,
         "careers": [
          "career.personal-trainer",
@@ -8581,7 +8581,7 @@
        },
        {
         "id": "arena.docks-5v5-0-1-2",
-        "name": "Nadia Novak",
+        "name": "Beatriz Kobayashi",
         "level": 1,
         "careers": [
          "career.police-officer"
@@ -8615,7 +8615,7 @@
        },
        {
         "id": "arena.docks-5v5-0-1-3",
-        "name": "Noor Silva",
+        "name": "Seo-yeon Richter",
         "level": 5,
         "careers": [
          "career.veterinarian",
@@ -8650,7 +8650,7 @@
        },
        {
         "id": "arena.docks-5v5-0-1-4",
-        "name": "Yuki Costa",
+        "name": "Amara Kozłowski",
         "level": 1,
         "careers": [
          "career.nurse"
@@ -8710,7 +8710,7 @@
    "name": "arena.docks-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "4f0aba12456fc7c",
     "arenaId": "arena.docks",
@@ -8723,7 +8723,7 @@
       "characters": [
        {
         "id": "arena.docks-5v5-1-0-0",
-        "name": "Mei Dubois",
+        "name": "Seamus Lee",
         "level": 1,
         "careers": [
          "career.postal-worker"
@@ -8757,7 +8757,7 @@
        },
        {
         "id": "arena.docks-5v5-1-0-1",
-        "name": "Rafael Rossi",
+        "name": "Aino Allen",
         "level": 5,
         "careers": [
          "career.electrician",
@@ -8792,7 +8792,7 @@
        },
        {
         "id": "arena.docks-5v5-1-0-2",
-        "name": "Aisha Haddad",
+        "name": "Ines Horvat",
         "level": 1,
         "careers": [
          "career.dj"
@@ -8826,7 +8826,7 @@
        },
        {
         "id": "arena.docks-5v5-1-0-3",
-        "name": "Fatima García",
+        "name": "Nils Johnson",
         "level": 5,
         "careers": [
          "career.flight-attendant",
@@ -8861,7 +8861,7 @@
        },
        {
         "id": "arena.docks-5v5-1-0-4",
-        "name": "Mei Mensah",
+        "name": "Mei Pérez",
         "level": 1,
         "careers": [
          "career.marine-biologist"
@@ -8902,7 +8902,7 @@
       "characters": [
        {
         "id": "arena.docks-5v5-1-1-0",
-        "name": "Jarek Kowalski",
+        "name": "Nikola Scott",
         "level": 1,
         "careers": [
          "career.chimney-sweep"
@@ -8936,7 +8936,7 @@
        },
        {
         "id": "arena.docks-5v5-1-1-1",
-        "name": "Nadia Brown",
+        "name": "Emma Gallo",
         "level": 5,
         "careers": [
          "career.farmer",
@@ -8971,7 +8971,7 @@
        },
        {
         "id": "arena.docks-5v5-1-1-2",
-        "name": "Linda Mbeki",
+        "name": "Jarek Gómez",
         "level": 1,
         "careers": [
          "career.beekeeper"
@@ -9005,7 +9005,7 @@
        },
        {
         "id": "arena.docks-5v5-1-1-3",
-        "name": "Sade Kowalski",
+        "name": "Paloma Moore",
         "level": 5,
         "careers": [
          "career.lawyer",
@@ -9040,7 +9040,7 @@
        },
        {
         "id": "arena.docks-5v5-1-1-4",
-        "name": "Tariq Nakamura",
+        "name": "Takeshi Featherstone",
         "level": 1,
         "careers": [
          "career.beekeeper"
@@ -9103,7 +9103,7 @@
    "name": "arena.docks-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "f2982c037c95522a",
     "arenaId": "arena.docks",
@@ -9116,7 +9116,7 @@
       "characters": [
        {
         "id": "arena.docks-ffa-0-0",
-        "name": "Dev Jensen",
+        "name": "Kwame Okafor",
         "level": 1,
         "careers": [
          "career.electrician"
@@ -9157,7 +9157,7 @@
       "characters": [
        {
         "id": "arena.docks-ffa-1-0",
-        "name": "Björn Kaur",
+        "name": "Deepa Takahashi",
         "level": 1,
         "careers": [
          "career.beekeeper"
@@ -9198,7 +9198,7 @@
       "characters": [
        {
         "id": "arena.docks-ffa-2-0",
-        "name": "Kofi Walsh",
+        "name": "Lucia Patel",
         "level": 1,
         "careers": [
          "career.librarian"
@@ -9239,7 +9239,7 @@
       "characters": [
        {
         "id": "arena.docks-ffa-3-0",
-        "name": "Luis Park",
+        "name": "Mateo Martin",
         "level": 1,
         "careers": [
          "career.nurse"
@@ -9280,7 +9280,7 @@
       "characters": [
        {
         "id": "arena.docks-ffa-4-0",
-        "name": "Kenji Nowak",
+        "name": "Jack Demir",
         "level": 1,
         "careers": [
          "career.builder"
@@ -9321,7 +9321,7 @@
       "characters": [
        {
         "id": "arena.docks-ffa-5-0",
-        "name": "Sam Okafor",
+        "name": "Hua Brown",
         "level": 1,
         "careers": [
          "career.baker"
@@ -9384,7 +9384,7 @@
    "name": "arena.hospital-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "f333b854c97a751f",
     "arenaId": "arena.hospital",
@@ -9397,7 +9397,7 @@
       "characters": [
        {
         "id": "arena.hospital-3v3-0-0-0",
-        "name": "Maria Chen",
+        "name": "Sandra Brown",
         "level": 1,
         "careers": [
          "career.window-cleaner"
@@ -9431,7 +9431,7 @@
        },
        {
         "id": "arena.hospital-3v3-0-0-1",
-        "name": "Linda García",
+        "name": "Pawel Sprocket",
         "level": 5,
         "careers": [
          "career.tailor",
@@ -9466,7 +9466,7 @@
        },
        {
         "id": "arena.hospital-3v3-0-0-2",
-        "name": "Kofi Brown",
+        "name": "Noor Tanaka",
         "level": 1,
         "careers": [
          "career.dentist"
@@ -9507,7 +9507,7 @@
       "characters": [
        {
         "id": "arena.hospital-3v3-0-1-0",
-        "name": "Kofi Nowak",
+        "name": "Seo-yeon Schulz",
         "level": 1,
         "careers": [
          "career.veterinarian"
@@ -9541,7 +9541,7 @@
        },
        {
         "id": "arena.hospital-3v3-0-1-1",
-        "name": "Jordan Popescu",
+        "name": "Stefan Turner",
         "level": 5,
         "careers": [
          "career.sailor",
@@ -9576,7 +9576,7 @@
        },
        {
         "id": "arena.hospital-3v3-0-1-2",
-        "name": "Fatima Park",
+        "name": "Sanjay Thompson",
         "level": 1,
         "careers": [
          "career.scientist"
@@ -9637,7 +9637,7 @@
    "name": "arena.hospital-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "5bf09ffcd15ccd9e",
     "arenaId": "arena.hospital",
@@ -9650,7 +9650,7 @@
       "characters": [
        {
         "id": "arena.hospital-3v3-1-0-0",
-        "name": "Dmitri Popescu",
+        "name": "Lars Rousseau",
         "level": 1,
         "careers": [
          "career.lawyer"
@@ -9684,7 +9684,7 @@
        },
        {
         "id": "arena.hospital-3v3-1-0-1",
-        "name": "Beth Haddad",
+        "name": "Ngozi Kariuki",
         "level": 5,
         "careers": [
          "career.dj",
@@ -9719,7 +9719,7 @@
        },
        {
         "id": "arena.hospital-3v3-1-0-2",
-        "name": "Jarek Smith",
+        "name": "Nigel Moore",
         "level": 1,
         "careers": [
          "career.gardener"
@@ -9760,7 +9760,7 @@
       "characters": [
        {
         "id": "arena.hospital-3v3-1-1-0",
-        "name": "Chloe Mbeki",
+        "name": "Kevin Green",
         "level": 1,
         "careers": [
          "career.veterinarian"
@@ -9794,7 +9794,7 @@
        },
        {
         "id": "arena.hospital-3v3-1-1-1",
-        "name": "Aisha Haddad",
+        "name": "Willow Okafor",
         "level": 5,
         "careers": [
          "career.barista",
@@ -9829,7 +9829,7 @@
        },
        {
         "id": "arena.hospital-3v3-1-1-2",
-        "name": "Chloe Novak",
+        "name": "Mateo Petrov",
         "level": 1,
         "careers": [
          "career.fashion-designer"
@@ -9885,7 +9885,7 @@
    "name": "arena.hospital-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "c0fd95e8d5b74388",
     "arenaId": "arena.hospital",
@@ -9898,7 +9898,7 @@
       "characters": [
        {
         "id": "arena.hospital-3v3-2-0-0",
-        "name": "Fatima Novak",
+        "name": "Owen Bernard",
         "level": 1,
         "careers": [
          "career.electrician"
@@ -9932,7 +9932,7 @@
        },
        {
         "id": "arena.hospital-3v3-2-0-1",
-        "name": "Luis Smith",
+        "name": "Kevin Nair",
         "level": 5,
         "careers": [
          "career.delivery-driver",
@@ -9967,7 +9967,7 @@
        },
        {
         "id": "arena.hospital-3v3-2-0-2",
-        "name": "Zara García",
+        "name": "James Roberts",
         "level": 1,
         "careers": [
          "career.chef"
@@ -10008,7 +10008,7 @@
       "characters": [
        {
         "id": "arena.hospital-3v3-2-1-0",
-        "name": "Wendy Novak",
+        "name": "Gary Novak",
         "level": 1,
         "careers": [
          "career.veterinarian"
@@ -10042,7 +10042,7 @@
        },
        {
         "id": "arena.hospital-3v3-2-1-1",
-        "name": "Tomasz Kaur",
+        "name": "Kai Fernández",
         "level": 5,
         "careers": [
          "career.hotel-concierge",
@@ -10077,7 +10077,7 @@
        },
        {
         "id": "arena.hospital-3v3-2-1-2",
-        "name": "Dmitri Dubois",
+        "name": "Dmitri Baker",
         "level": 1,
         "careers": [
          "career.influencer"
@@ -10140,7 +10140,7 @@
    "name": "arena.hospital-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "538cb6d124da7aea",
     "arenaId": "arena.hospital",
@@ -10153,7 +10153,7 @@
       "characters": [
        {
         "id": "arena.hospital-3v3-3-0-0",
-        "name": "Greta Smith",
+        "name": "Greta Gallo",
         "level": 1,
         "careers": [
          "career.taxi-driver"
@@ -10187,7 +10187,7 @@
        },
        {
         "id": "arena.hospital-3v3-3-0-1",
-        "name": "Gary García",
+        "name": "Wendy Fernández",
         "level": 5,
         "careers": [
          "career.nurse",
@@ -10222,7 +10222,7 @@
        },
        {
         "id": "arena.hospital-3v3-3-0-2",
-        "name": "Beth Patel",
+        "name": "Ella Nwosu",
         "level": 1,
         "careers": [
          "career.window-cleaner"
@@ -10263,7 +10263,7 @@
       "characters": [
        {
         "id": "arena.hospital-3v3-3-1-0",
-        "name": "Ravi Haddad",
+        "name": "Noah Lewandowski",
         "level": 1,
         "careers": [
          "career.zookeeper"
@@ -10297,7 +10297,7 @@
        },
        {
         "id": "arena.hospital-3v3-3-1-1",
-        "name": "Nadia Rossi",
+        "name": "Priya Nair",
         "level": 5,
         "careers": [
          "career.dog-groomer",
@@ -10332,7 +10332,7 @@
        },
        {
         "id": "arena.hospital-3v3-3-1-2",
-        "name": "Kenji Müller",
+        "name": "Keith Bianchi",
         "level": 1,
         "careers": [
          "career.lifeguard"
@@ -10391,7 +10391,7 @@
    "name": "arena.hospital-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "925d19c047c1b4f9",
     "arenaId": "arena.hospital",
@@ -10404,7 +10404,7 @@
       "characters": [
        {
         "id": "arena.hospital-3v3-4-0-0",
-        "name": "Carlos Silva",
+        "name": "Oliver Lindqvist",
         "level": 1,
         "careers": [
          "career.dentist"
@@ -10438,7 +10438,7 @@
        },
        {
         "id": "arena.hospital-3v3-4-0-1",
-        "name": "Carlos Müller",
+        "name": "Sven Petit",
         "level": 5,
         "careers": [
          "career.marine-biologist",
@@ -10473,7 +10473,7 @@
        },
        {
         "id": "arena.hospital-3v3-4-0-2",
-        "name": "Noor Popescu",
+        "name": "Zofia Moreau",
         "level": 1,
         "careers": [
          "career.janitor"
@@ -10514,7 +10514,7 @@
       "characters": [
        {
         "id": "arena.hospital-3v3-4-1-0",
-        "name": "Wendy Chen",
+        "name": "Siobhan Mbeki",
         "level": 1,
         "careers": [
          "career.baker"
@@ -10548,7 +10548,7 @@
        },
        {
         "id": "arena.hospital-3v3-4-1-1",
-        "name": "Jarek Nowak",
+        "name": "Mason Conti",
         "level": 5,
         "careers": [
          "career.janitor",
@@ -10583,7 +10583,7 @@
        },
        {
         "id": "arena.hospital-3v3-4-1-2",
-        "name": "Ingrid Tanaka",
+        "name": "Andrei Oliveira",
         "level": 1,
         "careers": [
          "career.mime"
@@ -10645,7 +10645,7 @@
    "name": "arena.hospital-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "d4f3878e5d96a85a",
     "arenaId": "arena.hospital",
@@ -10658,7 +10658,7 @@
       "characters": [
        {
         "id": "arena.hospital-5v5-0-0-0",
-        "name": "Marek Patel",
+        "name": "Imani Lindqvist",
         "level": 1,
         "careers": [
          "career.barista"
@@ -10692,7 +10692,7 @@
        },
        {
         "id": "arena.hospital-5v5-0-0-1",
-        "name": "Gary Chen",
+        "name": "Hazel Turner",
         "level": 5,
         "careers": [
          "career.personal-trainer",
@@ -10727,7 +10727,7 @@
        },
        {
         "id": "arena.hospital-5v5-0-0-2",
-        "name": "Imani Tanaka",
+        "name": "Doreen Cohen",
         "level": 1,
         "careers": [
          "career.taxi-driver"
@@ -10761,7 +10761,7 @@
        },
        {
         "id": "arena.hospital-5v5-0-0-3",
-        "name": "Kofi Tanaka",
+        "name": "Seo-yeon Taylor",
         "level": 5,
         "careers": [
          "career.mime",
@@ -10796,7 +10796,7 @@
        },
        {
         "id": "arena.hospital-5v5-0-0-4",
-        "name": "Björn Nowak",
+        "name": "Greta Costa",
         "level": 1,
         "careers": [
          "career.librarian"
@@ -10837,7 +10837,7 @@
       "characters": [
        {
         "id": "arena.hospital-5v5-0-1-0",
-        "name": "Björn Silva",
+        "name": "Greta Zieliński",
         "level": 1,
         "careers": [
          "career.builder"
@@ -10871,7 +10871,7 @@
        },
        {
         "id": "arena.hospital-5v5-0-1-1",
-        "name": "Tomasz Silva",
+        "name": "Ravi Woźniak",
         "level": 5,
         "careers": [
          "career.archaeologist",
@@ -10906,7 +10906,7 @@
        },
        {
         "id": "arena.hospital-5v5-0-1-2",
-        "name": "Priya Tanaka",
+        "name": "Nadia Ward",
         "level": 1,
         "careers": [
          "career.mime"
@@ -10940,7 +10940,7 @@
        },
        {
         "id": "arena.hospital-5v5-0-1-3",
-        "name": "Dmitri Haddad",
+        "name": "Rafa Tanaka",
         "level": 5,
         "careers": [
          "career.lifeguard",
@@ -10975,7 +10975,7 @@
        },
        {
         "id": "arena.hospital-5v5-0-1-4",
-        "name": "Noor Nakamura",
+        "name": "Noor Baker",
         "level": 1,
         "careers": [
          "career.paramedic"
@@ -11046,7 +11046,7 @@
    "name": "arena.hospital-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "edc43739627e29f8",
     "arenaId": "arena.hospital",
@@ -11059,7 +11059,7 @@
       "characters": [
        {
         "id": "arena.hospital-5v5-1-0-0",
-        "name": "Chloe Kowalski",
+        "name": "Kevin Romero",
         "level": 1,
         "careers": [
          "career.mechanic"
@@ -11093,7 +11093,7 @@
        },
        {
         "id": "arena.hospital-5v5-1-0-1",
-        "name": "Ravi Okafor",
+        "name": "Archie Pennywhistle",
         "level": 5,
         "careers": [
          "career.influencer",
@@ -11128,7 +11128,7 @@
        },
        {
         "id": "arena.hospital-5v5-1-0-2",
-        "name": "Zara Walsh",
+        "name": "Pablo Edwards",
         "level": 1,
         "careers": [
          "career.welder"
@@ -11162,7 +11162,7 @@
        },
        {
         "id": "arena.hospital-5v5-1-0-3",
-        "name": "Kofi Kaur",
+        "name": "Ruby Kennedy",
         "level": 5,
         "careers": [
          "career.ice-cream-vendor",
@@ -11197,7 +11197,7 @@
        },
        {
         "id": "arena.hospital-5v5-1-0-4",
-        "name": "Marek Moreau",
+        "name": "Doreen Fischer",
         "level": 1,
         "careers": [
          "career.scientist"
@@ -11238,7 +11238,7 @@
       "characters": [
        {
         "id": "arena.hospital-5v5-1-1-0",
-        "name": "Gary Rossi",
+        "name": "Manon Greco",
         "level": 1,
         "careers": [
          "career.teacher"
@@ -11272,7 +11272,7 @@
        },
        {
         "id": "arena.hospital-5v5-1-1-1",
-        "name": "Omar Rossi",
+        "name": "Omar Rousseau",
         "level": 5,
         "careers": [
          "career.police-officer",
@@ -11307,7 +11307,7 @@
        },
        {
         "id": "arena.hospital-5v5-1-1-2",
-        "name": "Yuki Haddad",
+        "name": "Frieda Bernard",
         "level": 1,
         "careers": [
          "career.scientist"
@@ -11341,7 +11341,7 @@
        },
        {
         "id": "arena.hospital-5v5-1-1-3",
-        "name": "Dev Mbeki",
+        "name": "Leo Greco",
         "level": 5,
         "careers": [
          "career.ice-cream-vendor",
@@ -11376,7 +11376,7 @@
        },
        {
         "id": "arena.hospital-5v5-1-1-4",
-        "name": "Imani Fischer",
+        "name": "Ola Ricci",
         "level": 1,
         "careers": [
          "career.tattoo-artist"
@@ -11438,7 +11438,7 @@
    "name": "arena.hospital-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "b0fdac7ed78fc2bf",
     "arenaId": "arena.hospital",
@@ -11451,7 +11451,7 @@
       "characters": [
        {
         "id": "arena.hospital-ffa-0-0",
-        "name": "Yuki Müller",
+        "name": "Maria Zieliński",
         "level": 1,
         "careers": [
          "career.beekeeper"
@@ -11492,7 +11492,7 @@
       "characters": [
        {
         "id": "arena.hospital-ffa-1-0",
-        "name": "Chloe Novak",
+        "name": "Juma Johansson",
         "level": 1,
         "careers": [
          "career.teacher"
@@ -11533,7 +11533,7 @@
       "characters": [
        {
         "id": "arena.hospital-ffa-2-0",
-        "name": "Yuki Novak",
+        "name": "Yuki Sánchez",
         "level": 1,
         "careers": [
          "career.sailor"
@@ -11574,7 +11574,7 @@
       "characters": [
        {
         "id": "arena.hospital-ffa-3-0",
-        "name": "Rafael Nowak",
+        "name": "Aino Tran",
         "level": 1,
         "careers": [
          "career.photographer"
@@ -11615,7 +11615,7 @@
       "characters": [
        {
         "id": "arena.hospital-ffa-4-0",
-        "name": "Jordan Kaur",
+        "name": "Liam Crumb",
         "level": 1,
         "careers": [
          "career.magician"
@@ -11656,7 +11656,7 @@
       "characters": [
        {
         "id": "arena.hospital-ffa-5-0",
-        "name": "Noor Chen",
+        "name": "Lucia Fraser",
         "level": 1,
         "careers": [
          "career.welder"
@@ -11718,7 +11718,7 @@
    "name": "arena.hotel-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "1440af4efc215946",
     "arenaId": "arena.hotel",
@@ -11731,7 +11731,7 @@
       "characters": [
        {
         "id": "arena.hotel-3v3-0-0-0",
-        "name": "Anya Novak",
+        "name": "Aiko Okafor",
         "level": 1,
         "careers": [
          "career.security-guard"
@@ -11765,7 +11765,7 @@
        },
        {
         "id": "arena.hotel-3v3-0-0-1",
-        "name": "Carlos Tanaka",
+        "name": "George Dąbrowski",
         "level": 5,
         "careers": [
          "career.scientist",
@@ -11800,7 +11800,7 @@
        },
        {
         "id": "arena.hotel-3v3-0-0-2",
-        "name": "Marek Mensah",
+        "name": "Marek Karlsson",
         "level": 1,
         "careers": [
          "career.photographer"
@@ -11841,7 +11841,7 @@
       "characters": [
        {
         "id": "arena.hotel-3v3-0-1-0",
-        "name": "Sade Park",
+        "name": "Lily Patel",
         "level": 1,
         "careers": [
          "career.librarian"
@@ -11875,7 +11875,7 @@
        },
        {
         "id": "arena.hotel-3v3-0-1-1",
-        "name": "Ingrid Smith",
+        "name": "Logan Puddle",
         "level": 5,
         "careers": [
          "career.flight-attendant",
@@ -11910,7 +11910,7 @@
        },
        {
         "id": "arena.hotel-3v3-0-1-2",
-        "name": "Wendy O'Brien",
+        "name": "Elsa Richter",
         "level": 1,
         "careers": [
          "career.fashion-designer"
@@ -11966,7 +11966,7 @@
    "name": "arena.hotel-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "3247cdc26041c4d5",
     "arenaId": "arena.hotel",
@@ -11979,7 +11979,7 @@
       "characters": [
        {
         "id": "arena.hotel-3v3-1-0-0",
-        "name": "Chloe García",
+        "name": "Chloe Stewart",
         "level": 1,
         "careers": [
          "career.mime"
@@ -12013,7 +12013,7 @@
        },
        {
         "id": "arena.hotel-3v3-1-0-1",
-        "name": "Chloe Kowalski",
+        "name": "Piotr Sánchez",
         "level": 5,
         "careers": [
          "career.influencer",
@@ -12048,7 +12048,7 @@
        },
        {
         "id": "arena.hotel-3v3-1-0-2",
-        "name": "Jarek Ivanova",
+        "name": "Min-jun Young",
         "level": 1,
         "careers": [
          "career.dog-groomer"
@@ -12089,7 +12089,7 @@
       "characters": [
        {
         "id": "arena.hotel-3v3-1-1-0",
-        "name": "Imani Okafor",
+        "name": "Poppy Doyle",
         "level": 1,
         "careers": [
          "career.taxi-driver"
@@ -12123,7 +12123,7 @@
        },
        {
         "id": "arena.hotel-3v3-1-1-1",
-        "name": "Sade Costa",
+        "name": "Abena Conti",
         "level": 5,
         "careers": [
          "career.scientist",
@@ -12158,7 +12158,7 @@
        },
        {
         "id": "arena.hotel-3v3-1-1-2",
-        "name": "Olu Brown",
+        "name": "Freya Lambert",
         "level": 1,
         "careers": [
          "career.ice-cream-vendor"
@@ -12225,7 +12225,7 @@
    "name": "arena.hotel-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "ad3b869d7299f43f",
     "arenaId": "arena.hotel",
@@ -12238,7 +12238,7 @@
       "characters": [
        {
         "id": "arena.hotel-3v3-2-0-0",
-        "name": "Anya Dubois",
+        "name": "Nora Jung",
         "level": 1,
         "careers": [
          "career.lifeguard"
@@ -12272,7 +12272,7 @@
        },
        {
         "id": "arena.hotel-3v3-2-0-1",
-        "name": "Jordan Chen",
+        "name": "Lukas Choi",
         "level": 5,
         "careers": [
          "career.influencer",
@@ -12307,7 +12307,7 @@
        },
        {
         "id": "arena.hotel-3v3-2-0-2",
-        "name": "Sam O'Brien",
+        "name": "Leila Park",
         "level": 1,
         "careers": [
          "career.mime"
@@ -12348,7 +12348,7 @@
       "characters": [
        {
         "id": "arena.hotel-3v3-2-1-0",
-        "name": "Gary O'Brien",
+        "name": "Tracy Smirnov",
         "level": 1,
         "careers": [
          "career.dj"
@@ -12382,7 +12382,7 @@
        },
        {
         "id": "arena.hotel-3v3-2-1-1",
-        "name": "Tariq Novak",
+        "name": "Mei Hoffmann",
         "level": 5,
         "careers": [
          "career.firefighter",
@@ -12417,7 +12417,7 @@
        },
        {
         "id": "arena.hotel-3v3-2-1-2",
-        "name": "Zara Kaur",
+        "name": "Andrew Demir",
         "level": 1,
         "careers": [
          "career.dentist"
@@ -12478,7 +12478,7 @@
    "name": "arena.hotel-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "523c5a29baf9a4b1",
     "arenaId": "arena.hotel",
@@ -12491,7 +12491,7 @@
       "characters": [
        {
         "id": "arena.hotel-3v3-3-0-0",
-        "name": "Anya Jensen",
+        "name": "Camille Wójcik",
         "level": 1,
         "careers": [
          "career.veterinarian"
@@ -12525,7 +12525,7 @@
        },
        {
         "id": "arena.hotel-3v3-3-0-1",
-        "name": "Tariq Nowak",
+        "name": "Tariq Mensah",
         "level": 5,
         "careers": [
          "career.magician",
@@ -12560,7 +12560,7 @@
        },
        {
         "id": "arena.hotel-3v3-3-0-2",
-        "name": "Greta Kowalski",
+        "name": "Chiara Harrison",
         "level": 1,
         "careers": [
          "career.marine-biologist"
@@ -12601,7 +12601,7 @@
       "characters": [
        {
         "id": "arena.hotel-3v3-3-1-0",
-        "name": "Wendy Park",
+        "name": "Sakura Shevchenko",
         "level": 1,
         "careers": [
          "career.lifeguard"
@@ -12635,7 +12635,7 @@
        },
        {
         "id": "arena.hotel-3v3-3-1-1",
-        "name": "Fatima García",
+        "name": "Fatima Jackson",
         "level": 5,
         "careers": [
          "career.postal-worker",
@@ -12670,7 +12670,7 @@
        },
        {
         "id": "arena.hotel-3v3-3-1-2",
-        "name": "Frank Park",
+        "name": "Logan Wilson",
         "level": 1,
         "careers": [
          "career.painter"
@@ -12735,7 +12735,7 @@
    "name": "arena.hotel-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "698a02aadffaa676",
     "arenaId": "arena.hotel",
@@ -12748,7 +12748,7 @@
       "characters": [
        {
         "id": "arena.hotel-3v3-4-0-0",
-        "name": "Ravi Chen",
+        "name": "Chidi Butterworth",
         "level": 1,
         "careers": [
          "career.fashion-designer"
@@ -12782,7 +12782,7 @@
        },
        {
         "id": "arena.hotel-3v3-4-0-1",
-        "name": "Maria Mbeki",
+        "name": "Kavya Tanaka",
         "level": 5,
         "careers": [
          "career.welder",
@@ -12817,7 +12817,7 @@
        },
        {
         "id": "arena.hotel-3v3-4-0-2",
-        "name": "Chloe Silva",
+        "name": "Pierre Larsen",
         "level": 1,
         "careers": [
          "career.nurse"
@@ -12858,7 +12858,7 @@
       "characters": [
        {
         "id": "arena.hotel-3v3-4-1-0",
-        "name": "Yuki Kowalski",
+        "name": "Sandra Popescu",
         "level": 1,
         "careers": [
          "career.builder"
@@ -12892,7 +12892,7 @@
        },
        {
         "id": "arena.hotel-3v3-4-1-1",
-        "name": "Ravi Jensen",
+        "name": "Archie Bernard",
         "level": 5,
         "careers": [
          "career.welder",
@@ -12927,7 +12927,7 @@
        },
        {
         "id": "arena.hotel-3v3-4-1-2",
-        "name": "Carlos Fischer",
+        "name": "Jonas Hassan",
         "level": 1,
         "careers": [
          "career.personal-trainer"
@@ -12998,7 +12998,7 @@
    "name": "arena.hotel-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "ae00756e69da8bbe",
     "arenaId": "arena.hotel",
@@ -13011,7 +13011,7 @@
       "characters": [
        {
         "id": "arena.hotel-5v5-0-0-0",
-        "name": "Omar Kowalski",
+        "name": "Lucas Harrison",
         "level": 1,
         "careers": [
          "career.ice-cream-vendor"
@@ -13045,7 +13045,7 @@
        },
        {
         "id": "arena.hotel-5v5-0-0-1",
-        "name": "Ravi Dubois",
+        "name": "Arjun Nwosu",
         "level": 5,
         "careers": [
          "career.accountant",
@@ -13080,7 +13080,7 @@
        },
        {
         "id": "arena.hotel-5v5-0-0-2",
-        "name": "Yuki Dubois",
+        "name": "Sandra Patel",
         "level": 1,
         "careers": [
          "career.photographer"
@@ -13114,7 +13114,7 @@
        },
        {
         "id": "arena.hotel-5v5-0-0-3",
-        "name": "Yuki Lindqvist",
+        "name": "Sophia Featherstone",
         "level": 5,
         "careers": [
          "career.plumber",
@@ -13149,7 +13149,7 @@
        },
        {
         "id": "arena.hotel-5v5-0-0-4",
-        "name": "Carlos Rossi",
+        "name": "Oliver Popescu",
         "level": 1,
         "careers": [
          "career.tattoo-artist"
@@ -13190,7 +13190,7 @@
       "characters": [
        {
         "id": "arena.hotel-5v5-0-1-0",
-        "name": "Gary Moreau",
+        "name": "Hazel Petrov",
         "level": 1,
         "careers": [
          "career.sailor"
@@ -13224,7 +13224,7 @@
        },
        {
         "id": "arena.hotel-5v5-0-1-1",
-        "name": "Olu Moreau",
+        "name": "Giulia Hoffmann",
         "level": 5,
         "careers": [
          "career.museum-curator",
@@ -13259,7 +13259,7 @@
        },
        {
         "id": "arena.hotel-5v5-0-1-2",
-        "name": "Jordan Kowalski",
+        "name": "Liam Brown",
         "level": 1,
         "careers": [
          "career.paramedic"
@@ -13293,7 +13293,7 @@
        },
        {
         "id": "arena.hotel-5v5-0-1-3",
-        "name": "Björn García",
+        "name": "Greta Harris",
         "level": 5,
         "careers": [
          "career.clown",
@@ -13328,7 +13328,7 @@
        },
        {
         "id": "arena.hotel-5v5-0-1-4",
-        "name": "Gary Kaur",
+        "name": "Manon Park",
         "level": 1,
         "careers": [
          "career.hairdresser"
@@ -13389,7 +13389,7 @@
    "name": "arena.hotel-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "53ae198de36f1ee3",
     "arenaId": "arena.hotel",
@@ -13402,7 +13402,7 @@
       "characters": [
        {
         "id": "arena.hotel-5v5-1-0-0",
-        "name": "Dev Haddad",
+        "name": "Leo Williams",
         "level": 1,
         "careers": [
          "career.paramedic"
@@ -13436,7 +13436,7 @@
        },
        {
         "id": "arena.hotel-5v5-1-0-1",
-        "name": "Luis Fischer",
+        "name": "Hiroshi Popescu",
         "level": 5,
         "careers": [
          "career.gardener",
@@ -13471,7 +13471,7 @@
        },
        {
         "id": "arena.hotel-5v5-1-0-2",
-        "name": "Rafael Nowak",
+        "name": "Nora Pereira",
         "level": 1,
         "careers": [
          "career.carpenter"
@@ -13505,7 +13505,7 @@
        },
        {
         "id": "arena.hotel-5v5-1-0-3",
-        "name": "Jarek Ahmed",
+        "name": "Mason Wagner",
         "level": 5,
         "careers": [
          "career.lifeguard",
@@ -13540,7 +13540,7 @@
        },
        {
         "id": "arena.hotel-5v5-1-0-4",
-        "name": "Nadia Okafor",
+        "name": "Maureen Petrov",
         "level": 1,
         "careers": [
          "career.delivery-driver"
@@ -13581,7 +13581,7 @@
       "characters": [
        {
         "id": "arena.hotel-5v5-1-1-0",
-        "name": "Frank Novak",
+        "name": "Frank Romero",
         "level": 1,
         "careers": [
          "career.baker"
@@ -13615,7 +13615,7 @@
        },
        {
         "id": "arena.hotel-5v5-1-1-1",
-        "name": "Wendy Ivanova",
+        "name": "Gary James",
         "level": 5,
         "careers": [
          "career.firefighter",
@@ -13650,7 +13650,7 @@
        },
        {
         "id": "arena.hotel-5v5-1-1-2",
-        "name": "Dev Tanaka",
+        "name": "Dmitri Khan",
         "level": 1,
         "careers": [
          "career.painter"
@@ -13684,7 +13684,7 @@
        },
        {
         "id": "arena.hotel-5v5-1-1-3",
-        "name": "Kenji Nowak",
+        "name": "Rohan Nowak",
         "level": 5,
         "careers": [
          "career.dj",
@@ -13719,7 +13719,7 @@
        },
        {
         "id": "arena.hotel-5v5-1-1-4",
-        "name": "Pat Walsh",
+        "name": "Hua Kozłowski",
         "level": 1,
         "careers": [
          "career.lawyer"
@@ -13777,7 +13777,7 @@
    "name": "arena.hotel-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "76349a4b5992cfae",
     "arenaId": "arena.hotel",
@@ -13790,7 +13790,7 @@
       "characters": [
        {
         "id": "arena.hotel-ffa-0-0",
-        "name": "Dmitri García",
+        "name": "Harry Roberts",
         "level": 1,
         "careers": [
          "career.bus-driver"
@@ -13831,7 +13831,7 @@
       "characters": [
        {
         "id": "arena.hotel-ffa-1-0",
-        "name": "Chloe Moreau",
+        "name": "Hamish Watanabe",
         "level": 1,
         "careers": [
          "career.plumber"
@@ -13872,7 +13872,7 @@
       "characters": [
        {
         "id": "arena.hotel-ffa-2-0",
-        "name": "Björn Dubois",
+        "name": "Sharon Santos",
         "level": 1,
         "careers": [
          "career.tattoo-artist"
@@ -13913,7 +13913,7 @@
       "characters": [
        {
         "id": "arena.hotel-ffa-3-0",
-        "name": "Chloe Silva",
+        "name": "Chloe Featherstone",
         "level": 1,
         "careers": [
          "career.zookeeper"
@@ -13954,7 +13954,7 @@
       "characters": [
        {
         "id": "arena.hotel-ffa-4-0",
-        "name": "Aisha Park",
+        "name": "Ines Sprocket",
         "level": 1,
         "careers": [
          "career.mime"
@@ -13995,7 +13995,7 @@
       "characters": [
        {
         "id": "arena.hotel-ffa-5-0",
-        "name": "Tariq Dubois",
+        "name": "Mei Sprocket",
         "level": 1,
         "careers": [
          "career.hotel-concierge"
@@ -14064,7 +14064,7 @@
    "name": "arena.museum-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "7210c6432db89610",
     "arenaId": "arena.museum",
@@ -14077,7 +14077,7 @@
       "characters": [
        {
         "id": "arena.museum-3v3-0-0-0",
-        "name": "Gary Park",
+        "name": "Elsa Fernández",
         "level": 1,
         "careers": [
          "career.plumber"
@@ -14111,7 +14111,7 @@
        },
        {
         "id": "arena.museum-3v3-0-0-1",
-        "name": "Zara O'Brien",
+        "name": "Oscar Rahman",
         "level": 5,
         "careers": [
          "career.farmer",
@@ -14146,7 +14146,7 @@
        },
        {
         "id": "arena.museum-3v3-0-0-2",
-        "name": "Greta Ahmed",
+        "name": "Mia Choi",
         "level": 1,
         "careers": [
          "career.painter"
@@ -14187,7 +14187,7 @@
       "characters": [
        {
         "id": "arena.museum-3v3-0-1-0",
-        "name": "Greta Silva",
+        "name": "Chiara Colombo",
         "level": 1,
         "careers": [
          "career.librarian"
@@ -14221,7 +14221,7 @@
        },
        {
         "id": "arena.museum-3v3-0-1-1",
-        "name": "Tomasz Jensen",
+        "name": "Arjun Ward",
         "level": 5,
         "careers": [
          "career.baker",
@@ -14256,7 +14256,7 @@
        },
        {
         "id": "arena.museum-3v3-0-1-2",
-        "name": "Aisha Popescu",
+        "name": "Klara Williams",
         "level": 1,
         "careers": [
          "career.zookeeper"
@@ -14319,7 +14319,7 @@
    "name": "arena.museum-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "e8d05c2b5dedf9a2",
     "arenaId": "arena.museum",
@@ -14332,7 +14332,7 @@
       "characters": [
        {
         "id": "arena.museum-3v3-1-0-0",
-        "name": "Wendy Park",
+        "name": "Tracy Jackson",
         "level": 1,
         "careers": [
          "career.janitor"
@@ -14366,7 +14366,7 @@
        },
        {
         "id": "arena.museum-3v3-1-0-1",
-        "name": "Wendy Kaur",
+        "name": "Ivana Woźniak",
         "level": 5,
         "careers": [
          "career.taxi-driver",
@@ -14401,7 +14401,7 @@
        },
        {
         "id": "arena.museum-3v3-1-0-2",
-        "name": "Gary Brown",
+        "name": "Siobhan Lewandowski",
         "level": 1,
         "careers": [
          "career.gardener"
@@ -14442,7 +14442,7 @@
       "characters": [
        {
         "id": "arena.museum-3v3-1-1-0",
-        "name": "Tomasz Patel",
+        "name": "Felix Nkosi",
         "level": 1,
         "careers": [
          "career.plumber"
@@ -14476,7 +14476,7 @@
        },
        {
         "id": "arena.museum-3v3-1-1-1",
-        "name": "Kofi Nowak",
+        "name": "Milena Santos",
         "level": 5,
         "careers": [
          "career.painter",
@@ -14511,7 +14511,7 @@
        },
        {
         "id": "arena.museum-3v3-1-1-2",
-        "name": "Priya Müller",
+        "name": "Elena Papadopoulos",
         "level": 1,
         "careers": [
          "career.personal-trainer"
@@ -14576,7 +14576,7 @@
    "name": "arena.museum-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "f0d55a37c9d7a385",
     "arenaId": "arena.museum",
@@ -14589,7 +14589,7 @@
       "characters": [
        {
         "id": "arena.museum-3v3-2-0-0",
-        "name": "Sam Haddad",
+        "name": "Carmen Yilmaz",
         "level": 1,
         "careers": [
          "career.builder"
@@ -14623,7 +14623,7 @@
        },
        {
         "id": "arena.museum-3v3-2-0-1",
-        "name": "Omar García",
+        "name": "Lucas O'Brien",
         "level": 5,
         "careers": [
          "career.electrician",
@@ -14658,7 +14658,7 @@
        },
        {
         "id": "arena.museum-3v3-2-0-2",
-        "name": "Aisha Park",
+        "name": "Ava Karlsson",
         "level": 1,
         "careers": [
          "career.scientist"
@@ -14699,7 +14699,7 @@
       "characters": [
        {
         "id": "arena.museum-3v3-2-1-0",
-        "name": "Imani Costa",
+        "name": "Bronwen Dubois",
         "level": 1,
         "careers": [
          "career.fortune-teller"
@@ -14733,7 +14733,7 @@
        },
        {
         "id": "arena.museum-3v3-2-1-1",
-        "name": "Mei Nakamura",
+        "name": "Krzysztof Jones",
         "level": 5,
         "careers": [
          "career.veterinarian",
@@ -14768,7 +14768,7 @@
        },
        {
         "id": "arena.museum-3v3-2-1-2",
-        "name": "Nadia Popescu",
+        "name": "Lena Jensen",
         "level": 1,
         "careers": [
          "career.zookeeper"
@@ -14824,7 +14824,7 @@
    "name": "arena.museum-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "8840c15446955696",
     "arenaId": "arena.museum",
@@ -14837,7 +14837,7 @@
       "characters": [
        {
         "id": "arena.museum-3v3-3-0-0",
-        "name": "Tomasz Fischer",
+        "name": "Ravi Hoffmann",
         "level": 1,
         "careers": [
          "career.clown"
@@ -14871,7 +14871,7 @@
        },
        {
         "id": "arena.museum-3v3-3-0-1",
-        "name": "Kofi Patel",
+        "name": "Evelyn Das",
         "level": 5,
         "careers": [
          "career.zookeeper",
@@ -14906,7 +14906,7 @@
        },
        {
         "id": "arena.museum-3v3-3-0-2",
-        "name": "Chloe Müller",
+        "name": "Isaac Davies",
         "level": 1,
         "careers": [
          "career.archaeologist"
@@ -14947,7 +14947,7 @@
       "characters": [
        {
         "id": "arena.museum-3v3-3-1-0",
-        "name": "Zara Smith",
+        "name": "Andrew Ferreira",
         "level": 1,
         "careers": [
          "career.programmer"
@@ -14981,7 +14981,7 @@
        },
        {
         "id": "arena.museum-3v3-3-1-1",
-        "name": "Rafael Mensah",
+        "name": "Anya Almeida",
         "level": 5,
         "careers": [
          "career.carpenter",
@@ -15016,7 +15016,7 @@
        },
        {
         "id": "arena.museum-3v3-3-1-2",
-        "name": "Wendy Ahmed",
+        "name": "Magdalena Kowalski",
         "level": 1,
         "careers": [
          "career.farmer"
@@ -15074,7 +15074,7 @@
    "name": "arena.museum-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "2213c43b2434cc26",
     "arenaId": "arena.museum",
@@ -15087,7 +15087,7 @@
       "characters": [
        {
         "id": "arena.museum-3v3-4-0-0",
-        "name": "Pat García",
+        "name": "Pat Young",
         "level": 1,
         "careers": [
          "career.tattoo-artist"
@@ -15121,7 +15121,7 @@
        },
        {
         "id": "arena.museum-3v3-4-0-1",
-        "name": "Tomasz Nowak",
+        "name": "Noah Das",
         "level": 5,
         "careers": [
          "career.ice-cream-vendor",
@@ -15156,7 +15156,7 @@
        },
        {
         "id": "arena.museum-3v3-4-0-2",
-        "name": "Anya Walsh",
+        "name": "Anya Sprocket",
         "level": 1,
         "careers": [
          "career.gardener"
@@ -15197,7 +15197,7 @@
       "characters": [
        {
         "id": "arena.museum-3v3-4-1-0",
-        "name": "Zara Rossi",
+        "name": "Jun Kim",
         "level": 1,
         "careers": [
          "career.taxi-driver"
@@ -15231,7 +15231,7 @@
        },
        {
         "id": "arena.museum-3v3-4-1-1",
-        "name": "Imani Kaur",
+        "name": "Bronwen Bloggs",
         "level": 5,
         "careers": [
          "career.dog-groomer",
@@ -15266,7 +15266,7 @@
        },
        {
         "id": "arena.museum-3v3-4-1-2",
-        "name": "Gary Mensah",
+        "name": "Magdalena Richter",
         "level": 1,
         "careers": [
          "career.clown"
@@ -15334,7 +15334,7 @@
    "name": "arena.museum-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "60b6984c20636578",
     "arenaId": "arena.museum",
@@ -15347,7 +15347,7 @@
       "characters": [
        {
         "id": "arena.museum-5v5-0-0-0",
-        "name": "Luis Okafor",
+        "name": "Isaac Horvat",
         "level": 1,
         "careers": [
          "career.police-officer"
@@ -15381,7 +15381,7 @@
        },
        {
         "id": "arena.museum-5v5-0-0-1",
-        "name": "Björn Dubois",
+        "name": "Björn Thompson",
         "level": 5,
         "careers": [
          "career.painter",
@@ -15416,7 +15416,7 @@
        },
        {
         "id": "arena.museum-5v5-0-0-2",
-        "name": "Omar Patel",
+        "name": "Barry Petit",
         "level": 1,
         "careers": [
          "career.fashion-designer"
@@ -15450,7 +15450,7 @@
        },
        {
         "id": "arena.museum-5v5-0-0-3",
-        "name": "Tomasz Ahmed",
+        "name": "Henry Durand",
         "level": 5,
         "careers": [
          "career.hotel-concierge",
@@ -15485,7 +15485,7 @@
        },
        {
         "id": "arena.museum-5v5-0-0-4",
-        "name": "Tomasz Walsh",
+        "name": "Archie Takahashi",
         "level": 1,
         "careers": [
          "career.police-officer"
@@ -15526,7 +15526,7 @@
       "characters": [
        {
         "id": "arena.museum-5v5-0-1-0",
-        "name": "Dmitri Fischer",
+        "name": "Harry Taylor",
         "level": 1,
         "careers": [
          "career.chef"
@@ -15560,7 +15560,7 @@
        },
        {
         "id": "arena.museum-5v5-0-1-1",
-        "name": "Alex Walsh",
+        "name": "Zara Pérez",
         "level": 5,
         "careers": [
          "career.programmer",
@@ -15595,7 +15595,7 @@
        },
        {
         "id": "arena.museum-5v5-0-1-2",
-        "name": "Sade Silva",
+        "name": "Lily Johnson",
         "level": 1,
         "careers": [
          "career.personal-trainer"
@@ -15629,7 +15629,7 @@
        },
        {
         "id": "arena.museum-5v5-0-1-3",
-        "name": "Wendy Rossi",
+        "name": "Hazel Rossi",
         "level": 5,
         "careers": [
          "career.journalist",
@@ -15664,7 +15664,7 @@
        },
        {
         "id": "arena.museum-5v5-0-1-4",
-        "name": "Omar Müller",
+        "name": "Omar Das",
         "level": 1,
         "careers": [
          "career.librarian"
@@ -15732,7 +15732,7 @@
    "name": "arena.museum-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "e28086ffc4aa3027",
     "arenaId": "arena.museum",
@@ -15745,7 +15745,7 @@
       "characters": [
        {
         "id": "arena.museum-5v5-1-0-0",
-        "name": "Chloe Silva",
+        "name": "Isaac Thompson",
         "level": 1,
         "careers": [
          "career.hairdresser"
@@ -15779,7 +15779,7 @@
        },
        {
         "id": "arena.museum-5v5-1-0-1",
-        "name": "Jordan Popescu",
+        "name": "Benjamin Kim",
         "level": 5,
         "careers": [
          "career.ice-cream-vendor",
@@ -15814,7 +15814,7 @@
        },
        {
         "id": "arena.museum-5v5-1-0-2",
-        "name": "Wendy Ivanova",
+        "name": "Wendy Kaur",
         "level": 1,
         "careers": [
          "career.fashion-designer"
@@ -15848,7 +15848,7 @@
        },
        {
         "id": "arena.museum-5v5-1-0-3",
-        "name": "Frank Ivanova",
+        "name": "Bartek Kovač",
         "level": 5,
         "careers": [
          "career.carpenter",
@@ -15883,7 +15883,7 @@
        },
        {
         "id": "arena.museum-5v5-1-0-4",
-        "name": "Tomasz Ivanova",
+        "name": "Archie Harris",
         "level": 1,
         "careers": [
          "career.teacher"
@@ -15924,7 +15924,7 @@
       "characters": [
        {
         "id": "arena.museum-5v5-1-1-0",
-        "name": "Nadia Silva",
+        "name": "Lena Díaz",
         "level": 1,
         "careers": [
          "career.florist"
@@ -15958,7 +15958,7 @@
        },
        {
         "id": "arena.museum-5v5-1-1-1",
-        "name": "Chloe Mensah",
+        "name": "Isaac Ali",
         "level": 5,
         "careers": [
          "career.zookeeper",
@@ -15993,7 +15993,7 @@
        },
        {
         "id": "arena.museum-5v5-1-1-2",
-        "name": "Kenji Okafor",
+        "name": "Sven Tanaka",
         "level": 1,
         "careers": [
          "career.zookeeper"
@@ -16027,7 +16027,7 @@
        },
        {
         "id": "arena.museum-5v5-1-1-3",
-        "name": "Carlos Müller",
+        "name": "George James",
         "level": 5,
         "careers": [
          "career.janitor",
@@ -16062,7 +16062,7 @@
        },
        {
         "id": "arena.museum-5v5-1-1-4",
-        "name": "Anya Costa",
+        "name": "Anya Sharma",
         "level": 1,
         "careers": [
          "career.paramedic"
@@ -16133,7 +16133,7 @@
    "name": "arena.museum-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "58fda58f197e847c",
     "arenaId": "arena.museum",
@@ -16146,7 +16146,7 @@
       "characters": [
        {
         "id": "arena.museum-ffa-0-0",
-        "name": "Zara Lindqvist",
+        "name": "Oscar Shevchenko",
         "level": 1,
         "careers": [
          "career.bus-driver"
@@ -16187,7 +16187,7 @@
       "characters": [
        {
         "id": "arena.museum-ffa-1-0",
-        "name": "Kofi Mensah",
+        "name": "Layla Nkosi",
         "level": 1,
         "careers": [
          "career.security-guard"
@@ -16228,7 +16228,7 @@
       "characters": [
        {
         "id": "arena.museum-ffa-2-0",
-        "name": "Ingrid Brown",
+        "name": "Frank Hansen",
         "level": 1,
         "careers": [
          "career.gardener"
@@ -16269,7 +16269,7 @@
       "characters": [
        {
         "id": "arena.museum-ffa-3-0",
-        "name": "Alex Costa",
+        "name": "Jakub Nowak",
         "level": 1,
         "careers": [
          "career.mime"
@@ -16310,7 +16310,7 @@
       "characters": [
        {
         "id": "arena.museum-ffa-4-0",
-        "name": "Noor Park",
+        "name": "Lucia Karlsson",
         "level": 1,
         "careers": [
          "career.dog-groomer"
@@ -16351,7 +16351,7 @@
       "characters": [
        {
         "id": "arena.museum-ffa-5-0",
-        "name": "Tomasz Chen",
+        "name": "Tomasz Nilsson",
         "level": 1,
         "careers": [
          "career.zookeeper"
@@ -16411,7 +16411,7 @@
    "name": "arena.office-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "1942b39aeff3f829",
     "arenaId": "arena.office",
@@ -16424,7 +16424,7 @@
       "characters": [
        {
         "id": "arena.office-3v3-0-0-0",
-        "name": "Dmitri Silva",
+        "name": "Dev Gupta",
         "level": 1,
         "careers": [
          "career.veterinarian"
@@ -16458,7 +16458,7 @@
        },
        {
         "id": "arena.office-3v3-0-0-1",
-        "name": "Noor Müller",
+        "name": "Pam Kennedy",
         "level": 5,
         "careers": [
          "career.lawyer",
@@ -16493,7 +16493,7 @@
        },
        {
         "id": "arena.office-3v3-0-0-2",
-        "name": "Kenji Park",
+        "name": "Keith Shevchenko",
         "level": 1,
         "careers": [
          "career.mime"
@@ -16534,7 +16534,7 @@
       "characters": [
        {
         "id": "arena.office-3v3-0-1-0",
-        "name": "Dev Mbeki",
+        "name": "Elijah Romano",
         "level": 1,
         "careers": [
          "career.journalist"
@@ -16568,7 +16568,7 @@
        },
        {
         "id": "arena.office-3v3-0-1-1",
-        "name": "Luis Popescu",
+        "name": "Pierre Byrne",
         "level": 5,
         "careers": [
          "career.dentist",
@@ -16603,7 +16603,7 @@
        },
        {
         "id": "arena.office-3v3-0-1-2",
-        "name": "Luis García",
+        "name": "Chloe Larsen",
         "level": 1,
         "careers": [
          "career.hairdresser"
@@ -16659,7 +16659,7 @@
    "name": "arena.office-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "5e7b098fded2d143",
     "arenaId": "arena.office",
@@ -16672,7 +16672,7 @@
       "characters": [
        {
         "id": "arena.office-3v3-1-0-0",
-        "name": "Greta Chen",
+        "name": "Sharon Cohen",
         "level": 1,
         "careers": [
          "career.window-cleaner"
@@ -16706,7 +16706,7 @@
        },
        {
         "id": "arena.office-3v3-1-0-1",
-        "name": "Luis Costa",
+        "name": "Luis Young",
         "level": 5,
         "careers": [
          "career.clown",
@@ -16741,7 +16741,7 @@
        },
        {
         "id": "arena.office-3v3-1-0-2",
-        "name": "Ravi Chen",
+        "name": "Archie Schneider",
         "level": 1,
         "careers": [
          "career.bus-driver"
@@ -16782,7 +16782,7 @@
       "characters": [
        {
         "id": "arena.office-3v3-1-1-0",
-        "name": "Wendy Dubois",
+        "name": "Gary Hill",
         "level": 1,
         "careers": [
          "career.lifeguard"
@@ -16816,7 +16816,7 @@
        },
        {
         "id": "arena.office-3v3-1-1-1",
-        "name": "Yuki Park",
+        "name": "Frieda Featherstone",
         "level": 5,
         "careers": [
          "career.hotel-concierge",
@@ -16851,7 +16851,7 @@
        },
        {
         "id": "arena.office-3v3-1-1-2",
-        "name": "Omar Brown",
+        "name": "Barry Chen",
         "level": 1,
         "careers": [
          "career.train-conductor"
@@ -16915,7 +16915,7 @@
    "name": "arena.office-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "e9aac648f664d750",
     "arenaId": "arena.office",
@@ -16928,7 +16928,7 @@
       "characters": [
        {
         "id": "arena.office-3v3-2-0-0",
-        "name": "Imani Mensah",
+        "name": "Doreen Demir",
         "level": 1,
         "careers": [
          "career.beekeeper"
@@ -16962,7 +16962,7 @@
        },
        {
         "id": "arena.office-3v3-2-0-1",
-        "name": "Beth Lindqvist",
+        "name": "Leilani Smirnov",
         "level": 5,
         "careers": [
          "career.dentist",
@@ -16997,7 +16997,7 @@
        },
        {
         "id": "arena.office-3v3-2-0-2",
-        "name": "Greta Park",
+        "name": "Björn Conti",
         "level": 1,
         "careers": [
          "career.accountant"
@@ -17038,7 +17038,7 @@
       "characters": [
        {
         "id": "arena.office-3v3-2-1-0",
-        "name": "Björn Park",
+        "name": "Zoe MacDonald",
         "level": 1,
         "careers": [
          "career.carpenter"
@@ -17072,7 +17072,7 @@
        },
        {
         "id": "arena.office-3v3-2-1-1",
-        "name": "Anya Brown",
+        "name": "Aino Szymański",
         "level": 5,
         "careers": [
          "career.train-conductor",
@@ -17107,7 +17107,7 @@
        },
        {
         "id": "arena.office-3v3-2-1-2",
-        "name": "Nadia García",
+        "name": "Maureen Schulz",
         "level": 1,
         "careers": [
          "career.lifeguard"
@@ -17164,7 +17164,7 @@
    "name": "arena.office-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "a1c6d770c6ab0fd2",
     "arenaId": "arena.office",
@@ -17177,7 +17177,7 @@
       "characters": [
        {
         "id": "arena.office-3v3-3-0-0",
-        "name": "Greta Popescu",
+        "name": "Chiara Clarke",
         "level": 1,
         "careers": [
          "career.influencer"
@@ -17211,7 +17211,7 @@
        },
        {
         "id": "arena.office-3v3-3-0-1",
-        "name": "Pat Nakamura",
+        "name": "Olivia Pereira",
         "level": 5,
         "careers": [
          "career.hairdresser",
@@ -17246,7 +17246,7 @@
        },
        {
         "id": "arena.office-3v3-3-0-2",
-        "name": "Anya Okafor",
+        "name": "Nora Volkov",
         "level": 1,
         "careers": [
          "career.chef"
@@ -17287,7 +17287,7 @@
       "characters": [
        {
         "id": "arena.office-3v3-3-1-0",
-        "name": "Sam Ahmed",
+        "name": "Brenda Hoffmann",
         "level": 1,
         "careers": [
          "career.electrician"
@@ -17321,7 +17321,7 @@
        },
        {
         "id": "arena.office-3v3-3-1-1",
-        "name": "Yuki Dubois",
+        "name": "Camila García",
         "level": 5,
         "careers": [
          "career.bus-driver",
@@ -17356,7 +17356,7 @@
        },
        {
         "id": "arena.office-3v3-3-1-2",
-        "name": "Yuki Brown",
+        "name": "Amara Watanabe",
         "level": 1,
         "careers": [
          "career.mime"
@@ -17415,7 +17415,7 @@
    "name": "arena.office-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "ca541a546174fe1c",
     "arenaId": "arena.office",
@@ -17428,7 +17428,7 @@
       "characters": [
        {
         "id": "arena.office-3v3-4-0-0",
-        "name": "Frank Mensah",
+        "name": "Bartek Mensah",
         "level": 1,
         "careers": [
          "career.beekeeper"
@@ -17462,7 +17462,7 @@
        },
        {
         "id": "arena.office-3v3-4-0-1",
-        "name": "Hugo Nakamura",
+        "name": "Joao Patel",
         "level": 5,
         "careers": [
          "career.gardener",
@@ -17497,7 +17497,7 @@
        },
        {
         "id": "arena.office-3v3-4-0-2",
-        "name": "Jarek Ahmed",
+        "name": "Nikola Higginbottom",
         "level": 1,
         "careers": [
          "career.mechanic"
@@ -17538,7 +17538,7 @@
       "characters": [
        {
         "id": "arena.office-3v3-4-1-0",
-        "name": "Marek Brown",
+        "name": "Ola Esposito",
         "level": 1,
         "careers": [
          "career.ice-cream-vendor"
@@ -17572,7 +17572,7 @@
        },
        {
         "id": "arena.office-3v3-4-1-1",
-        "name": "Wendy Popescu",
+        "name": "Elsa Robinson",
         "level": 5,
         "careers": [
          "career.painter",
@@ -17607,7 +17607,7 @@
        },
        {
         "id": "arena.office-3v3-4-1-2",
-        "name": "Anya Kaur",
+        "name": "Amelia Patel",
         "level": 1,
         "careers": [
          "career.clown"
@@ -17669,7 +17669,7 @@
    "name": "arena.office-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "64179e10dfbbf1c5",
     "arenaId": "arena.office",
@@ -17682,7 +17682,7 @@
       "characters": [
        {
         "id": "arena.office-5v5-0-0-0",
-        "name": "Priya Okafor",
+        "name": "Linh Bondarenko",
         "level": 1,
         "careers": [
          "career.welder"
@@ -17716,7 +17716,7 @@
        },
        {
         "id": "arena.office-5v5-0-0-1",
-        "name": "Beth Jensen",
+        "name": "Ngozi Wójcik",
         "level": 5,
         "careers": [
          "career.fashion-designer",
@@ -17751,7 +17751,7 @@
        },
        {
         "id": "arena.office-5v5-0-0-2",
-        "name": "Nadia Brown",
+        "name": "Elena Schneider",
         "level": 1,
         "careers": [
          "career.farmer"
@@ -17785,7 +17785,7 @@
        },
        {
         "id": "arena.office-5v5-0-0-3",
-        "name": "Kenji Kaur",
+        "name": "Rohan Gupta",
         "level": 5,
         "careers": [
          "career.dog-groomer",
@@ -17820,7 +17820,7 @@
        },
        {
         "id": "arena.office-5v5-0-0-4",
-        "name": "Tariq Okafor",
+        "name": "Louis Ricci",
         "level": 1,
         "careers": [
          "career.electrician"
@@ -17861,7 +17861,7 @@
       "characters": [
        {
         "id": "arena.office-5v5-0-1-0",
-        "name": "Ingrid Nakamura",
+        "name": "Rhys Walker",
         "level": 1,
         "careers": [
          "career.baker"
@@ -17895,7 +17895,7 @@
        },
        {
         "id": "arena.office-5v5-0-1-1",
-        "name": "Alex O'Brien",
+        "name": "Zara Roberts",
         "level": 5,
         "careers": [
          "career.clown",
@@ -17930,7 +17930,7 @@
        },
        {
         "id": "arena.office-5v5-0-1-2",
-        "name": "Anya Nowak",
+        "name": "Aiko Harris",
         "level": 1,
         "careers": [
          "career.marine-biologist"
@@ -17964,7 +17964,7 @@
        },
        {
         "id": "arena.office-5v5-0-1-3",
-        "name": "Fatima García",
+        "name": "Duncan Andersson",
         "level": 5,
         "careers": [
          "career.flight-attendant",
@@ -17999,7 +17999,7 @@
        },
        {
         "id": "arena.office-5v5-0-1-4",
-        "name": "Priya O'Brien",
+        "name": "Linh Costa",
         "level": 1,
         "careers": [
          "career.magician"
@@ -18061,7 +18061,7 @@
    "name": "arena.office-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "6ef4a751697087ad",
     "arenaId": "arena.office",
@@ -18074,7 +18074,7 @@
       "characters": [
        {
         "id": "arena.office-5v5-1-0-0",
-        "name": "Pat Okafor",
+        "name": "Irina Suzuki",
         "level": 1,
         "careers": [
          "career.librarian"
@@ -18108,7 +18108,7 @@
        },
        {
         "id": "arena.office-5v5-1-0-1",
-        "name": "Sade Brown",
+        "name": "Lily Wood",
         "level": 5,
         "careers": [
          "career.dentist",
@@ -18143,7 +18143,7 @@
        },
        {
         "id": "arena.office-5v5-1-0-2",
-        "name": "Chloe Costa",
+        "name": "Luis Díaz",
         "level": 1,
         "careers": [
          "career.electrician"
@@ -18177,7 +18177,7 @@
        },
        {
         "id": "arena.office-5v5-1-0-3",
-        "name": "Rafael Moreau",
+        "name": "Katarzyna Hansen",
         "level": 5,
         "careers": [
          "career.lawyer",
@@ -18212,7 +18212,7 @@
        },
        {
         "id": "arena.office-5v5-1-0-4",
-        "name": "Beth Smith",
+        "name": "Klara Nair",
         "level": 1,
         "careers": [
          "career.archaeologist"
@@ -18253,7 +18253,7 @@
       "characters": [
        {
         "id": "arena.office-5v5-1-1-0",
-        "name": "Dev Kowalski",
+        "name": "Rafa Higginbottom",
         "level": 1,
         "careers": [
          "career.chef"
@@ -18287,7 +18287,7 @@
        },
        {
         "id": "arena.office-5v5-1-1-1",
-        "name": "Fatima Okafor",
+        "name": "Luca Horvat",
         "level": 5,
         "careers": [
          "career.fortune-teller",
@@ -18322,7 +18322,7 @@
        },
        {
         "id": "arena.office-5v5-1-1-2",
-        "name": "Tariq Kaur",
+        "name": "Theo Nkosi",
         "level": 1,
         "careers": [
          "career.welder"
@@ -18356,7 +18356,7 @@
        },
        {
         "id": "arena.office-5v5-1-1-3",
-        "name": "Ravi Silva",
+        "name": "Kai Grimshaw",
         "level": 5,
         "careers": [
          "career.carpenter",
@@ -18391,7 +18391,7 @@
        },
        {
         "id": "arena.office-5v5-1-1-4",
-        "name": "Marek Novak",
+        "name": "Amira Pennywhistle",
         "level": 1,
         "careers": [
          "career.hotel-concierge"
@@ -18450,7 +18450,7 @@
    "name": "arena.office-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "8ee11f25ead1b54",
     "arenaId": "arena.office",
@@ -18463,7 +18463,7 @@
       "characters": [
        {
         "id": "arena.office-ffa-0-0",
-        "name": "Tomasz Rossi",
+        "name": "Felix Smith",
         "level": 1,
         "careers": [
          "career.zookeeper"
@@ -18504,7 +18504,7 @@
       "characters": [
        {
         "id": "arena.office-ffa-1-0",
-        "name": "Marek Dubois",
+        "name": "Lan Lindqvist",
         "level": 1,
         "careers": [
          "career.flight-attendant"
@@ -18545,7 +18545,7 @@
       "characters": [
        {
         "id": "arena.office-ffa-2-0",
-        "name": "Frank García",
+        "name": "Rhys Zieliński",
         "level": 1,
         "careers": [
          "career.clown"
@@ -18586,7 +18586,7 @@
       "characters": [
        {
         "id": "arena.office-ffa-3-0",
-        "name": "Olu Fischer",
+        "name": "Sade Bottomley",
         "level": 1,
         "careers": [
          "career.bus-driver"
@@ -18627,7 +18627,7 @@
       "characters": [
        {
         "id": "arena.office-ffa-4-0",
-        "name": "Ravi Park",
+        "name": "Tiago Pérez",
         "level": 1,
         "careers": [
          "career.zookeeper"
@@ -18668,7 +18668,7 @@
       "characters": [
        {
         "id": "arena.office-ffa-5-0",
-        "name": "Wendy Ivanova",
+        "name": "Ivana Schulz",
         "level": 1,
         "careers": [
          "career.delivery-driver"
@@ -18735,7 +18735,7 @@
    "name": "arena.station-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "39da54d6851bbb72",
     "arenaId": "arena.station",
@@ -18748,7 +18748,7 @@
       "characters": [
        {
         "id": "arena.station-3v3-0-0-0",
-        "name": "Sam Walsh",
+        "name": "Hanna Harris",
         "level": 1,
         "careers": [
          "career.electrician"
@@ -18782,7 +18782,7 @@
        },
        {
         "id": "arena.station-3v3-0-0-1",
-        "name": "Omar Nowak",
+        "name": "Nils Featherstone",
         "level": 5,
         "careers": [
          "career.mime",
@@ -18817,7 +18817,7 @@
        },
        {
         "id": "arena.station-3v3-0-0-2",
-        "name": "Anya Kowalski",
+        "name": "Katarzyna Clarke",
         "level": 1,
         "careers": [
          "career.fashion-designer"
@@ -18858,7 +18858,7 @@
       "characters": [
        {
         "id": "arena.station-3v3-0-1-0",
-        "name": "Jarek Patel",
+        "name": "Pawel Wilson",
         "level": 1,
         "careers": [
          "career.photographer"
@@ -18892,7 +18892,7 @@
        },
        {
         "id": "arena.station-3v3-0-1-1",
-        "name": "Björn Rossi",
+        "name": "Agnieszka Bernard",
         "level": 5,
         "careers": [
          "career.personal-trainer",
@@ -18927,7 +18927,7 @@
        },
        {
         "id": "arena.station-3v3-0-1-2",
-        "name": "Hugo Tanaka",
+        "name": "Liam Zhang",
         "level": 1,
         "careers": [
          "career.police-officer"
@@ -18987,7 +18987,7 @@
    "name": "arena.station-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "477125d64ef6a78a",
     "arenaId": "arena.station",
@@ -19000,7 +19000,7 @@
       "characters": [
        {
         "id": "arena.station-3v3-1-0-0",
-        "name": "Aisha Costa",
+        "name": "Klara Lindqvist",
         "level": 1,
         "careers": [
          "career.chimney-sweep"
@@ -19034,7 +19034,7 @@
        },
        {
         "id": "arena.station-3v3-1-0-1",
-        "name": "Olu Nakamura",
+        "name": "Isabella Das",
         "level": 5,
         "careers": [
          "career.librarian",
@@ -19069,7 +19069,7 @@
        },
        {
         "id": "arena.station-3v3-1-0-2",
-        "name": "Greta Dubois",
+        "name": "Björn Smirnov",
         "level": 1,
         "careers": [
          "career.florist"
@@ -19110,7 +19110,7 @@
       "characters": [
        {
         "id": "arena.station-3v3-1-1-0",
-        "name": "Aisha Chen",
+        "name": "Ella Sánchez",
         "level": 1,
         "careers": [
          "career.fortune-teller"
@@ -19144,7 +19144,7 @@
        },
        {
         "id": "arena.station-3v3-1-1-1",
-        "name": "Frank Lindqvist",
+        "name": "Logan Mansour",
         "level": 5,
         "careers": [
          "career.welder",
@@ -19179,7 +19179,7 @@
        },
        {
         "id": "arena.station-3v3-1-1-2",
-        "name": "Chloe Müller",
+        "name": "Hamish Papadopoulos",
         "level": 1,
         "careers": [
          "career.train-conductor"
@@ -19246,7 +19246,7 @@
    "name": "arena.station-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "2c2c16ed93cd78b1",
     "arenaId": "arena.station",
@@ -19259,7 +19259,7 @@
       "characters": [
        {
         "id": "arena.station-3v3-2-0-0",
-        "name": "Beth Novak",
+        "name": "Beth Klein",
         "level": 1,
         "careers": [
          "career.lifeguard"
@@ -19293,7 +19293,7 @@
        },
        {
         "id": "arena.station-3v3-2-0-1",
-        "name": "Greta Jensen",
+        "name": "Agnieszka Moreau",
         "level": 5,
         "careers": [
          "career.nurse",
@@ -19328,7 +19328,7 @@
        },
        {
         "id": "arena.station-3v3-2-0-2",
-        "name": "Fatima Tanaka",
+        "name": "Duncan Chen",
         "level": 1,
         "careers": [
          "career.magician"
@@ -19369,7 +19369,7 @@
       "characters": [
        {
         "id": "arena.station-3v3-2-1-0",
-        "name": "Mei Nowak",
+        "name": "Seamus Nakamura",
         "level": 1,
         "careers": [
          "career.marine-biologist"
@@ -19403,7 +19403,7 @@
        },
        {
         "id": "arena.station-3v3-2-1-1",
-        "name": "Kofi Haddad",
+        "name": "Seo-yeon Hansen",
         "level": 5,
         "careers": [
          "career.mime",
@@ -19438,7 +19438,7 @@
        },
        {
         "id": "arena.station-3v3-2-1-2",
-        "name": "Ingrid Mensah",
+        "name": "Andrei Virtanen",
         "level": 1,
         "careers": [
          "career.personal-trainer"
@@ -19498,7 +19498,7 @@
    "name": "arena.station-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "9fbb78fa6528e32d",
     "arenaId": "arena.station",
@@ -19511,7 +19511,7 @@
       "characters": [
        {
         "id": "arena.station-3v3-3-0-0",
-        "name": "Björn Ahmed",
+        "name": "Chiara Evans",
         "level": 1,
         "careers": [
          "career.flight-attendant"
@@ -19545,7 +19545,7 @@
        },
        {
         "id": "arena.station-3v3-3-0-1",
-        "name": "Rafael Dubois",
+        "name": "Katarzyna Bloggs",
         "level": 5,
         "careers": [
          "career.tattoo-artist",
@@ -19580,7 +19580,7 @@
        },
        {
         "id": "arena.station-3v3-3-0-2",
-        "name": "Alex Silva",
+        "name": "Alex Díaz",
         "level": 1,
         "careers": [
          "career.gardener"
@@ -19621,7 +19621,7 @@
       "characters": [
        {
         "id": "arena.station-3v3-3-1-0",
-        "name": "Wendy Ivanova",
+        "name": "Magdalena Colombo",
         "level": 1,
         "careers": [
          "career.influencer"
@@ -19655,7 +19655,7 @@
        },
        {
         "id": "arena.station-3v3-3-1-1",
-        "name": "Yuki Okafor",
+        "name": "Yuki Novak",
         "level": 5,
         "careers": [
          "career.dj",
@@ -19690,7 +19690,7 @@
        },
        {
         "id": "arena.station-3v3-3-1-2",
-        "name": "Sade Lindqvist",
+        "name": "Olu Bianchi",
         "level": 1,
         "careers": [
          "career.welder"
@@ -19748,7 +19748,7 @@
    "name": "arena.station-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "2c91d57cf0039afa",
     "arenaId": "arena.station",
@@ -19761,7 +19761,7 @@
       "characters": [
        {
         "id": "arena.station-3v3-4-0-0",
-        "name": "Kenji Silva",
+        "name": "Oliver O'Brien",
         "level": 1,
         "careers": [
          "career.taxi-driver"
@@ -19795,7 +19795,7 @@
        },
        {
         "id": "arena.station-3v3-4-0-1",
-        "name": "Sam Fischer",
+        "name": "Hanna Ferreira",
         "level": 5,
         "careers": [
          "career.flight-attendant",
@@ -19830,7 +19830,7 @@
        },
        {
         "id": "arena.station-3v3-4-0-2",
-        "name": "Nadia Nakamura",
+        "name": "Nadia Lee",
         "level": 1,
         "careers": [
          "career.firefighter"
@@ -19871,7 +19871,7 @@
       "characters": [
        {
         "id": "arena.station-3v3-4-1-0",
-        "name": "Björn Kowalski",
+        "name": "Thandiwe Fraser",
         "level": 1,
         "careers": [
          "career.postal-worker"
@@ -19905,7 +19905,7 @@
        },
        {
         "id": "arena.station-3v3-4-1-1",
-        "name": "Alex Haddad",
+        "name": "Colin Rousseau",
         "level": 5,
         "careers": [
          "career.postal-worker",
@@ -19940,7 +19940,7 @@
        },
        {
         "id": "arena.station-3v3-4-1-2",
-        "name": "Anya Rossi",
+        "name": "Nora Byrne",
         "level": 1,
         "careers": [
          "career.plumber"
@@ -20002,7 +20002,7 @@
    "name": "arena.station-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "6a7c4a0dd39088dc",
     "arenaId": "arena.station",
@@ -20015,7 +20015,7 @@
       "characters": [
        {
         "id": "arena.station-5v5-0-0-0",
-        "name": "Jordan Rossi",
+        "name": "Benjamin Turner",
         "level": 1,
         "careers": [
          "career.mime"
@@ -20049,7 +20049,7 @@
        },
        {
         "id": "arena.station-5v5-0-0-1",
-        "name": "Dev Popescu",
+        "name": "Dmitri Greco",
         "level": 5,
         "careers": [
          "career.firefighter",
@@ -20084,7 +20084,7 @@
        },
        {
         "id": "arena.station-5v5-0-0-2",
-        "name": "Omar Mbeki",
+        "name": "Owen Carvalho",
         "level": 1,
         "careers": [
          "career.dog-groomer"
@@ -20118,7 +20118,7 @@
        },
        {
         "id": "arena.station-5v5-0-0-3",
-        "name": "Björn Mbeki",
+        "name": "Fiona Doyle",
         "level": 5,
         "careers": [
          "career.dj",
@@ -20153,7 +20153,7 @@
        },
        {
         "id": "arena.station-5v5-0-0-4",
-        "name": "Aisha Dubois",
+        "name": "Klara Kennedy",
         "level": 1,
         "careers": [
          "career.mechanic"
@@ -20194,7 +20194,7 @@
       "characters": [
        {
         "id": "arena.station-5v5-0-1-0",
-        "name": "Mei Nowak",
+        "name": "Krzysztof Nkosi",
         "level": 1,
         "careers": [
          "career.paramedic"
@@ -20228,7 +20228,7 @@
        },
        {
         "id": "arena.station-5v5-0-1-1",
-        "name": "Marek Jensen",
+        "name": "Poppy Wagner",
         "level": 5,
         "careers": [
          "career.fortune-teller",
@@ -20263,7 +20263,7 @@
        },
        {
         "id": "arena.station-5v5-0-1-2",
-        "name": "Anya Kaur",
+        "name": "Karen Patel",
         "level": 1,
         "careers": [
          "career.paramedic"
@@ -20297,7 +20297,7 @@
        },
        {
         "id": "arena.station-5v5-0-1-3",
-        "name": "Greta Nowak",
+        "name": "Zoe Pérez",
         "level": 5,
         "careers": [
          "career.builder",
@@ -20332,7 +20332,7 @@
        },
        {
         "id": "arena.station-5v5-0-1-4",
-        "name": "Jarek Moreau",
+        "name": "Nikola Bernard",
         "level": 1,
         "careers": [
          "career.influencer"
@@ -20395,7 +20395,7 @@
    "name": "arena.station-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "b6d955d75a278d8",
     "arenaId": "arena.station",
@@ -20408,7 +20408,7 @@
       "characters": [
        {
         "id": "arena.station-5v5-1-0-0",
-        "name": "Kenji Ivanova",
+        "name": "Jonas Levi",
         "level": 1,
         "careers": [
          "career.firefighter"
@@ -20442,7 +20442,7 @@
        },
        {
         "id": "arena.station-5v5-1-0-1",
-        "name": "Chloe Kowalski",
+        "name": "Mikko Byrne",
         "level": 5,
         "careers": [
          "career.librarian",
@@ -20477,7 +20477,7 @@
        },
        {
         "id": "arena.station-5v5-1-0-2",
-        "name": "Maria O'Brien",
+        "name": "Camila Llewellyn",
         "level": 1,
         "careers": [
          "career.hairdresser"
@@ -20511,7 +20511,7 @@
        },
        {
         "id": "arena.station-5v5-1-0-3",
-        "name": "Jarek Nakamura",
+        "name": "Dylan Bloggs",
         "level": 5,
         "careers": [
          "career.photographer",
@@ -20546,7 +20546,7 @@
        },
        {
         "id": "arena.station-5v5-1-0-4",
-        "name": "Gary Ivanova",
+        "name": "Manon MacDonald",
         "level": 1,
         "careers": [
          "career.dj"
@@ -20587,7 +20587,7 @@
       "characters": [
        {
         "id": "arena.station-5v5-1-1-0",
-        "name": "Olu Park",
+        "name": "Sade Das",
         "level": 1,
         "careers": [
          "career.personal-trainer"
@@ -20621,7 +20621,7 @@
        },
        {
         "id": "arena.station-5v5-1-1-1",
-        "name": "Fatima Dubois",
+        "name": "Owen Martínez",
         "level": 5,
         "careers": [
          "career.influencer",
@@ -20656,7 +20656,7 @@
        },
        {
         "id": "arena.station-5v5-1-1-2",
-        "name": "Marek Ahmed",
+        "name": "Ola Esposito",
         "level": 1,
         "careers": [
          "career.police-officer"
@@ -20690,7 +20690,7 @@
        },
        {
         "id": "arena.station-5v5-1-1-3",
-        "name": "Ingrid Ivanova",
+        "name": "Bartek Costa",
         "level": 5,
         "careers": [
          "career.carpenter",
@@ -20725,7 +20725,7 @@
        },
        {
         "id": "arena.station-5v5-1-1-4",
-        "name": "Priya Patel",
+        "name": "Emma Demir",
         "level": 1,
         "careers": [
          "career.zookeeper"
@@ -20786,7 +20786,7 @@
    "name": "arena.station-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "7738c429c9fead84",
     "arenaId": "arena.station",
@@ -20799,7 +20799,7 @@
       "characters": [
        {
         "id": "arena.station-ffa-0-0",
-        "name": "Rafael Müller",
+        "name": "Camille O'Brien",
         "level": 1,
         "careers": [
          "career.zookeeper"
@@ -20840,7 +20840,7 @@
       "characters": [
        {
         "id": "arena.station-ffa-1-0",
-        "name": "Olu O'Brien",
+        "name": "Freya Fontaine",
         "level": 1,
         "careers": [
          "career.dj"
@@ -20881,7 +20881,7 @@
       "characters": [
        {
         "id": "arena.station-ffa-2-0",
-        "name": "Dmitri Okafor",
+        "name": "Leo Wood",
         "level": 1,
         "careers": [
          "career.welder"
@@ -20922,7 +20922,7 @@
       "characters": [
        {
         "id": "arena.station-ffa-3-0",
-        "name": "Anya Chen",
+        "name": "Aino Allen",
         "level": 1,
         "careers": [
          "career.mime"
@@ -20963,7 +20963,7 @@
       "characters": [
        {
         "id": "arena.station-ffa-4-0",
-        "name": "Zara Brown",
+        "name": "Oscar Campbell",
         "level": 1,
         "careers": [
          "career.firefighter"
@@ -21004,7 +21004,7 @@
       "characters": [
        {
         "id": "arena.station-ffa-5-0",
-        "name": "Sade Smith",
+        "name": "Freya Ferreira",
         "level": 1,
         "careers": [
          "career.postal-worker"
@@ -21072,7 +21072,7 @@
    "name": "arena.supermarket-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "9ae2eb0a49d70d1c",
     "arenaId": "arena.supermarket",
@@ -21085,7 +21085,7 @@
       "characters": [
        {
         "id": "arena.supermarket-3v3-0-0-0",
-        "name": "Wendy Smith",
+        "name": "Wendy Nair",
         "level": 1,
         "careers": [
          "career.gardener"
@@ -21119,7 +21119,7 @@
        },
        {
         "id": "arena.supermarket-3v3-0-0-1",
-        "name": "Fatima Smith",
+        "name": "Barry Clarke",
         "level": 5,
         "careers": [
          "career.window-cleaner",
@@ -21154,7 +21154,7 @@
        },
        {
         "id": "arena.supermarket-3v3-0-0-2",
-        "name": "Hugo Silva",
+        "name": "Hugo Thompson",
         "level": 1,
         "careers": [
          "career.marine-biologist"
@@ -21195,7 +21195,7 @@
       "characters": [
        {
         "id": "arena.supermarket-3v3-0-1-0",
-        "name": "Kofi O'Brien",
+        "name": "Ruby Marino",
         "level": 1,
         "careers": [
          "career.marine-biologist"
@@ -21229,7 +21229,7 @@
        },
        {
         "id": "arena.supermarket-3v3-0-1-1",
-        "name": "Greta Costa",
+        "name": "Sharon Mensah",
         "level": 5,
         "careers": [
          "career.veterinarian",
@@ -21264,7 +21264,7 @@
        },
        {
         "id": "arena.supermarket-3v3-0-1-2",
-        "name": "Björn Brown",
+        "name": "Mia Wood",
         "level": 1,
         "careers": [
          "career.gardener"
@@ -21328,7 +21328,7 @@
    "name": "arena.supermarket-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "f27e04ed5de877d6",
     "arenaId": "arena.supermarket",
@@ -21341,7 +21341,7 @@
       "characters": [
        {
         "id": "arena.supermarket-3v3-1-0-0",
-        "name": "Frank Ahmed",
+        "name": "Bartek Ricci",
         "level": 1,
         "careers": [
          "career.librarian"
@@ -21375,7 +21375,7 @@
        },
        {
         "id": "arena.supermarket-3v3-1-0-1",
-        "name": "Linda Kowalski",
+        "name": "Dylan Clarke",
         "level": 5,
         "careers": [
          "career.postal-worker",
@@ -21410,7 +21410,7 @@
        },
        {
         "id": "arena.supermarket-3v3-1-0-2",
-        "name": "Olu Kaur",
+        "name": "Rosie Shevchenko",
         "level": 1,
         "careers": [
          "career.delivery-driver"
@@ -21451,7 +21451,7 @@
       "characters": [
        {
         "id": "arena.supermarket-3v3-1-1-0",
-        "name": "Ravi O'Brien",
+        "name": "Archie Colombo",
         "level": 1,
         "careers": [
          "career.window-cleaner"
@@ -21485,7 +21485,7 @@
        },
        {
         "id": "arena.supermarket-3v3-1-1-1",
-        "name": "Kenji Ivanova",
+        "name": "Sven Weber",
         "level": 5,
         "careers": [
          "career.personal-trainer",
@@ -21520,7 +21520,7 @@
        },
        {
         "id": "arena.supermarket-3v3-1-1-2",
-        "name": "Anya Walsh",
+        "name": "Camille García",
         "level": 1,
         "careers": [
          "career.train-conductor"
@@ -21578,7 +21578,7 @@
    "name": "arena.supermarket-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "29fc562148eb9ed3",
     "arenaId": "arena.supermarket",
@@ -21591,7 +21591,7 @@
       "characters": [
        {
         "id": "arena.supermarket-3v3-2-0-0",
-        "name": "Tomasz García",
+        "name": "Arjun Cooper",
         "level": 1,
         "careers": [
          "career.influencer"
@@ -21625,7 +21625,7 @@
        },
        {
         "id": "arena.supermarket-3v3-2-0-1",
-        "name": "Alex Chen",
+        "name": "Bogdan Gallo",
         "level": 5,
         "careers": [
          "career.accountant",
@@ -21660,7 +21660,7 @@
        },
        {
         "id": "arena.supermarket-3v3-2-0-2",
-        "name": "Imani Okafor",
+        "name": "Amira Romero",
         "level": 1,
         "careers": [
          "career.bus-driver"
@@ -21701,7 +21701,7 @@
       "characters": [
        {
         "id": "arena.supermarket-3v3-2-1-0",
-        "name": "Jarek Smith",
+        "name": "Nigel Kariuki",
         "level": 1,
         "careers": [
          "career.beekeeper"
@@ -21735,7 +21735,7 @@
        },
        {
         "id": "arena.supermarket-3v3-2-1-1",
-        "name": "Sam Patel",
+        "name": "Carmen Jones",
         "level": 5,
         "careers": [
          "career.mime",
@@ -21770,7 +21770,7 @@
        },
        {
         "id": "arena.supermarket-3v3-2-1-2",
-        "name": "Alex Mensah",
+        "name": "Colin Sprocket",
         "level": 1,
         "careers": [
          "career.lawyer"
@@ -21834,7 +21834,7 @@
    "name": "arena.supermarket-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "81a072b6f39a2f04",
     "arenaId": "arena.supermarket",
@@ -21847,7 +21847,7 @@
       "characters": [
        {
         "id": "arena.supermarket-3v3-3-0-0",
-        "name": "Tariq Tanaka",
+        "name": "Krzysztof Dąbrowski",
         "level": 1,
         "careers": [
          "career.museum-curator"
@@ -21881,7 +21881,7 @@
        },
        {
         "id": "arena.supermarket-3v3-3-0-1",
-        "name": "Ingrid Kaur",
+        "name": "Rhys Liu",
         "level": 5,
         "careers": [
          "career.builder",
@@ -21916,7 +21916,7 @@
        },
        {
         "id": "arena.supermarket-3v3-3-0-2",
-        "name": "Tomasz Brown",
+        "name": "Chidi Szymański",
         "level": 1,
         "careers": [
          "career.train-conductor"
@@ -21957,7 +21957,7 @@
       "characters": [
        {
         "id": "arena.supermarket-3v3-3-1-0",
-        "name": "Jarek Ahmed",
+        "name": "Ahmed Oliveira",
         "level": 1,
         "careers": [
          "career.clown"
@@ -21991,7 +21991,7 @@
        },
        {
         "id": "arena.supermarket-3v3-3-1-1",
-        "name": "Imani Ivanova",
+        "name": "Doreen Hall",
         "level": 5,
         "careers": [
          "career.postal-worker",
@@ -22026,7 +22026,7 @@
        },
        {
         "id": "arena.supermarket-3v3-3-1-2",
-        "name": "Omar Patel",
+        "name": "Omar Papadopoulos",
         "level": 1,
         "careers": [
          "career.fortune-teller"
@@ -22091,7 +22091,7 @@
    "name": "arena.supermarket-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "3092dba1fbfc3c02",
     "arenaId": "arena.supermarket",
@@ -22104,7 +22104,7 @@
       "characters": [
        {
         "id": "arena.supermarket-3v3-4-0-0",
-        "name": "Zara Patel",
+        "name": "Bogdan Cooper",
         "level": 1,
         "careers": [
          "career.police-officer"
@@ -22138,7 +22138,7 @@
        },
        {
         "id": "arena.supermarket-3v3-4-0-1",
-        "name": "Alex Costa",
+        "name": "Pablo Bianchi",
         "level": 5,
         "careers": [
          "career.fashion-designer",
@@ -22173,7 +22173,7 @@
        },
        {
         "id": "arena.supermarket-3v3-4-0-2",
-        "name": "Hugo Walsh",
+        "name": "Stefan Papadopoulos",
         "level": 1,
         "careers": [
          "career.zookeeper"
@@ -22214,7 +22214,7 @@
       "characters": [
        {
         "id": "arena.supermarket-3v3-4-1-0",
-        "name": "Frank Jensen",
+        "name": "Ingrid Friedman",
         "level": 1,
         "careers": [
          "career.beekeeper"
@@ -22248,7 +22248,7 @@
        },
        {
         "id": "arena.supermarket-3v3-4-1-1",
-        "name": "Fatima Moreau",
+        "name": "Nils Khan",
         "level": 5,
         "careers": [
          "career.programmer",
@@ -22283,7 +22283,7 @@
        },
        {
         "id": "arena.supermarket-3v3-4-1-2",
-        "name": "Maria Kowalski",
+        "name": "Amara Brown",
         "level": 1,
         "careers": [
          "career.nurse"
@@ -22354,7 +22354,7 @@
    "name": "arena.supermarket-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "15b9ea93d29325f1",
     "arenaId": "arena.supermarket",
@@ -22367,7 +22367,7 @@
       "characters": [
        {
         "id": "arena.supermarket-5v5-0-0-0",
-        "name": "Hugo Brown",
+        "name": "Benjamin Allen",
         "level": 1,
         "careers": [
          "career.welder"
@@ -22401,7 +22401,7 @@
        },
        {
         "id": "arena.supermarket-5v5-0-0-1",
-        "name": "Priya Novak",
+        "name": "Isla Wood",
         "level": 5,
         "careers": [
          "career.teacher",
@@ -22436,7 +22436,7 @@
        },
        {
         "id": "arena.supermarket-5v5-0-0-2",
-        "name": "Frank Fischer",
+        "name": "Yusuf Iyer",
         "level": 1,
         "careers": [
          "career.delivery-driver"
@@ -22470,7 +22470,7 @@
        },
        {
         "id": "arena.supermarket-5v5-0-0-3",
-        "name": "Nadia Nowak",
+        "name": "Maureen Petit",
         "level": 5,
         "careers": [
          "career.ice-cream-vendor",
@@ -22505,7 +22505,7 @@
        },
        {
         "id": "arena.supermarket-5v5-0-0-4",
-        "name": "Mei Nowak",
+        "name": "Mei Bianchi",
         "level": 1,
         "careers": [
          "career.barista"
@@ -22546,7 +22546,7 @@
       "characters": [
        {
         "id": "arena.supermarket-5v5-0-1-0",
-        "name": "Olu Popescu",
+        "name": "Rosie Wood",
         "level": 1,
         "careers": [
          "career.lawyer"
@@ -22580,7 +22580,7 @@
        },
        {
         "id": "arena.supermarket-5v5-0-1-1",
-        "name": "Kofi Tanaka",
+        "name": "Lucia Bottomley",
         "level": 5,
         "careers": [
          "career.postal-worker",
@@ -22615,7 +22615,7 @@
        },
        {
         "id": "arena.supermarket-5v5-0-1-2",
-        "name": "Yuki Fischer",
+        "name": "Camila Wood",
         "level": 1,
         "careers": [
          "career.dj"
@@ -22649,7 +22649,7 @@
        },
        {
         "id": "arena.supermarket-5v5-0-1-3",
-        "name": "Aisha Walsh",
+        "name": "Ananya Lee",
         "level": 5,
         "careers": [
          "career.security-guard",
@@ -22684,7 +22684,7 @@
        },
        {
         "id": "arena.supermarket-5v5-0-1-4",
-        "name": "Aisha Rossi",
+        "name": "Ella Turner",
         "level": 1,
         "careers": [
          "career.florist"
@@ -22744,7 +22744,7 @@
    "name": "arena.supermarket-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "e3db234b698108ca",
     "arenaId": "arena.supermarket",
@@ -22757,7 +22757,7 @@
       "characters": [
        {
         "id": "arena.supermarket-5v5-1-0-0",
-        "name": "Fatima Popescu",
+        "name": "Duncan Ferreira",
         "level": 1,
         "careers": [
          "career.gardener"
@@ -22791,7 +22791,7 @@
        },
        {
         "id": "arena.supermarket-5v5-1-0-1",
-        "name": "Kenji Walsh",
+        "name": "Tunde Li",
         "level": 5,
         "careers": [
          "career.postal-worker",
@@ -22826,7 +22826,7 @@
        },
        {
         "id": "arena.supermarket-5v5-1-0-2",
-        "name": "Kofi García",
+        "name": "Lucia Silva",
         "level": 1,
         "careers": [
          "career.journalist"
@@ -22860,7 +22860,7 @@
        },
        {
         "id": "arena.supermarket-5v5-1-0-3",
-        "name": "Imani Moreau",
+        "name": "Marek Hoffmann",
         "level": 5,
         "careers": [
          "career.tattoo-artist",
@@ -22895,7 +22895,7 @@
        },
        {
         "id": "arena.supermarket-5v5-1-0-4",
-        "name": "Fatima Haddad",
+        "name": "Fatima Moreno",
         "level": 1,
         "careers": [
          "career.janitor"
@@ -22936,7 +22936,7 @@
       "characters": [
        {
         "id": "arena.supermarket-5v5-1-1-0",
-        "name": "Frank Silva",
+        "name": "Clive Santos",
         "level": 1,
         "careers": [
          "career.chef"
@@ -22970,7 +22970,7 @@
        },
        {
         "id": "arena.supermarket-5v5-1-1-1",
-        "name": "Pat Mbeki",
+        "name": "Pat Wright",
         "level": 5,
         "careers": [
          "career.gardener",
@@ -23005,7 +23005,7 @@
        },
        {
         "id": "arena.supermarket-5v5-1-1-2",
-        "name": "Hugo Chen",
+        "name": "Benjamin Choi",
         "level": 1,
         "careers": [
          "career.zookeeper"
@@ -23039,7 +23039,7 @@
        },
        {
         "id": "arena.supermarket-5v5-1-1-3",
-        "name": "Dmitri Mbeki",
+        "name": "Dmitri Nilsson",
         "level": 5,
         "careers": [
          "career.scientist",
@@ -23074,7 +23074,7 @@
        },
        {
         "id": "arena.supermarket-5v5-1-1-4",
-        "name": "Noor Chen",
+        "name": "Layla Eze",
         "level": 1,
         "careers": [
          "career.hairdresser"
@@ -23137,7 +23137,7 @@
    "name": "arena.supermarket-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "466b3a4eb135955b",
     "arenaId": "arena.supermarket",
@@ -23150,7 +23150,7 @@
       "characters": [
        {
         "id": "arena.supermarket-ffa-0-0",
-        "name": "Yuki Rossi",
+        "name": "Camila Novak",
         "level": 1,
         "careers": [
          "career.nurse"
@@ -23191,7 +23191,7 @@
       "characters": [
        {
         "id": "arena.supermarket-ffa-1-0",
-        "name": "Omar Fischer",
+        "name": "Duncan Cohen",
         "level": 1,
         "careers": [
          "career.florist"
@@ -23232,7 +23232,7 @@
       "characters": [
        {
         "id": "arena.supermarket-ffa-2-0",
-        "name": "Noor Patel",
+        "name": "Kofi Larsen",
         "level": 1,
         "careers": [
          "career.chef"
@@ -23273,7 +23273,7 @@
       "characters": [
        {
         "id": "arena.supermarket-ffa-3-0",
-        "name": "Marek Silva",
+        "name": "Imani Owusu",
         "level": 1,
         "careers": [
          "career.accountant"
@@ -23314,7 +23314,7 @@
       "characters": [
        {
         "id": "arena.supermarket-ffa-4-0",
-        "name": "Beth Smith",
+        "name": "Ines Tanaka",
         "level": 1,
         "careers": [
          "career.mechanic"
@@ -23355,7 +23355,7 @@
       "characters": [
        {
         "id": "arena.supermarket-ffa-5-0",
-        "name": "Kenji Mbeki",
+        "name": "Tunde Nilsson",
         "level": 1,
         "careers": [
          "career.delivery-driver"
@@ -23415,7 +23415,7 @@
    "name": "arena.theatre-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "f0a0ef41c88a702e",
     "arenaId": "arena.theatre",
@@ -23428,7 +23428,7 @@
       "characters": [
        {
         "id": "arena.theatre-3v3-0-0-0",
-        "name": "Alex Nakamura",
+        "name": "Colin Stewart",
         "level": 1,
         "careers": [
          "career.barista"
@@ -23462,7 +23462,7 @@
        },
        {
         "id": "arena.theatre-3v3-0-0-1",
-        "name": "Beth Müller",
+        "name": "Klara Jones",
         "level": 5,
         "careers": [
          "career.postal-worker",
@@ -23497,7 +23497,7 @@
        },
        {
         "id": "arena.theatre-3v3-0-0-2",
-        "name": "Gary Fischer",
+        "name": "Wendy Williams",
         "level": 1,
         "careers": [
          "career.accountant"
@@ -23538,7 +23538,7 @@
       "characters": [
        {
         "id": "arena.theatre-3v3-0-1-0",
-        "name": "Dev Müller",
+        "name": "Dev Martin",
         "level": 1,
         "careers": [
          "career.magician"
@@ -23572,7 +23572,7 @@
        },
        {
         "id": "arena.theatre-3v3-0-1-1",
-        "name": "Yuki Park",
+        "name": "Daisy Larsen",
         "level": 5,
         "careers": [
          "career.welder",
@@ -23607,7 +23607,7 @@
        },
        {
         "id": "arena.theatre-3v3-0-1-2",
-        "name": "Marek Kowalski",
+        "name": "Abigail Schneider",
         "level": 1,
         "careers": [
          "career.firefighter"
@@ -23677,7 +23677,7 @@
    "name": "arena.theatre-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "ad1bc98581bf522c",
     "arenaId": "arena.theatre",
@@ -23690,7 +23690,7 @@
       "characters": [
        {
         "id": "arena.theatre-3v3-1-0-0",
-        "name": "Greta Ahmed",
+        "name": "Agnieszka Friedman",
         "level": 1,
         "careers": [
          "career.marine-biologist"
@@ -23724,7 +23724,7 @@
        },
        {
         "id": "arena.theatre-3v3-1-0-1",
-        "name": "Priya Ivanova",
+        "name": "Beatriz Karlsson",
         "level": 5,
         "careers": [
          "career.teacher",
@@ -23759,7 +23759,7 @@
        },
        {
         "id": "arena.theatre-3v3-1-0-2",
-        "name": "Zara Fischer",
+        "name": "Alex King",
         "level": 1,
         "careers": [
          "career.hotel-concierge"
@@ -23800,7 +23800,7 @@
       "characters": [
        {
         "id": "arena.theatre-3v3-1-1-0",
-        "name": "Gary Rossi",
+        "name": "Hazel Green",
         "level": 1,
         "careers": [
          "career.taxi-driver"
@@ -23834,7 +23834,7 @@
        },
        {
         "id": "arena.theatre-3v3-1-1-1",
-        "name": "Tariq Chen",
+        "name": "Tomas Thomas",
         "level": 5,
         "careers": [
          "career.magician",
@@ -23869,7 +23869,7 @@
        },
        {
         "id": "arena.theatre-3v3-1-1-2",
-        "name": "Noor Müller",
+        "name": "Evelyn Almeida",
         "level": 1,
         "careers": [
          "career.bus-driver"
@@ -23929,7 +23929,7 @@
    "name": "arena.theatre-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "c61479e87fb91e21",
     "arenaId": "arena.theatre",
@@ -23942,7 +23942,7 @@
       "characters": [
        {
         "id": "arena.theatre-3v3-2-0-0",
-        "name": "Tariq Nowak",
+        "name": "Ethan Silva",
         "level": 1,
         "careers": [
          "career.fortune-teller"
@@ -23976,7 +23976,7 @@
        },
        {
         "id": "arena.theatre-3v3-2-0-1",
-        "name": "Imani Ahmed",
+        "name": "Ola Kelly",
         "level": 5,
         "careers": [
          "career.mime",
@@ -24011,7 +24011,7 @@
        },
        {
         "id": "arena.theatre-3v3-2-0-2",
-        "name": "Zara Mensah",
+        "name": "Bogdan Nowak",
         "level": 1,
         "careers": [
          "career.sailor"
@@ -24052,7 +24052,7 @@
       "characters": [
        {
         "id": "arena.theatre-3v3-2-1-0",
-        "name": "Björn Haddad",
+        "name": "Björn Robinson",
         "level": 1,
         "careers": [
          "career.builder"
@@ -24086,7 +24086,7 @@
        },
        {
         "id": "arena.theatre-3v3-2-1-1",
-        "name": "Beth Haddad",
+        "name": "Willow Clarke",
         "level": 5,
         "careers": [
          "career.ice-cream-vendor",
@@ -24121,7 +24121,7 @@
        },
        {
         "id": "arena.theatre-3v3-2-1-2",
-        "name": "Pat Nowak",
+        "name": "Pat Baker",
         "level": 1,
         "careers": [
          "career.beekeeper"
@@ -24187,7 +24187,7 @@
    "name": "arena.theatre-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "91218b2557e0350c",
     "arenaId": "arena.theatre",
@@ -24200,7 +24200,7 @@
       "characters": [
        {
         "id": "arena.theatre-3v3-3-0-0",
-        "name": "Jarek Ahmed",
+        "name": "Ahmed Nilsson",
         "level": 1,
         "careers": [
          "career.taxi-driver"
@@ -24234,7 +24234,7 @@
        },
        {
         "id": "arena.theatre-3v3-3-0-1",
-        "name": "Dev Silva",
+        "name": "Lars Stewart",
         "level": 5,
         "careers": [
          "career.chef",
@@ -24269,7 +24269,7 @@
        },
        {
         "id": "arena.theatre-3v3-3-0-2",
-        "name": "Alex Brown",
+        "name": "Alex Rossi",
         "level": 1,
         "careers": [
          "career.hairdresser"
@@ -24310,7 +24310,7 @@
       "characters": [
        {
         "id": "arena.theatre-3v3-3-1-0",
-        "name": "Sade Kowalski",
+        "name": "Lorraine Horvat",
         "level": 1,
         "careers": [
          "career.tattoo-artist"
@@ -24344,7 +24344,7 @@
        },
        {
         "id": "arena.theatre-3v3-3-1-1",
-        "name": "Noor O'Brien",
+        "name": "Cerys Reddy",
         "level": 5,
         "careers": [
          "career.marine-biologist",
@@ -24379,7 +24379,7 @@
        },
        {
         "id": "arena.theatre-3v3-3-1-2",
-        "name": "Tariq Lindqvist",
+        "name": "Ethan Díaz",
         "level": 1,
         "careers": [
          "career.hairdresser"
@@ -24450,7 +24450,7 @@
    "name": "arena.theatre-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "7af2fc83645baf39",
     "arenaId": "arena.theatre",
@@ -24463,7 +24463,7 @@
       "characters": [
        {
         "id": "arena.theatre-3v3-4-0-0",
-        "name": "Marek Kowalski",
+        "name": "Imani Rousseau",
         "level": 1,
         "careers": [
          "career.magician"
@@ -24497,7 +24497,7 @@
        },
        {
         "id": "arena.theatre-3v3-4-0-1",
-        "name": "Sade Brown",
+        "name": "Meera Okafor",
         "level": 5,
         "careers": [
          "career.sailor",
@@ -24532,7 +24532,7 @@
        },
        {
         "id": "arena.theatre-3v3-4-0-2",
-        "name": "Gary O'Brien",
+        "name": "Gary Almeida",
         "level": 1,
         "careers": [
          "career.marine-biologist"
@@ -24573,7 +24573,7 @@
       "characters": [
        {
         "id": "arena.theatre-3v3-4-1-0",
-        "name": "Linda Lindqvist",
+        "name": "Linda Bloggs",
         "level": 1,
         "careers": [
          "career.delivery-driver"
@@ -24607,7 +24607,7 @@
        },
        {
         "id": "arena.theatre-3v3-4-1-1",
-        "name": "Björn Haddad",
+        "name": "Deepa Wang",
         "level": 5,
         "careers": [
          "career.tailor",
@@ -24642,7 +24642,7 @@
        },
        {
         "id": "arena.theatre-3v3-4-1-2",
-        "name": "Rafael Novak",
+        "name": "Morag Kobayashi",
         "level": 1,
         "careers": [
          "career.police-officer"
@@ -24712,7 +24712,7 @@
    "name": "arena.theatre-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "50bc4b1acaf4ad0f",
     "arenaId": "arena.theatre",
@@ -24725,7 +24725,7 @@
       "characters": [
        {
         "id": "arena.theatre-5v5-0-0-0",
-        "name": "Frank Ivanova",
+        "name": "Ingrid Smirnov",
         "level": 1,
         "careers": [
          "career.accountant"
@@ -24759,7 +24759,7 @@
        },
        {
         "id": "arena.theatre-5v5-0-0-1",
-        "name": "Jarek Costa",
+        "name": "Linda Marino",
         "level": 5,
         "careers": [
          "career.sailor",
@@ -24794,7 +24794,7 @@
        },
        {
         "id": "arena.theatre-5v5-0-0-2",
-        "name": "Noor Patel",
+        "name": "Zofia Takahashi",
         "level": 1,
         "careers": [
          "career.accountant"
@@ -24828,7 +24828,7 @@
        },
        {
         "id": "arena.theatre-5v5-0-0-3",
-        "name": "Ingrid Kaur",
+        "name": "Yusuf Tran",
         "level": 5,
         "careers": [
          "career.janitor",
@@ -24863,7 +24863,7 @@
        },
        {
         "id": "arena.theatre-5v5-0-0-4",
-        "name": "Greta Dubois",
+        "name": "Deepa Walker",
         "level": 1,
         "careers": [
          "career.baker"
@@ -24904,7 +24904,7 @@
       "characters": [
        {
         "id": "arena.theatre-5v5-0-1-0",
-        "name": "Marek Okafor",
+        "name": "Lan Moore",
         "level": 1,
         "careers": [
          "career.veterinarian"
@@ -24938,7 +24938,7 @@
        },
        {
         "id": "arena.theatre-5v5-0-1-1",
-        "name": "Björn Lindqvist",
+        "name": "Chiara Hall",
         "level": 5,
         "careers": [
          "career.programmer",
@@ -24973,7 +24973,7 @@
        },
        {
         "id": "arena.theatre-5v5-0-1-2",
-        "name": "Priya Chen",
+        "name": "Emily Romero",
         "level": 1,
         "careers": [
          "career.plumber"
@@ -25007,7 +25007,7 @@
        },
        {
         "id": "arena.theatre-5v5-0-1-3",
-        "name": "Beth Tanaka",
+        "name": "Aisha Romano",
         "level": 5,
         "careers": [
          "career.train-conductor",
@@ -25042,7 +25042,7 @@
        },
        {
         "id": "arena.theatre-5v5-0-1-4",
-        "name": "Ingrid Nowak",
+        "name": "Bartek Morgan",
         "level": 1,
         "careers": [
          "career.janitor"
@@ -25113,7 +25113,7 @@
    "name": "arena.theatre-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "1ac81d2024711db0",
     "arenaId": "arena.theatre",
@@ -25126,7 +25126,7 @@
       "characters": [
        {
         "id": "arena.theatre-5v5-1-0-0",
-        "name": "Dev Novak",
+        "name": "Terry Nilsson",
         "level": 1,
         "careers": [
          "career.librarian"
@@ -25160,7 +25160,7 @@
        },
        {
         "id": "arena.theatre-5v5-1-0-1",
-        "name": "Rafael Smith",
+        "name": "Katarzyna Farouk",
         "level": 5,
         "careers": [
          "career.baker",
@@ -25195,7 +25195,7 @@
        },
        {
         "id": "arena.theatre-5v5-1-0-2",
-        "name": "Kenji Nakamura",
+        "name": "Keith Smirnov",
         "level": 1,
         "careers": [
          "career.flight-attendant"
@@ -25229,7 +25229,7 @@
        },
        {
         "id": "arena.theatre-5v5-1-0-3",
-        "name": "Yuki Okafor",
+        "name": "Kavya Friedman",
         "level": 5,
         "careers": [
          "career.chimney-sweep",
@@ -25264,7 +25264,7 @@
        },
        {
         "id": "arena.theatre-5v5-1-0-4",
-        "name": "Greta Rossi",
+        "name": "Sharon Harrison",
         "level": 1,
         "careers": [
          "career.photographer"
@@ -25305,7 +25305,7 @@
       "characters": [
        {
         "id": "arena.theatre-5v5-1-1-0",
-        "name": "Omar Jensen",
+        "name": "Wojciech Tanaka",
         "level": 1,
         "careers": [
          "career.personal-trainer"
@@ -25339,7 +25339,7 @@
        },
        {
         "id": "arena.theatre-5v5-1-1-1",
-        "name": "Ravi Lindqvist",
+        "name": "Archie Lee",
         "level": 5,
         "careers": [
          "career.paramedic",
@@ -25374,7 +25374,7 @@
        },
        {
         "id": "arena.theatre-5v5-1-1-2",
-        "name": "Kenji Lindqvist",
+        "name": "Jonas Lee",
         "level": 1,
         "careers": [
          "career.hairdresser"
@@ -25408,7 +25408,7 @@
        },
        {
         "id": "arena.theatre-5v5-1-1-3",
-        "name": "Maria Park",
+        "name": "Daisy Silva",
         "level": 5,
         "careers": [
          "career.ice-cream-vendor",
@@ -25443,7 +25443,7 @@
        },
        {
         "id": "arena.theatre-5v5-1-1-4",
-        "name": "Mei Haddad",
+        "name": "Takeshi Ahmed",
         "level": 1,
         "careers": [
          "career.librarian"
@@ -25506,7 +25506,7 @@
    "name": "arena.theatre-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "2c69050bc7592e48",
     "arenaId": "arena.theatre",
@@ -25519,7 +25519,7 @@
       "characters": [
        {
         "id": "arena.theatre-ffa-0-0",
-        "name": "Omar Novak",
+        "name": "Fatima Wang",
         "level": 1,
         "careers": [
          "career.zookeeper"
@@ -25560,7 +25560,7 @@
       "characters": [
        {
         "id": "arena.theatre-ffa-1-0",
-        "name": "Frank Nakamura",
+        "name": "Logan Dubois",
         "level": 1,
         "careers": [
          "career.librarian"
@@ -25601,7 +25601,7 @@
       "characters": [
        {
         "id": "arena.theatre-ffa-2-0",
-        "name": "Gary Patel",
+        "name": "Elsa Das",
         "level": 1,
         "careers": [
          "career.lifeguard"
@@ -25642,7 +25642,7 @@
       "characters": [
        {
         "id": "arena.theatre-ffa-3-0",
-        "name": "Dmitri Novak",
+        "name": "Leo Fraser",
         "level": 1,
         "careers": [
          "career.barista"
@@ -25683,7 +25683,7 @@
       "characters": [
        {
         "id": "arena.theatre-ffa-4-0",
-        "name": "Omar Kowalski",
+        "name": "Fatima Romero",
         "level": 1,
         "careers": [
          "career.plumber"
@@ -25724,7 +25724,7 @@
       "characters": [
        {
         "id": "arena.theatre-ffa-5-0",
-        "name": "Kenji Ahmed",
+        "name": "Jack Gallo",
         "level": 1,
         "careers": [
          "career.tattoo-artist"
@@ -25789,7 +25789,7 @@
    "name": "arena.warehouse-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "5b996e364e60f073",
     "arenaId": "arena.warehouse",
@@ -25802,7 +25802,7 @@
       "characters": [
        {
         "id": "arena.warehouse-3v3-0-0-0",
-        "name": "Linda Popescu",
+        "name": "Arthur Thomas",
         "level": 1,
         "careers": [
          "career.window-cleaner"
@@ -25836,7 +25836,7 @@
        },
        {
         "id": "arena.warehouse-3v3-0-0-1",
-        "name": "Rafael Mbeki",
+        "name": "Wanjiru Wood",
         "level": 5,
         "careers": [
          "career.accountant",
@@ -25871,7 +25871,7 @@
        },
        {
         "id": "arena.warehouse-3v3-0-0-2",
-        "name": "Rafael Okafor",
+        "name": "Camille Horvat",
         "level": 1,
         "careers": [
          "career.hairdresser"
@@ -25912,7 +25912,7 @@
       "characters": [
        {
         "id": "arena.warehouse-3v3-0-1-0",
-        "name": "Marek Walsh",
+        "name": "Abigail Das",
         "level": 1,
         "careers": [
          "career.photographer"
@@ -25946,7 +25946,7 @@
        },
        {
         "id": "arena.warehouse-3v3-0-1-1",
-        "name": "Imani Mbeki",
+        "name": "Lan Wagner",
         "level": 5,
         "careers": [
          "career.influencer",
@@ -25981,7 +25981,7 @@
        },
        {
         "id": "arena.warehouse-3v3-0-1-2",
-        "name": "Omar Jensen",
+        "name": "Nils Doyle",
         "level": 1,
         "careers": [
          "career.police-officer"
@@ -26048,7 +26048,7 @@
    "name": "arena.warehouse-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "cad46a95149c87ab",
     "arenaId": "arena.warehouse",
@@ -26061,7 +26061,7 @@
       "characters": [
        {
         "id": "arena.warehouse-3v3-1-0-0",
-        "name": "Jarek Mensah",
+        "name": "Nikola Ali",
         "level": 1,
         "careers": [
          "career.personal-trainer"
@@ -26095,7 +26095,7 @@
        },
        {
         "id": "arena.warehouse-3v3-1-0-1",
-        "name": "Wendy Silva",
+        "name": "Siobhan O'Brien",
         "level": 5,
         "careers": [
          "career.mechanic",
@@ -26130,7 +26130,7 @@
        },
        {
         "id": "arena.warehouse-3v3-1-0-2",
-        "name": "Beth Chen",
+        "name": "Ananya Pham",
         "level": 1,
         "careers": [
          "career.bus-driver"
@@ -26171,7 +26171,7 @@
       "characters": [
        {
         "id": "arena.warehouse-3v3-1-1-0",
-        "name": "Hugo Kaur",
+        "name": "Liam Shevchenko",
         "level": 1,
         "careers": [
          "career.dj"
@@ -26205,7 +26205,7 @@
        },
        {
         "id": "arena.warehouse-3v3-1-1-1",
-        "name": "Wendy Tanaka",
+        "name": "Manon Hassan",
         "level": 5,
         "careers": [
          "career.magician",
@@ -26240,7 +26240,7 @@
        },
        {
         "id": "arena.warehouse-3v3-1-1-2",
-        "name": "Dev Ivanova",
+        "name": "Kwame Tran",
         "level": 1,
         "careers": [
          "career.florist"
@@ -26311,7 +26311,7 @@
    "name": "arena.warehouse-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "21e02b481bb06490",
     "arenaId": "arena.warehouse",
@@ -26324,7 +26324,7 @@
       "characters": [
        {
         "id": "arena.warehouse-3v3-2-0-0",
-        "name": "Tariq Smith",
+        "name": "Tariq Brown",
         "level": 1,
         "careers": [
          "career.scientist"
@@ -26358,7 +26358,7 @@
        },
        {
         "id": "arena.warehouse-3v3-2-0-1",
-        "name": "Tariq Moreau",
+        "name": "Ethan Chen",
         "level": 5,
         "careers": [
          "career.lawyer",
@@ -26393,7 +26393,7 @@
        },
        {
         "id": "arena.warehouse-3v3-2-0-2",
-        "name": "Rafael Lindqvist",
+        "name": "Amelia Wilson",
         "level": 1,
         "careers": [
          "career.influencer"
@@ -26434,7 +26434,7 @@
       "characters": [
        {
         "id": "arena.warehouse-3v3-2-1-0",
-        "name": "Fatima Park",
+        "name": "Duncan Johnson",
         "level": 1,
         "careers": [
          "career.lifeguard"
@@ -26468,7 +26468,7 @@
        },
        {
         "id": "arena.warehouse-3v3-2-1-1",
-        "name": "Björn Rossi",
+        "name": "Mia Evans",
         "level": 5,
         "careers": [
          "career.flight-attendant",
@@ -26503,7 +26503,7 @@
        },
        {
         "id": "arena.warehouse-3v3-2-1-2",
-        "name": "Greta Rossi",
+        "name": "Sharon Wang",
         "level": 1,
         "careers": [
          "career.barista"
@@ -26565,7 +26565,7 @@
    "name": "arena.warehouse-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "988ae79b2e6fdbb5",
     "arenaId": "arena.warehouse",
@@ -26578,7 +26578,7 @@
       "characters": [
        {
         "id": "arena.warehouse-3v3-3-0-0",
-        "name": "Noor Ivanova",
+        "name": "Zofia Jung",
         "level": 1,
         "careers": [
          "career.taxi-driver"
@@ -26612,7 +26612,7 @@
        },
        {
         "id": "arena.warehouse-3v3-3-0-1",
-        "name": "Yuki Kowalski",
+        "name": "Camila Gómez",
         "level": 5,
         "careers": [
          "career.dog-groomer",
@@ -26647,7 +26647,7 @@
        },
        {
         "id": "arena.warehouse-3v3-3-0-2",
-        "name": "Kofi Nakamura",
+        "name": "Zofia Pérez",
         "level": 1,
         "careers": [
          "career.zookeeper"
@@ -26688,7 +26688,7 @@
       "characters": [
        {
         "id": "arena.warehouse-3v3-3-1-0",
-        "name": "Luis Jensen",
+        "name": "Luis Hassan",
         "level": 1,
         "careers": [
          "career.museum-curator"
@@ -26722,7 +26722,7 @@
        },
        {
         "id": "arena.warehouse-3v3-3-1-1",
-        "name": "Jordan Rossi",
+        "name": "Derek Harrison",
         "level": 5,
         "careers": [
          "career.programmer",
@@ -26757,7 +26757,7 @@
        },
        {
         "id": "arena.warehouse-3v3-3-1-2",
-        "name": "Maria Nakamura",
+        "name": "Maria Stewart",
         "level": 1,
         "careers": [
          "career.police-officer"
@@ -26817,7 +26817,7 @@
    "name": "arena.warehouse-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "9b04925ec047f92f",
     "arenaId": "arena.warehouse",
@@ -26830,7 +26830,7 @@
       "characters": [
        {
         "id": "arena.warehouse-3v3-4-0-0",
-        "name": "Björn Moreau",
+        "name": "Fiona Mbeki",
         "level": 1,
         "careers": [
          "career.delivery-driver"
@@ -26864,7 +26864,7 @@
        },
        {
         "id": "arena.warehouse-3v3-4-0-1",
-        "name": "Omar Lindqvist",
+        "name": "Owen Kennedy",
         "level": 5,
         "careers": [
          "career.security-guard",
@@ -26899,7 +26899,7 @@
        },
        {
         "id": "arena.warehouse-3v3-4-0-2",
-        "name": "Ravi Nakamura",
+        "name": "Chidi Pérez",
         "level": 1,
         "careers": [
          "career.janitor"
@@ -26940,7 +26940,7 @@
       "characters": [
        {
         "id": "arena.warehouse-3v3-4-1-0",
-        "name": "Olu O'Brien",
+        "name": "Freya Richter",
         "level": 1,
         "careers": [
          "career.welder"
@@ -26974,7 +26974,7 @@
        },
        {
         "id": "arena.warehouse-3v3-4-1-1",
-        "name": "Maria Lindqvist",
+        "name": "Frieda Bloggs",
         "level": 5,
         "careers": [
          "career.mime",
@@ -27009,7 +27009,7 @@
        },
        {
         "id": "arena.warehouse-3v3-4-1-2",
-        "name": "Kofi Jensen",
+        "name": "Ruby Singh",
         "level": 1,
         "careers": [
          "career.lawyer"
@@ -27068,7 +27068,7 @@
    "name": "arena.warehouse-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "a72133ef261df8f",
     "arenaId": "arena.warehouse",
@@ -27081,7 +27081,7 @@
       "characters": [
        {
         "id": "arena.warehouse-5v5-0-0-0",
-        "name": "Rafael Kaur",
+        "name": "Wanjiru Jackson",
         "level": 1,
         "careers": [
          "career.hairdresser"
@@ -27115,7 +27115,7 @@
        },
        {
         "id": "arena.warehouse-5v5-0-0-1",
-        "name": "Imani Brown",
+        "name": "Poppy Koch",
         "level": 5,
         "careers": [
          "career.paramedic",
@@ -27150,7 +27150,7 @@
        },
        {
         "id": "arena.warehouse-5v5-0-0-2",
-        "name": "Rafael Moreau",
+        "name": "Aiko Kuznetsov",
         "level": 1,
         "careers": [
          "career.zookeeper"
@@ -27184,7 +27184,7 @@
        },
        {
         "id": "arena.warehouse-5v5-0-0-3",
-        "name": "Anya Mensah",
+        "name": "Camille Patel",
         "level": 5,
         "careers": [
          "career.farmer",
@@ -27219,7 +27219,7 @@
        },
        {
         "id": "arena.warehouse-5v5-0-0-4",
-        "name": "Dev Dubois",
+        "name": "Lars Costa",
         "level": 1,
         "careers": [
          "career.scientist"
@@ -27260,7 +27260,7 @@
       "characters": [
        {
         "id": "arena.warehouse-5v5-0-1-0",
-        "name": "Imani Rossi",
+        "name": "Poppy Smith",
         "level": 1,
         "careers": [
          "career.bus-driver"
@@ -27294,7 +27294,7 @@
        },
        {
         "id": "arena.warehouse-5v5-0-1-1",
-        "name": "Chloe Walsh",
+        "name": "Luis Mansour",
         "level": 5,
         "careers": [
          "career.nurse",
@@ -27329,7 +27329,7 @@
        },
        {
         "id": "arena.warehouse-5v5-0-1-2",
-        "name": "Wendy Mbeki",
+        "name": "Siobhan Clarke",
         "level": 1,
         "careers": [
          "career.magician"
@@ -27363,7 +27363,7 @@
        },
        {
         "id": "arena.warehouse-5v5-0-1-3",
-        "name": "Tariq Walsh",
+        "name": "Oskar Becker",
         "level": 5,
         "careers": [
          "career.baker",
@@ -27398,7 +27398,7 @@
        },
        {
         "id": "arena.warehouse-5v5-0-1-4",
-        "name": "Nadia Smith",
+        "name": "Emma Dąbrowski",
         "level": 1,
         "careers": [
          "career.carpenter"
@@ -27459,7 +27459,7 @@
    "name": "arena.warehouse-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "faa5c995a47ececb",
     "arenaId": "arena.warehouse",
@@ -27472,7 +27472,7 @@
       "characters": [
        {
         "id": "arena.warehouse-5v5-1-0-0",
-        "name": "Nadia Park",
+        "name": "Priya Almeida",
         "level": 1,
         "careers": [
          "career.tattoo-artist"
@@ -27506,7 +27506,7 @@
        },
        {
         "id": "arena.warehouse-5v5-1-0-1",
-        "name": "Wendy Chen",
+        "name": "Wendy Klein",
         "level": 5,
         "careers": [
          "career.zookeeper",
@@ -27541,7 +27541,7 @@
        },
        {
         "id": "arena.warehouse-5v5-1-0-2",
-        "name": "Frank Ivanova",
+        "name": "Ingrid Karlsson",
         "level": 1,
         "careers": [
          "career.photographer"
@@ -27575,7 +27575,7 @@
        },
        {
         "id": "arena.warehouse-5v5-1-0-3",
-        "name": "Jarek Smith",
+        "name": "Nigel Hassan",
         "level": 5,
         "careers": [
          "career.sailor",
@@ -27610,7 +27610,7 @@
        },
        {
         "id": "arena.warehouse-5v5-1-0-4",
-        "name": "Anya Smith",
+        "name": "Camille Green",
         "level": 1,
         "careers": [
          "career.zookeeper"
@@ -27651,7 +27651,7 @@
       "characters": [
        {
         "id": "arena.warehouse-5v5-1-1-0",
-        "name": "Dmitri Novak",
+        "name": "Dmitri Horvat",
         "level": 1,
         "careers": [
          "career.chimney-sweep"
@@ -27685,7 +27685,7 @@
        },
        {
         "id": "arena.warehouse-5v5-1-1-1",
-        "name": "Jordan Walsh",
+        "name": "Lukas Leroy",
         "level": 5,
         "careers": [
          "career.plumber",
@@ -27720,7 +27720,7 @@
        },
        {
         "id": "arena.warehouse-5v5-1-1-2",
-        "name": "Yuki Dubois",
+        "name": "Kavya Hall",
         "level": 1,
         "careers": [
          "career.barista"
@@ -27754,7 +27754,7 @@
        },
        {
         "id": "arena.warehouse-5v5-1-1-3",
-        "name": "Ingrid Brown",
+        "name": "Freddie Nguyen",
         "level": 5,
         "careers": [
          "career.baker",
@@ -27789,7 +27789,7 @@
        },
        {
         "id": "arena.warehouse-5v5-1-1-4",
-        "name": "Yuki Mensah",
+        "name": "Astrid Papadopoulos",
         "level": 1,
         "careers": [
          "career.flight-attendant"
@@ -27860,7 +27860,7 @@
    "name": "arena.warehouse-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "0ce333be668641ff",
+    "contentHash": "5a175eb451c95043",
     "simVersion": "0.9.1",
     "seed": "dd12d55e1f145330",
     "arenaId": "arena.warehouse",
@@ -27873,7 +27873,7 @@
       "characters": [
        {
         "id": "arena.warehouse-ffa-0-0",
-        "name": "Tariq Müller",
+        "name": "Tariq Murphy",
         "level": 1,
         "careers": [
          "career.dog-groomer"
@@ -27914,7 +27914,7 @@
       "characters": [
        {
         "id": "arena.warehouse-ffa-1-0",
-        "name": "Dev Chen",
+        "name": "Matteo Mbeki",
         "level": 1,
         "careers": [
          "career.dog-groomer"
@@ -27955,7 +27955,7 @@
       "characters": [
        {
         "id": "arena.warehouse-ffa-2-0",
-        "name": "Yuki Okafor",
+        "name": "Daisy Petrov",
         "level": 1,
         "careers": [
          "career.tattoo-artist"
@@ -27996,7 +27996,7 @@
       "characters": [
        {
         "id": "arena.warehouse-ffa-3-0",
-        "name": "Priya Nakamura",
+        "name": "Beatriz Rahman",
         "level": 1,
         "careers": [
          "career.bus-driver"
@@ -28037,7 +28037,7 @@
       "characters": [
        {
         "id": "arena.warehouse-ffa-4-0",
-        "name": "Ingrid Tanaka",
+        "name": "Yusuf Wójcik",
         "level": 1,
         "careers": [
          "career.sailor"
@@ -28078,7 +28078,7 @@
       "characters": [
        {
         "id": "arena.warehouse-ffa-5-0",
-        "name": "Rafael Chen",
+        "name": "Nora Koch",
         "level": 1,
         "careers": [
          "career.lifeguard"

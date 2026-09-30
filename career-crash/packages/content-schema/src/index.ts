@@ -425,7 +425,8 @@ export interface ContentBundle {
   detectors: DetectorDef[];
   economy: EconomyDef;
   locale: Record<string, string>;
-  names: { first: string[]; last: string[] };
+  /** First and last names for generated characters, plus the titles players can add before and after a name. */
+  names: { first: string[]; last: string[]; prefixes: string[]; suffixes: string[] };
   /** Live commentary templates by event kind (02 §11). */
   live: Record<string, string[]>;
   synergies: SynergyDef[];
@@ -467,7 +468,8 @@ export const shopItemSchema = z.object({
 });
 export type ShopItemDef = z.infer<typeof shopItemSchema>;
 
-export const namesSchema = z.object({ first: z.array(z.string()).min(10), last: z.array(z.string()).min(10) });
+const nameWords = z.array(z.string().min(1).max(40)).min(10).refine((l) => new Set(l).size === l.length, 'duplicate entries');
+export const namesSchema = z.object({ first: nameWords, last: nameWords, prefixes: nameWords, suffixes: nameWords });
 
 /** Maps content folder → schema. Order matters only for error messages. */
 export const COLLECTIONS = {

@@ -1,12 +1,13 @@
 import { useMemo, useState } from 'preact/hooks';
 import { bundle } from '@cc/content';
-import { careerRank, DIFFICULTIES, pointsLeft, randomCompany, RANK_XP, RANKS, SQUAD_UNLOCK_RANK, stageInfo, type CareerChar, type CompanyName, type DifficultyId } from '@cc/game-rules';
+import { careerRank, DIFFICULTIES, pointsLeft, formatName, partsFromName, randomCompany, RANK_XP, RANKS, SQUAD_UNLOCK_RANK, stageInfo, type CareerChar, type CompanyName, type DifficultyId, type NameParts } from '@cc/game-rules';
 import { Rng } from '@cc/sim';
 import { abilitySummary, descOf, nameOf } from '../i18n';
 import { navigate, notify } from '../state';
 import { Card, CareerChip, Portrait } from '../ui/components';
 import { type BoardRow, career, collectResults, companyName, currentCareer, draftCharacter, mainChar, startCareer, type CareerSave } from './model';
 import { CompanyPicker } from './CompanyPicker';
+import { NamePicker } from './NamePicker';
 import { Hub } from './Hub';
 import { PuppetView } from './PuppetView';
 import { ShopScreen } from './Shop';
@@ -44,7 +45,7 @@ function styleOf(careerId: string): string {
 function CreateCharacter() {
   const [careerId, setCareerId] = useState<string>('');
   const [seed, setSeed] = useState(() => Math.random().toString(16).slice(2, 8));
-  const [name, setName] = useState('');
+  const [parts, setParts] = useState<NameParts | null>(null);
   const [personality, setPersonality] = useState('');
   const [diff, setDiff] = useState<DifficultyId>('normal');
   const [hype, setHype] = useState(1);
@@ -76,7 +77,8 @@ function CreateCharacter() {
     );
   }
 
-  const shown = { ...draft, name: name || draft.name, personality: personality || draft.personality };
+  const nameParts = parts ?? partsFromName(bundle, draft.name) ?? { pre: [], first: bundle.names.first[0]!, last: bundle.names.last[0]!, post: [] };
+  const shown = { ...draft, name: formatName(nameParts), nameParts, personality: personality || draft.personality };
   const start = () => {
     startCareer(shown, diff, company);
     notify(`Welcome aboard, ${shown.name}!`, 'good');
@@ -110,23 +112,21 @@ function CreateCharacter() {
       <div class="grid two">
         <Card>
           <h2>Who are they?</h2>
-          <label class="field">
+          <div class="field">
             Name
-            <div class="row">
-              <input value={shown.name} maxLength={24} onInput={(e) => setName((e.target as HTMLInputElement).value)} />
-              <button
-                class="ghost small"
-                title="New face, name and stats"
-                onClick={() => {
-                  setSeed(Math.random().toString(16).slice(2, 8));
-                  setName('');
-                  setHype((h) => h + 1);
-                }}
-              >
-                🎲
-              </button>
-            </div>
-          </label>
+            <NamePicker value={nameParts} onChange={setParts} />
+          </div>
+          <button
+            class="ghost small"
+            title="New face, name and stats"
+            onClick={() => {
+              setSeed(Math.random().toString(16).slice(2, 8));
+              setParts(null);
+              setHype((h) => h + 1);
+            }}
+          >
+            🎲 New face and stats
+          </button>
           <label class="field">
             Personality
             <select value={shown.personality} onChange={(e) => {

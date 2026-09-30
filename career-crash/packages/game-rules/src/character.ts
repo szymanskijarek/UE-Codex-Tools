@@ -1,11 +1,15 @@
 import type { CareerDef, ContentBundle, Stats } from '@cc/content-schema';
 import { STAT_KEYS } from '@cc/content-schema/constants';
 import { Rng, type Appearance, type CharacterSnapshot, type CharCounters } from '@cc/sim';
+import type { NameParts } from './names';
 
 /** Persistent character record (01 §6.3 characters.data). */
 export interface Character {
   id: string;
+  /** Display name. For names built in the name picker it is formatName(nameParts). */
   name: string;
+  /** Set when the player built the name from the picker's lists (see names.ts). */
+  nameParts?: NameParts;
   level: number;
   xp: number;
   careers: string[];

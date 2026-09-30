@@ -2184,3 +2184,35 @@ body:has(.shell.li) {
   box-shadow: none;
   border-width: 1px;
 }
+
+.name-tools {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px 10px;
+  margin: 4px 0 8px;
+}
+
+.name-tools input {
+  flex: 1;
+  min-width: 160px;
+}
+
+.name-tools button {
+  margin: 0 0 0 6px;
+  padding: 0 8px;
+  box-shadow: none;
+}
+
+.company-words .chip:disabled {
+  opacity: 0.35;
+}
+
+.li-rename {
+  font-size: 0.8rem;
+  vertical-align: middle;
+  margin: 0;
+  padding: 0 6px;
+  box-shadow: none;
+  border-width: 1px;
+}

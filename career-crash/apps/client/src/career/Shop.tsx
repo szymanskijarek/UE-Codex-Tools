@@ -1,6 +1,6 @@
 import { useState } from 'preact/hooks';
 import { bundle } from '@cc/content';
-import { LOADOUT_SLOTS, shopTierAt } from '@cc/game-rules';
+import { LOADOUT_SLOTS, shopTierAt, shortName } from '@cc/game-rules';
 import { nameOf, t } from '../i18n';
 import { navigate, notify } from '../state';
 import { Card } from '../ui/components';
@@ -39,7 +39,7 @@ export function ShopScreen({ save: s }: { save: CareerSave }) {
           <div class="tabs-inline">
             {team.map((c) => (
               <button class={`tab ${c.c.id === target.c.id ? 'on' : ''}`} onClick={() => setWho(c.c.id)}>
-                {c.c.name.split(' ')[0]}
+                {shortName(bundle, c.c.name)}
               </button>
             ))}
           </div>
@@ -82,7 +82,7 @@ export function ShopScreen({ save: s }: { save: CareerSave }) {
               );
             })}
           </div>
-          <p class="muted small">Click an item in the stockroom to pack it for {target.c.name.split(' ')[0]}; click a slot to unpack.</p>
+          <p class="muted small">Click an item in the stockroom to pack it for {shortName(bundle, target.c.name)}; click a slot to unpack.</p>
         </Card>
 
         <Card>

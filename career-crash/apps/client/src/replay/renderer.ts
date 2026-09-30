@@ -2,6 +2,7 @@
 import 'pixi.js/unsafe-eval';
 import { Application, Container, Graphics, Sprite, Text, Texture, type TextStyleOptions } from 'pixi.js';
 import { bundle } from '@cc/content';
+import { shortName } from '@cc/game-rules';
 import type { AbilityDef, ArenaDef } from '@cc/content-schema';
 import { layoutArena, type BattleEvent, type BattleInput, type FrameEntity, type PlacedObstacle } from '@cc/sim';
 import { nameOf, STATUS_ICONS } from '../i18n';
@@ -628,7 +629,7 @@ export class BattleRenderer {
     bar.y = -r * 4.35;
     const labelStyle: TextStyleOptions = { fontFamily: FONT, fontSize: Math.max(9, r * 0.75), fontWeight: '800', fill: 0xffffff, stroke: { color: OUTLINE, width: 3 } };
     const jobIcon = career?.art.icon ?? '';
-    const label = new Text({ text: isRef ? 'REF' : `${jobIcon} ${e.name.split(' ')[0] ?? e.name}`.trim(), style: labelStyle, resolution: 3 });
+    const label = new Text({ text: isRef ? 'REF' : `${jobIcon} ${shortName(bundle, e.name)}`.trim(), style: labelStyle, resolution: 3 });
     label.anchor.set(0.5, 1);
     label.y = -r * 4.5;
     const icons = new Text({ text: '', style: { fontSize: Math.max(9, r * 0.8) }, resolution: 3 });
