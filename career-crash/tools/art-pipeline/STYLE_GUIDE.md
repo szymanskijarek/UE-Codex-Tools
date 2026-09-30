@@ -54,7 +54,7 @@ pnpm --filter @cc/art-pipeline puppets mime       # one sheet
 ```
 
 The slicer finds each part, measures its joint anchors, downsizes it (figure
-≈ 300 px) and packs `apps/client/src/replay/puppets/<career>.png` plus
+≈ 300 px) and packs `apps/client/src/replay/puppets/<career>.webp` plus
 `puppets.json`. Labelled previews land in `tools/art-pipeline/out/puppets/`;
 when a sheet uses an unusual layout, map part names to the numbers shown there
 in `art/sheets/manifest.json` (see barista, hairdresser, plumber, mime, chef, teacher); `flip` lists parts

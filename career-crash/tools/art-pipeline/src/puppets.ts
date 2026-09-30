@@ -6,7 +6,7 @@
  *   pnpm --filter @cc/art-pipeline puppets            # slice every sheet
  *   pnpm --filter @cc/art-pipeline puppets mime chef  # only these
  *
- * Output: apps/client/src/replay/puppets/<career>.png + puppets.json (part
+ * Output: apps/client/src/replay/puppets/<career>.webp + puppets.json (part
  * rectangles and joint anchors), and labelled previews in out/puppets/ so a
  * human can check which blob became which part. Sheets whose layout the
  * automatic classifier gets wrong are fixed in art/sheets/manifest.json by
@@ -15,6 +15,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { basename, join } from 'node:path';
 import sharp, { type OverlayOptions } from 'sharp';
+import { writeSheet } from './encode';
 
 const ROOT = new URL('../../../', import.meta.url).pathname;
 const SHEETS = join(ROOT, 'art/sheets');
@@ -331,13 +332,10 @@ async function sliceSheet(name: string, override: SheetOverride): Promise<[strin
   }
   const atlasH = y + rowH + PAD;
   mkdirSync(OUT, { recursive: true });
-  await sharp({ create: { width: atlasW, height: atlasH, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
-    .composite(composite)
-    .png({ compressionLevel: 9, palette: true, quality: 95, effort: 10, dither: 0.5 })
-    .toFile(join(OUT, `${name}.png`));
+  await writeSheet(sharp({ create: { width: atlasW, height: atlasH, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } }).composite(composite), join(OUT, `${name}.webp`), { dither: 0.5 });
   const career = override.career ?? `career.${name}`;
   console.log(`✓ ${name} → ${career} (${atlasW}×${atlasH})`);
-  return [career, { file: `${name}.png`, w: atlasW, h: atlasH, parts: placed }];
+  return [career, { file: `${name}.webp`, w: atlasW, h: atlasH, parts: placed }];
 }
 
 async function main(): Promise<void> {

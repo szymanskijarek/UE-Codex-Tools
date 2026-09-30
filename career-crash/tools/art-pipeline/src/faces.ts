@@ -2,7 +2,7 @@
  * Face slicer: four emotion sheets (art/faces/{neutral,angry,surprised,hurt}.png,
  * each a 6 × 6 grid of heads on a transparent background, careers in
  * alphabetical order) → one atlas for the client:
- * apps/client/src/replay/faces/faces.png + faces.json ({ "career.x:emotion": rect }).
+ * apps/client/src/replay/faces/faces.webp + faces.json ({ "career.x:emotion": rect }).
  *
  * Two animation frames are derived from the neutral face, where the art allows:
  * `blink` (eye whites found and painted over with skin + a lid line) and `talk`
@@ -13,6 +13,7 @@
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import sharp, { type OverlayOptions } from 'sharp';
+import { writeSheet } from './encode';
 
 const ROOT = new URL('../../../', import.meta.url).pathname;
 const SHEETS = join(ROOT, 'art/faces');
@@ -439,10 +440,7 @@ async function main(): Promise<void> {
   }
   const H = y + rowH + PAD;
   mkdirSync(OUT, { recursive: true });
-  await sharp({ create: { width: ATLAS_W, height: H, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
-    .composite(comp)
-    .png({ compressionLevel: 9, palette: true, quality: 95, effort: 10 })
-    .toFile(join(OUT, 'faces.png'));
+  await writeSheet(sharp({ create: { width: ATLAS_W, height: H, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } }).composite(comp), join(OUT, 'faces.webp'));
   writeFileSync(join(OUT, 'faces.json'), JSON.stringify({ w: ATLAS_W, h: H, faces: rects }, null, 1) + '\n');
   console.log(`${pieces.length} faces → ${ATLAS_W}×${H}`);
 }

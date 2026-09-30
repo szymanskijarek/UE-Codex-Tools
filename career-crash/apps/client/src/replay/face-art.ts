@@ -16,8 +16,8 @@ export interface FaceRect {
 }
 
 const FACES = (atlas as unknown as { w: number; h: number; faces: Record<string, FaceRect> }).faces;
-const URLS = import.meta.glob('./faces/faces.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
-export const FACE_ATLAS = { url: URLS['./faces/faces.png'] ?? '', w: (atlas as { w: number }).w, h: (atlas as { h: number }).h };
+const URLS = import.meta.glob('./faces/faces.webp', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+export const FACE_ATLAS = { url: URLS['./faces/faces.webp'] ?? '', w: (atlas as { w: number }).w, h: (atlas as { h: number }).h };
 
 export function faceRect(careerId: string, emotion: FaceFrame = 'neutral'): FaceRect | null {
   return FACES[`${careerId}:${emotion}`] ?? null;

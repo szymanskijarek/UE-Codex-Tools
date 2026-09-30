@@ -1,6 +1,6 @@
 {
  "career.accountant": {
-  "file": "accountant.png",
+  "file": "accountant.webp",
   "w": 512,
   "h": 97,
   "parts": {
@@ -189,7 +189,7 @@
   }
  },
  "career.archaeologist": {
-  "file": "archaeologist.png",
+  "file": "archaeologist.webp",
   "w": 512,
   "h": 65,
   "parts": {
@@ -378,7 +378,7 @@
   }
  },
  "career.astronaut": {
-  "file": "astronaut.png",
+  "file": "astronaut.webp",
   "w": 512,
   "h": 103,
   "parts": {
@@ -567,7 +567,7 @@
   }
  },
  "career.baker": {
-  "file": "baker.png",
+  "file": "baker.webp",
   "w": 512,
   "h": 102,
   "parts": {
@@ -756,7 +756,7 @@
   }
  },
  "career.barista": {
-  "file": "barista.png",
+  "file": "barista.webp",
   "w": 512,
   "h": 75,
   "parts": {
@@ -945,7 +945,7 @@
   }
  },
  "career.beekeeper": {
-  "file": "beekeeper.png",
+  "file": "beekeeper.webp",
   "w": 512,
   "h": 65,
   "parts": {
@@ -1134,7 +1134,7 @@
   }
  },
  "career.builder": {
-  "file": "builder.png",
+  "file": "builder.webp",
   "w": 512,
   "h": 121,
   "parts": {
@@ -1323,7 +1323,7 @@
   }
  },
  "career.bus-driver": {
-  "file": "bus-driver.png",
+  "file": "bus-driver.webp",
   "w": 512,
   "h": 71,
   "parts": {
@@ -1512,7 +1512,7 @@
   }
  },
  "career.carpenter": {
-  "file": "carpenter.png",
+  "file": "carpenter.webp",
   "w": 512,
   "h": 75,
   "parts": {
@@ -1701,7 +1701,7 @@
   }
  },
  "career.chef": {
-  "file": "chef.png",
+  "file": "chef.webp",
   "w": 512,
   "h": 106,
   "parts": {
@@ -1918,7 +1918,7 @@
   }
  },
  "career.chimney-sweep": {
-  "file": "chimney-sweep.png",
+  "file": "chimney-sweep.webp",
   "w": 512,
   "h": 67,
   "parts": {
@@ -2107,7 +2107,7 @@
   }
  },
  "career.clown": {
-  "file": "clown.png",
+  "file": "clown.webp",
   "w": 512,
   "h": 66,
   "parts": {
@@ -2268,7 +2268,7 @@
   }
  },
  "career.conspiracy-podcaster": {
-  "file": "conspiracy-podcaster.png",
+  "file": "conspiracy-podcaster.webp",
   "w": 512,
   "h": 103,
   "parts": {
@@ -2457,7 +2457,7 @@
   }
  },
  "career.dentist": {
-  "file": "dentist.png",
+  "file": "dentist.webp",
   "w": 512,
   "h": 73,
   "parts": {
@@ -2646,7 +2646,7 @@
   }
  },
  "career.dj": {
-  "file": "dj.png",
+  "file": "dj.webp",
   "w": 512,
   "h": 96,
   "parts": {
@@ -2835,7 +2835,7 @@
   }
  },
  "career.dog-groomer": {
-  "file": "dog-groomer.png",
+  "file": "dog-groomer.webp",
   "w": 512,
   "h": 77,
   "parts": {
@@ -3024,7 +3024,7 @@
   }
  },
  "career.electrician": {
-  "file": "electrician.png",
+  "file": "electrician.webp",
   "w": 512,
   "h": 62,
   "parts": {
@@ -3213,7 +3213,7 @@
   }
  },
  "career.farmer": {
-  "file": "farmer.png",
+  "file": "farmer.webp",
   "w": 512,
   "h": 67,
   "parts": {
@@ -3402,7 +3402,7 @@
   }
  },
  "career.fashion-designer": {
-  "file": "fashion-designer.png",
+  "file": "fashion-designer.webp",
   "w": 512,
   "h": 74,
   "parts": {
@@ -3591,7 +3591,7 @@
   }
  },
  "career.firefighter": {
-  "file": "firefighter.png",
+  "file": "firefighter.webp",
   "w": 512,
   "h": 66,
   "parts": {
@@ -3780,7 +3780,7 @@
   }
  },
  "career.flight-attendant": {
-  "file": "flight-attendant.png",
+  "file": "flight-attendant.webp",
   "w": 512,
   "h": 76,
   "parts": {
@@ -3969,7 +3969,7 @@
   }
  },
  "career.florist": {
-  "file": "florist.png",
+  "file": "florist.webp",
   "w": 512,
   "h": 66,
   "parts": {
@@ -4130,7 +4130,7 @@
   }
  },
  "career.food-critic": {
-  "file": "food-critic.png",
+  "file": "food-critic.webp",
   "w": 512,
   "h": 103,
   "parts": {
@@ -4319,7 +4319,7 @@
   }
  },
  "career.fortune-teller": {
-  "file": "fortune-teller.png",
+  "file": "fortune-teller.webp",
   "w": 512,
   "h": 90,
   "parts": {
@@ -4508,7 +4508,7 @@
   }
  },
  "career.gardener": {
-  "file": "gardener.png",
+  "file": "gardener.webp",
   "w": 512,
   "h": 73,
   "parts": {
@@ -4697,7 +4697,7 @@
   }
  },
  "career.hairdresser": {
-  "file": "hairdresser.png",
+  "file": "hairdresser.webp",
   "w": 512,
   "h": 81,
   "parts": {
@@ -4886,7 +4886,7 @@
   }
  },
  "career.hotel-concierge": {
-  "file": "hotel-concierge.png",
+  "file": "hotel-concierge.webp",
   "w": 512,
   "h": 60,
   "parts": {
@@ -5075,7 +5075,7 @@
   }
  },
  "career.ice-cream-vendor": {
-  "file": "ice-cream-vendor.png",
+  "file": "ice-cream-vendor.webp",
   "w": 512,
   "h": 73,
   "parts": {
@@ -5264,7 +5264,7 @@
   }
  },
  "career.influencer": {
-  "file": "influencer.png",
+  "file": "influencer.webp",
   "w": 512,
   "h": 64,
   "parts": {
@@ -5453,7 +5453,7 @@
   }
  },
  "career.journalist": {
-  "file": "journalist.png",
+  "file": "journalist.webp",
   "w": 512,
   "h": 61,
   "parts": {
@@ -5642,7 +5642,7 @@
   }
  },
  "career.lawyer": {
-  "file": "lawyer.png",
+  "file": "lawyer.webp",
   "w": 512,
   "h": 66,
   "parts": {
@@ -5831,7 +5831,7 @@
   }
  },
  "career.librarian": {
-  "file": "librarian.png",
+  "file": "librarian.webp",
   "w": 512,
   "h": 59,
   "parts": {
@@ -6020,7 +6020,7 @@
   }
  },
  "career.life-coach": {
-  "file": "life-coach.png",
+  "file": "life-coach.webp",
   "w": 512,
   "h": 55,
   "parts": {
@@ -6209,7 +6209,7 @@
   }
  },
  "career.lifeguard": {
-  "file": "lifeguard.png",
+  "file": "lifeguard.webp",
   "w": 512,
   "h": 65,
   "parts": {
@@ -6398,7 +6398,7 @@
   }
  },
  "career.magician": {
-  "file": "magician.png",
+  "file": "magician.webp",
   "w": 512,
   "h": 76,
   "parts": {
@@ -6587,7 +6587,7 @@
   }
  },
  "career.marine-biologist": {
-  "file": "marine-biologist.png",
+  "file": "marine-biologist.webp",
   "w": 512,
   "h": 70,
   "parts": {
@@ -6776,7 +6776,7 @@
   }
  },
  "career.mechanic": {
-  "file": "mechanic.png",
+  "file": "mechanic.webp",
   "w": 512,
   "h": 100,
   "parts": {
@@ -6965,7 +6965,7 @@
   }
  },
  "career.mime": {
-  "file": "mime.png",
+  "file": "mime.webp",
   "w": 512,
   "h": 62,
   "parts": {
@@ -7126,7 +7126,7 @@
   }
  },
  "career.museum-curator": {
-  "file": "museum-curator.png",
+  "file": "museum-curator.webp",
   "w": 512,
   "h": 68,
   "parts": {
@@ -7315,7 +7315,7 @@
   }
  },
  "career.nurse": {
-  "file": "nurse.png",
+  "file": "nurse.webp",
   "w": 512,
   "h": 71,
   "parts": {
@@ -7504,7 +7504,7 @@
   }
  },
  "career.painter": {
-  "file": "painter.png",
+  "file": "painter.webp",
   "w": 512,
   "h": 103,
   "parts": {
@@ -7693,7 +7693,7 @@
   }
  },
  "career.paramedic": {
-  "file": "paramedic.png",
+  "file": "paramedic.webp",
   "w": 512,
   "h": 62,
   "parts": {
@@ -7882,7 +7882,7 @@
   }
  },
  "career.personal-trainer": {
-  "file": "personal-trainer.png",
+  "file": "personal-trainer.webp",
   "w": 512,
   "h": 61,
   "parts": {
@@ -8071,7 +8071,7 @@
   }
  },
  "career.photographer": {
-  "file": "photographer.png",
+  "file": "photographer.webp",
   "w": 512,
   "h": 68,
   "parts": {
@@ -8260,7 +8260,7 @@
   }
  },
  "career.plumber": {
-  "file": "plumber.png",
+  "file": "plumber.webp",
   "w": 512,
   "h": 64,
   "parts": {
@@ -8421,7 +8421,7 @@
   }
  },
  "career.police-officer": {
-  "file": "police-officer.png",
+  "file": "police-officer.webp",
   "w": 512,
   "h": 109,
   "parts": {
@@ -8610,7 +8610,7 @@
   }
  },
  "career.politician": {
-  "file": "politician.png",
+  "file": "politician.webp",
   "w": 512,
   "h": 97,
   "parts": {
@@ -8799,7 +8799,7 @@
   }
  },
  "career.postal-worker": {
-  "file": "postal-worker.png",
+  "file": "postal-worker.webp",
   "w": 512,
   "h": 64,
   "parts": {
@@ -8988,7 +8988,7 @@
   }
  },
  "career.programmer": {
-  "file": "programmer.png",
+  "file": "programmer.webp",
   "w": 512,
   "h": 62,
   "parts": {
@@ -9177,7 +9177,7 @@
   }
  },
  "career.psychologist": {
-  "file": "psychologist.png",
+  "file": "psychologist.webp",
   "w": 512,
   "h": 68,
   "parts": {
@@ -9366,7 +9366,7 @@
   }
  },
  "career.sailor": {
-  "file": "sailor.png",
+  "file": "sailor.webp",
   "w": 512,
   "h": 73,
   "parts": {
@@ -9555,7 +9555,7 @@
   }
  },
  "career.scientist": {
-  "file": "scientist.png",
+  "file": "scientist.webp",
   "w": 512,
   "h": 66,
   "parts": {
@@ -9744,7 +9744,7 @@
   }
  },
  "career.tailor": {
-  "file": "tailor.png",
+  "file": "tailor.webp",
   "w": 512,
   "h": 66,
   "parts": {
@@ -9933,7 +9933,7 @@
   }
  },
  "career.tattoo-artist": {
-  "file": "tattoo-artist.png",
+  "file": "tattoo-artist.webp",
   "w": 512,
   "h": 65,
   "parts": {
@@ -10122,7 +10122,7 @@
   }
  },
  "career.taxi-driver": {
-  "file": "taxi-driver.png",
+  "file": "taxi-driver.webp",
   "w": 512,
   "h": 72,
   "parts": {
@@ -10311,7 +10311,7 @@
   }
  },
  "career.teacher": {
-  "file": "teacher.png",
+  "file": "teacher.webp",
   "w": 512,
   "h": 51,
   "parts": {
@@ -10528,7 +10528,7 @@
   }
  },
  "career.train-conductor": {
-  "file": "train-conductor.png",
+  "file": "train-conductor.webp",
   "w": 512,
   "h": 60,
   "parts": {
@@ -10717,7 +10717,7 @@
   }
  },
  "career.tv-host": {
-  "file": "tv-host.png",
+  "file": "tv-host.webp",
   "w": 512,
   "h": 66,
   "parts": {
@@ -10906,7 +10906,7 @@
   }
  },
  "career.veterinarian": {
-  "file": "veterinarian.png",
+  "file": "veterinarian.webp",
   "w": 512,
   "h": 67,
   "parts": {
@@ -11095,7 +11095,7 @@
   }
  },
  "career.welder": {
-  "file": "welder.png",
+  "file": "welder.webp",
   "w": 512,
   "h": 95,
   "parts": {
@@ -11284,7 +11284,7 @@
   }
  },
  "career.window-cleaner": {
-  "file": "window-cleaner.png",
+  "file": "window-cleaner.webp",
   "w": 512,
   "h": 55,
   "parts": {
@@ -11473,7 +11473,7 @@
   }
  },
  "career.zookeeper": {
-  "file": "zookeeper.png",
+  "file": "zookeeper.webp",
   "w": 512,
   "h": 64,
   "parts": {

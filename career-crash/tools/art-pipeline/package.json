@@ -8,7 +8,8 @@
     "puppets": "tsx src/puppets.ts",
     "items": "tsx src/items.ts",
     "faces": "tsx src/faces.ts",
-    "puppets-grid": "tsx src/puppets-grid.ts"
+    "puppets-grid": "tsx src/puppets-grid.ts",
+    "arenas": "tsx src/arenas.ts"
   },
   "dependencies": {
     "@cc/content": "workspace:*",

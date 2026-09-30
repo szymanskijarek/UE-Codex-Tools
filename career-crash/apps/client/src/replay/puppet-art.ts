@@ -17,7 +17,7 @@ export interface PuppetDef {
 }
 
 export const PUPPET_DEFS = manifest as unknown as Record<string, PuppetDef>;
-const URLS = import.meta.glob('./puppets/*.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+const URLS = import.meta.glob('./puppets/*.webp', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 
 export function puppetUrl(career: string): string | null {
   const def = PUPPET_DEFS[career];

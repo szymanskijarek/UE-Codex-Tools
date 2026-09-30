@@ -12,6 +12,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import sharp, { type OverlayOptions } from 'sharp';
+import { writeSheet } from './encode';
 
 const ROOT = new URL('../../../', import.meta.url).pathname;
 const SHEETS = join(ROOT, 'art/sheets-grid');
@@ -506,11 +507,8 @@ async function main(): Promise<void> {
         rowH = Math.max(rowH, p.h);
       }
       const atlasH = y + rowH + PAD;
-      await sharp({ create: { width: atlasW, height: atlasH, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
-        .composite(comp)
-        .png({ compressionLevel: 9, palette: true, quality: 95, effort: 10, dither: 0.5 })
-        .toFile(join(OUT, `${slug}.png`));
-      index[career] = { file: `${slug}.png`, w: atlasW, h: atlasH, parts: placed };
+      await writeSheet(sharp({ create: { width: atlasW, height: atlasH, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } }).composite(comp), join(OUT, `${slug}.webp`), { dither: 0.5 });
+      index[career] = { file: `${slug}.webp`, w: atlasW, h: atlasH, parts: placed };
       ok++;
       if (process.env.VERBOSE) console.log(`  ${slug}: ${used}`);
     }

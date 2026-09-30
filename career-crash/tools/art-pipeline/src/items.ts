@@ -1,7 +1,7 @@
 /**
  * Item slicer: prop sheets (art/items/<sheet>.png — 2 rows × 4 items on a
  * transparent background) → one packed atlas for the client:
- * apps/client/src/replay/items/items.png + items.json ({ name: rect }).
+ * apps/client/src/replay/items/items.webp + items.json ({ name: rect }).
  *
  *   pnpm --filter @cc/art-pipeline items
  *
@@ -14,6 +14,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import sharp, { type OverlayOptions } from 'sharp';
+import { writeSheet } from './encode';
 
 const ROOT = new URL('../../../', import.meta.url).pathname;
 /**
@@ -171,10 +172,7 @@ async function main(): Promise<void> {
   }
   const H = y + rowH + PAD;
   mkdirSync(OUT, { recursive: true });
-  await sharp({ create: { width: ATLAS_W, height: H, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } })
-    .composite(comp)
-    .png({ compressionLevel: 9, palette: true, quality: 95, effort: 10 })
-    .toFile(join(OUT, `${KIND}.png`));
+  await writeSheet(sharp({ create: { width: ATLAS_W, height: H, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } }).composite(comp), join(OUT, `${KIND}.webp`));
   const sorted = Object.fromEntries(Object.entries(rects).sort(([a], [b]) => a.localeCompare(b)));
   writeFileSync(join(OUT, `${KIND}.json`), JSON.stringify({ w: ATLAS_W, h: H, items: sorted }, null, 1) + '\n');
   console.log(`${pieces.length} items → ${ATLAS_W}×${H}`);

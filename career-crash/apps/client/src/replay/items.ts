@@ -1,7 +1,7 @@
 import { Rectangle, Sprite, Texture } from 'pixi.js';
 
 /**
- * Item art (tools/art-pipeline `items` → items/items.png + items.json): the
+ * Item art (tools/art-pipeline `items` → items/items.webp + items.json): the
  * sprites for held equipment and for throwable/pickable props. Anything not
  * listed keeps its procedural drawing.
  */
@@ -12,7 +12,7 @@ interface Atlas {
 }
 
 const JSON_FILES = import.meta.glob('./{items,obstacles}/*.json', { eager: true, import: 'default' }) as Record<string, Atlas>;
-const PNG_FILES = import.meta.glob('./{items,obstacles}/*.png', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+const SHEET_FILES = import.meta.glob('./{items,obstacles}/*.webp', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 
 interface Sheet {
   atlas: Atlas | null;
@@ -20,7 +20,7 @@ interface Sheet {
   base: Texture | null;
   cache: Map<string, Texture>;
 }
-const sheet = (kind: string): Sheet => ({ atlas: JSON_FILES[`./${kind}/${kind}.json`] ?? null, url: PNG_FILES[`./${kind}/${kind}.png`] ?? null, base: null, cache: new Map() });
+const sheet = (kind: string): Sheet => ({ atlas: JSON_FILES[`./${kind}/${kind}.json`] ?? null, url: SHEET_FILES[`./${kind}/${kind}.webp`] ?? null, base: null, cache: new Map() });
 const ITEMS = sheet('items');
 const OBSTACLES = sheet('obstacles');
 

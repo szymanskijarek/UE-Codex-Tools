@@ -1,5 +1,5 @@
 /**
- * Painted arena backdrops (art/arenas → replay/arenas/*.jpg). Each painting
+ * Painted arena backdrops (art/arenas → replay/arenas/*.webp). Each painting
  * has an open floor seen in perspective; `floor` is that trapezoid in image
  * fractions — the top edge at `top` with half-width `topHalf`, the bottom edge
  * at `bottom` with half-width `bottomHalf`, both centred horizontally. The
@@ -13,7 +13,7 @@ export interface ArenaArt {
   floor: { top: number; topHalf: number; bottom: number; bottomHalf: number };
 }
 
-const URLS = import.meta.glob('./arenas/*.jpg', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+const URLS = import.meta.glob('./arenas/*.webp', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 
 const DEFS: Record<string, Omit<ArenaArt, 'url'> & { file: string }> = {
   'arena.supermarket': { file: 'supermarket', w: 1672, h: 941, floor: { top: 0.21, topHalf: 0.33, bottom: 0.8, bottomHalf: 0.5 } },
@@ -26,6 +26,6 @@ const DEFS: Record<string, Omit<ArenaArt, 'url'> & { file: string }> = {
 
 export function arenaArt(arenaId: string): ArenaArt | null {
   const d = DEFS[arenaId];
-  const url = d && URLS[`./arenas/${d.file}.jpg`];
+  const url = d && URLS[`./arenas/${d.file}.webp`];
   return d && url ? { url, w: d.w, h: d.h, floor: d.floor } : null;
 }
