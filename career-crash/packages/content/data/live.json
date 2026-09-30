@@ -2018,6 +2018,55 @@
    "Lost to {boss} ({bossjob}, {company}). Honestly an honour to be thrown by a legend.",
    "Note to self: when {boss} says \"brace\", you brace."
   ],
+  "feed_perk_epic": [
+   "Humbled and honoured to share that {company_me} has awarded me the {perk} ({rarity}). {stats}. I'd like to thank my manager, my mentor and the person I took it from.",
+   "Some people wait their whole career for an Epic perk. I waited one fight. 🎁 Introducing: {perk}. {stats}. #Blessed #BenefitsInKind",
+   "They say you can't buy happiness. You can't buy the {perk} either — you have to win it in a {arena}. {stats}. Grateful. 🙏",
+   "📣 PERSONAL NEWS: I am now the proud holder of the {perk}. {stats}. My accountant says it's tax-free. My accountant is also in hospital.",
+   "Excited to announce my benefits package now includes the {perk} ({rarity}, {stats}). Salary unchanged. Vibes significantly improved.",
+   "Reminder that perks are earned, not given. Anyway, look what I was given: {perk}. {stats}. 💜",
+   "Just unboxed the {perk} live after the fight. {stats}. If you're not getting Epic perks, have you tried winning? Just a thought. 💡",
+   "Honestly speechless. {stats} from one {perk}. Taking the rest of the day off to process this (and the concussion)."
+  ],
+  "feed_perk_legendary": [
+   "🟧 I don't usually post about this, but I've just been awarded a LEGENDARY perk: the {perk}. {stats}. 0.5% drop rate. 100% deserved. #TopPerformer",
+   "Agree? 👇 The {perk} is the single greatest thing to happen to {company_me} this quarter. {stats}. Legendary. Like me. Humbly.",
+   "Five years ago I was sleeping in a stockroom. Today I hold the Legendary {perk}. {stats}. Never let anyone tell you fights don't pay. (They pay in socks.)",
+   "📢 BIG ANNOUNCEMENT 📢 The {perk} (Legendary, {stats}) has chosen me. I did not choose it. It fell out of a vending machine and into my benefits package.",
+   "Legendary perk unlocked 🏆 {perk}. {stats}. HR has asked me to stop calling it my \"legacy\". I will not be doing that.",
+   "What a Legendary perk taught me about B2B sales: 1. Win the fight. 2. Get the {perk}. 3. {stats}. 4. There is no step 4. Repost if this resonates. ♻️",
+   "They said it was a 1-in-200 drop. I said: I am the 1. {perk}, Legendary, {stats}. #Manifesting #Grindset",
+   "I'll be honest, I cried. The {perk} ({stats}) is now part of my compensation package and possibly my personality."
+  ],
+  "feed_perk_ability": [
+   "Plot twist: the {perk} came with {ability}, which is apparently a {abilitycareer} move. I have never been a {abilitycareer}. I am now, spiritually. 🔄 #CareerPivot",
+   "Adding \"{ability}\" to my skills section. Where did I learn it? A {abilitycareer} left it in a perk. Transferable skills are REAL, people.",
+   "New perk, new me: the {perk} lets me use {ability}, like a real {abilitycareer}. No training, no certificate, no questions. #Upskilling",
+   "Recruiters, please update my profile: I now do {ability} ({abilitycareer} speciality, perk-assisted). Open to cross-functional opportunities. 🤝",
+   "Imposter syndrome? Never heard of it. I just used {ability} and I'm not even a {abilitycareer}. Thanks, {perk}. 💼",
+   "Nobody: … Me, with the {perk}: *uses a {abilitycareer}'s {ability} in a fight* Growth mindset in action. 📈"
+  ],
+  "feed_c_perk": [
+   "Congrats {first}! Well deserved 👏",
+   "Is that taxable? Asking for a friend who is HMRC.",
+   "Where do I apply for this benefits package?",
+   "{first} I've been in this industry 20 years and never seen perks like this. Proud of you. Also furious.",
+   "Does it come in my size?",
+   "Love this for you {first} 🎉 (I got a mug.)",
+   "Our company gives us fruit on Fridays. Just saying.",
+   "Humblebrag of the year, {first}. Nominating you. 🏆",
+   "Wait, you can win these?? I've been buying mine.",
+   "This is the content I'm here for 🔥",
+   "Please tell me it's not the socks. It's the socks, isn't it."
+  ],
+  "feed_c_perk_hr": [
+   "HR here. Please declare this on your P11D, {first}. 😊",
+   "Legal has asked me to remind everyone that perks won in fights are not a contractual entitlement.",
+   "Finance would like a receipt.",
+   "Payroll has questions. Payroll always has questions.",
+   "As a Benefits Manager, I have never been more threatened by a post.",
+   "Reminder: perks are non-transferable. Unless you win them off someone. Then they're very transferable."
+  ],
   "feed_c_congrats": [
    "Congrats {first}! 🎉",
    "Well deserved!",

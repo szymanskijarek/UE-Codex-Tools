@@ -1,7 +1,8 @@
 import { bundle } from '@cc/content';
-import { careerRank, RANKS, shortName, stageInfo } from '@cc/game-rules';
+import { careerRank, grantableAbilities, RANKS, shortName, stageInfo } from '@cc/game-rules';
 import { Rng } from '@cc/sim';
 import { nameOf } from '../i18n';
+import { lootName, lootStatsText, RARITY_NAMES } from './Loot';
 import { companyName, currentCareer, mainChar, type CareerSave, type FightSummary } from './model';
 
 /**
@@ -36,7 +37,7 @@ export interface FeedPost {
   mine?: { react?: ReactionKind; said?: string[] };
 }
 
-export type Mood = 'win' | 'loss' | 'draw' | 'news' | 'beaten' | 'gloat' | 'network' | 'company' | 'temp';
+export type Mood = 'win' | 'loss' | 'draw' | 'news' | 'beaten' | 'gloat' | 'network' | 'company' | 'temp' | 'perk';
 export type ReactionKind = 'like' | 'celebrate' | 'love' | 'insightful' | 'funny' | 'support';
 export const REACTIONS: [ReactionKind, string, string][] = [
   ['like', '👍', 'Like'],
@@ -71,6 +72,9 @@ const MOOD_OF: Record<string, Mood> = {
   feed_network_loss: 'network',
   feed_hiring: 'company',
   feed_shop: 'company',
+  feed_perk_epic: 'perk',
+  feed_perk_legendary: 'perk',
+  feed_perk_ability: 'perk',
 };
 
 export const FEED_CAP = 150;
@@ -185,6 +189,23 @@ export function fightPosts(s: CareerSave, r: FightSummary): FeedPost[] {
   }
   add({ by: 'me', author: m.c.name, sub: headline(m.c.id), who: meWho, tags: pick(tagsFor), reacts: 40 + rng.int(400), comments: 3 + rng.int(60) }, (mineKey));
 
+  // 1b. Epic and Legendary perks get the full humblebrag (plus one about the borrowed move, if any).
+  const perk = r.loot?.item;
+  if (perk && (perk.rarity === 'epic' || perk.rarity === 'legendary')) {
+    const extra = {
+      perk: lootName(perk),
+      rarity: RARITY_NAMES[perk.rarity],
+      stats: lootStatsText(perk),
+      ability: perk.ability ? nameOf(perk.ability) : '',
+      abilitycareer: perk.ability ? nameOf(grantableAbilities(bundle).get(perk.ability)) : '',
+      company_me: companyName(s),
+    };
+    const legendary = perk.rarity === 'legendary';
+    const post = { by: 'me' as const, author: m.c.name, sub: headline(m.c.id), who: meWho, tags: legendary ? '#Legendary #BenefitsInKind #Humbled' : '#Perks #Grateful', reacts: (legendary ? 900 : 300) + rng.int(legendary ? 4000 : 900), comments: (legendary ? 60 : 20) + rng.int(120) };
+    add(post, legendary ? 'feed_perk_legendary' : 'feed_perk_epic', extra);
+    if (perk.ability) add({ ...post, tags: '#CareerPivot #TransferableSkills', reacts: 120 + rng.int(600), comments: 8 + rng.int(40) }, 'feed_perk_ability', extra);
+  }
+
   // 2. Promotions, level-ups and new traits.
   for (const g of r.growth) {
     const cc = s.chars[g.id];
@@ -215,13 +236,15 @@ export function fightPosts(s: CareerSave, r: FightSummary): FeedPost[] {
   if (chance(0.6)) add({ by: 'stranger', ...persona(rng), tags: chance(0.3) ? '#ThoughtLeadership' : undefined }, 'feed_network');
   if (usedItems.length && chance(0.5)) add({ by: 'me', author: m.c.name, sub: headline(m.c.id), who: meWho }, 'feed_item', { item: nameOf(pick(usedItems)).toLowerCase() });
 
-  // Your post leads; the rest are shuffled like a real timeline.
-  const [first, ...rest] = out;
+  // Your post leads, then any perk brag; the rest are shuffled like a real timeline.
+  const [first, ...later] = out;
+  const perks = later.filter((p) => p.mood === 'perk');
+  const rest = later.filter((p) => p.mood !== 'perk');
   for (let i = rest.length - 1; i > 0; i--) {
     const j = rng.int(i + 1);
     [rest[i], rest[j]] = [rest[j]!, rest[i]!];
   }
-  return first ? [first, ...rest] : rest;
+  return first ? [first, ...perks, ...rest] : [...perks, ...rest];
 }
 
 /** A few posts to fill the feed before the first fight. */
@@ -298,6 +321,7 @@ const REACT_WEIGHTS: Record<Mood, Partial<Record<ReactionKind, number>>> = {
   network: { like: 4, insightful: 5, funny: 1 },
   company: { like: 4, funny: 2, insightful: 1 },
   temp: { like: 4, support: 2, celebrate: 1 },
+  perk: { celebrate: 6, love: 3, funny: 3, insightful: 1 },
 };
 
 type Speaker = Pick<FeedComment, 'author' | 'sub' | 'who' | 'icon'>;
@@ -372,6 +396,9 @@ export function discussion(p: FeedPost, s: CareerSave): Discussion {
       break;
     case 'temp':
       opts.push([fromStaff, 'feed_c_temp'], [stranger, 'feed_c_temp'], [stranger, 'feed_c_generic']);
+      break;
+    case 'perk':
+      opts.push([fromStaff, 'feed_c_perk'], [fromRivals, 'feed_c_perk'], [stranger, 'feed_c_perk'], [stranger, 'feed_c_perk'], [stranger, 'feed_c_perk_hr'], [stranger, 'feed_c_perk_hr'], [stranger, 'feed_c_recruiter']);
       break;
     default:
       opts.push([fromStaff, 'feed_c_generic'], [meIfNotAuthor, 'feed_c_generic'], [stranger, 'feed_c_generic'], [stranger, 'feed_c_generic']);
