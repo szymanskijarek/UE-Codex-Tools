@@ -1256,6 +1256,11 @@ button.locked {
     padding: 3px 2px;
   }
 
+  /* Emoji-only column headers: the words don't fit at phone width. */
+  .board .board-label {
+    display: none;
+  }
+
   .slot-item {
     min-height: 72px;
     font-size: 0.75rem;
@@ -1846,6 +1851,11 @@ body:has(.shell.li) {
 
   .li-nav a.active {
     border-top-color: var(--li-text);
+  }
+
+  .li-nav a span:not(.icon) {
+    font-size: 0.68rem;
+    white-space: nowrap;
   }
 
   .li-top-inner {

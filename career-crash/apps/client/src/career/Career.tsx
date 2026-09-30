@@ -330,10 +330,18 @@ function Board({ rows, title }: { rows: BoardRow[]; title: string }) {
       <thead>
         <tr>
           <th class="left">{title}</th>
-          <th title="Damage dealt">⚔️ Dealt</th>
-          <th title="Damage received">🩹 Taken</th>
-          <th title="Enemies knocked out">💀 KOs</th>
-          <th title="Times floored">⬇️ Downs</th>
+          <th title="Damage dealt">
+            ⚔️<span class="board-label"> Dealt</span>
+          </th>
+          <th title="Damage received">
+            🩹<span class="board-label"> Taken</span>
+          </th>
+          <th title="Enemies knocked out">
+            💀<span class="board-label"> KOs</span>
+          </th>
+          <th title="Times floored">
+            ⬇️<span class="board-label"> Downs</span>
+          </th>
           <th title="Items used">🎒</th>
         </tr>
       </thead>
