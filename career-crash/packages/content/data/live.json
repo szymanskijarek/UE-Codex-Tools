@@ -333,7 +333,12 @@
    "That hurt!",
    "Ugh!",
    "I'm telling HR!",
-   "Rude!"
+   "Rude!",
+   "Workers' comp!",
+   "I'm filing a grievance!",
+   "Not the face! I have headshots Thursday!",
+   "That's going in my review!",
+   "My pension!"
   ],
   "bark_hit_by_prop": [
    "Who threw that?!",
@@ -348,14 +353,22 @@
    "Come here!",
    "Gotcha!",
    "Bam!",
-   "Have some!"
+   "Have some!",
+   "Per my last email!",
+   "Here's my feedback!",
+   "Consider this a formal warning!",
+   "Let's take this offline!"
   ],
   "bark_crit": [
    "BOOM!",
    "Nailed it!",
    "Did you see that?!",
    "Textbook!",
-   "Clocked!"
+   "Clocked!",
+   "And THAT'S a KPI!",
+   "Put that in the minutes!",
+   "Stonks!",
+   "Exceeds expectations!"
   ],
   "bark_ko_win": [
    "Next!",
@@ -363,28 +376,42 @@
    "Who's next?",
    "Easy.",
    "Overtime's cancelled!",
-   "Too easy!"
+   "Too easy!",
+   "You're fired!",
+   "Let's call it a day.",
+   "Out of office!",
+   "Closing that ticket.",
+   "Consider yourself restructured."
   ],
   "bark_ally_down": [
    "NOOO!",
    "Hang in there!",
    "Medic!",
    "Not them!",
-   "We'll get them!"
+   "We'll get them!",
+   "Man down! Someone file a report!",
+   "I'll take your desk!",
+   "Not Kevin! Wait, who's Kevin?"
   ],
   "bark_enemy_down": [
    "Ha!",
    "One down!",
    "Yes!",
    "Get in!",
-   "Bye bye!"
+   "Bye bye!",
+   "One less meeting.",
+   "Bye! Update your CV!",
+   "Consider that feedback."
   ],
   "bark_burning": [
    "HOT HOT HOT!",
    "I'M ON FIRE!",
    "AAAH!",
    "Water! WATER!",
-   "Stop drop and roll!"
+   "Stop drop and roll!",
+   "It's getting hot in here!",
+   "Not the blazer!",
+   "I'm a smoke alarm now!"
   ],
   "bark_electrified": [
    "BZZZT!",
@@ -402,7 +429,10 @@
    "Whoa!",
    "Woah woah!",
    "Slippy!",
-   "Nooo—"
+   "Nooo—",
+   "Who mopped this?!",
+   "Wet floor sign! WHERE'S THE SIGN?!",
+   "Whoa-oa-oa!"
   ],
   "bark_coffee": [
    "LET'S GO!",
@@ -421,7 +451,11 @@
    "Not today!",
    "Help!",
    "I'm out!",
-   "Mummy!"
+   "Mummy!",
+   "I'm just an intern!",
+   "I want my mum!",
+   "This wasn't in the job description!",
+   "I quit! I QUIT!"
   ],
   "bark_revived": [
    "I'm back!",
@@ -452,7 +486,11 @@
    "Is that all?",
    "Too slow!",
    "You call that a job?",
-   "Ha ha!"
+   "Ha ha!",
+   "Is that all you've got?",
+   "My nan hits harder!",
+   "Were you hired through a raffle?",
+   "You fight like a spreadsheet!"
   ],
   "bark_pickup": [
    "Ooh, a {prop}!",
@@ -496,7 +534,11 @@
    "We did it!",
    "Pay rise please!",
    "Champions!",
-   "Clocking out!"
+   "Clocking out!",
+   "Team drinks on me!",
+   "Updating my LinkedIn now.",
+   "Put it in the newsletter!",
+   "Pay rise? Pay rise."
   ],
   "ab_flambe": [
    "{a} flambés {b}. Chef's kiss.",
@@ -863,14 +905,18 @@
    "PUT ME DOWN!",
    "AAAAAH!",
    "Not like this!",
-   "I can fly!"
+   "I can fly!",
+   "Put me DOWN!",
+   "I'm flyiiiing!"
   ],
   "bark_thrower": [
    "Up you go!",
    "Catch!",
    "Hup!",
    "Special delivery!",
-   "Get OUT!"
+   "Get OUT!",
+   "Returned to sender!",
+   "Heave!"
   ],
   "job_teacher": [
    "Eyes on the board!",
@@ -1218,7 +1264,10 @@
    "Tactical crawl!",
    "Nobody look at me.",
    "My legs are on strike.",
-   "Five more minutes..."
+   "Five more minutes...",
+   "Just... need... a minute...",
+   "I'll crawl to HR if I have to.",
+   "Tell my plants I love them."
   ],
   "bark_downed_crawl": [
    "Help...",
@@ -1369,13 +1418,18 @@
    "Remember me?",
    "This time it's personal.",
    "We meet again.",
-   "I've been practising."
+   "I've been practising.",
+   "YOU again!",
+   "We have unfinished business!",
+   "I remember you. I remember EVERYTHING."
   ],
   "bark_revenge": [
    "That's for last time!",
    "Payback!",
    "Now we're even!",
-   "Who's laughing now?"
+   "Who's laughing now?",
+   "Payback's a spreadsheet!",
+   "Revenge tastes like vending-machine coffee!"
   ],
   "bark_wall": [
    "MY SPINE!",
@@ -1412,7 +1466,15 @@
    "Try me!",
    "Hold my coffee.",
    "Is it Friday yet?",
-   "I've got a good feeling about today."
+   "I've got a good feeling about today.",
+   "I've stretched. I think.",
+   "My LinkedIn says 'open to work'. My fists say 'open to fights'.",
+   "Is there a dental plan?",
+   "Just point me at someone.",
+   "I've got a good feeling about this. And a bad knee.",
+   "Let's circle back. With fists.",
+   "Can we make this quick? I've got a 3 o'clock.",
+   "Per my last email: let's fight."
   ],
   "menu_equip": [
    "Ooh, nice.",
@@ -1420,28 +1482,48 @@
    "Is this company property?",
    "I'll look after it. Probably.",
    "Now we're talking!",
-   "Receipt?"
+   "Receipt?",
+   "Ooh, is that for me?",
+   "I'll take it. No refunds.",
+   "This goes nicely with my lanyard.",
+   "Right, now I look professional.",
+   "Keep the receipt. Just in case."
   ],
   "menu_hire": [
    "Happy to be here!",
    "When do I get paid?",
    "First day nerves!",
    "Where's the break room?",
-   "You won't regret this!"
+   "You won't regret this!",
+   "Excited to join the team!",
+   "Where's my desk? What do you mean 'there are no desks'?",
+   "Do I get a lanyard?",
+   "I've read the handbook. It's mostly just 'duck'.",
+   "Ready to synergise."
   ],
   "menu_skill": [
    "New trick!",
    "Look what I can do!",
    "Knew that'd come in handy.",
    "Training pays off!",
-   "Watch this!"
+   "Watch this!",
+   "I feel different. Stronger. Slightly taller.",
+   "Adding that to my CV immediately.",
+   "Oh, I can do THAT now.",
+   "Professional development!",
+   "Upskilled. Upskilling. Upskill."
   ],
   "menu_loss": [
    "Next time.",
    "That's going on my CV anyway.",
    "I need a lie down.",
    "Ow. Everything hurts.",
-   "Let's never speak of this."
+   "Let's never speak of this.",
+   "I'm fine. Everything is fine.",
+   "Can we not talk about it?",
+   "I'll be back. After a nap.",
+   "My agent will hear about this.",
+   "That wasn't a loss. That was research."
   ],
   "feed_win": [
    "I'm humbled and honoured to announce that our team took down {company} today. {kos} KOs, zero regrets.",
@@ -1473,7 +1555,22 @@
    "Grateful. Humbled. Slightly bruised. What a day at the {arena}.",
    "If you'd told me a year ago I'd be knocking out people from {company}, I'd have said 'is that legal?' Still not sure!",
    "This win is for everyone who was ever told to 'take it offline'. We took it to the {arena}.",
-   "Stage {stage} done. On to {next}. Let's gooo 🚀"
+   "Stage {stage} done. On to {next}. Let's gooo 🚀",
+   "Won against {company} today. Not bragging. Just posting it, pinning it, and emailing it to my old manager.",
+   "Humbled to share that {company} is now a former obstacle. {kos} KOs. Zero meetings that could have been emails.",
+   "Today {star} did {stardealt} damage and I did the post. That's leadership: knowing your strengths.",
+   "A win against {company} and {cash} coins in fight pay. Reinvesting it all in myself (crisps).",
+   "People ask me how I beat {company}. Simple: I woke up, I showed up, I threw a chair.",
+   "Stage {stage} done. Next up: {next}. I've already drafted the victory post. Manifesting.",
+   "What beating {company} taught me about customer service: always follow up. Especially with a second punch.",
+   "Reminder that {company} had a ping-pong table and a mission statement. We had elbows.",
+   "Grateful to my team, my mentors and whoever left that fire extinguisher in the {arena}.",
+   "Just closed a deal with {company}. The deal was that they lie down. They agreed.",
+   "Shoutout to {mvp}, MVP today. I'd tag them but they're still icing their knuckles.",
+   "Some wins are loud. This one was also loud. The {arena} manager has asked us not to come back.",
+   "Beat {company}. Went home. Microwaved a lasagne. Stayed humble. #Grounded",
+   "My mentor once said: 'Nobody remembers second place.' I don't remember {company} either.",
+   "Onwards to {next}. Tell them I'm bringing the same energy. And a first-aid kit, just in case it's theirs."
   ],
   "feed_win_big": [
    "{kos} KOs against {company}. Not bad for a Tuesday. #Efficiency",
@@ -1485,7 +1582,12 @@
    "Delighted to report {kos} KOs and a very quiet {company} group chat.",
    "{kos} KOs today. HR has asked me to stop posting about it. Posting about it.",
    "Quarterly target: 1 KO. Today: {kos}. I'll be expecting a bonus.",
-   "You miss 100% of the punches you don't throw. We threw a lot. {kos} landed where it counts."
+   "You miss 100% of the punches you don't throw. We threw a lot. {kos} landed where it counts.",
+   "{kos} KOs at the {arena}. The cleaners have asked for a pay rise and honestly? Deserved.",
+   "{company} sent six people. HR is now sending flowers. {kos} of them, specifically.",
+   "They say you can't please everyone. We knocked out {kos} of {company}'s staff instead. Much easier.",
+   "Absolute clean sweep at the {arena}. {company} is currently rebranding as a 'lean team'.",
+   "{kos} KOs. I'd call it a restructure, but {company} would call it Tuesday."
   ],
   "feed_flawless": [
    "Nobody on my team went down today. Not once. That's what good process looks like.",
@@ -1495,7 +1597,11 @@
    "Perfect fight. I'd frame it, but you can't frame a feeling. You can frame a receipt for the meal deals though.",
    "Zero downs. The {arena} floor stayed empty of our team. Very on-brand.",
    "No injuries, no excuses, no {company}. A textbook day.",
-   "Our team: untouched. {company}: extremely touched. Win-win (for us)."
+   "Our team: untouched. {company}: extremely touched. Win-win (for us).",
+   "Not a single one of us hit the floor today. {company} hit it enough for everyone.",
+   "Flawless. Like my attendance record. Like my spreadsheet formatting. Like this {arena} brawl against {company}.",
+   "Zero knockdowns. The paramedics at the {arena} got to finish their sandwiches. You're welcome.",
+   "We didn't even get our hair messed up. {company}, a word of advice: stretch first."
   ],
   "feed_mvp_me": [
    "Named MVP today. I'd like to thank my team, my mum, and the chair I found in the {arena}.",
@@ -1505,7 +1611,11 @@
    "MVP again? Stop, stop. Okay, one more post about it.",
    "{dealt} damage and an MVP title. Excited to bring this energy to my next performance review.",
    "MVP. Most Valuable Puncher. Look it up. (Don't, I made it up.)",
-   "Being MVP is a team effort. Mostly mine, but a team effort."
+   "Being MVP is a team effort. Mostly mine, but a team effort.",
+   "MVP today. {dealt} damage. I'd like to thank me, myself, and the vending machine I threw.",
+   "Named MVP against {company}. I'm putting it on my CV above 'proficient in Excel'.",
+   "{dealt} damage in the {arena}. My performance review is going to be very uncomfortable for my manager.",
+   "They gave me MVP. I gave {company} {dealt} damage. Fair trade."
   ],
   "feed_star": [
    "What a fight! Big thanks to {me} for the leadership. And for pointing at who to hit.",
@@ -1519,7 +1629,14 @@
    "Won against {company}. I'm calling my mum.",
    "That feeling when {company} underestimates you. Priceless. Also worth 💵 {cash}.",
    "Some of you have never seen {me} throw a shopping trolley and it shows.",
-   "Every win is a chance to reflect. I reflected. I was great."
+   "Every win is a chance to reflect. I reflected. I was great.",
+   "Did {selfdealt} damage today and {me} took the credit on their post. Classic. Still grateful for the opportunity 🙂",
+   "Fight {fights} for the team. Still haven't been given a desk. Still hitting people with a chair. Fair.",
+   "{selfdealt} damage and a sprained dignity. Proud to be part of the {me} squad.",
+   "Nobody tells you that the hardest part of beating {company} is getting the glitter out afterwards.",
+   "Told my mum I got a job in 'conflict resolution'. Technically true. {selfdealt} conflicts resolved today.",
+   "Some people climb the ladder. I throw it. {company} can confirm.",
+   "Big thanks to {me} for the chance. Small thanks for the bruise. We move."
   ],
   "feed_loss": [
    "Today I got knocked flat by {company}. And that's okay. Here are 5 things it taught me about B2B sales 🧵",
@@ -1551,7 +1668,19 @@
    "{company} 1, us 0. But in the game of life? Still 0. But growing.",
    "Humbled by {company}. Also by a pallet jack.",
    "Lost. Learned. Limped home. The three Ls of leadership.",
-   "Resilience isn't a skill. It's what happens when {company} knocks you over and you have rent to pay."
+   "Resilience isn't a skill. It's what happens when {company} knocks you over and you have rent to pay.",
+   "Lost to {company}. Taking some time to reflect, recharge, and find my other shoe.",
+   "Today I learned that the {arena} floor is surprisingly comfortable. I spent most of the fight on it.",
+   "Hot take: losing to {company} builds character. I now have so much character. Mostly bruises.",
+   "{taken} damage taken. Legally that's a restructure of my face.",
+   "Lost today. Not because {company} was better, but because they hit harder, more often, and on purpose.",
+   "Not every day is a win. Some days you get put in a bin by {company}. Grateful for the bin, honestly.",
+   "My therapist says I should stop posting about {company}. So this is the last one. Until the rematch.",
+   "Here's what nobody tells you about losing: the walk back to the car is SO long.",
+   "Didn't win, but I did get to see the {arena} ceiling from a brand-new angle. Perspective is everything.",
+   "Some losses are lessons. This one was a whole semester. Tuition paid in teeth.",
+   "Would I fight {company} again? Yes. Would I stand in the same spot? Absolutely not.",
+   "Today I was humbled. Tomorrow I will be humbled again, probably, but with better shoes."
   ],
   "feed_draw": [
    "Honoured to share a hard-fought draw with {company}. We both lost, and we both grew.",
@@ -1565,7 +1694,12 @@
    "A draw is just a win that forgot to finish. Onwards!",
    "Nobody won today, but the {arena} definitely lost.",
    "Draw. My dad asked who won and I said 'the journey'.",
-   "Couldn't get it over the line against {company}. Couldn't get them over the line either."
+   "Couldn't get it over the line against {company}. Couldn't get them over the line either.",
+   "Drew with {company}. Both teams lying on the floor, staring at the ceiling, reflecting. Beautiful, really.",
+   "A draw. My LinkedIn coach says I can round that up to a win. So: huge win today everyone 🎉",
+   "Nobody won at the {arena} today. Except the physio. The physio always wins.",
+   "It's a tie with {company}. We've agreed to settle it the traditional way: passive-aggressive emails.",
+   "Draw. Or, as I'm telling my family, 'a strategic partnership with {company}'."
   ],
   "feed_teammate_loss": [
    "Tough one today. {me}, we'll get them next time. I'll bring snacks.",
@@ -1577,7 +1711,12 @@
    "We lost, but I dealt {selfdealt} damage, which I'll be mentioning in every interview.",
    "Big thanks to the {arena} floor for catching me. Several times.",
    "Agency said 'easy shift'. It was not an easy shift.",
-   "Currently icing everything. Open to kind messages."
+   "Currently icing everything. Open to kind messages.",
+   "We lost to {company}. I did {selfdealt} damage, which I'm choosing to frame as a personal win.",
+   "Rough day at the {arena}. {me} says 'we go again'. My knees say 'please no'.",
+   "I've been asked not to post about today by {me}. Anyway, here's a post about today.",
+   "Lost. Iced. Rested. Ready. (Not ready. Still icing.)",
+   "Taking accountability for today's loss. Also taking a nap."
   ],
   "feed_rankup": [
    "🎉 I'm happy to share that I'm starting a new position as {rank} {career}!",
@@ -1589,7 +1728,12 @@
    "From trainee to {rank} {career}. If I can do it, you can too (please don't, I need the job).",
    "Thrilled to step into my new role as {rank} {career}. First order of business: new moves.",
    "Levelled up professionally: {rank} {career}. Updating my email signature immediately.",
-   "{rank} {career}. Say it with me. Now say it louder so {company} can hear."
+   "{rank} {career}. Say it with me. Now say it louder so {company} can hear.",
+   "New title just dropped: {rank} {career}. Same salary, bigger ego. Let's go.",
+   "Promoted to {rank} {career}! My parents still don't know what I do but they know I do it at a higher level now.",
+   "{rank} {career}. I asked for a raise and they gave me a word in front of my job title. Thrilled.",
+   "Excited to announce I'm now a {rank} {career}. Please update your mental image of me accordingly.",
+   "Some of you have been asking how I became a {rank} {career}. I hit people. Professionally. Repeatedly."
   ],
   "feed_levelup": [
    "Levelled up to Level {level} 💪 Personal growth is a marathon, not a sprint. Except when running from a forklift.",
@@ -1601,7 +1745,11 @@
    "Proud moment: Level {level}. Please congratulate me in the comments. I'll wait.",
    "New level, new me. Level {level} me. Same haircut.",
    "Just hit Level {level}. My LinkedIn coach says this is 'content'.",
-   "Level {level}: because every setback is a stat point in disguise."
+   "Level {level}: because every setback is a stat point in disguise.",
+   "Level {level} unlocked. I can now carry two coffees AND a grudge.",
+   "Hit level {level} today. My body says 'stop'. My career coach says 'scale'.",
+   "Level {level}! Still can't fold a fitted sheet, but I can fold a man at the {arena}.",
+   "Personal growth update: level {level}. Emotional growth update: pending."
   ],
   "feed_trait": [
    "Just got endorsed for \"{trait}\" 🏷️ Thanks, everyone who watched it happen.",
@@ -1611,7 +1759,11 @@
    "Turns out I'm \"{trait}\". Who knew? Everyone in the {arena}, apparently.",
    "Proud to announce I've been recognised as \"{trait}\". The certificate is a bruise.",
    "My colleagues have endorsed me for \"{trait}\". I'm choosing not to ask why.",
-   "\"{trait}\" — that's me now. Personal brand: evolving."
+   "\"{trait}\" — that's me now. Personal brand: evolving.",
+   "New personal brand: {trait}. Please endorse me for it.",
+   "Apparently I'm '{trait}' now. The fights at the {arena} have changed me.",
+   "My manager wrote '{trait}' in my review. I've added it to my bio in bold.",
+   "Unlocked a new trait: {trait}. Updating my Myers-Briggs. Updating my enemies."
   ],
   "feed_beaten": [
    "After careful consideration, {company} has decided to pivot away from winning.",
@@ -1628,7 +1780,13 @@
    "{company} is thrilled to announce… nothing. Nothing today.",
    "We're proud of how {company} handled today's loss. Mostly lying down.",
    "Our CEO would like to remind everyone that {company} is 'a family'. A family that got flattened.",
-   "Moving forward, {company} will be avoiding the {arena}. And {me}."
+   "Moving forward, {company} will be avoiding the {arena}. And {me}.",
+   "{company} would like to thank {me} for a valuable learning experience. We are learning to walk again.",
+   "Following today's events at the {arena}, {company} will be pivoting to a remote-first model. Very remote. Other country.",
+   "{company} is proud of our team's resilience. Most of them are still on the floor, but resiliently.",
+   "An update from {company}: we are aware of {me}. We have questions. Mostly 'why' and 'the chair?'",
+   "{company} remains committed to excellence. Just not today. Or at the {arena}. Or against {me}.",
+   "Q3 at {company}: revenue flat. Staff also flat. Thank you, {me}."
   ],
   "feed_gloat": [
    "{company} is proud to announce a decisive win against {me}. Hire us for your next dispute.",
@@ -1645,7 +1803,13 @@
    "Nothing personal, {me}. Just business. Violent business.",
    "{company}: leaders in customer service and not losing to {me}.",
    "Fun fact: {company} has a 100% win rate against {me} today.",
-   "Shout-out to {me}'s squad for being great sports. Mostly great at falling."
+   "Shout-out to {me}'s squad for being great sports. Mostly great at falling.",
+   "{company} is delighted to report that {me} has left the building. Carried, but left.",
+   "Our team defeated {me} today. Our interns filmed it. Our marketing team is making it a carousel.",
+   "Customer satisfaction at {company}: 100%. Opponent satisfaction: {me} has not responded to our survey.",
+   "Big thanks to {me} for choosing {company} for today's beating. We hope to see you again soon!",
+   "{company} values: Integrity. Innovation. Putting {me} through a display stand at the {arena}.",
+   "We're not saying {me} lost badly. We're just saying our cleaner found a tooth."
   ],
   "feed_hiring": [
    "We're hiring! Looking for rockstar ninjas who can take a punch. Competitive salary (lunch). Fast-paced environment (we will chase you).",
@@ -1662,7 +1826,13 @@
    "At {next} we believe in work-life balance: 50% work, 50% fight.",
    "{next} was voted 'Most Likely To Hit You' three years running. Proudly hiring.",
    "We've heard about {me}. We're not scared. (We're a bit scared.) Apply to {next}.",
-   "Come for the salary, stay because {next} has locked the doors."
+   "Come for the salary, stay because {next} has locked the doors.",
+   "{next} is hiring! Requirements: 5 years' experience fighting in a {arena}, a clean criminal record, a dirty right hook.",
+   "We're a family at {next}. Which is why we don't let anyone leave.",
+   "{next} is looking for a Head of Throwing Things. Must be comfortable with ambiguity and furniture.",
+   "No experience necessary at {next}! We'll teach you everything, starting with how to fall.",
+   "Heard {me} is on the way. Hiring bodyguards, backup, and someone who knows first aid. Urgent.",
+   "{next} benefits: dental (you'll need it), gym (you'll need it), therapy (you'll need it)."
   ],
   "feed_temp_win": [
    "#OpenToWork. Just helped {me} beat {company}. Agency rates, very reasonable.",
@@ -1672,7 +1842,11 @@
    "I don't know anyone's name but we beat {company} together. That's bonding.",
    "Short contract, big impact. #TempLife #Winning",
    "Thanks {me} for having me! Still waiting on that permanent offer 👀",
-   "My agency says I'm 'flexible'. Today I was flexibly punching {company}."
+   "My agency says I'm 'flexible'. Today I was flexibly punching {company}.",
+   "Agency temp here. Won a fight for {me}'s team. Got paid in 'exposure'. Exposed to {company}'s fists mostly.",
+   "Day one on the job, beat {company}. Asked about a permanent contract. They laughed. I laughed. Nobody signed anything.",
+   "Temp life: new team every day, new bruises every night. Proud to have helped {me} beat {company}.",
+   "Filled in for someone today. Beat {company}. Nobody learnt my name. #OpenToWork"
   ],
   "feed_temp_loss": [
    "#OpenToWork. Previous employer: {me}. Reason for leaving: {company}.",
@@ -1682,7 +1856,11 @@
    "Filled in for {me}'s squad today. Emptied out quite quickly.",
    "Short contract, long recovery. #TempLife",
    "Rate my shift: 2/10. The meal deal was nice.",
-   "If anyone needs a temp who's great at lying on floors, I'm available."
+   "If anyone needs a temp who's great at lying on floors, I'm available.",
+   "Temped for {me} today. We lost to {company}. I'd like it noted that I was only here for the free sandwiches.",
+   "Short contract, long fight. Didn't go our way against {company}. Still #OpenToWork. Still #OpenToIce.",
+   "The agency said 'light duties'. The agency lied. {company} did not do light duties.",
+   "Lost with {me}'s team. Looking for my next opportunity (and my left shoe)."
   ],
   "feed_network_win": [
    "Congrats to {me} on the win against {company}! Would love to connect and discuss synergies. 🤝",
@@ -1699,7 +1877,12 @@
    "The {me} effect is real. Our office has started stretching before meetings.",
    "Who else is following {me}'s journey? Absolutely electric. (One of them was actually electric.)",
    "Proud to say I once shared a lift with {me}. They didn't punch me. Networking works.",
-   "Big congrats to {me}. Adding 'witnessed {company} lose' to my skills section."
+   "Big congrats to {me}. Adding 'witnessed {company} lose' to my skills section.",
+   "Just watched {me} beat {company}. Genuinely inspiring. I'm quitting my job to throw staplers full-time.",
+   "Everyone's talking about {me}. I was talking about {me} before it was cool. We went to the same {arena} once.",
+   "What {me}'s win over {company} can teach us about B2B SaaS: absolutely nothing, but here's a 12-part thread.",
+   "{me} is proof that anyone can make it as a {career}. Anyone with a very strong neck.",
+   "Called it. {me} was always going to beat {company}. (I did not call it. I had money on {company}.)"
   ],
   "feed_network_loss": [
    "Thoughts are with {me} after today. Also, I'm a recruiter, are you open to new roles?",
@@ -1716,7 +1899,12 @@
    "Just want to say {me} handled that loss with grace. And a limp.",
    "Reminder that even {me} gets knocked down. Be kind to yourselves. Wear padding.",
    "{company} really came to play today. {me}, we're all rooting for the rematch.",
-   "Lesson from today's {company} fight: never skip leg day. Or dodge day."
+   "Lesson from today's {company} fight: never skip leg day. Or dodge day.",
+   "Tough day for {me}. Sending thoughts, prayers and an ergonomic chair.",
+   "Losing to {company} is not the end. It's a chapter. A short, painful chapter with lots of sirens.",
+   "Everyone piling on {me} today should remember: you've all lost to worse than {company}. I've seen your posts.",
+   "{me} lost to {company} and I think that's beautiful. Failure is where the real networking happens.",
+   "Watching {me} get thrown across the room made me rethink my own career. Anyway I'm a dentist now."
   ],
   "feed_network": [
    "I woke up at 3:45am, ran 10k, closed three deals and headbutted a vending machine. What's your morning routine?",
@@ -1748,7 +1936,25 @@
    "If your team isn't fighting, are they even passionate?",
    "I spent £3,000 on a leadership course. The lesson was: hit first.",
    "Imposter syndrome? Just imagine everyone in the meeting is wearing a hi-vis vest.",
-   "Gentle reminder to hydrate. Energy drinks count. The doctor says they don't. The doctor is wrong."
+   "Gentle reminder to hydrate. Energy drinks count. The doctor says they don't. The doctor is wrong.",
+   "Agree or disagree: the {arena} is the new office. Thoughts? 👇",
+   "I don't hire people with degrees. I hire people who can survive the {arena}. Low retention, high morale.",
+   "Unpopular opinion: you should fight your coworkers at least once. Clears the air. And the kitchen.",
+   "My daily stand-up is literally standing up after being knocked down. Discipline.",
+   "Stop networking. Start net-WORKING. (I can't explain this. It came to me in the shower.)",
+   "Five things I learned from getting hit with a mop: 1. Duck.",
+   "Hot take: every {career} should know how to take a punch. Every other job should know how to give one.",
+   "I asked ChatGPT how to succeed and it said 'be yourself'. So I bit someone. Awaiting results.",
+   "Leadership is not a title. It's a willingness to be first through the door at the {arena}.",
+   "Just got back from a 10-day silent retreat. Punched the first person who spoke. Growth is not linear.",
+   "Someone told me I'm 'too intense for LinkedIn'. I've blocked them. And their family.",
+   "Your posture is your brand. Your brand is your posture. Please stop slouching in fights.",
+   "I left a six-figure job to follow my passion: shouting 'OBJECTION!' at strangers. Best decision I ever made.",
+   "Burnout is real. That's why I only work 4 days a week and fight on the 5th.",
+   "If you're not getting knocked down, you're not standing close enough to anything interesting.",
+   "Congratulations to me on 9 years of being endorsed for 'Microsoft Word' and 'Grappling'.",
+   "I didn't choose the {arena}. The {arena} chose me. Also I lost a bet.",
+   "Hiring tip: bring every candidate a coffee. If they throw it, hire them. If they drink it, also hire them. We're desperate."
   ],
   "feed_item": [
    "Honestly, the {item} carried me today. Not sponsored. (Please sponsor me.)",
@@ -1758,7 +1964,11 @@
    "Shout-out to the {item} that got me through {company}. Five stars.",
    "Some people have mentors. I have a {item}.",
    "Hot take: a {item} is the most underrated piece of workplace equipment.",
-   "Used my {item} at exactly the right moment. That's what they call 'strategic resource allocation'."
+   "Used my {item} at exactly the right moment. That's what they call 'strategic resource allocation'.",
+   "Real talk: the {item} did more for my career than my degree ever did.",
+   "Not sponsored, but the {item} carried me today against {company}. Corner Shop, DM me.",
+   "Brought a {item} to the fight. Left with a win. Coincidence? My lawyer says yes.",
+   "Five stars for the {item}. Would bring to a fight again. Would not recommend eating."
   ],
   "feed_shop": [
    "Meal deals, energy drinks, steel-toe boots. Everything a working professional needs to survive a Tuesday. Pack up to 3 per fighter.",
@@ -1766,7 +1976,11 @@
    "Lucky Socks: scientifically proven* to improve your luck. *Not scientifically proven.",
    "Hi-Vis Vests — because you can't punch what you can see coming. Wait, other way round.",
    "Our Meal Deal: sandwich, crisps, drink, and a 45% chance of surviving the {arena}.",
-   "Treat your team. Treat yourself. Treat your wounds. Corner Shop, open till late."
+   "Treat your team. Treat yourself. Treat your wounds. Corner Shop, open till late.",
+   "Corner Shop: open 7am–late. Meal deals, energy drinks and one cricket bat 'for decorative purposes'.",
+   "New in store: bandages, bananas and a mystery box that nobody has been brave enough to open.",
+   "Heading to the {arena}? Pop in first. We don't ask questions. We do ask for exact change.",
+   "Corner Shop loyalty card: buy 9 energy drinks, get the 10th and a free heart monitor."
   ],
   "feed_boss_win": [
    "We beat the boss of the {arena}. I'd like to say it was easy. It was not easy.",
@@ -1774,7 +1988,10 @@
    "Took down the big one today. {company} won't be forgetting {me}. Or remembering much else.",
    "Boss level: complete. New arena unlocked. New LinkedIn banner incoming.",
    "The final boss of the {arena} is down. Treating the whole squad to the good meal deals.",
-   "They told me {company} was unbeatable. I told them 'hold my energy drink'."
+   "They told me {company} was unbeatable. I told them 'hold my energy drink'.",
+   "Took down {company} at the {arena}. The big one. The boss. The one whose name we don't say in the canteen.",
+   "Beat {company}. I'm told there's a board meeting about me. I'd like to attend. I'll bring a chair. To throw.",
+   "{me} vs {company}: a David vs Goliath story, if David had brought four coworkers and a mop."
   ],
   "feed_boss_loss": [
    "The boss of the {arena} is… a lot. Regrouping.",
@@ -1782,7 +1999,10 @@
    "Got schooled by the boss today. Taking notes. The notes say 'ow'.",
    "Boss fight: 1. Us: working on it.",
    "Note to self: bosses hit harder. Bring more painkillers.",
-   "Respect to {company}. I'll be back. Stronger, wiser, better packed."
+   "Respect to {company}. I'll be back. Stronger, wiser, better packed.",
+   "{company} is the final boss for a reason. I respect it. I will also be crying in the car park.",
+   "Fought {company} at the {arena}. They have a CEO who deadlifts. Nobody warned me.",
+   "Big fight, big loss against {company}. Back to the ladder. My knees can't do stairs right now, so the lift."
   ],
   "feed_c_congrats": [
    "Congrats {first}! 🎉",
@@ -1809,7 +2029,19 @@
    "The {company} lot will be feeling that tomorrow 😬",
    "Pure class.",
    "Saw it live. Still shaking.",
-   "Congratulations! Also, are you hiring?"
+   "Congratulations! Also, are you hiring?",
+   "Get in, {first}! 🥊",
+   "Legend behaviour.",
+   "{company} will be feeling that for a while 😂",
+   "This is going on my vision board.",
+   "Proud to have once been in the same lift as you.",
+   "Showed this to my kids. They want to be {first} when they grow up.",
+   "The {company} slander we needed.",
+   "Main character energy 🔥",
+   "Absolute unit. Congrats!",
+   "Saving this for my next performance review.",
+   "Bookmarked. Will quote this at my wedding.",
+   "Can I get your autograph? On a cast, ideally."
   ],
   "feed_c_support": [
    "Sending strength 💪",
@@ -1831,7 +2063,17 @@
    "One fight doesn't define you.",
    "Anyone who saw that knows you gave everything.",
    "Here if you need a chat (or a sandwich).",
-   "Next time, bring more meal deals."
+   "Next time, bring more meal deals.",
+   "It happens to the best of us, {first}. It's happened to me eleven times this month.",
+   "Rest up. Ice and a biscuit.",
+   "{company} got lucky. Very lucky. Lucky several times in a row.",
+   "Honestly you looked great falling over.",
+   "You'll get them next time 💪",
+   "The {company} lot cheat, everyone knows it.",
+   "Sending you a meal deal and good vibes.",
+   "This is why I never leave the house.",
+   "Strong post, stronger comeback incoming.",
+   "Losing builds character. You now have loads of character, {first}."
   ],
   "feed_c_teammate": [
    "Couldn't have done it without me tbh 😏",
@@ -1845,7 +2087,13 @@
    "We're unstoppable!",
    "I'll be framing this post.",
    "Still buzzing from that one!",
-   "Who's buying the ice packs this time?"
+   "Who's buying the ice packs this time?",
+   "Don't forget who threw the fire extinguisher, {first}.",
+   "'Our team' 👀 I did most of it but go off.",
+   "Proud to fight next to you. Slightly behind you, specifically.",
+   "Same time next week? I'll bring the plasters.",
+   "Great fight! Can I have my shoe back now?",
+   "This team is a family. A loud, bruised family."
   ],
   "feed_c_teammate_loss": [
    "We'll get them, {first}.",
@@ -1855,7 +2103,12 @@
    "Anyone else still seeing stars?",
    "Bring snacks next time, I'm begging.",
    "At least we look good in the replay.",
-   "Team hug. Carefully."
+   "Team hug. Carefully.",
+   "We go again, {first}. After a nap.",
+   "It's fine. I didn't need that tooth.",
+   "Next time I'm standing further away from you.",
+   "Honestly? Worth it for the look on the referee's face.",
+   "Team dinner on me. Soup. Through a straw."
   ],
   "feed_c_rival_win": [
    "We let you win.",
@@ -1872,7 +2125,15 @@
    "We're 'restructuring'. Thanks to you.",
    "Asking for a friend: where did you get that meal deal?",
    "I'll be back. After physio.",
-   "Deleted my congratulations twice before posting this."
+   "Deleted my congratulations twice before posting this.",
+   "Rematch. Same place. Bring your whole department.",
+   "I wasn't even warmed up.",
+   "The referee was clearly on your side.",
+   "Screenshotting this for our legal team.",
+   "Congrats. I'm going to be professional about this. (I'm not.)",
+   "Our CEO has asked me to 'like' this. I've done it with extreme sarcasm.",
+   "I slipped. On purpose. Tactically.",
+   "I let you win because it was your birthday. Is it your birthday? It should be."
   ],
   "feed_c_rival_loss": [
    "Good game 😏",
@@ -1886,7 +2147,15 @@
    "That was fun. For us.",
    "Happy to share some tips. For a fee.",
    "GG. Mostly G for us.",
-   "You fought well. We fought better."
+   "You fought well. We fought better.",
+   "Great effort! Almost looked like a fight.",
+   "Anytime you want lessons, DM me.",
+   "Tell your knees I said hi.",
+   "You were very brave. Very, very brave. And then very horizontal.",
+   "Rematch? We could use the practice. Oh wait.",
+   "Thanks for the cardio.",
+   "No hard feelings. Mostly hard floors.",
+   "Our intern did most of that, by the way."
   ],
   "feed_c_news": [
    "Congrats on the new role! 🎉",
@@ -1903,7 +2172,15 @@
    "Updating my network to include more people like you.",
    "Look at you go!",
    "Deserved. Totally deserved.",
-   "The trainee days feel so long ago 🥲"
+   "The trainee days feel so long ago 🥲",
+   "Massive! 🎉",
+   "Well deserved, you've been hitting people so consistently.",
+   "Congrats! Does this come with a parking space?",
+   "Remember us when you're famous.",
+   "The glow-up is real.",
+   "Next stop: CEO. Or at least a chair with wheels.",
+   "Love this for you!",
+   "HR will be thrilled. Or terrified. Both."
   ],
   "feed_c_beaten": [
    "GG. Same time next week?",
@@ -1917,7 +2194,15 @@
    "Respectfully: lol.",
    "Your culture is great. Your guard is not.",
    "We should do this again. For you, I mean.",
-   "Glassdoor review incoming: 'floors are comfy'."
+   "Glassdoor review incoming: 'floors are comfy'.",
+   "The flat structure at that place is now very literal.",
+   "Genuinely the best PR they've ever done.",
+   "Were you taking notes? Because I was.",
+   "This is corporate speak for 'ouch'.",
+   "Checks notes: 'pivoting' means lying down now?",
+   "Someone get their social media manager a hug.",
+   "Their stock is down. Their staff is down. Everything is down.",
+   "Imagine being the person who has to write this post."
   ],
   "feed_c_gloat": [
    "Rematch. Now.",
@@ -1929,7 +2214,14 @@
    "We'll talk. With fists.",
    "Bold of you to post this.",
    "Noted. Filed. Revenge scheduled.",
-   "Our physio says hi."
+   "Our physio says hi.",
+   "Delete this.",
+   "Mate, the fight was fixed and you know it.",
+   "Enjoy it. The rematch is coming.",
+   "This post is why nobody likes corporate accounts.",
+   "Strong words from a company with a beanbag room.",
+   "My lawyer has read this post and she's laughing too. At you.",
+   "Posting a win against us? Bold. Brave. Blocked."
   ],
   "feed_c_company": [
    "Is the salary really lunch?",
@@ -1945,7 +2237,15 @@
    "My cousin worked there. He's fine now. Mostly.",
    "Is the free fruit actually free?",
    "Interested! Do you do part-time brawling?",
-   "Love the energy, fear the recruitment process."
+   "Love the energy, fear the recruitment process.",
+   "Is the free fruit still just one sad banana?",
+   "Applied. Got a rejection email and a black eye in the same afternoon.",
+   "'Work hard, fight harder' should NOT be on the office wall.",
+   "Is the salary competitive or just the fighting?",
+   "Interviewed there. Round two was a boxing ring.",
+   "Your careers page has a first-aid section. Concerning.",
+   "Every job ad here is a threat.",
+   "Do you do internships? My nephew bites."
   ],
   "feed_c_generic": [
    "Agree 💯",
@@ -1972,7 +2272,19 @@
    "Absolutely spot on.",
    "Printing this out for the office wall.",
    "What a journey!",
-   "Instant classic."
+   "Instant classic.",
+   "Agreed. Thoughts? 👇",
+   "This. So much this.",
+   "Tagging my manager so they see this.",
+   "Read this on the toilet. Changed my life.",
+   "Unsubscribe.",
+   "Why is this on my feed?",
+   "Sharing with my network. All 4 of them.",
+   "Printing this and putting it on the fridge.",
+   "The algorithm brought me here and I'm staying.",
+   "I disagree but I'm too tired to explain why.",
+   "Every day this app gets weirder. Love it.",
+   "Is anyone else getting these posts?"
   ],
   "feed_c_recruiter": [
    "Hi {first}! I have an exciting opportunity that could be a great fit. DM me 🚀",
@@ -1984,7 +2296,13 @@
    "Just sent you an InMail about a very exciting role.",
    "Hi {first}, quick call this week? 15 minutes, 3 rounds.",
    "We'd love to have someone with your 'energy' on the team.",
-   "{first}, have you considered a career in consultancy? Same fights, better chairs."
+   "{first}, have you considered a career in consultancy? Same fights, better chairs.",
+   "Hi {first}! Loved this. I have an exciting role that's 90% fighting and 10% Excel. Open to a chat?",
+   "{first}, you'd be a great culture fit for a startup that fights on Fridays. DM me!",
+   "Hi {first}, are you open to new opportunities? Asking for a client who's scared of you.",
+   "Impressive stuff {first}! Our client values grit, hustle, and not suing us.",
+   "{first}! I've got a role that's perfect for you. It's the same role as you have now but further away.",
+   "Hey {first}, I see you have 'punching' as a skill. We have 'being punched' as a job. Interested?"
   ],
   "feed_c_reply": [
    "Thanks {commenter}! 🙏",
@@ -1998,7 +2316,17 @@
    "Right back at you.",
    "Ha! Maybe 😉",
    "You're too kind.",
-   "🙌🙌🙌"
+   "🙌🙌🙌",
+   "Thanks {commenter}, means a lot 🙏",
+   "Ha! Cheers {commenter}.",
+   "You're too kind. Also too loud.",
+   "Let's grab a coffee! I'll throw it this time.",
+   "Appreciate the love!",
+   "Noted. Filed. Ignored. 🙂",
+   "Back at you {commenter}!",
+   "We'll talk about this at the next fight.",
+   "Honestly couldn't have done it without the snacks.",
+   "Thanks {commenter}! Sorry about your car."
   ],
   "feed_c_temp": [
    "The agency says hi.",
@@ -2008,7 +2336,13 @@
    "Great shift!",
    "Ask for the permanent contract!",
    "Can you cover my Thursday?",
-   "Five-star temp. Would hire."
+   "Five-star temp. Would hire.",
+   "Give this person a contract!",
+   "The agency always sends the best ones.",
+   "Temp today, CEO tomorrow.",
+   "Was that you with the traffic cone? Iconic.",
+   "Hire them before the competition does.",
+   "Brave to temp in this economy. And this arena."
   ],
   "disarm": [
    "{b} loses their grip — the {item} goes flying!",

@@ -7,7 +7,8 @@
   "lines": [
    "Oat milk is NOT real milk!",
    "I've got cows, you know!",
-   "Plant milk? From a PLANT?"
+   "Plant milk? From a PLANT?",
+   "Do you even know what a cow LOOKS like?"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -24,7 +25,9 @@
   "speaker": "victim",
   "lines": [
    "Is that pitchfork organic?",
-   "Ow! That's not fair trade!"
+   "Ow! That's not fair trade!",
+   "Single-origin? I'll single-origin you!",
+   "That's a flat white? It's LUMPY!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -42,7 +45,9 @@
   "speaker": "victim",
   "lines": [
    "Overcooked. Two stars.",
-   "Bland. Like your punches."
+   "Bland. Like your punches.",
+   "Presentation: chaotic. Flavour: violent.",
+   "I've had better beatings at a motorway services."
   ],
   "chanceBp": 5000,
   "effects": [
@@ -60,7 +65,9 @@
   "speaker": "victim",
   "lines": [
    "EVERYONE'S A CRITIC!",
-   "Get out of my kitchen!"
+   "Get out of my kitchen!",
+   "Try critiquing THIS!",
+   "Send it back? I'll send YOU back!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -82,7 +89,8 @@
   "speaker": "attacker",
   "lines": [
    "It's called a FLAMBÉ!",
-   "I had it under control!"
+   "I had it under control!",
+   "Fire is an INGREDIENT!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -100,7 +108,9 @@
   "speaker": "victim",
   "lines": [
    "I had that under control!",
-   "My soufflé!"
+   "My soufflé!",
+   "You set off every alarm in the building!",
+   "Nobody needs a flambéed sandwich!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -121,7 +131,9 @@
   "victim": "career.barista",
   "speaker": "victim",
   "lines": [
-   "You call that a croissant?"
+   "You call that a croissant?",
+   "Your 'artisan toast' is just toast!",
+   "Latte art? That's a smudge."
   ],
   "chanceBp": 5000
  },
@@ -131,7 +143,9 @@
   "victim": "career.chef",
   "speaker": "victim",
   "lines": [
-   "Did you just microwave a latte?!"
+   "Did you just microwave a latte?!",
+   "That's not a jus, that's gravy!",
+   "Microwave chef!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -153,7 +167,9 @@
   "speaker": "victim",
   "lines": [
    "Anything you say can and will be used against you!",
-   "You have the right to remain SILENT!"
+   "You have the right to remain SILENT!",
+   "That's assaulting an officer!",
+   "You're nicked, counsellor!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -176,7 +192,9 @@
   "lines": [
    "My client pleads the fifth!",
    "That's police brutality! I'm writing this down!",
-   "I'll see you in court!"
+   "I'll see you in court!",
+   "Objection! Excessive force!",
+   "Where's your warrant?!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -195,7 +213,9 @@
   "lines": [
    "FAKE NEWS!",
    "No comment!",
-   "I don't recall!"
+   "I don't recall!",
+   "My people will call your people!",
+   "That quote was taken out of context!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -217,7 +237,9 @@
   "speaker": "victim",
   "lines": [
    "Care to comment on the allegations?",
-   "Is that on the record?"
+   "Is that on the record?",
+   "Would you say you're losing this fight?",
+   "Sources say you're rubbish at this!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -235,7 +257,9 @@
   "speaker": "victim",
   "lines": [
    "Keep your sparks away from my pipes!",
-   "That's not up to code!"
+   "That's not up to code!",
+   "You've been bodging my wiring!",
+   "Flux capaci-what?!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -257,7 +281,9 @@
   "speaker": "victim",
   "lines": [
    "Water AND wires?! Are you mad?!",
-   "You've flooded my junction box!"
+   "You've flooded my junction box!",
+   "Shocking workmanship!",
+   "Who taught you to solder?!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -279,7 +305,9 @@
   "speaker": "victim",
   "lines": [
    "That'll be extra on the meter!",
-   "I know a shortcut out of here!"
+   "I know a shortcut out of here!",
+   "Keep the change!",
+   "I'll leave you a one-star rating!"
   ],
   "chanceBp": 5000
  },
@@ -290,7 +318,9 @@
   "speaker": "victim",
   "lines": [
    "Your brakes are shot, mate!",
-   "That's a two-week wait for parts."
+   "That's a two-week wait for parts.",
+   "Your MOT's expired!",
+   "I can hear a knocking. It's me. Knocking you out."
   ],
   "chanceBp": 5000,
   "effects": [
@@ -308,7 +338,9 @@
   "speaker": "victim",
   "lines": [
    "That's not in the budget!",
-   "Who's paying for this?!"
+   "Who's paying for this?!",
+   "That's an unapproved expense!",
+   "You can't depreciate me!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -326,7 +358,9 @@
   "speaker": "victim",
   "lines": [
    "It works on my machine!",
-   "Have you tried turning it off and on again?"
+   "Have you tried turning it off and on again?",
+   "It's not a bug, it's a feature!",
+   "Works in staging!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -344,7 +378,9 @@
   "speaker": "victim",
   "lines": [
    "Ugh, you're SO cringe!",
-   "I'm reporting you to my followers!"
+   "I'm reporting you to my followers!",
+   "Unfollow! UNFOLLOW!",
+   "This is SO not aesthetic!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -366,7 +402,10 @@
   "speaker": "victim",
   "lines": [
    "Phones AWAY!",
-   "Detention! DETENTION!"
+   "Detention! DETENTION!",
+   "Eyes on the board!",
+   "Would you do that at home?!",
+   "I'll be calling your parents!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -388,7 +427,9 @@
   "speaker": "victim",
   "lines": [
    "SHHHHH!",
-   "This is a QUIET zone!"
+   "This is a QUIET zone!",
+   "Overdue! Your fists are OVERDUE!",
+   "Inside voices!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -410,7 +451,9 @@
   "speaker": "victim",
   "lines": [
    "Can't hear you over the bass!",
-   "Turn it UP!"
+   "Turn it UP!",
+   "Drop the book! DROP THE BOOK!",
+   "Is this the remix?"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -428,7 +471,9 @@
   "speaker": "victim",
   "lines": [
    "Do you know who I AM?!",
-   "I have two million followers!"
+   "I have two million followers!",
+   "Blue tick! I have a BLUE TICK!",
+   "This is going on my story!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -450,7 +495,9 @@
   "speaker": "victim",
   "lines": [
    "No photos!",
-   "You're not on the list!"
+   "You're not on the list!",
+   "Delete that! Delete it now!",
+   "Back behind the rope!"
   ],
   "chanceBp": 5000
  },
@@ -461,7 +508,9 @@
   "speaker": "victim",
   "lines": [
    "The public has a right to know!",
-   "Is this on camera? Please say it's on camera."
+   "Is this on camera? Please say it's on camera.",
+   "I'll need a statement!",
+   "Exclusive! Guard attacks reporter!"
   ],
   "chanceBp": 5000
  },
@@ -472,7 +521,9 @@
   "speaker": "victim",
   "lines": [
    "I'm a doctor too! Sort of!",
-   "Floss! You never floss!"
+   "Floss! You never floss!",
+   "When did you last see a hygienist?!",
+   "Say ahh — no, AHHH!"
   ],
   "chanceBp": 5000
  },
@@ -483,7 +534,9 @@
   "speaker": "victim",
   "lines": [
    "You're a DENTIST!",
-   "Open wide yourself!"
+   "Open wide yourself!",
+   "Stay with me! Why are you not staying with me?!",
+   "Is that numbing gel?! WHY?!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -501,7 +554,9 @@
   "speaker": "victim",
   "lines": [
    "Want a muffin with that?",
-   "Is that full-fat?"
+   "Is that full-fat?",
+   "Extra shot? Extra PUNCH!",
+   "Protein latte? Is that a real thing?"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -519,7 +574,9 @@
   "speaker": "victim",
   "lines": [
    "Do you know how much SUGAR is in that?!",
-   "That's a whole cheat day!"
+   "That's a whole cheat day!",
+   "Leg day! It's ALWAYS leg day!",
+   "Where's your hydration?!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -541,7 +598,9 @@
   "speaker": "victim",
   "lines": [
    "Is that a leak?",
-   "I only do pipes, not pools!"
+   "I only do pipes, not pools!",
+   "Is that chlorine in my pipes?!",
+   "I'm not climbing in there!"
   ],
   "chanceBp": 5000
  },
@@ -552,7 +611,9 @@
   "speaker": "victim",
   "lines": [
    "NO RUNNING NEAR THE POOL!",
-   "Everybody out of the water!"
+   "Everybody out of the water!",
+   "No bombing! No petting! No plumbing!",
+   "Rescue tube! Somebody grab a rescue tube!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -574,7 +635,9 @@
   "speaker": "victim",
   "lines": [
    "I JUST cleaned that!",
-   "Mud! Everywhere! Why?!"
+   "Mud! Everywhere! Why?!",
+   "You tracked compost through my corridor!",
+   "That's not a weed, that's my mop!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -596,7 +659,9 @@
   "speaker": "victim",
   "lines": [
    "Mind my petunias!",
-   "Not the begonias!"
+   "Not the begonias!",
+   "Not in my flowerbeds!",
+   "Prune yourself!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -618,7 +683,9 @@
   "speaker": "victim",
   "lines": [
    "Say SOMETHING!",
-   "Use your words!"
+   "Use your words!",
+   "Blink twice if you're alive!",
+   "Can you even hear the bass?!"
   ],
   "chanceBp": 5000
  },
@@ -629,7 +696,9 @@
   "speaker": "victim",
   "lines": [
    "*mimes screaming*",
-   "*mimes being very upset*"
+   "*mimes being very upset*",
+   "*mimes turning down the volume*",
+   "*mimes pressing charges*"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -647,7 +716,9 @@
   "speaker": "victim",
   "lines": [
    "I've BEEN to the moon!",
-   "I have PHOTOS!"
+   "I have PHOTOS!",
+   "I have a MEDAL for this!",
+   "Gravity is REAL. Watch!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -669,7 +740,9 @@
   "speaker": "victim",
   "lines": [
    "Green screen! It's all green screen!",
-   "Birds aren't real either!"
+   "Birds aren't real either!",
+   "Hit subscribe to find out the truth!",
+   "They don't want you to know about this punch!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -691,7 +764,9 @@
   "speaker": "victim",
   "lines": [
    "NOT THE HAIR! I have a press conference!",
-   "My comb-over!"
+   "My comb-over!",
+   "I'll have you cancelled!",
+   "This is a scandal!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -713,7 +788,9 @@
   "speaker": "victim",
   "lines": [
    "Just a trim, love.",
-   "Can you take a bit off the back?"
+   "Can you take a bit off the back?",
+   "Going anywhere nice this year?",
+   "Ooh, split ends!"
   ],
   "chanceBp": 5000
  },
@@ -724,7 +801,9 @@
   "speaker": "victim",
   "lines": [
    "That's not load-bearing!",
-   "Did you even read the plans?!"
+   "Did you even read the plans?!",
+   "I've been doing this 30 years, mate!",
+   "Theory's one thing. This is a hammer."
   ],
   "chanceBp": 5000,
   "effects": [
@@ -746,7 +825,9 @@
   "speaker": "victim",
   "lines": [
    "Where did you get your degree?!",
-   "That's not how physics works!"
+   "That's not how physics works!",
+   "Measure twice! Punch once!",
+   "That tolerance is off by a mile!"
   ],
   "chanceBp": 5000
  },
@@ -757,7 +838,9 @@
   "speaker": "victim",
   "lines": [
    "You're not on the list!",
-   "Sign in at reception!"
+   "Sign in at reception!",
+   "No hi-vis, no entry!",
+   "What's in the box?! WHAT'S IN THE BOX?!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -779,7 +862,9 @@
   "speaker": "victim",
   "lines": [
    "Sign here! SIGN HERE!",
-   "I'll leave it with a neighbour!"
+   "I'll leave it with a neighbour!",
+   "Your parcel was left in the bin!",
+   "Estimated arrival: your face!"
   ],
   "chanceBp": 5000
  },
@@ -790,7 +875,9 @@
   "speaker": "victim",
   "lines": [
    "I'm NOT in denial!",
-   "You're projecting!"
+   "You're projecting!",
+   "I'm manifesting your defeat!",
+   "Your aura is WRONG!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -812,7 +899,9 @@
   "speaker": "victim",
   "lines": [
    "And how does THAT make you feel?",
-   "Let's unpack that."
+   "Let's unpack that.",
+   "Interesting defence mechanism.",
+   "We're out of time for today."
   ],
   "chanceBp": 5000,
   "effects": [
@@ -830,7 +919,9 @@
   "speaker": "victim",
   "lines": [
    "Billable hours, darling.",
-   "I'm charging you for this."
+   "I'm charging you for this.",
+   "That's six minutes! I bill in six minutes!",
+   "Settle out of court!"
   ],
   "chanceBp": 5000
  },
@@ -841,7 +932,9 @@
   "speaker": "victim",
   "lines": [
    "That's tax deductible!",
-   "I'm itemising this!"
+   "I'm itemising this!",
+   "I'm auditing your face!",
+   "Receipts! Where are your receipts?!"
   ],
   "chanceBp": 5000
  },
@@ -852,7 +945,9 @@
   "speaker": "victim",
   "lines": [
    "No comment!",
-   "Next question!"
+   "Next question!",
+   "Please welcome to the stage — my FIST!",
+   "Back after these messages!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -870,7 +965,9 @@
   "speaker": "victim",
   "lines": [
    "We'll be right back!",
-   "That's all we have time for!"
+   "That's all we have time for!",
+   "Is that a yes or a no, Minister?",
+   "The public want answers!"
   ],
   "chanceBp": 5000
  },
@@ -881,7 +978,9 @@
   "speaker": "victim",
   "lines": [
    "Can I copy your homework?",
-   "That's not in the syllabus!"
+   "That's not in the syllabus!",
+   "Show your working!",
+   "That's an F minus!"
   ],
   "chanceBp": 5000
  },
@@ -891,7 +990,9 @@
   "victim": "career.electrician",
   "speaker": "victim",
   "lines": [
-   "Don't hose the fuse box!"
+   "Don't hose the fuse box!",
+   "Water and electricity! Are you MAD?!",
+   "I'm grounded! I'm GROUNDED!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -913,7 +1014,9 @@
   "speaker": "victim",
   "lines": [
    "I wasn't speeding!",
-   "It was amber!"
+   "It was amber!",
+   "The meter's still running!",
+   "You want a receipt?!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -931,7 +1034,9 @@
   "speaker": "victim",
   "lines": [
    "License and registration!",
-   "Step out of the vehicle!"
+   "Step out of the vehicle!",
+   "You'll be hearing from the union!",
+   "Not my fault, the satnav said!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -948,7 +1053,9 @@
   "victim": "career.barista",
   "speaker": "victim",
   "lines": [
-   "That's an EIGHT pound latte, thank you!"
+   "That's an EIGHT pound latte, thank you!",
+   "Do you want your name spelled wrong on it?!",
+   "It's supposed to taste like that!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -970,7 +1077,9 @@
   "speaker": "victim",
   "lines": [
    "Notes of burnt cardboard.",
-   "Overpriced. One star."
+   "Overpriced. One star.",
+   "Hints of regret and stale oat milk.",
+   "Pretentious. Like your apron."
   ],
   "chanceBp": 5000,
   "effects": [
@@ -988,7 +1097,9 @@
   "speaker": "victim",
   "lines": [
    "Amateur!",
-   "That's a hobby, not a farm!"
+   "That's a hobby, not a farm!",
+   "My tomatoes are BIGGER than yours!",
+   "Allotment rules! Allotment RULES!"
   ],
   "chanceBp": 5000
  },
@@ -999,7 +1110,9 @@
   "speaker": "victim",
   "lines": [
    "Get off my land!",
-   "Stay out of my allotment!"
+   "Stay out of my allotment!",
+   "You've never met a tractor!",
+   "Grow a real crop!"
   ],
   "chanceBp": 5000,
   "effects": [
@@ -1020,7 +1133,9 @@
   "victim": "career.mime",
   "speaker": "victim",
   "lines": [
-   "*mimes filming a TikTok*"
+   "*mimes filming a TikTok*",
+   "*mimes asking for engagement*",
+   "*mimes reading a nasty comment*"
   ],
   "chanceBp": 5000
  },
@@ -1031,7 +1146,9 @@
   "speaker": "victim",
   "lines": [
    "Say something for the stream!",
-   "Why aren't you TALKING?"
+   "Why aren't you TALKING?",
+   "Say 'like and subscribe'!",
+   "Speak up! The mic's not picking you up!"
   ],
   "chanceBp": 5000
  },
@@ -1041,9 +1158,9 @@
   "victim": "career.teacher",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Teacher?!",
-   "A disgrace to Teachers everywhere!",
-   "There can only be one Teacher in here!"
+   "Hand it in! Now!",
+   "I'll see you after class!",
+   "I'm telling the head!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1064,9 +1181,9 @@
   "victim": "career.electrician",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Electrician?!",
-   "A disgrace to Electricians everywhere!",
-   "There can only be one Electrician in here!"
+   "That's live! THAT'S LIVE!",
+   "Who wired YOU?!",
+   "Earth yourself, mate!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1087,9 +1204,9 @@
   "victim": "career.chef",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Chef?!",
-   "A disgrace to Chefs everywhere!",
-   "There can only be one Chef in here!"
+   "Yes, Chef! NO, CHEF!",
+   "My kitchen! MY KITCHEN!",
+   "You've never seasoned a thing in your life!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1110,9 +1227,9 @@
   "victim": "career.taxi-driver",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Taxi Driver?!",
-   "A disgrace to Taxi Drivers everywhere!",
-   "There can only be one Taxi Driver in here!"
+   "You took the long way!",
+   "Cash only, mate!",
+   "Ring road? RING ROAD?!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1133,9 +1250,9 @@
   "victim": "career.paramedic",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Paramedic?!",
-   "A disgrace to Paramedics everywhere!",
-   "There can only be one Paramedic in here!"
+   "You're not my patient!",
+   "I'll triage YOU!",
+   "Keep calm! KEEP CALM!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1156,9 +1273,9 @@
   "victim": "career.programmer",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Programmer?!",
-   "A disgrace to Programmers everywhere!",
-   "There can only be one Programmer in here!"
+   "Merge conflict!",
+   "Who pushed to main?!",
+   "Tabs! TABS NOT SPACES!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1179,9 +1296,9 @@
   "victim": "career.influencer",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Influencer?!",
-   "A disgrace to Influencers everywhere!",
-   "There can only be one Influencer in here!"
+   "You stole my angle!",
+   "Collab? COLLAB?!",
+   "My engagement is higher than yours!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1202,9 +1319,9 @@
   "victim": "career.dentist",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Dentist?!",
-   "A disgrace to Dentists everywhere!",
-   "There can only be one Dentist in here!"
+   "You've been skipping appointments!",
+   "My drill is bigger!",
+   "Flossing is not optional!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1225,9 +1342,9 @@
   "victim": "career.mechanic",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Mechanic?!",
-   "A disgrace to Mechanics everywhere!",
-   "There can only be one Mechanic in here!"
+   "Wrong spanner!",
+   "Who's been in my toolbox?!",
+   "That's a four-hour labour charge!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1248,9 +1365,9 @@
   "victim": "career.farmer",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Farmer?!",
-   "A disgrace to Farmers everywhere!",
-   "There can only be one Farmer in here!"
+   "Get off my land!",
+   "My cows are fatter than yours!",
+   "Wrong wellies, mate!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1271,9 +1388,9 @@
   "victim": "career.librarian",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Librarian?!",
-   "A disgrace to Librarians everywhere!",
-   "There can only be one Librarian in here!"
+   "You misfiled me!",
+   "Dewey decimal THIS!",
+   "Late fees! LATE FEES!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1294,9 +1411,9 @@
   "victim": "career.accountant",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Accountant?!",
-   "A disgrace to Accountants everywhere!",
-   "There can only be one Accountant in here!"
+   "Your columns don't add up!",
+   "I'll reconcile YOU!",
+   "Double entry! DOUBLE ENTRY!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1317,9 +1434,9 @@
   "victim": "career.firefighter",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Firefighter?!",
-   "A disgrace to Firefighters everywhere!",
-   "There can only be one Firefighter in here!"
+   "That's MY fire!",
+   "Get off my ladder!",
+   "Wrong hose!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1340,9 +1457,9 @@
   "victim": "career.security-guard",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Security Guard?!",
-   "A disgrace to Security Guards everywhere!",
-   "There can only be one Security Guard in here!"
+   "You're not on MY list!",
+   "Who's watching the monitors?!",
+   "My torch is bigger!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1363,9 +1480,9 @@
   "victim": "career.lawyer",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Lawyer?!",
-   "A disgrace to Lawyers everywhere!",
-   "There can only be one Lawyer in here!"
+   "Objection!",
+   "See you in court! Wait — we're both in court!",
+   "My fees are higher!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1386,9 +1503,9 @@
   "victim": "career.journalist",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Journalist?!",
-   "A disgrace to Journalists everywhere!",
-   "There can only be one Journalist in here!"
+   "That's my scoop!",
+   "Plagiarist!",
+   "Stop the presses!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1409,9 +1526,9 @@
   "victim": "career.dj",
   "speaker": "victim",
   "lines": [
-   "You call yourself a DJ?!",
-   "A disgrace to DJs everywhere!",
-   "There can only be one DJ in here!"
+   "That's MY set!",
+   "You call that a drop?!",
+   "Wedding DJ!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1432,9 +1549,9 @@
   "victim": "career.builder",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Builder?!",
-   "A disgrace to Builders everywhere!",
-   "There can only be one Builder in here!"
+   "Cowboy!",
+   "Who laid these bricks?!",
+   "Put the kettle on! No, YOU put it on!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1455,9 +1572,9 @@
   "victim": "career.police-officer",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Police Officer?!",
-   "A disgrace to Police Officers everywhere!",
-   "There can only be one Police Officer in here!"
+   "That's my collar!",
+   "Wrong jurisdiction!",
+   "Hello hello hello!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1478,9 +1595,9 @@
   "victim": "career.delivery-driver",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Delivery Driver?!",
-   "A disgrace to Delivery Drivers everywhere!",
-   "There can only be one Delivery Driver in here!"
+   "That's MY route!",
+   "You left it on the doorstep AGAIN!",
+   "Sorry we missed you!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1501,9 +1618,9 @@
   "victim": "career.janitor",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Janitor?!",
-   "A disgrace to Janitors everywhere!",
-   "There can only be one Janitor in here!"
+   "That's MY mop!",
+   "I already cleaned there!",
+   "Wet floor! WET FLOOR!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1524,9 +1641,9 @@
   "victim": "career.plumber",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Plumber?!",
-   "A disgrace to Plumbers everywhere!",
-   "There can only be one Plumber in here!"
+   "Cowboy plumber!",
+   "That's not a U-bend!",
+   "Who fitted THAT?!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1547,9 +1664,9 @@
   "victim": "career.barista",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Barista?!",
-   "A disgrace to Baristas everywhere!",
-   "There can only be one Barista in here!"
+   "You burnt the milk!",
+   "That's not a flat white!",
+   "Tamp it properly!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1570,9 +1687,9 @@
   "victim": "career.hairdresser",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Hairdresser?!",
-   "A disgrace to Hairdressers everywhere!",
-   "There can only be one Hairdresser in here!"
+   "Who did your fringe?!",
+   "My chair! MY CHAIR!",
+   "Wrong conditioner!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1593,9 +1710,9 @@
   "victim": "career.lifeguard",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Lifeguard?!",
-   "A disgrace to Lifeguards everywhere!",
-   "There can only be one Lifeguard in here!"
+   "You're in my lane!",
+   "Walk, don't run!",
+   "My whistle's louder!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1616,9 +1733,9 @@
   "victim": "career.personal-trainer",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Personal Trainer?!",
-   "A disgrace to Personal Trainers everywhere!",
-   "There can only be one Personal Trainer in here!"
+   "Your form is TERRIBLE!",
+   "One more rep! ONE MORE!",
+   "My macros are better!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1639,9 +1756,9 @@
   "victim": "career.gardener",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Gardener?!",
-   "A disgrace to Gardeners everywhere!",
-   "There can only be one Gardener in here!"
+   "Get off my lawn!",
+   "My hedge is neater!",
+   "Weed!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1662,9 +1779,9 @@
   "victim": "career.mime",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Mime?!",
-   "A disgrace to Mimes everywhere!",
-   "There can only be one Mime in here!"
+   "*mimes outrage*",
+   "*mimes an even bigger wall*",
+   "*mimes a very rude gesture*"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1685,9 +1802,9 @@
   "victim": "career.engineer",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Engineer?!",
-   "A disgrace to Engineers everywhere!",
-   "There can only be one Engineer in here!"
+   "Your calculations are WRONG!",
+   "Peer review! PEER REVIEW!",
+   "Not to spec!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1708,9 +1825,9 @@
   "victim": "career.politician",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Politician?!",
-   "A disgrace to Politicians everywhere!",
-   "There can only be one Politician in here!"
+   "Vote for ME!",
+   "My opponent is a liar!",
+   "I didn't have a fight with that politician!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1731,9 +1848,9 @@
   "victim": "career.psychologist",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Psychologist?!",
-   "A disgrace to Psychologists everywhere!",
-   "There can only be one Psychologist in here!"
+   "No, how does that make YOU feel?!",
+   "Classic transference!",
+   "Your diagnosis is WRONG!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1754,9 +1871,9 @@
   "victim": "career.life-coach",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Life Coach?!",
-   "A disgrace to Life Coachs everywhere!",
-   "There can only be one Life Coach in here!"
+   "I'm MORE motivated than you!",
+   "Your vision board is weak!",
+   "Believe in yourself LESS!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1777,9 +1894,9 @@
   "victim": "career.tv-host",
   "speaker": "victim",
   "lines": [
-   "You call yourself a TV Host?!",
-   "A disgrace to TV Hosts everywhere!",
-   "There can only be one TV Host in here!"
+   "It's MY show!",
+   "Back to me in the studio!",
+   "You're off air!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1800,9 +1917,9 @@
   "victim": "career.food-critic",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Food Critic?!",
-   "A disgrace to Food Critics everywhere!",
-   "There can only be one Food Critic in here!"
+   "Your palate is trash!",
+   "Zero stars!",
+   "Plagiarised my review!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1823,9 +1940,9 @@
   "victim": "career.conspiracy-podcaster",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Conspiracy Podcaster?!",
-   "A disgrace to Conspiracy Podcasters everywhere!",
-   "There can only be one Conspiracy Podcaster in here!"
+   "YOU'RE the government!",
+   "They got to you too!",
+   "Stop stealing my theories!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1846,9 +1963,9 @@
   "victim": "career.astronaut",
   "speaker": "victim",
   "lines": [
-   "You call yourself a Astronaut?!",
-   "A disgrace to Astronauts everywhere!",
-   "There can only be one Astronaut in here!"
+   "I went further than you!",
+   "Houston, we have a problem!",
+   "Space is MINE!"
   ],
   "chanceBp": 6000,
   "effects": [
@@ -1862,5 +1979,1146 @@
     "ticks": 90
    }
   ]
+ },
+ {
+  "id": "synergy.same-archaeologist",
+  "attacker": "career.archaeologist",
+  "victim": "career.archaeologist",
+  "speaker": "victim",
+  "lines": [
+   "That's MY dig site!",
+   "You're a relic!",
+   "Wrong era, mate!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-baker",
+  "attacker": "career.baker",
+  "victim": "career.baker",
+  "speaker": "victim",
+  "lines": [
+   "Your sourdough is flat!",
+   "Knead THIS!",
+   "Get out of my oven!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-beekeeper",
+  "attacker": "career.beekeeper",
+  "victim": "career.beekeeper",
+  "speaker": "victim",
+  "lines": [
+   "Those are MY bees!",
+   "You're un-bee-lievable!",
+   "Get off my hive!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-bus-driver",
+  "attacker": "career.bus-driver",
+  "victim": "career.bus-driver",
+  "speaker": "victim",
+  "lines": [
+   "That's MY route!",
+   "No change given!",
+   "Hold on to the rail!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-carpenter",
+  "attacker": "career.carpenter",
+  "victim": "career.carpenter",
+  "speaker": "victim",
+  "lines": [
+   "Measure twice!",
+   "That joint won't hold!",
+   "Nice veneer. Shame about the wood."
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-chimney-sweep",
+  "attacker": "career.chimney-sweep",
+  "victim": "career.chimney-sweep",
+  "speaker": "victim",
+  "lines": [
+   "That's MY chimney!",
+   "Soot yourself!",
+   "Chim-chim-GET OUT!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-clown",
+  "attacker": "career.clown",
+  "victim": "career.clown",
+  "speaker": "victim",
+  "lines": [
+   "My nose is redder!",
+   "There's only room for one clown in here!",
+   "My shoes are BIGGER!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-dog-groomer",
+  "attacker": "career.dog-groomer",
+  "victim": "career.dog-groomer",
+  "speaker": "victim",
+  "lines": [
+   "Bad groomer! BAD!",
+   "Your poodles are lopsided!",
+   "Sit! SIT!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-fashion-designer",
+  "attacker": "career.fashion-designer",
+  "victim": "career.fashion-designer",
+  "speaker": "victim",
+  "lines": [
+   "That's SO last season!",
+   "You copied my hemline!",
+   "Darling, no."
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-flight-attendant",
+  "attacker": "career.flight-attendant",
+  "victim": "career.flight-attendant",
+  "speaker": "victim",
+  "lines": [
+   "Seatbelts ON!",
+   "Brace! BRACE!",
+   "Tea, coffee, violence?"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-florist",
+  "attacker": "career.florist",
+  "victim": "career.florist",
+  "speaker": "victim",
+  "lines": [
+   "Those are MY roses!",
+   "You call that a bouquet?!",
+   "Wilt!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-fortune-teller",
+  "attacker": "career.fortune-teller",
+  "victim": "career.fortune-teller",
+  "speaker": "victim",
+  "lines": [
+   "I saw this coming!",
+   "Your future: pain!",
+   "My crystal ball is bigger!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-hotel-concierge",
+  "attacker": "career.hotel-concierge",
+  "victim": "career.hotel-concierge",
+  "speaker": "victim",
+  "lines": [
+   "We're fully booked!",
+   "Checkout was at eleven!",
+   "I'll call you a taxi. To the hospital."
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-ice-cream-vendor",
+  "attacker": "career.ice-cream-vendor",
+  "victim": "career.ice-cream-vendor",
+  "speaker": "victim",
+  "lines": [
+   "That's MY pitch!",
+   "Brain freeze!",
+   "Your jingle is off-key!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-magician",
+  "attacker": "career.magician",
+  "victim": "career.magician",
+  "speaker": "victim",
+  "lines": [
+   "That's MY trick!",
+   "Pick a card! Any card! Not that one!",
+   "A magician never reveals — OW!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-marine-biologist",
+  "attacker": "career.marine-biologist",
+  "victim": "career.marine-biologist",
+  "speaker": "victim",
+  "lines": [
+   "You're a shellfish person!",
+   "Get out of my reef!",
+   "Something smells fishy!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-museum-curator",
+  "attacker": "career.museum-curator",
+  "victim": "career.museum-curator",
+  "speaker": "victim",
+  "lines": [
+   "Don't touch the exhibits!",
+   "You belong in a museum! Mine!",
+   "That's a replica!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-nurse",
+  "attacker": "career.nurse",
+  "victim": "career.nurse",
+  "speaker": "victim",
+  "lines": [
+   "I'm the senior nurse here!",
+   "Wash your hands!",
+   "Night shift! NIGHT SHIFT!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-painter",
+  "attacker": "career.painter",
+  "victim": "career.painter",
+  "speaker": "victim",
+  "lines": [
+   "You missed a bit!",
+   "Eggshell! It was EGGSHELL!",
+   "Stop dripping on my dust sheet!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-photographer",
+  "attacker": "career.photographer",
+  "victim": "career.photographer",
+  "speaker": "victim",
+  "lines": [
+   "You're in my shot!",
+   "Say CHEESE!",
+   "Your lighting is TERRIBLE!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-postal-worker",
+  "attacker": "career.postal-worker",
+  "victim": "career.postal-worker",
+  "speaker": "victim",
+  "lines": [
+   "That's my round!",
+   "Return to sender!",
+   "First class! FIRST CLASS!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-sailor",
+  "attacker": "career.sailor",
+  "victim": "career.sailor",
+  "speaker": "victim",
+  "lines": [
+   "Walk the plank!",
+   "That's not a knot!",
+   "Mutiny!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-scientist",
+  "attacker": "career.scientist",
+  "victim": "career.scientist",
+  "speaker": "victim",
+  "lines": [
+   "My hypothesis is better!",
+   "Peer review THIS!",
+   "You contaminated my sample!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-tailor",
+  "attacker": "career.tailor",
+  "victim": "career.tailor",
+  "speaker": "victim",
+  "lines": [
+   "Your seams are crooked!",
+   "Hold still, I'm measuring!",
+   "Off the peg!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-tattoo-artist",
+  "attacker": "career.tattoo-artist",
+  "victim": "career.tattoo-artist",
+  "speaker": "victim",
+  "lines": [
+   "That line's wonky!",
+   "Sit still!",
+   "Mum? MUM?!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-train-conductor",
+  "attacker": "career.train-conductor",
+  "victim": "career.train-conductor",
+  "speaker": "victim",
+  "lines": [
+   "Tickets please!",
+   "This train terminates HERE!",
+   "Mind the gap!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-veterinarian",
+  "attacker": "career.veterinarian",
+  "victim": "career.veterinarian",
+  "speaker": "victim",
+  "lines": [
+   "Bad vet! BAD!",
+   "Who's a good boy? NOT YOU!",
+   "Open wide! No, wider!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-welder",
+  "attacker": "career.welder",
+  "victim": "career.welder",
+  "speaker": "victim",
+  "lines": [
+   "Don't look at the arc!",
+   "Your beads are rubbish!",
+   "Mask down! MASK DOWN!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-window-cleaner",
+  "attacker": "career.window-cleaner",
+  "victim": "career.window-cleaner",
+  "speaker": "victim",
+  "lines": [
+   "That's my ladder!",
+   "You've left streaks!",
+   "Get off my round!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.same-zookeeper",
+  "attacker": "career.zookeeper",
+  "victim": "career.zookeeper",
+  "speaker": "victim",
+  "lines": [
+   "You left the gate open!",
+   "Feeding time!",
+   "Back in your enclosure!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.clown-mime",
+  "attacker": "career.clown",
+  "victim": "career.mime",
+  "speaker": "victim",
+  "lines": [
+   "*mimes being hit by a giant mallet*",
+   "*mimes a very long, silent scream*"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.mime-clown",
+  "attacker": "career.mime",
+  "victim": "career.clown",
+  "speaker": "victim",
+  "lines": [
+   "Say something funny then!",
+   "HONK if you're scared!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.baker-personal-trainer",
+  "attacker": "career.baker",
+  "victim": "career.personal-trainer",
+  "speaker": "victim",
+  "lines": [
+   "Is that GLUTEN?!",
+   "Carbs! Get them away from me!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.personal-trainer-baker",
+  "attacker": "career.personal-trainer",
+  "victim": "career.baker",
+  "speaker": "victim",
+  "lines": [
+   "You'll burn that off in no time!",
+   "Knead a hand?"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.baker-chef",
+  "attacker": "career.baker",
+  "victim": "career.chef",
+  "speaker": "victim",
+  "lines": [
+   "Bread is not a CUISINE!",
+   "Get your crumbs off my pass!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.chef-baker",
+  "attacker": "career.chef",
+  "victim": "career.baker",
+  "speaker": "victim",
+  "lines": [
+   "You can't rush a sourdough!",
+   "Pastry is SCIENCE!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.beekeeper-florist",
+  "attacker": "career.beekeeper",
+  "victim": "career.florist",
+  "speaker": "victim",
+  "lines": [
+   "Keep your bees off my tulips!",
+   "Pollinate somewhere else!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.florist-beekeeper",
+  "attacker": "career.florist",
+  "victim": "career.beekeeper",
+  "speaker": "victim",
+  "lines": [
+   "The bees LIKE me!",
+   "You're ruining the nectar!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.magician-scientist",
+  "attacker": "career.magician",
+  "victim": "career.scientist",
+  "speaker": "victim",
+  "lines": [
+   "That's not magic, that's physics!",
+   "Show me the data!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.scientist-magician",
+  "attacker": "career.scientist",
+  "victim": "career.magician",
+  "speaker": "victim",
+  "lines": [
+   "You'll never explain THAT!",
+   "Abraca-OW!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.fortune-teller-conspiracy-podcaster",
+  "attacker": "career.fortune-teller",
+  "victim": "career.conspiracy-podcaster",
+  "speaker": "victim",
+  "lines": [
+   "I KNEW you'd say that!",
+   "The crystal ball is a government device!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.conspiracy-podcaster-fortune-teller",
+  "attacker": "career.conspiracy-podcaster",
+  "victim": "career.fortune-teller",
+  "speaker": "victim",
+  "lines": [
+   "I saw you coming!",
+   "Your aura is full of lies!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.fortune-teller-scientist",
+  "attacker": "career.fortune-teller",
+  "victim": "career.scientist",
+  "speaker": "victim",
+  "lines": [
+   "Where's your evidence?!",
+   "That's not peer-reviewed!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.nurse-paramedic",
+  "attacker": "career.nurse",
+  "victim": "career.paramedic",
+  "speaker": "victim",
+  "lines": [
+   "I've been on shift for 14 hours!",
+   "Put it in the handover notes!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.paramedic-nurse",
+  "attacker": "career.paramedic",
+  "victim": "career.nurse",
+  "speaker": "victim",
+  "lines": [
+   "You brought them in, you deal with them!",
+   "Triage! TRIAGE!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.nurse-dentist",
+  "attacker": "career.nurse",
+  "victim": "career.dentist",
+  "speaker": "victim",
+  "lines": [
+   "I'm a doctor! A tooth doctor!",
+   "The dental wing is next door!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.veterinarian-dog-groomer",
+  "attacker": "career.veterinarian",
+  "victim": "career.dog-groomer",
+  "speaker": "victim",
+  "lines": [
+   "You're scaring the poodle!",
+   "I'm not a patient!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.dog-groomer-veterinarian",
+  "attacker": "career.dog-groomer",
+  "victim": "career.veterinarian",
+  "speaker": "victim",
+  "lines": [
+   "That's not a professional cut!",
+   "Is that a flea collar?!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.zookeeper-veterinarian",
+  "attacker": "career.zookeeper",
+  "victim": "career.veterinarian",
+  "speaker": "victim",
+  "lines": [
+   "The lions miss you!",
+   "Who's feeding the penguins?!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.veterinarian-zookeeper",
+  "attacker": "career.veterinarian",
+  "victim": "career.zookeeper",
+  "speaker": "victim",
+  "lines": [
+   "Shot's due!",
+   "Hold still, it's just a little jab!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.zookeeper-beekeeper",
+  "attacker": "career.zookeeper",
+  "victim": "career.beekeeper",
+  "speaker": "victim",
+  "lines": [
+   "Bees are NOT zoo animals!",
+   "Keep them in their cage!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.marine-biologist-sailor",
+  "attacker": "career.marine-biologist",
+  "victim": "career.sailor",
+  "speaker": "victim",
+  "lines": [
+   "You're scaring the whales!",
+   "Mind the coral!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.sailor-marine-biologist",
+  "attacker": "career.sailor",
+  "victim": "career.marine-biologist",
+  "speaker": "victim",
+  "lines": [
+   "Ahoy, landlubber!",
+   "Man overboard!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.marine-biologist-lifeguard",
+  "attacker": "career.marine-biologist",
+  "victim": "career.lifeguard",
+  "speaker": "victim",
+  "lines": [
+   "That's not a dolphin, that's a lilo!",
+   "No fishing in the pool!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.sailor-flight-attendant",
+  "attacker": "career.sailor",
+  "victim": "career.flight-attendant",
+  "speaker": "victim",
+  "lines": [
+   "Ever heard of turbulence?!",
+   "Please remain seated!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.flight-attendant-sailor",
+  "attacker": "career.flight-attendant",
+  "victim": "career.sailor",
+  "speaker": "victim",
+  "lines": [
+   "We don't fly, we SAIL!",
+   "Walk the aisle!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.flight-attendant-train-conductor",
+  "attacker": "career.flight-attendant",
+  "victim": "career.train-conductor",
+  "speaker": "victim",
+  "lines": [
+   "Please stow your hand luggage!",
+   "Cabin crew, seats for landing!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.train-conductor-flight-attendant",
+  "attacker": "career.train-conductor",
+  "victim": "career.flight-attendant",
+  "speaker": "victim",
+  "lines": [
+   "Tickets please!",
+   "Delays are expected!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.train-conductor-bus-driver",
+  "attacker": "career.train-conductor",
+  "victim": "career.bus-driver",
+  "speaker": "victim",
+  "lines": [
+   "The train was LATE again!",
+   "Replacement bus service!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.bus-driver-train-conductor",
+  "attacker": "career.bus-driver",
+  "victim": "career.train-conductor",
+  "speaker": "victim",
+  "lines": [
+   "No standing on the top deck!",
+   "Ding ding!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.bus-driver-taxi-driver",
+  "attacker": "career.bus-driver",
+  "victim": "career.taxi-driver",
+  "speaker": "victim",
+  "lines": [
+   "That's a BUS lane!",
+   "Get out of my lane!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.taxi-driver-bus-driver",
+  "attacker": "career.taxi-driver",
+  "victim": "career.bus-driver",
+  "speaker": "victim",
+  "lines": [
+   "Pay the fare!",
+   "I'm stopping here!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.postal-worker-delivery-driver",
+  "attacker": "career.postal-worker",
+  "victim": "career.delivery-driver",
+  "speaker": "victim",
+  "lines": [
+   "Proper postage only!",
+   "Royal what now?!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.delivery-driver-postal-worker",
+  "attacker": "career.delivery-driver",
+  "victim": "career.postal-worker",
+  "speaker": "victim",
+  "lines": [
+   "Next-day delivery, mate!",
+   "I'll leave it with a neighbour!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.window-cleaner-chimney-sweep",
+  "attacker": "career.window-cleaner",
+  "victim": "career.chimney-sweep",
+  "speaker": "victim",
+  "lines": [
+   "You've got soot on my squeegee!",
+   "Streaks! STREAKS!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.chimney-sweep-window-cleaner",
+  "attacker": "career.chimney-sweep",
+  "victim": "career.window-cleaner",
+  "speaker": "victim",
+  "lines": [
+   "Look what you did to my windows!",
+   "Chim-chim-OW!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.painter-photographer",
+  "attacker": "career.painter",
+  "victim": "career.photographer",
+  "speaker": "victim",
+  "lines": [
+   "It's called composition!",
+   "Hold that pose!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.photographer-painter",
+  "attacker": "career.photographer",
+  "victim": "career.painter",
+  "speaker": "victim",
+  "lines": [
+   "Hold still, I'm painting you!",
+   "Say brushstroke!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.painter-tattoo-artist",
+  "attacker": "career.painter",
+  "victim": "career.tattoo-artist",
+  "speaker": "victim",
+  "lines": [
+   "That's not a canvas!",
+   "You're painting OUTSIDE the lines!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.tattoo-artist-painter",
+  "attacker": "career.tattoo-artist",
+  "victim": "career.painter",
+  "speaker": "victim",
+  "lines": [
+   "Painting's temporary! Tattoos are FOREVER!",
+   "Wanna go permanent?!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.tailor-fashion-designer",
+  "attacker": "career.tailor",
+  "victim": "career.fashion-designer",
+  "speaker": "victim",
+  "lines": [
+   "I DESIGN, you SEW!",
+   "That's not couture!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.fashion-designer-tailor",
+  "attacker": "career.fashion-designer",
+  "victim": "career.tailor",
+  "speaker": "victim",
+  "lines": [
+   "Off-the-peg peasant!",
+   "Who takes your measurements?!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.fashion-designer-hairdresser",
+  "attacker": "career.fashion-designer",
+  "victim": "career.hairdresser",
+  "speaker": "victim",
+  "lines": [
+   "That fringe does NOT go with the look!",
+   "Darling, it's not fashion, it's a mullet!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.hairdresser-fashion-designer",
+  "attacker": "career.hairdresser",
+  "victim": "career.fashion-designer",
+  "speaker": "victim",
+  "lines": [
+   "Your hair's not runway ready!",
+   "Split ends! On the catwalk!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.museum-curator-archaeologist",
+  "attacker": "career.museum-curator",
+  "victim": "career.archaeologist",
+  "speaker": "victim",
+  "lines": [
+   "That's MY find!",
+   "Put it back in the display case!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.archaeologist-museum-curator",
+  "attacker": "career.archaeologist",
+  "victim": "career.museum-curator",
+  "speaker": "victim",
+  "lines": [
+   "You dug it up, I get to label it!",
+   "Don't touch the artefacts!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.archaeologist-builder",
+  "attacker": "career.archaeologist",
+  "victim": "career.builder",
+  "speaker": "victim",
+  "lines": [
+   "Stop digging on my site!",
+   "It's a historic ruin, mate!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.builder-archaeologist",
+  "attacker": "career.builder",
+  "victim": "career.archaeologist",
+  "speaker": "victim",
+  "lines": [
+   "It's a building site, not a dig site!",
+   "You've broken a Roman mosaic!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.welder-carpenter",
+  "attacker": "career.welder",
+  "victim": "career.carpenter",
+  "speaker": "victim",
+  "lines": [
+   "Wood's for amateurs!",
+   "Weld THIS!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.carpenter-welder",
+  "attacker": "career.carpenter",
+  "victim": "career.welder",
+  "speaker": "victim",
+  "lines": [
+   "You've burnt my dovetails!",
+   "Mind the sawdust!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.welder-firefighter",
+  "attacker": "career.welder",
+  "victim": "career.firefighter",
+  "speaker": "victim",
+  "lines": [
+   "Sparks! Somebody stop the sparks!",
+   "No hot work without a permit!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.carpenter-builder",
+  "attacker": "career.carpenter",
+  "victim": "career.builder",
+  "speaker": "victim",
+  "lines": [
+   "Chippy!",
+   "Stop sanding my wall!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.ice-cream-vendor-barista",
+  "attacker": "career.ice-cream-vendor",
+  "victim": "career.barista",
+  "speaker": "victim",
+  "lines": [
+   "Hot drinks ONLY, mate!",
+   "Brain freeze in MY café?!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.barista-ice-cream-vendor",
+  "attacker": "career.barista",
+  "victim": "career.ice-cream-vendor",
+  "speaker": "victim",
+  "lines": [
+   "Iced latte? That's my patch!",
+   "Ninety-nine! NINETY-NINE!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.hotel-concierge-flight-attendant",
+  "attacker": "career.hotel-concierge",
+  "victim": "career.flight-attendant",
+  "speaker": "victim",
+  "lines": [
+   "Your room's not ready!",
+   "Late checkout? I'll check YOU out!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.flight-attendant-hotel-concierge",
+  "attacker": "career.flight-attendant",
+  "victim": "career.hotel-concierge",
+  "speaker": "victim",
+  "lines": [
+   "Please fasten your seatbelt, sir!",
+   "Your luggage is in Madrid!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.hotel-concierge-security-guard",
+  "attacker": "career.hotel-concierge",
+  "victim": "career.security-guard",
+  "speaker": "victim",
+  "lines": [
+   "Name's not down!",
+   "I'll call housekeeping!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.clown-tv-host",
+  "attacker": "career.clown",
+  "victim": "career.tv-host",
+  "speaker": "victim",
+  "lines": [
+   "This is a SERIOUS programme!",
+   "Get off my set!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.tv-host-clown",
+  "attacker": "career.tv-host",
+  "victim": "career.clown",
+  "speaker": "victim",
+  "lines": [
+   "Big laugh, everyone!",
+   "Cue the sad trombone!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.magician-clown",
+  "attacker": "career.magician",
+  "victim": "career.clown",
+  "speaker": "victim",
+  "lines": [
+   "That's MY balloon animal!",
+   "Stop pulling scarves out of my ears!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.clown-magician",
+  "attacker": "career.clown",
+  "victim": "career.magician",
+  "speaker": "victim",
+  "lines": [
+   "Pie in the face? CLASSIC!",
+   "My wand! You've bent my wand!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.photographer-influencer",
+  "attacker": "career.photographer",
+  "victim": "career.influencer",
+  "speaker": "victim",
+  "lines": [
+   "That's my good side!",
+   "No flash! NO FLASH!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.influencer-photographer",
+  "attacker": "career.influencer",
+  "victim": "career.photographer",
+  "speaker": "victim",
+  "lines": [
+   "Credit me in the caption!",
+   "Tag me or I'll invoice you!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.scientist-engineer",
+  "attacker": "career.scientist",
+  "victim": "career.engineer",
+  "speaker": "victim",
+  "lines": [
+   "Theory is useless without practice!",
+   "Get out of my lab!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.engineer-scientist",
+  "attacker": "career.engineer",
+  "victim": "career.scientist",
+  "speaker": "victim",
+  "lines": [
+   "That's not how physics works!",
+   "Did you even do the maths?!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.tattoo-artist-nurse",
+  "attacker": "career.tattoo-artist",
+  "victim": "career.nurse",
+  "speaker": "victim",
+  "lines": [
+   "That needle isn't sterile!",
+   "Tetanus shot! Now!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.nurse-tattoo-artist",
+  "attacker": "career.nurse",
+  "victim": "career.tattoo-artist",
+  "speaker": "victim",
+  "lines": [
+   "Sharp scratch!",
+   "Mum? Want 'Mum'?!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.dog-groomer-hairdresser",
+  "attacker": "career.dog-groomer",
+  "victim": "career.hairdresser",
+  "speaker": "victim",
+  "lines": [
+   "I cut PEOPLE, not poodles!",
+   "That's a DOG brush!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.hairdresser-dog-groomer",
+  "attacker": "career.hairdresser",
+  "victim": "career.dog-groomer",
+  "speaker": "victim",
+  "lines": [
+   "Sit! Stay! Trim!",
+   "Your perm's gone frizzy!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.florist-gardener",
+  "attacker": "career.florist",
+  "victim": "career.gardener",
+  "speaker": "victim",
+  "lines": [
+   "You grow them, I sell them!",
+   "Cut flowers are murder!"
+  ],
+  "chanceBp": 5000
+ },
+ {
+  "id": "synergy.gardener-florist",
+  "attacker": "career.gardener",
+  "victim": "career.florist",
+  "speaker": "victim",
+  "lines": [
+   "Put the pruning shears DOWN!",
+   "That's a weed, not a buttonhole!"
+  ],
+  "chanceBp": 5000
  }
 ]
