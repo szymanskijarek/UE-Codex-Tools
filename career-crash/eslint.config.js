@@ -11,7 +11,7 @@ const simBannedProps = ['random', 'sin', 'cos', 'tan', 'atan', 'atan2', 'pow', '
 }));
 
 export default tseslint.config(
-  { ignores: ['**/node_modules/**', '**/dist/**', '**/dist-standalone/**', '**/.wrangler/**', 'packages/content/dist/**'] },
+  { ignores: ['**/node_modules/**', '**/dist/**', '**/dist-standalone/**', '**/dist-web/**', '**/.wrangler/**', 'packages/content/dist/**'] },
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
