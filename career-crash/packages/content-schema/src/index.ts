@@ -7,7 +7,7 @@
  */
 import { z } from 'zod';
 
-import { DAMAGE_TYPES, GOALS, QUIRKS, STAT_KEYS } from './constants';
+import { DAMAGE_TYPES, GOALS, LOOT_RARITIES, QUIRKS, STAT_KEYS } from './constants';
 
 export * from './constants';
 
@@ -400,6 +400,26 @@ export const economySchema = z.object({
   startingWallet: z.record(z.string(), int),
   maxTraits: int,
   maxMasteries: int,
+  /** Items dropped by won fights (career mode): rarities, drop odds, prices, opponent gear. */
+  loot: z.object({
+    /** Loot items each fighter can wear. */
+    slots: int.min(1).max(4),
+    /** Unequipped items kept in the bag; further drops are sold automatically. */
+    bagCap: int.min(1),
+    /** A rolled item spreads its points over at most this many stats. */
+    maxStatsPerItem: int.min(1),
+    /** Chance each stat is one the item's base favours (otherwise any stat). */
+    favouredBp: bp,
+    /** Weakest first, matching LOOT_RARITIES. weight = drop odds out of the total. */
+    rarities: z
+      .array(z.object({ id: z.enum(LOOT_RARITIES), points: int.min(1), weight: int.min(0), abilityBp: bp, sellPrice: int.min(0), color: z.string() }))
+      .length(LOOT_RARITIES.length),
+    /** Extra rolls (best one kept) for beating a boss, and on Brutal. */
+    bossExtraRolls: int.min(0),
+    brutalExtraRolls: int.min(0),
+    /** Ladder opponents wear one more rolled item from each of these stages. */
+    opponentGearFromStage: z.array(int.min(0)),
+  }),
 });
 export type EconomyDef = z.infer<typeof economySchema>;
 
@@ -431,6 +451,7 @@ export interface ContentBundle {
   live: Record<string, string[]>;
   synergies: SynergyDef[];
   shopItems: ShopItemDef[];
+  loot: LootBaseDef[];
 }
 
 export const liveSchema = z.object({ templates: z.record(z.string(), z.array(z.string()).min(1)) });
@@ -468,6 +489,15 @@ export const shopItemSchema = z.object({
 });
 export type ShopItemDef = z.infer<typeof shopItemSchema>;
 
+/** Kinds of loot item. Each drop is a base plus rolled rarity, stat points and maybe an ability. */
+export const lootBaseSchema = z.object({
+  id: ref('loot'),
+  icon: z.string().max(8),
+  /** Stats this kind of item tends to boost. */
+  favours: z.array(z.enum(STAT_KEYS)).min(1).max(4),
+});
+export type LootBaseDef = z.infer<typeof lootBaseSchema>;
+
 const nameWords = z.array(z.string().min(1).max(40)).min(10).refine((l) => new Set(l).size === l.length, 'duplicate entries');
 export const namesSchema = z.object({ first: nameWords, last: nameWords, prefixes: nameWords, suffixes: nameWords });
 
@@ -486,6 +516,7 @@ export const COLLECTIONS = {
   detectors: detectorSchema,
   synergies: synergySchema,
   shopItems: shopItemSchema,
+  loot: lootBaseSchema,
 } as const;
 export type CollectionName = keyof typeof COLLECTIONS;
 

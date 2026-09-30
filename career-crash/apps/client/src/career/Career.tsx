@@ -5,22 +5,25 @@ import { Rng } from '@cc/sim';
 import { abilitySummary, descOf, nameOf } from '../i18n';
 import { navigate, notify } from '../state';
 import { Card, CareerChip, Portrait } from '../ui/components';
-import { type BoardRow, career, collectResults, companyName, currentCareer, draftCharacter, mainChar, startCareer, type CareerSave } from './model';
+import { type BoardRow, career, collectResults, sellLoot, companyName, currentCareer, draftCharacter, mainChar, startCareer, type CareerSave } from './model';
 import { CompanyPicker } from './CompanyPicker';
 import { NamePicker } from './NamePicker';
+import { GearScreen } from './Gear';
 import { Hub } from './Hub';
+import { LootCard } from './Loot';
 import { PuppetView } from './PuppetView';
 import { ShopScreen } from './Shop';
 import { SkillsScreen } from './Skills';
 import { SquadScreen } from './Squad';
 
-/** Career mode router: #/career, #/career/skills/:id, #/career/squad, #/career/shop, #/career/results. */
+/** Career mode router: #/career, #/career/skills/:id, #/career/squad, #/career/shop, #/career/gear, #/career/results. */
 export function CareerScreen({ sub, arg }: { sub?: string; arg?: string }) {
   const s = career.value;
   if (!s) return <CreateCharacter />;
   if (sub === 'skills') return <SkillsScreen save={s} id={arg ?? s.mainId} />;
   if (sub === 'squad') return <SquadScreen save={s} />;
   if (sub === 'shop') return <ShopScreen save={s} />;
+  if (sub === 'gear') return <GearScreen save={s} />;
   if (sub === 'results') return <Results save={s} />;
   return <Hub save={s} />;
 }
@@ -281,6 +284,7 @@ function Results({ save: s0 }: { save: CareerSave }) {
           )}
         </div>
       </div>
+      {r.loot && <LootDrop drop={r.loot} />}
       {r.board && (
         <Card>
           <h2>Match summary</h2>
@@ -329,6 +333,30 @@ function Results({ save: s0 }: { save: CareerSave }) {
         </button>
       </div>
     </section>
+  );
+}
+
+/** The item a win dropped: keep it (it's in the bag) or sell it on the spot. */
+function LootDrop({ drop }: { drop: NonNullable<CareerSave['last']>['loot'] & object }) {
+  const [sold, setSold] = useState(drop.sold ?? 0);
+  const inBag = !sold && !!career.value?.bag?.some((x) => x.uid === drop.item.uid);
+  return (
+    <Card class="highlight">
+      <h2>🎁 Loot</h2>
+      <LootCard it={drop.item}>
+        {inBag && (
+          <>
+            <button class="primary small" onClick={() => navigate('/career/gear')}>
+              🎒 Wear it
+            </button>
+            <button class="ghost small" onClick={() => career.value && setSold(sellLoot(career.value, drop.item.uid))}>
+              Sell 💵 {bundle.economy.loot.rarities.find((x) => x.id === drop.item.rarity)!.sellPrice}
+            </button>
+          </>
+        )}
+      </LootCard>
+      {sold > 0 && <p class="muted small">{drop.sold ? 'Your bag was full, so it' : 'It'} went for 💵 {sold}.</p>}
+    </Card>
   );
 }
 

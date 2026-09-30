@@ -147,6 +147,7 @@ export function compileContent(dataDir: string): CompileResult {
     live: live.data.templates,
     synergies: collections.synergies as ContentBundle['synergies'],
     shopItems: collections.shopItems as ContentBundle['shopItems'],
+    loot: collections.loot as ContentBundle['loot'],
   };
 
   errors.push(...validateBundle(bundle));
@@ -253,7 +254,7 @@ export function validateBundle(b: ContentBundle): string[] {
   const needKey = (k: string): void => {
     if (!(k in b.locale)) errors.push(`locale: missing key ${k}`);
   };
-  for (const coll of [b.statuses, b.abilities, b.careers, b.masteries, b.props, b.arenas, b.personalities, b.traits, b.equipment, b.shopItems]) for (const x of coll) needKey(`${x.id}.name`);
+  for (const coll of [b.statuses, b.abilities, b.careers, b.masteries, b.props, b.arenas, b.personalities, b.traits, b.equipment, b.shopItems, b.loot]) for (const x of coll) needKey(`${x.id}.name`);
   for (const it of b.shopItems) {
     needKey(`${it.id}.desc`);
     if (it.kind === 'consumable' && (!it.trigger || !it.effects?.length)) errors.push(`${it.id}: consumables need a trigger and effects`);

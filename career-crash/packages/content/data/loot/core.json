@@ -1,0 +1,255 @@
+[
+  {
+    "id": "loot.steel-toe-boots",
+    "icon": "🥾",
+    "favours": [
+      "strength",
+      "health"
+    ]
+  },
+  {
+    "id": "loot.hi-vis-vest",
+    "icon": "🦺",
+    "favours": [
+      "awareness",
+      "confidence"
+    ]
+  },
+  {
+    "id": "loot.lucky-socks",
+    "icon": "🧦",
+    "favours": [
+      "luck"
+    ]
+  },
+  {
+    "id": "loot.company-lanyard",
+    "icon": "🪪",
+    "favours": [
+      "confidence",
+      "charisma"
+    ]
+  },
+  {
+    "id": "loot.comfy-trainers",
+    "icon": "👟",
+    "favours": [
+      "speed",
+      "energy"
+    ]
+  },
+  {
+    "id": "loot.reading-glasses",
+    "icon": "👓",
+    "favours": [
+      "intelligence",
+      "awareness"
+    ]
+  },
+  {
+    "id": "loot.thermos",
+    "icon": "🧋",
+    "favours": [
+      "recovery",
+      "energy"
+    ]
+  },
+  {
+    "id": "loot.gym-gloves",
+    "icon": "🥊",
+    "favours": [
+      "strength",
+      "throwing"
+    ]
+  },
+  {
+    "id": "loot.hard-hat",
+    "icon": "⛑️",
+    "favours": [
+      "health",
+      "confidence"
+    ]
+  },
+  {
+    "id": "loot.bum-bag",
+    "icon": "👝",
+    "favours": [
+      "interactionSpeed",
+      "luck"
+    ]
+  },
+  {
+    "id": "loot.bluetooth-headset",
+    "icon": "🎧",
+    "favours": [
+      "awareness",
+      "charisma"
+    ]
+  },
+  {
+    "id": "loot.power-tie",
+    "icon": "👔",
+    "favours": [
+      "charisma",
+      "confidence"
+    ]
+  },
+  {
+    "id": "loot.knee-pads",
+    "icon": "🦵",
+    "favours": [
+      "health",
+      "recovery"
+    ]
+  },
+  {
+    "id": "loot.sweatband",
+    "icon": "🎽",
+    "favours": [
+      "speed",
+      "energy"
+    ]
+  },
+  {
+    "id": "loot.fitness-tracker",
+    "icon": "⌚",
+    "favours": [
+      "energy",
+      "recovery"
+    ]
+  },
+  {
+    "id": "loot.name-badge",
+    "icon": "📛",
+    "favours": [
+      "charisma"
+    ]
+  },
+  {
+    "id": "loot.stress-ball",
+    "icon": "⚾",
+    "favours": [
+      "throwing",
+      "recovery"
+    ]
+  },
+  {
+    "id": "loot.lucky-pen",
+    "icon": "🖊️",
+    "favours": [
+      "luck",
+      "intelligence"
+    ]
+  },
+  {
+    "id": "loot.bike-helmet",
+    "icon": "🪖",
+    "favours": [
+      "health",
+      "awareness"
+    ]
+  },
+  {
+    "id": "loot.rubber-gloves",
+    "icon": "🧤",
+    "favours": [
+      "interactionSpeed",
+      "strength"
+    ]
+  },
+  {
+    "id": "loot.car-keys",
+    "icon": "🔑",
+    "favours": [
+      "speed",
+      "interactionSpeed"
+    ]
+  },
+  {
+    "id": "loot.aviator-sunglasses",
+    "icon": "🕶️",
+    "favours": [
+      "confidence",
+      "charisma"
+    ]
+  },
+  {
+    "id": "loot.tool-belt",
+    "icon": "🧰",
+    "favours": [
+      "interactionSpeed",
+      "throwing"
+    ]
+  },
+  {
+    "id": "loot.motivational-mug",
+    "icon": "☕",
+    "favours": [
+      "energy",
+      "confidence"
+    ]
+  },
+  {
+    "id": "loot.backpack",
+    "icon": "🎒",
+    "favours": [
+      "strength",
+      "recovery"
+    ]
+  },
+  {
+    "id": "loot.pocket-megaphone",
+    "icon": "📣",
+    "favours": [
+      "charisma",
+      "confidence"
+    ]
+  },
+  {
+    "id": "loot.four-leaf-keyring",
+    "icon": "🍀",
+    "favours": [
+      "luck"
+    ]
+  },
+  {
+    "id": "loot.ergonomic-cushion",
+    "icon": "🪑",
+    "favours": [
+      "recovery",
+      "health"
+    ]
+  },
+  {
+    "id": "loot.dart-set",
+    "icon": "🎯",
+    "favours": [
+      "throwing",
+      "awareness"
+    ]
+  },
+  {
+    "id": "loot.executive-cufflinks",
+    "icon": "💎",
+    "favours": [
+      "charisma",
+      "luck"
+    ]
+  },
+  {
+    "id": "loot.wool-scarf",
+    "icon": "🧣",
+    "favours": [
+      "health",
+      "confidence"
+    ]
+  },
+  {
+    "id": "loot.calculator-watch",
+    "icon": "🧮",
+    "favours": [
+      "intelligence",
+      "interactionSpeed"
+    ]
+  }
+]

@@ -20,6 +20,10 @@ export const STAT_KEYS = [
 export type StatKey = (typeof STAT_KEYS)[number];
 export type Stats = Record<StatKey, number>;
 
+/** Loot rarities, weakest first (economy.loot.rarities is in the same order). */
+export const LOOT_RARITIES = ['normal', 'uncommon', 'rare', 'epic', 'legendary'] as const;
+export type LootRarity = (typeof LOOT_RARITIES)[number];
+
 export const GOALS = ['damage', 'control', 'support', 'survive', 'loot', 'chaos', 'showOff'] as const;
 export type Goal = (typeof GOALS)[number];
 

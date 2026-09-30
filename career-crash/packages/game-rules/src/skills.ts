@@ -1,6 +1,7 @@
 import type { CareerDef, ContentBundle, StatKey, Stats } from '@cc/content-schema';
 import { STAT_KEYS } from '@cc/content-schema/constants';
 import { Rng, type CharacterSnapshot } from '@cc/sim';
+import { gearStats, opponentGear, type LootItem } from './loot';
 import { generateRecruit, toSnapshot, type Character } from './character';
 import { addXp, careerSlots } from './progression';
 
@@ -127,6 +128,8 @@ export interface CareerChar {
   temp?: boolean;
   /** Up to 3 shop items taken into fights. */
   loadout?: string[];
+  /** Loot items worn (up to economy.loot.slots): stat points and maybe a granted ability. */
+  gear?: LootItem[];
 }
 
 export function careerRank(cc: CareerChar, careerId: string): number {
@@ -184,7 +187,10 @@ export function careerSnapshot(bundle: ContentBundle, cc: CareerChar): Character
       defense.dashBp += n.defense?.dashBp ?? 0;
     }
   }
-  return { ...snap, stats, unlocked, defenseBonus: defense, loadout: (cc.loadout ?? []).slice(0, 3) };
+  const gear = (cc.gear ?? []).slice(0, bundle.economy.loot.slots);
+  for (const [k, v] of Object.entries(gearStats(gear)) as [StatKey, number][]) stats[k] += v;
+  const granted = [...new Set(gear.flatMap((g) => (g.ability ? [g.ability] : [])))];
+  return { ...snap, stats, unlocked, defenseBonus: defense, loadout: (cc.loadout ?? []).slice(0, 3), ...(granted.length ? { granted } : {}) };
 }
 
 // ---------------------------------------------------------------------------
@@ -332,6 +338,8 @@ export function opponentTeam(bundle: ContentBundle, seed: string, stage: number,
     if (boss && info.bossCareer) makeBoss(bundle, f, info.bossCareer, info.bossName ?? f.c.name, info.rank + diff.rankOffset + 1);
     for (const k of STAT_KEYS) f.c.stats[k] = Math.max(1, f.c.stats[k] + diff.statOffset);
     f.loadout = aiLoadout(bundle, rng, diff, stage);
+    // Own RNG stream, so gear never shifts how the rest of the team is generated.
+    f.gear = opponentGear(bundle, Rng.fromSeed(`gear:${seed}:${stage}:${i}`), stage, f.c.id, boss);
     out.push(f);
   }
   return out;

@@ -112,6 +112,10 @@ compresses them (WebP, palette-quantised).
   (placeholder rules are in `PIPELINES.md` §1).
 - **Career banter:** `data/synergies/`.
 - **Company name words** (the adjective, noun and suffix players pick from): `packages/game-rules/src/company.ts`.
+- **Loot** (items dropped by wins): kinds of item in `packages/content/data/loot/` (icon plus the stats it
+  favours, name in the locale); rarity points, drop odds, ability chances, sell prices, bag size and opponent
+  gear in `economy.json` → `loot`. Rules and the server-side validity check are in `packages/game-rules/src/loot.ts`.
+  After changing odds or points, re-check boss difficulty with `pnpm balance --bosses`.
 - **Character names and titles** (first and last names, titles before and after a name): `packages/content/data/names.json`.
   Add freely. If an entry is removed, characters keep their saved name; the rename picker starts from a fresh name for them.
   Only add words; renaming or removing one resets saves that used it to a random name.

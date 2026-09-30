@@ -37,5 +37,21 @@
   "jobBoard": { "size": 6, "tierCost": { "1": 150, "2": 400, "3": 1000 } },
   "startingWallet": { "cash": 1000, "rep": 100, "tickets": 10, "stars": 0 },
   "maxTraits": 4,
-  "maxMasteries": 2
+  "maxMasteries": 2,
+  "loot": {
+    "slots": 2,
+    "bagCap": 30,
+    "maxStatsPerItem": 3,
+    "favouredBp": 7500,
+    "rarities": [
+      { "id": "normal", "points": 2, "weight": 6200, "abilityBp": 0, "sellPrice": 30, "color": "#6b7280" },
+      { "id": "uncommon", "points": 3, "weight": 2500, "abilityBp": 500, "sellPrice": 70, "color": "#16a34a" },
+      { "id": "rare", "points": 4, "weight": 950, "abilityBp": 1500, "sellPrice": 160, "color": "#2563eb" },
+      { "id": "epic", "points": 5, "weight": 300, "abilityBp": 3500, "sellPrice": 380, "color": "#9333ea" },
+      { "id": "legendary", "points": 6, "weight": 50, "abilityBp": 7000, "sellPrice": 900, "color": "#ea8a00" }
+    ],
+    "bossExtraRolls": 1,
+    "brutalExtraRolls": 1,
+    "opponentGearFromStage": [6, 18]
+  }
 }

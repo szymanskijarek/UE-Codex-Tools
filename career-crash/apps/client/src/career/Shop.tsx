@@ -29,7 +29,7 @@ export function ShopScreen({ save: s }: { save: CareerSave }) {
       </button>
       <h1>🛒 Corner Shop</h1>
       <p class="muted">
-        💵 {s.cash} · Each fighter carries up to {LOADOUT_SLOTS} items. Consumables fire once in a fight and are used up; gear stays on.
+        💵 {s.cash} · Each fighter carries up to {LOADOUT_SLOTS} items. Consumables fire once in a fight and are used up. Gear with stat bonuses drops from won fights: see <a href="#/career/gear">🎒 Gear</a>.
         {tier < 3 && ' More stock arrives as you climb the ladder.'}
       </p>
 
@@ -87,9 +87,9 @@ export function ShopScreen({ save: s }: { save: CareerSave }) {
 
         <Card>
           <h2>For sale</h2>
-          {(['consumable', 'gear'] as const).map((kind) => (
+          {(['consumable'] as const).map((kind) => (
             <>
-              <h3>{kind === 'consumable' ? '🍔 Consumables' : '🦺 Gear'}</h3>
+              <h3>🍔 Consumables</h3>
               <div class="shop-list">
                 {stock
                   .filter((i) => i.kind === kind)

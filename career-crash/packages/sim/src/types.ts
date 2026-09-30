@@ -3,7 +3,7 @@ import type { ContentIndex } from './content';
 import type { Rng } from './core/rng';
 import type { NavGrid } from './systems/nav';
 
-export const SIM_VERSION = '0.9.1';
+export const SIM_VERSION = '0.10.0';
 export const TICKS_PER_SECOND = 20;
 export const MAX_TICKS = 2400;
 export const ENTITY_CAP = 256;
@@ -40,6 +40,11 @@ export interface CharacterSnapshot {
    * actives/passives (masteries and the personality move are unaffected).
    */
   unlocked?: string[];
+  /**
+   * Abilities granted by gear (career-mode loot), from any career: actives are
+   * added to the move list, passives apply their tags, immunities and stat mods.
+   */
+  granted?: string[];
   /** Reflex perks from skill trees, added on top of stats/career/personality. */
   defenseBonus?: { parryBp?: number; evadeBp?: number; dashBp?: number };
   /** Up to 3 shop items taken into the fight (gear = stat bonus, consumables fire once). */

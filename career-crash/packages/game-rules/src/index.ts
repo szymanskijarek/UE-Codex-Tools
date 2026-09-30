@@ -4,3 +4,4 @@ export * from './economy';
 export * from './skills';
 export * from './company';
 export * from './names';
+export * from './loot';

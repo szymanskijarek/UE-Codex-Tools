@@ -8,6 +8,7 @@ import { Portrait } from '../ui/components';
 import { levelProgress, Loadout, RankBar, skillAlert } from './Career';
 import { CompanyPicker } from './CompanyPicker';
 import { NamePicker } from './NamePicker';
+import { GearIcons } from './Loot';
 import { abandon, applicants, companyName, renameCharacter, renameCompany, setPostMine, currentCareer, lineup, mainChar, nextOpponents, prepareFight, save, squadUnlocked, type CareerSave } from './model';
 import { PuppetView } from './PuppetView';
 import { discussion, promotedPosts, REACTIONS, starterPosts, type FeedPost, type ReactionKind } from './feed';
@@ -177,7 +178,7 @@ function Person({ cc, tag }: { cc: CareerChar; tag?: string }) {
     <div class="li-person">
       <Portrait c={cc.c} size={40} />
       <div class="grow">
-        <b>{cc.c.name}</b> {tag && <span class="li-pill">{tag}</span>} <Loadout ids={cc.loadout} />
+        <b>{cc.c.name}</b> {tag && <span class="li-pill">{tag}</span>} <Loadout ids={cc.loadout} /> <GearIcons gear={cc.gear} />
         <div class="muted small">
           {RANKS[careerRank(cc, cid) - 1]} {nameOf(cid)} · Lv {cc.c.level}
         </div>
@@ -300,6 +301,9 @@ export function Hub({ save: s }: { save: CareerSave }) {
               <div class="li-row">
                 <button class={`li-btn primary ${skillAlert(m) ? 'alert' : ''}`} onClick={() => navigate(`/career/skills/${m.c.id}`)}>
                   🌳 Skills & endorsements
+                </button>
+                <button class="li-btn" onClick={() => navigate('/career/gear')}>
+                  🎒 Gear{s.bag?.length ? ` (${s.bag.length})` : ''}
                 </button>
                 <button class="li-btn" onClick={() => navigate('/career/shop')}>
                   🛒 Shop

@@ -11,6 +11,8 @@ import {
   companyLabel,
   isCompanyName,
   isNameParts,
+  lootSellPrice,
+  rollLoot,
   formatName,
   randomCompany,
   difficulty,
@@ -31,6 +33,7 @@ import {
   type Character,
   type CompanyName,
   type NameParts,
+  type LootItem,
   type DifficultyId,
   type FightPay,
   type GrowthReport,
@@ -65,6 +68,8 @@ export interface CareerSave {
   feed?: FeedPost[];
   /** The player's company, picked from word lists (never typed). Older saves get a random one. */
   company?: CompanyName;
+  /** Loot won in fights and not being worn (worn items live on each fighter's `gear`). */
+  bag?: LootItem[];
 }
 
 /** One line of the post-fight board. */
@@ -90,6 +95,8 @@ export interface FightSummary {
   board: BoardRow[];
   growth: (GrowthReport & { name: string; newTraits: string[]; milestone: boolean })[];
   unlockedSquad: boolean;
+  /** The item a win dropped; `sold` is set when the bag was full and it was sold on the spot. */
+  loot?: { item: LootItem; sold?: number };
 }
 
 const KEY = 'cc.career.v1';
@@ -109,6 +116,7 @@ function migrate(s: CareerSave | null): CareerSave | null {
   if (!s) return s;
   s.inventory ??= {};
   s.feed ??= [];
+  s.bag ??= [];
   if (!isCompanyName(s.company)) s.company = randomCompany(Rng.fromSeed(`company:${s.seed}`));
   if (!s.feed.length && s.last?.board) s.feed = fightPosts(s, s.last);
   for (const c of Object.values(s.chars)) c.loadout ??= [];
@@ -265,17 +273,34 @@ export function collectResults(s: CareerSave): CareerSave {
   const teamKos = out.result.characters.filter((r) => r.team === 0).reduce((n, r) => n + r.counters.kos, 0);
   const pay = fightPay(outcome, stage, teamKos, diff);
   const cash = pay.total;
+  // A win drops one item. Bosses and Brutal roll extra times and keep the best.
+  let loot: FightSummary['loot'];
+  const bag = [...(s.bag ?? [])];
+  let lootCash = 0;
+  if (outcome === 'win') {
+    const L = bundle.economy.loot;
+    const rolls = 1 + (stageInfo(bundle, stage).boss ? L.bossExtraRolls : 0) + (s.difficulty === 'brutal' ? L.brutalExtraRolls : 0);
+    const item = rollLoot(bundle, Rng.fromSeed(`${input.seed}:loot`), `loot-${s.seed}-${stage}-${s.wins}`, rolls);
+    if (bag.length >= L.bagCap) {
+      lootCash = lootSellPrice(bundle, item);
+      loot = { item, sold: lootCash };
+    } else {
+      bag.push(item);
+      loot = { item };
+    }
+  }
   const next: CareerSave = {
     ...s,
+    bag,
     stage: outcome === 'win' ? stage + 1 : stage,
-    cash: s.cash + cash,
+    cash: s.cash + cash + lootCash,
     pending: null,
     wins: s.wins + (outcome === 'win' ? 1 : 0),
     losses: s.losses + (outcome === 'loss' ? 1 : 0),
     applicants: outcome === 'win' ? [] : s.applicants,
     last: null,
   };
-  next.last = { stage, outcome, cash, pay, board, growth, unlockedSquad: !wasUnlocked && squadUnlocked(next) };
+  next.last = { stage, outcome, cash, pay, board, growth, unlockedSquad: !wasUnlocked && squadUnlocked(next), ...(loot ? { loot } : {}) };
   next.feed = [...fightPosts(next, next.last), ...(s.feed ?? [])].slice(0, FEED_CAP);
   save(next);
   return next;
@@ -328,8 +353,9 @@ export function dismiss(s: CareerSave, id: string): void {
   // Whatever they had packed goes back into the stockroom.
   const inventory = { ...s.inventory };
   for (const itemId of chars[id]?.loadout ?? []) inventory[itemId] = (inventory[itemId] ?? 0) + 1;
+  const bag = [...(s.bag ?? []), ...(chars[id]?.gear ?? [])];
   delete chars[id];
-  save({ ...s, chars, inventory, squad: s.squad.filter((x) => x !== id) });
+  save({ ...s, chars, inventory, bag, squad: s.squad.filter((x) => x !== id) });
 }
 
 export function pickCareer(s: CareerSave, charId: string, careerId: string): string | null {
@@ -346,8 +372,9 @@ export function pickCareer(s: CareerSave, charId: string, careerId: string): str
 // ---------------------------------------------------------------------------
 // Shop & loadouts
 // ---------------------------------------------------------------------------
+/** The shop sells consumables; gear now comes from winning fights (see loot). */
 export function shopStock(s: CareerSave) {
-  return (bundle.shopItems ?? []).filter((i) => i.tier <= shopTierAt(s.stage)).sort((a, b) => (a.kind === b.kind ? a.price - b.price : a.kind === 'consumable' ? -1 : 1));
+  return (bundle.shopItems ?? []).filter((i) => i.kind === 'consumable' && i.tier <= shopTierAt(s.stage)).sort((a, b) => (a.kind === b.kind ? a.price - b.price : a.kind === 'consumable' ? -1 : 1));
 }
 
 export function owned(s: CareerSave, itemId: string): number {
@@ -383,6 +410,35 @@ export function unequip(s: CareerSave, charId: string, slot: number): void {
   if (!cc || !itemId) return;
   cc.loadout!.splice(slot, 1);
   save({ ...s, inventory: { ...s.inventory, [itemId]: (s.inventory[itemId] ?? 0) + 1 } });
+}
+
+// ---------------------------------------------------------------------------
+// Loot: the bag, wearing items and selling them
+// ---------------------------------------------------------------------------
+export function equipGear(s: CareerSave, charId: string, uid: string): string | null {
+  const cc = s.chars[charId];
+  const item = (s.bag ?? []).find((x) => x.uid === uid);
+  if (!cc || !item) return 'Item not found';
+  const slots = bundle.economy.loot.slots;
+  if ((cc.gear ?? []).length >= slots) return `Only ${slots} items per fighter — take one off first`;
+  save({ ...s, bag: s.bag!.filter((x) => x.uid !== uid), chars: { ...s.chars, [charId]: { ...cc, gear: [...(cc.gear ?? []), item] } } });
+  return null;
+}
+
+export function unequipGear(s: CareerSave, charId: string, uid: string): void {
+  const cc = s.chars[charId];
+  const item = cc?.gear?.find((x) => x.uid === uid);
+  if (!cc || !item) return;
+  save({ ...s, bag: [...(s.bag ?? []), item], chars: { ...s.chars, [charId]: { ...cc, gear: cc.gear!.filter((x) => x.uid !== uid) } } });
+}
+
+/** Sell an item from the bag. Returns the cash it fetched (0 if it wasn't there). */
+export function sellLoot(s: CareerSave, uid: string): number {
+  const item = (s.bag ?? []).find((x) => x.uid === uid);
+  if (!item) return 0;
+  const price = lootSellPrice(bundle, item);
+  save({ ...s, cash: s.cash + price, bag: s.bag!.filter((x) => x.uid !== uid) });
+  return price;
 }
 
 /** Record the player's reaction / comments on a saved feed post. */

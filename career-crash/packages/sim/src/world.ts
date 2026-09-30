@@ -279,6 +279,9 @@ export function finalStats(content: ContentIndex, snap: CharacterSnapshot): Stat
     const m = content.masteries.get(mid);
     if (m) add(content.abilities.get(m.passive)?.passive?.statMods);
   }
+  // Gear-granted passives count once, and not again if a career already gives them.
+  const own = new Set(snap.careers.map((cid) => content.careers.get(cid)?.passive));
+  for (const aid of new Set(snap.granted ?? [])) if (!own.has(aid)) add(content.abilities.get(aid)?.passive?.statMods);
   for (const tid of snap.traits) add(content.traits.get(tid)?.statMods);
   for (const eid of [snap.held, snap.accessory]) if (eid) add(content.equipment.get(eid)?.statMods);
   for (const k of STAT_KEYS) s[k] = clamp(s[k], 1, 30);
@@ -363,6 +366,11 @@ function spawnCharacter(w: World, snap: CharacterSnapshot, team: number, x: numb
     for (const t of career.tags) tags.add(t);
     for (const a of [career.active, ...(career.extraActives ?? [])]) if (!allowed || allowed.has(a)) actives.push(a);
     if (!allowed || allowed.has(career.passive)) passives.push(career.passive);
+  }
+  for (const aid of snap.granted ?? []) {
+    const a = c.abilities.get(aid);
+    const list = a?.kind === 'passive' ? passives : actives;
+    if (a && !list.includes(aid)) list.push(aid);
   }
   for (const mid of snap.masteries) {
     const m = c.masteries.get(mid);

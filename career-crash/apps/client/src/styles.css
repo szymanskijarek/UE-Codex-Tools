@@ -2216,3 +2216,82 @@ body:has(.shell.li) {
   box-shadow: none;
   border-width: 1px;
 }
+
+/* Loot (gear dropped by wins) */
+.loot-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  border: 3px solid var(--ink);
+  border-radius: 12px;
+  padding: 8px 10px;
+  margin: 6px 0;
+  background: var(--card);
+}
+
+.loot-card.empty {
+  border-style: dashed;
+  border-color: #c4c4c4;
+  justify-content: center;
+}
+
+.loot-icon {
+  flex: none;
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  border-radius: 10px;
+}
+
+.loot-rarity {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.loot-ability {
+  margin-top: 3px;
+}
+
+.loot-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.loot-actions button {
+  margin: 2px 0;
+  white-space: nowrap;
+}
+
+.loot-odds > div {
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 0.8fr 1.2fr;
+  gap: 6px;
+  padding: 2px 0;
+}
+
+.gear-icons span {
+  display: inline-block;
+  border: 2px solid;
+  border-radius: 6px;
+  padding: 0 2px;
+  margin-left: 2px;
+  font-size: 0.85rem;
+  line-height: 1.2;
+}
+
+@media (max-width: 520px) {
+  .loot-card {
+    flex-wrap: wrap;
+  }
+
+  .loot-actions {
+    flex-direction: row;
+    width: 100%;
+    justify-content: flex-end;
+    gap: 6px;
+  }
+}
