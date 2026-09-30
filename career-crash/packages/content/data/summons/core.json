@@ -12,7 +12,7 @@
    "effects": [
     {
      "type": "knockdown",
-     "chanceBp": 3000
+     "chanceBp": 4000
     }
    ]
   },
@@ -416,7 +416,7 @@
   "aura": [
    {
     "radiusMm": 1000,
-    "everyTicks": 20,
+    "everyTicks": 40,
     "affects": "enemies",
     "effects": [
      {
@@ -478,12 +478,12 @@
   "behaviour": "decoy",
   "hp": 25,
   "speedBp": 8000,
-  "lifetimeTicks": 280,
+  "lifetimeTicks": 200,
   "radiusMm": 260,
   "aura": [
    {
-    "radiusMm": 2500,
-    "everyTicks": 20,
+    "radiusMm": 1500,
+    "everyTicks": 40,
     "affects": "enemies",
     "effects": [
      {
@@ -494,12 +494,16 @@
    }
   ],
   "pop": {
-   "radiusMm": 1500,
+   "radiusMm": 1200,
    "effects": [
     {
      "type": "applyStatus",
-     "status": "status.stunned",
-     "durationTicks": 20
+     "status": "status.distracted",
+     "durationTicks": 30
+    },
+    {
+     "type": "morale",
+     "amount": -5
     }
    ]
   },
@@ -637,7 +641,7 @@
    "effects": [
     {
      "type": "knockdown",
-     "chanceBp": 2000
+     "chanceBp": 1200
     }
    ]
   },

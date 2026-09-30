@@ -248,6 +248,21 @@ Differences from the design above, and what's still to do:
 - **Barrier moves** (Sawhorse Barricade, Load-Bearing Wall, Out of Order) drop a
   crate or sign rather than a wall: the arena has no solid spawnable prop yet.
 - **The bellhop trips people on contact**; he doesn't push a luggage trolley.
+- **Balance tuning** after 1,200-battle runs (the section 4 numbers are the
+  starting points):
+  - Scarab Swarm and School Trip summon 3, not 4.
+  - School kids trip 12% of the time; rabbits 40%.
+  - Scarabs pulse every 2 s.
+  - `jinxed` is ±10% for 4 s.
+  - The balloon dog lasts 10 s, taunts within 1.5 m every 2 s, and its pop
+    distracts rather than stuns.
+  - Flash Sheet is weaker.
+  - Sawhorse Barricade also hits and can trip.
+- **Balance result:**
+  - Every career is within 40–60% except the clown (68%, already 62% before
+    Senior Moves), the tattoo artist (66%, unchanged from before) and the
+    zookeeper and chef (60% and 39%, just outside).
+  - Bosses are unchanged (30–46%).
 - **Not built yet:**
   - The three earnable fear traits.
   - Feed posts about summons.

@@ -43,7 +43,7 @@
    {
     "type": "summon",
     "summon": "summon.scarab",
-    "count": 4
+    "count": 3
    }
   ]
  },
@@ -254,6 +254,15 @@
     "type": "spawnProp",
     "prop": "prop.crate",
     "at": "target"
+   },
+   {
+    "type": "damage",
+    "amount": 6,
+    "damageType": "blunt"
+   },
+   {
+    "type": "knockdown",
+    "chanceBp": 4000
    },
    {
     "type": "applyStatus",
@@ -1744,12 +1753,12 @@
   "effects": [
    {
     "type": "morale",
-    "amount": -10
+    "amount": -6
    },
    {
     "type": "applyStatus",
     "status": "status.armoured",
-    "durationTicks": 100,
+    "durationTicks": 60,
     "toSelf": true
    }
   ]
@@ -1803,7 +1812,7 @@
    {
     "type": "summon",
     "summon": "summon.school-kid",
-    "count": 4
+    "count": 3
    }
   ]
  },
