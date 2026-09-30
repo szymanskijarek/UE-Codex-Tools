@@ -228,6 +228,11 @@ The career ladder gives each arena 4 stages, the last one a boss fight, so the
    its stat perks follow its rank; it gets 4 stat points per career slot it
    gives up; and it is up to 2 levels above the stage.
 4. **Tune** with `pnpm balance --bosses` until the player's win rate is 30–45%.
+5. **Entrance:** every match with a boss opens with the boss introduced on
+   screen and delivering a random line from `boss_intro_<boss>` in `live.json`
+   (12 per boss; the feed line format is `boss_intro_feed`). Bosses are drawn
+   twice the size of other fighters (`BOSS_DRAW_SCALE` in the renderer; their
+   hitbox is unchanged).
 
 ### Adding art for a new career
 

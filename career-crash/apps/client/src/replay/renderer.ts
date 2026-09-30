@@ -28,6 +28,8 @@ import { voiceFor, type Shout, type Voice } from './voices';
 const Y_SQUASH = 0.62;
 const Z_LIFT = 0.55;
 const WALL_H = 1100;
+/** Ladder bosses are drawn this much bigger than everyone else. */
+const BOSS_DRAW_SCALE = 2;
 const TEAM_COLORS = [0x3b82f6, 0xef4444, 0x22c55e, 0xf59e0b, 0xa855f7, 0x14b8a6, 0xec4899, 0x64748b];
 const OUTLINE = 0x1b1f2a;
 const FONT = 'system-ui, -apple-system, "Segoe UI", sans-serif';
@@ -226,6 +228,7 @@ export class BattleRenderer {
   private replayFocus: number[] | null = null;
   private replayBadge: Text | null = null;
   private replayLabel = '● ACTION REPLAY';
+  private replaySub = '½× SLOW-MO';
   /** Replay zoom lens: follows the action on screen when the camera can't (arena edges). */
   private lens: Graphics | null = null;
   private lensPos = { x: 0, y: 0 };
@@ -561,9 +564,10 @@ export class BattleRenderer {
   }
 
   private makeChar(e: FrameEntity): CharSprite {
-    const r = e.r * this.scale;
     const snap = this.snapOf(e);
     const career = bundle.careers.find((c) => c.id === e.def);
+    // Ladder bosses are drawn twice the size (their hitbox in the sim is unchanged).
+    const r = e.r * this.scale * (career?.boss ? BOSS_DRAW_SCALE : 1);
     const isRef = e.kind === 'npc';
     if (isRef) this.refId = e.id;
     const bodyColor = isRef ? 0xffffff : hex(career?.art.color ?? '#999999');
@@ -2356,11 +2360,20 @@ export class BattleRenderer {
    * Action replay mode (slow motion): zoom lens on the given entities,
    * cinematic bars, a REPLAY badge and lower-pitched sound. Pass null to exit.
    */
-  setReplay(ids: number[] | null, label = '● ACTION REPLAY'): void {
+  setReplay(ids: number[] | null, label = '● ACTION REPLAY', sub = '½× SLOW-MO', soundRate = 0.5): void {
     this.replayLabel = label;
+    this.replaySub = sub;
     this.replayFocus = ids;
-    this.sfx.rate = ids ? 0.5 : 1;
+    this.sfx.rate = ids ? soundRate : 1;
     this.drawOverlay();
+  }
+
+  /** Put a speech bubble over a fighter (by entity id), e.g. a boss's entrance line. */
+  speak(id: number, text: string, ms: number): boolean {
+    const s = this.chars.get(id);
+    if (!s) return false;
+    this.say(s, text, ms);
+    return true;
   }
 
   private drawOverlay(): void {
@@ -2380,7 +2393,7 @@ export class BattleRenderer {
     const badge = new Text({ text: this.replayLabel, style: { fontFamily: FONT, fontSize: Math.max(12, bar * 0.45), fontWeight: '900', fill: 0xffffff, letterSpacing: 2 }, resolution: 2 });
     badge.anchor.set(0, 0.5);
     badge.position.set(12, bar / 2);
-    const slow = new Text({ text: '½× SLOW-MO', style: { fontFamily: FONT, fontSize: Math.max(10, bar * 0.35), fontWeight: '800', fill: 0xfde047 }, resolution: 2 });
+    const slow = new Text({ text: this.replaySub, style: { fontFamily: FONT, fontSize: Math.max(10, bar * 0.35), fontWeight: '800', fill: 0xfde047 }, resolution: 2 });
     slow.anchor.set(1, 0.5);
     slow.position.set(sw - 12, sh - bar / 2);
     this.overlay.addChild(g, badge, slow);
@@ -2430,9 +2443,11 @@ export class BattleRenderer {
         y0 = Math.min(y0, c.y);
         y1 = Math.max(y1, c.y);
       }
-      tz = Math.max(1, Math.min(maxZ, sw / (x1 - x0 + pad * 2), sh / (y1 - y0 + pad * 3)));
+      // Leave room above the tallest character (a boss is twice the height) for their head and speech bubble.
+      const top = Math.min(...xs.map((c) => c.y - c.r * 10));
+      tz = Math.max(1, Math.min(maxZ, sw / (x1 - x0 + pad * 2), sh / (y1 - y0 + pad * 3), (sh * 0.8) / (y1 - top + pad * 0.5)));
       tx = (x0 + x1) / 2;
-      ty = (y0 + y1) / 2 - 900 * this.scale;
+      ty = Math.min((y0 + y1) / 2 - 900 * this.scale, (top + y1) / 2);
     };
     if (this.replayFocus) {
       frame([...this.chars.values()].filter((c) => this.replayFocus!.includes(c.id) && c.root.visible), this.compact ? 2.4 : 2.6, 1800 * this.scale);

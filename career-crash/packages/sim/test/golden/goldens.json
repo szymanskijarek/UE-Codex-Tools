@@ -1,12 +1,12 @@
 {
  "simVersion": "0.9.1",
- "contentHash": "c532b025af4044aa",
+ "contentHash": "0ce333be668641ff",
  "cases": [
   {
    "name": "arena.airport-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "e78fe815442a19cb",
     "arenaId": "arena.airport",
@@ -265,7 +265,7 @@
    "name": "arena.airport-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "130dafe166b4ffc",
     "arenaId": "arena.airport",
@@ -518,7 +518,7 @@
    "name": "arena.airport-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "196dafab8b2928a0",
     "arenaId": "arena.airport",
@@ -771,7 +771,7 @@
    "name": "arena.airport-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "aa4c5cdbcd009f1",
     "arenaId": "arena.airport",
@@ -1020,7 +1020,7 @@
    "name": "arena.airport-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "e7b3572412fd6f4",
     "arenaId": "arena.airport",
@@ -1282,7 +1282,7 @@
    "name": "arena.airport-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "f7c0a6eb3c420a9c",
     "arenaId": "arena.airport",
@@ -1677,7 +1677,7 @@
    "name": "arena.airport-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "3dcdf6fe217c7d93",
     "arenaId": "arena.airport",
@@ -2075,7 +2075,7 @@
    "name": "arena.airport-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "34b26a319a491cd8",
     "arenaId": "arena.airport",
@@ -2364,7 +2364,7 @@
    "name": "arena.construction-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "e5d404c1baff6cf2",
     "arenaId": "arena.construction",
@@ -2616,7 +2616,7 @@
    "name": "arena.construction-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "d37092579e094390",
     "arenaId": "arena.construction",
@@ -2866,7 +2866,7 @@
    "name": "arena.construction-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "ef119c884e630bb",
     "arenaId": "arena.construction",
@@ -3117,7 +3117,7 @@
    "name": "arena.construction-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "a9e446455532085a",
     "arenaId": "arena.construction",
@@ -3376,7 +3376,7 @@
    "name": "arena.construction-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "8b05775e9bae3247",
     "arenaId": "arena.construction",
@@ -3628,7 +3628,7 @@
    "name": "arena.construction-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "2e9a959a60ee0e3d",
     "arenaId": "arena.construction",
@@ -4024,7 +4024,7 @@
    "name": "arena.construction-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "d13182ca106255c4",
     "arenaId": "arena.construction",
@@ -4418,7 +4418,7 @@
    "name": "arena.construction-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "68388aab60306d3",
     "arenaId": "arena.construction",
@@ -4707,7 +4707,7 @@
    "name": "arena.diner-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "3a61d0d75aeb8652",
     "arenaId": "arena.diner",
@@ -4962,7 +4962,7 @@
    "name": "arena.diner-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "b80a4ed5a8f03ba2",
     "arenaId": "arena.diner",
@@ -5222,7 +5222,7 @@
    "name": "arena.diner-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "3a8374489539a1fe",
     "arenaId": "arena.diner",
@@ -5475,7 +5475,7 @@
    "name": "arena.diner-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "5fae8acf38f681a4",
     "arenaId": "arena.diner",
@@ -5728,7 +5728,7 @@
    "name": "arena.diner-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "a946e60a39cd4c21",
     "arenaId": "arena.diner",
@@ -5982,7 +5982,7 @@
    "name": "arena.diner-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "fea959419759d29e",
     "arenaId": "arena.diner",
@@ -6380,7 +6380,7 @@
    "name": "arena.diner-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "ddde2e0011e5fb49",
     "arenaId": "arena.diner",
@@ -6771,7 +6771,7 @@
    "name": "arena.diner-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "6f1103f0ad21f524",
     "arenaId": "arena.diner",
@@ -7060,7 +7060,7 @@
    "name": "arena.docks-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "889ff1ea4bd284d6",
     "arenaId": "arena.docks",
@@ -7317,7 +7317,7 @@
    "name": "arena.docks-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "72806976f55cc53",
     "arenaId": "arena.docks",
@@ -7569,7 +7569,7 @@
    "name": "arena.docks-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "8993a8401124d9cb",
     "arenaId": "arena.docks",
@@ -7817,7 +7817,7 @@
    "name": "arena.docks-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "9f81d5802592743c",
     "arenaId": "arena.docks",
@@ -8063,7 +8063,7 @@
    "name": "arena.docks-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "d36abe03765dd29c",
     "arenaId": "arena.docks",
@@ -8320,7 +8320,7 @@
    "name": "arena.docks-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "f7f61a0da7bffbfa",
     "arenaId": "arena.docks",
@@ -8710,7 +8710,7 @@
    "name": "arena.docks-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "4f0aba12456fc7c",
     "arenaId": "arena.docks",
@@ -9103,7 +9103,7 @@
    "name": "arena.docks-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "f2982c037c95522a",
     "arenaId": "arena.docks",
@@ -9384,7 +9384,7 @@
    "name": "arena.hospital-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "f333b854c97a751f",
     "arenaId": "arena.hospital",
@@ -9637,7 +9637,7 @@
    "name": "arena.hospital-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "5bf09ffcd15ccd9e",
     "arenaId": "arena.hospital",
@@ -9885,7 +9885,7 @@
    "name": "arena.hospital-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "c0fd95e8d5b74388",
     "arenaId": "arena.hospital",
@@ -10140,7 +10140,7 @@
    "name": "arena.hospital-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "538cb6d124da7aea",
     "arenaId": "arena.hospital",
@@ -10391,7 +10391,7 @@
    "name": "arena.hospital-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "925d19c047c1b4f9",
     "arenaId": "arena.hospital",
@@ -10645,7 +10645,7 @@
    "name": "arena.hospital-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "d4f3878e5d96a85a",
     "arenaId": "arena.hospital",
@@ -11046,7 +11046,7 @@
    "name": "arena.hospital-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "edc43739627e29f8",
     "arenaId": "arena.hospital",
@@ -11438,7 +11438,7 @@
    "name": "arena.hospital-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "b0fdac7ed78fc2bf",
     "arenaId": "arena.hospital",
@@ -11718,7 +11718,7 @@
    "name": "arena.hotel-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "1440af4efc215946",
     "arenaId": "arena.hotel",
@@ -11966,7 +11966,7 @@
    "name": "arena.hotel-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "3247cdc26041c4d5",
     "arenaId": "arena.hotel",
@@ -12225,7 +12225,7 @@
    "name": "arena.hotel-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "ad3b869d7299f43f",
     "arenaId": "arena.hotel",
@@ -12478,7 +12478,7 @@
    "name": "arena.hotel-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "523c5a29baf9a4b1",
     "arenaId": "arena.hotel",
@@ -12735,7 +12735,7 @@
    "name": "arena.hotel-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "698a02aadffaa676",
     "arenaId": "arena.hotel",
@@ -12998,7 +12998,7 @@
    "name": "arena.hotel-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "ae00756e69da8bbe",
     "arenaId": "arena.hotel",
@@ -13389,7 +13389,7 @@
    "name": "arena.hotel-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "53ae198de36f1ee3",
     "arenaId": "arena.hotel",
@@ -13777,7 +13777,7 @@
    "name": "arena.hotel-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "76349a4b5992cfae",
     "arenaId": "arena.hotel",
@@ -14064,7 +14064,7 @@
    "name": "arena.museum-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "7210c6432db89610",
     "arenaId": "arena.museum",
@@ -14319,7 +14319,7 @@
    "name": "arena.museum-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "e8d05c2b5dedf9a2",
     "arenaId": "arena.museum",
@@ -14576,7 +14576,7 @@
    "name": "arena.museum-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "f0d55a37c9d7a385",
     "arenaId": "arena.museum",
@@ -14824,7 +14824,7 @@
    "name": "arena.museum-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "8840c15446955696",
     "arenaId": "arena.museum",
@@ -15074,7 +15074,7 @@
    "name": "arena.museum-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "2213c43b2434cc26",
     "arenaId": "arena.museum",
@@ -15334,7 +15334,7 @@
    "name": "arena.museum-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "60b6984c20636578",
     "arenaId": "arena.museum",
@@ -15732,7 +15732,7 @@
    "name": "arena.museum-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "e28086ffc4aa3027",
     "arenaId": "arena.museum",
@@ -16133,7 +16133,7 @@
    "name": "arena.museum-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "58fda58f197e847c",
     "arenaId": "arena.museum",
@@ -16411,7 +16411,7 @@
    "name": "arena.office-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "1942b39aeff3f829",
     "arenaId": "arena.office",
@@ -16659,7 +16659,7 @@
    "name": "arena.office-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "5e7b098fded2d143",
     "arenaId": "arena.office",
@@ -16915,7 +16915,7 @@
    "name": "arena.office-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "e9aac648f664d750",
     "arenaId": "arena.office",
@@ -17164,7 +17164,7 @@
    "name": "arena.office-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "a1c6d770c6ab0fd2",
     "arenaId": "arena.office",
@@ -17415,7 +17415,7 @@
    "name": "arena.office-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "ca541a546174fe1c",
     "arenaId": "arena.office",
@@ -17669,7 +17669,7 @@
    "name": "arena.office-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "64179e10dfbbf1c5",
     "arenaId": "arena.office",
@@ -18061,7 +18061,7 @@
    "name": "arena.office-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "6ef4a751697087ad",
     "arenaId": "arena.office",
@@ -18450,7 +18450,7 @@
    "name": "arena.office-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "8ee11f25ead1b54",
     "arenaId": "arena.office",
@@ -18735,7 +18735,7 @@
    "name": "arena.station-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "39da54d6851bbb72",
     "arenaId": "arena.station",
@@ -18987,7 +18987,7 @@
    "name": "arena.station-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "477125d64ef6a78a",
     "arenaId": "arena.station",
@@ -19246,7 +19246,7 @@
    "name": "arena.station-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "2c2c16ed93cd78b1",
     "arenaId": "arena.station",
@@ -19498,7 +19498,7 @@
    "name": "arena.station-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "9fbb78fa6528e32d",
     "arenaId": "arena.station",
@@ -19748,7 +19748,7 @@
    "name": "arena.station-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "2c91d57cf0039afa",
     "arenaId": "arena.station",
@@ -20002,7 +20002,7 @@
    "name": "arena.station-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "6a7c4a0dd39088dc",
     "arenaId": "arena.station",
@@ -20395,7 +20395,7 @@
    "name": "arena.station-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "b6d955d75a278d8",
     "arenaId": "arena.station",
@@ -20786,7 +20786,7 @@
    "name": "arena.station-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "7738c429c9fead84",
     "arenaId": "arena.station",
@@ -21072,7 +21072,7 @@
    "name": "arena.supermarket-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "9ae2eb0a49d70d1c",
     "arenaId": "arena.supermarket",
@@ -21328,7 +21328,7 @@
    "name": "arena.supermarket-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "f27e04ed5de877d6",
     "arenaId": "arena.supermarket",
@@ -21578,7 +21578,7 @@
    "name": "arena.supermarket-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "29fc562148eb9ed3",
     "arenaId": "arena.supermarket",
@@ -21834,7 +21834,7 @@
    "name": "arena.supermarket-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "81a072b6f39a2f04",
     "arenaId": "arena.supermarket",
@@ -22091,7 +22091,7 @@
    "name": "arena.supermarket-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "3092dba1fbfc3c02",
     "arenaId": "arena.supermarket",
@@ -22354,7 +22354,7 @@
    "name": "arena.supermarket-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "15b9ea93d29325f1",
     "arenaId": "arena.supermarket",
@@ -22744,7 +22744,7 @@
    "name": "arena.supermarket-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "e3db234b698108ca",
     "arenaId": "arena.supermarket",
@@ -23137,7 +23137,7 @@
    "name": "arena.supermarket-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "466b3a4eb135955b",
     "arenaId": "arena.supermarket",
@@ -23415,7 +23415,7 @@
    "name": "arena.theatre-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "f0a0ef41c88a702e",
     "arenaId": "arena.theatre",
@@ -23677,7 +23677,7 @@
    "name": "arena.theatre-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "ad1bc98581bf522c",
     "arenaId": "arena.theatre",
@@ -23929,7 +23929,7 @@
    "name": "arena.theatre-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "c61479e87fb91e21",
     "arenaId": "arena.theatre",
@@ -24187,7 +24187,7 @@
    "name": "arena.theatre-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "91218b2557e0350c",
     "arenaId": "arena.theatre",
@@ -24450,7 +24450,7 @@
    "name": "arena.theatre-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "7af2fc83645baf39",
     "arenaId": "arena.theatre",
@@ -24712,7 +24712,7 @@
    "name": "arena.theatre-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "50bc4b1acaf4ad0f",
     "arenaId": "arena.theatre",
@@ -25113,7 +25113,7 @@
    "name": "arena.theatre-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "1ac81d2024711db0",
     "arenaId": "arena.theatre",
@@ -25506,7 +25506,7 @@
    "name": "arena.theatre-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "2c69050bc7592e48",
     "arenaId": "arena.theatre",
@@ -25789,7 +25789,7 @@
    "name": "arena.warehouse-3v3-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "5b996e364e60f073",
     "arenaId": "arena.warehouse",
@@ -26048,7 +26048,7 @@
    "name": "arena.warehouse-3v3-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "cad46a95149c87ab",
     "arenaId": "arena.warehouse",
@@ -26311,7 +26311,7 @@
    "name": "arena.warehouse-3v3-2",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "21e02b481bb06490",
     "arenaId": "arena.warehouse",
@@ -26565,7 +26565,7 @@
    "name": "arena.warehouse-3v3-3",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "988ae79b2e6fdbb5",
     "arenaId": "arena.warehouse",
@@ -26817,7 +26817,7 @@
    "name": "arena.warehouse-3v3-4",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "9b04925ec047f92f",
     "arenaId": "arena.warehouse",
@@ -27068,7 +27068,7 @@
    "name": "arena.warehouse-5v5-0",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "a72133ef261df8f",
     "arenaId": "arena.warehouse",
@@ -27459,7 +27459,7 @@
    "name": "arena.warehouse-5v5-1",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "faa5c995a47ececb",
     "arenaId": "arena.warehouse",
@@ -27860,7 +27860,7 @@
    "name": "arena.warehouse-ffa",
    "input": {
     "schemaVersion": 1,
-    "contentHash": "c532b025af4044aa",
+    "contentHash": "0ce333be668641ff",
     "simVersion": "0.9.1",
     "seed": "dd12d55e1f145330",
     "arenaId": "arena.warehouse",

@@ -15,6 +15,8 @@ const SPEEDS = [1, 2, 4];
 const FEED_MAX = 40;
 const MAX_REPLAYS = 5;
 const REPLAY_SPEED = 0.35;
+/** How long a boss's entrance holds the fight before the first tick. */
+const BOSS_INTRO_MS = 3600;
 const REPLAY_KEY = 'cc.replays';
 
 function readReplayPref(): boolean {
@@ -58,6 +60,29 @@ export function Replay({ battleId }: { battleId?: string }) {
   const [replaysOn, setReplaysOn] = useState(readReplayPref);
   const replaysOnRef = useRef(replaysOn);
   const actionRef = useRef<ActionReplay | null>(null);
+  /** Boss entrance before the first tick: the camera on the boss while they deliver a line. */
+  const introRef = useRef<{ id: number; until: number; line: string; spoken: boolean } | null>(null);
+  const startBossIntro = (player: ReplayPlayer, renderer: BattleRenderer) => {
+    for (const snap of player.input.teams.flatMap((t) => t.characters)) {
+      const job = snap.careers[snap.careers.length - 1] ?? '';
+      if (!bundle.careers.find((c) => c.id === job)?.boss) continue;
+      const ent = player.world.entities.find((e) => e.snapshotId === snap.id);
+      if (!ent) continue;
+      const lines = bundle.live[`boss_intro_${job.replace('career.', '')}`] ?? ['…'];
+      const line = lines[Math.floor(Math.random() * lines.length)]!;
+      introRef.current = { id: ent.id, until: performance.now() + BOSS_INTRO_MS, line, spoken: false };
+      renderer.setReplay([ent.id], '☠ BOSS FIGHT', `${snap.name} · ${nameOf(job)}`, 0.85);
+      const feed = (bundle.live.boss_intro_feed ?? ['{name}: “{line}”'])[0]!;
+      pushLines([{ tick: 0, text: feed.replace('{name}', snap.name).replace('{job}', nameOf(job)).replace('{line}', line), kind: 'boss', importance: 3, actors: [ent.id] }]);
+      return;
+    }
+  };
+  const endBossIntro = (tick: number) => {
+    introRef.current = null;
+    rendererRef.current?.setReplay(null);
+    const go = bundle.live.boss_fight ?? ['Fight!'];
+    pushLines([{ tick, text: go[Math.floor(Math.random() * go.length)]!, kind: 'boss', importance: 3, actors: [] }]);
+  };
   const replayCountRef = useRef(0);
   /** Everything up to this tick has been shown in a replay; sources on cooldown until tick. */
   const coveredRef = useRef(-1);
@@ -143,10 +168,16 @@ export function Replay({ battleId }: { battleId?: string }) {
     let last = performance.now();
     let alive = true;
     void renderer.mount(host.current).then(() => {
+      startBossIntro(player, renderer);
       const loop = (now: number) => {
         if (!alive) return;
         const dt = Math.min(100, now - last);
         last = now;
+        const intro = introRef.current;
+        if (intro) {
+          if (!intro.spoken) intro.spoken = renderer.speak(intro.id, intro.line, BOSS_INTRO_MS - 500);
+          if (now >= intro.until) endBossIntro(player.tick);
+        }
         const ar = actionRef.current;
         // Start a pending action replay once the moment has had a beat to land.
         if (ar && !ar.active && now >= ar.startAt) {
@@ -174,10 +205,10 @@ export function Replay({ battleId }: { battleId?: string }) {
           ]);
         }
         // Hit stop: big impacts freeze the battle for a beat.
-        const flow = renderer.timeScale();
+        const flow = introRef.current ? 0 : renderer.timeScale();
         player.advance(dt * flow);
         const events = player.drainEvents();
-        renderer.render(player, flow ? dt : dt * 0.1, events);
+        renderer.render(player, flow || introRef.current ? dt : dt * 0.1, events);
         if (ar?.active) {
           if (player.tick >= ar.endTick + 18 || player.done) {
             player.seek(ar.returnTick);
@@ -294,6 +325,7 @@ export function Replay({ battleId }: { battleId?: string }) {
   const seek = (t: number) => {
     const player = playerRef.current;
     if (!player) return;
+    if (introRef.current) endBossIntro(player.tick);
     if (actionRef.current) {
       if (actionRef.current.active) player.speed = actionRef.current.prevSpeed;
       actionRef.current = null;
