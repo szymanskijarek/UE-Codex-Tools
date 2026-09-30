@@ -2067,6 +2067,207 @@
    "As a Benefits Manager, I have never been more threatened by a post.",
    "Reminder: perks are non-transferable. Unless you win them off someone. Then they're very transferable."
   ],
+  "summon": [
+   "{a} calls in reinforcements: a {critter}.",
+   "A {critter} appears! {a} looks very pleased with themselves.",
+   "{a} has brought a {critter} to a fist fight."
+  ],
+  "summon_rabbit": [
+   "{a} pulls not one, not two, but three rabbits out of a hat!",
+   "Rabbits! {a}'s hat is apparently bottomless.",
+   "{a}: 'Pick a card.' Three rabbits: 'No.'"
+  ],
+  "summon_black-cat": [
+   "Two black cats slink out from behind {a}. That's bad luck for someone.",
+   "{a} releases the black cats. Nobody walk under a ladder.",
+   "Black cats cross the floor. The other team's luck just ran out."
+  ],
+  "summon_capybara": [
+   "A capybara wanders in, completely unbothered. {a} knew it would come.",
+   "{a}'s capybara arrives and immediately becomes everyone's favourite.",
+   "Enter the capybara. Nothing can hurt it emotionally."
+  ],
+  "summon_dik-dik": [
+   "A dik-dik! Tiny, fast, and nobody knows what it is.",
+   "{a} releases a dik-dik. It is already everywhere.",
+   "That's a dik-dik. Yes, really. Look it up later."
+  ],
+  "summon_poodle": [
+   "{a} unleashes a perfectly groomed poodle. It wants ankles.",
+   "The poodle is out. The bow is pink. The intent is violent.",
+   "{a}'s poodle trots in like it owns the place."
+  ],
+  "summon_goose": [
+   "{a} lets the goose out. Everybody knows what happens now.",
+   "HONK. The goose has entered the arena.",
+   "A goose. {a} has chosen chaos, and so has the goose."
+  ],
+  "summon_crab": [
+   "{a} opens a crab pot. Pinching incoming.",
+   "Two crabs scuttle sideways into the fight. Watch your toes!",
+   "Crabs! {a} came prepared."
+  ],
+  "summon_seagull": [
+   "{a} waves an ice cream cone. The seagulls are here.",
+   "Seagulls! Nothing held in anyone's hands is safe now.",
+   "Two seagulls swoop in. They don't care whose side they're on. Well, they do."
+  ],
+  "summon_pigeon": [
+   "{a} disturbs the pigeons. The pigeons are furious.",
+   "Three pigeons flap into everyone's faces. Classic window-ledge move.",
+   "The pigeons have arrived and they have opinions."
+  ],
+  "summon_lab-rat": [
+   "The lab rats have escaped! {a} looks suspiciously innocent.",
+   "{a} releases three lab rats. Science marches on.",
+   "Lab rats underfoot! This is not in the safety manual."
+  ],
+  "summon_therapy-dog": [
+   "A therapy dog arrives to help {a}'s team talk about their feelings.",
+   "{a}'s therapy dog is here. Enemies are finding it very hard to hit something that sweet.",
+   "Good dog! The therapy dog is on duty."
+  ],
+  "summon_beetle": [
+   "{a} releases three bugs into production. They're features.",
+   "Bugs in the arena! {a} insists they're intentional.",
+   "It's not a bug, it's three bugs. {a} is shipping them anyway."
+  ],
+  "summon_kitchen-rat": [
+   "A rat in a chef's hat joins the fight. {a} calls him 'Chef'.",
+   "Le Petit Chef is in the kitchen, and by kitchen we mean the fight.",
+   "{a}'s kitchen rat has its eye on somebody's lunch."
+  ],
+  "summon_scarab": [
+   "Scarabs pour out of an ancient jar! {a} dug this up earlier.",
+   "The curse of the scarabs is upon us!",
+   "{a} opens something they really shouldn't have. Scarabs."
+  ],
+  "summon_hedgehog": [
+   "A hedgehog wanders in. Please don't punch the hedgehog.",
+   "{a} has deployed a hedgehog. Touching it is a mistake.",
+   "Enter the hedgehog. It's prickly and it knows it."
+  ],
+  "summon_balloon-dog": [
+   "{a} twists up a balloon dog. It's adorable. It's also a bomb.",
+   "A balloon dog joins the team. Someone is going to pop it.",
+   "Squeak squeak squeak. {a}'s balloon dog is ready."
+  ],
+  "summon_butterfly": [
+   "Butterflies flutter out of {a}'s bouquet. Very distracting.",
+   "{a} releases butterflies. The mood improves for one team only.",
+   "Butterflies everywhere! Someone swats at the air."
+  ],
+  "summon_parrot": [
+   "{a}'s parrot lands on the nearest enemy's shoulder and starts talking.",
+   "The parrot is out! It knows everyone's secrets.",
+   "Pieces of eight! The parrot has arrived."
+  ],
+  "summon_drone-pigeon": [
+   "{a} releases the drone pigeons. Birds aren't real. Wake up.",
+   "Surveillance pigeons are overhead. {a} did warn us.",
+   "Those aren't pigeons. {a} knows it. We all know it."
+  ],
+  "summon_school-kid": [
+   "{a} has brought a school trip. Four kids, zero supervision.",
+   "The school trip is here! Somebody count them.",
+   "Children in the arena! {a} calls it 'a learning experience'."
+  ],
+  "summon_fan": [
+   "{a}'s superfans have found the fight. Selfie sticks out!",
+   "Two fans burst in screaming {a}'s name.",
+   "The fans are here. {a} waves like it's a red carpet."
+  ],
+  "summon_paparazzo": [
+   "Paparazzi! Flashbulbs everywhere. {a} tipped them off.",
+   "{a} calls the press. Two photographers arrive in seconds.",
+   "The paparazzi are here and they want a scandal."
+  ],
+  "summon_campaign-volunteer": [
+   "{a}'s campaign volunteers are handing out leaflets. Mid-fight.",
+   "Volunteers! Vote {a}! Nobody asked.",
+   "Two volunteers start canvassing the opposition. Aggressively."
+  ],
+  "summon_tourist": [
+   "{a} leads a guided tour right through the middle of the fight.",
+   "A tour group! Please keep up. Please stop photographing the violence.",
+   "The tour group has stopped to look at something. In everyone's way."
+  ],
+  "summon_audience-member": [
+   "{a} brings in a studio audience. Applause sign: ON.",
+   "The audience is cheering for {a}! And booing everyone else.",
+   "Studio audience, live! {a} works the crowd."
+  ],
+  "summon_intern": [
+   "{a} delegates the fight to the intern.",
+   "The intern has arrived. Nobody told them what this job involves.",
+   "{a}: 'Intern, handle this.' The intern cannot handle this."
+  ],
+  "summon_bellhop": [
+   "{a} rings for the bellhop, who charges in with the luggage.",
+   "Bellhop! Mind your feet, the trolley's coming through!",
+   "The bellhop is here and he is not stopping."
+  ],
+  "summon_paralegal": [
+   "{a}'s paralegal arrives with twelve boxes of discovery.",
+   "Paperwork! The paralegal is spreading documents everywhere.",
+   "{a} files a motion. A paralegal appears with the paperwork."
+  ],
+  "summon_beaten": [
+   "{b} sends the {critter} packing.",
+   "And the {critter} is out of here! {b} shows no mercy.",
+   "{b} deals with the {critter}. Harsh, but fair.",
+   "The {critter} has had enough and bolts.",
+   "{b} clears the {critter} out of the way.",
+   "Poof! The {critter} is gone. {b} looks almost guilty."
+  ],
+  "summon_nip": [
+   "The {critter} gets a nip in on {b}!",
+   "{b} is being harassed by the {critter}.",
+   "The {critter} is all over {b}!",
+   "{b} tries to shake off the {critter}. No luck."
+  ],
+  "fear_panic": [
+   "{a} sees the {critter} and completely loses it!",
+   "{a} was NOT ready for a {critter}. Running!",
+   "The {critter} has sent {a} running for the exit.",
+   "{a} screams at the {critter}. The {critter} is unbothered.",
+   "{a} drops everything. It's the {critter}. It's always the {critter}."
+  ],
+  "fear_dogs": [
+   "{a} has a thing about dogs, and this {critter} knows it.",
+   "Every postal worker's nightmare: a {critter} off the lead!",
+   "{a} backs away from the {critter}. Slowly. Then very quickly."
+  ],
+  "fear_cats": [
+   "{a} is terrified of cats. The {critter} is thrilled.",
+   "A {critter}! {a} has had a bad feeling about cats all along.",
+   "{a} flees the {critter}. The cat does not care."
+  ],
+  "fear_birds": [
+   "{a} hates birds, and the {critter} can tell.",
+   "{a} is being pecked into a panic!",
+   "The {critter} flaps once and {a} is gone."
+  ],
+  "fear_critters": [
+   "{a} spots the {critter} and jumps onto the nearest furniture.",
+   "Eek! {a} is not a {critter} person.",
+   "{a} runs from the {critter}. It's about the size of a shoe."
+  ],
+  "fear_bugs": [
+   "{a} can't stand bugs. The {critter} is right there.",
+   "{a} flails wildly at the {critter}!",
+   "A {critter}! {a} is out of here."
+  ],
+  "fear_crowds": [
+   "Crowds! {a} freezes up like it's opening night.",
+   "{a} has stage fright, and the {critter} is not helping.",
+   "Too many people! {a} needs a quiet room."
+  ],
+  "fear_kids": [
+   "Children! {a} would rather fight anyone else.",
+   "The school kids have {a} completely rattled.",
+   "{a} is overwhelmed by the {critter}. Where is the teacher?"
+  ],
   "feed_c_congrats": [
    "Congrats {first}! 🎉",
    "Well deserved!",

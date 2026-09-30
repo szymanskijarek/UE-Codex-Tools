@@ -65,6 +65,8 @@ export const effectSchema = z.discriminatedUnion('type', [
   }),
   z.object({ type: z.literal('breakProp'), ...effectBase }),
   z.object({ type: z.literal('dropHeld'), ...effectBase }),
+  /** Summon critters next to the caster (05 §3): `count` of `summon`, or of `alt` with `altChanceBp`. */
+  z.object({ type: z.literal('summon'), summon: ref('summon'), count: int.min(1).max(5), alt: ref('summon').optional(), altChanceBp: bp.optional(), ...effectBase }),
 ]);
 export type Effect = z.infer<typeof effectSchema>;
 export type EffectType = Effect['type'];
@@ -169,6 +171,8 @@ export const careerSchema = z.object({
   interactionRules: z.array(ref('rule')).optional(),
   /** Additional signature actives beyond the main one. */
   extraActives: z.array(ref('ability')).optional(),
+  /** Senior Move (05 §2): unlocked at the top rank of the career's skill tree. */
+  senior: ref('ability').optional(),
   defense: defenseSchema.optional(),
   prerequisites: z.object({ anyOf: z.array(z.array(ref('career'))) }).nullable().optional(),
   unlock: z.object({ type: z.enum(['default', 'rep', 'achievement']), cost: int.optional(), achievement: z.string().optional() }),
@@ -452,6 +456,7 @@ export interface ContentBundle {
   synergies: SynergyDef[];
   shopItems: ShopItemDef[];
   loot: LootBaseDef[];
+  summons: SummonDef[];
 }
 
 export const liveSchema = z.object({ templates: z.record(z.string(), z.array(z.string()).min(1)) });
@@ -498,6 +503,36 @@ export const lootBaseSchema = z.object({
 });
 export type LootBaseDef = z.infer<typeof lootBaseSchema>;
 
+/**
+ * Summoned critters (05 §3–4): weak, short-lived fighters on the summoner's
+ * team that distract rather than damage. Never downed, never counted in
+ * results; they bolt when beaten, when their time is up or when their summoner is KO'd.
+ */
+export const summonSchema = z.object({
+  id: ref('summon'),
+  kind: z.enum(['animal', 'human']),
+  behaviour: z.enum(['scatter', 'pester', 'decoy', 'aura', 'entourage']),
+  hp: int.min(1).max(80),
+  /** Walking speed relative to an average fighter (bp). */
+  speedBp: int.min(3000).max(20000),
+  lifetimeTicks: int.min(20).max(600),
+  radiusMm: int.min(100).max(450),
+  /** On an enemy it touches (scatter/pester), at most once per `everyTicks` per critter. */
+  touch: z.object({ everyTicks: int.min(1), effects: z.array(effectSchema) }).optional(),
+  /** Every `everyTicks`, on everyone of `affects` within `radiusMm`. */
+  aura: z.array(z.object({ radiusMm: int.min(100), everyTicks: int.min(1), affects: z.enum(['enemies', 'allies']), effects: z.array(effectSchema) })).optional(),
+  /** Hitting it hurts: a melee attacker takes this much damage. */
+  thorns: int.min(0).optional(),
+  /** When beaten (not when it leaves): effects on enemies within `radiusMm` — a balloon pops. */
+  pop: z.object({ radiusMm: int.min(100), effects: z.array(effectSchema) }).optional(),
+  /** Fighters carrying this fear tag lose morale near it. */
+  scares: tag.optional(),
+  tags: z.array(tag),
+  /** Animals: sprite name in the critter atlas. Humans: outfit colour and a held item. */
+  art: z.object({ sprite: z.string().optional(), color: z.string().regex(/^#[0-9a-f]{6}$/).optional(), held: ref('equipment').optional() }),
+});
+export type SummonDef = z.infer<typeof summonSchema>;
+
 const nameWords = z.array(z.string().min(1).max(40)).min(10).refine((l) => new Set(l).size === l.length, 'duplicate entries');
 export const namesSchema = z.object({ first: nameWords, last: nameWords, prefixes: nameWords, suffixes: nameWords });
 
@@ -517,6 +552,7 @@ export const COLLECTIONS = {
   synergies: synergySchema,
   shopItems: shopItemSchema,
   loot: lootBaseSchema,
+  summons: summonSchema,
 } as const;
 export type CollectionName = keyof typeof COLLECTIONS;
 

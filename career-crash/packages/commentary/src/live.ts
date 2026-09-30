@@ -20,7 +20,7 @@ interface Info {
   job: string;
   careers: string[];
   team: number;
-  kind: 'char' | 'prop' | 'npc';
+  kind: 'char' | 'prop' | 'npc' | 'summon';
   def: string;
 }
 
@@ -65,7 +65,7 @@ export class LiveCommentator {
     const i = this.info.get(id);
     if (!i) return 'someone';
     if (i.kind === 'npc') return 'the referee';
-    if (i.kind === 'prop') return `the ${this.nm(i.def)}`;
+    if (i.kind === 'prop' || i.kind === 'summon') return `the ${this.nm(i.def)}`;
     const plain = this.plainName(i.name);
     const first = plain.split(' ')[0]!;
     // Two fighters with the same first name: use first and last name so lines stay unambiguous.
@@ -155,9 +155,21 @@ export class LiveCommentator {
       case 'propSpawned':
         this.info.set(e.b, { name: e.s, job: '', careers: [], team: -1, kind: 'prop', def: e.s });
         return null;
+      case 'summon': {
+        this.info.set(e.b, { name: this.nm(e.s), job: this.nm(e.s), careers: [], team: ai?.team ?? -1, kind: 'summon', def: e.s });
+        // One line per summoning (the first critter of a batch), specific to the critter if we have lines for it.
+        if (all[e.i - 1]?.type === 'summon' && all[e.i - 1]?.a === e.a) return null;
+        const key = `summon_${e.s.replace('summon.', '')}`;
+        return this.make(e.t, this.bundle.live[key] ? key : 'summon', 2, { ...base, critter: this.nm(e.s) }, [e.a]);
+      }
+      case 'summonGone':
+        if (!ai || e.v !== 1) return null;
+        return this.make(e.t, 'summon_beaten', 1, { ...base, critter: this.nm(ai.def) }, [e.b]);
       case 'hit':
       case 'crit': {
         if (!bi) return null;
+        if (bi.kind === 'summon') return null;
+        if (ai?.kind === 'summon') return this.make(e.t, 'summon_nip', 1, { ...base, critter: this.nm(ai.def) }, [e.b]);
         if (ai?.kind === 'prop' && ai.def === 'prop.floor-scrubber') return this.make(e.t, 'mover_scrubber', 3, base, [e.b]);
         if (ai?.kind === 'prop' && ai.def === 'prop.robot-vacuum') return this.make(e.t, 'mover_vacuum', 2, base, [e.b]);
         if (ai?.kind === 'prop' && this.bundle.live[`mover_${ai.def.replace('prop.', '')}`]) return this.make(e.t, `mover_${ai.def.replace('prop.', '')}`, 3, base, [e.b]);
@@ -169,6 +181,8 @@ export class LiveCommentator {
         return e.v >= 14 && ai?.kind === 'char' ? this.make(e.t, 'hit', 1, base, [e.a, e.b]) : null;
       }
       case 'abilityCast': {
+        // Summoning moves get their line when the critters arrive (the 'summon' event).
+        if (this.bundle.abilities.find((x) => x.id === e.s)?.effects?.some((x) => x.type === 'summon')) return null;
         const specific = `ab_${e.s.replace('ability.', '')}`;
         const slots = { ...base, ability: this.bundle.locale[`${e.s}.name`] ?? e.s };
         // Ability-specific jokes most of the time; generic lines keep some variety.
@@ -228,8 +242,13 @@ export class LiveCommentator {
       case 'revived':
         return this.make(e.t, 'revived', 2, base, [e.a, e.b]);
       case 'panic':
+        if (e.s.startsWith('fear:')) {
+          const key = `fear_${e.s.slice(5)}`;
+          return this.make(e.t, this.bundle.live[key] && this.rng.chance(6000) ? key : 'fear_panic', 2, { ...base, critter: this.nm(bi?.def ?? 'summon.critter') }, [e.a]);
+        }
         return this.make(e.t, 'panic', 2, base, [e.a]);
       case 'taunt':
+        if (ai?.kind === 'summon') return null;
         return e.b < 0 ? this.make(e.t, 'taunt', 1, base, [e.a]) : this.make(e.t, 'taunted', 1, base, [e.a, e.b]);
       case 'foul':
         return this.make(e.t, 'foul', 1, base, [e.b]);

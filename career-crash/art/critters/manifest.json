@@ -1,0 +1,7 @@
+{
+ "rabbit-cat-capybara-dikdik": ["rabbit", "rabbit-b", "black-cat", "black-cat-b", "capybara", "capybara-b", "dik-dik", "dik-dik-b"],
+ "poodle-goose-crab-seagull": ["poodle", "poodle-b", "goose", "goose-b", "crab", "crab-b", "seagull", "seagull-b"],
+ "pigeon-labrat-dog-beetle": ["pigeon", "pigeon-b", "lab-rat", "lab-rat-b", "therapy-dog", "therapy-dog-b", "beetle", "beetle-b"],
+ "rat-scarab-hedgehog-balloon": ["kitchen-rat", "kitchen-rat-b", "scarab", "scarab-b", "hedgehog", "hedgehog-b", "balloon-dog", "balloon-dog-b"],
+ "butterfly-parrot-drone-puff": ["butterfly", "butterfly-b", "parrot", "parrot-b", "drone-pigeon", "drone-pigeon-b", "puff", null]
+}

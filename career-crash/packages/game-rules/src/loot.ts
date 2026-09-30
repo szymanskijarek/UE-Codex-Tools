@@ -44,7 +44,7 @@ export function grantableAbilities(bundle: ContentBundle): Map<string, string> {
     m = new Map();
     for (const c of bundle.careers) {
       if (c.boss || c.deprecated) continue;
-      for (const a of [c.active, ...(c.extraActives ?? []), c.passive]) if (!m.has(a)) m.set(a, c.id);
+      for (const a of [c.active, ...(c.extraActives ?? []), ...(c.senior ? [c.senior] : []), c.passive]) if (!m.has(a)) m.set(a, c.id);
     }
     grantCache.set(bundle, m);
   }

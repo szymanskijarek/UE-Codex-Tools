@@ -2,7 +2,8 @@ import type { Effect, TagMatch } from '@cc/content-schema';
 import { bpMul, clamp, dir1000, dist, idiv, isqrt } from '../core/math';
 import type { Entity, World } from '../types';
 import { explosionHitsWalls } from './destruction';
-import { derived, emit, get, isAlive, removeEntity, spawnProp, statusMod, tagSetMatches, tagsOf } from '../world';
+import { derived, emit, get, isAlive, isFighter, isSummon, removeEntity, spawnProp, statusMod, tagSetMatches, tagsOf } from '../world';
+import { summon, summonGone } from './summons';
 import { maybeDisarm, rearm, releaseChoke } from './weapons';
 
 /** Context for applying an effect: who caused it, and which event it descends from. */
@@ -55,16 +56,26 @@ export function applyDamage(w: World, target: Entity, amount: number, damageType
   if (w.tick >= w.suddenDeathTick && target.kind === 'char') final = bpMul(final, 10000 + 3000 * Math.min(4, 1 + idiv(w.tick - w.suddenDeathTick, 200)));
   final = Math.max(1, final);
   const hitEv = emit(w, crit ? 'crit' : 'hit', sourceId, target.id, final, damageType, cause);
-  if (src && src.kind === 'char') {
+  // Critters don't count: hitting a rabbit isn't damage dealt, and a rabbit's nip isn't a fighter's.
+  if (src && src.kind === 'char' && !isSummon(target)) {
     src.counters.damageDealt += final;
     if (target.kind === 'npc') src.counters.refereeHits++;
     if (target.kind === 'char' && target.team === src.team && target.id !== src.id) src.counters.friendlyHits++;
   }
   target.counters.damageTaken += final;
-  if (src?.kind === 'char' && target.kind === 'char' && src.team !== target.team) banter(w, src, target, hitEv);
+  if (src && isFighter(src) && isFighter(target) && src.team !== target.team) banter(w, src, target, hitEv);
   target.lastHitBy = sourceId;
   target.lastCause = hitEv;
   w.queue.push({ event: 'hit', a: sourceId, b: target.id, status: '', cause: hitEv });
+
+  if (isSummon(target)) {
+    target.hp -= final;
+    // Prickly critters hurt whoever hits them up close.
+    const thorns = w.content.summons.get(target.summonDef)?.thorns ?? 0;
+    if (thorns > 0 && src && isFighter(src) && src.state === 'active' && dist(src.x, src.y, target.x, target.y) < 1800) applyDamage(w, src, thorns, 'sharp', target.id, hitEv, false);
+    if (target.hp <= 0) summonGone(w, target, sourceId, true);
+    return final;
+  }
 
   if (target.kind === 'npc') {
     target.hp -= final;
@@ -129,6 +140,10 @@ export const DOWNED_TICKS = 140;
 
 export function knockOut(w: World, target: Entity, sourceId: number, cause: number): void {
   if (target.state === 'ko') return;
+  if (isSummon(target)) {
+    summonGone(w, target, sourceId, true);
+    return;
+  }
   target.state = 'ko';
   target.hp = 0;
   target.action = null;
@@ -144,7 +159,7 @@ export function knockOut(w: World, target: Entity, sourceId: number, cause: numb
     } else if (w.refereeId >= 0) registerFoul(w, src, 2, koEv);
   }
   for (const e of w.entities) {
-    if (e.kind === 'char' && e.team === target.team && e.id !== target.id && isAlive(e)) {
+    if (isFighter(e) && e.team === target.team && e.id !== target.id && isAlive(e)) {
       e.morale = clamp(e.morale - e.allyKoMoraleLoss, 0, 100);
     }
   }
@@ -164,6 +179,7 @@ export function heal(w: World, target: Entity, amount: number, sourceId: number,
 }
 
 export function registerFoul(w: World, offender: Entity, points: number, cause: number): void {
+  if (isSummon(offender)) return;
   const ref = get(w, w.refereeId);
   if (!ref || ref.state !== 'active') return;
   const cha = offender.stats?.charisma ?? 5;
@@ -462,6 +478,13 @@ export function applyEffect(w: World, eff: Effect, target: Entity, ctx: EffectCt
     case 'energy':
       if (t.kind === 'char') t.energy = clamp(t.energy + eff.amount * 100, 0, t.maxEnergy);
       break;
+    case 'summon': {
+      const caster = src && isFighter(src) ? src : t;
+      const alt = eff.alt && eff.altChanceBp !== undefined && w.rng.chance(eff.altChanceBp) ? eff.alt : undefined;
+      const def = w.content.summons.get(alt ?? eff.summon);
+      if (def) summon(w, caster, def, eff.count, ctx.cause);
+      break;
+    }
     case 'taunt':
       if (t.kind === 'char' && src && src.id !== t.id) {
         const conf = t.stats?.confidence ?? 5;

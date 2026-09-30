@@ -3,7 +3,7 @@ import type { ContentIndex } from './content';
 import type { Rng } from './core/rng';
 import type { NavGrid } from './systems/nav';
 
-export const SIM_VERSION = '0.10.0';
+export const SIM_VERSION = '0.11.0';
 export const TICKS_PER_SECOND = 20;
 export const MAX_TICKS = 2400;
 export const ENTITY_CAP = 256;
@@ -74,6 +74,10 @@ export interface BattleInput {
 // ---------------------------------------------------------------------------
 export type EventType =
   | 'spawn'
+  /** A critter arrives: a = summoner, b = critter, s = summon id. */
+  | 'summon'
+  /** A critter leaves: a = critter, b = whoever beat it (-1), v = 1 beaten, 0 time up / summoner out. */
+  | 'summonGone'
   | 'attack'
   | 'abilityCast'
   | 'hit'
@@ -294,6 +298,11 @@ export interface Entity {
   weapon: string;
   /** Who this character is choking (-1 none). */
   chokeId: number;
+  /** Summoned critters (05 §3): who summoned it (-1 = not a summon), its summon id, when it leaves, next touch tick. */
+  summonOf: number;
+  summonDef: string;
+  expires: number;
+  touchAt: number;
 }
 
 export interface World {

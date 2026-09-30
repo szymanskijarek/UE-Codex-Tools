@@ -114,6 +114,8 @@ export function skillTree(bundle: ContentBundle, careerId: string): SkillNode[] 
   const cap: Partial<Stats> = {};
   for (const k of topStats(c)) cap[k] = 1;
   nodes.push({ id: id('capstone'), career: careerId, tier: 4, kind: 'capstone', cost: 2, rank: 4, requires: [id('stat-b'), ...(extras[1] ? [id('extra-1')] : [])], stats: cap, label: `Mastery: +1 ${(Object.keys(cap) as StatKey[]).map((k) => STAT_LABEL[k]).join(', ')}` });
+  // Senior Move (05 §2): the reward for mastering a career, next to the capstone.
+  if (c.senior) nodes.push({ id: id('senior'), career: careerId, tier: 4, kind: 'ability', cost: 2, rank: 4, requires: [id('stat-b'), ...(extras[1] ? [id('extra-1')] : extras[0] ? [id('extra-0')] : [])], ability: c.senior, label: 'Senior Move' });
   return nodes;
 }
 

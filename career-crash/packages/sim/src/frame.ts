@@ -67,7 +67,8 @@ export function frameOf(w: World): Frame {
       action: e.action ? (e.action.kind === 'ability' ? e.action.abilityId : e.action.kind) + ':' + e.action.phase : '',
       target: e.action?.targetId ?? -1,
       held: e.heldId,
-      weapon: e.weapon,
+      // Human summons carry their prop for show (the sim gives them no weapon).
+      weapon: e.weapon || (e.summonOf >= 0 ? (w.content.summons.get(e.summonDef)?.art.held ?? '') : ''),
       riding: e.rideId,
       panicking: e.panicking,
       flying: e.flying,

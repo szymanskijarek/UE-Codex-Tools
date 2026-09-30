@@ -1,6 +1,6 @@
 # 05 — Summons and Senior Moves (design v0.1)
 
-Status: design, not built. Covers one new move for every career ("Senior
+Status: **built** (sim 0.11.0). Covers one new move for every career ("Senior
 Move"), a summoning mechanic used by about a third of them, and fears that let
 summons cause panic. The last section lists the art and text this needs.
 
@@ -230,6 +230,28 @@ Per AGENTS.md rule 5 (schema, implementation, test, content example):
 6. **Balance:** a `--summons` report comparing each summon move's win rate
    with the career's other moves; property tests for the caps and lifetimes,
    and a check that critters never appear in results.
+
+## 6b. As built
+
+Differences from the design above, and what's still to do:
+
+- **Fear panic is a short `spooked` status**, not morale drain: morale has a
+  floor from Confidence, so draining it rarely reached panic. A fighter who
+  fears a critter within 2.5 m has a 35% chance a second (Cowards 18%) to drop
+  what they hold and run for 2.5 s.
+- **Critters dodge and don't draw fire:**
+  - Animals evade 10–45% of melee blows, the faster the more.
+  - Fighters rarely pick a critter as a target unless it's in their face or
+    taunting them.
+  - Thrown objects fly over animals.
+  - Without this, a poodle lasted a third of a second.
+- **Barrier moves** (Sawhorse Barricade, Load-Bearing Wall, Out of Order) drop a
+  crate or sign rather than a wall: the arena has no solid spawnable prop yet.
+- **The bellhop trips people on contact**; he doesn't push a luggage trolley.
+- **Not built yet:**
+  - The three earnable fear traits.
+  - Feed posts about summons.
+  - A `--summons` balance report.
 
 ## 7. Content requirements
 

@@ -55,7 +55,7 @@ function sum(mods: StatMods | undefined, positiveOnly = false): number {
 }
 
 /** Walks any value and reports referenced status/prop ids inside effects. */
-function collectEffectRefs(v: unknown, out: { statuses: Set<string>; props: Set<string> }): void {
+function collectEffectRefs(v: unknown, out: { statuses: Set<string>; props: Set<string>; summons?: Set<string> }): void {
   if (Array.isArray(v)) {
     for (const x of v) collectEffectRefs(x, out);
     return;
@@ -65,6 +65,7 @@ function collectEffectRefs(v: unknown, out: { statuses: Set<string>; props: Set<
     if (typeof o.type === 'string') {
       if ((o.type === 'applyStatus' || o.type === 'removeStatus') && typeof o.status === 'string') out.statuses.add(o.status);
       if (o.type === 'spawnProp' && typeof o.prop === 'string') out.props.add(o.prop);
+      if (o.type === 'summon' && out.summons) for (const k of ['summon', 'alt']) if (typeof o[k] === 'string') out.summons.add(o[k]);
     }
     for (const x of Object.values(o)) collectEffectRefs(x, out);
   }
@@ -148,6 +149,7 @@ export function compileContent(dataDir: string): CompileResult {
     synergies: collections.synergies as ContentBundle['synergies'],
     shopItems: collections.shopItems as ContentBundle['shopItems'],
     loot: collections.loot as ContentBundle['loot'],
+    summons: collections.summons as ContentBundle['summons'],
   };
 
   errors.push(...validateBundle(bundle));
@@ -179,6 +181,7 @@ export function validateBundle(b: ContentBundle): string[] {
     needAbility(c.id, c.passive, 'passive');
     needAbility(c.id, c.active, 'active');
     for (const a of c.extraActives ?? []) needAbility(c.id, a, 'active');
+    if (c.senior) needAbility(c.id, c.senior, 'active');
     if (c.art.heldItem && !equipment.has(c.art.heldItem)) errors.push(`${c.id}: unknown held item ${c.art.heldItem}`);
     for (const group of c.prerequisites?.anyOf ?? []) for (const p of group) if (!careers.has(p)) errors.push(`${c.id}: unknown prerequisite ${p}`);
     for (const r of c.interactionRules ?? []) if (!b.rules.some((x) => x.id === r)) errors.push(`${c.id}: unknown rule ${r}`);
@@ -240,21 +243,28 @@ export function validateBundle(b: ContentBundle): string[] {
   for (const r of b.rules) if (r.when.status && !statuses.has(r.when.status)) errors.push(`${r.id}: unknown status ${r.when.status}`);
 
   // Effects anywhere in content must reference existing statuses/props.
-  const refs = { statuses: new Set<string>(), props: new Set<string>() };
-  collectEffectRefs([b.statuses, b.abilities, b.props, b.rules, b.arenas, b.equipment, b.synergies, b.shopItems], refs);
+  const refs = { statuses: new Set<string>(), props: new Set<string>(), summons: new Set<string>() };
+  collectEffectRefs([b.statuses, b.abilities, b.props, b.rules, b.arenas, b.equipment, b.synergies, b.shopItems, b.summons], refs);
   for (const s of refs.statuses) if (!statuses.has(s)) errors.push(`effect references unknown status ${s}`);
   for (const p of refs.props) if (!props.has(p)) errors.push(`effect references unknown prop ${p}`);
+  const summonIds = new Set(b.summons.map((x) => x.id));
+  for (const x of refs.summons) if (!summonIds.has(x)) errors.push(`effect references unknown summon ${x}`);
+  for (const x of b.summons) {
+    if (x.art.held && !b.equipment.some((e) => e.id === x.art.held)) errors.push(`${x.id}: unknown held item ${x.art.held}`);
+    if (x.kind === 'animal' && !x.art.sprite) errors.push(`${x.id}: animals need art.sprite`);
+  }
 
   // Tag vocabulary (01 §5.2): every used tag must be declared.
   const used = new Set<string>();
-  collectTags([b.statuses, b.abilities, b.careers, b.props, b.rules, b.traits, b.equipment], used);
+  collectTags([b.statuses, b.abilities, b.careers, b.props, b.rules, b.traits, b.equipment, b.summons], used);
+  for (const x of b.summons) if (x.scares) used.add(x.scares);
   for (const t of [...used].sort()) if (!tagVocab.has(t)) errors.push(`tag "${t}" is used but not declared in tags.json`);
 
   // Locale coverage.
   const needKey = (k: string): void => {
     if (!(k in b.locale)) errors.push(`locale: missing key ${k}`);
   };
-  for (const coll of [b.statuses, b.abilities, b.careers, b.masteries, b.props, b.arenas, b.personalities, b.traits, b.equipment, b.shopItems, b.loot]) for (const x of coll) needKey(`${x.id}.name`);
+  for (const coll of [b.statuses, b.abilities, b.careers, b.masteries, b.props, b.arenas, b.personalities, b.traits, b.equipment, b.shopItems, b.loot, b.summons]) for (const x of coll) needKey(`${x.id}.name`);
   for (const it of b.shopItems) {
     needKey(`${it.id}.desc`);
     if (it.kind === 'consumable' && (!it.trigger || !it.effects?.length)) errors.push(`${it.id}: consumables need a trigger and effects`);

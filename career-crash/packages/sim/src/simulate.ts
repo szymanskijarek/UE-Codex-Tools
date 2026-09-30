@@ -10,7 +10,8 @@ import { resources, useConsumables } from './systems/resources';
 import { chokes } from './systems/weapons';
 import { processRules } from './systems/rules';
 import { MAX_TICKS, type BattleInput, type BattleOutput, type BattleResult, type Entity, type World } from './types';
-import { createWorld, emit, announceRivalries } from './world';
+import { createWorld, emit, announceRivalries, isFighter } from './world';
+import { summonsTick } from './systems/summons';
 
 /** Canonical serialization of world state for hashing (01 §4.3). */
 export function serializeState(w: World): string {
@@ -29,7 +30,7 @@ export function stateHash(w: World): string {
 }
 
 function teamAlive(w: World, team: number): boolean {
-  for (const e of w.entities) if (e.kind === 'char' && e.team === team && e.state === 'active') return true;
+  for (const e of w.entities) if (isFighter(e) && e.team === team && e.state === 'active') return true;
   return false;
 }
 
@@ -37,7 +38,7 @@ function teamHpBp(w: World, team: number): number {
   let hp = 0;
   let max = 0;
   for (const e of w.entities) {
-    if (e.kind !== 'char' || e.team !== team) continue;
+    if (!isFighter(e) || e.team !== team) continue;
     max += e.maxHp;
     if (e.state === 'active') hp += e.hp;
   }
@@ -48,7 +49,7 @@ function mvpOf(w: World, winner: number): number {
   let best = -1;
   let bestScore = -1;
   for (const e of w.entities) {
-    if (e.kind !== 'char') continue;
+    if (!isFighter(e)) continue;
     const c = e.counters;
     let s = c.kos * 100 + c.damageDealt + c.healing * 2 + c.revives * 80 - c.friendlyHits * 10;
     if (e.team === winner) s += 50;
@@ -61,7 +62,7 @@ function mvpOf(w: World, winner: number): number {
 }
 
 function finish(w: World, winner: number, reason: BattleResult['reason']): void {
-  const chars = w.entities.filter((e): e is Entity => e.kind === 'char');
+  const chars = w.entities.filter((e): e is Entity => isFighter(e));
   const teamHp = Array.from({ length: w.teamCount }, (_, t) => teamHpBp(w, t));
   w.result = {
     winner,
@@ -131,6 +132,7 @@ export function step(w: World): void {
   processRules(w);
   tickStatuses(w);
   resources(w);
+  summonsTick(w);
   useConsumables(w);
   chokes(w);
   propsTick(w);

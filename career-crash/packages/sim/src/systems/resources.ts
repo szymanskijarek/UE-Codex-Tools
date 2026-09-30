@@ -1,12 +1,12 @@
 import { clamp, dist } from '../core/math';
 import type { World } from '../types';
-import { derived, emit } from '../world';
+import { derived, emit, isSummon } from '../world';
 import { applyEffect, dropHeld, knockOut } from './effects';
 
 /** Energy regen, morale drift and panic, downed timers (02 §5.4–5.5). */
 export function resources(w: World): void {
   for (const e of w.entities) {
-    if (e.kind !== 'char' || e.removed || e.state === 'ko') continue;
+    if (e.kind !== 'char' || e.removed || e.state === 'ko' || isSummon(e)) continue;
     if (e.state === 'downed') {
       e.downTimer--;
       if (e.downTimer <= 0) knockOut(w, e, e.lastHitBy, e.lastCause);

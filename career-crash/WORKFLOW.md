@@ -90,6 +90,7 @@ source files in `art/`; the art pipeline turns them into the game's atlases
 | Props / items | Sheet of small props, 2 rows (3 or 4 per row) | `art/items/<name>.png` + `manifest.json` |
 | Character body (career or boss) | Posed figure on the left, the same figure cut into parts on the right (head, torso, pelvis, upper arms, forearms with hands, thighs, shins, feet) | `art/sheets/<career>.png` |
 | Faces | Four emotion sheets (neutral, angry, surprised, hurt), heads in a grid | `art/faces/`, `art/faces-b/` |
+| Summoned animal | 256 px cells, 2 rows × 4: pose A standing, pose B moving, facing right, feet at the bottom | `art/critters/<sheet>.png` + `manifest.json` |
 
 Check each import: the slicers write labelled previews to
 `tools/art-pipeline/out/`. Fix mislabelled or merged parts in the sheet's
@@ -112,6 +113,11 @@ compresses them (WebP, palette-quantised).
   (placeholder rules are in `PIPELINES.md` §1).
 - **Career banter:** `data/synergies/`.
 - **Company name words** (the adjective, noun and suffix players pick from): `packages/game-rules/src/company.ts`.
+- **Summons** (critters that Senior Moves call in): `data/summons/` — health, speed, lifetime,
+  behaviour (scatter, pester, decoy, aura, entourage), touch and aura effects, and which fear they
+  trigger. Fighters get fears from career tags (`fear:dogs` …); `animal-friend` careers are left
+  alone. Design and numbers: `docs/career-crash/05-summons-and-senior-moves.md`.
+- **Senior Moves:** the `senior` field on each career (rank 4 in the skill tree).
 - **Loot** ("Perks & Benefits" in the game; items dropped by wins, assignable to you and every hire): kinds of item in `packages/content/data/loot/` (icon plus the stats it
   favours, name in the locale); rarity points, drop odds, ability chances, sell prices, bag size and opponent
   gear in `economy.json` → `loot`. Rules and the server-side validity check are in `packages/game-rules/src/loot.ts`.
@@ -124,7 +130,7 @@ compresses them (WebP, palette-quantised).
   *Adding art for a new career*) and AGENTS.md *Common tasks*.
 
 **Current scale:** 66 careers plus 12 ladder bosses, 12 arenas (48-stage ladder), 101
-props, 272 abilities.
+props, 344 abilities (every career has a Senior Move), 28 summoned critters.
 
 ## Tools
 

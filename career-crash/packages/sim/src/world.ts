@@ -1,6 +1,6 @@
 import { initWalls } from './systems/destruction';
 import { layoutArena } from './layout';
-import type { AttackDef, ContentBundle, Goal, Stats, TagMatch } from '@cc/content-schema';
+import type { AttackDef, ContentBundle, Goal, Stats, SummonDef, TagMatch } from '@cc/content-schema';
 import { GOALS, STAT_KEYS } from '@cc/content-schema/constants';
 import { indexContent, must, type ContentIndex } from './content';
 import { clamp, idiv } from './core/math';
@@ -143,7 +143,21 @@ function blankEntity(id: number, kind: Entity['kind'], def: string): Entity {
     consumables: [],
     weapon: '',
     chokeId: -1,
+    summonOf: -1,
+    summonDef: '',
+    expires: 0,
+    touchAt: 0,
   };
+}
+
+/** Summoned critters (05 §3) are characters for movement and hits, but never count as fighters. */
+export function isSummon(e: Entity): boolean {
+  return e.summonOf >= 0;
+}
+
+/** A real fighter: a character that isn't a summoned critter. */
+export function isFighter(e: Entity): boolean {
+  return e.kind === 'char' && e.summonOf < 0;
 }
 
 export function emit(w: World, type: EventType, a: number, b: number, v = 0, s = '', cause = -1): number {
@@ -364,7 +378,7 @@ function spawnCharacter(w: World, snap: CharacterSnapshot, team: number, x: numb
   for (const cid of snap.careers) {
     const career = must(c.careers, cid, 'career');
     for (const t of career.tags) tags.add(t);
-    for (const a of [career.active, ...(career.extraActives ?? [])]) if (!allowed || allowed.has(a)) actives.push(a);
+    for (const a of [career.active, ...(career.extraActives ?? []), ...(career.senior ? [career.senior] : [])]) if (!allowed || allowed.has(a)) actives.push(a);
     if (!allowed || allowed.has(career.passive)) passives.push(career.passive);
   }
   for (const aid of snap.granted ?? []) {
@@ -436,6 +450,41 @@ function spawnCharacter(w: World, snap: CharacterSnapshot, team: number, x: numb
   e.decideAt = team * 2 + (e.id % 5);
   addEntity(w, e);
   return e;
+}
+
+/**
+ * A summoned critter (05 §3): a light character on its summoner's team. It walks,
+ * gets hit, slips and flies like anyone else, but has no abilities, items or
+ * morale, and never counts as a fighter (see isFighter).
+ */
+export function spawnSummonEntity(w: World, def: SummonDef, owner: Entity, x: number, y: number): Entity | null {
+  const e = blankEntity(w.nextId++, 'char', def.id);
+  e.name = w.content.bundle.locale[`${def.id}.name`] ?? def.id;
+  e.team = owner.team;
+  e.x = x;
+  e.y = y;
+  e.fx = owner.fx;
+  e.fy = owner.fy;
+  e.radius = def.radiusMm;
+  e.weightG = def.kind === 'animal' ? 6000 : 60000;
+  const stats = Object.fromEntries(STAT_KEYS.map((k) => [k, 5])) as Stats;
+  // derived.speed = 150 + 10 × speed; an average fighter walks at 200 mm/tick.
+  stats.speed = idiv(idiv(200 * def.speedBp, 10000) - 150, 10);
+  e.stats = stats;
+  e.maxHp = def.hp;
+  e.hp = def.hp;
+  e.morale = 100;
+  e.moraleFloor = 100;
+  // Small, quick animals are hard to land a blow on; people and slow animals aren't.
+  e.evadeBp = def.kind === 'animal' ? clamp(idiv(def.speedBp * 3, 10) - 500, 1000, 4500) : 1000;
+  e.baseTags = [...new Set(['char', 'summon', `summon:${def.kind}`, ...def.tags])].sort(cmpStr);
+  e.snapshotId = `${def.id}#${e.id}`;
+  e.summonOf = owner.id;
+  e.summonDef = def.id;
+  e.expires = w.tick + def.lifetimeTicks;
+  e.touchAt = w.tick + 10;
+  e.decideAt = w.tick + 1;
+  return addEntity(w, e);
 }
 
 /** One second in, rivals from earlier fights spot each other (02 §8.6). */

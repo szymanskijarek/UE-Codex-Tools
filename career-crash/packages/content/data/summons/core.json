@@ -1,0 +1,909 @@
+[
+ {
+  "id": "summon.rabbit",
+  "kind": "animal",
+  "behaviour": "scatter",
+  "hp": 15,
+  "speedBp": 14000,
+  "lifetimeTicks": 200,
+  "radiusMm": 200,
+  "touch": {
+   "everyTicks": 20,
+   "effects": [
+    {
+     "type": "knockdown",
+     "chanceBp": 3000
+    }
+   ]
+  },
+  "scares": "fear:critters",
+  "tags": [
+   "animal",
+   "critter"
+  ],
+  "art": {
+   "sprite": "rabbit"
+  }
+ },
+ {
+  "id": "summon.black-cat",
+  "kind": "animal",
+  "behaviour": "aura",
+  "hp": 20,
+  "speedBp": 12000,
+  "lifetimeTicks": 240,
+  "radiusMm": 220,
+  "aura": [
+   {
+    "radiusMm": 1500,
+    "everyTicks": 20,
+    "affects": "enemies",
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.jinxed"
+     }
+    ]
+   }
+  ],
+  "scares": "fear:cats",
+  "tags": [
+   "animal",
+   "cat"
+  ],
+  "art": {
+   "sprite": "black-cat"
+  }
+ },
+ {
+  "id": "summon.capybara",
+  "kind": "animal",
+  "behaviour": "decoy",
+  "hp": 60,
+  "speedBp": 6000,
+  "lifetimeTicks": 320,
+  "radiusMm": 320,
+  "aura": [
+   {
+    "radiusMm": 2500,
+    "everyTicks": 20,
+    "affects": "enemies",
+    "effects": [
+     {
+      "type": "taunt",
+      "ticks": 30
+     }
+    ]
+   },
+   {
+    "radiusMm": 2000,
+    "everyTicks": 20,
+    "affects": "allies",
+    "effects": [
+     {
+      "type": "morale",
+      "amount": 2
+     }
+    ]
+   }
+  ],
+  "tags": [
+   "animal",
+   "critter"
+  ],
+  "art": {
+   "sprite": "capybara"
+  }
+ },
+ {
+  "id": "summon.dik-dik",
+  "kind": "animal",
+  "behaviour": "scatter",
+  "hp": 20,
+  "speedBp": 17000,
+  "lifetimeTicks": 240,
+  "radiusMm": 220,
+  "touch": {
+   "everyTicks": 20,
+   "effects": [
+    {
+     "type": "knockdown",
+     "chanceBp": 4500
+    }
+   ]
+  },
+  "scares": "fear:critters",
+  "tags": [
+   "animal",
+   "critter"
+  ],
+  "art": {
+   "sprite": "dik-dik"
+  }
+ },
+ {
+  "id": "summon.poodle",
+  "kind": "animal",
+  "behaviour": "pester",
+  "hp": 30,
+  "speedBp": 13000,
+  "lifetimeTicks": 280,
+  "radiusMm": 250,
+  "touch": {
+   "everyTicks": 20,
+   "effects": [
+    {
+     "type": "damage",
+     "amount": 2,
+     "damageType": "blunt"
+    },
+    {
+     "type": "applyStatus",
+     "status": "status.slowed",
+     "durationTicks": 20
+    }
+   ]
+  },
+  "scares": "fear:dogs",
+  "tags": [
+   "animal",
+   "dog"
+  ],
+  "art": {
+   "sprite": "poodle"
+  }
+ },
+ {
+  "id": "summon.goose",
+  "kind": "animal",
+  "behaviour": "pester",
+  "hp": 35,
+  "speedBp": 12000,
+  "lifetimeTicks": 280,
+  "radiusMm": 260,
+  "touch": {
+   "everyTicks": 60,
+   "effects": [
+    {
+     "type": "applyStatus",
+     "status": "status.stunned",
+     "durationTicks": 10
+    },
+    {
+     "type": "damage",
+     "amount": 2,
+     "damageType": "blunt"
+    }
+   ]
+  },
+  "scares": "fear:birds",
+  "tags": [
+   "animal",
+   "bird"
+  ],
+  "art": {
+   "sprite": "goose"
+  }
+ },
+ {
+  "id": "summon.crab",
+  "kind": "animal",
+  "behaviour": "pester",
+  "hp": 20,
+  "speedBp": 7000,
+  "lifetimeTicks": 280,
+  "radiusMm": 180,
+  "touch": {
+   "everyTicks": 20,
+   "effects": [
+    {
+     "type": "damage",
+     "amount": 2,
+     "damageType": "blunt"
+    },
+    {
+     "type": "applyStatus",
+     "status": "status.slowed",
+     "durationTicks": 20
+    }
+   ]
+  },
+  "scares": "fear:critters",
+  "tags": [
+   "animal",
+   "critter"
+  ],
+  "art": {
+   "sprite": "crab"
+  }
+ },
+ {
+  "id": "summon.seagull",
+  "kind": "animal",
+  "behaviour": "pester",
+  "hp": 15,
+  "speedBp": 15000,
+  "lifetimeTicks": 240,
+  "radiusMm": 220,
+  "touch": {
+   "everyTicks": 30,
+   "effects": [
+    {
+     "type": "dropHeld",
+     "chanceBp": 2500
+    },
+    {
+     "type": "damage",
+     "amount": 1,
+     "damageType": "blunt"
+    }
+   ]
+  },
+  "scares": "fear:birds",
+  "tags": [
+   "animal",
+   "bird"
+  ],
+  "art": {
+   "sprite": "seagull"
+  }
+ },
+ {
+  "id": "summon.pigeon",
+  "kind": "animal",
+  "behaviour": "aura",
+  "hp": 15,
+  "speedBp": 13000,
+  "lifetimeTicks": 200,
+  "radiusMm": 200,
+  "aura": [
+   {
+    "radiusMm": 1000,
+    "everyTicks": 20,
+    "affects": "enemies",
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.distracted",
+      "durationTicks": 30
+     }
+    ]
+   }
+  ],
+  "scares": "fear:birds",
+  "tags": [
+   "animal",
+   "bird"
+  ],
+  "art": {
+   "sprite": "pigeon"
+  }
+ },
+ {
+  "id": "summon.lab-rat",
+  "kind": "animal",
+  "behaviour": "scatter",
+  "hp": 15,
+  "speedBp": 15000,
+  "lifetimeTicks": 200,
+  "radiusMm": 160,
+  "touch": {
+   "everyTicks": 20,
+   "effects": [
+    {
+     "type": "knockdown",
+     "chanceBp": 2500
+    }
+   ]
+  },
+  "scares": "fear:critters",
+  "tags": [
+   "animal",
+   "critter"
+  ],
+  "art": {
+   "sprite": "lab-rat"
+  }
+ },
+ {
+  "id": "summon.therapy-dog",
+  "kind": "animal",
+  "behaviour": "decoy",
+  "hp": 50,
+  "speedBp": 9000,
+  "lifetimeTicks": 320,
+  "radiusMm": 300,
+  "aura": [
+   {
+    "radiusMm": 2500,
+    "everyTicks": 20,
+    "affects": "enemies",
+    "effects": [
+     {
+      "type": "taunt",
+      "ticks": 30
+     }
+    ]
+   },
+   {
+    "radiusMm": 2000,
+    "everyTicks": 40,
+    "affects": "allies",
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.regen",
+      "durationTicks": 40
+     }
+    ]
+   }
+  ],
+  "scares": "fear:dogs",
+  "tags": [
+   "animal",
+   "dog"
+  ],
+  "art": {
+   "sprite": "therapy-dog"
+  }
+ },
+ {
+  "id": "summon.beetle",
+  "kind": "animal",
+  "behaviour": "scatter",
+  "hp": 15,
+  "speedBp": 11000,
+  "lifetimeTicks": 200,
+  "radiusMm": 150,
+  "touch": {
+   "everyTicks": 20,
+   "effects": [
+    {
+     "type": "applyStatus",
+     "status": "status.distracted",
+     "durationTicks": 40
+    }
+   ]
+  },
+  "scares": "fear:bugs",
+  "tags": [
+   "animal",
+   "bug"
+  ],
+  "art": {
+   "sprite": "beetle"
+  }
+ },
+ {
+  "id": "summon.kitchen-rat",
+  "kind": "animal",
+  "behaviour": "pester",
+  "hp": 20,
+  "speedBp": 14000,
+  "lifetimeTicks": 240,
+  "radiusMm": 170,
+  "touch": {
+   "everyTicks": 40,
+   "effects": [
+    {
+     "type": "dropHeld",
+     "chanceBp": 3500
+    },
+    {
+     "type": "damage",
+     "amount": 1,
+     "damageType": "blunt"
+    }
+   ]
+  },
+  "scares": "fear:critters",
+  "tags": [
+   "animal",
+   "critter"
+  ],
+  "art": {
+   "sprite": "kitchen-rat"
+  }
+ },
+ {
+  "id": "summon.scarab",
+  "kind": "animal",
+  "behaviour": "aura",
+  "hp": 10,
+  "speedBp": 11000,
+  "lifetimeTicks": 160,
+  "radiusMm": 150,
+  "aura": [
+   {
+    "radiusMm": 1000,
+    "everyTicks": 20,
+    "affects": "enemies",
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.slowed",
+      "durationTicks": 20
+     },
+     {
+      "type": "damage",
+      "amount": 1,
+      "damageType": "blunt"
+     }
+    ]
+   }
+  ],
+  "scares": "fear:bugs",
+  "tags": [
+   "animal",
+   "bug"
+  ],
+  "art": {
+   "sprite": "scarab"
+  }
+ },
+ {
+  "id": "summon.hedgehog",
+  "kind": "animal",
+  "behaviour": "decoy",
+  "hp": 45,
+  "speedBp": 5000,
+  "lifetimeTicks": 320,
+  "radiusMm": 240,
+  "aura": [
+   {
+    "radiusMm": 2500,
+    "everyTicks": 20,
+    "affects": "enemies",
+    "effects": [
+     {
+      "type": "taunt",
+      "ticks": 30
+     }
+    ]
+   }
+  ],
+  "thorns": 5,
+  "scares": "fear:critters",
+  "tags": [
+   "animal",
+   "critter"
+  ],
+  "art": {
+   "sprite": "hedgehog"
+  }
+ },
+ {
+  "id": "summon.balloon-dog",
+  "kind": "animal",
+  "behaviour": "decoy",
+  "hp": 25,
+  "speedBp": 8000,
+  "lifetimeTicks": 280,
+  "radiusMm": 260,
+  "aura": [
+   {
+    "radiusMm": 2500,
+    "everyTicks": 20,
+    "affects": "enemies",
+    "effects": [
+     {
+      "type": "taunt",
+      "ticks": 30
+     }
+    ]
+   }
+  ],
+  "pop": {
+   "radiusMm": 1500,
+   "effects": [
+    {
+     "type": "applyStatus",
+     "status": "status.stunned",
+     "durationTicks": 20
+    }
+   ]
+  },
+  "tags": [
+   "animal",
+   "balloon"
+  ],
+  "art": {
+   "sprite": "balloon-dog"
+  }
+ },
+ {
+  "id": "summon.butterfly",
+  "kind": "animal",
+  "behaviour": "aura",
+  "hp": 10,
+  "speedBp": 10000,
+  "lifetimeTicks": 200,
+  "radiusMm": 150,
+  "aura": [
+   {
+    "radiusMm": 1000,
+    "everyTicks": 20,
+    "affects": "enemies",
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.distracted",
+      "durationTicks": 30
+     }
+    ]
+   },
+   {
+    "radiusMm": 1500,
+    "everyTicks": 40,
+    "affects": "allies",
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.inspired",
+      "durationTicks": 40
+     }
+    ]
+   }
+  ],
+  "scares": "fear:bugs",
+  "tags": [
+   "animal",
+   "bug"
+  ],
+  "art": {
+   "sprite": "butterfly"
+  }
+ },
+ {
+  "id": "summon.parrot",
+  "kind": "animal",
+  "behaviour": "pester",
+  "hp": 20,
+  "speedBp": 13000,
+  "lifetimeTicks": 280,
+  "radiusMm": 200,
+  "touch": {
+   "everyTicks": 40,
+   "effects": [
+    {
+     "type": "applyStatus",
+     "status": "status.embarrassed",
+     "durationTicks": 40
+    }
+   ]
+  },
+  "scares": "fear:birds",
+  "tags": [
+   "animal",
+   "bird"
+  ],
+  "art": {
+   "sprite": "parrot"
+  }
+ },
+ {
+  "id": "summon.drone-pigeon",
+  "kind": "animal",
+  "behaviour": "aura",
+  "hp": 20,
+  "speedBp": 13000,
+  "lifetimeTicks": 240,
+  "radiusMm": 220,
+  "aura": [
+   {
+    "radiusMm": 2000,
+    "everyTicks": 20,
+    "affects": "enemies",
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.distracted",
+      "durationTicks": 30
+     }
+    ]
+   },
+   {
+    "radiusMm": 3000,
+    "everyTicks": 60,
+    "affects": "allies",
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.inspired",
+      "durationTicks": 60
+     }
+    ]
+   }
+  ],
+  "scares": "fear:birds",
+  "tags": [
+   "animal",
+   "bird"
+  ],
+  "art": {
+   "sprite": "drone-pigeon"
+  }
+ },
+ {
+  "id": "summon.school-kid",
+  "kind": "human",
+  "behaviour": "scatter",
+  "hp": 15,
+  "speedBp": 12000,
+  "lifetimeTicks": 200,
+  "radiusMm": 230,
+  "touch": {
+   "everyTicks": 20,
+   "effects": [
+    {
+     "type": "knockdown",
+     "chanceBp": 2000
+    }
+   ]
+  },
+  "scares": "fear:kids",
+  "tags": [
+   "person"
+  ],
+  "art": {
+   "color": "#f59e0b",
+   "held": "equipment.notepad"
+  }
+ },
+ {
+  "id": "summon.fan",
+  "kind": "human",
+  "behaviour": "entourage",
+  "hp": 25,
+  "speedBp": 10000,
+  "lifetimeTicks": 280,
+  "radiusMm": 300,
+  "aura": [
+   {
+    "radiusMm": 2500,
+    "everyTicks": 40,
+    "affects": "allies",
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.inspired",
+      "durationTicks": 60
+     }
+    ]
+   }
+  ],
+  "scares": "fear:crowds",
+  "tags": [
+   "person"
+  ],
+  "art": {
+   "color": "#ec4899",
+   "held": "equipment.selfie-stick"
+  }
+ },
+ {
+  "id": "summon.paparazzo",
+  "kind": "human",
+  "behaviour": "pester",
+  "hp": 25,
+  "speedBp": 12000,
+  "lifetimeTicks": 240,
+  "radiusMm": 300,
+  "touch": {
+   "everyTicks": 40,
+   "effects": [
+    {
+     "type": "applyStatus",
+     "status": "status.distracted",
+     "durationTicks": 40
+    },
+    {
+     "type": "applyStatus",
+     "status": "status.embarrassed",
+     "durationTicks": 30
+    }
+   ]
+  },
+  "scares": "fear:crowds",
+  "tags": [
+   "person"
+  ],
+  "art": {
+   "color": "#374151",
+   "held": "equipment.camera"
+  }
+ },
+ {
+  "id": "summon.campaign-volunteer",
+  "kind": "human",
+  "behaviour": "entourage",
+  "hp": 25,
+  "speedBp": 10000,
+  "lifetimeTicks": 280,
+  "radiusMm": 300,
+  "aura": [
+   {
+    "radiusMm": 2000,
+    "everyTicks": 20,
+    "affects": "enemies",
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.distracted",
+      "durationTicks": 30
+     }
+    ]
+   }
+  ],
+  "scares": "fear:crowds",
+  "tags": [
+   "person"
+  ],
+  "art": {
+   "color": "#2563eb",
+   "held": "equipment.clipboard"
+  }
+ },
+ {
+  "id": "summon.tourist",
+  "kind": "human",
+  "behaviour": "decoy",
+  "hp": 30,
+  "speedBp": 6000,
+  "lifetimeTicks": 320,
+  "radiusMm": 300,
+  "aura": [
+   {
+    "radiusMm": 2500,
+    "everyTicks": 20,
+    "affects": "enemies",
+    "effects": [
+     {
+      "type": "taunt",
+      "ticks": 30
+     }
+    ]
+   }
+  ],
+  "scares": "fear:crowds",
+  "tags": [
+   "person"
+  ],
+  "art": {
+   "color": "#16a34a",
+   "held": "equipment.umbrella"
+  }
+ },
+ {
+  "id": "summon.audience-member",
+  "kind": "human",
+  "behaviour": "aura",
+  "hp": 20,
+  "speedBp": 8000,
+  "lifetimeTicks": 280,
+  "radiusMm": 300,
+  "aura": [
+   {
+    "radiusMm": 3000,
+    "everyTicks": 20,
+    "affects": "allies",
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.inspired",
+      "durationTicks": 40
+     }
+    ]
+   },
+   {
+    "radiusMm": 3000,
+    "everyTicks": 20,
+    "affects": "enemies",
+    "effects": [
+     {
+      "type": "morale",
+      "amount": -2
+     }
+    ]
+   }
+  ],
+  "scares": "fear:crowds",
+  "tags": [
+   "person"
+  ],
+  "art": {
+   "color": "#7c3aed",
+   "held": "equipment.microphone"
+  }
+ },
+ {
+  "id": "summon.intern",
+  "kind": "human",
+  "behaviour": "decoy",
+  "hp": 40,
+  "speedBp": 10000,
+  "lifetimeTicks": 320,
+  "radiusMm": 300,
+  "aura": [
+   {
+    "radiusMm": 2500,
+    "everyTicks": 20,
+    "affects": "enemies",
+    "effects": [
+     {
+      "type": "taunt",
+      "ticks": 30
+     }
+    ]
+   }
+  ],
+  "tags": [
+   "person"
+  ],
+  "art": {
+   "color": "#94a3b8",
+   "held": "equipment.clipboard"
+  }
+ },
+ {
+  "id": "summon.bellhop",
+  "kind": "human",
+  "behaviour": "entourage",
+  "hp": 35,
+  "speedBp": 11000,
+  "lifetimeTicks": 280,
+  "radiusMm": 300,
+  "touch": {
+   "everyTicks": 30,
+   "effects": [
+    {
+     "type": "knockdown",
+     "chanceBp": 4000
+    },
+    {
+     "type": "damage",
+     "amount": 3,
+     "damageType": "blunt"
+    }
+   ]
+  },
+  "tags": [
+   "person"
+  ],
+  "art": {
+   "color": "#b91c1c",
+   "held": "equipment.service-bell"
+  }
+ },
+ {
+  "id": "summon.paralegal",
+  "kind": "human",
+  "behaviour": "entourage",
+  "hp": 30,
+  "speedBp": 9000,
+  "lifetimeTicks": 280,
+  "radiusMm": 300,
+  "aura": [
+   {
+    "radiusMm": 1500,
+    "everyTicks": 60,
+    "affects": "enemies",
+    "effects": [
+     {
+      "type": "spawnProp",
+      "prop": "prop.paper-stack",
+      "at": "target",
+      "chanceBp": 5000
+     }
+    ]
+   }
+  ],
+  "tags": [
+   "person"
+  ],
+  "art": {
+   "color": "#1e293b",
+   "held": "equipment.briefcase"
+  }
+ }
+]

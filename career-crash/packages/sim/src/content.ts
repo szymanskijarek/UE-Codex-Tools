@@ -12,6 +12,7 @@ import type {
   StatusDef,
   SynergyDef,
   ShopItemDef,
+  SummonDef,
   TraitDef,
 } from '@cc/content-schema';
 
@@ -28,6 +29,7 @@ export interface ContentIndex {
   traits: Map<string, TraitDef>;
   equipment: Map<string, EquipmentDef>;
   shopItems: Map<string, ShopItemDef>;
+  summons: Map<string, SummonDef>;
   /** Rules by event, sorted by priority desc then id. */
   rulesByEvent: Map<RuleEvent, RuleDef[]>;
   /** Contact/touching rules in a fixed order; bit i of an entity's masks refers to contactRules[i]. */
@@ -75,6 +77,7 @@ export function indexContent(bundle: ContentBundle): ContentIndex {
     traits: byId(bundle.traits),
     equipment: byId(bundle.equipment),
     shopItems: byId(bundle.shopItems ?? []),
+    summons: byId(bundle.summons ?? []),
     rulesByEvent,
     contactRules,
     contactRuleBit,

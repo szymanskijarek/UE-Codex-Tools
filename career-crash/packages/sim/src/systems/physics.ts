@@ -249,6 +249,8 @@ function impact(w: World, prop: Entity, victim: Entity): void {
   const def = w.content.props.get(prop.def);
   if (prop.flying) {
     if (victim.id === prop.thrownBy && prop.age < 8) return;
+    // Thrown things sail over small summoned animals (they duck).
+    if (victim.baseTags.includes('summon:animal')) return;
     const thrower = get(w, prop.thrownBy);
     const base = def?.throwDamage ?? Math.max(2, idiv(prop.weightG, 1000));
     const mul = thrower?.stats ? derived.throwMulBp(thrower.stats) : 10000;

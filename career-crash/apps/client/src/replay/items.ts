@@ -8,11 +8,11 @@ import { Rectangle, Sprite, Texture } from 'pixi.js';
 interface Atlas {
   w: number;
   h: number;
-  items: Record<string, { x: number; y: number; w: number; h: number }>;
+  items: Record<string, { x: number; y: number; w: number; h: number; lift?: number }>;
 }
 
-const JSON_FILES = import.meta.glob('./{items,obstacles}/*.json', { eager: true, import: 'default' }) as Record<string, Atlas>;
-const SHEET_FILES = import.meta.glob('./{items,obstacles}/*.webp', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+const JSON_FILES = import.meta.glob('./{items,obstacles,critters}/*.json', { eager: true, import: 'default' }) as Record<string, Atlas>;
+const SHEET_FILES = import.meta.glob('./{items,obstacles,critters}/*.webp', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 
 interface Sheet {
   atlas: Atlas | null;
@@ -23,6 +23,8 @@ interface Sheet {
 const sheet = (kind: string): Sheet => ({ atlas: JSON_FILES[`./${kind}/${kind}.json`] ?? null, url: SHEET_FILES[`./${kind}/${kind}.webp`] ?? null, base: null, cache: new Map() });
 const ITEMS = sheet('items');
 const OBSTACLES = sheet('obstacles');
+/** Summoned animals (tools/art-pipeline `critters`): pose A `name`, pose B `name-b`, and the `puff` dust cloud. */
+const CRITTERS = sheet('critters');
 
 /**
  * Two-handed heavy weapons → item sprite names. Add art with these names to the
@@ -219,7 +221,7 @@ async function load(sh: Sheet): Promise<void> {
 }
 
 export async function loadItems(): Promise<void> {
-  await Promise.all([load(ITEMS), load(OBSTACLES)]);
+  await Promise.all([load(ITEMS), load(OBSTACLES), load(CRITTERS)]);
 }
 
 function tex(name: string | undefined, sh: Sheet = ITEMS): Texture | null {
@@ -364,4 +366,20 @@ export function propSprite(propId: string, size: number): Sprite | null {
   s.scale.set(k);
   s.anchor.set(0.5, 0.92);
   return s;
+}
+
+/** Atlas pixels of a full 256 px critter cell (see tools/art-pipeline/src/critters.ts). */
+export const CRITTER_CELL_PX = 112;
+
+/**
+ * A critter pose standing on its feet (anchor bottom-centre), `scale` = screen
+ * pixels per atlas pixel. `lift` is how far above the ground the pose was drawn.
+ */
+export function critterSprite(name: string, scale: number): { sprite: Sprite; lift: number } | null {
+  const t = tex(name, CRITTERS);
+  if (!t) return null;
+  const s = new Sprite(t);
+  s.anchor.set(0.5, 1);
+  s.scale.set(scale);
+  return { sprite: s, lift: (CRITTERS.atlas?.items[name]?.lift ?? 0) * scale };
 }

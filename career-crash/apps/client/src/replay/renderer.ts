@@ -3,7 +3,7 @@ import 'pixi.js/unsafe-eval';
 import { Application, Container, Graphics, Sprite, Text, Texture, type TextStyleOptions } from 'pixi.js';
 import { bundle } from '@cc/content';
 import { shortName } from '@cc/game-rules';
-import type { AbilityDef, ArenaDef } from '@cc/content-schema';
+import type { AbilityDef, ArenaDef, SummonDef } from '@cc/content-schema';
 import { layoutArena, type BattleEvent, type BattleInput, type FrameEntity, type PlacedObstacle } from '@cc/sim';
 import { nameOf, STATUS_ICONS } from '../i18n';
 import { Sfx, type SfxName } from './audio';
@@ -11,7 +11,7 @@ import type { ReplayPlayer } from './player';
 import { arenaArt, type ArenaArt } from './arena-art';
 import { drawArea, drawProp } from './props-art';
 import { drawHeavy, heavyLength } from './heavy-art';
-import { heavySprite, heldIsTool, heldSprite, loadItems, propSprite, wallSprite } from './items';
+import { critterSprite, CRITTER_CELL_PX, heavySprite, heldIsTool, heldSprite, loadItems, propSprite, wallSprite } from './items';
 import { extension, hitPose, MOVES, repertoire, type HitStyle, type Move } from './moves';
 import { drawWall } from './wall-art';
 import { emotionFor } from './face-art';
@@ -153,6 +153,21 @@ interface PropSprite {
   seed: number;
 }
 
+/** A summoned animal: two poses on a hopping body (05). */
+interface CritterSprite {
+  root: Container;
+  body: Container;
+  a: Container;
+  b: Container;
+  liftB: number;
+  flip: number;
+  x: number;
+  y: number;
+  bird: boolean;
+}
+
+const SUMMONS = new Map(bundle.summons.map((d) => [d.id, d]));
+
 interface Fx {
   g: Container;
   life: number;
@@ -195,6 +210,7 @@ export class BattleRenderer {
   private banner!: Text;
   private bannerLife = 0;
   private chars = new Map<number, CharSprite>();
+  private critters = new Map<number, CritterSprite>();
   private props = new Map<number, PropSprite>();
   private fx: Fx[] = [];
   private scale = 0.04;
@@ -572,11 +588,12 @@ export class BattleRenderer {
   private makeChar(e: FrameEntity): CharSprite {
     const snap = this.snapOf(e);
     const career = bundle.careers.find((c) => c.id === e.def);
-    // Ladder bosses are drawn twice the size (their hitbox in the sim is unchanged).
-    const r = e.r * this.scale * (career?.boss ? BOSS_DRAW_SCALE : 1);
+    const summoned = SUMMONS.get(e.def);
+    // Ladder bosses are drawn twice the size (their hitbox in the sim is unchanged); summoned people a bit smaller.
+    const r = (summoned ? 350 : e.r) * this.scale * (career?.boss ? BOSS_DRAW_SCALE : summoned ? 0.8 : 1);
     const isRef = e.kind === 'npc';
     if (isRef) this.refId = e.id;
-    const bodyColor = isRef ? 0xffffff : hex(career?.art.color ?? '#999999');
+    const bodyColor = isRef ? 0xffffff : hex(career?.art.color ?? summoned?.art.color ?? '#999999');
     const hatColor = career?.art.hat ? hex(career.art.hat) : null;
     const skin = hex(snap?.appearance.skin ?? '#e0ac69');
     const hair = hex(snap?.appearance.hair ?? '#3b2a1a');
@@ -980,6 +997,7 @@ export class BattleRenderer {
     const byId = new Map(cur.map((e) => [e.id, e]));
     const seenC = new Set<number>();
     const seenP = new Set<number>();
+    const seenK = new Set<number>();
     let minX = Infinity;
     let maxX = -Infinity;
     let minY = Infinity;
@@ -1020,6 +1038,12 @@ export class BattleRenderer {
         }
         continue;
       }
+      const sd = e.kind === 'char' ? SUMMONS.get(e.def) : undefined;
+      if (sd?.kind === 'animal') {
+        seenK.add(e.id);
+        this.drawCritter(e, sd, p, sx, sy, y, t);
+        continue;
+      }
       seenC.add(e.id);
       let s = this.chars.get(e.id);
       if (!s) this.chars.set(e.id, (s = this.makeChar(e)));
@@ -1044,6 +1068,11 @@ export class BattleRenderer {
         c.scale.set(s.depth);
         c.position.set(sx * (1 - s.depth), sy * (1 - s.depth));
       }
+    }
+    for (const [id, c] of this.critters) {
+      if (seenK.has(id)) continue;
+      c.root.destroy({ children: true });
+      this.critters.delete(id);
     }
     for (const [id, s] of this.chars) {
       if (!seenC.has(id)) {
@@ -1654,6 +1683,70 @@ export class BattleRenderer {
     });
   }
 
+  /** Screen pixels per critter-atlas pixel: a full 256 px sheet cell stands 85% as tall as a fighter. */
+  private critterScale(): number {
+    return (350 * this.scale * 5.4 * 0.85) / CRITTER_CELL_PX;
+  }
+
+  /** A dust puff where a critter arrives or bolts. */
+  private puff(at: [number, number]): void {
+    const k = this.critterScale();
+    const p = critterSprite('puff', k * 0.8);
+    const g: Container = p?.sprite ?? new Graphics().circle(0, -8, 14 * k).fill({ color: 0xffffff, alpha: 0.85 });
+    g.position.set(at[0], at[1]);
+    this.fxLayer.addChild(g);
+    this.fx.push({
+      g,
+      life: 450,
+      max: 450,
+      update: (f) => {
+        g.alpha = Math.min(1, f * 1.8);
+        g.scale.set((p ? k * 0.8 : 1) * (1.25 - f * 0.25));
+      },
+    });
+  }
+
+  /** A summoned animal: pose A standing, pose B on the move, a little hop, flipped to its heading. */
+  private drawCritter(e: FrameEntity, sd: SummonDef, p: FrameEntity, sx: number, sy: number, y: number, t: number): void {
+    let c = this.critters.get(e.id);
+    if (!c) {
+      const k = this.critterScale();
+      const root = new Container();
+      const r = e.r * this.scale;
+      root.addChild(new Graphics().ellipse(0, 0, r * 1.2, r * 0.5).fill({ color: 0x000000, alpha: 0.2 }));
+      root.addChild(new Graphics().ellipse(0, 0, r * 1.25, r * 0.55).stroke({ width: Math.max(1.5, r * 0.14), color: TEAM_COLORS[e.team % TEAM_COLORS.length]!, alpha: 0.8 }));
+      const body = new Container();
+      const pa = critterSprite(sd.art.sprite ?? '', k);
+      const pb = critterSprite(`${sd.art.sprite}-b`, k);
+      const a = new Container();
+      const b = new Container();
+      if (pa) a.addChild(pa.sprite);
+      else a.addChild(new Graphics().circle(0, -r, r).fill(0xd6d3d1).stroke({ width: 2, color: OUTLINE }));
+      if (pb) b.addChild(pb.sprite);
+      body.addChild(a, b);
+      root.addChild(body);
+      this.bodies.addChild(root);
+      c = { root, body, a, b, liftB: pb?.lift ?? 0, flip: e.fx < 0 ? -1 : 1, x: sx, y: sy, bird: sd.tags.includes('bird') || sd.tags.includes('bug') };
+      this.critters.set(e.id, c);
+    }
+    const moving = Math.abs(e.x - p.x) + Math.abs(e.y - p.y) > 2;
+    if (e.fx !== 0) c.flip = e.fx < 0 ? -1 : 1;
+    const hasB = c.b.children.length > 0;
+    const poseB = hasB && moving && Math.floor(t * 7 + e.id) % 2 === 1;
+    c.a.visible = !poseB;
+    c.b.visible = poseB;
+    const d = this.depth(y);
+    const hop = moving ? Math.abs(Math.sin(t * 13 + e.id)) * (c.bird ? 14 : 5) : c.bird ? 3 + Math.sin(t * 5 + e.id) * 3 : 0;
+    c.body.scale.x = c.flip;
+    c.body.y = -hop - (poseB ? c.liftB : 0);
+    c.body.rotation = e.statuses.includes('status.knocked-down') ? c.flip * 1.3 : 0;
+    c.root.position.set(sx, sy);
+    c.root.zIndex = y;
+    c.root.scale.set(d);
+    c.x = sx;
+    c.y = sy;
+  }
+
   /** Big coloured name badge above the caster. */
   private pill(text: string, at: [number, number], color: number): void {
     const size = this.compact ? 13 : 16;
@@ -1838,6 +1931,19 @@ export class BattleRenderer {
     const ea = byId.get(ev.a);
     const eb = byId.get(ev.b);
     switch (ev.type) {
+      case 'summon': {
+        const at = eb ? this.px(eb.x, eb.y, 0) : A ? [A.x, A.y] as [number, number] : null;
+        if (at) this.puff(at);
+        this.sfx.play('pop');
+        break;
+      }
+      case 'summonGone': {
+        const k = this.critters.get(ev.a);
+        const at: [number, number] | null = k ? [k.x, k.y] : A ? [A.x, A.y] : null;
+        if (at) this.puff(at);
+        if (ev.v === 1) this.sfx.play('boing');
+        break;
+      }
       case 'attack':
         if (A) {
           A.lungeUntil = this.now + 220;

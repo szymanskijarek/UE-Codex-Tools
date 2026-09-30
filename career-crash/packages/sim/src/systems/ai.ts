@@ -1,7 +1,8 @@
 import type { AbilityDef, Goal } from '@cc/content-schema';
 import { bpMul, clamp, DIRS8, dir1000, dist, idiv } from '../core/math';
 import type { ActionKind, Entity, World } from '../types';
-import { canAct, derived, get, isAlive, tagsOf } from '../world';
+import { canAct, derived, get, isAlive, isFighter, isSummon, tagsOf } from '../world';
+import { summonDecide, summonRoom } from './summons';
 import { matchTags } from './effects';
 import { isBlockedAt } from './nav';
 import { DROPPED_WEAPON } from './weapons';
@@ -90,6 +91,10 @@ function abilityCandidates(w: World, e: Entity, enemies: Entity[], allies: Entit
     if (!ab || ab.kind !== 'active' || !ab.targeting || !ab.aiHints) continue;
     if ((e.cooldowns[aid] ?? 0) > w.tick) continue;
     if ((ab.cost?.energy ?? 0) * 100 > e.energy) continue;
+    // Summoning: not at the cap, and only with someone to distract nearby.
+    if (ab.effects?.some((x) => x.type === 'summon')) {
+      if (summonRoom(w, e) === 0 || !enemies.some((x) => isFighter(x) && x.state === 'active' && dist(e.x, e.y, x.x, x.y) < 8000)) continue;
+    }
     const hints = ab.aiHints;
     if (hints.selfHpBelowBp !== undefined && hpBp(e) > hints.selfHpBelowBp) continue;
     const tt = ab.targeting.type;
@@ -110,7 +115,7 @@ function abilityCandidates(w: World, e: Entity, enemies: Entity[], allies: Entit
       for (const x of affected) {
         const friendly = x.kind === 'char' && x.team === e.team;
         const wantFriendly = affects === 'allies' || aim === 'ally' || aim === 'woundedAlly' || (aim === 'self' && (affects === 'target' || affects === undefined));
-        if (x.kind === 'npc') continue;
+        if (x.kind === 'npc' || isSummon(x)) continue;
         if (friendly === wantFriendly) good++;
         else bad++;
         if (hints.preferTargetsWithTags && matchTags(w, x, { hasAny: hints.preferTargetsWithTags })) preferred++;
@@ -189,7 +194,7 @@ export function candidates(w: World, e: Entity): Candidate[] {
   const enemies = activeEnemies.length > 0 ? activeEnemies : enemiesAll;
   const allies = byDistance(
     e,
-    chars.filter((x) => x.team === e.team),
+    chars.filter((x) => x.team === e.team && isFighter(x)),
   );
   const props = byDistance(
     e,
@@ -210,6 +215,7 @@ export function candidates(w: World, e: Entity): Candidate[] {
       out.push({ kind: 'reposition', targetId: -1, tx: e.stationX, ty: e.stationY, abilityId: '', goal: 'control', base: 4500 });
     }
   }
+  const tags0 = tagsOf(w, e);
   const attackTargets = enemies.slice(0, 3);
   if (e.duelTarget >= 0 && duel && !attackTargets.includes(duel)) attackTargets.push(duel);
 
@@ -222,10 +228,15 @@ export function candidates(w: World, e: Entity): Candidate[] {
     if (e.quirks.includes('grudge') && e.lastHitBy === t.id) base = idiv(base * 15, 10);
     if (e.preferTags.length && matchTags(w, t, { hasAny: e.preferTags })) base = idiv(base * 13, 10);
     if (t.state === 'downed') base = idiv(base, 3);
+    // Critters are a distraction, not a target: swatted when in the way, otherwise mostly ignored.
+    if (isSummon(t)) {
+      if (t.baseTags.includes('summon:animal') && tags0.has('animal-friend')) continue;
+      base = idiv(base * (d < 1400 ? 3 : 1), 10);
+    }
     base = bpMul(base, leashBp(e, t));
     out.push({ kind: 'attack', targetId: t.id, tx: t.x, ty: t.y, abilityId: '', goal: 'damage', base });
     // Holding something throwable? Throwing it beats a punch at almost any range.
-    if (held && !heldHeavy && d > 800 && d < 10000 && !(e.quirks.includes('hoarder') && d > 4000)) {
+    if (held && !heldHeavy && !isSummon(t) && d > 800 && d < 10000 && !(e.quirks.includes('hoarder') && d > 4000)) {
       out.push({ kind: 'throw', targetId: t.id, tx: t.x, ty: t.y, abilityId: '', goal: 'damage', base: 9500 + idiv(near(d, 4000, 9000) * 5, 10) });
     }
   }
@@ -417,12 +428,16 @@ function crawlAway(w: World, e: Entity): void {
 export function decide(w: World): void {
   for (const e of w.entities) {
     if (e.kind !== 'char' || !canAct(w, e)) continue;
+    if (isSummon(e)) {
+      if (!e.action || w.tick >= e.decideAt) summonDecide(w, e);
+      continue;
+    }
     const interrupted = e.action === null;
     if (!interrupted && w.tick < e.decideAt) continue;
     if (e.action && (e.action.phase === 'windup' || e.action.phase === 'recover')) continue;
     e.decideAt = w.tick + DECISION_INTERVAL;
 
-    if (e.panicking) {
+    if (e.panicking || e.statuses.some((s) => s.id === 'status.spooked')) {
       const [dx, dy] = DIRS8[w.aiRng.int(8)]!;
       e.action = { kind: 'wander', targetId: -1, tx: e.x + dx * 4, ty: e.y + dy * 4, abilityId: '', phase: 'approach', timer: 0, goal: 'survive', expires: w.tick + 30 };
       continue;

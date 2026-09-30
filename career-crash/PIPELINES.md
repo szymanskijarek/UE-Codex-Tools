@@ -182,6 +182,21 @@ is empty: the 30 newer careers were re-imported from separate sheets through
   as PNG to WebP and updates `puppets.json`. That step does nothing once
   everything is WebP.
 
+### 5.5b Summoned animals (critters)
+
+`pnpm --filter @cc/art-pipeline critters`
+
+- **Source:** `art/critters/<sheet>.png`, 2 rows × 4 cells of 256 px on a
+  transparent background, each animal as pose A (standing) then pose B
+  (moving). Names in reading order in `art/critters/manifest.json` (`null`
+  skips a cell); pose B is `<name>-b`, and `puff` is the dust cloud.
+- **Output:** `replay/critters/critters.webp` + `critters.json`. Every cell is
+  scaled by the same factor, so animals keep their relative size (a crab
+  stays smaller than a capybara).
+- **Wiring:** a summon's `art.sprite` in `data/summons/` names the sprite.
+  Human summons need no art: they use the drawn body in `art.color` holding
+  `art.held`.
+
 ### 5.6 Art prompts
 
 `pnpm art:prompts` writes `tools/art-pipeline/out/prompts.json`: generation
