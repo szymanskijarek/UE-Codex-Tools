@@ -58,6 +58,12 @@ little to their stats. Opponents carry items too (03 §3.6). Each of the 12
 arenas ends in a boss fight against its own boss (a Store Manager, a CEO, a
 Harbour Master…), each with three signature moves and a passive.
 
+## How we work
+
+[`WORKFLOW.md`](WORKFLOW.md): branches (`dev` → `prod` → careercrash.org),
+releases and rollbacks, checking a release, bringing in art, tools, Claude Code
+setup and troubleshooting. Live at **https://careercrash.org**.
+
 ## Pipelines
 
 Content, art, builds, publishing, the API and CI are documented step by step in

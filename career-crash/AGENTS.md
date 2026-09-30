@@ -59,6 +59,12 @@ docs disagree, fix one of them in the same change.
 - **Add an API endpoint:** types in `packages/protocol`, route in
   `apps/worker/src/app.ts`, test in `apps/worker/test/api.test.ts`.
 
+## Workflow
+
+[`WORKFLOW.md`](WORKFLOW.md) covers branches and releases (`prod` is live on
+careercrash.org; work lands on `dev`), how to check a release, art intake, and
+the tools and skills to use. Never deploy from `main`: it doesn't contain the game.
+
 ## Pipelines
 
 [`PIPELINES.md`](PIPELINES.md) documents every pipeline: content build, checks,

@@ -1,6 +1,8 @@
 # Career Crash — pipelines
 
 Every way something in this repo gets built, generated, checked or shipped.
+For the day-to-day process (branches, releases, art intake, tools) see
+[`WORKFLOW.md`](WORKFLOW.md).
 Run commands from `career-crash/` unless stated otherwise. When you add or
 change a pipeline, update this file in the same change.
 
