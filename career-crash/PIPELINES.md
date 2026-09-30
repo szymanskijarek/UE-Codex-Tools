@@ -306,6 +306,10 @@ Previews can be kept private with Cloudflare Access ("Previews only"). The
 custom domains in `wrangler.jsonc` attach careercrash.org and
 www.careercrash.org on the first production deploy.
 
+If a build fails at "Cloning" with **root directory not found**, it ran from a
+branch without the `career-crash/` folder (for example `main`): check that the
+production branch under Settings → Build → Branch control is `prod`.
+
 Check locally before pushing to `prod`: `pnpm check && pnpm build:web &&
 npx wrangler deploy --dry-run`.
 
