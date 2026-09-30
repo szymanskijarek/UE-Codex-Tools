@@ -13,6 +13,7 @@ can build the game incrementally without inventing architecture as it goes.
 | 02 | [Combat Systems](02-combat-systems.md) | How does a battle actually run, tick by tick? |
 | 03 | [Economy & Progression](03-economy-design.md) | What do players earn, spend, and unlock, and how fast? |
 | 04 | [AI-Agent Implementation Roadmap](04-ai-agent-roadmap.md) | In what order is it built, and how is each step verified? |
+| 05 | [Summons & Senior Moves](05-summons-and-senior-moves.md) | A new move for every career, summoned critters, fears and panic, and the art they need. |
 
 ## Precedence
 
