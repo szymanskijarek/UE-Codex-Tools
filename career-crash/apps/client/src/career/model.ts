@@ -420,7 +420,7 @@ export function equipGear(s: CareerSave, charId: string, uid: string): string | 
   const item = (s.bag ?? []).find((x) => x.uid === uid);
   if (!cc || !item) return 'Item not found';
   const slots = bundle.economy.loot.slots;
-  if ((cc.gear ?? []).length >= slots) return `Only ${slots} items per fighter — take one off first`;
+  if ((cc.gear ?? []).length >= slots) return `Only ${slots} perks per fighter — unassign one first`;
   save({ ...s, bag: s.bag!.filter((x) => x.uid !== uid), chars: { ...s.chars, [charId]: { ...cc, gear: [...(cc.gear ?? []), item] } } });
   return null;
 }

@@ -5,12 +5,15 @@ import { lootSellPrice, shortName } from '@cc/game-rules';
 import { navigate, notify } from '../state';
 import { Card } from '../ui/components';
 import { LootCard, RARITY_NAMES } from './Loot';
-import { equipGear, lineup, sellLoot, unequipGear, type CareerSave } from './model';
+import { equipGear, mainChar, sellLoot, unequipGear, type CareerSave } from './model';
 
-/** Worn gear per fighter, the bag of won items, and selling. */
-export function GearScreen({ save: s }: { save: CareerSave }) {
-  const team = lineup(s).filter((c) => !c.temp);
-  const [who, setWho] = useState(s.mainId);
+/**
+ * Perks & Benefits: loot in LinkedIn language. What each fighter (you and every
+ * hire, in the squad or on the bench) has been assigned, the unclaimed perks, and cashing out.
+ */
+export function GearScreen({ save: s, charId }: { save: CareerSave; charId?: string }) {
+  const team = [mainChar(s), ...Object.values(s.chars).filter((c) => c.c.id !== s.mainId && !c.temp)];
+  const [who, setWho] = useState(charId && s.chars[charId] ? charId : s.mainId);
   const target = s.chars[who] ?? s.chars[s.mainId]!;
   const L = bundle.economy.loot;
   const bag = [...(s.bag ?? [])].sort((a, b) => LOOT_RARITIES.indexOf(b.rarity) - LOOT_RARITIES.indexOf(a.rarity));
@@ -21,13 +24,15 @@ export function GearScreen({ save: s }: { save: CareerSave }) {
       <button class="ghost small" onClick={() => navigate('/career')}>
         ← Career
       </button>
-      <h1>🎒 Gear</h1>
+      <h1>🎁 Perks & Benefits</h1>
       <p class="muted">
-        💵 {s.cash} · Every win drops an item. Each fighter wears up to {L.slots}; the rest wait in your bag ({bag.length}/{L.bagCap}) or sell for cash to spend on consumables.
+        💵 {s.cash} · Every win comes with a tax-free* perk. Each fighter, hires included, can hold {L.slots}; the rest stay unclaimed ({bag.length}/{L.bagCap}) or cash out for consumables money.
+        <br />
+        <span class="small">*Not financial advice. Please consult your accountant, who is also in a fight.</span>
       </p>
       <div class="grid two">
         <Card>
-          <h2>Wearing</h2>
+          <h2>Benefits package</h2>
           <div class="tabs-inline">
             {team.map((c) => (
               <button class={`tab ${c.c.id === target.c.id ? 'on' : ''}`} onClick={() => setWho(c.c.id)}>
@@ -38,14 +43,14 @@ export function GearScreen({ save: s }: { save: CareerSave }) {
           {worn.map((it) => (
             <LootCard it={it}>
               <button class="ghost small" onClick={() => unequipGear(s, target.c.id, it.uid)}>
-                Take off
+                Unassign
               </button>
             </LootCard>
           ))}
           {Array.from({ length: L.slots - worn.length }, () => (
-            <div class="loot-card empty muted small">Empty slot — pick something from the bag</div>
+            <div class="loot-card empty muted small">Open position — assign an unclaimed perk</div>
           ))}
-          <h3>Drop odds per win</h3>
+          <h3>Perk odds per win</h3>
           <div class="loot-odds small">
             {L.rarities.map((r) => (
               <div>
@@ -56,11 +61,11 @@ export function GearScreen({ save: s }: { save: CareerSave }) {
               </div>
             ))}
           </div>
-          <p class="muted small">Bosses and Brutal difficulty roll twice and keep the better item.</p>
+          <p class="muted small">Bosses and Brutal difficulty roll twice and keep the better perk.</p>
         </Card>
         <Card>
-          <h2>Bag</h2>
-          {bag.length === 0 && <p class="muted small">Nothing yet — win a fight to get your first item.</p>}
+          <h2>Unclaimed perks</h2>
+          {bag.length === 0 && <p class="muted small">Nothing yet — win a fight to unlock your first perk.</p>}
           {bag.map((it) => (
             <LootCard it={it}>
               <button
@@ -70,10 +75,10 @@ export function GearScreen({ save: s }: { save: CareerSave }) {
                   if (err) notify(err, 'error');
                 }}
               >
-                Wear ({shortName(bundle, target.c.name)})
+                Assign to {shortName(bundle, target.c.name)}
               </button>
-              <button class="ghost small" onClick={() => notify(`Sold for 💵 ${sellLoot(s, it.uid)}`, 'good')}>
-                Sell 💵 {lootSellPrice(bundle, it)}
+              <button class="ghost small" onClick={() => notify(`Cashed out for 💵 ${sellLoot(s, it.uid)}`, 'good')}>
+                Cash out 💵 {lootSellPrice(bundle, it)}
               </button>
             </LootCard>
           ))}

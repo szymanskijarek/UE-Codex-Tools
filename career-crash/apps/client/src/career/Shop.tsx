@@ -29,7 +29,7 @@ export function ShopScreen({ save: s }: { save: CareerSave }) {
       </button>
       <h1>🛒 Corner Shop</h1>
       <p class="muted">
-        💵 {s.cash} · Each fighter carries up to {LOADOUT_SLOTS} items. Consumables fire once in a fight and are used up. Gear with stat bonuses drops from won fights: see <a href="#/career/gear">🎒 Gear</a>.
+        💵 {s.cash} · Each fighter carries up to {LOADOUT_SLOTS} items. Consumables fire once in a fight and are used up. Stat-boosting gear comes as a perk for winning fights: see <a href="#/career/perks">🎁 Perks & Benefits</a>.
         {tier < 3 && ' More stock arrives as you climb the ladder.'}
       </p>
 

@@ -302,8 +302,8 @@ export function Hub({ save: s }: { save: CareerSave }) {
                 <button class={`li-btn primary ${skillAlert(m) ? 'alert' : ''}`} onClick={() => navigate(`/career/skills/${m.c.id}`)}>
                   🌳 Skills & endorsements
                 </button>
-                <button class="li-btn" onClick={() => navigate('/career/gear')}>
-                  🎒 Gear{s.bag?.length ? ` (${s.bag.length})` : ''}
+                <button class="li-btn" onClick={() => navigate('/career/perks')}>
+                  🎁 Perks{s.bag?.length ? ` (${s.bag.length})` : ''}
                 </button>
                 <button class="li-btn" onClick={() => navigate('/career/shop')}>
                   🛒 Shop

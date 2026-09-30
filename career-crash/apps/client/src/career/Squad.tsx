@@ -6,6 +6,7 @@ import { navigate, notify } from '../state';
 import { Card, CareerChip, Portrait } from '../ui/components';
 import { PuppetView } from './PuppetView';
 import { Loadout, RankBar, skillAlert } from './Career';
+import { GearIcons } from './Loot';
 import { applicants, currentCareer, dismiss, hire, HIRE_COST, lineup, mainChar, rarityOf, ROSTER_CAP, squadUnlocked, toggleSquad, type CareerSave } from './model';
 
 /** Squad builder: hire applicants, choose the two teammates who fight with you, manage their skills. */
@@ -80,7 +81,7 @@ export function SquadScreen({ save: s }: { save: CareerSave }) {
             <div class="staff-row">
               <Portrait c={cc.c} size={48} />
               <div class="grow">
-                <b>{cc.c.name}</b> {inSquad && <span class="badge green">In squad</span>}
+                <b>{cc.c.name}</b> {inSquad && <span class="badge green">In squad</span>} <GearIcons gear={cc.gear} />
                 <div class="muted small">
                   Lv {cc.c.level} · {nameOf(cc.c.personality)} · {RANKS[careerRank(cc, cid) - 1]} {nameOf(cid)}
                 </div>
@@ -88,6 +89,9 @@ export function SquadScreen({ save: s }: { save: CareerSave }) {
               <div class="row-actions">
                 <button class={`ghost small ${skillAlert(cc) ? 'alert' : ''}`} onClick={() => navigate(`/career/skills/${cc.c.id}`)}>
                   🌳 Skills
+                </button>
+                <button class="ghost small" onClick={() => navigate(`/career/perks/${cc.c.id}`)}>
+                  🎁 Perks
                 </button>
                 <button
                   class="ghost small"

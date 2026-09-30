@@ -16,14 +16,14 @@ import { ShopScreen } from './Shop';
 import { SkillsScreen } from './Skills';
 import { SquadScreen } from './Squad';
 
-/** Career mode router: #/career, #/career/skills/:id, #/career/squad, #/career/shop, #/career/gear, #/career/results. */
+/** Career mode router: #/career, #/career/skills/:id, #/career/squad, #/career/shop, #/career/perks/:id, #/career/results. */
 export function CareerScreen({ sub, arg }: { sub?: string; arg?: string }) {
   const s = career.value;
   if (!s) return <CreateCharacter />;
   if (sub === 'skills') return <SkillsScreen save={s} id={arg ?? s.mainId} />;
   if (sub === 'squad') return <SquadScreen save={s} />;
   if (sub === 'shop') return <ShopScreen save={s} />;
-  if (sub === 'gear') return <GearScreen save={s} />;
+  if (sub === 'perks' || sub === 'gear') return <GearScreen save={s} charId={arg} />;
   if (sub === 'results') return <Results save={s} />;
   return <Hub save={s} />;
 }
@@ -342,20 +342,21 @@ function LootDrop({ drop }: { drop: NonNullable<CareerSave['last']>['loot'] & ob
   const inBag = !sold && !!career.value?.bag?.some((x) => x.uid === drop.item.uid);
   return (
     <Card class="highlight">
-      <h2>🎁 Loot</h2>
+      <h2>🎁 Perk unlocked</h2>
+      <p class="muted small">Tax-free. Allegedly.</p>
       <LootCard it={drop.item}>
         {inBag && (
           <>
-            <button class="primary small" onClick={() => navigate('/career/gear')}>
-              🎒 Wear it
+            <button class="primary small" onClick={() => navigate('/career/perks')}>
+              Assign it
             </button>
             <button class="ghost small" onClick={() => career.value && setSold(sellLoot(career.value, drop.item.uid))}>
-              Sell 💵 {bundle.economy.loot.rarities.find((x) => x.id === drop.item.rarity)!.sellPrice}
+              Cash out 💵 {bundle.economy.loot.rarities.find((x) => x.id === drop.item.rarity)!.sellPrice}
             </button>
           </>
         )}
       </LootCard>
-      {sold > 0 && <p class="muted small">{drop.sold ? 'Your bag was full, so it' : 'It'} went for 💵 {sold}.</p>}
+      {sold > 0 && <p class="muted small">{drop.sold ? 'Your perks inbox was full, so it was cashed out for' : 'Cashed out for'} 💵 {sold}.</p>}
     </Card>
   );
 }

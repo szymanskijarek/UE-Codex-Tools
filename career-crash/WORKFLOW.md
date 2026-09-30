@@ -112,7 +112,7 @@ compresses them (WebP, palette-quantised).
   (placeholder rules are in `PIPELINES.md` §1).
 - **Career banter:** `data/synergies/`.
 - **Company name words** (the adjective, noun and suffix players pick from): `packages/game-rules/src/company.ts`.
-- **Loot** (items dropped by wins): kinds of item in `packages/content/data/loot/` (icon plus the stats it
+- **Loot** ("Perks & Benefits" in the game; items dropped by wins, assignable to you and every hire): kinds of item in `packages/content/data/loot/` (icon plus the stats it
   favours, name in the locale); rarity points, drop odds, ability chances, sell prices, bag size and opponent
   gear in `economy.json` → `loot`. Rules and the server-side validity check are in `packages/game-rules/src/loot.ts`.
   After changing odds or points, re-check boss difficulty with `pnpm balance --bosses`.

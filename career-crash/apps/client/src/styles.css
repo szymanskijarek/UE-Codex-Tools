@@ -2290,6 +2290,7 @@ body:has(.shell.li) {
 
   .loot-actions {
     flex-direction: row;
+    flex-wrap: wrap;
     width: 100%;
     justify-content: flex-end;
     gap: 6px;
