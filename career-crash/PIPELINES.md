@@ -29,6 +29,7 @@ art/** ──art-pipeline──▶ apps/client/src/replay/{puppets,faces,items,o
 | [Client (hosted)](#61-hosted-build) | `pnpm --filter @cc/client build` | client + bundle + art | `apps/client/dist/` |
 | [Client (single file)](#62-single-file-build) | `pnpm --filter @cc/client build:standalone` | same | `apps/client/dist-standalone/` |
 | [Publish to Claude](#63-publishing-the-single-file-as-a-claude-artifact) | Artifact tool | `career-crash.artifact.html` | the Career Crash artifact link |
+| [careercrash.org](#64-careercrashorg-cloudflare-workers) | push to `prod` (Workers Builds) | `pnpm build:web` → `apps/client/dist-web/` | the live site |
 | [API worker](#7-api-worker) | `pnpm dev:worker`, `pnpm --filter @cc/worker deploy` | `apps/worker/` | Cloudflare Worker + D1 |
 | [CI](#8-ci) | on push / PR | `career-crash/**` | balance report artifact |
 
@@ -277,6 +278,37 @@ The artifact host enforces a strict content security policy: no external
 requests. The build already inlines everything; don't add CDN scripts, web
 fonts or `fetch()` calls to other hosts to the client.
 
+### 6.4 careercrash.org (Cloudflare Workers)
+
+The offline game is served as a static site by the Worker `career-crash`
+(`wrangler.jsonc` in this folder), built by `pnpm build:web`: the same game as
+the single file, as normal files, so images download only when needed.
+
+**Branches:**
+- **`prod`:** production. Every push deploys careercrash.org.
+- **`dev`:** integration. Work lands here, and each push gets a preview URL.
+- **Feature branches:** open PRs into `dev`, and get preview URLs too.
+- **Releasing:** merge `dev` into `prod`.
+
+**Cloudflare Workers Builds settings** (Workers & Pages → career-crash → Settings → Build):
+
+| Setting | Value |
+|---|---|
+| Repository | `szymanskijarek/UE-Codex-Tools` |
+| Project / Worker name | `career-crash` (must match `name` in `wrangler.jsonc`) |
+| Root directory | `career-crash` |
+| Production branch | `prod` |
+| Build command | `pnpm build:web` |
+| Deploy command | `npx wrangler deploy` |
+| Non-production branch deploy command | `npx wrangler versions upload` |
+
+Previews can be kept private with Cloudflare Access ("Previews only"). The
+custom domains in `wrangler.jsonc` attach careercrash.org and
+www.careercrash.org on the first production deploy.
+
+Check locally before pushing to `prod`: `pnpm check && pnpm build:web &&
+npx wrangler deploy --dry-run`.
+
 ## 7. API worker
 
 `apps/worker`: Cloudflare Worker (Hono) + D1 database, for the online game
@@ -290,7 +322,7 @@ fonts or `fetch()` calls to other hosts to the client.
   `wrangler.toml`, and set the secrets `SESSION_SECRET` (and optionally
   `TURNSTILE_SECRET`) with `wrangler secret put`. Migrations are in
   `apps/worker/migrations/`.
-- Not deployed yet. Hosting is waiting on the domain.
+- Not deployed yet: the site currently runs the offline game only (6.4).
 
 ## 8. CI
 

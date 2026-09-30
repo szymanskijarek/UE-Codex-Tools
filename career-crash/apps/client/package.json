@@ -7,7 +7,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "build:standalone": "VITE_STANDALONE=1 vite build && node scripts-standalone.mjs"
+    "build:standalone": "VITE_STANDALONE=1 VITE_INLINE=1 vite build && node scripts-standalone.mjs",
+    "build:web": "VITE_STANDALONE=1 vite build --outDir dist-web --emptyOutDir"
   },
   "dependencies": {
     "@cc/commentary": "workspace:*",
