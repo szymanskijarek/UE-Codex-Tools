@@ -62,7 +62,7 @@ export function careerOffers(bundle: ContentBundle, c: Character, unlocked: stri
   const myTags = new Set(c.careers.flatMap((id) => byId.get(id)?.tags ?? []));
   const eligible = unlocked
     .map((id) => byId.get(id))
-    .filter((x): x is CareerDef => !!x && !owned.has(x.id) && !x.deprecated && meetsPrerequisites(x, c.careers))
+    .filter((x): x is CareerDef => !!x && !owned.has(x.id) && !x.deprecated && !x.boss && meetsPrerequisites(x, c.careers))
     .sort((p, q) => (p.id < q.id ? -1 : 1));
   if (eligible.length === 0) return [];
   const weight = (x: CareerDef): number => 1 + 3 * x.tags.filter((t) => myTags.has(t)).length + (x.tier > 1 ? 2 : 0);

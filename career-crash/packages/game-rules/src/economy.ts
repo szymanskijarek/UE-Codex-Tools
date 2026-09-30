@@ -152,7 +152,7 @@ const BOT_COMPANIES = ['Acme Temps', 'Night Shift', 'Middle Management', 'The In
 export function botTeam(bundle: ContentBundle, seed: string, rating: number, size: number): TeamSnapshot {
   const rng = Rng.fromSeed(seed);
   const level = Math.max(1, Math.min(40, Math.round((rating - 950) / 25)));
-  const unlocked = bundle.careers.filter((c) => !c.deprecated).map((c) => c.id);
+  const unlocked = bundle.careers.filter((c) => !c.deprecated && !c.boss).map((c) => c.id);
   const characters: CharacterSnapshot[] = [];
   for (let i = 0; i < size; i++) {
     const c = generateRecruit(bundle, rng, `bot-${seed}-${i}`, { rarity: rating > 1300 ? 'rare' : 'common' });

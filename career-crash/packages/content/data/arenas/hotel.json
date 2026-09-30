@@ -464,5 +464,9 @@
    "speedMm": 60,
    "loop": true
   }
- ]
+ ],
+ "boss": {
+  "career": "career.hotel-manager",
+  "name": "Mr Reginald Suite"
+ }
 }

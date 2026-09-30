@@ -3120,5 +3120,533 @@
    "That's a weed, not a buttonhole!"
   ],
   "chanceBp": 5000
+ },
+ {
+  "id": "synergy.store-manager-barista",
+  "attacker": "career.store-manager",
+  "victim": "career.barista",
+  "speaker": "victim",
+  "lines": [
+   "I'm on my BREAK!",
+   "You can't dock my wages for this!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.barista-store-manager",
+  "attacker": "career.barista",
+  "victim": "career.store-manager",
+  "speaker": "victim",
+  "lines": [
+   "You're on the rota, sweetheart!",
+   "That's coming out of your pay."
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.store-manager-janitor",
+  "attacker": "career.store-manager",
+  "victim": "career.janitor",
+  "speaker": "victim",
+  "lines": [
+   "I only mopped that five minutes ago!",
+   "Clean it yourself, Brenda!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.janitor-store-manager",
+  "attacker": "career.janitor",
+  "victim": "career.store-manager",
+  "speaker": "victim",
+  "lines": [
+   "Aisle five, NOW!",
+   "Is that a streak? IS THAT A STREAK?"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.ceo-accountant",
+  "attacker": "career.ceo",
+  "victim": "career.accountant",
+  "speaker": "victim",
+  "lines": [
+   "That's not in the budget, sir!",
+   "I've seen the books, Gordon!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.accountant-ceo",
+  "attacker": "career.accountant",
+  "victim": "career.ceo",
+  "speaker": "victim",
+  "lines": [
+   "You're FIRED!",
+   "Cook those books properly!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.ceo-lawyer",
+  "attacker": "career.ceo",
+  "victim": "career.lawyer",
+  "speaker": "victim",
+  "lines": [
+   "This is wrongful dismissal!",
+   "My fees just tripled!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.lawyer-ceo",
+  "attacker": "career.lawyer",
+  "victim": "career.ceo",
+  "speaker": "victim",
+  "lines": [
+   "I own your firm!",
+   "Put it in writing!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.head-chef-chef",
+  "attacker": "career.head-chef",
+  "victim": "career.chef",
+  "speaker": "victim",
+  "lines": [
+   "Yes Chef! Sorry Chef!",
+   "Not the hot pass!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.chef-head-chef",
+  "attacker": "career.chef",
+  "victim": "career.head-chef",
+  "speaker": "victim",
+  "lines": [
+   "Who taught you to hold a knife?!",
+   "GET OUT OF MY KITCHEN!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.head-chef-food-critic",
+  "attacker": "career.head-chef",
+  "victim": "career.food-critic",
+  "speaker": "victim",
+  "lines": [
+   "Aggressive seasoning!",
+   "One star! For violence!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.food-critic-head-chef",
+  "attacker": "career.food-critic",
+  "victim": "career.head-chef",
+  "speaker": "victim",
+  "lines": [
+   "Critique THIS!",
+   "Send it back, I dare you!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.stationmaster-train-conductor",
+  "attacker": "career.stationmaster",
+  "victim": "career.train-conductor",
+  "speaker": "victim",
+  "lines": [
+   "The 4:15 was on time, sir!",
+   "I punched every ticket!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.train-conductor-stationmaster",
+  "attacker": "career.train-conductor",
+  "victim": "career.stationmaster",
+  "speaker": "victim",
+  "lines": [
+   "You're three seconds late!",
+   "Tickets! TICKETS!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.stationmaster-bus-driver",
+  "attacker": "career.stationmaster",
+  "victim": "career.bus-driver",
+  "speaker": "victim",
+  "lines": [
+   "Rail replacement service!",
+   "I'm just the bus!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.bus-driver-stationmaster",
+  "attacker": "career.bus-driver",
+  "victim": "career.stationmaster",
+  "speaker": "victim",
+  "lines": [
+   "Buses are NOT trains!",
+   "Off my platform!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.warehouse-foreman-delivery-driver",
+  "attacker": "career.warehouse-foreman",
+  "victim": "career.delivery-driver",
+  "speaker": "victim",
+  "lines": [
+   "I got it here, didn't I?!",
+   "It said 'fragile', not 'careful'!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.delivery-driver-warehouse-foreman",
+  "attacker": "career.delivery-driver",
+  "victim": "career.warehouse-foreman",
+  "speaker": "victim",
+  "lines": [
+   "That's a damaged return!",
+   "Sign here! And here! And HERE!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.warehouse-foreman-postal-worker",
+  "attacker": "career.warehouse-foreman",
+  "victim": "career.postal-worker",
+  "speaker": "victim",
+  "lines": [
+   "Signed for!",
+   "Not my department!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.postal-worker-warehouse-foreman",
+  "attacker": "career.postal-worker",
+  "victim": "career.warehouse-foreman",
+  "speaker": "victim",
+  "lines": [
+   "Wrong bay, mate!",
+   "Parcel for YOU!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.site-foreman-builder",
+  "attacker": "career.site-foreman",
+  "victim": "career.builder",
+  "speaker": "victim",
+  "lines": [
+   "Sorry, Tony! Sorry!",
+   "I was on my tea break!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.builder-site-foreman",
+  "attacker": "career.builder",
+  "victim": "career.site-foreman",
+  "speaker": "victim",
+  "lines": [
+   "Hard hat ON!",
+   "Call that a wall?!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.site-foreman-engineer",
+  "attacker": "career.site-foreman",
+  "victim": "career.engineer",
+  "speaker": "victim",
+  "lines": [
+   "You ignored my drawings!",
+   "That's not in the spec!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.engineer-site-foreman",
+  "attacker": "career.engineer",
+  "victim": "career.site-foreman",
+  "speaker": "victim",
+  "lines": [
+   "Drawings don't build walls!",
+   "Degrees don't lift bricks!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.harbour-master-sailor",
+  "attacker": "career.harbour-master",
+  "victim": "career.sailor",
+  "speaker": "victim",
+  "lines": [
+   "Aye aye, Captain! Ow!",
+   "Permission to cry, sir?"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.sailor-harbour-master",
+  "attacker": "career.sailor",
+  "victim": "career.harbour-master",
+  "speaker": "victim",
+  "lines": [
+   "Swab the deck!",
+   "Mutiny, is it?!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.harbour-master-marine-biologist",
+  "attacker": "career.harbour-master",
+  "victim": "career.marine-biologist",
+  "speaker": "victim",
+  "lines": [
+   "You're scaring the seals!",
+   "That's a protected species! Me!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.marine-biologist-harbour-master",
+  "attacker": "career.marine-biologist",
+  "victim": "career.harbour-master",
+  "speaker": "victim",
+  "lines": [
+   "Get out of my harbour!",
+   "Fish don't pay mooring fees!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.hotel-manager-hotel-concierge",
+  "attacker": "career.hotel-manager",
+  "victim": "career.hotel-concierge",
+  "speaker": "victim",
+  "lines": [
+   "I was being discreet, sir!",
+   "The guests are watching!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.hotel-concierge-hotel-manager",
+  "attacker": "career.hotel-concierge",
+  "victim": "career.hotel-manager",
+  "speaker": "victim",
+  "lines": [
+   "You call that a welcome?!",
+   "Fetch my coat!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.hotel-manager-influencer",
+  "attacker": "career.hotel-manager",
+  "victim": "career.influencer",
+  "speaker": "victim",
+  "lines": [
+   "I'll give you ONE star!",
+   "Do you know how many followers I have?!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.influencer-hotel-manager",
+  "attacker": "career.influencer",
+  "victim": "career.hotel-manager",
+  "speaker": "victim",
+  "lines": [
+   "No, you may not have a free room!",
+   "Tag us. Tag us NOW."
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.chief-surgeon-nurse",
+  "attacker": "career.chief-surgeon",
+  "victim": "career.nurse",
+  "speaker": "victim",
+  "lines": [
+   "I've done a fourteen-hour shift!",
+   "Sign your own charts!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.nurse-chief-surgeon",
+  "attacker": "career.nurse",
+  "victim": "career.chief-surgeon",
+  "speaker": "victim",
+  "lines": [
+   "Scalpel! No, the other scalpel!",
+   "Nurse! NURSE!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.chief-surgeon-paramedic",
+  "attacker": "career.chief-surgeon",
+  "victim": "career.paramedic",
+  "speaker": "victim",
+  "lines": [
+   "I got them here alive!",
+   "You're welcome!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.paramedic-chief-surgeon",
+  "attacker": "career.paramedic",
+  "victim": "career.chief-surgeon",
+  "speaker": "victim",
+  "lines": [
+   "Is that a tourniquet or a scarf?",
+   "Clear!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.museum-director-museum-curator",
+  "attacker": "career.museum-director",
+  "victim": "career.museum-curator",
+  "speaker": "victim",
+  "lines": [
+   "I catalogued that!",
+   "Please mind the exhibits, Sir Percival!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.museum-curator-museum-director",
+  "attacker": "career.museum-curator",
+  "victim": "career.museum-director",
+  "speaker": "victim",
+  "lines": [
+   "You label things WRONG!",
+   "Back to the archive!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.museum-director-archaeologist",
+  "attacker": "career.museum-director",
+  "victim": "career.archaeologist",
+  "speaker": "victim",
+  "lines": [
+   "I dug that up!",
+   "That's MY find!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.archaeologist-museum-director",
+  "attacker": "career.archaeologist",
+  "victim": "career.museum-director",
+  "speaker": "victim",
+  "lines": [
+   "Finders keepers!",
+   "That belongs in MY museum!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.airline-captain-flight-attendant",
+  "attacker": "career.airline-captain",
+  "victim": "career.flight-attendant",
+  "speaker": "victim",
+  "lines": [
+   "Cross-check THIS!",
+   "Seatbelt sign was ON!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.flight-attendant-airline-captain",
+  "attacker": "career.flight-attendant",
+  "victim": "career.airline-captain",
+  "speaker": "victim",
+  "lines": [
+   "Doors to manual!",
+   "Tea, NOW!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.airline-captain-astronaut",
+  "attacker": "career.airline-captain",
+  "victim": "career.astronaut",
+  "speaker": "victim",
+  "lines": [
+   "I've been higher than you!",
+   "Ground control, help!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.astronaut-airline-captain",
+  "attacker": "career.astronaut",
+  "victim": "career.airline-captain",
+  "speaker": "victim",
+  "lines": [
+   "Pilots fly, astronauts fall!",
+   "Welcome aboard!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.impresario-mime",
+  "attacker": "career.impresario",
+  "victim": "career.mime",
+  "speaker": "victim",
+  "lines": [
+   "*mimes a standing ovation*",
+   "*mimes being fired*"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.mime-impresario",
+  "attacker": "career.mime",
+  "victim": "career.impresario",
+  "speaker": "victim",
+  "lines": [
+   "Project! PROJECT!",
+   "Say a LINE!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.impresario-clown",
+  "attacker": "career.impresario",
+  "victim": "career.clown",
+  "speaker": "victim",
+  "lines": [
+   "It's slapstick, sir!",
+   "This isn't the circus!"
+  ],
+  "chanceBp": 6000
+ },
+ {
+  "id": "synergy.clown-impresario",
+  "attacker": "career.clown",
+  "victim": "career.impresario",
+  "speaker": "victim",
+  "lines": [
+   "You're upstaging me!",
+   "Get off my stage!"
+  ],
+  "chanceBp": 6000
  }
 ]

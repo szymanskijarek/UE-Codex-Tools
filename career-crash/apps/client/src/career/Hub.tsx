@@ -1,7 +1,7 @@
 import { useState } from 'preact/hooks';
 import { bundle } from '@cc/content';
 import { careerRank, DIFFICULTIES, difficulty, RANKS, SQUAD_UNLOCK_RANK, stageInfo, STAGES_PER_ARENA, type CareerChar, type DifficultyId } from '@cc/game-rules';
-import { nameOf } from '../i18n';
+import { descOf, nameOf } from '../i18n';
 import { arenaArt } from '../replay/arena-art';
 import { currentReplay, navigate } from '../state';
 import { Portrait } from '../ui/components';
@@ -184,6 +184,34 @@ function Person({ cc, tag }: { cc: CareerChar; tag?: string }) {
   );
 }
 
+/** The arena's boss on a boss stage: who they are and the moves to watch for. */
+function BossCard({ career, name }: { career: string; name: string }) {
+  const c = bundle.careers.find((x) => x.id === career);
+  if (!c) return null;
+  const moves = [c.active, ...(c.extraActives ?? [])];
+  return (
+    <div class="li-boss">
+      <Portrait c={{ careers: [career], appearance: { skin: '#e0ac69', hair: '#2b1d14', hairStyle: 0 } }} size={64} mood="angry" />
+      <div class="grow">
+        <div>
+          <b>Final interview with {name}</b> · {nameOf(career)}
+        </div>
+        <div class="muted small">{descOf(career)}</div>
+        <div class="small li-boss-moves">
+          {moves.map((m) => (
+            <span key={m} class="li-pill red" title={descOf(m)}>
+              {nameOf(m)}
+            </span>
+          ))}
+          <span class="li-pill" title={descOf(c.passive)}>
+            {nameOf(c.passive)}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export function Hub({ save: s }: { save: CareerSave }) {
   const m = mainChar(s);
   const cid = currentCareer(m);
@@ -279,6 +307,7 @@ export function Hub({ save: s }: { save: CareerSave }) {
                 </div>
               </div>
             </header>
+            {info.bossCareer && <BossCard career={info.bossCareer} name={info.bossName ?? ''} />}
             <div class="ladder">
               {Array.from({ length: STAGES_PER_ARENA * 2 }, (_, i) => chapter * STAGES_PER_ARENA + i).map((st) => (
                 <span class={`rung ${st < s.stage ? 'done' : st === s.stage ? 'now' : ''} ${stageInfo(bundle, st).boss ? 'boss' : ''}`} title={`Stage ${st + 1} · ${nameOf(stageInfo(bundle, st).arenaId)}`}>

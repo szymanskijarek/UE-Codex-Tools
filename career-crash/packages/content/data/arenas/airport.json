@@ -465,5 +465,9 @@
    "speedMm": 95,
    "loop": false
   }
- ]
+ ],
+ "boss": {
+  "career": "career.airline-captain",
+  "name": "Captain Hank Altitude"
+ }
 }

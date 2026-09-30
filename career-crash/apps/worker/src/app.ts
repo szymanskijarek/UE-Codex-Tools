@@ -402,7 +402,7 @@ export function createApp() {
     const roster = await repo.roster(p.id);
     const res: JobBoardDTO = {
       careers: bundle.careers
-        .filter((x) => !x.deprecated)
+        .filter((x) => !x.deprecated && !x.boss)
         .map((x) => ({
           id: x.id,
           tier: x.tier,

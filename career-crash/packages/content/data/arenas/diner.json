@@ -617,5 +617,9 @@
   "prop.diner-tray",
   "prop.coffee-cup",
   "prop.diner-stool"
- ]
+ ],
+ "boss": {
+  "career": "career.head-chef",
+  "name": "Marco Bellissimo"
+ }
 }

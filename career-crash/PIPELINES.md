@@ -88,12 +88,17 @@ prints its report; `pnpm replay events <input.json> [n]` prints its first
 ## 4. Balance reports
 
 `pnpm balance --battles=400 [--mode=duel_5v5] [--arena=arena.office,arena.diner] [--seed=…] [--strict]`
+(or `pnpm balance --bosses [--battles=200]` for the boss table below)
 simulates many battles and writes `tools/balance/reports/balance-<mode>.md`
 and `.json`: fight length, sim time per battle (p50/p99 against an 80 ms budget),
 story moments per battle, and careers winning outside 40–60%. `--strict`
 fails when p99 sim time is over budget. After content changes, compare
 against a run on the previous commit and put the headline numbers in the PR
 (AGENTS.md rule 6). The reports folder is not committed.
+
+`pnpm balance --bosses` plays each ladder boss stage on Normal against a squad
+as strong as the previous stage's opponents, and prints the player's win rate
+against the boss and against the old generic boss. Bosses are tuned to 30–45%.
 
 ## 5. Art pipeline
 
@@ -123,6 +128,11 @@ Visual rules for new art (palette, outlines, proportions, poses) are in
 - **Checking:** labelled previews go to `tools/art-pipeline/out/puppets/`.
   When the classifier assigns a blob to the wrong body part, map part names to
   the component numbers shown in the preview in `art/sheets/manifest.json`.
+  When two parts touch and come out as one blob (a thigh and its shin), add
+  `"split": [[n, fraction]]` to cut component `n` at that fraction of its
+  height; the lower piece is numbered 101, 102, … (the chief surgeon uses this).
+- **Portraits:** careers without face-sheet heads (the bosses) use the puppet's
+  head sprite as their portrait and keep one expression in fights.
 
 ### 5.2 Grid puppets (currently unused)
 
@@ -200,6 +210,23 @@ style preamble so new art matches.
 
 The career ladder gives each arena 4 stages, the last one a boss fight, so the
 12 arenas make a 48-stage ladder with 12 bosses.
+
+### Adding or changing a ladder boss
+
+1. **Art:** the boss's sheet goes in `art/sheets/<boss>.png` like any career.
+   Run `puppets <boss>` and check the preview.
+2. **Content:** the career in `data/careers/bosses.json` (`"boss": true`, tier 3,
+   an active, two `extraActives` and a passive), abilities in
+   `data/abilities/bosses.json`, a name and description for each in
+   `locales/en.json`, and `ab_<ability>` commentary lines in `live.json`.
+   Link it from the arena: `"boss": { "career": "career.<boss>", "name": "…" }`.
+   Bosses have their own stat budget (12 positive, 9 net) and are never
+   offered, recruited or generated.
+3. **In the ladder** (`packages/game-rules/src/skills.ts`, `makeBoss`): the
+   boss fights with its own career only, with every move and passive unlocked;
+   its stat perks follow its rank; it gets 4 stat points per career slot it
+   gives up; and it is up to 2 levels above the stage.
+4. **Tune** with `pnpm balance --bosses` until the player's win rate is 30–45%.
 
 ### Adding art for a new career
 

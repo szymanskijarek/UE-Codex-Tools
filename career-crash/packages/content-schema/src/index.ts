@@ -174,6 +174,8 @@ export const careerSchema = z.object({
   unlock: z.object({ type: z.enum(['default', 'rep', 'achievement']), cost: int.optional(), achievement: z.string().optional() }),
   art: z.object({ color: z.string().regex(/^#[0-9a-f]{6}$/), hat: z.string().regex(/^#[0-9a-f]{6}$/).optional(), heldItem: ref('equipment').optional(), icon: z.string().max(8).optional() }),
   deprecated: z.boolean().optional(),
+  /** Career-ladder boss: fought at the end of an arena, never offered, recruited or generated. */
+  boss: z.boolean().optional(),
 });
 export type CareerDef = z.infer<typeof careerSchema>;
 
@@ -289,6 +291,8 @@ export const arenaSchema = z.object({
   debris: z.array(ref('prop')).optional(),
   theme: z.object({ floor: z.string(), wall: z.string(), accent: z.string() }),
   unlock: z.object({ league: z.string() }),
+  /** The career-ladder boss fought at the end of this arena's stages. */
+  boss: z.object({ career: ref('career'), name: z.string() }).optional(),
 });
 export type ArenaDef = z.infer<typeof arenaSchema>;
 

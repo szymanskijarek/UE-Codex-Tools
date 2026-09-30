@@ -755,5 +755,9 @@
   "prop.tin-cans",
   "prop.soda-can",
   "prop.olive-oil"
- ]
+ ],
+ "boss": {
+  "career": "career.store-manager",
+  "name": "Brenda Pricewell"
+ }
 }

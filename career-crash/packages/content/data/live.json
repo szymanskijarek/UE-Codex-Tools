@@ -1999,7 +1999,10 @@
    "They told me {company} was unbeatable. I told them 'hold my energy drink'.",
    "Took down {company} at the {arena}. The big one. The boss. The one whose name we don't say in the canteen.",
    "Beat {company}. I'm told there's a board meeting about me. I'd like to attend. I'll bring a chair. To throw.",
-   "{me} vs {company}: a David vs Goliath story, if David had brought four coworkers and a mop."
+   "{me} vs {company}: a David vs Goliath story, if David had brought four coworkers and a mop.",
+   "Beat {boss} today. Yes, THE {boss}. Framing the receipt.",
+   "They said nobody beats {boss} at the {arena}. I have been told I am nobody. I will take it.",
+   "{boss} is down. Somebody tell {company} they need a new {bossjob}."
   ],
   "feed_boss_loss": [
    "The boss of the {arena} is… a lot. Regrouping.",
@@ -2010,7 +2013,10 @@
    "Respect to {company}. I'll be back. Stronger, wiser, better packed.",
    "{company} is the final boss for a reason. I respect it. I will also be crying in the car park.",
    "Fought {company} at the {arena}. They have a CEO who deadlifts. Nobody warned me.",
-   "Big fight, big loss against {company}. Back to the ladder. My knees can't do stairs right now, so the lift."
+   "Big fight, big loss against {company}. Back to the ladder. My knees can't do stairs right now, so the lift.",
+   "{boss} is not a person. {boss} is a weather event.",
+   "Lost to {boss} ({bossjob}, {company}). Honestly an honour to be thrown by a legend.",
+   "Note to self: when {boss} says \"brace\", you brace."
   ],
   "feed_c_congrats": [
    "Congrats {first}! 🎉",
@@ -2642,6 +2648,150 @@
    "Free samples at Duty Free!",
    "Duty Free bags on the floor. That's someone's holiday.",
    "Tax-free treats, fight-priced."
+  ],
+  "ab_price-check": [
+   "{a} demands a PRICE CHECK on {b}!",
+   "\"Can I get a price check on {b}?\" {a} asks the whole building."
+  ],
+  "ab_clean-up-aisle-five": [
+   "\"Clean-up on aisle five!\" says {a}. Nobody comes. Everyone slips.",
+   "{a} declares a spillage. It is, in fact, a crime scene."
+  ],
+  "ab_store-closing": [
+   "\"This store is now closing,\" {a} announces, and physically enforces it.",
+   "{a} ushers everyone towards the exit. With her elbows."
+  ],
+  "ab_hostile-takeover": [
+   "{a} launches a hostile takeover of {b}. {b} has been acquired. By the floor.",
+   "Hostile takeover! {a} throws {b} out of the org chart."
+  ],
+  "ab_downsizing": [
+   "{a} announces some difficult decisions. Everyone nearby is let go. Onto the floor.",
+   "Downsizing! {a} flattens the whole department."
+  ],
+  "ab_bonus-season": [
+   "{a} hands out bonuses. Only to the people still standing.",
+   "It's bonus season, and {a}'s team is suddenly very motivated."
+  ],
+  "ab_flambe-finale": [
+   "{a} serves the Flambé Finale. {b} is well done.",
+   "Brandy, a lighter and no health-and-safety training: {a} torches {b}."
+  ],
+  "ab_stock-pot-splash": [
+   "{a} throws the stock pot. Soup of the day: everyone.",
+   "A wave of boiling stock from {a}. The front row is now a broth."
+  ],
+  "ab_behind": [
+   "\"BEHIND!\" yells {a}, and {b} goes over his shoulder.",
+   "{a} calls \"Behind!\" as a courtesy before throwing {b} into it."
+  ],
+  "ab_mind-the-gap": [
+   "\"Mind the gap!\" warns {a}, shoving {b} straight into it.",
+   "{a} reminds {b} to mind the gap. Too late."
+  ],
+  "ab_delayed-service": [
+   "{a} announces delays on all services. Everyone just stands there, sighing.",
+   "\"We apologise for the delay,\" says {a}, who is the delay."
+  ],
+  "ab_express-service": [
+   "{a} runs the express service straight through {b}. No stopping.",
+   "Express service! {a} doesn't stop at {b}. Or for {b}."
+  ],
+  "ab_pallet-drop": [
+   "{a} calls in a pallet drop. It lands on {b}.",
+   "A crate falls from nowhere onto {b}. {a} signs for it."
+  ],
+  "ab_safety-briefing": [
+   "{a} gives a mandatory health and safety briefing. Everyone is frozen with boredom.",
+   "\"Lift with your legs,\" {a} explains, for twenty minutes."
+  ],
+  "ab_forklift-certified": [
+   "{a} is forklift certified, and {b} is the pallet.",
+   "{a} picks up {b} and files them under \"returns\"."
+  ],
+  "ab_wrecking-ball": [
+   "{a} goes full wrecking ball on {b}.",
+   "Demolition day! {a} knocks {b} down to the foundations."
+  ],
+  "ab_concrete-pour": [
+   "{a} pours concrete around {b}. {b} is now part of the foundations.",
+   "Wet concrete everywhere! {a} laughs. {b} does not."
+  ],
+  "ab_condemned": [
+   "{a} inspects {b} and declares them condemned.",
+   "\"That's not load-bearing,\" says {a}, pointing at {b}'s whole body."
+  ],
+  "ab_man-overboard": [
+   "MAN OVERBOARD! {a} hurls {b} towards the water.",
+   "{a} throws {b} to the fishes. The fishes decline."
+  ],
+  "ab_reel-em-in": [
+   "{a} hooks {b} and reels them in. Heave ho!",
+   "Grappling hook! {a} lands a big one: {b}."
+  ],
+  "ab_rogue-wave": [
+   "A rogue wave! {a} sends everyone sliding across the deck.",
+   "{a} brings the sea ashore. Everyone nearby is wet and humbled."
+  ],
+  "ab_check-out-time": [
+   "It's check-out time for {b}, and {a} is helping with the luggage. The luggage is {b}.",
+   "{a} checks {b} out. Through the air."
+  ],
+  "ab_do-not-disturb": [
+   "{a} hangs a Do Not Disturb sign on everyone. It works.",
+   "\"Do not disturb,\" says {a}, and the whole lobby freezes."
+  ],
+  "ab_complimentary-upgrade": [
+   "{a} gives the team a complimentary upgrade. Suites all round.",
+   "Complimentary upgrade! {a}'s team gets the minibar."
+  ],
+  "ab_precision-incision": [
+   "{a} makes a precise incision on {b}. Textbook.",
+   "\"This won't hurt a bit,\" {a} lies to {b}."
+  ],
+  "ab_general-anaesthetic": [
+   "{a} administers a general anaesthetic. {b} is counting backwards from ten.",
+   "Lights out! {a} puts {b} under."
+  ],
+  "ab_second-opinion": [
+   "{a} gets a second opinion. From {a}. It's good news.",
+   "{a} stitches himself up mid-fight. Show-off."
+  ],
+  "ab_priceless-exhibit": [
+   "{a} hurls a priceless artefact at {b}. It was priceless. Now it's pieces.",
+   "{a} throws the Ming vase. At {b}. On purpose."
+  ],
+  "ab_please-dont-touch": [
+   "\"PLEASE do not touch the exhibits!\" {a} shoves everyone back.",
+   "{a} enforces the no-touching rule. With both hands."
+  ],
+  "ab_monocle-glare": [
+   "{a} glares at {b} through the monocle. {b} is paralysed with shame.",
+   "The monocle catches the light. {b} forgets what they were doing."
+  ],
+  "ab_turbulence": [
+   "\"We're expecting some turbulence,\" says {a}, and flattens everyone.",
+   "Turbulence! {a} rattles the whole lounge."
+  ],
+  "ab_cleared-for-takeoff": [
+   "{a} is cleared for takeoff, and so is {b}.",
+   "{a} launches {b} to cruising altitude. Landing: rough."
+  ],
+  "ab_brace-brace-brace": [
+   "\"Brace, brace, brace!\" shouts {a}. The team tucks in.",
+   "{a} tells the team to adopt the brace position. It works, weirdly."
+  ],
+  "ab_curtain-call": [
+   "Curtain call! The curtain comes down on {b}, courtesy of {a}.",
+   "{a} drops the curtain on {b}. The critics are raving."
+  ],
+  "ab_dramatic-monologue": [
+   "{a} launches into a dramatic monologue. Everyone stops to listen. They can't help it.",
+   "\"To be, or not to be,\" begins {a}. Everyone nearby chooses not to be."
+  ],
+  "ab_standing-ovation": [
+   "{a} takes a bow. The team gets a standing ovation, and a second wind.",
+   "Bravo! Bravo! {a}'s company rises to the occasion."
   ]
  }
 }

@@ -614,5 +614,9 @@
   "prop.crate",
   "prop.scrap-metal",
   "prop.tin-cans"
- ]
+ ],
+ "boss": {
+  "career": "career.warehouse-foreman",
+  "name": "Dave Stackhouse"
+ }
 }

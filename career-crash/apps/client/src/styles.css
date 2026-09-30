@@ -2112,3 +2112,22 @@ body:has(.shell.li) {
 .squad-slots {
   margin-top: 34px;
 }
+
+/* Boss stage: the final interview */
+.li-boss {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+  margin: 12px 0 4px;
+  padding: 10px 12px;
+  border: 1px solid #f5c2c0;
+  border-radius: 8px;
+  background: #fff5f5;
+}
+
+.li-boss-moves {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin-top: 6px;
+}

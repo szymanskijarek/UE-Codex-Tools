@@ -588,5 +588,9 @@
   "prop.scrap-metal",
   "prop.paint-bucket",
   "prop.hard-hat"
- ]
+ ],
+ "boss": {
+  "career": "career.site-foreman",
+  "name": "Big Tony Girder"
+ }
 }

@@ -29,7 +29,7 @@ pnpm dev                        # worker on :8787, client on :5173 (proxied /api
   named arena stations, and sudden death. Every battle replays from a ~5 KB
   input record.
 - **Content** (`packages/content/data`): 66 careers (58 tier 1, 7 tier 2,
-  1 tier 3), 134 abilities (incl. 10 grapples/throws), 196 career synergies (banter, including every career against its own job), 6 hidden masteries, 10 personalities, 12 traits,
+  1 tier 3) plus 12 ladder bosses with their own moves, 272 abilities (incl. 10 grapples/throws), 196 career synergies (banter, including every career against its own job), 6 hidden masteries, 10 personalities, 12 traits,
   43 items, 101 props, 27 interaction rules, 12 arenas (Supermarket, Office,
   Train Station, Diner, Construction Site, Warehouse, Docks, Hotel Lobby,
   Hospital Ward, Museum, Airport, Theatre) on painted backdrops, each with its own chiptune.
@@ -54,7 +54,9 @@ pnpm dev                        # worker on :8787, client on :5173 (proxied /api
 Create a fighter, climb the ladder, spend stat and skill points, hire a squad at
 Senior rank, and spend fight pay in the Corner Shop: each fighter packs up to 3
 items — consumables that fire at kick-off or at low HP, and gear that adds a
-little to their stats. Opponents carry items too (03 §3.6).
+little to their stats. Opponents carry items too (03 §3.6). Each of the 12
+arenas ends in a boss fight against its own boss (a Store Manager, a CEO, a
+Harbour Master…), each with three signature moves and a passive.
 
 ## Pipelines
 

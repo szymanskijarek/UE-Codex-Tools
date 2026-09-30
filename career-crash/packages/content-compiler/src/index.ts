@@ -184,9 +184,17 @@ export function validateBundle(b: ContentBundle): string[] {
     // Budgets (02 §9)
     const pos = sum(c.statMods, true);
     const net = sum(c.statMods);
-    const netCap = c.tier + 2;
-    if (pos > 6) errors.push(`${c.id}: positive stat mods ${pos} exceed budget 6`);
+    // Bosses are meant to outclass a career: a bigger budget, but still a cap.
+    const netCap = c.boss ? 9 : c.tier + 2;
+    const posCap = c.boss ? 12 : 6;
+    if (pos > posCap) errors.push(`${c.id}: positive stat mods ${pos} exceed budget ${posCap}`);
     if (net > netCap) errors.push(`${c.id}: net stat mods ${net} exceed tier ${c.tier} budget ${netCap}`);
+  }
+  for (const a of b.arenas) {
+    if (!a.boss) continue;
+    const boss = b.careers.find((c) => c.id === a.boss!.career);
+    if (!boss) errors.push(`${a.id}: unknown boss career ${a.boss.career}`);
+    else if (!boss.boss) errors.push(`${a.id}: boss ${a.boss.career} is not marked boss: true`);
   }
   for (const p of b.personalities) if (p.ability) needAbility(p.id, p.ability, 'active');
   for (const sy of b.synergies) for (const c of [sy.attacker, sy.victim]) if (!careers.has(c)) errors.push(`${sy.id}: unknown career ${c}`);

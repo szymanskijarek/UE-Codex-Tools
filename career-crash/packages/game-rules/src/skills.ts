@@ -273,6 +273,8 @@ const COMPANIES = [
 ];
 
 export const STAGES_PER_ARENA = 4;
+/** Stat points a boss gets for each career slot it fights without. */
+const BOSS_POINTS_PER_SLOT = 4;
 
 export interface StageInfo {
   stage: number;
@@ -282,6 +284,9 @@ export interface StageInfo {
   level: number;
   rank: number;
   boss: boolean;
+  /** On a boss stage: the arena's boss career and the boss's name. */
+  bossCareer?: string;
+  bossName?: string;
 }
 
 export function stageInfo(bundle: ContentBundle, stage: number): StageInfo {
@@ -301,13 +306,17 @@ export function stageInfo(bundle: ContentBundle, stage: number): StageInfo {
     'arena.theatre',
   ].filter((a) => bundle.arenas.some((x) => x.id === a));
   const chapter = Math.floor(stage / STAGES_PER_ARENA);
+  const arenaId = order[chapter % order.length]!;
+  const boss = stage % STAGES_PER_ARENA === STAGES_PER_ARENA - 1;
+  const b = boss ? bundle.arenas.find((a) => a.id === arenaId)?.boss : undefined;
   return {
     stage,
-    arenaId: order[chapter % order.length]!,
+    arenaId,
     company: COMPANIES[stage % COMPANIES.length]!,
     level: 1 + Math.floor(stage * 0.7),
     rank: Math.min(5, 1 + Math.floor(stage / 3)),
-    boss: stage % STAGES_PER_ARENA === STAGES_PER_ARENA - 1,
+    boss,
+    ...(b ? { bossCareer: b.career, bossName: b.name } : {}),
   };
 }
 
@@ -317,12 +326,37 @@ export function opponentTeam(bundle: ContentBundle, seed: string, stage: number,
   const out: CareerChar[] = [];
   for (let i = 0; i < size; i++) {
     const boss = info.boss && i === 0;
-    const f = generatedFighter(bundle, rng, `opp-${seed}-${stage}-${i}`, info.level + diff.levelOffset + (boss ? 2 : 0), info.rank + diff.rankOffset + (boss ? 1 : 0), diff);
+    // Bosses are a level or two up, less so early on, where a level is a big share of a fighter.
+    const bossLevels = boss ? Math.min(2, Math.floor(stage / STAGES_PER_ARENA)) : 0;
+    const f = generatedFighter(bundle, rng, `opp-${seed}-${stage}-${i}`, info.level + diff.levelOffset + bossLevels, info.rank + diff.rankOffset + (boss ? 1 : 0), diff);
+    if (boss && info.bossCareer) makeBoss(bundle, f, info.bossCareer, info.bossName ?? f.c.name, info.rank + diff.rankOffset + 1);
     for (const k of STAT_KEYS) f.c.stats[k] = Math.max(1, f.c.stats[k] + diff.statOffset);
     f.loadout = aiLoadout(bundle, rng, diff, stage);
     out.push(f);
   }
   return out;
+}
+
+/**
+ * Turn a generated fighter into the arena's boss: the boss career only (their
+ * three signature moves and passive, all unlocked whatever the difficulty),
+ * their own name, and the level and stats the fighter already rolled.
+ */
+function makeBoss(bundle: ContentBundle, f: CareerChar, career: string, name: string, rank: number): void {
+  // A boss fights with one career where others have several by mid-ladder: each
+  // career slot given up becomes stat points in the boss's strongest stats.
+  const dropped = f.c.careers.length - 1;
+  const def = bundle.careers.find((x) => x.id === career);
+  const best = def ? topStats(def) : [];
+  for (let i = 0; i < dropped * BOSS_POINTS_PER_SLOT && best.length; i++) f.c.stats[best[i % best.length]!] += 1;
+  f.c.careers = [career];
+  f.c.name = name;
+  f.careerXp = { [career]: RANK_XP[Math.max(0, Math.min(4, rank - 1))]! };
+  // Every move and the passive, always; stat perks and the capstone as their rank allows,
+  // so an early boss isn't eight stat points ahead of everyone else.
+  f.nodes = skillTree(bundle, career)
+    .filter((n) => n.kind === 'ability' || n.kind === 'passive' || n.rank <= rank - 2)
+    .map((n) => n.id);
 }
 
 /** Agency temps fill the squad until you can build one: roughly your level, sensible skills. */

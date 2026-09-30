@@ -494,5 +494,9 @@
    "speedMm": 90,
    "loop": false
   }
- ]
+ ],
+ "boss": {
+  "career": "career.chief-surgeon",
+  "name": "Dr Victor Stitch"
+ }
 }

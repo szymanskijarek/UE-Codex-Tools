@@ -117,5 +117,28 @@
    3,
    0.66
   ]
+ },
+ "chief-surgeon": {
+  "split": [
+   [
+    9,
+    0.57
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "upperArmL": 2,
+   "torso": 3,
+   "upperArmR": 4,
+   "foreArmL": 5,
+   "foreArmR": 6,
+   "pelvis": 7,
+   "thighL": 8,
+   "thighR": 9,
+   "shinL": 10,
+   "shinR": 101,
+   "footL": 11,
+   "footR": 12
+  }
  }
 }

@@ -552,5 +552,9 @@
    "speedMm": 120,
    "loop": false
   }
- ]
+ ],
+ "boss": {
+  "career": "career.harbour-master",
+  "name": "Captain Ned Barnacle"
+ }
 }

@@ -627,5 +627,9 @@
   "prop.umbrella",
   "prop.paper-stack",
   "prop.coffee-cup"
- ]
+ ],
+ "boss": {
+  "career": "career.stationmaster",
+  "name": "Arthur Punctual"
+ }
 }

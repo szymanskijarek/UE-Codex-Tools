@@ -53,6 +53,8 @@ interface SheetOverride {
   flip?: Part[];
   /** Sheet has no separate pelvis: cut component [n] at this fraction of its height; the lower piece becomes the pelvis. */
   splitPelvis?: [number, number];
+  /** Cut component [n] horizontally at this fraction of its height (e.g. a thigh touching its shin); the lower piece becomes component 101, 102, … in order. */
+  split?: [number, number][];
 }
 
 interface PartOut {
@@ -256,11 +258,11 @@ async function sliceSheet(name: string, override: SheetOverride): Promise<[strin
   const { data, W, H } = await load(file);
   const { labels, comps: raw } = components(data, W, H);
   const comps = mergeSmall(raw, labels);
-  if (override.splitPelvis) {
-    const [n, at] = override.splitPelvis;
+  // Cut a component in two at a fraction of its height; the lower piece gets a new number.
+  const cutComp = (n: number, at: number, newN: number) => {
     const c = comps.find((k) => k.n === n)!;
     const cut = c.y0 + Math.round((c.y1 - c.y0) * at);
-    const lower: Comp = { n: 100, label: Math.max(...comps.map((k) => k.label)) + 1, x0: W, y0: cut, x1: 0, y1: c.y1, area: 0, cx: 0, cy: 0 };
+    const lower: Comp = { n: newN, label: Math.max(...comps.map((k) => k.label)) + 1, x0: W, y0: cut, x1: 0, y1: c.y1, area: 0, cx: 0, cy: 0 };
     for (let y = cut; y <= c.y1; y++) {
       for (let x = c.x0; x <= c.x1; x++) {
         if (labels[y * W + x] !== c.label) continue;
@@ -278,7 +280,9 @@ async function sliceSheet(name: string, override: SheetOverride): Promise<[strin
     c.cy = (c.y0 + c.y1) / 2;
     c.area -= lower.area;
     comps.push(lower);
-  }
+  };
+  if (override.splitPelvis) cutComp(override.splitPelvis[0], override.splitPelvis[1], 100);
+  (override.split ?? []).forEach(([n, at], i) => cutComp(n, at, 101 + i));
   const auto = classify(comps);
   const parts: Partial<Record<Part, Comp>> = { ...auto };
   for (const [k, n] of Object.entries(override.parts ?? {})) parts[k as Part] = comps.find((c) => c.n === n);

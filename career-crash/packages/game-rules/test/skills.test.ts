@@ -2,6 +2,7 @@ import { bundle } from '@cc/content';
 import { createBattle, Rng, step, type BattleInput } from '@cc/sim';
 import { describe, expect, it } from 'vitest';
 import {
+  careerOffers,
   careerSnapshot,
   aiLoadout,
   difficulty,
@@ -14,6 +15,8 @@ import {
   rankOf,
   RANK_XP,
   skillTree,
+  stageInfo,
+  STAGES_PER_ARENA,
   unlockBlocker,
   unlockNode,
   type CareerChar,
@@ -146,5 +149,42 @@ describe('items and pay', () => {
     expect(fightPay('win', 0, 0, d).total).toBeGreaterThan(fightPay('loss', 0, 0, d).total);
     expect(fightPay('win', 0, 2, d).total - fightPay('win', 0, 0, d).total).toBe(60);
     expect(fightPay('win', 5, 0, d).total).toBeGreaterThan(fightPay('win', 0, 0, d).total);
+  });
+});
+
+describe('ladder bosses', () => {
+  const bosses = bundle.careers.filter((c) => c.boss);
+
+  it('every arena has its own boss at the end of its stages', () => {
+    const seen = new Set<string>();
+    for (let chapter = 0; chapter < bundle.arenas.length; chapter++) {
+      const info = stageInfo(bundle, chapter * STAGES_PER_ARENA + STAGES_PER_ARENA - 1);
+      expect(info.boss).toBe(true);
+      expect(info.bossCareer).toBeTruthy();
+      seen.add(info.bossCareer!);
+    }
+    expect(seen.size).toBe(bundle.arenas.length);
+    expect(stageInfo(bundle, 0).bossCareer).toBeUndefined();
+  });
+
+  it('the boss leads the opposing team with every signature move, on any difficulty', () => {
+    const stage = STAGES_PER_ARENA - 1;
+    const info = stageInfo(bundle, stage);
+    for (const d of ['relaxed', 'brutal'] as const) {
+      const [boss, ...rest] = opponentTeam(bundle, 'seed', stage, difficulty(d), 3);
+      expect(boss!.c.careers).toEqual([info.bossCareer]);
+      expect(boss!.c.name).toBe(info.bossName);
+      const career = bosses.find((c) => c.id === info.bossCareer)!;
+      const snap = careerSnapshot(bundle, boss!);
+      for (const a of [career.active, career.passive, ...(career.extraActives ?? [])]) expect(snap.unlocked).toContain(a);
+      for (const r of rest) expect(r.c.careers.some((c) => bosses.some((b) => b.id === c))).toBe(false);
+    }
+  });
+
+  it('bosses are never recruited, generated or offered as a career', () => {
+    const rng = Rng.fromSeed('boss-check');
+    for (let i = 0; i < 300; i++) expect(bosses.some((b) => generateRecruit(bundle, rng, `r${i}`).careers.includes(b.id))).toBe(false);
+    const all = bundle.careers.map((c) => c.id);
+    for (let i = 0; i < 50; i++) expect(careerOffers(bundle, fresh().c, all, `offer-${i}`).some((id) => bosses.some((b) => b.id === id))).toBe(false);
   });
 });

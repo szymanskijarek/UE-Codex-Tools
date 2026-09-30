@@ -118,7 +118,7 @@ function fill(text: string, slots: Record<string, string | number>): string {
 
 function persona(rng: Rng): Pick<FeedPost, 'author' | 'sub' | 'who'> {
   const [author, sub] = PERSONAS[rng.int(PERSONAS.length)]!;
-  const careers = bundle.careers.filter((c) => !c.deprecated);
+  const careers = bundle.careers.filter((c) => !c.deprecated && !c.boss);
   return { author, sub, who: { careers: [careers[rng.int(careers.length)]!.id], appearance: { skin: SKINS[rng.int(SKINS.length)]!, hair: HAIRS[rng.int(HAIRS.length)]!, hairStyle: rng.int(6) } } };
 }
 
@@ -152,6 +152,8 @@ export function fightPosts(s: CareerSave, r: FightSummary): FeedPost[] {
     cash: r.cash,
     career: nameOf(currentCareer(m)),
     fights: fightNo,
+    boss: info.bossName ?? info.company,
+    bossjob: info.bossCareer ? nameOf(info.bossCareer) : 'boss',
   };
   const out: FeedPost[] = [];
   let n = 0;

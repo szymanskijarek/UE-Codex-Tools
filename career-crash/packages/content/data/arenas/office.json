@@ -634,5 +634,9 @@
   "prop.stapler",
   "prop.laptop",
   "prop.desk-lamp"
- ]
+ ],
+ "boss": {
+  "career": "career.ceo",
+  "name": "Gordon Maxwell III"
+ }
 }

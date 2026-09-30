@@ -515,5 +515,9 @@
  },
  "unlock": {
   "league": "intern"
+ },
+ "boss": {
+  "career": "career.impresario",
+  "name": "Maestro Lucien Velour"
  }
 }
