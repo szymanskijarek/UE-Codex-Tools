@@ -104,7 +104,8 @@ running the art pipeline. Re-run a step only when its source art changes.
 
 **Output format** (`src/encode.ts`): sprite sheets are quantised to a palette,
 then saved as **lossless WebP**, so they keep those exact pixels at about 10%
-under the palette PNG. Backdrops are **lossy WebP at quality 80**, 1536 px wide.
+under the palette PNG. Backdrops are **lossy WebP at quality 70**, 1536 px wide
+(fighters cover the floor; 80 cost about 25% more with no visible gain).
 Every image is inlined as base64 into the single-file build, so each byte costs
 4/3 of a byte there. Keep images small.
 
@@ -147,11 +148,13 @@ is empty: the 30 newer careers were re-imported from separate sheets through
 
 `pnpm --filter @cc/art-pipeline items` and `pnpm --filter @cc/art-pipeline items obstacles`
 
-- **Source:** `art/items/*.png` (hand-held and throwable props, 4 per row, 96 px
-  in the atlas) and `art/obstacles/*.png` (machines and large props, 3 per row,
-  170 px).
+- **Source:** `art/items/*.png` (hand-held and throwable props, 4 per row by
+  default, 96 px in the atlas) and `art/obstacles/*.png` (machines and large
+  props, 3 per row by default, 170 px). Sheets are 2 rows.
 - **Names:** item names in reading order live in each folder's `manifest.json`,
   either as a list or as `{ cols, px, names }` for sheets with a different layout.
+  A `null` name skips that cell, for art the atlas already has (the hotel's red
+  suitcase and the airport umbrella); skipped cells cost no bytes.
 - **Output:** `replay/items/items.webp` + `items.json`, and
   `replay/obstacles/obstacles.webp` + `obstacles.json`.
 
@@ -171,6 +174,32 @@ is empty: the 30 newer careers were re-imported from separate sheets through
 `pnpm art:prompts` writes `tools/art-pipeline/out/prompts.json`: generation
 prompts for every career's paper-doll parts, props and items, sharing the
 style preamble so new art matches.
+
+### Adding an arena
+
+1. **Art:** save the painting as `art/arenas/<arena>.png` (1672 × 941, open
+   floor in the middle), obstacles on a sheet in `art/obstacles/` and props on
+   a sheet in `art/items/`, each listed in its `manifest.json`. Run `arenas`,
+   `items` and `items obstacles`.
+2. **Floor:** add the painting to `apps/client/src/replay/arena-art.ts`. The
+   `floor` trapezoid is in image fractions: tune it until fighters stand on
+   the painted floor in a Sandbox fight.
+3. **Content:** `packages/content/data/arenas/<arena>.json`: spawns, props,
+   obstacles (art names from the atlas), stations, hazards, sudden death,
+   movers, debris and theme. Keep it mirror-symmetric (AGENTS.md). New props
+   go in `data/props/`, with a `locales/en.json` name and a sprite mapping in
+   `apps/client/src/replay/items.ts` (`PROPS`).
+4. **Wiring:** name in `locales/en.json` (`arena.<id>.name`), a song in
+   `apps/client/src/replay/music.ts` (keyed by the arena id), a
+   `hazard_start_<id>` commentary line per new hazard in `live.json`, and the
+   career ladder order in `packages/game-rules/src/skills.ts`. Append new
+   arenas to the end of the ladder so existing saves keep their stages.
+5. **Checks:** `pnpm check` (fails on the golden content hash: run
+   `pnpm golden:update`, which also records 8 fights in the new arena), then
+   `pnpm balance --battles=200 --arena=arena.<id>` and compare with the other arenas.
+
+The career ladder gives each arena 4 stages, the last one a boss fight, so the
+12 arenas make a 48-stage ladder with 12 bosses.
 
 ### Adding art for a new career
 

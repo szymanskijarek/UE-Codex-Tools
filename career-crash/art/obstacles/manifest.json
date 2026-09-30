@@ -4,5 +4,10 @@
  "construction": ["scaffold", "jersey-barrier", "cement-mixer", "rebar-bundle", "brick-stack", "site-cabin"],
  "warehouse": ["pallet-rack", "crate-stack", "forklift", "conveyor", "cage-pallet", "drum-rack"],
  "supermarket": ["gondola-shelf", "fridge-wall", "checkout", "chest-freezer", "produce-stand", "floor-scrubber"],
- "office": ["cubicle-cluster", "meeting-table", "bench-desks", "filing-cabinets", "photocopier", "reception-desk"]
+ "office": ["cubicle-cluster", "meeting-table", "bench-desks", "filing-cabinets", "photocopier", "reception-desk"],
+ "museum": { "cols": 2, "names": ["t-rex", "marble-statue", "display-case", "info-kiosk"] },
+ "hotel": { "cols": 2, "names": ["hotel-reception", "bellhop-cart", "lobby-sofa", "lobby-fountain"] },
+ "hospital": { "cols": 2, "names": ["nurses-station", "hospital-bed", "mri-scanner", "ward-screen"] },
+ "airport": { "cols": 2, "names": ["check-in-desk", "baggage-carousel", "security-scanner", "gate-seats"] },
+ "theatre": { "cols": 2, "names": ["scenery-flat", "costume-rack", "lighting-desk", "prop-trunk"] }
 }

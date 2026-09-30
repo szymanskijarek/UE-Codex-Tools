@@ -6,7 +6,7 @@
  * progression in a style, and a drum pattern. One song for the menus and one
  * per arena; `setTempo` speeds a song up as a match heads for its finish.
  */
-export type SongId = 'menu' | 'supermarket' | 'office' | 'station' | 'diner' | 'construction' | 'warehouse';
+export type SongId = 'menu' | 'supermarket' | 'office' | 'station' | 'diner' | 'construction' | 'warehouse' | 'docks' | 'theatre' | 'hotel' | 'hospital' | 'museum' | 'airport';
 
 type BassStyle = 'octave' | 'walk' | 'chug' | 'half' | 'funk';
 type ArpStyle = 'arp16' | 'stab' | 'none';
@@ -113,6 +113,78 @@ const SONGS: Record<SongId, Song> = {
     bass: 'chug',
     arp: 'arp16',
     drums: 'k.h.X.h.k.h.X.ho',
+  },
+  // Sea shanty in 6/8 feel: rolling, swung, a bit drunk.
+  docks: {
+    bpm: 132,
+    swing: 0.28,
+    chords: ['Dm', 'Dm', 'C', 'C', 'Dm', 'Dm', 'A', 'Dm'],
+    lead: 'A4 - D5 - D5 E5 F5 - | E5 - D5 - C5 - A4 - | G4 - C5 - C5 D5 E5 - | D5 - C5 - A4 - G4 - | A4 - D5 - D5 E5 F5 G5 | A5 - G5 - F5 - D5 - | E5 - C#5 - A4 - E5 - | D5 - - - . . . .',
+    leadDuty: 1,
+    arpDuty: 2,
+    bass: 'octave',
+    arp: 'stab',
+    drums: 'k..s..k..s..k.hs',
+  },
+  // Grand overture: brassy fanfare with a waltzing bass.
+  theatre: {
+    bpm: 144,
+    swing: 0,
+    chords: ['Bb', 'F', 'Gm', 'Eb', 'Bb', 'F', 'Eb', 'F'],
+    lead: 'Bb4 - D5 - F5 - Bb5 - | A5 - F5 - C5 - A4 - | G4 - Bb4 - D5 - G5 - | G5 - F5 - Eb5 - Bb4 - | D5 F5 Bb5 - A5 - F5 - | C5 - F5 - A5 - C6 - | Bb5 - G5 - Eb5 - G5 - | F5 - - - F5 - . .',
+    leadDuty: 2,
+    arpDuty: 1,
+    bass: 'octave',
+    arp: 'arp16',
+    drums: 'k...s.s.k...s.hh',
+  },
+  // Lift-music lounge jazz, very polite.
+  hotel: {
+    bpm: 104,
+    swing: 0.22,
+    chords: ['Fmaj7', 'Em7', 'Dm7', 'G7', 'Fmaj7', 'Em7', 'Dm7', 'G7'],
+    lead: 'A4 - C5 - E5 - . D5 | E5 - - - G4 - B4 - | F4 - A4 - C5 - D5 - | B4 - - - . . G4 - | A4 C5 E5 - G5 - E5 - | D5 - B4 - G4 - B4 - | C5 - A4 - F4 - A4 - | G4 - - - . . . .',
+    leadDuty: 1,
+    arpDuty: 2,
+    bass: 'walk',
+    arp: 'stab',
+    drums: 'k..h..h.k..h..hh',
+  },
+  // Beeping monitors and a nervous, quick pulse.
+  hospital: {
+    bpm: 140,
+    swing: 0,
+    chords: ['Am', 'F', 'C', 'G', 'Am', 'F', 'E', 'E'],
+    lead: 'E5 . . E5 . . A5 . | F5 . . C5 . . A4 . | G5 . . E5 . . C5 . | D5 . . B4 . . G4 . | A5 - G5 - E5 - C5 - | F5 - E5 - C5 - A4 - | B4 - G#4 - E4 - G#4 - | B4 - - - E5 - . .',
+    leadDuty: 0,
+    arpDuty: 0,
+    bass: 'chug',
+    arp: 'arp16',
+    drums: 'k.h.s.h.k.h.s.hh',
+  },
+  // Stately baroque minuet, echoing in marble halls.
+  museum: {
+    bpm: 118,
+    swing: 0,
+    chords: ['Gm', 'D', 'Gm', 'Cm', 'Gm', 'D', 'Eb', 'D'],
+    lead: 'G4 - Bb4 - D5 - G5 - | F#5 - D5 - A4 - F#4 - | G4 - D5 - Bb4 - G4 - | C5 - Eb5 - G5 - Eb5 - | D5 - G5 - Bb5 - A5 G5 | F#5 - A5 - D5 - F#5 - | G5 - Eb5 - C5 - Bb4 - | A4 - F#4 - D4 - . .',
+    leadDuty: 2,
+    arpDuty: 1,
+    bass: 'half',
+    arp: 'arp16',
+    drums: 'k.......s.......',
+  },
+  // Departure-lounge synth-pop with a PA-chime hook.
+  airport: {
+    bpm: 128,
+    swing: 0,
+    chords: ['C', 'Am', 'F', 'G', 'C', 'Am', 'Dm', 'G'],
+    lead: 'E5 - C5 - G5 - - - | E5 - A4 - C5 - E5 - | F5 - A5 - C6 - A5 - | G5 - D5 - B4 - G4 - | C6 - B5 - G5 - E5 - | A5 - G5 - E5 - C5 - | D5 - F5 - A5 - F5 - | G5 - - - . . . .',
+    leadDuty: 2,
+    arpDuty: 0,
+    bass: 'octave',
+    arp: 'arp16',
+    drums: 'k.hks.h.k.hks.ho',
   },
 };
 

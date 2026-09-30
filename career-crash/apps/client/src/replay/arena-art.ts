@@ -22,6 +22,12 @@ const DEFS: Record<string, Omit<ArenaArt, 'url'> & { file: string }> = {
   'arena.diner': { file: 'diner', w: 1774, h: 887, floor: { top: 0.27, topHalf: 0.31, bottom: 0.92, bottomHalf: 0.34 } },
   'arena.construction': { file: 'construction', w: 1672, h: 941, floor: { top: 0.43, topHalf: 0.31, bottom: 0.76, bottomHalf: 0.37 } },
   'arena.warehouse': { file: 'warehouse', w: 1774, h: 887, floor: { top: 0.34, topHalf: 0.35, bottom: 0.82, bottomHalf: 0.37 } },
+  'arena.docks': { file: 'docks', w: 1672, h: 941, floor: { top: 0.3, topHalf: 0.4, bottom: 0.77, bottomHalf: 0.46 } },
+  'arena.theatre': { file: 'theatre', w: 1672, h: 940, floor: { top: 0.28, topHalf: 0.33, bottom: 0.84, bottomHalf: 0.45 } },
+  'arena.hotel': { file: 'hotel', w: 1672, h: 940, floor: { top: 0.27, topHalf: 0.4, bottom: 0.8, bottomHalf: 0.4 } },
+  'arena.hospital': { file: 'hospital', w: 1672, h: 941, floor: { top: 0.28, topHalf: 0.36, bottom: 0.86, bottomHalf: 0.38 } },
+  'arena.museum': { file: 'museum', w: 1672, h: 940, floor: { top: 0.27, topHalf: 0.38, bottom: 0.82, bottomHalf: 0.4 } },
+  'arena.airport': { file: 'airport', w: 1672, h: 941, floor: { top: 0.33, topHalf: 0.36, bottom: 0.84, bottomHalf: 0.4 } },
 };
 
 export function arenaArt(arenaId: string): ArenaArt | null {

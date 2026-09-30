@@ -285,7 +285,21 @@ export interface StageInfo {
 }
 
 export function stageInfo(bundle: ContentBundle, stage: number): StageInfo {
-  const order = ['arena.supermarket', 'arena.office', 'arena.diner', 'arena.station', 'arena.warehouse', 'arena.construction'].filter((a) => bundle.arenas.some((x) => x.id === a));
+  // New arenas go at the end, so existing careers keep the arenas they have already seen.
+  const order = [
+    'arena.supermarket',
+    'arena.office',
+    'arena.diner',
+    'arena.station',
+    'arena.warehouse',
+    'arena.construction',
+    'arena.docks',
+    'arena.hotel',
+    'arena.hospital',
+    'arena.museum',
+    'arena.airport',
+    'arena.theatre',
+  ].filter((a) => bundle.arenas.some((x) => x.id === a));
   const chapter = Math.floor(stage / STAGES_PER_ARENA);
   return {
     stage,

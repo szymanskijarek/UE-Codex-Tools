@@ -338,7 +338,9 @@
    "I'm filing a grievance!",
    "Not the face! I have headshots Thursday!",
    "That's going in my review!",
-   "My pension!"
+   "My pension!",
+   "Mind the exhibits!",
+   "I've got a flight to catch!"
   ],
   "bark_hit_by_prop": [
    "Who threw that?!",
@@ -496,7 +498,9 @@
    "Ooh, a {prop}!",
    "This'll do.",
    "Perfect.",
-   "Mine!"
+   "Mine!",
+   "Ooh, is this {prop} free?",
+   "Nobody's using this {prop}."
   ],
   "bark_throw": [
    "Catch!",
@@ -1954,7 +1958,11 @@
    "If you're not getting knocked down, you're not standing close enough to anything interesting.",
    "Congratulations to me on 9 years of being endorsed for 'Microsoft Word' and 'Grappling'.",
    "I didn't choose the {arena}. The {arena} chose me. Also I lost a bet.",
-   "Hiring tip: bring every candidate a coffee. If they throw it, hire them. If they drink it, also hire them. We're desperate."
+   "Hiring tip: bring every candidate a coffee. If they throw it, hire them. If they drink it, also hire them. We're desperate.",
+   "Just landed. Fought in the departures lounge. Still made my connection. #Hustle",
+   "Unpopular opinion: hotel lobbies are the new boardroom. The fountain is the new water cooler.",
+   "Spent the day at the museum. Learned nothing. Punched a curator. Growth.",
+   "My hospital stay taught me three things: hydrate, rest, and always keep a bedpan within reach."
   ],
   "feed_item": [
    "Honestly, the {item} carried me today. Not sponsored. (Please sponsor me.)",
@@ -2284,7 +2292,8 @@
    "The algorithm brought me here and I'm staying.",
    "I disagree but I'm too tired to explain why.",
    "Every day this app gets weirder. Love it.",
-   "Is anyone else getting these posts?"
+   "Is anyone else getting these posts?",
+   "Did anyone else see the fight at the airport? My flight was delayed by 40 minutes and one suplex."
   ],
   "feed_c_recruiter": [
    "Hi {first}! I have an exciting opportunity that could be a great fit. DM me 🚀",
@@ -2548,6 +2557,91 @@
    "Feeding time!",
    "Easy, big fella!",
    "Back in your enclosure!"
+  ],
+  "hazard_start_wave-splash": [
+   "A wave slaps over the edge of the pier!",
+   "The sea wants in. The sea is getting in.",
+   "Splash zone! Nobody bought a splash-zone ticket."
+  ],
+  "hazard_start_seagulls": [
+   "Seagulls! Hold on to your chips!",
+   "A squadron of gulls dives in. Nobody is safe. Especially the chips.",
+   "The gulls have unionised."
+  ],
+  "hazard_start_catch-of-the-day": [
+   "The crane's dropping today's catch!",
+   "Fish incoming. From above. As nature intended.",
+   "Crates of fish are coming down. Smells like victory. Mostly smells like fish."
+  ],
+  "hazard_start_falling-sandbag": [
+   "Sandbags off the fly rail!",
+   "Somebody in the rigging has let go of something.",
+   "Look out below! The stagehands are on strike."
+  ],
+  "hazard_start_dry-ice": [
+   "The smoke machine goes off. Everyone's in a music video now.",
+   "Dry ice floods the stage. Very dramatic. Very slow.",
+   "Fog! Can't see a thing. The audience loves it."
+  ],
+  "hazard_start_spotlight": [
+   "Spotlight! Somebody's having their big moment.",
+   "The follow-spot finds a star. Egos inflate.",
+   "Lights up centre stage. Everyone wants that spot."
+  ],
+  "hazard_start_luggage-avalanche": [
+   "The luggage cart gives way!",
+   "Suitcases tumbling down the grand staircase!",
+   "Somebody packed for a fortnight. It's all coming down."
+  ],
+  "hazard_start_room-service": [
+   "Room service! Snacks on the house.",
+   "A trolley of little sandwiches rolls in. Crusts off. Violence on.",
+   "Complimentary snacks for the lobby. Management regrets this already."
+  ],
+  "hazard_start_fountain-overflow": [
+   "The fountain's overflowing onto the carpet!",
+   "Water all over the lobby. That carpet cost more than your car.",
+   "Fountain malfunction. The pennies are free now."
+  ],
+  "hazard_start_saline-spill": [
+   "Saline on the floor! Mind your step.",
+   "Someone's knocked over a drip stand.",
+   "Spillage in the ward. Health and safety are typing."
+  ],
+  "hazard_start_code-blue": [
+   "CODE BLUE! Everyone panics professionally.",
+   "The alarms go off. Nobody knows which alarm.",
+   "Code blue on the ward. Code brawl in the corridor."
+  ],
+  "hazard_start_supply-drop": [
+   "Fresh supplies wheeled in from the stores!",
+   "A first aid case appears. Fight for it.",
+   "Medical supplies incoming. Healthcare, but make it competitive."
+  ],
+  "hazard_start_new-exhibit": [
+   "A new exhibit arrives. Please do not throw the exhibits.",
+   "Priceless pottery delivered to the middle of a fight. Bold.",
+   "Crates from the dig site! Handle with care. They won't."
+  ],
+  "hazard_start_alarm": [
+   "The museum alarm goes off! Everyone freezes like a statue.",
+   "Security alarm! Somebody touched the T. rex.",
+   "Alarm bells. The guards are on their lunch."
+  ],
+  "hazard_start_falling-frame": [
+   "A painting drops off the wall!",
+   "Exhibit placards coming loose!",
+   "Modern art, arriving at speed."
+  ],
+  "hazard_start_boarding-call": [
+   "Final boarding call! Half the room looks at their phone.",
+   "Gate change! Everyone is distracted and furious.",
+   "This is a customer announcement: please stop fighting at Gate 13."
+  ],
+  "hazard_start_duty-free-sample": [
+   "Free samples at Duty Free!",
+   "Duty Free bags on the floor. That's someone's holiday.",
+   "Tax-free treats, fight-priced."
   ]
  }
 }

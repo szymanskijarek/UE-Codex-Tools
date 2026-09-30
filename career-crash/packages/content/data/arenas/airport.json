@@ -1,0 +1,469 @@
+{
+ "id": "arena.airport",
+ "sizeMm": [
+  24000,
+  13000
+ ],
+ "navCellMm": 500,
+ "walls": [],
+ "spawns": {
+  "a": [
+   [
+    2000,
+    6500
+   ],
+   [
+    2000,
+    4200
+   ],
+   [
+    2000,
+    8800
+   ],
+   [
+    3200,
+    2800
+   ],
+   [
+    3200,
+    10200
+   ]
+  ],
+  "b": [
+   [
+    22000,
+    6500
+   ],
+   [
+    22000,
+    4200
+   ],
+   [
+    22000,
+    8800
+   ],
+   [
+    20800,
+    2800
+   ],
+   [
+    20800,
+    10200
+   ]
+  ],
+  "ffa": [
+   [
+    2500,
+    1900
+   ],
+   [
+    21500,
+    1900
+   ],
+   [
+    2500,
+    11100
+   ],
+   [
+    21500,
+    11100
+   ],
+   [
+    8500,
+    6500
+   ],
+   [
+    15500,
+    6500
+   ],
+   [
+    12000,
+    1600
+   ],
+   [
+    12000,
+    11400
+   ]
+  ]
+ },
+ "refereeSpawn": [
+  12000,
+  5200
+ ],
+ "props": [
+  {
+   "prop": "prop.carry-on",
+   "at": [
+    3200,
+    7400
+   ]
+  },
+  {
+   "prop": "prop.carry-on",
+   "at": [
+    20800,
+    7400
+   ]
+  },
+  {
+   "prop": "prop.neck-pillow",
+   "at": [
+    7400,
+    6600
+   ]
+  },
+  {
+   "prop": "prop.neck-pillow",
+   "at": [
+    16600,
+    6600
+   ]
+  },
+  {
+   "prop": "prop.security-tray",
+   "at": [
+    8800,
+    2600
+   ]
+  },
+  {
+   "prop": "prop.security-tray",
+   "at": [
+    15200,
+    2600
+   ]
+  },
+  {
+   "prop": "prop.duty-free-bag",
+   "at": [
+    9400,
+    10600
+   ]
+  },
+  {
+   "prop": "prop.duty-free-bag",
+   "at": [
+    14600,
+    10600
+   ]
+  },
+  {
+   "prop": "prop.passport",
+   "at": [
+    5600,
+    6000
+   ]
+  },
+  {
+   "prop": "prop.passport",
+   "at": [
+    18400,
+    6000
+   ]
+  },
+  {
+   "prop": "prop.suitcase",
+   "at": [
+    2200,
+    4400
+   ]
+  },
+  {
+   "prop": "prop.suitcase",
+   "at": [
+    21800,
+    4400
+   ]
+  },
+  {
+   "prop": "prop.umbrella",
+   "at": [
+    3000,
+    11600
+   ]
+  },
+  {
+   "prop": "prop.umbrella",
+   "at": [
+    21000,
+    11600
+   ]
+  },
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    6400,
+    11800
+   ]
+  },
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    17600,
+    11800
+   ]
+  },
+  {
+   "prop": "prop.snack",
+   "at": [
+    9800,
+    7800
+   ]
+  },
+  {
+   "prop": "prop.snack",
+   "at": [
+    14200,
+    7800
+   ]
+  },
+  {
+   "prop": "prop.luggage-trolley",
+   "at": [
+    12000,
+    9400
+   ]
+  },
+  {
+   "prop": "prop.carry-on",
+   "at": [
+    12000,
+    11600
+   ]
+  },
+  {
+   "prop": "prop.duty-free-bag",
+   "at": [
+    12000,
+    4200
+   ]
+  }
+ ],
+ "hazards": [
+  {
+   "id": "hazard.lost-luggage",
+   "startTick": 400,
+   "everyTicks": 550,
+   "telegraphTicks": 30,
+   "region": [
+    3000,
+    2000,
+    18000,
+    9000
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.suitcase",
+     "count": 2,
+     "dropFromMm": 3000
+    }
+   }
+  },
+  {
+   "id": "hazard.boarding-call",
+   "startTick": 700,
+   "everyTicks": 700,
+   "telegraphTicks": 30,
+   "region": [
+    2000,
+    1500,
+    20000,
+    10000
+   ],
+   "action": {
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.distracted",
+      "durationTicks": 40
+     }
+    ]
+   }
+  },
+  {
+   "id": "hazard.duty-free-sample",
+   "startTick": 1000,
+   "everyTicks": 800,
+   "telegraphTicks": 30,
+   "region": [
+    8000,
+    4500,
+    8000,
+    3000
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.duty-free-bag",
+     "count": 2
+    }
+   }
+  }
+ ],
+ "suddenDeath": {
+  "everyTicks": 200,
+  "region": [
+   0,
+   0,
+   24000,
+   13000
+  ],
+  "action": {
+   "spawn": {
+    "prop": "prop.carry-on",
+    "count": 3,
+    "dropFromMm": 5000
+   },
+   "effects": [
+    {
+     "type": "applyStatus",
+     "status": "status.stunned",
+     "durationTicks": 20
+    }
+   ]
+  }
+ },
+ "stations": [
+  {
+   "id": "centre",
+   "name": "Gate 13",
+   "at": [
+    12000,
+    3000
+   ]
+  },
+  {
+   "id": "nw",
+   "name": "Check-in",
+   "at": [
+    3800,
+    2800
+   ]
+  },
+  {
+   "id": "ne",
+   "name": "Security",
+   "at": [
+    20200,
+    2800
+   ]
+  },
+  {
+   "id": "sw",
+   "name": "Baggage Claim",
+   "at": [
+    4800,
+    10600
+   ]
+  },
+  {
+   "id": "se",
+   "name": "Duty Free",
+   "at": [
+    19200,
+    10600
+   ]
+  }
+ ],
+ "obstacles": [
+  {
+   "at": [
+    5200,
+    3600,
+    2800,
+    900
+   ],
+   "art": [
+    "check-in-desk",
+    "security-scanner"
+   ]
+  },
+  {
+   "at": [
+    16000,
+    3600,
+    2800,
+    900
+   ],
+   "art": [
+    "security-scanner",
+    "check-in-desk"
+   ]
+  },
+  {
+   "at": [
+    6000,
+    9000,
+    3800,
+    900
+   ],
+   "art": [
+    "baggage-carousel"
+   ],
+   "belt": [
+    45,
+    0
+   ]
+  },
+  {
+   "at": [
+    14200,
+    9000,
+    3800,
+    900
+   ],
+   "art": [
+    "baggage-carousel"
+   ],
+   "belt": [
+    -45,
+    0
+   ]
+  },
+  {
+   "at": [
+    10900,
+    5800,
+    2200,
+    800
+   ],
+   "art": [
+    "gate-seats"
+   ],
+   "chanceBp": 7000
+  }
+ ],
+ "debris": [
+  "prop.suitcase",
+  "prop.security-tray",
+  "prop.neck-pillow",
+  "prop.cardboard-box"
+ ],
+ "theme": {
+  "floor": "#b8c2cc",
+  "wall": "#1e3a8a",
+  "accent": "#0284c7"
+ },
+ "unlock": {
+  "league": "intern"
+ },
+ "movers": [
+  {
+   "id": "hazard.floor-scrubber",
+   "prop": "prop.floor-scrubber",
+   "path": [
+    [
+     500,
+     7200
+    ],
+    [
+     23500,
+     7200
+    ]
+   ],
+   "startTick": 600,
+   "telegraphTicks": 60,
+   "speedMm": 95,
+   "loop": false
+  }
+ ]
+}

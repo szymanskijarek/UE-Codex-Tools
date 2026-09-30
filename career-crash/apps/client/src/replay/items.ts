@@ -171,6 +171,39 @@ const PROPS: Record<string, string> = {
   'prop.keyboard': 'keyboard',
   'prop.hay-bale': 'hay-bale',
   'prop.speaker': 'speaker',
+  'prop.potted-plant': 'lobby-plant',
+  // Hospital
+  'prop.first-aid-case': 'first-aid-case',
+  'prop.stethoscope': 'stethoscope',
+  'prop.spray-bottle': 'spray-bottle',
+  'prop.towel-stack': 'towel-stack',
+  'prop.bedpan': 'bedpan',
+  'prop.iv-bag': 'iv-bag',
+  // Museum
+  'prop.marble-bust': 'marble-bust',
+  'prop.scroll': 'scroll',
+  'prop.rope-barrier': 'rope-barrier',
+  'prop.amphora': 'amphora',
+  'prop.placard': 'placard',
+  'prop.dust-brush': 'dust-brush',
+  // Hotel
+  'prop.desk-bell': 'desk-bell',
+  'prop.table-lamp': 'table-lamp',
+  'prop.key-rack': 'key-rack',
+  'prop.ice-bucket': 'ice-bucket',
+  // Airport
+  'prop.carry-on': 'carry-on',
+  'prop.neck-pillow': 'neck-pillow',
+  'prop.security-tray': 'security-tray',
+  'prop.duty-free-bag': 'duty-free-bag',
+  'prop.passport': 'passport',
+  // Docks
+  'prop.rope-coil': 'rope-coil',
+  'prop.life-ring': 'life-ring',
+  'prop.buoy': 'buoy',
+  'prop.fish-crate': 'fish-crate',
+  'prop.tackle-box': 'tackle-box',
+  'prop.grappling-hook': 'grappling-hook',
 };
 
 async function load(sh: Sheet): Promise<void> {

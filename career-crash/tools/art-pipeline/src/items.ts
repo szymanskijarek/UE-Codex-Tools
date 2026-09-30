@@ -104,7 +104,8 @@ function groups<T>(items: T[], key: (t: T) => number, n: number): T[][] {
 }
 
 async function main(): Promise<void> {
-  const manifest = JSON.parse(readFileSync(join(SHEETS, 'manifest.json'), 'utf8')) as Record<string, string[] | { cols: number; px?: number; names: string[] }>;
+  // A null name skips that cell (art the atlas already has), so it costs no bytes.
+  const manifest = JSON.parse(readFileSync(join(SHEETS, 'manifest.json'), 'utf8')) as Record<string, (string | null)[] | { cols: number; px?: number; names: (string | null)[] }>;
   const pieces: { name: string; png: Buffer; w: number; h: number }[] = [];
   for (const [sheet, entry] of Object.entries(manifest)) {
     const names = Array.isArray(entry) ? entry : entry.names;
@@ -125,6 +126,7 @@ async function main(): Promise<void> {
       continue;
     }
     for (let i = 0; i < cells.length; i++) {
+      if (!names[i]) continue;
       const c = cells[i]!;
       const x0 = Math.min(...c.map((b) => b.x0));
       const y0 = Math.min(...c.map((b) => b.y0));
@@ -152,7 +154,7 @@ async function main(): Promise<void> {
         .toBuffer();
       pieces.push({ name: names[i]!, png, w: tw, h: th });
     }
-    console.log(`✓ ${sheet}: ${names.join(', ')}`);
+    console.log(`✓ ${sheet}: ${names.map((n) => n ?? '(skipped)').join(', ')}`);
   }
   let x = PAD;
   let y = PAD;

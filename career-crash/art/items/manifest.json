@@ -157,5 +157,10 @@
    "tool-window-cleaner",
    "tool-zookeeper"
   ]
- }
+ },
+ "hospital": { "cols": 3, "names": ["first-aid-case", "stethoscope", "spray-bottle", "towel-stack", "bedpan", "iv-bag"] },
+ "museum": { "cols": 3, "names": ["marble-bust", "scroll", "rope-barrier", "amphora", "placard", "dust-brush"] },
+ "hotel": { "cols": 3, "names": ["desk-bell", null, "table-lamp", "key-rack", "lobby-plant", "ice-bucket"] },
+ "airport": { "cols": 3, "names": ["carry-on", "neck-pillow", "security-tray", "duty-free-bag", "passport", null] },
+ "docks": { "cols": 3, "names": ["rope-coil", "life-ring", "buoy", "fish-crate", "tackle-box", "grappling-hook"] }
 }

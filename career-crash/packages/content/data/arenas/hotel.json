@@ -1,0 +1,468 @@
+{
+ "id": "arena.hotel",
+ "sizeMm": [
+  24000,
+  13000
+ ],
+ "navCellMm": 500,
+ "walls": [],
+ "spawns": {
+  "a": [
+   [
+    2000,
+    6500
+   ],
+   [
+    2000,
+    4200
+   ],
+   [
+    2000,
+    8800
+   ],
+   [
+    3200,
+    2800
+   ],
+   [
+    3200,
+    10200
+   ]
+  ],
+  "b": [
+   [
+    22000,
+    6500
+   ],
+   [
+    22000,
+    4200
+   ],
+   [
+    22000,
+    8800
+   ],
+   [
+    20800,
+    2800
+   ],
+   [
+    20800,
+    10200
+   ]
+  ],
+  "ffa": [
+   [
+    2500,
+    1900
+   ],
+   [
+    21500,
+    1900
+   ],
+   [
+    2500,
+    11100
+   ],
+   [
+    21500,
+    11100
+   ],
+   [
+    8500,
+    6500
+   ],
+   [
+    15500,
+    6500
+   ],
+   [
+    12000,
+    1600
+   ],
+   [
+    12000,
+    11400
+   ]
+  ]
+ },
+ "refereeSpawn": [
+  12000,
+  5200
+ ],
+ "props": [
+  {
+   "prop": "prop.desk-bell",
+   "at": [
+    8800,
+    2600
+   ]
+  },
+  {
+   "prop": "prop.desk-bell",
+   "at": [
+    15200,
+    2600
+   ]
+  },
+  {
+   "prop": "prop.table-lamp",
+   "at": [
+    3000,
+    7400
+   ]
+  },
+  {
+   "prop": "prop.table-lamp",
+   "at": [
+    21000,
+    7400
+   ]
+  },
+  {
+   "prop": "prop.key-rack",
+   "at": [
+    3200,
+    2200
+   ]
+  },
+  {
+   "prop": "prop.key-rack",
+   "at": [
+    20800,
+    2200
+   ]
+  },
+  {
+   "prop": "prop.ice-bucket",
+   "at": [
+    7400,
+    6600
+   ]
+  },
+  {
+   "prop": "prop.ice-bucket",
+   "at": [
+    16600,
+    6600
+   ]
+  },
+  {
+   "prop": "prop.potted-plant",
+   "at": [
+    2000,
+    11800
+   ]
+  },
+  {
+   "prop": "prop.potted-plant",
+   "at": [
+    22000,
+    11800
+   ]
+  },
+  {
+   "prop": "prop.suitcase",
+   "at": [
+    4400,
+    5000
+   ]
+  },
+  {
+   "prop": "prop.suitcase",
+   "at": [
+    19600,
+    5000
+   ]
+  },
+  {
+   "prop": "prop.umbrella",
+   "at": [
+    9400,
+    10600
+   ]
+  },
+  {
+   "prop": "prop.umbrella",
+   "at": [
+    14600,
+    10600
+   ]
+  },
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    6000,
+    11600
+   ]
+  },
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    18000,
+    11600
+   ]
+  },
+  {
+   "prop": "prop.coat-stand",
+   "at": [
+    2200,
+    4400
+   ]
+  },
+  {
+   "prop": "prop.coat-stand",
+   "at": [
+    21800,
+    4400
+   ]
+  },
+  {
+   "prop": "prop.luggage-trolley",
+   "at": [
+    12000,
+    9400
+   ]
+  },
+  {
+   "prop": "prop.cake",
+   "at": [
+    12000,
+    11600
+   ]
+  },
+  {
+   "prop": "prop.rolled-carpet",
+   "at": [
+    12000,
+    4200
+   ]
+  }
+ ],
+ "hazards": [
+  {
+   "id": "hazard.luggage-avalanche",
+   "startTick": 400,
+   "everyTicks": 500,
+   "telegraphTicks": 30,
+   "region": [
+    3000,
+    2000,
+    18000,
+    9000
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.suitcase",
+     "count": 2,
+     "dropFromMm": 3000
+    }
+   }
+  },
+  {
+   "id": "hazard.room-service",
+   "startTick": 600,
+   "everyTicks": 650,
+   "telegraphTicks": 30,
+   "region": [
+    6000,
+    4000,
+    12000,
+    5000
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.snack",
+     "count": 2
+    }
+   }
+  },
+  {
+   "id": "hazard.fountain-overflow",
+   "startTick": 900,
+   "everyTicks": 700,
+   "telegraphTicks": 40,
+   "region": [
+    9000,
+    5000,
+    6000,
+    3000
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.puddle-water",
+     "count": 2
+    }
+   }
+  }
+ ],
+ "suddenDeath": {
+  "everyTicks": 200,
+  "region": [
+   0,
+   0,
+   24000,
+   13000
+  ],
+  "action": {
+   "spawn": {
+    "prop": "prop.suitcase",
+    "count": 3,
+    "dropFromMm": 5000
+   },
+   "effects": [
+    {
+     "type": "applyStatus",
+     "status": "status.stunned",
+     "durationTicks": 20
+    }
+   ]
+  }
+ },
+ "stations": [
+  {
+   "id": "centre",
+   "name": "Reception",
+   "at": [
+    12000,
+    3000
+   ]
+  },
+  {
+   "id": "nw",
+   "name": "the Grand Staircase",
+   "at": [
+    3800,
+    2800
+   ]
+  },
+  {
+   "id": "ne",
+   "name": "the Lifts",
+   "at": [
+    20200,
+    2800
+   ]
+  },
+  {
+   "id": "sw",
+   "name": "the Lounge",
+   "at": [
+    4800,
+    10600
+   ]
+  },
+  {
+   "id": "se",
+   "name": "the Bar",
+   "at": [
+    19200,
+    10600
+   ]
+  }
+ ],
+ "obstacles": [
+  {
+   "at": [
+    5400,
+    4000,
+    1600,
+    900
+   ],
+   "art": [
+    "bellhop-cart",
+    "lobby-sofa"
+   ]
+  },
+  {
+   "at": [
+    17000,
+    4000,
+    1600,
+    900
+   ],
+   "art": [
+    "lobby-sofa",
+    "bellhop-cart"
+   ]
+  },
+  {
+   "at": [
+    5600,
+    8600,
+    2800,
+    900
+   ],
+   "art": [
+    "lobby-sofa",
+    "hotel-reception"
+   ]
+  },
+  {
+   "at": [
+    15600,
+    8600,
+    2800,
+    900
+   ],
+   "art": [
+    "hotel-reception",
+    "lobby-sofa"
+   ]
+  },
+  {
+   "at": [
+    10600,
+    5800,
+    2800,
+    1200
+   ],
+   "art": [
+    "lobby-fountain"
+   ],
+   "chanceBp": 7000
+  }
+ ],
+ "debris": [
+  "prop.suitcase",
+  "prop.potted-plant",
+  "prop.table-lamp",
+  "prop.cardboard-box"
+ ],
+ "theme": {
+  "floor": "#9f1d20",
+  "wall": "#3f2a14",
+  "accent": "#d4a017"
+ },
+ "unlock": {
+  "league": "intern"
+ },
+ "movers": [
+  {
+   "id": "hazard.robot-vacuum",
+   "prop": "prop.robot-vacuum",
+   "path": [
+    [
+     3000,
+     11600
+    ],
+    [
+     21000,
+     11600
+    ],
+    [
+     21000,
+     2600
+    ],
+    [
+     3000,
+     2600
+    ]
+   ],
+   "startTick": 300,
+   "telegraphTicks": 40,
+   "speedMm": 60,
+   "loop": true
+  }
+ ]
+}
