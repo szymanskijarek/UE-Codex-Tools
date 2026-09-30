@@ -143,6 +143,8 @@ interface CharSprite {
 
 interface PropSprite {
   root: Container;
+  /** What spins when the prop is thrown: pivoted on its visual centre, not the floor point it stands on. */
+  spin?: Container;
   g: Graphics;
   area: number;
   isArea: boolean;
@@ -942,10 +944,23 @@ export class BattleRenderer {
       }
       // Item art when we have it (props read ~2.6× their collision radius), else the drawn version.
       const art = propSprite(e.def, e.r * this.scale * 2.6);
+      const spin = new Container();
       if (art) {
         g.ellipse(0, 0, e.r * this.scale * 1.1, e.r * this.scale * 0.45).fill({ color: 0x000000, alpha: 0.18 });
-        root.addChild(art);
-      } else drawProp(g, e.def, e.r * this.scale, color, def?.art.shape === 'square');
+        spin.addChild(art);
+        // The sprite stands on its anchor (92% down); its middle is 42% of its height above that.
+        const cy = art.height * (art.anchor.y - 0.5);
+        spin.pivot.set(0, -cy);
+        spin.position.set(0, -cy);
+      } else {
+        drawProp(g, e.def, e.r * this.scale, color, def?.art.shape === 'square');
+        const cy = e.r * this.scale * 0.9;
+        spin.addChild(g);
+        spin.pivot.set(0, -cy);
+        spin.position.set(0, -cy);
+      }
+      root.addChild(spin);
+      s.spin = spin;
       this.bodies.addChild(root);
     }
     return s;
@@ -997,7 +1012,7 @@ export class BattleRenderer {
           }
         } else {
           s.root.zIndex = cs ? (cs.root.zIndex as number) + 1 : y + (e.z > 0 ? 400 : 0);
-          s.root.rotation = e.flying ? t * 12 : 0;
+          (s.spin ?? s.root).rotation = e.flying ? t * 12 : 0;
           const dk = this.depth(y);
           s.root.scale.set(isMover(e.def) && e.fx < 0 ? -dk : dk, dk);
           const live = e.statuses.includes('status.burning') || e.statuses.includes('status.electrified') || e.statuses.includes('status.live');

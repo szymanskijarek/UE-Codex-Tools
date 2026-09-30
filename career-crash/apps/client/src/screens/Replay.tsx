@@ -15,6 +15,12 @@ const SPEEDS = [1, 2, 4];
 const FEED_MAX = 40;
 const MAX_REPLAYS = 5;
 const REPLAY_SPEED = 0.35;
+/** Action replays: how far before the moment they start, how they end (ticks; 20 per second). */
+const REPLAY_PRE_TICKS = 16;
+const REPLAY_POST_TICKS = 12;
+/** Run-up plays near full speed; slow motion only around each impact. */
+const REPLAY_RUNUP_SPEED = 0.9;
+const REPLAY_SLOW_WINDOW = 7;
 /** How long a boss's entrance holds the fight before the first tick. */
 const BOSS_INTRO_MS = 3600;
 const REPLAY_KEY = 'cc.replays';
@@ -41,6 +47,8 @@ interface ActionReplay {
   active: boolean;
   /** Grudge settled: slower, with its own badge, even past the replay cap. */
   dramatic?: boolean;
+  /** The viewer pressed Skip replay: end it on the next frame. */
+  skip?: boolean;
 }
 
 interface FeedLine extends LiveLine {
@@ -184,13 +192,13 @@ export function Replay({ battleId }: { battleId?: string }) {
           ar.active = true;
           ar.returnTick = player.tick;
           ar.prevSpeed = player.speed;
-          player.seek(Math.max(0, ar.tick - 50));
+          player.seek(Math.max(0, ar.tick - REPLAY_PRE_TICKS));
           coveredRef.current = Math.max(coveredRef.current, ar.endTick + 30);
           if (ar.source >= 0) sourceCooldownRef.current.set(ar.source, ar.endTick + 300);
           player.drainEvents();
           renderer.resetFx();
           renderer.setReplay(ar.focus, ar.dramatic ? '● GRUDGE SETTLED' : undefined);
-          player.speed = ar.dramatic ? REPLAY_SPEED * 0.7 : REPLAY_SPEED;
+          player.speed = REPLAY_RUNUP_SPEED;
           player.paused = false;
           setInReplay(true);
           const intro = bundle.live['replay_intro'] ?? ['Instant replay!'];
@@ -210,7 +218,11 @@ export function Replay({ battleId }: { battleId?: string }) {
         const events = player.drainEvents();
         renderer.render(player, flow || introRef.current ? dt : dt * 0.1, events);
         if (ar?.active) {
-          if (player.tick >= ar.endTick + 18 || player.done) {
+          // Punchy: quick run-up, slow motion only around the impacts, then straight back.
+          const slow = ar.dramatic ? REPLAY_SPEED * 0.7 : REPLAY_SPEED;
+          const nearHit = [ar.tick, ar.endTick].some((h) => player.tick >= h - REPLAY_SLOW_WINDOW && player.tick <= h + REPLAY_SLOW_WINDOW);
+          player.speed = nearHit ? slow : REPLAY_RUNUP_SPEED;
+          if (ar.skip || player.tick >= ar.endTick + REPLAY_POST_TICKS || player.done) {
             player.seek(ar.returnTick);
             player.drainEvents();
             renderer.resetFx();
@@ -279,7 +291,7 @@ export function Replay({ battleId }: { battleId?: string }) {
                 endTick: big.t,
                 source: sourceOf(big),
                 focus,
-                startAt: now + 900,
+                startAt: now + 500,
                 returnTick: 0,
                 prevSpeed: 1,
                 active: false,
@@ -419,7 +431,7 @@ export function Replay({ battleId }: { battleId?: string }) {
                 class="on"
                 onClick={() => {
                   // End the replay on the next frame without clearing the commentary feed.
-                  if (actionRef.current) actionRef.current.tick = -1000;
+                  if (actionRef.current) actionRef.current.skip = true;
                 }}
               >
                 Skip replay

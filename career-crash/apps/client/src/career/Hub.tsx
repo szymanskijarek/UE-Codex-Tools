@@ -299,6 +299,9 @@ export function Hub({ save: s }: { save: CareerSave }) {
                 </div>
               </div>
               <div class="li-row">
+                <button class="li-btn primary" onClick={fight} disabled={!!s.pending} title="Straight to the next fight">
+                  🥊 Easy Apply
+                </button>
                 <button class={`li-btn primary ${skillAlert(m) ? 'alert' : ''}`} onClick={() => navigate(`/career/skills/${m.c.id}`)}>
                   🌳 Skills & endorsements
                 </button>

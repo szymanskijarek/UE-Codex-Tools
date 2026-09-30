@@ -66,11 +66,27 @@ export class LiveCommentator {
     if (!i) return 'someone';
     if (i.kind === 'npc') return 'the referee';
     if (i.kind === 'prop') return `the ${this.nm(i.def)}`;
-    const first = i.name.split(' ')[0]!;
-    // Two fighters with the same first name: use full names so lines stay unambiguous.
+    const plain = this.plainName(i.name);
+    const first = plain.split(' ')[0]!;
+    // Two fighters with the same first name: use first and last name so lines stay unambiguous.
     let dup = 0;
-    for (const o of this.info.values()) if (o.kind === 'char' && o.name.split(' ')[0] === first) dup++;
-    return dup > 1 ? i.name : first;
+    for (const o of this.info.values()) if (o.kind === 'char' && this.plainName(o.name).split(' ')[0] === first) dup++;
+    return dup > 1 ? plain : first;
+  }
+
+  /** "Dr Self-Made Andrew White, MBA" → "Andrew White": titles are for profiles, not commentary (same rule as game-rules shortName). */
+  private plainName(name: string): string {
+    let rest = name.split(',')[0]!.trim();
+    for (let again = true; again; ) {
+      again = false;
+      for (const p of this.bundle.names.prefixes) {
+        if (rest.startsWith(`${p} `)) {
+          rest = rest.slice(p.length + 1);
+          again = true;
+        }
+      }
+    }
+    return rest || name;
   }
 
   intro(): LiveLine {
