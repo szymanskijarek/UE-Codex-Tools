@@ -1,10 +1,12 @@
 import { useMemo, useState } from 'preact/hooks';
 import { bundle } from '@cc/content';
-import { careerRank, DIFFICULTIES, pointsLeft, RANK_XP, RANKS, SQUAD_UNLOCK_RANK, stageInfo, type CareerChar, type DifficultyId } from '@cc/game-rules';
+import { careerRank, DIFFICULTIES, pointsLeft, randomCompany, RANK_XP, RANKS, SQUAD_UNLOCK_RANK, stageInfo, type CareerChar, type CompanyName, type DifficultyId } from '@cc/game-rules';
+import { Rng } from '@cc/sim';
 import { abilitySummary, descOf, nameOf } from '../i18n';
 import { navigate, notify } from '../state';
 import { Card, CareerChip, Portrait } from '../ui/components';
-import { type BoardRow, career, collectResults, currentCareer, draftCharacter, mainChar, startCareer, type CareerSave } from './model';
+import { type BoardRow, career, collectResults, companyName, currentCareer, draftCharacter, mainChar, startCareer, type CareerSave } from './model';
+import { CompanyPicker } from './CompanyPicker';
 import { Hub } from './Hub';
 import { PuppetView } from './PuppetView';
 import { ShopScreen } from './Shop';
@@ -46,6 +48,7 @@ function CreateCharacter() {
   const [personality, setPersonality] = useState('');
   const [diff, setDiff] = useState<DifficultyId>('normal');
   const [hype, setHype] = useState(1);
+  const [company, setCompany] = useState<CompanyName>(() => randomCompany(Rng.fromSeed(Math.random().toString(16))));
   const draft = useMemo(() => (careerId ? draftCharacter(seed, careerId) : null), [seed, careerId]);
 
   if (!careerId || !draft) {
@@ -75,7 +78,7 @@ function CreateCharacter() {
 
   const shown = { ...draft, name: name || draft.name, personality: personality || draft.personality };
   const start = () => {
-    startCareer(shown, diff);
+    startCareer(shown, diff, company);
     notify(`Welcome aboard, ${shown.name}!`, 'good');
     navigate('/career');
   };
@@ -154,6 +157,11 @@ function CreateCharacter() {
           <p class="muted small">You can change difficulty later from the career hub.</p>
         </Card>
       </div>
+      <Card>
+        <h2>Your company</h2>
+        <p class="muted small">Your squad fights under this name, and other players will see it.</p>
+        <CompanyPicker value={company} onChange={setCompany} />
+      </Card>
       <button class="primary big" onClick={start}>
         🥊 Start career
       </button>
@@ -276,7 +284,7 @@ function Results({ save: s0 }: { save: CareerSave }) {
       {r.board && (
         <Card>
           <h2>Match summary</h2>
-          <Board rows={r.board.filter((b) => b.team === 0)} title="Your squad" />
+          <Board rows={r.board.filter((b) => b.team === 0)} title={companyName(s)} />
           <Board rows={r.board.filter((b) => b.team !== 0)} title={stageInfo(bundle, r.stage).company} />
         </Card>
       )}

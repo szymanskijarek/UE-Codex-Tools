@@ -2,7 +2,7 @@ import { bundle } from '@cc/content';
 import { careerRank, RANKS, stageInfo } from '@cc/game-rules';
 import { Rng } from '@cc/sim';
 import { nameOf } from '../i18n';
-import { currentCareer, mainChar, type CareerSave, type FightSummary } from './model';
+import { companyName, currentCareer, mainChar, type CareerSave, type FightSummary } from './model';
 
 /**
  * The career home's social feed. After every fight a handful of posts are
@@ -169,7 +169,7 @@ export function fightPosts(s: CareerSave, r: FightSummary): FeedPost[] {
     const cc = s.chars[id];
     if (!cc) return 'Agency temp · #OpenToWork';
     const cid = currentCareer(cc);
-    return `${RANKS[careerRank(cc, cid) - 1]} ${nameOf(cid)} · ${nameOf(cc.c.personality)}`;
+    return `${RANKS[careerRank(cc, cid) - 1]} ${nameOf(cid)} at ${companyName(s)}`;
   };
   const tagsFor = r.outcome === 'win' ? TAGS.win! : r.outcome === 'loss' ? TAGS.loss! : TAGS.draw!;
 
@@ -235,9 +235,9 @@ export function starterPosts(s: CareerSave): FeedPost[] {
       id: 'start-0',
       fight: 0,
       author: m.c.name,
-      sub: `Trainee ${nameOf(currentCareer(m))} · ${nameOf(m.c.personality)}`,
+      sub: `Trainee ${nameOf(currentCareer(m))} at ${companyName(s)}`,
       who: { careers: [currentCareer(m)], appearance: m.c.appearance },
-      text: `🎉 I'm excited to announce I'm starting a new position as Trainee ${nameOf(currentCareer(m))}! First fight: ${stageInfo(bundle, 0).company}. Wish me luck (and a meal deal).`,
+      text: `🎉 I'm excited to announce I'm starting a new position as Trainee ${nameOf(currentCareer(m))} at ${companyName(s)}! First fight: ${stageInfo(bundle, 0).company}. Wish me luck (and a meal deal).`,
       tags: '#NewBeginnings #OpenToBrawls',
       mood: 'news',
       by: 'me',

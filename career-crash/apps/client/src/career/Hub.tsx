@@ -6,7 +6,8 @@ import { arenaArt } from '../replay/arena-art';
 import { currentReplay, navigate } from '../state';
 import { Portrait } from '../ui/components';
 import { levelProgress, Loadout, RankBar, skillAlert } from './Career';
-import { abandon, applicants, setPostMine, currentCareer, lineup, mainChar, nextOpponents, prepareFight, save, squadUnlocked, type CareerSave } from './model';
+import { CompanyPicker } from './CompanyPicker';
+import { abandon, applicants, companyName, renameCompany, setPostMine, currentCareer, lineup, mainChar, nextOpponents, prepareFight, save, squadUnlocked, type CareerSave } from './model';
 import { PuppetView } from './PuppetView';
 import { discussion, promotedPosts, REACTIONS, starterPosts, type FeedPost, type ReactionKind } from './feed';
 
@@ -216,6 +217,7 @@ export function Hub({ save: s }: { save: CareerSave }) {
   const m = mainChar(s);
   const cid = currentCareer(m);
   const [hype, setHype] = useState(1);
+  const [editCompany, setEditCompany] = useState(false);
   const info = stageInfo(bundle, s.stage);
   const diff = difficulty(s.difficulty);
   const opp = nextOpponents(s);
@@ -250,6 +252,13 @@ export function Hub({ save: s }: { save: CareerSave }) {
             <div class="li-body">
               <h1>{m.c.name}</h1>
               <div class="li-headline">{headline(m)}</div>
+              <div class="li-company small">
+                🏢 {companyName(s)}
+                <button class="ghost small" title="Rename your company" onClick={() => setEditCompany(!editCompany)}>
+                  {editCompany ? 'Done' : '✏️'}
+                </button>
+              </div>
+              {editCompany && s.company && <CompanyPicker value={s.company} onChange={(c) => renameCompany(s, c)} />}
               <div class="muted small">
                 {nameOf(info.arenaId)} area · Level {m.c.level} · <span class="li-link">
                   {s.wins + s.losses} fight{s.wins + s.losses === 1 ? '' : 's'}

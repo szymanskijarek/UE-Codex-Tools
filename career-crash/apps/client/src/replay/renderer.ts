@@ -422,6 +422,9 @@ export class BattleRenderer {
     this.banner.x = sw / 2;
     this.banner.y = 8;
     this.banner.style.fontSize = this.compact ? 16 : 22;
+    // Player company names can be long: wrap rather than run off a phone screen.
+    this.banner.style.wordWrap = true;
+    this.banner.style.wordWrapWidth = Math.max(160, sw - 32);
     this.drawFloor();
     this.drawOverlay();
     for (const d of this.decals) d.g.destroy();

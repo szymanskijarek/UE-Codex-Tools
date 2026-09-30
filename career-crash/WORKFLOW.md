@@ -111,6 +111,8 @@ compresses them (WebP, palette-quantised).
 - **Text** (commentary, barks, feed posts, comments, boss one-liners): `live.json`
   (placeholder rules are in `PIPELINES.md` §1).
 - **Career banter:** `data/synergies/`.
+- **Company name words** (the adjective, noun and suffix players pick from): `packages/game-rules/src/company.ts`.
+  Only add words; renaming or removing one resets saves that used it to a random name.
 - **Careers, abilities, props, arenas, bosses:** follow the checklists in
   `PIPELINES.md` (*Adding an arena*, *Adding or changing a ladder boss*,
   *Adding art for a new career*) and AGENTS.md *Common tasks*.

@@ -8,6 +8,9 @@ import {
   careerRank,
   careerSnapshot,
   chooseCareer,
+  companyLabel,
+  isCompanyName,
+  randomCompany,
   difficulty,
   ensureRoots,
   fightPay,
@@ -24,6 +27,7 @@ import {
   stageInfo,
   type CareerChar,
   type Character,
+  type CompanyName,
   type DifficultyId,
   type FightPay,
   type GrowthReport,
@@ -56,6 +60,8 @@ export interface CareerSave {
   inventory: Record<string, number>;
   /** Career-home social feed, newest first (see feed.ts). */
   feed?: FeedPost[];
+  /** The player's company, picked from word lists (never typed). Older saves get a random one. */
+  company?: CompanyName;
 }
 
 /** One line of the post-fight board. */
@@ -100,6 +106,7 @@ function migrate(s: CareerSave | null): CareerSave | null {
   if (!s) return s;
   s.inventory ??= {};
   s.feed ??= [];
+  if (!isCompanyName(s.company)) s.company = randomCompany(Rng.fromSeed(`company:${s.seed}`));
   if (!s.feed.length && s.last?.board) s.feed = fightPosts(s, s.last);
   for (const c of Object.values(s.chars)) c.loadout ??= [];
   return s;
@@ -125,6 +132,15 @@ export function abandon(): void {
   }
 }
 
+/** The player's company as shown in fights, results and the feed. */
+export function companyName(s: CareerSave): string {
+  return s.company ? companyLabel(s.company) : 'Your Squad';
+}
+
+export function renameCompany(s: CareerSave, company: CompanyName): void {
+  if (isCompanyName(company)) save({ ...s, company });
+}
+
 export function mainChar(s: CareerSave): CareerChar {
   return s.chars[s.mainId]!;
 }
@@ -144,7 +160,7 @@ export function draftCharacter(seed: string, careerId: string): Character {
   return c;
 }
 
-export function startCareer(main: Character, diff: DifficultyId): void {
+export function startCareer(main: Character, diff: DifficultyId, company: CompanyName): void {
   const seed = Math.random().toString(16).slice(2, 10);
   const mc: CareerChar = { c: { ...main, id: `main-${seed}` }, careerXp: {}, nodes: [] };
   ensureRoots(bundle, mc);
@@ -163,6 +179,7 @@ export function startCareer(main: Character, diff: DifficultyId): void {
     wins: 0,
     losses: 0,
     inventory: { 'item.meal-deal': 1 },
+    company,
   };
   save(s);
 }
@@ -191,7 +208,7 @@ export function prepareFight(s: CareerSave): BattleInput {
     arenaId: info.arenaId,
     mode: 'duel_3v3',
     teams: [
-      { playerId: 'you', playerName: 'Your Squad', rating: 1000, characters: lineup(s).map((c) => careerSnapshot(bundle, c)) },
+      { playerId: 'you', playerName: companyName(s), rating: 1000, characters: lineup(s).map((c) => careerSnapshot(bundle, c)) },
       { playerId: 'opp', playerName: info.company, rating: 1000, characters: nextOpponents(s).map((c) => careerSnapshot(bundle, c)) },
     ],
     modifiers: [],
