@@ -93,6 +93,14 @@ const PERSONAS: [string, string][] = [
   ['Rob Carter', 'Sales · Closer · Hugger'],
   ['Lena Vogel', 'Productivity Influencer · 4am club'],
   ['Sam Okoye', 'Head of People (and punching)'],
+  ['Chad Brightwell', 'Founder · Stealth mode · Also stealth income'],
+  ['Deborah Finch', 'Retired · Reads every comment'],
+  ['Ravi Shah', 'Ex-Big 4 · Now sells candles'],
+  ['Moira Quinn', 'Chief Happiness Officer · Currently unhappy'],
+  ['Pete Walsh', 'LinkedIn Top Voice (self-nominated)'],
+  ['Yuki Tanaka', 'Disruptor · Disrupted 3 weddings'],
+  ['Barry from Accounts', 'Accounts'],
+  ['Nadia Hussein', 'Mindfulness Coach · Black belt'],
 ];
 const SKINS = ['#f1c27d', '#e0ac69', '#c68642', '#8d5524', '#ffdbac', '#5c3a21'];
 const HAIRS = ['#2b1d14', '#6a4e23', '#b55239', '#e6c229', '#1a1a1a', '#9e9e9e'];
