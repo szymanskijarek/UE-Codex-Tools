@@ -11,17 +11,19 @@ a Claude Code session. Exact commands for every build step are in
 |---|---|
 | Live game | https://careercrash.org (and www.careercrash.org) |
 | Hosting | Cloudflare Worker `career-crash`, deployed by Workers Builds from the `prod` branch |
+| Online API | Cloudflare Worker `career-crash-api` + D1 `career-crash` on api.careercrash.org, deployed by GitHub Actions from `prod` (launch steps: `PIPELINES.md` §7.1) |
 | Code | GitHub `szymanskijarek/UE-Codex-Tools`, folder `career-crash/` |
 | Single-file copy | Claude artifact https://claude.ai/artifact/2xjKeMt4niQSx7P9jYzwg7 (private; opens in the Claude app) |
 | Design docs | `docs/career-crash/` (GDD, tech spec, combat, economy, roadmap) |
 | Build and pipeline commands | `PIPELINES.md` |
 | CI | `.github/workflows/career-crash.yml`: content, lint, typecheck, tests, goldens, balance smoke, client build |
+| API deploy | `.github/workflows/career-crash-api.yml` |
 
 ## Branches and releases
 
 | Branch | Role |
 |---|---|
-| `prod` | What's live. Every push deploys careercrash.org, usually in 2–3 minutes. |
+| `prod` | What's live. Every push deploys careercrash.org, usually in 2–3 minutes (and the API, when worker code changed). |
 | `dev` | Integration. Finished work lands here. Pushes get a private preview build on Cloudflare. |
 | feature branches | One per piece of work (Claude sessions create `claude/…` or `ccr-…` branches). Merge into `dev`. |
 | `main` | The repo's original Unreal/Codex tooling only. It does **not** contain the game. Don't deploy from it. |
@@ -38,8 +40,7 @@ a Claude Code session. Exact commands for every build step are in
 (`git push -f origin <good-sha>:prod`). The next build redeploys it. Cloudflare's
 dashboard can also roll back instantly under the Worker's Deployments tab.
 
-Recommended GitHub settings (Settings → Branches): make `dev` the default
-branch, and protect `prod` so it only changes through reviewed merges.
+Recommended GitHub and Cloudflare settings are listed under *Settings checklist*.
 
 ## Everyday loop
 
@@ -96,6 +97,7 @@ manifest (`parts`, `split`, `noFeet`, `flip`).
 
 **Still needed:** body sheets for **Security Guard, Delivery Driver, Janitor**
 and **Engineer**. They currently draw a plain body under their painted face.
+Ready-to-paste generation prompts: `art/sheets/BODY_SHEET_PROMPTS.md`.
 
 **Size budget:** the single-file build is ~6.5 MB, against a 16 MB artifact limit.
 The website loads images on demand, so size matters less there. Rough costs per
@@ -124,7 +126,7 @@ props, 272 abilities.
 | Wrangler (workspace dependency) | Cloudflare config, dry runs, manual deploys | `npx wrangler …` from `career-crash/`; config in `wrangler.jsonc` |
 | sharp | art pipeline | installed with the workspace |
 | Playwright + Chromium | screenshots and browser smoke tests | preinstalled in Claude cloud sessions |
-| GitHub Actions | CI on every push touching `career-crash/` | |
+| GitHub Actions | CI on every push touching `career-crash/`; deploys the API from `prod` | secrets `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` |
 | Cloudflare Workers Builds | builds and deploys from `prod` (and previews for other branches) | settings in `PIPELINES.md` §6.4 |
 
 ## Claude Code setup
@@ -182,16 +184,43 @@ straight away.
 | Cloudflare build fails at "Cloning": *root directory not found* | The build ran from a branch without `career-crash/` (for example `main`). Set Settings → Build → Branch control → production branch `prod`. |
 | Deploy fails: Worker name mismatch | The Cloudflare Worker must be named `career-crash`, matching `name` in `wrangler.jsonc`. |
 | Site "doesn't exist" right after the first deploy | DNS "not found" answers are cached for up to 30 minutes. Try a private tab or another network, or clear the browser's DNS cache. |
-| www works oddly | www was added as a route. Cleaner: remove the route and add `www.careercrash.org` as a Custom domain (Domains & Routes). |
+| www works oddly | `www.careercrash.org` must be a Custom domain (it's in `wrangler.jsonc`). Delete any leftover *Route* for it under Domains & Routes. |
+| API workflow says "skipping" | The GitHub secrets or the real D1 id aren't in place yet (`PIPELINES.md` §7.1 steps 1–3). |
+| Online game: "Not signed in" everywhere | `SESSION_SECRET` isn't set on `career-crash-api` (§7.1 step 5). |
+| Online game: requests blocked by CORS in the browser console | The page's address isn't in `ALLOWED_ORIGIN` in `apps/worker/wrangler.toml`. |
+| `wrangler` in `apps/worker` deploys the site instead | Always pass `-c wrangler.toml` (the package scripts do). |
 | http doesn't redirect to https | Turn on SSL/TLS → Edge Certificates → Always Use HTTPS. |
 | `pnpm check` fails only on "golden replays were generated for the current content" | Content changed: `pnpm golden:update` (and bump `SIM_VERSION` if sim code changed). |
 | Lint reports thousands of errors in minified code | A build folder isn't in `eslint.config.js` ignores. |
 | A character looks stitched together | They have no body sheet (see *Bringing in new art*), or the slicer mislabelled a part: check `tools/art-pipeline/out/puppets/<career>.png`. |
 
+## Settings checklist
+
+One-time settings that live in dashboards, not in the repo.
+
+**Cloudflare** (dash.cloudflare.com → careercrash.org):
+- [ ] SSL/TLS → Edge Certificates → **Always Use HTTPS**: on.
+- [ ] SSL/TLS → Overview → encryption mode **Full (strict)**.
+- [ ] Workers & Pages → `career-crash` → Settings → Domains & Routes: `careercrash.org`
+      and `www.careercrash.org` both listed as **Custom domain**; delete any *Route* entry for www.
+- [ ] Optional: Rules → Redirect Rules → *Redirect from WWW to root* template, so there's one canonical address.
+- [ ] Workers & Pages → `career-crash` → Settings → Build: production branch `prod`;
+      non-production builds on (these make the `dev` previews).
+- [ ] After the API launch: the rate-limiting rule from `PIPELINES.md` §7.1 step 6.
+
+**GitHub** (repo → Settings):
+- [ ] General → Default branch: **`dev`** (new PRs and Claude sessions start from the game, not `main`).
+- [ ] Rules → Rulesets → New branch ruleset for `prod`: restrict deletions and block force
+      pushes. Optionally also require a pull request with the `check` status check; then
+      releases go by PR from `dev` (not `git push origin dev:prod`), and so do rollbacks.
+- [ ] Secrets and variables → Actions: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` (API launch).
+
+**Claude Code:** commit the `.claude/settings.json` from *Claude Code setup* so every
+session gets the Cloudflare plugin.
+
 ## Next milestones
 
-- **Body sheets for the four remaining careers.**
-- **Online game:** deploy the API Worker (`apps/worker`: D1 database, secrets, `/api`
-  on careercrash.org). Steps are in `PIPELINES.md` §7. Run `/security-review` first.
-- **Close the loose ends:** Always Use HTTPS, www as a custom domain, `dev` as the default
-  branch, `prod` protected.
+- **Body sheets** for the four remaining careers (prompts ready in `art/sheets/BODY_SHEET_PROMPTS.md`).
+- **Online game:** API code, config and deploy workflow are ready and tested locally,
+  including cross-origin; follow `PIPELINES.md` §7.1 to launch. Run `/security-review` first.
+- **Settings checklist** above.

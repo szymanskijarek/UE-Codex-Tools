@@ -186,7 +186,8 @@ is empty: the 30 newer careers were re-imported from separate sheets through
 
 `pnpm art:prompts` writes `tools/art-pipeline/out/prompts.json`: generation
 prompts for every career's paper-doll parts, props and items, sharing the
-style preamble so new art matches.
+style preamble so new art matches. Ready-to-paste prompts for the body sheets
+still missing are in `art/sheets/BODY_SHEET_PROMPTS.md`.
 
 ### Adding an arena
 
@@ -323,17 +324,62 @@ npx wrangler deploy --dry-run`.
 ## 7. API worker
 
 `apps/worker`: Cloudflare Worker (Hono) + D1 database, for the online game
-(accounts, roster, matchmaking, server-run battles, shop, leaderboard).
+(accounts, roster, matchmaking, server-run battles, shop, leaderboard). It is a
+separate Worker, `career-crash-api`, served on **api.careercrash.org**; the site
+(6.4) stays a static-assets Worker and calls it cross-origin.
 
-- **Local:** `cp apps/worker/.dev.vars.example apps/worker/.dev.vars`, then
-  `pnpm --filter @cc/worker db:migrate:local`, then `pnpm dev` (worker :8787,
-  client :5173 with `/api` proxied).
-- **Deploy:** `pnpm --filter @cc/worker deploy` (wrangler). First create the D1
-  database (`wrangler d1 create career-crash`), put its id in
-  `wrangler.toml`, and set the secrets `SESSION_SECRET` (and optionally
-  `TURNSTILE_SECRET`) with `wrangler secret put`. Migrations are in
-  `apps/worker/migrations/`.
-- Not deployed yet: the site currently runs the offline game only (6.4).
+| Piece | Where |
+|---|---|
+| Config | `apps/worker/wrangler.toml` (always pass `-c wrangler.toml`: otherwise wrangler picks up the site's `wrangler.jsonc` one folder up) |
+| Database | D1 `career-crash`, migrations in `apps/worker/migrations/` |
+| Allowed browser origins | `ALLOWED_ORIGIN` in `[vars]` (the two careercrash.org addresses) |
+| Secrets | `SESSION_SECRET` (required), `TURNSTILE_SECRET` (optional); set in the dashboard, never in git |
+| Deploy | `.github/workflows/career-crash-api.yml`: on pushes to `prod` touching the worker or packages, or by hand (Actions → career-crash-api → Run workflow) |
+
+**Local:**
+```bash
+cp apps/worker/.dev.vars.example apps/worker/.dev.vars   # then put a long random SESSION_SECRET in it
+pnpm --filter @cc/worker db:migrate:local
+pnpm dev                     # worker :8787, client :5173 with /api proxied
+```
+To test the real cross-origin setup, set `ALLOWED_ORIGIN` in `.dev.vars` to
+the client's address and build the client with
+`VITE_API_URL=http://localhost:8787/api/v1`.
+
+**Deploy by hand** (needs `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` in the shell):
+`pnpm deploy:api` (applies pending D1 migrations, then deploys). Note
+`pnpm --filter @cc/worker deploy` without `run` is pnpm's own `deploy`
+command, not ours.
+
+### 7.1 Launching the API (one-time)
+
+1. **D1 database:** Cloudflare dashboard → Storage & Databases → D1 → Create →
+   name `career-crash`. Copy its Database ID into `database_id` in
+   `wrangler.toml` (the id is not a secret) and commit.
+2. **API token:** My Profile → API Tokens → Create Token → *Edit Cloudflare
+   Workers* template, and add **Account · D1 · Edit**. Zone resources: include
+   `careercrash.org` (needed for the api.careercrash.org custom domain).
+3. **GitHub secrets:** repo Settings → Secrets and variables → Actions → New
+   repository secret: `CLOUDFLARE_API_TOKEN` (the token) and
+   `CLOUDFLARE_ACCOUNT_ID` (Workers & Pages overview, right-hand column).
+4. **First deploy:** push to `prod` (or run the workflow by hand). The workflow
+   skips itself until steps 1 and 3 are done, then migrates, deploys and checks
+   that api.careercrash.org answers `401` for a signed-out request.
+5. **Session secret:** dashboard → Workers & Pages → `career-crash-api` →
+   Settings → Variables and Secrets → Add → type *Secret*, name
+   `SESSION_SECRET`, value a long random string (e.g. from a password manager).
+   Until it exists, sign-in fails.
+6. **Abuse protection (recommended):** Security → WAF → Rate limiting rules:
+   limit `POST` to `/api/v1/auth/device` to about 10 per minute per IP.
+   Optionally add Turnstile and the `TURNSTILE_SECRET` secret.
+7. **Switch the site online:** change the root `build:web` script to run
+   `build:web:online` (client built with
+   `VITE_API_URL=https://api.careercrash.org/api/v1`) and release through `prod`.
+   Check it on a phone: the home screen shows a league and rating instead of the
+   offline career.
+
+**Rolling back the online game:** revert step 7 (the site goes back to
+offline play); the API can stay deployed.
 
 ## 8. CI
 

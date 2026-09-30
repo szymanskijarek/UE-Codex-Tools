@@ -1,0 +1,66 @@
+name: career-crash-api
+
+# Deploys the online API (apps/worker → api.careercrash.org) when prod changes.
+# Needs repo secrets CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID; until they
+# exist (and wrangler.toml has the real D1 id) the job skips itself.
+
+on:
+  push:
+    branches: [prod]
+    paths:
+      - 'career-crash/apps/worker/**'
+      - 'career-crash/packages/**'
+      - '.github/workflows/career-crash-api.yml'
+  workflow_dispatch:
+
+concurrency: career-crash-api
+
+defaults:
+  run:
+    working-directory: career-crash
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    env:
+      CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ready to deploy?
+        id: ready
+        run: |
+          if [ -z "$CLOUDFLARE_API_TOKEN" ] || [ -z "$CLOUDFLARE_ACCOUNT_ID" ]; then
+            echo "::notice::CLOUDFLARE_API_TOKEN / CLOUDFLARE_ACCOUNT_ID secrets not set; skipping API deploy."
+          elif grep -q '00000000-0000-0000-0000-000000000000' apps/worker/wrangler.toml; then
+            echo "::notice::wrangler.toml still has the placeholder D1 id; skipping API deploy."
+          else
+            echo "go=1" >> "$GITHUB_OUTPUT"
+          fi
+      - uses: pnpm/action-setup@v4
+        if: steps.ready.outputs.go
+        with:
+          package_json_file: career-crash/package.json
+      - uses: actions/setup-node@v4
+        if: steps.ready.outputs.go
+        with:
+          node-version: 22
+          cache: pnpm
+          cache-dependency-path: career-crash/pnpm-lock.yaml
+      - if: steps.ready.outputs.go
+        run: pnpm install --frozen-lockfile
+      - if: steps.ready.outputs.go
+        run: pnpm content:build
+      - name: Tests
+        if: steps.ready.outputs.go
+        run: pnpm test
+      - name: Migrate D1 and deploy
+        if: steps.ready.outputs.go
+        run: pnpm deploy:api
+      - name: Smoke test
+        if: steps.ready.outputs.go
+        run: |
+          sleep 10
+          # Signed-out requests get 401 from the API itself (not a Cloudflare error page).
+          code=$(curl -s -o /dev/null -w '%{http_code}' https://api.careercrash.org/api/v1/leaderboard)
+          echo "api.careercrash.org answered $code"; [ "$code" = 401 ]

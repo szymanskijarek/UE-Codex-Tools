@@ -3,14 +3,19 @@ main = "src/index.ts"
 compatibility_date = "2025-09-01"
 compatibility_flags = ["nodejs_compat"]
 
+# Served on its own subdomain so it never competes with the site's routes.
+routes = [{ pattern = "api.careercrash.org", custom_domain = true }]
+
 [[d1_databases]]
 binding = "DB"
 database_name = "career-crash"
-database_id = "00000000-0000-0000-0000-000000000000" # replace after `wrangler d1 create career-crash`
+database_id = "00000000-0000-0000-0000-000000000000" # the id of the D1 database "career-crash" (dashboard → Storage & Databases → D1)
 migrations_dir = "migrations"
 
 [vars]
-ALLOWED_ORIGIN = "http://localhost:5173"
+# Browsers may only call the API from the game itself. Local dev overrides this in .dev.vars.
+ALLOWED_ORIGIN = "https://careercrash.org,https://www.careercrash.org"
 
-# Secrets (wrangler secret put ...): SESSION_SECRET, TURNSTILE_SECRET (optional)
+# Secrets (dashboard → career-crash-api → Settings → Variables and Secrets, type Secret):
+#   SESSION_SECRET (required, a long random string), TURNSTILE_SECRET (optional bot check on sign-up)
 # For local dev put them in .dev.vars

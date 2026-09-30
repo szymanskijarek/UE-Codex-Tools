@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "build:standalone": "VITE_STANDALONE=1 VITE_INLINE=1 vite build && node scripts-standalone.mjs",
-    "build:web": "VITE_STANDALONE=1 vite build --outDir dist-web --emptyOutDir"
+    "build:web": "VITE_STANDALONE=1 vite build --outDir dist-web --emptyOutDir",
+    "build:web:online": "VITE_API_URL=https://api.careercrash.org/api/v1 vite build --outDir dist-web --emptyOutDir"
   },
   "dependencies": {
     "@cc/commentary": "workspace:*",
