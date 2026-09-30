@@ -59,6 +59,13 @@ docs disagree, fix one of them in the same change.
 - **Add an API endpoint:** types in `packages/protocol`, route in
   `apps/worker/src/app.ts`, test in `apps/worker/test/api.test.ts`.
 
+## Pipelines
+
+[`PIPELINES.md`](PIPELINES.md) documents every pipeline: content build, checks,
+golden replays, balance, each art-pipeline step, both client builds,
+publishing the Career Crash artifact, the API worker and CI. Update it in the
+same change whenever you add or change a pipeline.
+
 ## Commands
 
 ```
@@ -68,4 +75,6 @@ pnpm dev              # worker (8787) + client (5173); needs apps/worker/.dev.va
 pnpm dev:client       # client only — the Sandbox works without a server
 pnpm balance --battles=400 [--mode=duel_5v5]
 pnpm replay run <input.json> | pnpm replay golden [--update]
+pnpm --filter @cc/client build:standalone   # single file → apps/client/dist-standalone/
+pnpm --filter @cc/art-pipeline <puppets|faces|items|items obstacles|arenas|puppets-grid|prompts>
 ```

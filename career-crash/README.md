@@ -44,8 +44,8 @@ pnpm dev                        # worker on :8787, client on :5173 (proxied /api
   the rest use paper dolls) with floppy ragdolls (expressions, speech bubbles, reactions), drawn props,
   ability effects, a director camera, slow-motion action replays, synthesised
   sound and Simlish-style babbling voices (6 voice types), battle reports with jump-to-moment, and the Sandbox. A standalone
-  single-file build of the Sandbox: `pnpm --filter @cc/client build:standalone`.
-- **Tooling**: balance reports, replay CLI + 16 golden replays, art prompt
+  single-file build (career mode + Sandbox): `pnpm --filter @cc/client build:standalone`.
+- **Tooling**: balance reports, replay CLI + 48 golden replays, art prompt
   generator and style guide, character-sheet slicer (`pnpm --filter @cc/art-pipeline puppets`), CI workflow.
 
 ## Career mode (v0.9)
@@ -54,6 +54,13 @@ Create a fighter, climb the ladder, spend stat and skill points, hire a squad at
 Senior rank, and spend fight pay in the Corner Shop: each fighter packs up to 3
 items — consumables that fire at kick-off or at low HP, and gear that adds a
 little to their stats. Opponents carry items too (03 §3.6).
+
+## Pipelines
+
+Content, art, builds, publishing, the API and CI are documented step by step in
+[`PIPELINES.md`](PIPELINES.md). Play it without installing anything: the
+**Career Crash** artifact (https://claude.ai/artifact/2xjKeMt4niQSx7P9jYzwg7)
+runs the single-file build in the browser.
 
 ## Checks
 

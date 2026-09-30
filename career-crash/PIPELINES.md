@@ -1,0 +1,245 @@
+# Career Crash — pipelines
+
+Every way something in this repo gets built, generated, checked or shipped.
+Run commands from `career-crash/` unless stated otherwise. When you add or
+change a pipeline, update this file in the same change.
+
+```
+packages/content/data/*.json ──content:build──▶ packages/content/dist/bundle.json ──┐
+art/** ──art-pipeline──▶ apps/client/src/replay/{puppets,faces,items,obstacles,arenas}/ ─┤
+                                                                                    ▼
+                          sim / game-rules / commentary ──▶ apps/client ──build──────▶ dist/ (hosted site)
+                                                                         └─build:standalone─▶ dist-standalone/career-crash.html
+                                                                                              career-crash.artifact.html
+```
+
+| Pipeline | Command | Reads | Writes |
+|---|---|---|---|
+| [Content build](#1-content-build) | `pnpm content:build` | `packages/content/data/` | `packages/content/dist/bundle.json`, `manifest.json` |
+| [Checks](#2-checks) | `pnpm check` | everything | nothing (fails on problems) |
+| [Golden replays](#3-golden-replays) | `pnpm replay golden [--update]` | `packages/sim/test/golden/` | `goldens.json` (with `--update`) |
+| [Balance](#4-balance-reports) | `pnpm balance --battles=400` | content bundle | `tools/balance/reports/` |
+| [Art: puppets](#51-character-puppets) | `pnpm --filter @cc/art-pipeline puppets [career…]` | `art/sheets/` | `apps/client/src/replay/puppets/` |
+| [Art: grid puppets](#52-grid-puppets-currently-unused) | `pnpm --filter @cc/art-pipeline puppets-grid` | `art/sheets-grid/` | `apps/client/src/replay/puppets/` |
+| [Art: faces](#53-faces) | `pnpm --filter @cc/art-pipeline faces` | `art/faces/`, `art/faces-b/` | `apps/client/src/replay/faces/` |
+| [Art: items](#54-items-and-obstacles) | `pnpm --filter @cc/art-pipeline items` | `art/items/` | `apps/client/src/replay/items/` |
+| [Art: obstacles](#54-items-and-obstacles) | `pnpm --filter @cc/art-pipeline items obstacles` | `art/obstacles/` | `apps/client/src/replay/obstacles/` |
+| [Art: arenas](#55-arena-backdrops) | `pnpm --filter @cc/art-pipeline arenas` | `art/arenas/` | `apps/client/src/replay/arenas/` |
+| [Art prompts](#56-art-prompts) | `pnpm art:prompts` | content bundle | `tools/art-pipeline/out/prompts.json` |
+| [Client (hosted)](#61-hosted-build) | `pnpm --filter @cc/client build` | client + bundle + art | `apps/client/dist/` |
+| [Client (single file)](#62-single-file-build) | `pnpm --filter @cc/client build:standalone` | same | `apps/client/dist-standalone/` |
+| [Publish to Claude](#63-publishing-the-single-file-as-a-claude-artifact) | Artifact tool | `career-crash.artifact.html` | the Career Crash artifact link |
+| [API worker](#7-api-worker) | `pnpm dev:worker`, `pnpm --filter @cc/worker deploy` | `apps/worker/` | Cloudflare Worker + D1 |
+| [CI](#8-ci) | on push / PR | `career-crash/**` | balance report artifact |
+
+## 1. Content build
+
+`pnpm content:build` (`packages/content-compiler`) validates all gameplay
+content against the Zod schemas in `packages/content-schema` and compiles it
+into one bundle the game loads.
+
+- **Reads:** `packages/content/data/**` — careers, abilities, props, rules,
+  arenas, statuses, synergies (banter), `live.json` (commentary, barks, menu
+  lines, feed posts and comments), `locales/en.json`, economy, names, tags.
+- **Checks:** schema shape, id references between files, the tag vocabulary
+  (`data/tags.json`), power budgets (02 §9), and that every id has a
+  `locales/en.json` name.
+- **Writes:** `packages/content/dist/bundle.json` and `manifest.json`. The
+  bundle carries a content hash; golden replays record it.
+- **Run it** after any change under `data/`. The client, tests and tools all
+  import the built bundle, so a stale one gives confusing results, and the
+  client build fails outright when it's missing.
+
+Zod runs only here. Runtime code imports plain constants from
+`@cc/content-schema/constants` so Zod never reaches the player's bundle.
+
+**Writing text content:** feed and comment templates in `live.json` may only
+use the `{slots}` the client fills for that key (see
+`apps/client/src/career/feed.ts`). `feed_network` also appears before the
+first fight, so it may use only `{arena}` and `{career}`; `feed_c_generic`
+is shown unfilled, so it must have no slots. Banter lines live in
+`data/synergies/core.json`, keyed by the attacker's and victim's careers.
+
+## 2. Checks
+
+`pnpm check` = content build → `pnpm lint` → `pnpm typecheck` → `pnpm test`.
+It must pass before committing (AGENTS.md rule 7). The tests cover the sim
+(determinism, properties, weapons), golden replays, game rules, skills,
+commentary, the content compiler and the worker API.
+
+## 3. Golden replays
+
+`packages/sim/test/golden/goldens.json` holds 48 recorded battles across all six
+arenas (3v3, 5v5 and free-for-all) with their event hashes. `golden.test.ts` fails when
+any battle plays out differently.
+
+- `pnpm replay golden` shows which battles diverged.
+- `pnpm golden:update` re-records them after an **intended** change.
+- Bump `SIM_VERSION` in `packages/sim/src/types.ts` only when sim **code**
+  changed behaviour. Content-only changes just need `golden:update`.
+- Content changes that look harmless still diverge replays when they consume
+  the sim's random numbers — for example, adding banter pairings adds dice
+  rolls.
+
+Other replay tools: `pnpm replay run <input.json>` simulates a saved battle and
+prints its report; `pnpm replay events <input.json> [n]` prints its first
+`n` events.
+
+## 4. Balance reports
+
+`pnpm balance --battles=400 [--mode=duel_5v5] [--arena=arena.office,arena.diner] [--seed=…] [--strict]`
+simulates many battles and writes `tools/balance/reports/balance-<mode>.md`
+and `.json`: fight length, sim time per battle (p50/p99 against an 80 ms budget),
+story moments per battle, and careers winning outside 40–60%. `--strict`
+fails when p99 sim time is over budget. After content changes, compare
+against a run on the previous commit and put the headline numbers in the PR
+(AGENTS.md rule 6). The reports folder is not committed.
+
+## 5. Art pipeline
+
+`tools/art-pipeline` (uses `sharp`) turns painted source art in `art/` into
+packed atlases the client imports from `apps/client/src/replay/`. Both the
+source art and the generated output are committed, so the game builds without
+running the art pipeline. Re-run a step only when its source art changes.
+
+**Output format** (`src/encode.ts`): sprite sheets are quantised to a palette,
+then saved as **lossless WebP**, so they keep those exact pixels at about 10%
+under the palette PNG. Backdrops are **lossy WebP at quality 80**, 1536 px wide.
+Every image is inlined as base64 into the single-file build, so each byte costs
+4/3 of a byte there. Keep images small.
+
+Visual rules for new art (palette, outlines, proportions, poses) are in
+[`tools/art-pipeline/STYLE_GUIDE.md`](tools/art-pipeline/STYLE_GUIDE.md).
+
+### 5.1 Character puppets
+
+`pnpm --filter @cc/art-pipeline puppets` (all sheets) or `… puppets mime chef` (only these).
+
+- **Source:** `art/sheets/<career>.png`: a posed figure plus the same
+  character cut into body parts on a transparent background.
+- **Output:** `replay/puppets/<career>.webp` (one atlas per career) and
+  `puppets.json` (part rectangles and joint anchors for the ragdoll).
+- **Checking:** labelled previews go to `tools/art-pipeline/out/puppets/`.
+  When the classifier assigns a blob to the wrong body part, map part names to
+  the component numbers shown in the preview in `art/sheets/manifest.json`.
+
+### 5.2 Grid puppets (currently unused)
+
+`pnpm --filter @cc/art-pipeline puppets-grid` slices many careers from one
+grid sheet (`art/sheets-grid/<sheet>.jpg`, each cell a posed figure plus an
+"exploded" figure) into the same per-career atlases. `art/sheets-grid/manifest.json`
+is empty: the 30 newer careers were re-imported from separate sheets through
+5.1. Env: `TOL` (background key tolerance, default 16), `DBG=<slug>`, `VERBOSE=1`.
+
+### 5.3 Faces
+
+`pnpm --filter @cc/art-pipeline faces`
+
+- **Source:** four emotion sheets (neutral, angry, surprised, hurt):
+  `art/faces/*.png` (6 × 6 heads, the original 36 careers in alphabetical
+  order) and `art/faces-b/*.jpg` (6 × 5, the newer careers, background keyed out).
+- **Output:** `replay/faces/faces.webp` + `faces.json` (`"career.x:emotion"` → rect).
+- **Derived frames:** `blink` (eyes painted over) and `talk` (the surprised
+  mouth pasted onto the neutral face), where the art allows.
+- **Size:** faces are 64 px on their longest side (`FACE_PX`), kept small because the atlas is the largest single image.
+
+### 5.4 Items and obstacles
+
+`pnpm --filter @cc/art-pipeline items` and `pnpm --filter @cc/art-pipeline items obstacles`
+
+- **Source:** `art/items/*.png` (hand-held and throwable props, 4 per row, 96 px
+  in the atlas) and `art/obstacles/*.png` (machines and large props, 3 per row,
+  170 px).
+- **Names:** item names in reading order live in each folder's `manifest.json`,
+  either as a list or as `{ cols, px, names }` for sheets with a different layout.
+- **Output:** `replay/items/items.webp` + `items.json`, and
+  `replay/obstacles/obstacles.webp` + `obstacles.json`.
+
+### 5.5 Arena backdrops
+
+`pnpm --filter @cc/art-pipeline arenas`
+
+- **Source:** full-size paintings in `art/arenas/<arena>.png`.
+- **Output:** `replay/arenas/<arena>.webp`. Floor placement for each painting
+  is set in `apps/client/src/replay/arena-art.ts`.
+- **Legacy files:** the same command converts any sprite sheet still shipped
+  as PNG to WebP and updates `puppets.json`. That step does nothing once
+  everything is WebP.
+
+### 5.6 Art prompts
+
+`pnpm art:prompts` writes `tools/art-pipeline/out/prompts.json`: generation
+prompts for every career's paper-doll parts, props and items, sharing the
+style preamble so new art matches.
+
+### Adding art for a new career
+
+1. Paint the sheet (see STYLE_GUIDE.md), save it as `art/sheets/<career>.png`,
+   run `puppets <career>`, and check the preview.
+2. Add the career's heads to the face sheets and run `faces`.
+3. Any new props go on an item sheet and into its `manifest.json`; then run `items`.
+4. Run `pnpm check` and look at the career in the Sandbox (`pnpm dev:client`, `#/sandbox`).
+
+## 6. Client builds
+
+### 6.1 Hosted build
+
+`pnpm --filter @cc/client build` → `apps/client/dist/`. It is a normal
+multi-file site: images are separate files, loaded when a fight or screen
+first needs them. For development, `pnpm dev:client` serves the offline
+client on http://localhost:5173, and `pnpm dev` also runs the API worker.
+
+### 6.2 Single-file build
+
+`pnpm --filter @cc/client build:standalone` builds the offline game (career
+mode and Sandbox; no server features) with every script, style and image
+inlined (`VITE_STANDALONE=1`, see `vite.config.ts`), then
+`scripts-standalone.mjs` writes two files to `apps/client/dist-standalone/`:
+
+- `career-crash.html`: a complete HTML document. Open it from disk or send it
+  to a phone; it has the viewport meta phones need.
+- `career-crash.artifact.html`: the same page without `<html>/<head>`, for
+  publishing as a Claude artifact (6.3).
+
+Size is currently about 5.3 MB, most of it images. The artifact limit is 16 MB.
+
+### 6.3 Publishing the single file as a Claude artifact
+
+The game is published as the private claude.ai artifact **Career Crash**
+(https://claude.ai/artifact/2xjKeMt4niQSx7P9jYzwg7). It opens in the browser,
+including the Claude app's built-in browser, with no download. To update it
+from a Claude Code session:
+
+1. `pnpm check`, then `pnpm --filter @cc/client build:standalone`.
+2. Open the page once (e.g. with Playwright) and confirm the Sandbox fight and
+   career mode run without console errors.
+3. Publish `apps/client/dist-standalone/career-crash.artifact.html` to that
+   URL with the Artifact tool. Always publish to the existing URL so the link
+   stays the same.
+
+The artifact host enforces a strict content security policy: no external
+requests. The build already inlines everything; don't add CDN scripts, web
+fonts or `fetch()` calls to other hosts to the client.
+
+## 7. API worker
+
+`apps/worker`: Cloudflare Worker (Hono) + D1 database, for the online game
+(accounts, roster, matchmaking, server-run battles, shop, leaderboard).
+
+- **Local:** `cp apps/worker/.dev.vars.example apps/worker/.dev.vars`, then
+  `pnpm --filter @cc/worker db:migrate:local`, then `pnpm dev` (worker :8787,
+  client :5173 with `/api` proxied).
+- **Deploy:** `pnpm --filter @cc/worker deploy` (wrangler). First create the D1
+  database (`wrangler d1 create career-crash`), put its id in
+  `wrangler.toml`, and set the secrets `SESSION_SECRET` (and optionally
+  `TURNSTILE_SECRET`) with `wrangler secret put`. Migrations are in
+  `apps/worker/migrations/`.
+- Not deployed yet. Hosting is waiting on the domain.
+
+## 8. CI
+
+`.github/workflows/career-crash.yml` runs on pushes and PRs that touch
+`career-crash/**`: install → content build → lint → typecheck → tests →
+golden replay diff → balance smoke run (150 battles, report only, uploaded as
+the `balance-report` artifact) → hosted client build. It does not build the
+single file, run the art pipeline or deploy.
