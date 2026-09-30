@@ -103,16 +103,18 @@ export function App() {
       screen = <Home />;
   }
   const player = me.value?.player;
-  const li = page === 'career' || (STANDALONE && page === 'sandbox');
+  // Career mode and its replays use the networking-site shell; the standalone
+  // build (career + Sandbox only) uses it everywhere.
+  const li = STANDALONE || page === 'career' || (page === 'replay' && arg === 'career');
   const here = [page, arg].filter(Boolean).join('/');
   const navActive = (id: string) => (id === 'career' ? here === 'career' || here === 'career/results' : here.startsWith(id));
   if (li) {
     return (
-      <div class="shell li">
+      <div class={`shell li ${page === 'replay' ? 'wide' : ''}`}>
         <header class="li-top">
           <div class="li-top-inner">
-            <a class="li-brand" href="#/career" title="Career Crash">
-              Cc
+            <a class="li-brand" href="#/career" title="Career Crash" aria-label="Career Crash home">
+              cc
             </a>
             <span class="li-brand-name">Career Crash</span>
             <nav class="li-nav">

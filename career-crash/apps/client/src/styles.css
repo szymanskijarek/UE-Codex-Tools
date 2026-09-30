@@ -1335,6 +1335,11 @@ body:has(.shell.li) {
   padding: 0 16px;
 }
 
+.shell.li.wide main,
+.shell.li.wide .li-top-inner {
+  max-width: 1500px;
+}
+
 .li-top {
   position: sticky;
   top: 0;
@@ -1354,19 +1359,29 @@ body:has(.shell.li) {
   gap: 10px;
 }
 
+/* The "cc" mark, drawn like the networking site's "in": bold lowercase
+   letters tucked into the bottom-right of a small rounded blue square. */
 .li-brand {
   flex: none;
   width: 34px;
   height: 34px;
-  border-radius: 5px;
+  border-radius: 4px;
   background: var(--li-blue);
   color: #fff;
-  font-weight: 900;
-  font-size: 1.05rem;
-  display: grid;
-  place-items: center;
+  font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  font-weight: 800;
+  font-size: 1.5rem;
+  line-height: 1;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding: 0 3px 2px 0;
   text-decoration: none;
-  letter-spacing: -1px;
+  letter-spacing: -1.5px;
+}
+
+.li-brand:hover {
+  background: var(--li-blue-dark);
 }
 
 .li-brand-name {
