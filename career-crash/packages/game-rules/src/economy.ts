@@ -1,4 +1,5 @@
-import { STAT_KEYS, type ContentBundle, type EconomyDef } from '@cc/content-schema';
+import type { ContentBundle, EconomyDef } from '@cc/content-schema';
+import { STAT_KEYS } from '@cc/content-schema/constants';
 import { finalStats, indexContent, Rng, type CharacterSnapshot, type TeamSnapshot } from '@cc/sim';
 import { generateRecruit, toSnapshot, type Character } from './character';
 import { addXp } from './progression';

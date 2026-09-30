@@ -1,4 +1,5 @@
-import { STAT_KEYS, type CareerDef, type ContentBundle, type StatKey, type Stats } from '@cc/content-schema';
+import type { CareerDef, ContentBundle, StatKey, Stats } from '@cc/content-schema';
+import { STAT_KEYS } from '@cc/content-schema/constants';
 import { Rng, type CharacterSnapshot } from '@cc/sim';
 import { generateRecruit, toSnapshot, type Character } from './character';
 import { addXp, careerSlots } from './progression';

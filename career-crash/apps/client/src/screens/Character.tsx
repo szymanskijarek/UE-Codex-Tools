@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'preact/hooks';
 import { bundle } from '@cc/content';
-import { STAT_KEYS, type StatKey } from '@cc/content-schema';
+import { STAT_KEYS, type StatKey } from '@cc/content-schema/constants';
 import { careerSlots, cumulativeXp, hasMilestone } from '@cc/game-rules';
 import { finalStats, indexContent } from '@cc/sim';
 import { api } from '../api';

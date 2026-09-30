@@ -7,30 +7,9 @@
  */
 import { z } from 'zod';
 
-export const STAT_KEYS = [
-  'health',
-  'energy',
-  'speed',
-  'strength',
-  'throwing',
-  'intelligence',
-  'awareness',
-  'confidence',
-  'luck',
-  'charisma',
-  'recovery',
-  'interactionSpeed',
-] as const;
-export type StatKey = (typeof STAT_KEYS)[number];
-export type Stats = Record<StatKey, number>;
+import { DAMAGE_TYPES, GOALS, QUIRKS, STAT_KEYS } from './constants';
 
-export const GOALS = ['damage', 'control', 'support', 'survive', 'loot', 'chaos', 'showOff'] as const;
-export type Goal = (typeof GOALS)[number];
-
-export const QUIRKS = ['hideBehindProps', 'bodyguard', 'grudge', 'tauntAfterKo', 'hoarder', 'friendlyFireCareless', 'clumsyHands'] as const;
-export type Quirk = (typeof QUIRKS)[number];
-
-export const DAMAGE_TYPES = ['blunt', 'sharp', 'fire', 'electric', 'social'] as const;
+export * from './constants';
 
 const int = z.number().int();
 const bp = z.number().int().min(0).max(100_000);

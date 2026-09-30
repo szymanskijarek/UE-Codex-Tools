@@ -1,4 +1,5 @@
-import { STAT_KEYS, type CareerDef, type ContentBundle, type Stats } from '@cc/content-schema';
+import type { CareerDef, ContentBundle, Stats } from '@cc/content-schema';
+import { STAT_KEYS } from '@cc/content-schema/constants';
 import { Rng, type Appearance, type CharacterSnapshot, type CharCounters } from '@cc/sim';
 
 /** Persistent character record (01 §6.3 characters.data). */

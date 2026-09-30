@@ -1,6 +1,7 @@
 import { initWalls } from './systems/destruction';
 import { layoutArena } from './layout';
-import { GOALS, STAT_KEYS, type AttackDef, type ContentBundle, type Goal, type Stats, type TagMatch } from '@cc/content-schema';
+import type { AttackDef, ContentBundle, Goal, Stats, TagMatch } from '@cc/content-schema';
+import { GOALS, STAT_KEYS } from '@cc/content-schema/constants';
 import { indexContent, must, type ContentIndex } from './content';
 import { clamp, idiv } from './core/math';
 import { Rng } from './core/rng';
