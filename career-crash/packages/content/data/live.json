@@ -2300,6 +2300,45 @@
    "Taking a mental health day after an encounter with a {critter}. Please respect my privacy.",
    "Shoutout to my team for covering while I hid from the {critter}. That's leadership. (Theirs.)"
   ],
+  "feed_photo_air_us": [
+   "📸 Thrilled to announce that {name} briefly left the ground today. #Growth #Airtime",
+   "📸 {name}, mid-air, at the {arena}. Some people climb the ladder. Some skip it. #Leadership",
+   "📸 Caught this candid of {name} exceeding vertical expectations. Proud of this team.",
+   "📸 When they said \"reach for the sky\", {name} took it personally. #GoalSetting",
+   "📸 Not every day you see {name} in flight mode. Grateful to be part of the journey.",
+   "📸 Agile? {name} is airborne. #Pivot"
+  ],
+  "feed_photo_air_them": [
+   "📸 Helped {name} from {company} explore new heights today. You're welcome. #Mentorship",
+   "📸 {name} learning that the sky is not, in fact, the limit. #TeachableMoments",
+   "📸 Captured {name} mid-launch. Sometimes career growth is sudden and upward.",
+   "📸 Pleased to share that {name} has been successfully redeployed. Through the air. #Restructuring",
+   "📸 Wishing {name} a smooth landing in their next role. And on the floor."
+  ],
+  "feed_photo_hit_us": [
+   "📸 {name} closing the deal at the {arena}. Decisive leadership looks like this.",
+   "📸 This is what delivering results looks like. Hats off to {name}. #Execution",
+   "📸 Snapped {name} mid-negotiation. The other side agreed immediately. #WinWin",
+   "📸 {name} putting the \"impact\" in \"high-impact contributor\". 💥",
+   "📸 Framing this one for the office. {name}, everyone. #KPIs"
+  ],
+  "feed_photo_hit_them": [
+   "📸 Respect where it's due: {name} from {company} brought the receipts today. #Humbled",
+   "📸 Posting this so I remember: {name} hits harder than a Monday. #LessonsLearned",
+   "📸 Someone at {company} sent me this photo of {name}. Thanks, I guess. #Feedback",
+   "📸 Brutal but fair feedback from {name}. Growth mindset activated. 🫠"
+  ],
+  "feed_photo_move_us": [
+   "📸 {name} unleashing a signature move at the {arena}. Some call it a skill. We call it a core competency.",
+   "📸 Behind every great team is {name} doing something absolutely unhinged. #Culture",
+   "📸 When {name} says \"leave it with me\", this is what happens. #Ownership",
+   "📸 {name} showcasing transferable skills. Mostly transferring them onto other people."
+  ],
+  "feed_photo_move_them": [
+   "📸 Not gonna lie, {name} from {company} had moves today. Open to collaborating. #Networking",
+   "📸 Caught {name} doing their party trick. We were the party. #Unfortunately",
+   "📸 {name} from {company} brought a whole skill set. We brought a skill. #Benchmarking"
+  ],
   "feed_c_congrats": [
    "Congrats {first}! 🎉",
    "Well deserved!",

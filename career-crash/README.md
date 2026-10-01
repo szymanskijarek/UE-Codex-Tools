@@ -44,7 +44,11 @@ pnpm dev                        # worker on :8787, client on :5173 (proxied /api
   sprite-puppet characters built from sliced career art (32 of 36 careers;
   the rest use paper dolls) with floppy ragdolls (expressions, speech bubbles, reactions), drawn props,
   ability effects, a director camera, slow-motion action replays, synthesised
-  sound and Simlish-style babbling voices (6 voice types), battle reports with jump-to-moment, and the Sandbox. A standalone
+  sound and Simlish-style babbling voices (6 voice types), battle reports with jump-to-moment, and the Sandbox.
+  Each career fight posts a photo at the top of the feed. The client picks the best
+  moment (airborne beats a knockout, which beats a big hit or a signature move),
+  renders a close-up off screen, and keeps only the latest photo in localStorage
+  (`career/photo-moment.ts`, `career/photo.ts`). A standalone
   single-file build (career mode + Sandbox): `pnpm --filter @cc/client build:standalone`.
 - **Tooling**: balance reports, replay CLI + 48 golden replays, art prompt
   generator and style guide, character-sheet slicer (`pnpm --filter @cc/art-pipeline puppets`), CI workflow.

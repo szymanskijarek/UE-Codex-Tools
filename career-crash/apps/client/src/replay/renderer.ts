@@ -1,6 +1,6 @@
 // CSP-safe shader/uniform code paths: the artifact host and strict deployments forbid eval.
 import 'pixi.js/unsafe-eval';
-import { Application, Container, Graphics, Sprite, Text, Texture, type TextStyleOptions } from 'pixi.js';
+import { Application, Container, Graphics, Rectangle, Sprite, Text, Texture, type TextStyleOptions } from 'pixi.js';
 import { bundle } from '@cc/content';
 import { shortName } from '@cc/game-rules';
 import type { AbilityDef, ArenaDef, SummonDef } from '@cc/content-schema';
@@ -15,7 +15,7 @@ import { critterSprite, CRITTER_CELL_PX, heavySprite, obstacleTexture, heldIsToo
 import { extension, hitPose, MOVES, repertoire, type HitStyle, type Move } from './moves';
 import { drawWall } from './wall-art';
 import { emotionFor } from './face-art';
-import { faceTexture, hasPuppet, loadPuppets, NEUTRAL, Puppet, type Pose } from './puppet';
+import { faceTexture, hasPuppet, loadPuppets, NEUTRAL, Puppet, PUPPET_HEIGHT, type Pose } from './puppet';
 import { Ragdoll } from './ragdoll';
 import { voiceFor, type Shout, type Voice } from './voices';
 
@@ -65,6 +65,8 @@ interface CharSprite {
   face: Graphics;
   feet: Graphics;
   fx: Graphics;
+  /** Team-coloured floor ring. */
+  ring: Graphics;
   bar: Graphics;
   label: Text;
   icons: Text;
@@ -268,6 +270,8 @@ export class BattleRenderer {
   private replaySub = '½× SLOW-MO';
   /** Replay zoom lens: follows the action on screen when the camera can't (arena edges). */
   private lens: Graphics | null = null;
+  /** Fight photos: no hit flashes or cast flicker, so faces keep their colours. */
+  photoMode = false;
   private lensPos = { x: 0, y: 0 };
 
   constructor(private input: BattleInput) {}
@@ -745,6 +749,7 @@ export class BattleRenderer {
       face,
       feet,
       fx: fxG,
+      ring,
       bar,
       label,
       icons,
@@ -1229,7 +1234,8 @@ export class BattleRenderer {
 
     // Tint flashes: red when hit, ability colour while casting, blue when cold.
     let tint = 0xffffff;
-    if (this.now < s.flashUntil) tint = s.flashColor;
+    if (this.photoMode) tint = 0xffffff;
+    else if (this.now < s.flashUntil) tint = s.flashColor;
     else if (casting) tint = Math.floor(t * 10) % 2 ? 0xffffff : s.castColor || 0xfff3a0;
     else if (e.statuses.includes('status.electrified')) tint = Math.floor(t * 20) % 2 ? 0xfff59d : 0xffffff;
     else if (e.statuses.includes('status.cold')) tint = 0xbfdbfe;
@@ -2532,6 +2538,59 @@ export class BattleRenderer {
    * Action replay mode (slow motion): zoom lens on the given entities,
    * cinematic bars, a REPLAY badge and lower-pitched sound. Pass null to exit.
    */
+  /**
+   * A close-up "photo" of one fighter as it stands on screen now, without
+   * labels, bubbles or banners. Upright fighters are framed head and
+   * shoulders; airborne or floored ones get their whole body. The crop is
+   * rendered again at `px` pixels square, so it is sharper than the screen.
+   */
+  photoDebug(id: number): unknown {
+    const s = this.chars.get(id);
+    if (!s) return { missing: id, have: [...this.chars.keys()] };
+    const head = s.puppet?.headSprite() ?? s.head;
+    const hb = head.getBounds();
+    return { ready: this.ready, rootVisible: s.root.visible, puppet: !!s.puppet, puppetVisible: s.puppet?.root.visible, headVisible: head.visible, hb: [hb.x, hb.y, hb.width, hb.height], rag: !!s.rag, flight: !!s.flight };
+  }
+
+  photo(id: number, px = 640): string | null {
+    const s = this.chars.get(id);
+    if (!this.ready || !s || !s.root.visible) return null;
+    // Frame on the head, sized from the fighter's height on screen (art bounds can include big held items).
+    const head = s.puppet?.headSprite() ?? s.head;
+    const hb = head.getBounds();
+    if (!(hb.width > 0)) return null;
+    const height = s.r * PUPPET_HEIGHT * s.depth * Math.abs(this.world.worldTransform.a);
+    const acrobatic = !!(s.rag || s.flight);
+    // Head and shoulders when upright; the whole tumbling body (centred on its own pieces) when airborne or floored.
+    const side = acrobatic ? height * 1.35 : height * 0.85;
+    const body = acrobatic ? s.puppet?.bodyBounds() : null;
+    const cx = body ? body.x + body.width / 2 : hb.x + hb.width / 2;
+    const cy = body ? body.y + body.height / 2 : hb.y + hb.height / 2 + side * 0.22;
+    const hide: Container[] = [this.uiLayer, this.banner, this.overlay, this.impactFlash, this.fxLayer];
+    // Obstacles standing in front of the subject would block the shot: leave them out of the photo.
+    const depthY = s.root.zIndex as number;
+    for (const v of this.wallViews) if (v.c.parent === this.bodies && v.z > depthY) hide.push(v.c);
+    // Same for big props in front (vending machines, freezers): small ones stay, they're part of the fun.
+    for (const pr of this.props.values()) if ((pr.root.zIndex as number) > depthY && pr.root.visible && pr.root.getBounds().height > height * 0.5) hide.push(pr.root);
+    if (this.lens) hide.push(this.lens);
+    for (const o of this.chars.values()) {
+      hide.push(o.bar, o.label, o.icons, o.intent, o.fx, o.ring);
+      if (o.emote) hide.push(o.emote);
+      if (o.bubble) hide.push(o.bubble);
+    }
+    const was = hide.map((c) => c.visible);
+    hide.forEach((c) => (c.visible = false));
+    try {
+      const frame = new Rectangle(Math.round(cx - side / 2), Math.round(cy - side / 2), Math.round(side), Math.round(side));
+      const canvas = this.app.renderer.extract.canvas({ target: this.app.stage, frame, resolution: px / frame.width, clearColor: hex(this.arena.theme.wall) }) as HTMLCanvasElement;
+      const url = canvas.toDataURL('image/webp', 0.82);
+      // Browsers without WebP encoding hand back PNG: fall back to JPEG to stay small.
+      return url.startsWith('data:image/webp') ? url : canvas.toDataURL('image/jpeg', 0.85);
+    } finally {
+      hide.forEach((c, i) => (c.visible = was[i]!));
+    }
+  }
+
   setReplay(ids: number[] | null, label = '● ACTION REPLAY', sub = '½× SLOW-MO', soundRate = 0.5): void {
     this.replayLabel = label;
     this.replaySub = sub;

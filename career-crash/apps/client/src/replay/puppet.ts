@@ -127,6 +127,29 @@ export class Puppet {
   /** Talking until this time (ms); the mouth flaps while it's in the future. */
   talkUntil = 0;
   private career: string;
+  /** Global bounds of the body pieces only (not the item in hand), for framing fight photos. */
+  bodyBounds(): Rectangle | null {
+    let x0 = Infinity;
+    let y0 = Infinity;
+    let x1 = -Infinity;
+    let y1 = -Infinity;
+    for (const sp of [...this.sprites.values(), ...(this.face ? [this.face] : [])]) {
+      if (!sp.visible) continue;
+      const b = sp.getBounds();
+      x0 = Math.min(x0, b.x);
+      y0 = Math.min(y0, b.y);
+      x1 = Math.max(x1, b.x + b.width);
+      y1 = Math.max(y1, b.y + b.height);
+    }
+    return Number.isFinite(x0) ? new Rectangle(x0, y0, x1 - x0, y1 - y0) : null;
+  }
+
+  /** The visible head (the painted face when there is one), for framing fight photos. */
+  headSprite(): Sprite | undefined {
+    const head = this.sprites.get('head');
+    return head?.visible ? head : (this.face ?? head);
+  }
+
   /** Where the held item sits, updated every render (screen coords). */
   hand = { x: 0, y: 0, rot: 0 };
 

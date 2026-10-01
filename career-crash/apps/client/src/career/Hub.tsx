@@ -10,6 +10,7 @@ import { CompanyPicker } from './CompanyPicker';
 import { NamePicker } from './NamePicker';
 import { GearIcons } from './Loot';
 import { abandon, applicants, companyName, renameCharacter, renameCompany, setPostMine, currentCareer, lineup, mainChar, nextOpponents, prepareFight, save, squadUnlocked, type CareerSave } from './model';
+import { developing, fightPhoto } from './photo';
 import { PuppetView } from './PuppetView';
 import { discussion, promotedPosts, REACTIONS, starterPosts, type FeedPost, type ReactionKind } from './feed';
 
@@ -97,6 +98,8 @@ function PostCard({ p, fights, s }: { p: FeedPost; fights: number; s: CareerSave
         </div>
       </header>
       <p>{p.text}</p>
+      {p.photo && fightPhoto.value?.fight === p.fight && <img class="li-photo" src={fightPhoto.value.url} alt={`Fight photo: ${p.text}`} />}
+      {p.photo && developing.value === p.fight && fightPhoto.value?.fight !== p.fight && <div class="li-photo li-photo-wait">📸 Developing…</div>}
       {p.tags && <p class="li-tags">{p.tags}</p>}
       <div class="li-counts muted small">
         <span class="li-reacts" title={talk.reactions.map(([k, n]) => `${REACTIONS.find(([x]) => x === k)?.[2]}: ${n}`).join(' · ')}>

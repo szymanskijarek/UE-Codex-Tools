@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'preact/hooks';
+import { useEffect, useMemo, useState } from 'preact/hooks';
 import { bundle } from '@cc/content';
 import { careerRank, DIFFICULTIES, pointsLeft, formatName, partsFromName, randomCompany, RANK_XP, RANKS, SQUAD_UNLOCK_RANK, stageInfo, type CareerChar, type CompanyName, type DifficultyId, type NameParts } from '@cc/game-rules';
 import { Rng } from '@cc/sim';
@@ -8,6 +8,7 @@ import { Card, CareerChip, Portrait } from '../ui/components';
 import { type BoardRow, career, collectResults, sellLoot, companyName, currentCareer, draftCharacter, mainChar, startCareer, type CareerSave } from './model';
 import { CompanyPicker } from './CompanyPicker';
 import { NamePicker } from './NamePicker';
+import { captureFightPhoto } from './photo';
 import { GearScreen } from './Gear';
 import { Hub } from './Hub';
 import { LootCard } from './Loot';
@@ -250,6 +251,12 @@ export function Loadout({ ids }: { ids?: string[] }) {
 function Results({ save: s0 }: { save: CareerSave }) {
   const [s] = useState(() => (s0.pending ? collectResults(s0) : s0));
   const r = s.last;
+  // Develop this fight's photo for the feed (the input is gone from the save once results are in).
+  const [shot] = useState(() => s0.pending?.input);
+  useEffect(() => {
+    const fight = s.feed?.find((p) => p.photo)?.fight;
+    if (shot && r?.photo && fight && s.feed?.[0]?.fight === fight) void captureFightPhoto(shot, r.photo, fight);
+  }, []);
   if (!r) {
     return (
       <section>

@@ -1711,6 +1711,37 @@ body:has(.shell.li) {
   font-size: 0.93rem;
 }
 
+/* The fight photo: a square close-up under the caption, edge to edge like a real feed image. */
+.li-photo {
+  display: block;
+  width: calc(100% + 32px);
+  max-width: none;
+  aspect-ratio: 1 / 1;
+  margin: 8px -16px 4px;
+  object-fit: cover;
+  background: #e9e5df;
+}
+
+.li-photo-wait {
+  display: grid;
+  place-items: center;
+  color: var(--li-sub);
+  font-weight: 600;
+  animation: li-photo-pulse 1.2s ease-in-out infinite;
+}
+
+@keyframes li-photo-pulse {
+  50% {
+    opacity: 0.55;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .li-photo-wait {
+    animation: none;
+  }
+}
+
 .li-tags {
   color: var(--li-blue);
   font-weight: 600;

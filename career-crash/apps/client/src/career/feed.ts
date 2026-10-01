@@ -33,6 +33,8 @@ export interface FeedPost {
   /** The people from that fight's other team (they turn up in the comments). */
   cast?: { name: string; career: string; appearance: { skin: string; hair: string; hairStyle: number } }[];
   company?: string;
+  /** A fight photo post: shows the latest fight photo (photo.ts) while it is this fight's. */
+  photo?: boolean;
   /** The player's own reaction and comments on this post. */
   mine?: { react?: ReactionKind; said?: string[] };
 }
@@ -76,6 +78,12 @@ const MOOD_OF: Record<string, Mood> = {
   feed_perk_legendary: 'perk',
   feed_perk_ability: 'perk',
   feed_summon_brag: 'win',
+  feed_photo_air_us: 'win',
+  feed_photo_air_them: 'win',
+  feed_photo_hit_us: 'win',
+  feed_photo_hit_them: 'loss',
+  feed_photo_move_us: 'win',
+  feed_photo_move_them: 'loss',
   feed_summon_complain: 'news',
   feed_spooked: 'loss',
 };
@@ -256,7 +264,17 @@ export function fightPosts(s: CareerSave, r: FightSummary): FeedPost[] {
   if (chance(0.6)) add({ by: 'stranger', ...persona(rng), tags: chance(0.3) ? '#ThoughtLeadership' : undefined }, 'feed_network');
   if (usedItems.length && chance(0.5)) add({ by: 'me', author: m.c.name, sub: headline(m.c.id), who: meWho }, 'feed_item', { item: nameOf(pick(usedItems)).toLowerCase() });
 
-  // Your post leads, then any perk brag; the rest are shuffled like a real timeline.
+  // 6. The fight photo: one close-up of the best moment, always at the top.
+  const ph = r.photo;
+  let photo: FeedPost | undefined;
+  if (ph) {
+    const kind = ph.kind === 'air' ? 'air' : ph.kind === 'move' ? 'move' : 'hit';
+    const before = out.length;
+    add({ by: 'me', author: m.c.name, sub: headline(m.c.id), who: meWho, photo: true, tags: kind === 'air' ? '#Airtime #NewHeights' : kind === 'move' ? '#SkillsShowcase' : '#Impact #Results', reacts: 200 + rng.int(1500), comments: 10 + rng.int(90) }, `feed_photo_${kind}_${ph.team === 0 ? 'us' : 'them'}`, { name: ph.name });
+    if (out.length > before) photo = out.pop();
+  }
+
+  // The photo and your post lead, then any perk brag; the rest are shuffled like a real timeline.
   const [first, ...later] = out;
   const perks = later.filter((p) => p.mood === 'perk');
   const rest = later.filter((p) => p.mood !== 'perk');
@@ -264,7 +282,7 @@ export function fightPosts(s: CareerSave, r: FightSummary): FeedPost[] {
     const j = rng.int(i + 1);
     [rest[i], rest[j]] = [rest[j]!, rest[i]!];
   }
-  return first ? [first, ...perks, ...rest] : [...perks, ...rest];
+  return [...(photo ? [photo] : []), ...(first ? [first] : []), ...perks, ...rest];
 }
 
 /** A few posts to fill the feed before the first fight. */

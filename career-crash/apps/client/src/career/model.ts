@@ -40,6 +40,7 @@ import {
 } from '@cc/game-rules';
 import { Rng, SIM_VERSION, simulate, type BattleInput } from '@cc/sim';
 import { FEED_CAP, fightPosts, type FeedPost } from './feed';
+import { pickPhotoMoment, type PhotoMoment } from './photo-moment';
 
 /**
  * Offline career mode (03 §8): one main character climbs a ladder of fights,
@@ -99,6 +100,8 @@ export interface FightSummary {
   loot?: { item: LootItem; sold?: number };
   /** Critters each side summoned (summon ids, with the summoner's name for ours) and which of our fighters got spooked. */
   summons?: { mine: { by: string; summon: string }[]; theirs: string[]; spooked: { name: string; summon: string }[] };
+  /** The fight's best moment for the photo post (the picture itself is rendered after, see photo.ts). */
+  photo?: PhotoMoment;
 }
 
 const KEY = 'cc.career.v1';
@@ -320,7 +323,8 @@ export function collectResults(s: CareerSave): CareerSave {
       if (who?.team === 0 && what && !summons.spooked.some((x) => x.name === who.name)) summons.spooked.push({ name: who.name, summon: what });
     }
   }
-  next.last = { stage, outcome, cash, pay, board, growth, unlockedSquad: !wasUnlocked && squadUnlocked(next), ...(loot ? { loot } : {}), ...(summons.mine.length || summons.theirs.length ? { summons } : {}) };
+  const photo = pickPhotoMoment(input, [s.mainId]) ?? undefined;
+  next.last = { stage, outcome, cash, pay, board, growth, unlockedSquad: !wasUnlocked && squadUnlocked(next), ...(loot ? { loot } : {}), ...(summons.mine.length || summons.theirs.length ? { summons } : {}), ...(photo ? { photo } : {}) };
   next.feed = [...fightPosts(next, next.last), ...(s.feed ?? [])].slice(0, FEED_CAP);
   save(next);
   return next;
