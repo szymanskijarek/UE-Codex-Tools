@@ -422,7 +422,7 @@
    ],
    "art": [
     "shipping-container",
-    "winch"
+    "bollards"
    ]
   },
   {
@@ -433,7 +433,7 @@
     900
    ],
    "art": [
-    "winch",
+    "bollards",
     "shipping-container"
    ]
   },
@@ -446,7 +446,7 @@
    ],
    "art": [
     "bollards",
-    "shipping-container"
+    "dock-crane"
    ]
   },
   {
@@ -457,8 +457,8 @@
     900
    ],
    "art": [
-    "shipping-container",
-    "bollards"
+    "dock-crane",
+    "shipping-container"
    ]
   },
   {
@@ -469,7 +469,6 @@
     900
    ],
    "art": [
-    "dock-crane",
     "winch"
    ],
    "chanceBp": 6000
@@ -482,8 +481,7 @@
     900
    ],
    "art": [
-    "winch",
-    "dock-crane"
+    "winch"
    ],
    "chanceBp": 6000
   },

@@ -343,60 +343,53 @@ export class BattleRenderer {
     return performance.now() < this.freezeUntil ? 0 : 1;
   }
 
-  /** Obstacles wobble when hit, look battered as they lose health, and topple over when broken. */
+  /**
+   * Obstacles wobble when hit, swap to their damaged art at half health, and
+   * when broken lie flat on the rubble layer: walkable floor, under everything
+   * that moves. Objects without rubble art yet collapse (squash flat) instead.
+   */
   private updateWalls(player: ReplayPlayer): void {
     const w = player.world;
     this.wallViews.forEach((v, i) => {
       const broken = !!w.wallBroken[i];
       const frac = w.wallMaxHp[i] ? (w.wallHp[i] ?? 0) / w.wallMaxHp[i]! : 1;
       v.c.pivot.set(v.cx, v.by);
-      // Painted obstacles with damage art: intact → damaged at half health → flat rubble when destroyed.
       const state = broken ? 2 : frac <= 0.5 ? 1 : 0;
-      let painted = false;
+      let hasArt = false;
       if (v.spr && v.art) {
+        const own = obstacleTexture(state === 2 ? `${v.art}-destroyed` : state === 1 ? `${v.art}-damaged` : v.art);
+        hasArt = !!own;
         if (v.state !== state) {
-          const t = obstacleTexture(state === 2 ? `${v.art}-destroyed` : state === 1 ? `${v.art}-damaged` : v.art) ?? (state === 2 ? null : obstacleTexture(v.art));
+          // Missing state art: the damaged look if there is one, else the intact sprite.
+          const t = own ?? (state === 2 ? obstacleTexture(`${v.art}-damaged`) : null) ?? obstacleTexture(v.art);
           if (t) {
             v.spr.texture = t;
-            v.spr.scale.set((v.w! * (state === 2 ? 1.15 : 1)) / t.width);
-          } else if (state === 2 && v.state === 1) {
-            // No rubble art: fall back to the damaged/intact sprite toppling over.
-            const t0 = obstacleTexture(v.art);
-            if (t0) {
-              v.spr.texture = t0;
-              v.spr.scale.set(v.w! / t0.width);
-            }
+            v.spr.scale.set((v.w! * (state === 2 && own ? 1.15 : 1)) / t.width);
           }
           v.state = state;
         }
-        painted = state === 2 ? !!obstacleTexture(`${v.art}-destroyed`) : !!obstacleTexture(`${v.art}-damaged`) && state === 1;
       }
-      if (broken && painted) {
-        // Flattened: part of the floor now, walkable, under everything that moves.
-        if (v.c.parent !== this.rubble) this.rubble.addChild(v.c);
-        v.c.rotation = 0;
-        v.c.position.set(v.cx, v.by);
-        v.c.tint = 0xffffff;
-        return;
-      }
-      if (v.c.parent === this.rubble) this.bodies.addChild(v.c); // seeked back to before it fell
+      v.c.rotation = 0;
+      v.c.position.set(v.cx, v.by);
       if (broken) {
         if (v.brokenAt < 0) v.brokenAt = this.now;
-        const k = Math.min(1, (this.now - v.brokenAt) / 480);
-        // Ease-in fall with a little bounce at the end.
-        const fall = k < 0.8 ? (k / 0.8) ** 2 : 1 - Math.sin(((k - 0.8) / 0.2) * Math.PI) * 0.06;
-        v.c.rotation = v.dir * 1.35 * fall;
-        v.c.position.set(v.cx + v.dir * v.h * 0.15 * fall, v.by + v.h * 0.12 * fall);
-        v.c.tint = 0xb8b8b8;
-        v.c.zIndex = v.z - 1500;
+        if (v.c.parent !== this.rubble) this.rubble.addChild(v.c);
+        if (hasArt) {
+          v.c.scale.set(1);
+          v.c.tint = 0xffffff;
+        } else {
+          // Squash down into a flat heap over a quarter second.
+          const k = Math.min(1, (this.now - v.brokenAt) / 260);
+          v.c.scale.set(1 + 0.12 * k, 1 - 0.72 * k * k);
+          v.c.tint = 0x9a948c;
+        }
         return;
       }
-      if (v.brokenAt >= 0) v.brokenAt = -1; // replay seeked back to before it fell
-      let rot = (1 - frac) * 0.06 * v.dir;
-      if (this.now < v.wobbleUntil) rot += Math.sin((v.wobbleUntil - this.now) / 22) * 0.05 * ((v.wobbleUntil - this.now) / 300);
-      v.c.rotation = rot;
-      v.c.position.set(v.cx, v.by);
-      v.c.tint = painted ? 0xffffff : frac > 0.66 ? 0xffffff : frac > 0.33 ? 0xe8e2da : 0xd2c8bc;
+      if (v.brokenAt >= 0) v.brokenAt = -1; // replay seeked back to before it broke
+      if (v.c.parent === this.rubble) this.bodies.addChild(v.c);
+      v.c.scale.set(1);
+      if (this.now < v.wobbleUntil) v.c.rotation = Math.sin((v.wobbleUntil - this.now) / 22) * 0.05 * ((v.wobbleUntil - this.now) / 300);
+      v.c.tint = hasArt || frac > 0.66 ? 0xffffff : frac > 0.33 ? 0xe8e2da : 0xd2c8bc;
       v.c.zIndex = v.z;
     });
   }

@@ -140,6 +140,23 @@ describe('systems', () => {
     }
   });
 
+  it('each obstacle art has one footprint everywhere, so it is drawn the same size in every arena', () => {
+    const seen = new Map<string, string>();
+    for (const arena of bundle.arenas) {
+      for (const o of arena.obstacles ?? []) {
+        if (o.belt) continue;
+        const [x, y, w, h] = o.at;
+        expect(x >= 0 && y >= 0 && x + w <= arena.sizeMm[0] && y + h <= arena.sizeMm[1], `${arena.id} ${o.at}`).toBe(true);
+        for (const art of o.art) {
+          // The client sizes art by footprint width (or depth, for deep sideways pieces like aisle shelves).
+          const where = w >= h ? `${w} wide` : `${w}x${h}`;
+          expect(seen.get(art) ?? where, `${art} in ${arena.id}`).toBe(where);
+          seen.set(art, where);
+        }
+      }
+    }
+  });
+
   it('characters parry, evade and dash', () => {
     const rng = Rng.fromSeed('reflex');
     const counts = { parry: 0, evade: 0, dash: 0 };

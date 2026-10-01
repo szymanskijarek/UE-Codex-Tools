@@ -176,8 +176,12 @@ is empty: the 30 newer careers were re-imported from separate sheets through
   - **In play:** the renderer swaps to the damaged art at half health. When
     the obstacle breaks it shows the destroyed art flat on the floor, under
     spills and fighters; broken obstacles are already walkable in the sim.
-  - **Missing states:** an obstacle without them falls back to tinting and
-    toppling over.
+  - **Missing states:** an obstacle without damaged art is tinted as it loses
+    health. One without destroyed art squashes flat into a grey heap on the
+    same rubble layer; nothing rotates.
+  - **One size per art:** each obstacle art must use the same footprint width
+    in every arena slot, so it is drawn the same size everywhere. A test in
+    `packages/sim/test/battle.test.ts` enforces this.
   - **Size:** destroyed sheets use `px: 130` in the manifest to save space.
 
 ### 5.5 Arena backdrops

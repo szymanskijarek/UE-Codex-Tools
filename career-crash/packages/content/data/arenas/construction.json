@@ -573,12 +573,11 @@
    "at": [
     13000,
     7800,
-    2200,
-    700
+    2400,
+    800
    ],
    "art": [
-    "jersey-barrier",
-    "brick-stack"
+    "jersey-barrier"
    ],
    "chanceBp": 6000
   }

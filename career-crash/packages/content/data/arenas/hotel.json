@@ -394,7 +394,6 @@
     900
    ],
    "art": [
-    "lobby-sofa",
     "hotel-reception"
    ]
   },
@@ -406,8 +405,7 @@
     900
    ],
    "art": [
-    "hotel-reception",
-    "lobby-sofa"
+    "hotel-reception"
    ]
   },
   {

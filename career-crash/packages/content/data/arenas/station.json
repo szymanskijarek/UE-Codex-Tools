@@ -557,7 +557,7 @@
     900
    ],
    "art": [
-    "timetable-board",
+    "ticket-booth",
     "news-kiosk"
    ]
   },
@@ -569,8 +569,7 @@
     700
    ],
    "art": [
-    "timetable-board",
-    "station-bench"
+    "timetable-board"
    ]
   },
   {

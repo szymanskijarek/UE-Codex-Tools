@@ -422,8 +422,7 @@
     700
    ],
    "art": [
-    "scenery-flat",
-    "costume-rack"
+    "scenery-flat"
    ]
   },
   {
@@ -434,7 +433,6 @@
     700
    ],
    "art": [
-    "costume-rack",
     "scenery-flat"
    ]
   },
@@ -446,8 +444,7 @@
     900
    ],
    "art": [
-    "costume-rack",
-    "prop-trunk"
+    "costume-rack"
    ]
   },
   {
@@ -458,7 +455,6 @@
     900
    ],
    "art": [
-    "prop-trunk",
     "costume-rack"
    ]
   },
@@ -470,8 +466,7 @@
     900
    ],
    "art": [
-    "prop-trunk",
-    "scenery-flat"
+    "prop-trunk"
    ],
    "chanceBp": 6000
   },
@@ -483,7 +478,6 @@
     900
    ],
    "art": [
-    "scenery-flat",
     "prop-trunk"
    ],
    "chanceBp": 6000
@@ -496,8 +490,7 @@
     1000
    ],
    "art": [
-    "lighting-desk",
-    "prop-trunk"
+    "lighting-desk"
    ],
    "chanceBp": 6000
   }
