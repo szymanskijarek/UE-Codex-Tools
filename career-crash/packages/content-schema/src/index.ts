@@ -289,7 +289,18 @@ export const arenaSchema = z.object({
    * picks one art variant and may shift by up to layoutJitterMm. Belts are
    * walkable conveyors that carry things along (mm/tick) instead of blocking.
    */
-  obstacles: z.array(z.object({ at: rect, art: z.array(z.string()).min(1), chanceBp: bp.optional(), belt: point.optional() })).optional(),
+  obstacles: z
+    .array(
+      z.object({
+        at: rect,
+        art: z.array(z.string()).min(1),
+        chanceBp: bp.optional(),
+        belt: point.optional(),
+        /** Filled in by the content compiler from furniture.json: each art's footprint, centred on `at` (belts keep `at`). */
+        fp: z.array(z.tuple([int, int])).optional(),
+      }),
+    )
+    .optional(),
   layoutJitterMm: int.min(0).optional(),
   /** Props scattered when an obstacle topples. */
   debris: z.array(ref('prop')).optional(),
@@ -457,6 +468,8 @@ export interface ContentBundle {
   shopItems: ShopItemDef[];
   loot: LootBaseDef[];
   summons: SummonDef[];
+  /** Real-world size of every piece of obstacle art (furniture.json), so each object looks the same size everywhere. */
+  furniture: Record<string, FurnitureDef>;
 }
 
 export const liveSchema = z.object({ templates: z.record(z.string(), z.array(z.string()).min(1)) });
@@ -534,6 +547,14 @@ export const summonSchema = z.object({
 export type SummonDef = z.infer<typeof summonSchema>;
 
 const nameWords = z.array(z.string().min(1).max(40)).min(10).refine((l) => new Set(l).size === l.length, 'duplicate entries');
+/**
+ * One real-world size per piece of obstacle art: `w` is how wide it is drawn
+ * (mm; fighters stand about 1900), `fp` its collision footprint [width, depth]
+ * when it stands in an arena. Props drawn from obstacle art need only `w`.
+ */
+export const furnitureSchema = z.record(z.string(), z.object({ w: int.min(200), fp: z.tuple([int.min(200), int.min(200)]).optional() }));
+export type FurnitureDef = z.infer<typeof furnitureSchema>[string];
+
 export const namesSchema = z.object({ first: nameWords, last: nameWords, prefixes: nameWords, suffixes: nameWords });
 
 /** Maps content folder → schema. Order matters only for error messages. */

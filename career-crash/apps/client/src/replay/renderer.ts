@@ -587,8 +587,9 @@ export class BattleRenderer {
       const [x0, y0] = this.px(x, y);
       const [x1, y1] = this.px(x + w, y + h);
       const lift = WALL_H * Z_LIFT * this.scale * this.depth(y + h);
-      // Painted obstacle art: sized to the footprint (a deep, narrow block gets a sideways-on piece of furniture).
-      const artW = Math.max(x1 - x0, (y1 - y0) * 1.2) * 1.12;
+      // Painted obstacle art at its real-world size (furniture.json), so it looks the same in every arena.
+      const realW = ob ? bundle.furniture[ob.art]?.w : undefined;
+      const artW = realW ? realW * this.scale * this.depth(y + h) : Math.max(x1 - x0, (y1 - y0) * 1.2) * 1.12;
       const art = ob ? wallSprite(ob.art, artW) : null;
       if (art && ob) {
         const c = new Container() as Container & { isWall?: boolean };
@@ -1006,7 +1007,7 @@ export class BattleRenderer {
         return s;
       }
       // Item art when we have it (props read ~2.6× their collision radius), else the drawn version.
-      const art = propSprite(e.def, e.r * this.scale * 2.6);
+      const art = propSprite(e.def, e.r * this.scale * 2.6, this.scale);
       const spin = new Container();
       if (art) {
         g.ellipse(0, 0, e.r * this.scale * 1.1, e.r * this.scale * 0.45).fill({ color: 0x000000, alpha: 0.18 });

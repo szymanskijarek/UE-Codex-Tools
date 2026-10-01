@@ -1,4 +1,5 @@
 import { Rectangle, Sprite, Texture } from 'pixi.js';
+import { bundle } from '@cc/content';
 
 /**
  * Item art (tools/art-pipeline `items` → items/items.webp + items.json): the
@@ -237,13 +238,14 @@ function tex(name: string | undefined, sh: Sheet = ITEMS): Texture | null {
 }
 
 /** Big props drawn from the obstacle atlas; `left` = the art faces left (mirrored so it faces right like other props). */
-const BIG_PROPS: Record<string, { name: string; size: number; left?: boolean }> = {
-  'prop.forklift': { name: 'forklift', size: 3.4, left: true },
-  'prop.floor-scrubber': { name: 'floor-scrubber', size: 3.0, left: true },
-  'prop.freezer': { name: 'chest-freezer', size: 3.2 },
-  'prop.vending-machine': { name: 'drinks-fridge', size: 3.4 },
-  'prop.printer': { name: 'photocopier', size: 3.0 },
-  'prop.filing-cabinet': { name: 'filing-cabinets', size: 3.0 },
+/** Drawn at the art's real-world width from furniture.json, the same size as the obstacle of that art. */
+const BIG_PROPS: Record<string, { name: string; left?: boolean }> = {
+  'prop.forklift': { name: 'forklift', left: true },
+  'prop.floor-scrubber': { name: 'floor-scrubber', left: true },
+  'prop.freezer': { name: 'chest-freezer' },
+  'prop.vending-machine': { name: 'drinks-fridge' },
+  'prop.printer': { name: 'photocopier' },
+  'prop.filing-cabinet': { name: 'filing-cabinets' },
 };
 
 /** Obstacle art by atlas name, `width` px across, standing on its front edge. */
@@ -353,13 +355,13 @@ export function heldSprite(equipmentId: string, len: number): Sprite | null {
   return s;
 }
 
-/** Sprite for a world prop, standing on its footprint, `size` px across. */
-export function propSprite(propId: string, size: number): Sprite | null {
+/** Sprite for a world prop, standing on its footprint, `size` px across (big props: real-world width at `pxPerMm`). */
+export function propSprite(propId: string, size: number, pxPerMm: number): Sprite | null {
   const big = BIG_PROPS[propId];
   const bt = big && tex(big.name, OBSTACLES);
   if (big && bt) {
     const s = new Sprite(bt);
-    const k = (size / 2.6) * big.size / Math.max(bt.width, bt.height);
+    const k = ((bundle.furniture[big.name]?.w ?? 1500) * pxPerMm) / bt.width;
     s.scale.set(big.left ? -k : k, k);
     s.anchor.set(0.5, 0.92);
     return s;

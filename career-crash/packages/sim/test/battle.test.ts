@@ -140,18 +140,16 @@ describe('systems', () => {
     }
   });
 
-  it('each obstacle art has one footprint everywhere, so it is drawn the same size in every arena', () => {
-    const seen = new Map<string, string>();
+  it('obstacles take their art\'s real-world footprint and stay inside the arena, clear of spawns', () => {
     for (const arena of bundle.arenas) {
-      for (const o of arena.obstacles ?? []) {
-        if (o.belt) continue;
-        const [x, y, w, h] = o.at;
-        expect(x >= 0 && y >= 0 && x + w <= arena.sizeMm[0] && y + h <= arena.sizeMm[1], `${arena.id} ${o.at}`).toBe(true);
-        for (const art of o.art) {
-          // The client sizes art by footprint width (or depth, for deep sideways pieces like aisle shelves).
-          const where = w >= h ? `${w} wide` : `${w}x${h}`;
-          expect(seen.get(art) ?? where, `${art} in ${arena.id}`).toBe(where);
-          seen.set(art, where);
+      for (const o of arena.obstacles ?? []) if (!o.belt) expect(o.fp?.length, `${arena.id} ${o.art}`).toBe(o.art.length);
+      for (let i = 0; i < 40; i++) {
+        const { arena: laid, obstacles } = layoutArena(arena, `fp-${i}`);
+        for (const o of obstacles) {
+          const [x, y, w, h] = o.rect;
+          if (!o.belt) expect([w, h]).toEqual(bundle.furniture[o.art]!.fp);
+          expect(x >= 0 && y >= 0 && x + w <= arena.sizeMm[0] && y + h <= arena.sizeMm[1], `${arena.id} ${o.art} ${o.rect}`).toBe(true);
+          for (const [sx, sy] of [...laid.spawns.a, ...laid.spawns.b, ...laid.spawns.ffa]) expect(sx >= x && sx <= x + w && sy >= y && sy <= y + h, `${arena.id} ${o.art} on a spawn`).toBe(false);
         }
       }
     }

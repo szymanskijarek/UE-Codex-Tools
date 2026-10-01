@@ -68,12 +68,16 @@ export function layoutArena(base: ArenaDef, seed: string): ArenaLayout {
   for (const o of base.obstacles ?? []) {
     // Roll everything unconditionally so one obstacle's outcome doesn't shift the others' rolls.
     const present = rng.chance(o.chanceBp ?? 10000);
-    const art = o.art[rng.int(o.art.length)]!;
+    const pick = rng.int(o.art.length);
+    const art = o.art[pick]!;
     const dx = rng.range(-jitter, jitter);
     const dy = rng.range(-jitter, jitter);
     if (!present) continue;
-    const moved: Rect = [o.at[0] + dx, o.at[1] + dy, o.at[2], o.at[3]];
-    const rect = o.belt || !clear(moved) ? ([...o.at] as Rect) : moved;
+    // Standing obstacles take their art's real-world footprint, centred on the slot.
+    const fp = o.belt ? undefined : o.fp?.[pick];
+    const home: Rect = fp ? [o.at[0] + idiv(o.at[2] - fp[0], 2), o.at[1] + idiv(o.at[3] - fp[1], 2), fp[0], fp[1]] : [o.at[0], o.at[1], o.at[2], o.at[3]];
+    const moved: Rect = [home[0] + dx, home[1] + dy, home[2], home[3]];
+    const rect = o.belt || !clear(moved) ? home : moved;
     obstacles.push({ rect, art, belt: o.belt ? [o.belt[0], o.belt[1]] : null });
   }
   const walls: Rect[] = [...(base.walls as Rect[]), ...obstacles.filter((o) => !o.belt).map((o) => o.rect)];

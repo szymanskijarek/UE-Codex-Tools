@@ -58,7 +58,7 @@ describe('summons', () => {
 
   it('fighters who fear a critter get spooked by it', () => {
     let spooked = 0;
-    for (let i = 0; i < 8; i++) {
+    for (let i = 0; i < 20; i++) {
       const out = simulate(input([snap('career.dog-groomer', `g${i}`)], [snap('career.postal-worker', `p${i}`)], `fear${i}`), bundle);
       spooked += out.events.filter((e) => e.type === 'panic' && e.s === 'fear:dogs').length;
     }

@@ -179,9 +179,17 @@ is empty: the 30 newer careers were re-imported from separate sheets through
   - **Missing states:** an obstacle without damaged art is tinted as it loses
     health. One without destroyed art squashes flat into a grey heap on the
     same rubble layer; nothing rotates.
-  - **One size per art:** each obstacle art must use the same footprint width
-    in every arena slot, so it is drawn the same size everywhere. A test in
-    `packages/sim/test/battle.test.ts` enforces this.
+  - **Prompts:** `art/obstacles/DAMAGE_SHEET_PROMPTS.md` covers the sheets still
+    missing.
+- **Real-world sizes (`packages/content/data/furniture.json`):** every piece of
+  obstacle art has one size, so it looks the same in every arena and next to
+  fighters (about 1900 mm tall).
+  - `w` is the drawn width in mm.
+  - `fp` is the collision footprint [width, depth]. The sim centres it on the
+    arena slot, so a slot can offer art of different sizes.
+  - Props drawn from obstacle art (vending machine, freezer, printer, filing
+    cabinet, forklift, floor scrubber) use the same `w`.
+  - New obstacle art needs an entry here. The content build fails without one.
   - **Size:** destroyed sheets use `px: 130` in the manifest to save space.
 
 ### 5.5 Arena backdrops

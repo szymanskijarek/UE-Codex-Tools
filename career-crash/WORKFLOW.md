@@ -103,8 +103,9 @@ Ready-to-paste generation prompts: `art/sheets/BODY_SHEET_PROMPTS.md`.
 - **Docks obstacles:** they currently use their weathered art as the intact state, and have no
   separate damaged state. A clean "intact" sheet would complete them.
 - **Damage states for the six original arenas** (supermarket, office, diner, station,
-  warehouse, construction): their obstacles squash into a plain grey heap when
-  destroyed until real rubble art exists.
+  warehouse, construction), plus the docks damaged sheet. Their obstacles squash
+  into a plain grey heap when destroyed until real rubble art exists.
+  Ready-to-paste prompts: `art/obstacles/DAMAGE_SHEET_PROMPTS.md`.
 
 **Size budget:** the single-file build is ~7.2 MB, against a 16 MB artifact limit.
 The website loads images on demand, so size matters less there. Rough costs per

@@ -11,6 +11,7 @@ import {
   economySchema,
   localeSchema,
   liveSchema,
+  furnitureSchema,
   namesSchema,
   tagsFileSchema,
   type CollectionName,
@@ -95,6 +96,8 @@ export function compileContent(dataDir: string): CompileResult {
   if (!economy.success) errors.push(`economy.json: ${economy.error.message}`);
   const names = namesSchema.safeParse(readJson(join(dataDir, 'names.json'), errors));
   if (!names.success) errors.push(`names.json: ${names.error.message}`);
+  const furniture = furnitureSchema.safeParse(readJson(join(dataDir, 'furniture.json'), errors));
+  if (!furniture.success) errors.push(`furniture.json: ${furniture.error.message}`);
   const live = liveSchema.safeParse(readJson(join(dataDir, 'live.json'), errors));
   if (!live.success) errors.push(`live.json: ${live.error.message}`);
   const locale = localeSchema.safeParse(readJson(join(dataDir, 'locales', 'en.json'), errors));
@@ -125,7 +128,7 @@ export function compileContent(dataDir: string): CompileResult {
     items.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
     collections[name] = items;
   }
-  if (errors.length > 0 || !tagsFile.success || !economy.success || !names.success || !live.success || !locale.success) return { bundle: null, errors };
+  if (errors.length > 0 || !tagsFile.success || !economy.success || !names.success || !furniture.success || !live.success || !locale.success) return { bundle: null, errors };
 
   const bundle: ContentBundle = {
     version: 1,
@@ -150,7 +153,16 @@ export function compileContent(dataDir: string): CompileResult {
     shopItems: collections.shopItems as ContentBundle['shopItems'],
     loot: collections.loot as ContentBundle['loot'],
     summons: collections.summons as ContentBundle['summons'],
+    furniture: furniture.data,
   };
+  // Every standing obstacle takes its art's real-world footprint.
+  for (const a of bundle.arenas)
+    for (const o of a.obstacles ?? []) {
+      if (o.belt) continue;
+      const missing = o.art.filter((x) => !furniture.data[x]?.fp);
+      if (missing.length) errors.push(`${a.id}: obstacle art ${missing.join(', ')} has no footprint in furniture.json`);
+      else o.fp = o.art.map((x) => furniture.data[x]!.fp!);
+    }
 
   errors.push(...validateBundle(bundle));
   if (errors.length > 0) return { bundle: null, errors };
