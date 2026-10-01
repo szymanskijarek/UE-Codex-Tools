@@ -1,10 +1,9 @@
 # Career Crash: art brief for the image-generation agent
 
-> **Status:** §2, §5, §6 and §9 are delivered and in the game.
-> Still to come: §3 boss faces, §4 body sheets, §7 damage sheets and §8 the
-> referee. Their references are in `art/heads/_reference/boss-sheet-*.webp`,
-> `art/sheets/BODY_SHEET_PROMPTS.md` and `art/obstacles/DAMAGE_SHEET_PROMPTS.md`;
-> attach those to the prompts.
+> **Status:** §2, §5, §6 and §9 are delivered and in the game. For the
+> remaining character art (§4 body sheets and §8 referee), use
+> `art/CHARACTER_PROMPTS.md`, which supersedes those sections. The §7 damage
+> sheets use `art/obstacles/DAMAGE_SHEET_PROMPTS.md`. §3 boss faces are on hold.
 
 Everything the game still draws with placeholder "programmer art", plus new face
 variants and the sprites for ten new arena hazards. Every section has a
