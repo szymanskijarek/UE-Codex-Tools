@@ -7,6 +7,9 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import {
   COLLECTIONS,
+  HR_ALLY_KEYS,
+  HR_BAD_STATUSES,
+  HR_GOOD_STATUSES,
   STAT_KEYS,
   economySchema,
   localeSchema,
@@ -153,6 +156,7 @@ export function compileContent(dataDir: string): CompileResult {
     shopItems: collections.shopItems as ContentBundle['shopItems'],
     loot: collections.loot as ContentBundle['loot'],
     summons: collections.summons as ContentBundle['summons'],
+    hrNotes: collections.hrNotes as ContentBundle['hrNotes'],
     furniture: furniture.data,
   };
   // Every standing obstacle takes its art's real-world footprint.
@@ -266,6 +270,8 @@ export function validateBundle(b: ContentBundle): string[] {
     if (x.kind === 'animal' && !x.art.sprite) errors.push(`${x.id}: animals need art.sprite`);
   }
 
+  errors.push(...validateHrNotes(b));
+
   // Tag vocabulary (01 §5.2): every used tag must be declared.
   const used = new Set<string>();
   collectTags([b.statuses, b.abilities, b.careers, b.props, b.rules, b.traits, b.equipment, b.summons], used);
@@ -282,10 +288,59 @@ export function validateBundle(b: ContentBundle): string[] {
     if (it.kind === 'consumable' && (!it.trigger || !it.effects?.length)) errors.push(`${it.id}: consumables need a trigger and effects`);
   }
   for (const c of b.careers) needKey(`${c.id}.desc`);
+  for (const n of b.hrNotes) {
+    needKey(`${n.id}.name`);
+    needKey(`${n.id}.desc`);
+  }
   for (const d of b.detectors) for (const t of d.templates) needKey(t);
   for (const l of b.economy.leagues) needKey(`league.${l.id}`);
 
   // Structural monetisation guard (03 §6.1) lives in game-rules; here we just keep
   // cosmetics out of stat-bearing content by construction (no cosmetic collection is compiled).
+  return errors;
+}
+
+/** HR notes (06 §3.3): references, budget, tone, coverage. */
+function validateHrNotes(b: ContentBundle): string[] {
+  const errors: string[] = [];
+  const careers = new Map(b.careers.map((c) => [c.id, c]));
+  const has = (arr: { id: string }[], id: string): boolean => arr.some((x) => x.id === id);
+  const tags = new Set(b.tags);
+  const good = new Set<string>(HR_GOOD_STATUSES);
+  const bad = new Set<string>(HR_BAD_STATUSES);
+  const perCareer = new Map<string, number>();
+  for (const n of b.hrNotes) {
+    const c = careers.get(n.career);
+    if (!c) errors.push(`${n.id}: unknown career ${n.career}`);
+    else if (c.boss) errors.push(`${n.id}: bosses have no personnel file`);
+    perCareer.set(n.career, (perCareer.get(n.career) ?? 0) + 1);
+    const w = n.when;
+    for (const x of w.arena ?? []) if (!has(b.arenas, x)) errors.push(`${n.id}: unknown arena ${x}`);
+    for (const x of [...(w.ally ?? []), ...(w.enemy ?? [])]) if (!careers.has(x)) errors.push(`${n.id}: unknown career ${x}`);
+    for (const x of w.ally ?? []) if (x === n.career) errors.push(`${n.id}: a note can't be about working with their own career`);
+    for (const x of [...(w.allyTag ?? []), ...(w.enemyTag ?? [])]) if (!tags.has(x)) errors.push(`${n.id}: tag "${x}" is not declared in tags.json`);
+    for (const x of w.allyPersonality ?? []) if (!has(b.personalities, x)) errors.push(`${n.id}: unknown personality ${x}`);
+    for (const x of w.gear ?? []) if (!has(b.loot, x)) errors.push(`${n.id}: unknown loot kind ${x}`);
+    for (const x of w.consumable ?? []) if (!b.shopItems.some((i) => i.id === x && i.kind === 'consumable')) errors.push(`${n.id}: unknown consumable ${x}`);
+    let plus = 0;
+    let minus = 0;
+    for (const k of STAT_KEYS) {
+      const v = n.stats?.[k] ?? 0;
+      if (v < -3 || v > 3) errors.push(`${n.id}: stat ${k}=${v} outside [-3, 3]`);
+      if (v > 0) plus += v;
+      else minus -= v;
+    }
+    if (plus + minus > 4) errors.push(`${n.id}: ${plus + minus} stat points exceed the budget of 4`);
+    const st = n.status?.status;
+    if (st && !good.has(st) && !bad.has(st)) errors.push(`${n.id}: status ${st} is not on the HR allow-list`);
+    const goodSide = plus > 0 || (st !== undefined && good.has(st));
+    const badSide = minus > 0 || (st !== undefined && bad.has(st));
+    if (n.tone === 'buff' && badSide) errors.push(`${n.id}: a buff can't have minus stats or a bad status`);
+    if (n.tone === 'debuff' && goodSide) errors.push(`${n.id}: a debuff can't have plus stats or a good status`);
+    if (n.tone === 'mixed' && !(goodSide && badSide)) errors.push(`${n.id}: a mixed note needs a good side and a bad side`);
+    const allyCaused = HR_ALLY_KEYS.some((k) => w[k] !== undefined);
+    if (n.mood && (!allyCaused || n.tone === 'buff')) errors.push(`${n.id}: mood is only for debuffs a teammate causes`);
+  }
+  for (const c of b.careers) if (!c.boss && !c.deprecated && (perCareer.get(c.id) ?? 0) < 2) errors.push(`${c.id}: needs at least 2 HR notes (has ${perCareer.get(c.id) ?? 0})`);
   return errors;
 }

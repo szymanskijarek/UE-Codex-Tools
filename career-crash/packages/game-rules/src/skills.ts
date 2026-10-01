@@ -132,6 +132,8 @@ export interface CareerChar {
   loadout?: string[];
   /** Loot items worn (up to economy.loot.slots): stat points and maybe a granted ability. */
   gear?: LootItem[];
+  /** HR notes (06) the player has read in this character's personnel file. */
+  readNotes?: string[];
 }
 
 export function careerRank(cc: CareerChar, careerId: string): number {

@@ -46,7 +46,9 @@ into one bundle the game loads.
   lines, feed posts and comments), `locales/en.json`, economy, names, tags.
 - **Checks:** schema shape, id references between files, the tag vocabulary
   (`data/tags.json`), power budgets (02 §9), and that every id has a
-  `locales/en.json` name.
+  `locales/en.json` name. HR notes (`data/hrNotes/`) are checked for their
+  references, stat budget (±3 per stat, 4 points in all), tone, mood rule and
+  coverage (two per non-boss career); see 06 §3.3.
 - **Writes:** `packages/content/dist/bundle.json` and `manifest.json`. The
   bundle carries a content hash; golden replays record it.
 - **Run it** after any change under `data/`. The client, tests and tools all

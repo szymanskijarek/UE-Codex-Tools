@@ -129,6 +129,10 @@ compresses them (WebP, palette-quantised).
   trigger. Fighters get fears from career tags (`fear:dogs` …); `animal-friend` careers are left
   alone. Design and numbers: `docs/career-crash/05-summons-and-senior-moves.md`.
 - **Senior Moves:** the `senior` field on each career (rank 4 in the skill tree).
+- **HR notes** (each profession's hidden personnel-file buffs and debuffs, revealed when the player opens the file):
+  `packages/content/data/hrNotes/`, with `hr.<id>.name` and `hr.<id>.desc` in the locale. Conditions (arena, teammate career,
+  tag or personality, agency temp, opponent career or tag, boss, perk kind, packed consumable), budget and the scowl rule:
+  `docs/career-crash/06-personnel-files-and-garden-leave.md`. Staff cap, squad size and Garden Leave XP: `economy.json` → `hr`.
 - **Loot** ("Perks & Benefits" in the game; items dropped by wins, assignable to you and every hire): kinds of item in `packages/content/data/loot/` (icon plus the stats it
   favours, name in the locale); rarity points, drop odds, ability chances, sell prices, bag size and opponent
   gear in `economy.json` → `loot`. Rules and the server-side validity check are in `packages/game-rules/src/loot.ts`.
@@ -141,7 +145,7 @@ compresses them (WebP, palette-quantised).
   *Adding art for a new career*) and AGENTS.md *Common tasks*.
 
 **Current scale:** 66 careers plus 12 ladder bosses, 12 arenas (48-stage ladder), 101
-props, 344 abilities (every career has a Senior Move), 28 summoned critters.
+props, 344 abilities (every career has a Senior Move), 28 summoned critters, 132 HR notes (two per career).
 
 ## Tools
 

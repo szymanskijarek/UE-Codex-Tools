@@ -1,6 +1,6 @@
 import { useState } from 'preact/hooks';
 import { bundle } from '@cc/content';
-import { careerRank, DIFFICULTIES, isNameParts, partsFromName, difficulty, RANKS, SQUAD_UNLOCK_RANK, stageInfo, STAGES_PER_ARENA, type CareerChar, type DifficultyId } from '@cc/game-rules';
+import { careerRank, DIFFICULTIES, isNameParts, partsFromName, difficulty, RANKS, SQUAD_UNLOCK_RANK, stageInfo, STAGES_PER_ARENA, hrMood, type ActiveHrNote, type CareerChar, type DifficultyId } from '@cc/game-rules';
 import { descOf, nameOf } from '../i18n';
 import { arenaArt } from '../replay/arena-art';
 import { currentReplay, navigate } from '../state';
@@ -8,8 +8,9 @@ import { Portrait } from '../ui/components';
 import { levelProgress, Loadout, RankBar, skillAlert } from './Career';
 import { CompanyPicker } from './CompanyPicker';
 import { NamePicker } from './NamePicker';
+import { HrChips } from './File';
 import { GearIcons } from './Loot';
-import { abandon, applicants, companyName, renameCharacter, renameCompany, setPostMine, currentCareer, lineup, mainChar, nextOpponents, prepareFight, save, squadUnlocked, type CareerSave } from './model';
+import { abandon, applicants, companyName, renameCharacter, renameCompany, setPostMine, currentCareer, lineup, lineupHr, mainChar, nextOpponents, prepareFight, save, squadUnlocked, type CareerSave } from './model';
 import { developing, fightPhoto } from './photo';
 import { PuppetView } from './PuppetView';
 import { discussion, promotedPosts, REACTIONS, starterPosts, type FeedPost, type ReactionKind } from './feed';
@@ -175,19 +176,20 @@ function PostCard({ p, fights, s }: { p: FeedPost; fights: number; s: CareerSave
   );
 }
 
-function Person({ cc, tag }: { cc: CareerChar; tag?: string }) {
+function Person({ cc, tag, hr }: { cc: CareerChar; tag?: string; hr?: ActiveHrNote[] }) {
   const cid = currentCareer(cc);
   // A Senior Move this fighter has unlocked (from stage 10 some opponents bring one): shown as a teaser.
   const seniorCareer = cc.c.careers.find((x) => cc.nodes.includes(`${x}:senior`));
   const senior = seniorCareer ? bundle.careers.find((x) => x.id === seniorCareer)?.senior : undefined;
   return (
     <div class="li-person">
-      <Portrait c={cc.c} size={40} />
+      <Portrait c={cc.c} size={40} mood={(hr && hrMood(hr)) ?? 'neutral'} />
       <div class="grow">
         <b>{cc.c.name}</b> {tag && <span class="li-pill">{tag}</span>} <Loadout ids={cc.loadout} /> <GearIcons gear={cc.gear} />
         <div class="muted small">
           {RANKS[careerRank(cc, cid) - 1]} {nameOf(cid)} · Lv {cc.c.level}
         </div>
+        {hr && <HrChips cc={cc} active={hr} />}
         {senior && (
           <div class="small li-senior" title="Senior Move: unlocked at the top rank of a career">
             ✨ Senior Move: <b>{nameOf(senior)}</b>
@@ -237,6 +239,7 @@ export function Hub({ save: s }: { save: CareerSave }) {
   const diff = difficulty(s.difficulty);
   const opp = nextOpponents(s);
   const mine = lineup(s);
+  const mineHr = lineupHr(s, mine);
   const unlocked = squadUnlocked(s);
   const art = arenaArt(info.arenaId);
   const chapter = Math.floor(s.stage / STAGES_PER_ARENA);
@@ -355,7 +358,7 @@ export function Hub({ save: s }: { save: CareerSave }) {
               <div>
                 <h3>Your application</h3>
                 {mine.map((cc, i) => (
-                  <Person cc={cc} tag={i === 0 ? 'You' : cc.temp ? 'Agency temp' : undefined} />
+                  <Person cc={cc} tag={i === 0 ? 'You' : cc.temp ? 'Agency temp' : undefined} hr={mineHr.get(cc.c.id)} />
                 ))}
               </div>
               <div>

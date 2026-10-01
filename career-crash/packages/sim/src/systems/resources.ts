@@ -42,7 +42,11 @@ export function resources(w: World): void {
  */
 export function useConsumables(w: World): void {
   for (const e of w.entities) {
-    if (e.kind !== 'char' || e.removed || e.state !== 'active' || e.consumables.length === 0) continue;
+    if (e.kind !== 'char' || e.removed || e.state !== 'active') continue;
+    if (w.tick === 2 && e.snap?.startStatuses?.length) {
+      for (const st of e.snap.startStatuses) applyEffect(w, { type: 'applyStatus', status: st.status, durationTicks: st.durationTicks }, e, { sourceId: e.id, cause: -1, powerBp: 10000, scale: 'none' });
+    }
+    if (e.consumables.length === 0) continue;
     for (let i = e.consumables.length - 1; i >= 0; i--) {
       const item = w.content.shopItems.get(e.consumables[i]!);
       const trig = item?.trigger;

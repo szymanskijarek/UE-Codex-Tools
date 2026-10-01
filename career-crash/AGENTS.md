@@ -48,7 +48,8 @@ docs disagree, fix one of them in the same change.
 ## Common tasks
 
 - **Add a career:** add abilities to `data/abilities/*.json`, the career to
-  `data/careers/*.json` (respect the budget in 02 §9), names/descriptions to
+  `data/careers/*.json` (respect the budget in 02 §9), at least two HR notes to
+  `data/hrNotes/` (06 §3; the content build fails without them), names/descriptions to
   `data/locales/en.json`, then `pnpm content:build && pnpm golden:update && pnpm balance`.
 - **Add a prop or interaction:** props in `data/props/*.json`, rules in
   `data/rules/core.json`. Contact rules are matched by tags on both sides;

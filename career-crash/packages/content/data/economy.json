@@ -53,5 +53,6 @@
     "bossExtraRolls": 1,
     "brutalExtraRolls": 1,
     "opponentGearFromStage": [6, 18]
-  }
+  },
+  "hr": { "squadSize": 2, "staffCap": 6, "gardenLeaveXpBp": 2500 }
 }

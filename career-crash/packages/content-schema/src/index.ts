@@ -453,6 +453,15 @@ export const economySchema = z.object({
     /** Ladder opponents wear one more rolled item from each of these stages. */
     opponentGearFromStage: z.array(int.min(0)),
   }),
+  /** Staff, squad and Garden Leave (06 §2). */
+  hr: z.object({
+    /** Hires who fight next to the main character. */
+    squadSize: int.min(1).max(4),
+    /** Everyone on the payroll, main character included. */
+    staffCap: int.min(2),
+    /** Share of a fight's base XP for staff on Garden Leave. */
+    gardenLeaveXpBp: bp,
+  }),
 });
 export type EconomyDef = z.infer<typeof economySchema>;
 
@@ -486,6 +495,8 @@ export interface ContentBundle {
   shopItems: ShopItemDef[];
   loot: LootBaseDef[];
   summons: SummonDef[];
+  /** Personnel-file notes per profession (06). */
+  hrNotes: HrNoteDef[];
   /** Real-world size of every piece of obstacle art (furniture.json), so each object looks the same size everywhere. */
   furniture: Record<string, FurnitureDef>;
 }
@@ -564,6 +575,44 @@ export const summonSchema = z.object({
 });
 export type SummonDef = z.infer<typeof summonSchema>;
 
+/**
+ * HR notes (06): each profession's hidden personnel-file entries. When every
+ * condition in `when` holds for a career-mode fight, the stats and kick-off
+ * status apply to that fighter. Revealed only once the player opens the file.
+ */
+export const hrNoteSchema = z
+  .object({
+    id: ref('hr'),
+    career: ref('career'),
+    tone: z.enum(['buff', 'debuff', 'mixed']),
+    when: z
+      .object({
+        arena: z.array(ref('arena')).min(1).optional(),
+        ally: z.array(ref('career')).min(1).optional(),
+        allyTag: z.array(tag).min(1).optional(),
+        allyPersonality: z.array(ref('personality')).min(1).optional(),
+        /** At least one agency temp in the squad. */
+        temp: z.literal(true).optional(),
+        enemy: z.array(ref('career')).min(1).optional(),
+        enemyTag: z.array(tag).min(1).optional(),
+        boss: z.literal(true).optional(),
+        /** Wearing a loot perk of one of these kinds. */
+        gear: z.array(ref('loot')).min(1).optional(),
+        /** Packing one of these shop items. */
+        consumable: z.array(ref('item')).min(1).optional(),
+      })
+      .strict()
+      .refine((w) => Object.keys(w).length > 0, 'a note needs at least one condition'),
+    stats: statModsSchema.optional(),
+    /** Applied at kick-off, like a kick-off consumable. */
+    status: z.object({ status: ref('status'), durationTicks: int.min(20).max(600) }).optional(),
+    /** Face shown while an ally-caused debuff is active (default angry). */
+    mood: z.enum(['angry', 'hurt']).optional(),
+  })
+  .refine((n) => n.stats || n.status, 'a note needs stats or a status');
+export type HrNoteDef = z.infer<typeof hrNoteSchema>;
+export type HrWhen = HrNoteDef['when'];
+
 const nameWords = z.array(z.string().min(1).max(40)).min(10).refine((l) => new Set(l).size === l.length, 'duplicate entries');
 /**
  * One real-world size per piece of obstacle art: `w` is how wide it is drawn
@@ -592,6 +641,7 @@ export const COLLECTIONS = {
   shopItems: shopItemSchema,
   loot: lootBaseSchema,
   summons: summonSchema,
+  hrNotes: hrNoteSchema,
 } as const;
 export type CollectionName = keyof typeof COLLECTIONS;
 

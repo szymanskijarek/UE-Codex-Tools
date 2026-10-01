@@ -51,6 +51,24 @@ describe('content compiler', () => {
     expect(validateBundle(b).join('\n')).toMatch(/exceeds common cap/);
   });
 
+  it('checks HR notes: budget, tone, references, mood and coverage (06 §3.3)', () => {
+    const b = clone();
+    const [first, second] = b.hrNotes;
+    first!.stats = { strength: 3, health: 2 };
+    first!.tone = 'buff';
+    second!.when = { ally: ['career.nobody'] };
+    second!.tone = 'buff';
+    second!.stats = { charisma: -1 };
+    second!.mood = 'angry';
+    b.hrNotes = b.hrNotes.filter((n) => n.career !== 'career.mime');
+    const errors = validateBundle(b).join('\n');
+    expect(errors).toMatch(/exceed the budget of 4/);
+    expect(errors).toMatch(/unknown career career\.nobody/);
+    expect(errors).toMatch(/a buff can't have minus stats/);
+    expect(errors).toMatch(/mood is only for debuffs a teammate causes/);
+    expect(errors).toMatch(/career\.mime: needs at least 2 HR notes/);
+  });
+
   it('every career has a distinct active ability and valid passive', () => {
     const actives = new Set(bundle.careers.map((c) => c.active));
     expect(actives.size).toBe(bundle.careers.length);

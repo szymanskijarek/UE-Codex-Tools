@@ -15,6 +15,7 @@ import { LootCard } from './Loot';
 import { PuppetView } from './PuppetView';
 import { ShopScreen } from './Shop';
 import { SkillsScreen } from './Skills';
+import { FileScreen } from './File';
 import { SquadScreen } from './Squad';
 
 /** Career mode router: #/career, #/career/skills/:id, #/career/squad, #/career/shop, #/career/perks/:id, #/career/results. */
@@ -23,6 +24,7 @@ export function CareerScreen({ sub, arg }: { sub?: string; arg?: string }) {
   if (!s) return <CreateCharacter />;
   if (sub === 'skills') return <SkillsScreen save={s} id={arg ?? s.mainId} />;
   if (sub === 'squad') return <SquadScreen save={s} />;
+  if (sub === 'file') return <FileScreen save={s} charId={arg} />;
   if (sub === 'shop') return <ShopScreen save={s} />;
   if (sub === 'perks' || sub === 'gear') return <GearScreen save={s} charId={arg} />;
   if (sub === 'results') return <Results save={s} />;
@@ -324,10 +326,30 @@ function Results({ save: s0 }: { save: CareerSave }) {
           </button>
         </Card>
       )}
+      {r.hr && r.hr.length > 0 && (
+        <Card>
+          <h2>📁 Office politics</h2>
+          <p class="muted small">HR notes that were in effect this fight.</p>
+          <ul class="hr-results">
+            {r.hr.map((h) => {
+              const cc = s.chars[h.id];
+              const known = !!cc?.readNotes?.includes(h.note);
+              return (
+                <li>
+                  <b>{h.name}</b>: {known ? nameOf(h.note) : <span class="muted">something in their file</span>}
+                  {known && h.by.length > 0 && <span class="muted"> ({h.by.join(', ')})</span>}
+                </li>
+              );
+            })}
+          </ul>
+        </Card>
+      )}
       <div class="grid two">
         {r.growth.map((g) => (
-          <Card>
-            <h3>{g.name}</h3>
+          <Card class={g.leave ? 'on-leave' : ''}>
+            <h3>
+              {g.name} {g.leave && <span class="badge green">🌷 Garden Leave</span>}
+            </h3>
             <div>+{g.xp} XP · Level {s.chars[g.id]?.c.level}</div>
             {s.chars[g.id] && <RankBar cc={s.chars[g.id]!} careerId={g.career} />}
             {g.levelsGained > 0 && <div class="good">⬆️ Level up! +{g.levelsGained} stat point{g.levelsGained === 1 ? '' : 's'}</div>}

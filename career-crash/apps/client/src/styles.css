@@ -2377,3 +2377,169 @@ body:has(.shell.li) {
     transform: none;
   }
 }
+
+/* Personnel files and Garden Leave (docs/career-crash/06) */
+.hr-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  margin: 4px 0;
+  justify-content: inherit;
+}
+
+.hr-chip {
+  display: inline-block;
+  max-width: 100%;
+  padding: 2px 7px;
+  border: 1.5px solid currentColor;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  line-height: 1.35;
+  overflow-wrap: anywhere;
+}
+
+.hr-chip.buff,
+.hr-stamp.buff {
+  color: #15803d;
+  background: #effbf2;
+}
+
+.hr-chip.debuff,
+.hr-stamp.debuff {
+  color: #b91c1c;
+  background: #fff1f1;
+}
+
+.hr-chip.mixed,
+.hr-stamp.mixed {
+  color: #a16207;
+  background: #fff8e1;
+}
+
+.hr-chip.unread {
+  border-style: dashed;
+}
+
+.hr-folder {
+  position: relative;
+  margin-top: 26px;
+  padding: 16px;
+  background: #f3e2b8;
+  border: var(--outline);
+  border-radius: 4px var(--radius) var(--radius) var(--radius);
+  box-shadow: var(--shadow);
+}
+
+.hr-tab {
+  position: absolute;
+  top: -24px;
+  left: -3px;
+  padding: 3px 12px;
+  background: #f3e2b8;
+  border: var(--outline);
+  border-bottom: none;
+  border-radius: 8px 8px 0 0;
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+}
+
+.hr-head {
+  gap: 16px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.hr-head .grow {
+  min-width: 200px;
+}
+
+.hr-facts {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.hr-warning {
+  color: #b91c1c;
+  font-weight: 700;
+}
+
+.hr-section {
+  margin-top: 14px;
+}
+
+.hr-note {
+  padding: 10px 12px;
+  margin: 10px 0;
+  border-left: 5px solid currentColor;
+  border-radius: 6px;
+  background: #fffdf6;
+  color: var(--ink);
+}
+
+.hr-note.buff {
+  border-left-color: #22c55e;
+}
+
+.hr-note.debuff {
+  border-left-color: #ef4444;
+}
+
+.hr-note.mixed {
+  border-left-color: #eab308;
+}
+
+.hr-note-head {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.hr-stamp {
+  padding: 1px 8px;
+  border: 2px solid currentColor;
+  border-radius: 4px;
+  font-size: 0.68rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  transform: rotate(-3deg);
+}
+
+.hr-stamp.new {
+  color: #7c3aed;
+  background: #f5f0ff;
+}
+
+.hr-desc {
+  margin: 6px 0;
+  font-style: italic;
+}
+
+.hr-live {
+  margin-top: 4px;
+  font-weight: 700;
+  color: #0a66c2;
+}
+
+.hr-sealed {
+  padding: 3px 8px;
+  border: 1.5px dashed #a8a29e;
+  border-radius: 6px;
+  background: #f3e2b8;
+}
+
+.garden-leave {
+  background: #f0fbef;
+}
+
+.staff-row.on-leave {
+  opacity: 0.92;
+}
+
+.hr-results {
+  margin: 0;
+  padding-left: 18px;
+}

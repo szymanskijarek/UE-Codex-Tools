@@ -1,7 +1,9 @@
 import { signal } from '@preact/signals';
 import { bundle } from '@cc/content';
 import {
+  activeHrNotes,
   agencyTemp,
+  applyHrNotes,
   applyBattleToCharacter,
   battleXp,
   careerOffers,
@@ -15,6 +17,7 @@ import {
   rollLoot,
   formatName,
   randomCompany,
+  readHrFile,
   difficulty,
   ensureRoots,
   fightPay,
@@ -29,6 +32,7 @@ import {
   relationshipDeltas,
   SQUAD_UNLOCK_RANK,
   stageInfo,
+  type ActiveHrNote,
   type CareerChar,
   type Character,
   type CompanyName,
@@ -53,13 +57,14 @@ export interface CareerSave {
   difficulty: DifficultyId;
   mainId: string;
   chars: Record<string, CareerChar>;
-  /** Hired teammates in the squad (up to 2); empty slots are filled by agency temps. */
+  /** Hired teammates in the squad (economy.hr.squadSize); empty slots are filled by agency temps. Other staff are on Garden Leave. */
   squad: string[];
   /** Next ladder stage (0-based). */
   stage: number;
   cash: number;
   applicants: Character[];
-  pending: { input: BattleInput; stage: number } | null;
+  /** `hr`: the HR notes in effect for our fighters, recorded when the fight was set up. */
+  pending: { input: BattleInput; stage: number; hr?: FightSummary['hr'] } | null;
   last: FightSummary | null;
   wins: number;
   losses: number;
@@ -94,7 +99,10 @@ export interface FightSummary {
   cash: number;
   pay: FightPay;
   board: BoardRow[];
-  growth: (GrowthReport & { name: string; newTraits: string[]; milestone: boolean })[];
+  /** Fighters first, then staff on Garden Leave (`leave`), who earn a share of the XP from the deckchair. */
+  growth: (GrowthReport & { name: string; newTraits: string[]; milestone: boolean; leave?: boolean })[];
+  /** HR notes that were in effect for our fighters (06). */
+  hr?: { id: string; name: string; note: string; by: string[] }[];
   unlockedSquad: boolean;
   /** The item a win dropped; `sold` is set when the bag was full and it was sold on the spot. */
   loot?: { item: LootItem; sold?: number };
@@ -106,7 +114,10 @@ export interface FightSummary {
 
 const KEY = 'cc.career.v1';
 export const HIRE_COST = { common: 250, rare: 450, epic: 700 } as const;
-export const ROSTER_CAP = 6;
+/** Everyone on the payroll, you included (06 §2). */
+export const ROSTER_CAP = bundle.economy.hr.staffCap;
+/** Hires who fight next to you; the rest of the staff are on Garden Leave. */
+export const SQUAD_SIZE = bundle.economy.hr.squadSize;
 
 function load(): CareerSave | null {
   try {
@@ -212,8 +223,34 @@ export function lineup(s: CareerSave): CareerChar[] {
   const m = mainChar(s);
   const rank = careerRank(m, currentCareer(m));
   const mates: CareerChar[] = s.squad.map((id) => s.chars[id]).filter((x): x is CareerChar => !!x);
-  for (let i = mates.length; i < 2; i++) mates.push(agencyTemp(bundle, s.seed, i, m.c.level, rank));
-  return [m, ...mates];
+  for (let i = mates.length; i < SQUAD_SIZE; i++) mates.push(agencyTemp(bundle, s.seed, i, m.c.level, rank));
+  return [m, ...mates.slice(0, SQUAD_SIZE)];
+}
+
+/** Hired staff not in the squad: on Garden Leave. */
+export function onGardenLeave(s: CareerSave): CareerChar[] {
+  return Object.values(s.chars).filter((c) => c.c.id !== s.mainId && !s.squad.includes(c.c.id));
+}
+
+/**
+ * HR notes (06) in effect for each fighter in the next fight, by character id:
+ * the arena, the line-up and the known opponents decide which switch on.
+ */
+export function lineupHr(s: CareerSave, team: CareerChar[] = lineup(s)): Map<string, ActiveHrNote[]> {
+  const info = stageInfo(bundle, s.stage);
+  const enemies = nextOpponents(s);
+  const out = new Map<string, ActiveHrNote[]>();
+  for (const cc of team) out.set(cc.c.id, activeHrNotes(bundle, cc, { arenaId: info.arenaId, allies: team.filter((x) => x !== cc), enemies, boss: info.boss }));
+  return out;
+}
+
+/** Open a personnel file: every note in it is now read. */
+export function openFile(s: CareerSave, id: string): void {
+  const cc = s.chars[id];
+  if (!cc) return;
+  const before = (cc.readNotes ?? []).length;
+  readHrFile(bundle, cc);
+  if ((cc.readNotes ?? []).length !== before) save({ ...s });
 }
 
 export function nextOpponents(s: CareerSave): CareerChar[] {
@@ -223,6 +260,8 @@ export function nextOpponents(s: CareerSave): CareerChar[] {
 /** Build the battle for the next stage and remember it until results are collected. */
 export function prepareFight(s: CareerSave): BattleInput {
   const info = stageInfo(bundle, s.stage);
+  const team = lineup(s);
+  const hr = lineupHr(s, team);
   const input: BattleInput = {
     schemaVersion: 1,
     contentHash: bundle.hash,
@@ -231,12 +270,13 @@ export function prepareFight(s: CareerSave): BattleInput {
     arenaId: info.arenaId,
     mode: 'duel_3v3',
     teams: [
-      { playerId: 'you', playerName: companyName(s), rating: 1000, characters: lineup(s).map((c) => careerSnapshot(bundle, c)) },
+      { playerId: 'you', playerName: companyName(s), rating: 1000, characters: team.map((c) => applyHrNotes(careerSnapshot(bundle, c), hr.get(c.c.id) ?? [])) },
       { playerId: 'opp', playerName: info.company, rating: 1000, characters: nextOpponents(s).map((c) => careerSnapshot(bundle, c)) },
     ],
     modifiers: [],
   };
-  save({ ...s, pending: { input, stage: s.stage } });
+  const hrUsed = team.flatMap((c) => (hr.get(c.c.id) ?? []).map((a) => ({ id: c.c.id, name: c.c.name, note: a.note.id, by: a.by })));
+  save({ ...s, pending: { input, stage: s.stage, ...(hrUsed.length ? { hr: hrUsed } : {}) } });
   return input;
 }
 
@@ -253,6 +293,11 @@ export function collectResults(s: CareerSave): CareerSave {
   const wasUnlocked = squadUnlocked(s);
   const rel = relationshipDeltas(out.result, out.events);
   const growth: FightSummary['growth'] = [];
+  const milestoneCheck = (cc: CareerChar): boolean => {
+    const milestone = hasMilestone(bundle.economy, cc.c);
+    if (milestone && !cc.c.pendingOffer) cc.c.pendingOffer = careerOffers(bundle, cc.c, bundle.careers.filter((x) => !x.deprecated).map((x) => x.id), `${s.seed}:${cc.c.id}:${cc.c.level}`);
+    return milestone;
+  };
   // Consumables that fired are gone; unused ones stay packed.
   const used = new Map<number, string[]>();
   for (const e of out.events) if (e.type === 'consume') used.set(e.a, [...(used.get(e.a) ?? []), e.s]);
@@ -274,9 +319,15 @@ export function collectResults(s: CareerSave): CareerSave {
     applyBattleToCharacter(cc.c, r, outcome, mvp);
     const newTraits = evaluateTraits(bundle, cc.c);
     for (const [other, d] of rel.get(cc.c.id) ?? []) cc.c.relationships[other] = Math.max(-10, Math.min(10, (cc.c.relationships[other] ?? 0) + d));
-    const milestone = hasMilestone(bundle.economy, cc.c);
-    if (milestone && !cc.c.pendingOffer) cc.c.pendingOffer = careerOffers(bundle, cc.c, bundle.careers.filter((x) => !x.deprecated).map((x) => x.id), `${s.seed}:${cc.c.id}:${cc.c.level}`);
-    growth.push({ ...g, name: cc.c.name, newTraits, milestone });
+    growth.push({ ...g, name: cc.c.name, newTraits, milestone: milestoneCheck(cc) });
+  }
+  // Garden Leave: a share of the fight's base XP for everyone not in the line-up (06 §2).
+  const fought = new Set(input.teams[0]!.characters.map((c) => c.id));
+  const leaveXp = Math.round((((battleXp(bundle.economy, outcome, 0, false, false) * diff.rewardBp) / 10000) * bundle.economy.hr.gardenLeaveXpBp) / 10000);
+  for (const cc of Object.values(s.chars)) {
+    if (fought.has(cc.c.id) || leaveXp <= 0) continue;
+    const g = grow(bundle, cc, leaveXp);
+    growth.push({ ...g, name: cc.c.name, newTraits: [], milestone: milestoneCheck(cc), leave: true });
   }
   const teamKos = out.result.characters.filter((r) => r.team === 0).reduce((n, r) => n + r.counters.kos, 0);
   const pay = fightPay(outcome, stage, teamKos, diff);
@@ -327,7 +378,7 @@ export function collectResults(s: CareerSave): CareerSave {
     }
   }
   const photo = pickPhotoMoment(input, [s.mainId]) ?? undefined;
-  next.last = { stage, outcome, cash, pay, board, growth, unlockedSquad: !wasUnlocked && squadUnlocked(next), ...(loot ? { loot } : {}), ...(summons.mine.length || summons.theirs.length ? { summons } : {}), ...(photo ? { photo } : {}) };
+  next.last = { stage, outcome, cash, pay, board, growth, ...(s.pending.hr?.length ? { hr: s.pending.hr } : {}), unlockedSquad: !wasUnlocked && squadUnlocked(next), ...(loot ? { loot } : {}), ...(summons.mine.length || summons.theirs.length ? { summons } : {}), ...(photo ? { photo } : {}) };
   next.feed = [...fightPosts(next, next.last), ...(s.feed ?? [])].slice(0, FEED_CAP);
   if (photo && next.feed[0]?.photo) lastFight = { input, fight: next.feed[0].fight };
   save(next);
@@ -360,7 +411,7 @@ export function hire(s: CareerSave, c: Character): string | null {
   if (Object.keys(s.chars).length >= ROSTER_CAP) return `Roster is full (${ROSTER_CAP})`;
   const cc: CareerChar = { c, careerXp: {}, nodes: [] };
   ensureRoots(bundle, cc);
-  const squad = s.squad.length < 2 ? [...s.squad, c.id] : s.squad;
+  const squad = s.squad.length < SQUAD_SIZE ? [...s.squad, c.id] : s.squad;
   save({ ...s, cash: s.cash - cost, chars: { ...s.chars, [c.id]: cc }, squad, applicants: s.applicants.filter((x) => x.id !== c.id) });
   return null;
 }
@@ -370,7 +421,7 @@ export function toggleSquad(s: CareerSave, id: string): string | null {
     save({ ...s, squad: s.squad.filter((x) => x !== id) });
     return null;
   }
-  if (s.squad.length >= 2) return 'Squad is full — bench someone first';
+  if (s.squad.length >= SQUAD_SIZE) return 'Squad is full: send someone on Garden Leave first';
   save({ ...s, squad: [...s.squad, id] });
   return null;
 }

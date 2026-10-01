@@ -64,6 +64,12 @@ little to their stats. Opponents carry items too (03 §3.6). Each of the 12
 arenas ends in a boss fight against its own boss (a Store Manager, a CEO, a
 Harbour Master…), each with three signature moves and a passive.
 
+Staff and office politics (06): you can employ up to 5 hires. Two fight next to you and the
+rest go on 🌷 **Garden Leave**, picking up a share of the XP. Every profession has a sealed
+**personnel file** with two HR notes: buffs and debuffs that switch on by arena, colleague,
+opponent, perk or packed snack. You only learn them by opening the file after hiring, but a
+fighter who can't stand a teammate scowls in the line-up either way.
+
 ## How we work
 
 [`WORKFLOW.md`](WORKFLOW.md): branches (`dev` → `prod` → careercrash.org),

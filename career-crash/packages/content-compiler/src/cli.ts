@@ -16,5 +16,5 @@ writeFileSync(join(out, 'bundle.json'), JSON.stringify(bundle));
 writeFileSync(join(out, 'manifest.json'), JSON.stringify({ contentHash: bundle.hash, careers: bundle.careers.length, props: bundle.props.length, rules: bundle.rules.length }, null, 2));
 console.log(
   `Content OK: hash ${bundle.hash} — ${bundle.careers.length} careers, ${bundle.abilities.length} abilities, ${bundle.props.length} props, ` +
-    `${bundle.rules.length} rules, ${bundle.arenas.length} arenas, ${bundle.masteries.length} masteries`,
+    `${bundle.rules.length} rules, ${bundle.arenas.length} arenas, ${bundle.masteries.length} masteries, ${bundle.hrNotes.length} HR notes`,
 );

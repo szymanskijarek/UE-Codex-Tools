@@ -5,3 +5,4 @@ export * from './skills';
 export * from './company';
 export * from './names';
 export * from './loot';
+export * from './hr';

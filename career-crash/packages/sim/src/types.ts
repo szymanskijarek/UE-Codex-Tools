@@ -3,7 +3,7 @@ import type { ContentIndex } from './content';
 import type { Rng } from './core/rng';
 import type { NavGrid } from './systems/nav';
 
-export const SIM_VERSION = '0.13.0';
+export const SIM_VERSION = '0.14.0';
 export const TICKS_PER_SECOND = 20;
 export const MAX_TICKS = 2400;
 export const ENTITY_CAP = 256;
@@ -49,6 +49,8 @@ export interface CharacterSnapshot {
   defenseBonus?: { parryBp?: number; evadeBp?: number; dashBp?: number };
   /** Up to 3 shop items taken into the fight (gear = stat bonus, consumables fire once). */
   loadout?: string[];
+  /** Statuses applied at kick-off, with kick-off consumables (career-mode HR notes, 06). */
+  startStatuses?: { status: string; durationTicks: number }[];
 }
 
 export interface TeamSnapshot {
