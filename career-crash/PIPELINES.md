@@ -207,6 +207,20 @@ is empty: the 30 newer careers were re-imported from separate sheets through
   - New obstacle art needs an entry here. The content build fails without one.
   - **Size:** destroyed sheets use `px: 130` in the manifest to save space.
 
+### 5.4a Impact effects
+
+- **What:** hits, crits, slashes, zaps, burns, insults, animal bites, pain
+  sweat, landing dust, debris, KO stars and parries
+  (`apps/client/src/replay/impact-fx.ts`), plus floor dust that builds up
+  where bodies land.
+- **Art:** one sheet per effect, a single row of animation frames,
+  in `art/items/fx-<effect>.png`, with a `{ "grid": [cols, rows], "px", "names" }`
+  manifest entry naming the frames `fx-<effect>-1…n`. Grid sheets are cut into
+  equal cells kept whole at one scale, so frames stay aligned. Brief, sizes and
+  prompts: `art/FX_BRIEF.md`.
+- **Fallback:** an effect without art plays a stand-in drawn in code; art
+  replaces it as soon as all of its frames are in the atlas.
+
 ### 5.4b Hazard fixtures and effects
 
 - **Art:** hazard pieces live in the obstacle atlas (`hazards-a`, `hazards-b`).

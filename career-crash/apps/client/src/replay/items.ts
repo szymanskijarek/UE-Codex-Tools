@@ -405,6 +405,20 @@ export function fxSprite(name: string): Sprite | null {
   return s;
 }
 
+/**
+ * Animation frames `fx-<id>-1` … `fx-<id>-<n>` from the item atlas (impact
+ * effects, see impact-fx.ts), or null unless every frame has art.
+ */
+export function fxFrames(id: string, n: number): Texture[] | null {
+  const out: Texture[] = [];
+  for (let i = 1; i <= n; i++) {
+    const t = tex(`fx-${id}-${i}`);
+    if (!t) return null;
+    out.push(t);
+  }
+  return out;
+}
+
 /** Floor-effect art for an area prop (puddle, oil, fire…): `fx-<name>`, centred, or null without art. */
 export function areaSprite(propId: string): Sprite | null {
   const t = tex(`fx-${propId.replace('prop.', '')}`);

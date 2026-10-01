@@ -11,9 +11,10 @@ import type { ReplayPlayer } from './player';
 import { arenaArt, type ArenaArt } from './arena-art';
 import { drawArea, drawProp } from './props-art';
 import { drawHeavy, heavyLength } from './heavy-art';
-import { areaSprite, critterSprite, CRITTER_CELL_PX, fxSprite, hasCritterArt, heavySprite, obstacleTexture, heldIsTool, heldSprite, loadItems, propSprite, wallSprite } from './items';
+import { areaSprite, critterSprite, CRITTER_CELL_PX, fxFrames, fxSprite, hasCritterArt, heavySprite, obstacleTexture, heldIsTool, heldSprite, loadItems, propSprite, wallSprite } from './items';
 import { extension, hitPose, MOVES, repertoire, type HitStyle, type Move } from './moves';
 import { drawWall } from './wall-art';
+import { IMPACT_FX, type ImpactFxId } from './impact-fx';
 import { EMOTION_FRAMES, emotionFor, faceScale, type FaceFrame } from './face-art';
 import { faceTexture, hasPuppet, loadPuppets, NEUTRAL, Puppet, PUPPET_HEIGHT, type Pose } from './puppet';
 import { Ragdoll } from './ragdoll';
@@ -249,7 +250,7 @@ export class BattleRenderer {
   private rubble = new Container();
   /** Persistent floor decals (splats, rubble, cracks): shown only from the tick they happened. */
   private decalLayer = new Container();
-  private decals: { g: Graphics; tick: number }[] = [];
+  private decals: { g: Container; tick: number }[] = [];
   /** Hit stop: real-time instant until which the battle is frozen, and the impact flash. */
   private freezeUntil = 0;
   private impactFlash = new Graphics();
@@ -407,9 +408,38 @@ export class BattleRenderer {
   private decal(draw: (g: Graphics) => void): void {
     const g = new Graphics();
     draw(g);
+    this.decalNode(g);
+  }
+
+  private decalNode(g: Container): void {
     this.decalLayer.addChild(g);
     this.decals.push({ g, tick: this.curTick });
     if (this.decals.length > 80) this.decals.shift()!.g.destroy();
+  }
+
+  /**
+   * Dust scuffed into the floor where a body lands: a soft patch that stays,
+   * so a busy spot builds up over the fight. Painted variants `fx-dust-decal-1…3`
+   * when the art exists.
+   */
+  private dustDecal(at: [number, number] | null, size: number): void {
+    if (!at) return;
+    const [x, y] = at;
+    const v = 1 + Math.floor(Math.random() * 3);
+    const art = fxSprite(`fx-dust-decal-${v}`);
+    if (art) {
+      art.position.set(x, y);
+      art.scale.set(((size * 2) / art.texture.width) * (Math.random() < 0.5 ? -1 : 1), (size * 2) / art.texture.width);
+      art.alpha = 0.8;
+      this.decalNode(art);
+      return;
+    }
+    const specks = Array.from({ length: 7 }, () => [(Math.random() - 0.5) * size * 2, (Math.random() - 0.5) * size * 0.7, size * (0.04 + Math.random() * 0.05)] as const);
+    this.decal((g) => {
+      g.ellipse(x, y, size, size * 0.38).fill({ color: 0xb8a88a, alpha: 0.16 });
+      g.ellipse(x + size * 0.1, y, size * 0.6, size * 0.22).fill({ color: 0xa8977a, alpha: 0.14 });
+      for (const [dx, dy, r] of specks) g.circle(x + dx, y + dy, r).fill({ color: 0x8b7d65, alpha: 0.35 });
+    });
   }
 
   /** A splat of bits in the colour of whatever broke. */
@@ -1993,6 +2023,60 @@ export class BattleRenderer {
     });
   }
 
+  /**
+   * Play an impact effect at a screen point: the painted frames when the art
+   * exists, else the drawn stand-in (impact-fx.ts). `dir` points away from the
+   * attacker; `delayMs` holds it back (dust when a falling body reaches the floor).
+   */
+  private impact(id: ImpactFxId, at: [number, number] | null, opts: { scale?: number; dir?: number; delayMs?: number } = {}): void {
+    if (!at || this.fx.length > 90) return;
+    const def = IMPACT_FX[id];
+    const w = def.size * 350 * this.scale * (opts.scale ?? 1);
+    const dir = opts.dir ?? 1;
+    const delay = opts.delayMs ?? 0;
+    const life = def.ms + delay;
+    const progress = (k: number): number => Math.max(-1, ((1 - k) * life - delay) / def.ms);
+    const frames = fxFrames(id, def.frames);
+    if (frames) {
+      const sp = new Sprite(frames[0]);
+      sp.anchor.set(0.5, def.anchor === 'bottom' ? 1 : 0.5);
+      sp.position.set(at[0], at[1]);
+      const k = w / frames[0]!.width;
+      sp.scale.set(def.directional ? k * dir : k, k);
+      sp.visible = delay === 0;
+      this.fxLayer.addChild(sp);
+      this.fx.push({
+        g: sp,
+        life,
+        max: life,
+        update: (f) => {
+          const p = progress(f);
+          sp.visible = p >= 0;
+          if (p >= 0) sp.texture = frames[Math.min(frames.length - 1, Math.floor(p * frames.length))]!;
+        },
+      });
+      return;
+    }
+    const seed = Math.random() * 100;
+    this.addShape((g, k) => {
+      const p = progress(k);
+      if (p >= 0) def.draw(g, Math.min(1, p), at[0], at[1], w, dir, seed);
+    }, life);
+  }
+
+  /** Where a blow lands on someone: head, body or legs, on the side facing whoever threw it. */
+  private impactAt(id: number, from: FrameEntity | undefined, byId: Map<number, FrameEntity>, part: HitStyle = 'side'): [number, number] | null {
+    const e = byId.get(id);
+    const at = this.posOf(id, byId);
+    if (!e || !at) return null;
+    const s = this.chars.get(id);
+    const r = s?.r ?? (e.r || 350) * this.scale;
+    const d = s?.depth ?? 1;
+    const up = part === 'head' ? 3.9 : part === 'legs' ? 1.1 : part === 'gut' ? 2.2 : 2.6;
+    const side = from ? Math.sign(from.x - e.x) || 1 : 0;
+    return [at[0] + side * r * 0.55 * d, at[1] - r * up * d];
+  }
+
   private sparks(at: [number, number] | null, color: number, size: number): void {
     if (!at) return;
     const [x, y0] = at;
@@ -2189,7 +2273,18 @@ export class BattleRenderer {
         }
         if (A && B && A.team === B.team && A.kind === 'char' && A.id !== B.id) this.bark(A, 'bark_friendly', 0.5);
         this.float(crit ? `CRIT -${ev.v}` : `-${ev.v}`, this.posOf(ev.b, byId), crit ? 0xffd000 : 0xff5a5a, crit ? 18 : 13);
-        this.sparks(this.posOf(ev.b, byId), crit ? 0xffd000 : 0xffffff, crit ? 22 : 12);
+        {
+          // The impact itself: what kind of blow, where it landed, which way it was going.
+          const dir = ea && eb ? Math.sign(eb.x - ea.x) || 1 : 1;
+          const at = this.impactAt(ev.b, ea, byId, B?.hitStyle);
+          const animal = !!ea && ea.def.startsWith('summon.') && bundle.summons.find((x) => x.id === ea.def)?.kind === 'animal';
+          const heavy = !!(A && A.heavyUntil > this.now) || ev.s === 'body' || !!(ea && isMover(ea.def));
+          const fx: ImpactFxId = animal ? 'bite' : ev.s === 'electric' ? 'zap' : ev.s === 'fire' ? 'scorch' : ev.s === 'social' ? 'social' : crit ? 'crit' : heavy ? 'hit-heavy' : ev.s === 'sharp' ? 'slash' : 'hit';
+          this.impact(fx, at, { dir, scale: 0.75 + Math.min(0.6, ev.v / 30) });
+          if (heavy && !animal) this.impact('debris', this.posOf(ev.b, byId), { dir });
+          // Pain sweat flies off the head on the bigger hits.
+          if (B && B.kind === 'char' && (crit || ev.v >= 10 || Math.random() < 0.3)) this.impact('sweat', this.impactAt(ev.b, undefined, byId, 'head'), { dir });
+        }
         if (crit) this.shake = Math.max(this.shake, 6);
         if (A && A.heavyUntil > this.now && B) {
           // Heavy weapon connects: WHAM, and they go flying.
@@ -2249,6 +2344,8 @@ export class BattleRenderer {
           'status.inspired': ['', 'pop', 'happy'],
           'status.foamed': ['', 'splash', 'hurt'],
         };
+        // Knocked off their feet: a puff of dust as they reach the floor.
+        if (ev.s === 'status.knocked-down') this.impact('land-dust', this.posOf(ev.b, byId), { scale: 0.7, delayMs: 220, dir: Math.random() < 0.5 ? 1 : -1 });
         const m = map[ev.s];
         if (m) {
           if (m[0]) this.bark(B, m[0], ev.s === 'status.burning' || ev.s === 'status.electrified' ? 0.8 : 0.4);
@@ -2316,7 +2413,8 @@ export class BattleRenderer {
         const v = this.wallViews[ev.b];
         if (v) {
           v.wobbleUntil = this.now + 300;
-          this.sparks([v.cx, v.by - v.h * 0.4], 0xd6d3d1, 10);
+          this.impact('hit', [v.cx, v.by - v.h * 0.4], { scale: 0.6 });
+          this.impact('debris', [v.cx, v.by], { scale: 0.8 });
           if (A) this.bark(A, 'bark_wall', 0.15);
         }
         this.sfx.play('thud', 0.7);
@@ -2417,7 +2515,7 @@ export class BattleRenderer {
           this.setExpr(B, 'stunned', 900);
         }
         this.float('PARRY!', this.posOf(ev.a, byId), 0xfde047, 17);
-        this.sparks(this.posOf(ev.a, byId), 0xfde047, 12);
+        this.impact('parry', this.impactAt(ev.a, eb, byId, 'side'));
         this.sfx.play('bell', 1.6);
         this.shake = Math.max(this.shake, 3);
         break;
@@ -2465,7 +2563,11 @@ export class BattleRenderer {
         }
         if (ev.v > 0) {
           this.float(ev.v >= 14 ? 'SLAM!' : 'THUD', this.posOf(ev.b, byId), ev.v >= 14 ? 0xffd000 : 0xffffff, ev.v >= 14 ? 22 : 15);
-          this.sparks(this.posOf(ev.b, byId), 0xe5e7eb, 18);
+          // Dust rolls out along the floor and settles into it; a big slam knocks chips loose too.
+          const floor = this.posOf(ev.b, byId);
+          this.impact('land-dust', floor, { scale: ev.v >= 14 ? 1.3 : 0.9, dir: Math.random() < 0.5 ? 1 : -1 });
+          this.dustDecal(floor, 520 * this.scale * (ev.v >= 14 ? 1.4 : 1));
+          if (ev.v >= 14) this.impact('debris', floor);
           this.kick(B, 0, B ? -B.r * 0.6 : 0);
           this.shake = Math.max(this.shake, ev.v >= 14 ? 10 : 5);
           this.sfx.play('thud', 1.4);
@@ -2559,6 +2661,9 @@ export class BattleRenderer {
       case 'downed':
         this.hitStop(100, 0.2);
         this.float('DOWN!', this.posOf(ev.b, byId), 0xffffff, 18);
+        // They hit the deck a moment later: dust, and a scuff on the floor.
+        this.impact('land-dust', this.posOf(ev.b, byId), { scale: 1.1, delayMs: 260 });
+        this.dustDecal(this.posOf(ev.b, byId), 560 * this.scale);
         this.witnesses(eb, (s, same) => {
           this.setExpr(s, same ? 'scared' : 'happy', 800);
           this.bark(s, same ? 'bark_ally_down' : 'bark_enemy_down', 0.35);
@@ -2573,6 +2678,8 @@ export class BattleRenderer {
         break;
       case 'ko':
         this.float('KO!', this.posOf(ev.b, byId), 0xff3b3b, 26);
+        // Over the body: a KO usually finds them already on the floor.
+        this.impact('ko-stars', this.impactAt(ev.b, undefined, byId, 'legs'), { scale: 0.9 });
         this.shake = Math.max(this.shake, 9);
         if (A && A.kind === 'char' && B && A.team !== B.team) {
           this.setExpr(A, 'happy', 1200);

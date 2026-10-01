@@ -10,6 +10,11 @@
  * items per row or a different size in the atlas (heavy weapons: 3 per row, 160 px).
  * Each item is everything opaque in its cell (cells found from the gaps
  * between blobs), so multi-part items (a rope post, the mime's box) stay whole.
+ *
+ * Animation frames (impact effects, art/FX_BRIEF.md) use { grid: [cols, rows],
+ * px, names } instead: the sheet is cut into equal cells and every cell is kept
+ * whole (transparent margins included) at the same scale, so frames stay
+ * aligned and an effect can grow from frame to frame.
  */
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
@@ -103,17 +108,45 @@ function groups<T>(items: T[], key: (t: T) => number, n: number): T[][] {
   return out;
 }
 
+/** Equal cells in reading order, each kept whole and scaled so its longest side is `px`. */
+async function gridCells(file: string, [cols, rows]: [number, number], px: number, names: (string | null)[]): Promise<{ name: string; png: Buffer; w: number; h: number }[]> {
+  const meta = await sharp(file).metadata();
+  const cw = Math.floor(meta.width! / cols);
+  const ch = Math.floor(meta.height! / rows);
+  const k = px / Math.max(cw, ch);
+  const tw = Math.max(1, Math.round(cw * k));
+  const th = Math.max(1, Math.round(ch * k));
+  const out: { name: string; png: Buffer; w: number; h: number }[] = [];
+  for (let i = 0; i < Math.min(names.length, cols * rows); i++) {
+    const name = names[i];
+    if (!name) continue;
+    const png = await sharp(file)
+      .ensureAlpha()
+      .extract({ left: (i % cols) * cw, top: Math.floor(i / cols) * ch, width: cw, height: ch })
+      .resize(tw, th, { kernel: 'lanczos3' })
+      .png()
+      .toBuffer();
+    out.push({ name, png, w: tw, h: th });
+  }
+  return out;
+}
+
 async function main(): Promise<void> {
   // A null name skips that cell (art the atlas already has), so it costs no bytes.
-  const manifest = JSON.parse(readFileSync(join(SHEETS, 'manifest.json'), 'utf8')) as Record<string, (string | null)[] | { cols: number; px?: number; names: (string | null)[] }>;
+  const manifest = JSON.parse(readFileSync(join(SHEETS, 'manifest.json'), 'utf8')) as Record<string, (string | null)[] | { cols?: number; grid?: [number, number]; px?: number; names: (string | null)[] }>;
   const pieces: { name: string; png: Buffer; w: number; h: number }[] = [];
   for (const [sheet, entry] of Object.entries(manifest)) {
     const names = Array.isArray(entry) ? entry : entry.names;
-    const cols = Array.isArray(entry) ? COLS : entry.cols;
+    const cols = Array.isArray(entry) ? COLS : (entry.cols ?? COLS);
     const px = Array.isArray(entry) ? ITEM_PX : (entry.px ?? ITEM_PX);
     const file = join(SHEETS, `${sheet}.png`);
     if (!existsSync(file)) {
       console.warn(`✗ ${sheet}: missing ${file}`);
+      continue;
+    }
+    if (!Array.isArray(entry) && entry.grid) {
+      pieces.push(...(await gridCells(file, entry.grid, px, names)));
+      console.log(`✓ ${sheet} (grid): ${names.map((n) => n ?? '(skipped)').join(', ')}`);
       continue;
     }
     const { data, info } = await sharp(file).ensureAlpha().raw().toBuffer({ resolveWithObject: true });

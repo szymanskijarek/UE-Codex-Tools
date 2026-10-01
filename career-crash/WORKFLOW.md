@@ -91,6 +91,7 @@ source files in `art/`; the art pipeline turns them into the game's atlases
 | Props / items | Sheet of small props, 2 rows (3 or 4 per row) | `art/items/<name>.png` + `manifest.json` |
 | Character body (career or boss) | Posed figure on the left, the same figure cut into parts on the right (head, torso, pelvis, upper arms, forearms with hands, thighs, shins, feet) | `art/sheets/<career>.png` |
 | Faces | Four emotion sheets (neutral, angry, surprised, hurt), heads in a grid | `art/faces/`, `art/faces-b/` |
+| Impact effect (hits, dust, KO stars…) | One row of animation frames per effect, same origin in every frame (sizes and prompts in `art/FX_BRIEF.md`) | `art/items/fx-<effect>.png` + `manifest.json` (`grid`) |
 | Summoned animal | 256 px cells, 2 rows × 4: pose A standing, pose B moving, facing right, feet at the bottom | `art/critters/<sheet>.png` + `manifest.json` |
 
 Check each import: the slicers write labelled previews to
