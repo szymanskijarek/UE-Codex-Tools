@@ -2,7 +2,7 @@ import type { ArenaDef } from '@cc/content-schema';
 import { clamp, dir1000, dist, idiv } from '../core/math';
 import type { Entity, World } from '../types';
 import { emit, removeEntity, spawnProp, tagsOf } from '../world';
-import { applyEffect, explode } from './effects';
+import { applyEffect, applyStatus, explode, toss } from './effects';
 
 type HazardAction = ArenaDef['hazards'][number]['action'];
 
@@ -18,6 +18,36 @@ function runAction(w: World, action: HazardAction, region: [number, number, numb
         p.flying = true;
         p.flightCause = cause;
         p.age = 0;
+      }
+    }
+  }
+  if (action.wind) {
+    // Gusts are temporary belts; drop the ones that have blown over.
+    w.belts = w.belts.filter((b) => b.until === undefined || b.until > w.tick);
+    w.belts.unshift({ rect: [x, y, rw, rh], vx: action.wind.vx, vy: action.wind.vy, until: w.tick + action.wind.ticks });
+  }
+  if (action.spin || action.trapdoor) {
+    const cx = x + idiv(rw, 2);
+    const cy = y + idiv(rh, 2);
+    const ffa = w.arena.spawns.ffa;
+    for (const e of w.entities) {
+      if (e.removed || e.kind !== 'char' || e.state !== 'active' || e.z > 0 || e.summonOf >= 0) continue;
+      if (e.x < x || e.y < y || e.x > x + rw || e.y > y + rh) continue;
+      if (action.spin) {
+        // Flung out of the door, away from its middle.
+        const [dx, dy] = e.x === cx && e.y === cy ? [1000, 0] : dir1000(e.x - cx, e.y - cy);
+        e.fx = dx;
+        e.fy = dy;
+        toss(w, e, undefined, { type: 'toss', direction: 'away', ...action.spin }, cause);
+      } else if (action.trapdoor) {
+        // Through the floor, and up somewhere else a moment later, seeing stars.
+        const [sx, sy] = ffa[w.envRng.int(ffa.length)]!;
+        e.x = sx;
+        e.y = sy;
+        e.vx = 0;
+        e.vy = 0;
+        applyStatus(w, e, 'status.stunned', action.trapdoor.stunTicks, -1, cause);
+        emit(w, 'landed', -1, e.id, 0, 'trapdoor', cause);
       }
     }
   }

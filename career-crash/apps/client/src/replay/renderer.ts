@@ -11,10 +11,10 @@ import type { ReplayPlayer } from './player';
 import { arenaArt, type ArenaArt } from './arena-art';
 import { drawArea, drawProp } from './props-art';
 import { drawHeavy, heavyLength } from './heavy-art';
-import { critterSprite, CRITTER_CELL_PX, heavySprite, obstacleTexture, heldIsTool, heldSprite, loadItems, propSprite, wallSprite } from './items';
+import { areaSprite, critterSprite, CRITTER_CELL_PX, fxSprite, hasCritterArt, heavySprite, obstacleTexture, heldIsTool, heldSprite, loadItems, propSprite, wallSprite } from './items';
 import { extension, hitPose, MOVES, repertoire, type HitStyle, type Move } from './moves';
 import { drawWall } from './wall-art';
-import { EMOTION_FRAMES, emotionFor, type FaceFrame } from './face-art';
+import { EMOTION_FRAMES, emotionFor, faceScale, type FaceFrame } from './face-art';
 import { faceTexture, hasPuppet, loadPuppets, NEUTRAL, Puppet, PUPPET_HEIGHT, type Pose } from './puppet';
 import { Ragdoll } from './ragdoll';
 import { voiceFor, type Shout, type Voice } from './voices';
@@ -150,6 +150,8 @@ interface PropSprite {
   g: Graphics;
   area: number;
   isArea: boolean;
+  /** Floor-effect art for an area prop (replaces the drawn splat). */
+  fxArt?: Sprite | null;
   animated: boolean;
   color: number;
   seed: number;
@@ -169,6 +171,8 @@ interface CritterSprite {
 }
 
 const SUMMONS = new Map(bundle.summons.map((d) => [d.id, d]));
+/** Sprite name for a summon: its art.sprite, else its id (summon.intern → intern). */
+const summonArt = (sd: SummonDef): string => sd.art.sprite ?? sd.id.replace('summon.', '');
 
 interface RendererWallView {
   c: Container;
@@ -239,6 +243,8 @@ export class BattleRenderer {
   /** One view per arena wall (index-aligned with the sim): toppling, wobble and damage looks. */
   /** Obstacles: their container, anchor, and (for painted ones) the sprite, art name and width so we can swap in damaged/destroyed art. */
   private wallViews: RendererWallView[] = [];
+  /** Hazard fixtures (fans, revolving door, trapdoor…): idle art, swapped to active art while the hazard runs. */
+  private hazardViews: { h: ArenaDef['hazards'][number]; spr: Sprite; idle: Texture | null; active: Texture | null; w: number }[] = [];
   /** Destroyed obstacles flattened into rubble: on the floor, under spills and everyone. */
   private rubble = new Container();
   /** Persistent floor decals (splats, rubble, cracks): shown only from the tick they happened. */
@@ -627,6 +633,118 @@ export class BattleRenderer {
       wall.zIndex = y + h;
       this.bodies.addChild(wall);
     }
+    this.drawHazardArt();
+  }
+
+  /** Fixtures for hazards with art: stand them (or lay them on the floor) where the hazard happens. */
+  private drawHazardArt(): void {
+    this.hazardViews = [];
+    for (const h of this.arena.hazards) {
+      const a = h.art;
+      if (!a) continue;
+      const idle = a.sprite ? obstacleTexture(a.sprite) : null;
+      const active = a.active ? obstacleTexture(a.active) : idle;
+      const t = idle ?? active;
+      if (!t) continue;
+      const [x, y] = a.at;
+      const [sx, sy] = this.px(x, y);
+      const w = (bundle.furniture[a.active ?? a.sprite ?? '']?.w ?? bundle.furniture[a.sprite ?? '']?.w ?? 1600) * this.scale * this.depth(y);
+      const spr = new Sprite(t) as Sprite & { isWall?: boolean };
+      spr.isWall = true;
+      spr.anchor.set(0.5, a.floor ? 0.5 : 0.94);
+      spr.position.set(sx, sy);
+      spr.scale.set(w / t.width);
+      spr.visible = !!idle;
+      if (a.floor) this.rubble.addChild(spr);
+      else {
+        spr.zIndex = y;
+        this.bodies.addChild(spr);
+      }
+      this.hazardViews.push({ h, spr, idle, active, w });
+    }
+  }
+
+  /** Swap hazard fixtures to their active art while they run (from the schedule, so seeking works). */
+  private updateHazardArt(): void {
+    for (const v of this.hazardViews) {
+      const { h } = v;
+      const since = this.curTick - h.startTick;
+      const on = since >= 0 && since % h.everyTicks < (h.art?.activeTicks ?? 40);
+      const t = on ? v.active : v.idle;
+      v.spr.visible = !!t;
+      if (t && v.spr.texture !== t) {
+        v.spr.texture = t;
+        v.spr.scale.set(v.w / t.width);
+      }
+    }
+  }
+
+  /** Effects while a hazard runs: wind streaks blowing across, water spray, steam puffs, dust. */
+  private hazardFx(h: ArenaDef['hazards'][number]): void {
+    const a = h.art;
+    if (!a?.fx) return;
+    const [rx, ry, rw, rh] = h.region;
+    const ms = (a.activeTicks ?? 40) * 50;
+    const rnd = (n: number) => Math.random() * n;
+    /** An effect sprite `mm` wide (negative: mirrored), updated with f going 1 → 0 over its life. */
+    const spawn = (name: string, x: number, y: number, life: number, mm: number, update: (s: Sprite, f: number) => void) => {
+      const s = fxSprite(name);
+      if (!s) return;
+      const [sx, sy] = this.px(x, y);
+      s.position.set(sx, sy);
+      size(s, mm);
+      s.alpha = 0;
+      this.fxLayer.addChild(s);
+      this.fx.push({ g: s, life, max: life, update: (f) => update(s, f) });
+    };
+    const size = (s: Sprite, mm: number) => {
+      const k = (Math.abs(mm) * this.scale) / s.texture.width;
+      s.scale.set(Math.sign(mm) * k, k);
+    };
+    if (a.fx === 'wind') {
+      const wind = h.action.wind ?? { vx: 0, vy: -1 };
+      const len = Math.hypot(wind.vx, wind.vy) || 1;
+      const [dx, dy] = [wind.vx / len, wind.vy / len];
+      for (let i = 0; i < 9; i++) {
+        const x0 = rx + rnd(rw);
+        const y0 = ry + rnd(rh);
+        const delay = rnd(0.5);
+        spawn(i % 2 ? 'fx-wind' : 'fx-wind-b', x0, y0, ms, 1400 * (dx < 0 ? -1 : 1), (s, f) => {
+          const k = Math.max(0, Math.min(1, (1 - f - delay) / (1 - delay)));
+          const [px, py] = this.px(x0 + dx * k * 5000, y0 + dy * k * 3000);
+          s.position.set(px, py);
+          s.alpha = k > 0 ? Math.sin(k * Math.PI) * 0.9 : 0;
+        });
+      }
+    } else if (a.fx === 'spray') {
+      for (let i = 0; i < 10; i++) {
+        const x0 = rx + rnd(rw);
+        const y0 = ry + rnd(rh);
+        const delay = rnd(0.6);
+        spawn('fx-spray', x0, y0, ms, 800, (s, f) => {
+          const k = (1 - f - delay) / (1 - delay);
+          s.alpha = k > 0 ? Math.sin(Math.min(1, k) * Math.PI) : 0;
+        });
+      }
+    } else if (a.fx === 'steam') {
+      const [x, y] = a.at;
+      for (let i = 0; i < 4; i++) {
+        const delay = i * 0.18;
+        spawn('fx-steam', x, y, ms, 900, (s, f) => {
+          const k = Math.max(0, (1 - f - delay) / (1 - delay));
+          const [px, py] = this.px(x, y, 300 + k * 2500);
+          s.position.set(px + (i - 1.5) * 10, py);
+          s.alpha = k > 0 ? 1 - k : 0;
+          size(s, 900 + k * 900);
+        });
+      }
+    } else if (a.fx === 'dust') {
+      const [x, y] = a.at;
+      spawn('fx-dust', x, y, 700, 1600, (s, f) => {
+        s.alpha = f;
+        size(s, 1600 + (1 - f) * 800);
+      });
+    }
   }
 
   // ---------------------------------------------------------------------------
@@ -818,7 +936,10 @@ export class BattleRenderer {
     s.puppet?.setEmotion(emotionFor(expr));
     if (s.faceSprite) {
       const t = faceTexture(`career.${s.career}`, emotionFor(expr));
-      if (t) s.faceSprite.texture = t;
+      if (t) {
+        s.faceSprite.texture = t;
+        s.faceSprite.scale.set(((s.r * 2.6) / t.height) * faceScale(`career.${s.career}`, emotionFor(expr)));
+      }
       return;
     }
     const r = s.r;
@@ -974,6 +1095,8 @@ export class BattleRenderer {
     const s: PropSprite = { root, g, area: -1, isArea, animated: isArea && ['prop.fire-patch', 'prop.sparks', 'prop.foam-cloud', 'prop.puddle-water', 'prop.flood', 'prop.oil-spill', 'prop.soda-spill'].includes(e.def), color, seed: e.id };
     if (isArea) {
       root.scale.y = this.ysq;
+      s.fxArt = areaSprite(e.def);
+      if (s.fxArt) root.addChild(s.fxArt);
       this.areas.addChild(root);
     } else {
       // Loose weapons lie on the floor: a knocked-away career weapon, or a heavy weapon.
@@ -1076,7 +1199,15 @@ export class BattleRenderer {
         if (s.isArea) {
           const dk = this.depth(y);
           s.root.scale.set(dk, this.ysq * dk);
-          if (s.animated || Math.abs(e.area - s.area) > 5) {
+          if (s.fxArt) {
+            // Painted splat sized to the area; fire and sparks flicker.
+            const rr = e.area * this.scale;
+            const live = e.def === 'prop.fire-patch' || e.def === 'prop.sparks';
+            const wob = live ? 1 + Math.sin(t * 11 + s.seed) * 0.05 : 1;
+            s.fxArt.scale.set(((rr * 2.1) / s.fxArt.texture.width) * wob, ((rr * 2.1) / s.fxArt.texture.width) * (live ? 2 - wob : 1));
+            s.fxArt.alpha = live ? 0.85 + Math.sin(t * 17 + s.seed) * 0.15 : 1;
+            s.area = e.area;
+          } else if (s.animated || Math.abs(e.area - s.area) > 5) {
             drawArea(s.g, e.def, e.area * this.scale, s.color, t, s.seed);
             s.area = e.area;
           }
@@ -1091,7 +1222,8 @@ export class BattleRenderer {
         continue;
       }
       const sd = e.kind === 'char' ? SUMMONS.get(e.def) : undefined;
-      if (sd?.kind === 'animal') {
+      // Animals, and summoned people with sprite art, are drawn as two-pose sprites; the rest as dolls.
+      if (sd && (sd.kind === 'animal' || hasCritterArt(summonArt(sd)))) {
         seenK.add(e.id);
         this.drawCritter(e, sd, p, sx, sy, y, t);
         continue;
@@ -1149,6 +1281,7 @@ export class BattleRenderer {
     for (const ev of events) this.onEvent(ev, byId);
     this.drawBelts(t);
     this.updateWalls(player);
+    this.updateHazardArt();
     for (const d of this.decals) d.g.visible = player.tick >= d.tick;
     this.impactAlpha = Math.max(0, this.impactAlpha - dtMs / 90);
     this.impactFlash.alpha = this.impactAlpha;
@@ -1769,8 +1902,8 @@ export class BattleRenderer {
       root.addChild(new Graphics().ellipse(0, 0, r * 1.2, r * 0.5).fill({ color: 0x000000, alpha: 0.2 }));
       root.addChild(new Graphics().ellipse(0, 0, r * 1.25, r * 0.55).stroke({ width: Math.max(1.5, r * 0.14), color: TEAM_COLORS[e.team % TEAM_COLORS.length]!, alpha: 0.8 }));
       const body = new Container();
-      const pa = critterSprite(sd.art.sprite ?? '', k);
-      const pb = critterSprite(`${sd.art.sprite}-b`, k);
+      const pa = critterSprite(summonArt(sd), k);
+      const pb = critterSprite(`${summonArt(sd)}-b`, k);
       const a = new Container();
       const b = new Container();
       if (pa) a.addChild(pa.sprite);
@@ -1785,7 +1918,8 @@ export class BattleRenderer {
     const moving = Math.abs(e.x - p.x) + Math.abs(e.y - p.y) > 2;
     if (e.fx !== 0) c.flip = e.fx < 0 ? -1 : 1;
     const hasB = c.b.children.length > 0;
-    const poseB = hasB && moving && Math.floor(t * 7 + e.id) % 2 === 1;
+    // Animals switch pose as they move; people strike their "doing my thing" pose now and then too.
+    const poseB = hasB && (moving ? Math.floor(t * 7 + e.id) % 2 === 1 : sd.kind === 'human' && Math.floor(t * 1.4 + e.id) % 3 === 2);
     c.a.visible = !poseB;
     c.b.visible = poseB;
     const d = this.depth(y);
@@ -2297,6 +2431,21 @@ export class BattleRenderer {
         break;
       }
       case 'landed':
+        if (ev.s === 'trapdoor') {
+          // Popped back up through the floor somewhere else, in a cloud of stage dust.
+          const at = this.posOf(ev.b, byId);
+          const d = at && fxSprite('fx-dust');
+          if (at && d) {
+            d.position.set(at[0], at[1] - 10);
+            const k = (1200 * this.scale) / d.texture.width;
+            d.scale.set(k);
+            this.fxLayer.addChild(d);
+            this.fx.push({ g: d, life: 600, max: 600, update: (f) => (d.alpha = f) });
+          }
+          const v = this.chars.get(ev.b);
+          if (v) this.setExpr(v, 'stunned', 1500);
+          break;
+        }
         if (ev.v >= 14) {
           this.hitStop(90, 0.16);
           this.vox(this.chars.get(ev.b), 'ouch', 1, true);
@@ -2347,12 +2496,15 @@ export class BattleRenderer {
           this.shake = Math.max(this.shake, 5);
         }
         break;
-      case 'hazardStart':
+      case 'hazardStart': {
+        const hz = this.arena.hazards.find((h) => h.id === ev.s);
+        if (hz) this.hazardFx(hz);
         if (isMover(ev.s.replace('hazard.', 'prop.'))) {
           this.announce(`⚠ ${nameOf(ev.s.replace('hazard.', 'prop.'))} incoming!`);
           this.sfx.play('alarm');
         }
         break;
+      }
       case 'use': {
         if (ea?.kind === 'prop') {
           this.sfx.play('slurp');
@@ -2564,7 +2716,10 @@ export class BattleRenderer {
     } else if (s.faceSprite && opts.face) {
       const want = pickLook(EMOTION_FRAMES[opts.face].filter((f) => faceTexture(`career.${s.career}`, f)));
       const t = want && faceTexture(`career.${s.career}`, want);
-      if (t) s.faceSprite.texture = t;
+      if (t) {
+        s.faceSprite.texture = t;
+        s.faceSprite.scale.set(((s.r * 2.6) / t.height) * faceScale(`career.${s.career}`, want));
+      }
     }
     // Frame on the head, sized from the fighter's height on screen (art bounds can include big held items).
     const head = s.puppet?.headSprite() ?? s.head;

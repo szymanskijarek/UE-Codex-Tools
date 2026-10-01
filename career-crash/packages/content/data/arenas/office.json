@@ -404,6 +404,55 @@
       "durationTicks": 100
      }
     ]
+   },
+   "art": {
+    "active": "sprinkler",
+    "activeTicks": 60,
+    "at": [
+     11000,
+     6500
+    ],
+    "fx": "spray"
+   }
+  },
+  {
+   "id": "hazard.desk-fans",
+   "startTick": 750,
+   "everyTicks": 650,
+   "telegraphTicks": 40,
+   "region": [
+    4000,
+    9000,
+    14000,
+    4600
+   ],
+   "action": {
+    "wind": {
+     "vx": 0,
+     "vy": -40,
+     "ticks": 70
+    },
+    "spawn": {
+     "prop": "prop.paper-stack",
+     "count": 2
+    },
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.distracted",
+      "durationTicks": 30,
+      "chanceBp": 5000
+     }
+    ]
+   },
+   "art": {
+    "sprite": "desk-fans",
+    "at": [
+     11000,
+     13700
+    ],
+    "activeTicks": 70,
+    "fx": "wind"
    }
   }
  ],

@@ -162,5 +162,10 @@
  "museum": { "cols": 3, "names": ["marble-bust", "scroll", "rope-barrier", "amphora", "placard", "dust-brush"] },
  "hotel": { "cols": 3, "names": ["desk-bell", null, "table-lamp", "key-rack", "lobby-plant", "ice-bucket"] },
  "airport": { "cols": 3, "names": ["carry-on", "neck-pillow", "security-tray", "duty-free-bag", "passport", null] },
- "docks": { "cols": 3, "names": ["rope-coil", "life-ring", "buoy", "fish-crate", "tackle-box", "grappling-hook"] }
+ "docks": { "cols": 3, "names": ["rope-coil", "life-ring", "buoy", "fish-crate", "tackle-box", "grappling-hook"] },
+ "misc-b": ["cake", "cereal-box", "frozen-turkey", "garden-rake", "laptop", "olive-oil", "snack", "soda-can"],
+ "misc-c": ["stapler", "wet-floor-sign", "wine-bottle", "coffee-cup", "rubber-chicken", null, "axe", "baguette"],
+ "tools-c": ["baton", "hammer", "leaf-blower", "moon-rock", "mop", "screwdriver", "rubber-gloves", null],
+ "floor-fx": ["fx-puddle-water", "fx-oil-spill", "fx-soda-spill", "fx-flood", "fx-fire-patch", "fx-foam-cloud", "fx-sparks", "fx-broken-glass"],
+ "hazard-fx": ["fx-wind", "fx-wind-b", "fx-paper", "fx-papers", "fx-spray", "fx-steam", "fx-dizzy", "fx-dust"]
 }

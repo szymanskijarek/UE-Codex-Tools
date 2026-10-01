@@ -549,6 +549,24 @@
    "telegraphTicks": 60,
    "speedMm": 120,
    "loop": false
+  },
+  {
+   "id": "hazard.crane-hook",
+   "prop": "prop.crane-hook",
+   "path": [
+    [
+     23500,
+     4200
+    ],
+    [
+     500,
+     4200
+    ]
+   ],
+   "startTick": 1050,
+   "telegraphTicks": 60,
+   "speedMm": 150,
+   "loop": false
   }
  ],
  "boss": {

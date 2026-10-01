@@ -603,6 +603,24 @@
    "telegraphTicks": 60,
    "speedMm": 110,
    "loop": false
+  },
+  {
+   "id": "hazard.trolley-train",
+   "prop": "prop.trolley-train",
+   "path": [
+    [
+     23500,
+     7000
+    ],
+    [
+     500,
+     7000
+    ]
+   ],
+   "startTick": 1150,
+   "telegraphTicks": 60,
+   "speedMm": 125,
+   "loop": false
   }
  ],
  "obstacles": [

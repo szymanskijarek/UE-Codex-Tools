@@ -167,6 +167,42 @@ describe('systems', () => {
     expect(counts.dash).toBeGreaterThan(0);
   });
 
+  it('fans blow, revolving doors fling and trapdoors drop fighters', () => {
+    const rng = Rng.fromSeed('hazards');
+    const at = (arena: string, id: string) => {
+      const b = createBattle(battleInput(bundle, `hz-${arena}`, [randomTeam(bundle, rng, 3, 'A'), randomTeam(bundle, rng, 3, 'B')], arena), bundle);
+      const h = b.world.arena.hazards.find((x) => x.id === id)!;
+      while (b.world.tick < h.startTick - 1) b.step();
+      // Put a fighter in the middle of the hazard just before it goes off.
+      const f = b.world.entities.find((e) => e.kind === 'char' && e.team === 0 && e.state === 'active')!;
+      const [x, y, w, hh] = h.region;
+      f.x = x + Math.floor(w / 2) + 300;
+      f.y = y + Math.floor(hh / 2);
+      return { b, h, f };
+    };
+    // Fan: a temporary gust belt over the region that pushes along and then expires.
+    {
+      const { b, h } = at('arena.warehouse', 'hazard.industrial-fan');
+      b.step();
+      const gust = b.world.belts.find((x) => x.until !== undefined);
+      expect(gust?.vx).toBe(h.action.wind!.vx);
+      expect(gust!.until).toBe(h.startTick + h.action.wind!.ticks);
+    }
+    // Revolving door: whoever stands in it is tossed.
+    {
+      const { b, f } = at('arena.hotel', 'hazard.revolving-door');
+      b.step();
+      expect(f.statuses.some((s) => s.id === 'status.airborne')).toBe(true);
+    }
+    // Trapdoor: dropped, then up at a free-for-all spawn, stunned.
+    {
+      const { b, f } = at('arena.theatre', 'hazard.trapdoor');
+      b.step();
+      expect(b.world.arena.spawns.ffa.some(([sx, sy]) => Math.abs(f.x - sx) < 400 && Math.abs(f.y - sy) < 400)).toBe(true);
+      expect(f.statuses.some((s) => s.id === 'status.stunned')).toBe(true);
+    }
+  });
+
   it('obstacles topple under punishment and stay down', () => {
     const rng = Rng.fromSeed('topple');
     let broken = 0;

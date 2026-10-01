@@ -100,6 +100,7 @@ export function physics(w: World): void {
     // Conveyor belts carry anything standing on them.
     if (e.z === 0 && e.carriedBy < 0 && e.areaRadius === 0 && !(e.kind === 'prop' && w.content.props.get(e.def)?.anchored)) {
       for (const b of w.belts) {
+        if (b.until !== undefined && w.tick >= b.until) continue; // a gust that has blown over
         const [bx, by, bw, bh] = b.rect;
         if (e.x >= bx && e.x <= bx + bw && e.y >= by && e.y <= by + bh) {
           e.x += b.vx;

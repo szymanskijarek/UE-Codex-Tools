@@ -205,6 +205,24 @@ is empty: the 30 newer careers were re-imported from separate sheets through
   - New obstacle art needs an entry here. The content build fails without one.
   - **Size:** destroyed sheets use `px: 130` in the manifest to save space.
 
+### 5.4b Hazard fixtures and effects
+
+- **Art:** hazard pieces live in the obstacle atlas (`hazards-a`, `hazards-b`).
+  Their effects are in the item atlas (`hazard-fx`: wind, paper, spray, steam,
+  dizzy stars, dust), and so are the floor splats (`floor-fx`, named `fx-<area prop>`).
+- **Placement:** an arena hazard can carry
+  `art: { sprite?, active?, activeTicks?, at, floor?, fx? }`.
+  - The renderer stands `sprite` at `at`, or lays it on the rubble layer when
+    `floor` is set.
+  - It swaps to `active` while the hazard runs, working that out from the
+    schedule so it survives seeking.
+  - It plays `fx` (`wind`, `spray`, `steam` or `dust`) when the hazard starts.
+- **Sizes:** come from `furniture.json`.
+- **Gameplay:** hazard actions can also be `wind` (a temporary belt), `spin`
+  (fling everyone outward) or `trapdoor` (drop, then re-spawn stunned).
+  Patrolling machines (crane hook, trolley train, boulder, gurney) are ordinary
+  movers drawn from the obstacle atlas.
+
 ### 5.5 Arena backdrops
 
 `pnpm --filter @cc/art-pipeline arenas`

@@ -413,6 +413,46 @@
      }
     ]
    }
+  },
+  {
+   "id": "hazard.steam-vent",
+   "startTick": 350,
+   "everyTicks": 380,
+   "telegraphTicks": 30,
+   "region": [
+    10200,
+    4600,
+    1600,
+    1100
+   ],
+   "action": {
+    "effects": [
+     {
+      "type": "damage",
+      "amount": 3,
+      "damageType": "fire"
+     },
+     {
+      "type": "applyStatus",
+      "status": "status.distracted",
+      "durationTicks": 40
+     },
+     {
+      "type": "knockback",
+      "forceMm": 600
+     }
+    ]
+   },
+   "art": {
+    "active": "steam-vent",
+    "activeTicks": 40,
+    "at": [
+     11000,
+     5700
+    ],
+    "floor": true,
+    "fx": "steam"
+   }
   }
  ],
  "suddenDeath": {

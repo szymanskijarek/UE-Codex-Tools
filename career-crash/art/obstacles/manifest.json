@@ -21,5 +21,8 @@
  "museum-destroyed": {"cols": 2, "names": ["t-rex-destroyed", "marble-statue-destroyed", "display-case-destroyed", "info-kiosk-destroyed"], "px": 130},
  "theatre-damaged": {"cols": 2, "names": ["scenery-flat-damaged", "costume-rack-damaged", "lighting-desk-damaged", "prop-trunk-damaged"]},
  "theatre-destroyed": {"cols": 2, "names": ["scenery-flat-destroyed", "costume-rack-destroyed", "lighting-desk-destroyed", "prop-trunk-destroyed"], "px": 130},
- "docks-destroyed": {"cols": 2, "names": ["shipping-container-destroyed", "dock-crane-destroyed", "winch-destroyed", "bollards-destroyed"], "px": 130}
+ "docks-destroyed": {"cols": 2, "names": ["shipping-container-destroyed", "dock-crane-destroyed", "winch-destroyed", "bollards-destroyed"], "px": 130},
+ "props-big": {"cols": 3, "names": ["water-cooler", "coffee-machine", "robot-vacuum", "shopping-trolley", "cardboard-display", "trolley-tipped"]},
+ "hazards-a": {"cols": 3, "names": ["industrial-fan", "industrial-fan-on", "revolving-door", "sprinkler", "trapdoor", "trapdoor-open"]},
+ "hazards-b": {"cols": 3, "names": ["crane-hook", "trolley-train", "boulder", "gurney", "steam-vent", "desk-fans"]}
 }

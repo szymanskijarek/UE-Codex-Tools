@@ -346,6 +346,34 @@
      }
     ]
    }
+  },
+  {
+   "id": "hazard.trapdoor",
+   "startTick": 500,
+   "everyTicks": 450,
+   "telegraphTicks": 40,
+   "region": [
+    11000,
+    7900,
+    2000,
+    1400
+   ],
+   "action": {
+    "trapdoor": {
+     "stunTicks": 40
+    }
+   },
+   "art": {
+    "sprite": "trapdoor",
+    "active": "trapdoor-open",
+    "activeTicks": 40,
+    "at": [
+     12000,
+     9300
+    ],
+    "floor": true,
+    "fx": "dust"
+   }
   }
  ],
  "suddenDeath": {

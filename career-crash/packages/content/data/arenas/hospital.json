@@ -314,6 +314,44 @@
      "count": 1
     }
    }
+  },
+  {
+   "id": "hazard.sprinklers",
+   "startTick": 1200,
+   "everyTicks": 800,
+   "telegraphTicks": 50,
+   "region": [
+    6000,
+    4500,
+    12000,
+    5000
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.puddle-water",
+     "count": 3
+    },
+    "effects": [
+     {
+      "type": "removeStatus",
+      "status": "status.burning"
+     },
+     {
+      "type": "applyStatus",
+      "status": "status.wet",
+      "durationTicks": 100
+     }
+    ]
+   },
+   "art": {
+    "active": "sprinkler",
+    "activeTicks": 60,
+    "at": [
+     12000,
+     7000
+    ],
+    "fx": "spray"
+   }
   }
  ],
  "suddenDeath": {
@@ -492,6 +530,24 @@
    "startTick": 1500,
    "telegraphTicks": 60,
    "speedMm": 90,
+   "loop": false
+  },
+  {
+   "id": "hazard.gurney",
+   "prop": "prop.gurney",
+   "path": [
+    [
+     23500,
+     7400
+    ],
+    [
+     500,
+     7400
+    ]
+   ],
+   "startTick": 1050,
+   "telegraphTicks": 60,
+   "speedMm": 120,
    "loop": false
   }
  ],

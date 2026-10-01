@@ -371,6 +371,35 @@
      "count": 1
     }
    }
+  },
+  {
+   "id": "hazard.industrial-fan",
+   "startTick": 650,
+   "everyTicks": 600,
+   "telegraphTicks": 40,
+   "region": [
+    0,
+    9300,
+    24000,
+    2000
+   ],
+   "action": {
+    "wind": {
+     "vx": 55,
+     "vy": 0,
+     "ticks": 90
+    }
+   },
+   "art": {
+    "sprite": "industrial-fan",
+    "active": "industrial-fan-on",
+    "activeTicks": 90,
+    "at": [
+     800,
+     10600
+    ],
+    "fx": "wind"
+   }
   }
  ],
  "suddenDeath": {

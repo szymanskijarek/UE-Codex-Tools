@@ -107,7 +107,7 @@ Ready-to-paste generation prompts: `art/sheets/BODY_SHEET_PROMPTS.md`.
   into a plain grey heap when destroyed until real rubble art exists.
   Ready-to-paste prompts: `art/obstacles/DAMAGE_SHEET_PROMPTS.md`.
 
-**Size budget:** the single-file build is ~7.2 MB, against a 16 MB artifact limit.
+**Size budget:** the single-file build is ~8.0 MB, against a 16 MB artifact limit.
 The website loads images on demand, so size matters less there. Rough costs per
 addition in the single file: a backdrop ~130 KB, a character (body plus faces) ~30 KB,
 an obstacle ~15 KB, a prop ~4 KB. Keep sheets at the sizes above; the pipeline

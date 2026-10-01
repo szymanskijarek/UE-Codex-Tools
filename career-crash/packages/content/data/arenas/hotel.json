@@ -294,6 +294,41 @@
      "count": 2
     }
    }
+  },
+  {
+   "id": "hazard.revolving-door",
+   "startTick": 550,
+   "everyTicks": 450,
+   "telegraphTicks": 40,
+   "region": [
+    9800,
+    10600,
+    4400,
+    2400
+   ],
+   "action": {
+    "spin": {
+     "distanceMm": 2600,
+     "heightMm": 900,
+     "landDamage": 3
+    },
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.distracted",
+      "durationTicks": 40
+     }
+    ]
+   },
+   "art": {
+    "sprite": "revolving-door",
+    "at": [
+     12000,
+     12800
+    ],
+    "activeTicks": 40,
+    "fx": "wind"
+   }
   }
  ],
  "suddenDeath": {

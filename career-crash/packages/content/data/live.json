@@ -1287,6 +1287,51 @@
    "{b} has been delivered. By forklift. At speed.",
    "The forklift driver did not see {b}. Nobody's driving."
   ],
+  "hazard_start_industrial-fan": [
+   "The industrial fan kicks in. Hold on to your lanyards!",
+   "Somebody switched on the big fan. Everyone is now going sideways.",
+   "Wind warning! The fan has opinions about where you should stand."
+  ],
+  "hazard_start_desk-fans": [
+   "All desk fans on full! The quarterly reports are airborne.",
+   "A gale sweeps the office. Paperwork everywhere, as usual."
+  ],
+  "hazard_start_revolving-door": [
+   "The revolving door spins up. Anyone nearby is leaving. Fast.",
+   "Revolving door at max RPM! Check-out time is NOW."
+  ],
+  "hazard_start_sprinklers": [
+   "Sprinklers! Everyone gets a free shower.",
+   "The sprinklers go off. Mind the floor, it's a slip-and-slide now."
+  ],
+  "hazard_start_trapdoor": [
+   "The stage trapdoor drops open! Exit, stage down.",
+   "Trapdoor! Someone just made a very dramatic exit."
+  ],
+  "hazard_start_steam-vent": [
+   "The kitchen vent blasts steam. Facial, anyone?",
+   "Steam vent! Something's cooking, and it's whoever stood there."
+  ],
+  "mover_crane-hook": [
+   "The crane hook swings through and collects {b}.",
+   "{b} gets hooked. Literally.",
+   "Crane hook 1, {b} 0."
+  ],
+  "mover_trolley-train": [
+   "A runaway trolley train bowls over {b}! Strike!",
+   "{b} is flattened by eight trolleys and a sense of irony.",
+   "Clean-up on aisle {b}."
+  ],
+  "mover_boulder": [
+   "The exhibit boulder rolls right over {b}. Very authentic.",
+   "{b} discovers why that boulder was behind glass.",
+   "Ancient artefact 1, {b} 0."
+  ],
+  "mover_gurney": [
+   "A runaway gurney takes out {b}. They'll need it after.",
+   "{b} gets admitted. By gurney. At speed.",
+   "Gurney through! {b} is bowled over."
+  ],
   "forklift_eats": [
    "The forklift shoves a {prop} out of the way."
   ],

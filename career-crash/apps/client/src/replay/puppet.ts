@@ -1,5 +1,5 @@
 import { Container, Rectangle, Sprite, Texture } from 'pixi.js';
-import { EMOTION_FRAMES, FACE_ATLAS, faceRect, type Emotion, type FaceFrame } from './face-art';
+import { EMOTION_FRAMES, FACE_ATLAS, faceRect, faceScale, type Emotion, type FaceFrame } from './face-art';
 import { PUPPET_DEFS as DEFS, puppetUrl, type PuppetDef } from './puppet-art';
 import type { RagdollSpec } from './ragdoll';
 
@@ -445,7 +445,7 @@ export class Puppet {
       this.animateFace(performance.now());
       // Chin on the neck point, standing along the neck → crown axis, as tall as the sliced head.
       const hp = this.def.parts.head!;
-      const k = (hp.h * this.k * HEAD_SCALE) / this.face.texture.height;
+      const k = ((hp.h * this.k * HEAD_SCALE) / this.face.texture.height) * faceScale(this.career, this.frame);
       this.face.scale.set(k * f, k);
       this.face.position.set(X[1]!, Y[1]!);
       this.face.rotation = Math.atan2(hy, hx) + Math.PI / 2;

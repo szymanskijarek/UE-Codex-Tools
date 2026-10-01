@@ -3,7 +3,7 @@ import type { ContentIndex } from './content';
 import type { Rng } from './core/rng';
 import type { NavGrid } from './systems/nav';
 
-export const SIM_VERSION = '0.12.0';
+export const SIM_VERSION = '0.13.0';
 export const TICKS_PER_SECOND = 20;
 export const MAX_TICKS = 2400;
 export const ENTITY_CAP = 256;
@@ -336,7 +336,7 @@ export interface World {
   wallMaxHp: number[];
   wallBroken: boolean[];
   /** Conveyor belts from the layout: rect + carry velocity. */
-  belts: { rect: [number, number, number, number]; vx: number; vy: number }[];
+  belts: { rect: [number, number, number, number]; vx: number; vy: number; until?: number }[];
   /** Props spawned this tick; capped to stop runaway rule loops. */
   spawnedThisTick: number;
 }

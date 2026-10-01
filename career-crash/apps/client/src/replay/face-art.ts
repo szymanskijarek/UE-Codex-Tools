@@ -23,6 +23,8 @@ export interface FaceRect {
   y: number;
   w: number;
   h: number;
+  /** The art is this much taller than the head itself (dizzy stars above it): scale by height ÷ k. */
+  k?: number;
 }
 
 const FACES = (atlas as unknown as { w: number; h: number; faces: Record<string, FaceRect> }).faces;
@@ -31,6 +33,11 @@ export const FACE_ATLAS = { url: URLS['./faces/faces.webp'] ?? '', w: (atlas as 
 
 export function faceRect(careerId: string, emotion: FaceFrame = 'neutral'): FaceRect | null {
   return FACES[`${careerId}:${emotion}`] ?? null;
+}
+
+/** Height correction for a face frame (1 for most; >1 when the art has extras above the head). */
+export function faceScale(careerId: string, frame: FaceFrame): number {
+  return FACES[`${careerId}:${frame}`]?.k ?? 1;
 }
 
 export function hasFaces(careerId: string): boolean {

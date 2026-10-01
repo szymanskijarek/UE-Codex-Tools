@@ -264,6 +264,24 @@ export type RuleDef = z.infer<typeof ruleSchema>;
 const hazardActionSchema = z.object({
   spawn: z.object({ prop: ref('prop'), count: int.min(1), dropFromMm: int.min(0).optional() }).optional(),
   effects: z.array(effectSchema).optional(),
+  /** A gust over the region for `ticks`: everything loose standing in it slides by (vx, vy) mm per tick (fans). */
+  wind: z.object({ vx: int, vy: int, ticks: int.min(1) }).optional(),
+  /** Flings every fighter in the region outward from its centre (revolving door). */
+  spin: z.object({ distanceMm: int.min(0), heightMm: int.min(100), landDamage: int.min(0) }).optional(),
+  /** Fighters in the region drop through the floor and turn up at a random free-for-all spawn, stunned (stage trapdoor). */
+  trapdoor: z.object({ stunTicks: int.min(1) }).optional(),
+});
+
+/** How a hazard looks (client only): a fixture standing at `at` (if any), swapped to `active` art while it runs. */
+const hazardArtSchema = z.object({
+  sprite: z.string().optional(),
+  at: point,
+  active: z.string().optional(),
+  activeTicks: int.min(1).optional(),
+  /** Floor fixtures (trapdoor, vent) lie under everyone; the rest stand like obstacles. */
+  floor: z.boolean().optional(),
+  /** Effect drawn while it runs: wind streaks, water spray, steam, or dust. */
+  fx: z.enum(['wind', 'spray', 'steam', 'dust']).optional(),
 });
 
 export const arenaSchema = z.object({
@@ -275,7 +293,7 @@ export const arenaSchema = z.object({
   refereeSpawn: point,
   props: z.array(z.object({ prop: ref('prop'), at: point })),
   hazards: z.array(
-    z.object({ id: z.string(), startTick: int.min(0), everyTicks: int.min(1), telegraphTicks: int.min(0), region: rect, action: hazardActionSchema }),
+    z.object({ id: z.string(), startTick: int.min(0), everyTicks: int.min(1), telegraphTicks: int.min(0), region: rect, action: hazardActionSchema, art: hazardArtSchema.optional() }),
   ),
   suddenDeath: z.object({ everyTicks: int.min(1), region: rect, action: hazardActionSchema }),
   /** Named fight locations; duelling pairs are spread across them (02 §6.7). */

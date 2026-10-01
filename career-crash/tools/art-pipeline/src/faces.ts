@@ -364,7 +364,8 @@ function talk(neutral: Img, surprised: Img, w: number, h: number): Img | null {
 }
 
 async function main(): Promise<void> {
-  const pieces: { name: string; png: Buffer; w: number; h: number }[] = [];
+  /** `k`: how much taller the art is than the head itself (dizzy stars, flying hair); the game scales by height ÷ k. */
+  const pieces: { name: string; png: Buffer; w: number; h: number; k?: number }[] = [];
   const add = async (name: string, im: Img, w: number, h: number) => {
     const k = FACE_PX / Math.max(w, h);
     const tw = Math.max(1, Math.round(w * k));
@@ -473,6 +474,14 @@ async function main(): Promise<void> {
         }
         variants++;
         await add(name, crop(im, b), b.x1 - b.x0 + 1, b.y1 - b.y0 + 1);
+        // Extras drawn above the head (stars, hair flying up) make the art taller than the head: measure
+        // the head by its width against the base emotion's proportions, so the game draws it the same size.
+        const base = pieces.find((p) => p.name === `career.${career}:${frame.replace(/\d+$/, '')}`);
+        const me = pieces[pieces.length - 1]!;
+        if (base && base !== me) {
+          const k = me.h / ((me.w * base.h) / base.w);
+          if (k > 1.06) me.k = Math.round(Math.min(1.5, k) * 100) / 100;
+        }
       }
     }
   }
@@ -480,7 +489,7 @@ async function main(): Promise<void> {
   let x = PAD;
   let y = PAD;
   let rowH = 0;
-  const rects: Record<string, { x: number; y: number; w: number; h: number }> = {};
+  const rects: Record<string, { x: number; y: number; w: number; h: number; k?: number }> = {};
   const comp: OverlayOptions[] = [];
   for (const p of pieces) {
     if (x + p.w + PAD > ATLAS_W) {
@@ -488,7 +497,7 @@ async function main(): Promise<void> {
       y += rowH + PAD;
       rowH = 0;
     }
-    rects[p.name] = { x, y, w: p.w, h: p.h };
+    rects[p.name] = { x, y, w: p.w, h: p.h, ...(p.k ? { k: p.k } : {}) };
     comp.push({ input: p.png, left: x, top: y });
     x += p.w + PAD;
     rowH = Math.max(rowH, p.h);

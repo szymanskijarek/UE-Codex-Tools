@@ -467,6 +467,24 @@
    "telegraphTicks": 60,
    "speedMm": 85,
    "loop": false
+  },
+  {
+   "id": "hazard.boulder",
+   "prop": "prop.boulder",
+   "path": [
+    [
+     23500,
+     7600
+    ],
+    [
+     500,
+     7600
+    ]
+   ],
+   "startTick": 1250,
+   "telegraphTicks": 70,
+   "speedMm": 105,
+   "loop": false
   }
  ],
  "boss": {

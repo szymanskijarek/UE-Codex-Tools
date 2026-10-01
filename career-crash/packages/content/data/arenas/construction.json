@@ -385,6 +385,35 @@
      "count": 2
     }
    }
+  },
+  {
+   "id": "hazard.industrial-fan",
+   "startTick": 850,
+   "everyTicks": 650,
+   "telegraphTicks": 40,
+   "region": [
+    0,
+    7600,
+    22000,
+    2000
+   ],
+   "action": {
+    "wind": {
+     "vx": -55,
+     "vy": 0,
+     "ticks": 90
+    }
+   },
+   "art": {
+    "sprite": "industrial-fan",
+    "active": "industrial-fan-on",
+    "activeTicks": 90,
+    "at": [
+     21200,
+     9000
+    ],
+    "fx": "wind"
+   }
   }
  ],
  "suddenDeath": {
@@ -487,6 +516,24 @@
    "startTick": 1500,
    "telegraphTicks": 60,
    "speedMm": 130,
+   "loop": false
+  },
+  {
+   "id": "hazard.crane-hook",
+   "prop": "prop.crane-hook",
+   "path": [
+    [
+     500,
+     5000
+    ],
+    [
+     21500,
+     5000
+    ]
+   ],
+   "startTick": 1050,
+   "telegraphTicks": 60,
+   "speedMm": 150,
    "loop": false
   }
  ],

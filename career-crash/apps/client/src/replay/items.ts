@@ -83,7 +83,7 @@ export function heavySprite(propId: string, len: number): Sprite | null {
 const HELD: Record<string, string> = {
   'equipment.clipboard': 'binder',
   'equipment.frying-pan': 'frying-pan',
-  'equipment.laptop': 'keyboard',
+  'equipment.laptop': 'laptop',
   'equipment.selfie-stick': 'ring-light',
   'equipment.wrench': 'wrench',
   'equipment.book': 'books',
@@ -137,10 +137,32 @@ const HELD: Record<string, string> = {
   'equipment.welding-torch': 'tool-welder',
   'equipment.squeegee': 'tool-window-cleaner',
   'equipment.feed-bucket': 'tool-zookeeper',
+  'equipment.axe': 'axe',
+  'equipment.baguette': 'baguette',
+  'equipment.baton': 'baton',
+  'equipment.hammer': 'hammer',
+  'equipment.leaf-blower': 'leaf-blower',
+  'equipment.moon-rock': 'moon-rock',
+  'equipment.mop': 'mop',
+  'equipment.screwdriver': 'screwdriver',
+  'equipment.rubber-chicken': 'rubber-chicken',
 };
 
 /** Sim props → item sprite (world objects that can be picked up / thrown / pushed). */
 const PROPS: Record<string, string> = {
+  'prop.cake': 'cake',
+  'prop.cereal-box': 'cereal-box',
+  'prop.frozen-turkey': 'frozen-turkey',
+  'prop.garden-rake': 'garden-rake',
+  'prop.laptop': 'laptop',
+  'prop.olive-oil': 'olive-oil',
+  'prop.snack': 'snack',
+  'prop.soda-can': 'soda-can',
+  'prop.stapler': 'stapler',
+  'prop.wet-floor-sign': 'wet-floor-sign',
+  'prop.wine-bottle': 'wine-bottle',
+  'prop.coffee-cup': 'coffee-cup',
+  'prop.rubber-chicken': 'rubber-chicken',
   'prop.cardboard-box': 'parcel',
   'prop.watermelon': 'melon',
   'prop.mop-bucket': 'mop-bucket',
@@ -246,6 +268,15 @@ const BIG_PROPS: Record<string, { name: string; left?: boolean }> = {
   'prop.vending-machine': { name: 'drinks-fridge' },
   'prop.printer': { name: 'photocopier' },
   'prop.filing-cabinet': { name: 'filing-cabinets' },
+  'prop.water-cooler': { name: 'water-cooler' },
+  'prop.coffee-machine': { name: 'coffee-machine' },
+  'prop.robot-vacuum': { name: 'robot-vacuum' },
+  'prop.shopping-trolley': { name: 'shopping-trolley' },
+  'prop.cardboard-display': { name: 'cardboard-display' },
+  'prop.crane-hook': { name: 'crane-hook' },
+  'prop.trolley-train': { name: 'trolley-train' },
+  'prop.boulder': { name: 'boulder' },
+  'prop.gurney': { name: 'gurney' },
 };
 
 /** Obstacle art by atlas name, `width` px across, standing on its front edge. */
@@ -328,6 +359,16 @@ const GRIP: Record<string, [number, number, number, 'tool' | 'hang']> = {
   'tool-welder': [0.6, 0.95, -118, 'tool'],
   'tool-window-cleaner': [0.25, 0.95, -60, 'tool'],
   'tool-zookeeper': [0.5, 0.05, 90, 'hang'],
+  axe: [0.3, 0.93, -80, 'tool'],
+  baguette: [0.2, 0.85, -63, 'tool'],
+  baton: [0.2, 0.8, -64, 'tool'],
+  hammer: [0.25, 0.9, -74, 'tool'],
+  laptop: [0.12, 0.6, 0, 'tool'],
+  'leaf-blower': [0.65, 0.25, 128, 'tool'],
+  'moon-rock': [0.5, 0.5, 90, 'hang'],
+  mop: [0.85, 0.1, 113, 'tool'],
+  'rubber-chicken': [0.4, 0.92, -85, 'tool'],
+  screwdriver: [0.2, 0.85, -67, 'tool'],
 };
 
 /** Whether a held item is gripped like a tool (true) or carried hanging by a handle. */
@@ -352,6 +393,24 @@ export function heldSprite(equipmentId: string, len: number): Sprite | null {
   s.anchor.set(u, v);
   const a = (deg * Math.PI) / 180;
   s.rotation = style === 'tool' ? -a : Math.PI / 2 - a;
+  return s;
+}
+
+/** An item-atlas sprite by name (hazard effects: fx-wind, fx-steam…), centred, or null without art. */
+export function fxSprite(name: string): Sprite | null {
+  const t = tex(name);
+  if (!t) return null;
+  const s = new Sprite(t);
+  s.anchor.set(0.5);
+  return s;
+}
+
+/** Floor-effect art for an area prop (puddle, oil, fire…): `fx-<name>`, centred, or null without art. */
+export function areaSprite(propId: string): Sprite | null {
+  const t = tex(`fx-${propId.replace('prop.', '')}`);
+  if (!t) return null;
+  const s = new Sprite(t);
+  s.anchor.set(0.5);
   return s;
 }
 
@@ -382,6 +441,11 @@ export const CRITTER_CELL_PX = 112;
  * A critter pose standing on its feet (anchor bottom-centre), `scale` = screen
  * pixels per atlas pixel. `lift` is how far above the ground the pose was drawn.
  */
+/** Whether the critter atlas has art for this name (loaded). */
+export function hasCritterArt(name: string): boolean {
+  return !!tex(name, CRITTERS);
+}
+
 export function critterSprite(name: string, scale: number): { sprite: Sprite; lift: number } | null {
   const t = tex(name, CRITTERS);
   if (!t) return null;
