@@ -344,7 +344,35 @@ export function opponentTeam(bundle: ContentBundle, seed: string, stage: number,
     f.gear = opponentGear(bundle, Rng.fromSeed(`gear:${seed}:${stage}:${i}`), stage, f.c.id, boss);
     out.push(f);
   }
+  // From stage 10 a summoner sometimes turns up (their Senior Move unlocked): a glimpse of what the
+  // player can reach. More likely the further up the ladder. Own RNG stream, so nobody else changes.
+  if (stage >= SUMMONERS_FROM_STAGE) {
+    const r = Rng.fromSeed(`summoner:${seed}:${stage}`);
+    const pool = summonCareers(bundle);
+    const slots = out.map((_, i) => i).filter((i) => !(info.boss && i === 0));
+    if (pool.length && slots.length && r.chance(Math.min(7000, 3000 + (stage - SUMMONERS_FROM_STAGE) * 150))) {
+      const i = r.pick(slots);
+      const old = out[i]!;
+      const career = r.pick(pool);
+      const f = generatedFighter(bundle, r, old.c.id, old.c.level, info.rank + diff.rankOffset, diff, [career]);
+      const node = skillTree(bundle, career).find((n) => n.ability === bundle.careers.find((c) => c.id === career)?.senior);
+      if (node && !f.nodes.includes(node.id)) f.nodes.push(node.id);
+      f.loadout = old.loadout;
+      f.gear = old.gear;
+      out[i] = f;
+    }
+  }
   return out;
+}
+
+/** Ladder stage (0-based) from which opponents may bring a summoner. */
+export const SUMMONERS_FROM_STAGE = 9;
+
+/** Regular careers whose Senior Move summons critters. */
+export function summonCareers(bundle: ContentBundle): string[] {
+  return bundle.careers
+    .filter((c) => !c.boss && !c.deprecated && c.senior && bundle.abilities.find((a) => a.id === c.senior)?.effects?.some((e) => e.type === 'summon'))
+    .map((c) => c.id);
 }
 
 /**

@@ -97,6 +97,8 @@ export interface FightSummary {
   unlockedSquad: boolean;
   /** The item a win dropped; `sold` is set when the bag was full and it was sold on the spot. */
   loot?: { item: LootItem; sold?: number };
+  /** Critters each side summoned (summon ids, with the summoner's name for ours) and which of our fighters got spooked. */
+  summons?: { mine: { by: string; summon: string }[]; theirs: string[]; spooked: { name: string; summon: string }[] };
 }
 
 const KEY = 'cc.career.v1';
@@ -300,7 +302,25 @@ export function collectResults(s: CareerSave): CareerSave {
     applicants: outcome === 'win' ? [] : s.applicants,
     last: null,
   };
-  next.last = { stage, outcome, cash, pay, board, growth, unlockedSquad: !wasUnlocked && squadUnlocked(next), ...(loot ? { loot } : {}) };
+  // Who summoned what, and who ran from it (for the feed).
+  const byEntity = new Map(out.result.characters.map((c) => [c.entityId, c]));
+  const summons: NonNullable<FightSummary['summons']> = { mine: [], theirs: [], spooked: [] };
+  const critterDef = new Map<number, string>();
+  for (const e of out.events) {
+    if (e.type === 'summon') {
+      critterDef.set(e.b, e.s);
+      const who = byEntity.get(e.a);
+      if (!who) continue;
+      if (who.team === 0) {
+        if (!summons.mine.some((m) => m.by === who.name && m.summon === e.s)) summons.mine.push({ by: who.name, summon: e.s });
+      } else if (!summons.theirs.includes(e.s)) summons.theirs.push(e.s);
+    } else if (e.type === 'panic' && e.s.startsWith('fear:')) {
+      const who = byEntity.get(e.a);
+      const what = critterDef.get(e.b);
+      if (who?.team === 0 && what && !summons.spooked.some((x) => x.name === who.name)) summons.spooked.push({ name: who.name, summon: what });
+    }
+  }
+  next.last = { stage, outcome, cash, pay, board, growth, unlockedSquad: !wasUnlocked && squadUnlocked(next), ...(loot ? { loot } : {}), ...(summons.mine.length || summons.theirs.length ? { summons } : {}) };
   next.feed = [...fightPosts(next, next.last), ...(s.feed ?? [])].slice(0, FEED_CAP);
   save(next);
   return next;

@@ -247,6 +247,11 @@ const BIG_PROPS: Record<string, { name: string; size: number; left?: boolean }> 
 };
 
 /** Obstacle art by atlas name, `width` px across, standing on its front edge. */
+/** An obstacle-atlas texture by name (e.g. `t-rex-damaged`), or null if there's no such art. */
+export function obstacleTexture(name: string): Texture | null {
+  return tex(name, OBSTACLES);
+}
+
 export function wallSprite(art: string, width: number): Sprite | null {
   const t = tex(art, OBSTACLES);
   if (!t) return null;

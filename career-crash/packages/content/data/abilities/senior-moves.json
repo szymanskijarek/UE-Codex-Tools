@@ -1277,7 +1277,7 @@
    {
     "type": "summon",
     "summon": "summon.tourist",
-    "count": 3
+    "count": 2
    }
   ]
  },
@@ -1636,7 +1636,7 @@
   "id": "ability.pieces-of-eight",
   "kind": "active",
   "cost": {
-   "energy": 30
+   "energy": 20
   },
   "cooldownTicks": 360,
   "castTicks": 10,
@@ -1812,7 +1812,7 @@
    {
     "type": "summon",
     "summon": "summon.school-kid",
-    "count": 3
+    "count": 4
    }
   ]
  },

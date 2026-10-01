@@ -11,7 +11,7 @@ import type { ReplayPlayer } from './player';
 import { arenaArt, type ArenaArt } from './arena-art';
 import { drawArea, drawProp } from './props-art';
 import { drawHeavy, heavyLength } from './heavy-art';
-import { critterSprite, CRITTER_CELL_PX, heavySprite, heldIsTool, heldSprite, loadItems, propSprite, wallSprite } from './items';
+import { critterSprite, CRITTER_CELL_PX, heavySprite, obstacleTexture, heldIsTool, heldSprite, loadItems, propSprite, wallSprite } from './items';
 import { extension, hitPose, MOVES, repertoire, type HitStyle, type Move } from './moves';
 import { drawWall } from './wall-art';
 import { emotionFor } from './face-art';
@@ -168,6 +168,21 @@ interface CritterSprite {
 
 const SUMMONS = new Map(bundle.summons.map((d) => [d.id, d]));
 
+interface RendererWallView {
+  c: Container;
+  cx: number;
+  by: number;
+  z: number;
+  brokenAt: number;
+  wobbleUntil: number;
+  dir: number;
+  h: number;
+  spr?: Sprite;
+  art?: string;
+  w?: number;
+  state?: number;
+}
+
 interface Fx {
   g: Container;
   life: number;
@@ -220,7 +235,10 @@ export class BattleRenderer {
   private now = 0;
   private obstacles: PlacedObstacle[] = [];
   /** One view per arena wall (index-aligned with the sim): toppling, wobble and damage looks. */
-  private wallViews: { c: Container; cx: number; by: number; z: number; brokenAt: number; wobbleUntil: number; dir: number; h: number }[] = [];
+  /** Obstacles: their container, anchor, and (for painted ones) the sprite, art name and width so we can swap in damaged/destroyed art. */
+  private wallViews: RendererWallView[] = [];
+  /** Destroyed obstacles flattened into rubble: on the floor, under spills and everyone. */
+  private rubble = new Container();
   /** Persistent floor decals (splats, rubble, cracks): shown only from the tick they happened. */
   private decalLayer = new Container();
   private decals: { g: Graphics; tick: number }[] = [];
@@ -264,7 +282,7 @@ export class BattleRenderer {
     this.art = arenaArt(this.arena.id);
     await Promise.all([loadPuppets(), this.loadBackdrop(), loadItems()]);
     this.bodies.sortableChildren = true;
-    this.world.addChild(this.floor, this.decalLayer, this.areas, this.bodies, this.fxLayer, this.uiLayer);
+    this.world.addChild(this.floor, this.rubble, this.decalLayer, this.areas, this.bodies, this.fxLayer, this.uiLayer);
     this.app.stage.addChild(this.world);
     this.banner = new Text({ text: '', style: { fontFamily: FONT, fontSize: 22, fontWeight: '900', fill: 0xffffff, stroke: { color: OUTLINE, width: 5 }, align: 'center' } });
     this.banner.anchor.set(0.5, 0);
@@ -332,6 +350,36 @@ export class BattleRenderer {
       const broken = !!w.wallBroken[i];
       const frac = w.wallMaxHp[i] ? (w.wallHp[i] ?? 0) / w.wallMaxHp[i]! : 1;
       v.c.pivot.set(v.cx, v.by);
+      // Painted obstacles with damage art: intact → damaged at half health → flat rubble when destroyed.
+      const state = broken ? 2 : frac <= 0.5 ? 1 : 0;
+      let painted = false;
+      if (v.spr && v.art) {
+        if (v.state !== state) {
+          const t = obstacleTexture(state === 2 ? `${v.art}-destroyed` : state === 1 ? `${v.art}-damaged` : v.art) ?? (state === 2 ? null : obstacleTexture(v.art));
+          if (t) {
+            v.spr.texture = t;
+            v.spr.scale.set((v.w! * (state === 2 ? 1.15 : 1)) / t.width);
+          } else if (state === 2 && v.state === 1) {
+            // No rubble art: fall back to the damaged/intact sprite toppling over.
+            const t0 = obstacleTexture(v.art);
+            if (t0) {
+              v.spr.texture = t0;
+              v.spr.scale.set(v.w! / t0.width);
+            }
+          }
+          v.state = state;
+        }
+        painted = state === 2 ? !!obstacleTexture(`${v.art}-destroyed`) : !!obstacleTexture(`${v.art}-damaged`) && state === 1;
+      }
+      if (broken && painted) {
+        // Flattened: part of the floor now, walkable, under everything that moves.
+        if (v.c.parent !== this.rubble) this.rubble.addChild(v.c);
+        v.c.rotation = 0;
+        v.c.position.set(v.cx, v.by);
+        v.c.tint = 0xffffff;
+        return;
+      }
+      if (v.c.parent === this.rubble) this.bodies.addChild(v.c); // seeked back to before it fell
       if (broken) {
         if (v.brokenAt < 0) v.brokenAt = this.now;
         const k = Math.min(1, (this.now - v.brokenAt) / 480);
@@ -348,7 +396,7 @@ export class BattleRenderer {
       if (this.now < v.wobbleUntil) rot += Math.sin((v.wobbleUntil - this.now) / 22) * 0.05 * ((v.wobbleUntil - this.now) / 300);
       v.c.rotation = rot;
       v.c.position.set(v.cx, v.by);
-      v.c.tint = frac > 0.66 ? 0xffffff : frac > 0.33 ? 0xe8e2da : 0xd2c8bc;
+      v.c.tint = painted ? 0xffffff : frac > 0.66 ? 0xffffff : frac > 0.33 ? 0xe8e2da : 0xd2c8bc;
       v.c.zIndex = v.z;
     });
   }
@@ -473,7 +521,7 @@ export class BattleRenderer {
 
   private drawFloor(): void {
     this.floor.removeChildren().forEach((c) => c.destroy());
-    for (const c of [...this.bodies.children]) if ((c as Container & { isWall?: boolean }).isWall) c.destroy();
+    for (const c of [...this.bodies.children, ...this.rubble.children]) if ((c as Container & { isWall?: boolean }).isWall) c.destroy();
     const [W, H] = this.arena.sizeMm;
     const g = new Graphics();
     const [fw, fh] = this.px(W, H);
@@ -538,7 +586,7 @@ export class BattleRenderer {
     for (const [x, y, w, h] of this.arena.walls) {
       const [vx0] = this.px(x, y);
       const [vx1, vy1] = this.px(x + w, y + h);
-      const view = { c: new Container(), cx: (vx0 + vx1) / 2, by: vy1, z: y + h, brokenAt: -1, wobbleUntil: 0, dir: 1, h: WALL_H * Z_LIFT * this.scale };
+      const view: RendererWallView = { c: new Container(), cx: (vx0 + vx1) / 2, by: vy1, z: y + h, brokenAt: -1, wobbleUntil: 0, dir: 1, h: WALL_H * Z_LIFT * this.scale };
       this.wallViews.push(view);
       const ob = this.obstacles.find((o) => !o.belt && o.rect[0] === x && o.rect[1] === y && o.rect[2] === w && o.rect[3] === h);
       const wall = new Graphics() as Graphics & { isWall?: boolean };
@@ -547,8 +595,9 @@ export class BattleRenderer {
       const [x1, y1] = this.px(x + w, y + h);
       const lift = WALL_H * Z_LIFT * this.scale * this.depth(y + h);
       // Painted obstacle art: sized to the footprint (a deep, narrow block gets a sideways-on piece of furniture).
-      const art = ob ? wallSprite(ob.art, Math.max(x1 - x0, (y1 - y0) * 1.2) * 1.12) : null;
-      if (art) {
+      const artW = Math.max(x1 - x0, (y1 - y0) * 1.2) * 1.12;
+      const art = ob ? wallSprite(ob.art, artW) : null;
+      if (art && ob) {
         const c = new Container() as Container & { isWall?: boolean };
         c.isWall = true;
         art.position.set((x0 + x1) / 2, y1);
@@ -557,6 +606,10 @@ export class BattleRenderer {
         this.bodies.addChild(c);
         view.c = c;
         view.h = art.height;
+        view.spr = art;
+        view.art = ob.art;
+        view.w = artW;
+        view.state = 0;
         continue;
       }
       view.c = wall;

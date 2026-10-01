@@ -10,5 +10,8 @@
   {"id": "trait.veteran", "earn": {"counter": "battles", "atLeast": 30}, "statMods": {"confidence": 1}},
   {"id": "trait.favourite-weapon-chair", "earn": {"counter": "thrown:prop.office-chair", "atLeast": 6}, "preferTargetsWithTags": ["state:prone"], "statMods": {"throwing": 1}},
   {"id": "trait.team-medic", "earn": {"counter": "revives", "atLeast": 8}, "goalWeights": {"support": 13000}},
-  {"id": "trait.always-late", "earn": {"counter": "lateArrivals", "atLeast": 10}, "statMods": {"speed": -1, "luck": 1}}
+  {"id": "trait.always-late", "earn": {"counter": "lateArrivals", "atLeast": 10}, "statMods": {"speed": -1, "luck": 1}},
+  {"id": "trait.ailurophobe", "earn": {"counter": "statusReceived:scaredBy:fear:cats", "atLeast": 8}, "goalWeights": {"survive": 11500}, "tags": ["fear:cats"]},
+  {"id": "trait.pigeon-ptsd", "earn": {"counter": "statusReceived:scaredBy:fear:birds", "atLeast": 8}, "goalWeights": {"survive": 11500}, "tags": ["fear:birds"]},
+  {"id": "trait.stage-fright", "earn": {"counter": "statusReceived:scaredBy:fear:crowds", "atLeast": 8}, "goalWeights": {"showOff": 6000}, "tags": ["fear:crowds"]}
 ]

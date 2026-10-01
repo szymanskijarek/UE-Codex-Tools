@@ -20,6 +20,12 @@ const FEAR_CHANCE_BP = 3500;
 const COWARD_FEAR_CHANCE_BP = 1800;
 const SPOOK_TICKS = 50;
 
+/** Counts towards the fear traits (Ailurophobe, Pigeon PTSD, Stage Fright): pestered or spooked by a critter of that group. */
+function bumpScared(x: Entity, fear: string): void {
+  const k = `scaredBy:${fear}`;
+  x.counters.statusReceived[k] = (x.counters.statusReceived[k] ?? 0) + 1;
+}
+
 function summonsOf(w: World, owner: Entity): Entity[] {
   return w.entities.filter((e) => !e.removed && e.summonOf === owner.id);
 }
@@ -167,6 +173,7 @@ export function summonsTick(w: World): void {
       if (t && dist(e.x, e.y, t.x, t.y) <= e.radius + t.radius + 250) {
         const ev = emit(w, 'attack', e.id, t.id, 0, e.summonDef, -1);
         for (const eff of def.touch.effects) applyEffect(w, eff, t, { sourceId: e.id, cause: ev, powerBp: 10000, scale: 'none' });
+        if (def.scares) bumpScared(t, def.scares);
         e.touchAt = w.tick + def.touch.everyTicks;
       }
     }
@@ -188,6 +195,7 @@ export function summonsTick(w: World): void {
         if (x.statuses.some((s) => s.id === 'status.spooked')) continue;
         const chance = tagsOf(w, x).has(def.scares) ? FEAR_CHANCE_BP : x.snap?.personality === 'personality.coward' ? COWARD_FEAR_CHANCE_BP : 0;
         if (!chance || !w.rng.chance(chance)) continue;
+        bumpScared(x, def.scares);
         const ev = emit(w, 'panic', x.id, e.id, x.morale, def.scares, -1);
         applyStatus(w, x, 'status.spooked', SPOOK_TICKS, e.id, ev);
         x.morale = clamp(x.morale - 10, 0, 100);

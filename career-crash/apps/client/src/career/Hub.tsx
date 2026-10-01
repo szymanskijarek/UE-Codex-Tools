@@ -174,6 +174,9 @@ function PostCard({ p, fights, s }: { p: FeedPost; fights: number; s: CareerSave
 
 function Person({ cc, tag }: { cc: CareerChar; tag?: string }) {
   const cid = currentCareer(cc);
+  // A Senior Move this fighter has unlocked (from stage 10 some opponents bring one): shown as a teaser.
+  const seniorCareer = cc.c.careers.find((x) => cc.nodes.includes(`${x}:senior`));
+  const senior = seniorCareer ? bundle.careers.find((x) => x.id === seniorCareer)?.senior : undefined;
   return (
     <div class="li-person">
       <Portrait c={cc.c} size={40} />
@@ -182,6 +185,11 @@ function Person({ cc, tag }: { cc: CareerChar; tag?: string }) {
         <div class="muted small">
           {RANKS[careerRank(cc, cid) - 1]} {nameOf(cid)} · Lv {cc.c.level}
         </div>
+        {senior && (
+          <div class="small li-senior" title="Senior Move: unlocked at the top rank of a career">
+            ✨ Senior Move: <b>{nameOf(senior)}</b>
+          </div>
+        )}
       </div>
     </div>
   );

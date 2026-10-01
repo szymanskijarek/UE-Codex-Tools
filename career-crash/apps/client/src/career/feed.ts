@@ -75,6 +75,9 @@ const MOOD_OF: Record<string, Mood> = {
   feed_perk_epic: 'perk',
   feed_perk_legendary: 'perk',
   feed_perk_ability: 'perk',
+  feed_summon_brag: 'win',
+  feed_summon_complain: 'news',
+  feed_spooked: 'loss',
 };
 
 export const FEED_CAP = 150;
@@ -230,6 +233,23 @@ export function fightPosts(s: CareerSave, r: FightSummary): FeedPost[] {
   // 4. The company you fought.
   const companyKey = r.outcome === 'win' ? 'feed_beaten' : r.outcome === 'loss' ? 'feed_gloat' : chance(0.5) ? 'feed_beaten' : 'feed_gloat';
   add({ by: 'company', author: info.company, sub: `${nameOf(info.arenaId)} · ${300 + rng.int(9000)} followers`, icon: info.company[0], tags: chance(0.5) ? pick(TAGS.company!) : undefined }, (companyKey));
+
+  // 4b. Critters: bragging about ours, complaining about theirs, owning up to running from one.
+  const sm = r.summons;
+  if (sm) {
+    const critter = (id: string) => nameOf(id).toLowerCase();
+    const brag = sm.mine[0];
+    if (brag && chance(0.75)) {
+      const cc = Object.values(s.chars).find((c) => c.c.name === brag.by);
+      add({ by: cc?.c.id === m.c.id ? 'me' : 'staff', author: brag.by, sub: cc ? headline(cc.c.id) : 'Agency temp · #OpenToWork', who: cc ? { careers: [currentCareer(cc)], appearance: cc.c.appearance } : undefined, tags: '#Delegation #TeamPlayer' }, 'feed_summon_brag', { critter: critter(brag.summon) });
+    }
+    if (sm.theirs.length && chance(0.5)) add({ by: 'me', author: m.c.name, sub: headline(m.c.id), who: meWho }, 'feed_summon_complain', { critter: critter(pick(sm.theirs)) });
+    const sp = sm.spooked[0];
+    if (sp && chance(0.8)) {
+      const cc = Object.values(s.chars).find((c) => c.c.name === sp.name);
+      if (cc) add({ by: cc.c.id === m.c.id ? 'me' : 'staff', author: cc.c.name, sub: headline(cc.c.id), who: { careers: [currentCareer(cc)], appearance: cc.c.appearance }, tags: '#Vulnerability #MentalHealthMatters' }, 'feed_spooked', { critter: critter(sp.summon) });
+    }
+  }
 
   // 5. Strangers with opinions, and the odd item testimonial.
   add({ by: 'stranger', ...persona(rng) }, (r.outcome === 'loss' ? 'feed_network_loss' : r.outcome === 'win' ? 'feed_network_win' : 'feed_network'));

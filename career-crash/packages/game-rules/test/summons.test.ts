@@ -1,7 +1,7 @@
 import { bundle } from '@cc/content';
 import { createBattle, Rng, simulate, type BattleInput, type CharacterSnapshot } from '@cc/sim';
 import { describe, expect, it } from 'vitest';
-import { generateRecruit, toSnapshot } from '../src';
+import { difficulty, evaluateTraits, generateRecruit, opponentTeam, summonCareers, SUMMONERS_FROM_STAGE, toSnapshot } from '../src';
 
 /** A fighter with every move of one career (no `unlocked` list = everything, like the Sandbox). */
 function snap(career: string, seed: string): CharacterSnapshot {
@@ -68,5 +68,24 @@ describe('summons', () => {
   it('battles with summons stay deterministic', () => {
     const inp = input(summoners.map((c) => snap(c, `d${c}`)), ['career.chef', 'career.builder', 'career.nurse'].map((c) => snap(c, `e${c}`)), 'det');
     expect(simulate(inp, bundle).resultHash).toBe(simulate(inp, bundle).resultHash);
+  });
+
+  it('ladder opponents bring summoners only from stage 10, and more often later', () => {
+    const pool = new Set(summonCareers(bundle));
+    const rate = (stage: number) => {
+      let n = 0;
+      for (let i = 0; i < 60; i++) if (opponentTeam(bundle, `l${i}`, stage, difficulty('normal'), 3).some((f) => f.nodes.some((x) => x.endsWith(':senior')) && pool.has(f.c.careers[0]!))) n++;
+      return n;
+    };
+    expect(rate(SUMMONERS_FROM_STAGE - 1)).toBe(0);
+    expect(rate(SUMMONERS_FROM_STAGE)).toBeGreaterThan(0);
+    expect(rate(SUMMONERS_FROM_STAGE + 15)).toBeGreaterThan(rate(SUMMONERS_FROM_STAGE));
+  });
+
+  it('being spooked by birds often enough earns Pigeon PTSD', () => {
+    const c = generateRecruit(bundle, Rng.fromSeed('ptsd'), 'ptsd', { careerPool: ['career.mime'] });
+    c.lifetime.counters['statusReceived:scaredBy:fear:birds'] = 8;
+    expect(evaluateTraits(bundle, c)).toContain('trait.pigeon-ptsd');
+    expect(toSnapshot(c).traits).toContain('trait.pigeon-ptsd');
   });
 });

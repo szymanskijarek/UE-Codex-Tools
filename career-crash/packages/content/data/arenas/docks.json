@@ -421,8 +421,8 @@
     900
    ],
    "art": [
-    "crate-stack",
-    "drum-rack"
+    "shipping-container",
+    "winch"
    ]
   },
   {
@@ -433,8 +433,8 @@
     900
    ],
    "art": [
-    "drum-rack",
-    "crate-stack"
+    "winch",
+    "shipping-container"
    ]
   },
   {
@@ -445,8 +445,8 @@
     900
    ],
    "art": [
-    "cage-pallet",
-    "crate-stack"
+    "bollards",
+    "shipping-container"
    ]
   },
   {
@@ -457,8 +457,8 @@
     900
    ],
    "art": [
-    "crate-stack",
-    "cage-pallet"
+    "shipping-container",
+    "bollards"
    ]
   },
   {
@@ -469,8 +469,8 @@
     900
    ],
    "art": [
-    "drum-rack",
-    "cage-pallet"
+    "dock-crane",
+    "winch"
    ],
    "chanceBp": 6000
   },
@@ -482,8 +482,8 @@
     900
    ],
    "art": [
-    "cage-pallet",
-    "drum-rack"
+    "winch",
+    "dock-crane"
    ],
    "chanceBp": 6000
   },
@@ -495,8 +495,8 @@
     900
    ],
    "art": [
-    "pallet-rack",
-    "crate-stack"
+    "dock-crane",
+    "shipping-container"
    ],
    "chanceBp": 6000
   }

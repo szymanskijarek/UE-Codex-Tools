@@ -263,10 +263,16 @@ Differences from the design above, and what's still to do:
     Senior Moves), the tattoo artist (66%, unchanged from before) and the
     zookeeper and chef (60% and 39%, just outside).
   - Bosses are unchanged (30–46%).
-- **Not built yet:**
-  - The three earnable fear traits.
-  - Feed posts about summons.
-  - A `--summons` balance report.
+- **Built since:**
+  - **The three fear traits** (Ailurophobe, Pigeon PTSD, Stage Fright) are
+    earned after 8 touches or spooks by critters of that group.
+  - **Feed posts:** summoners brag, opponents complain, and spooked fighters
+    post about it.
+  - **The balance report** `pnpm balance --summons` compares identical fights
+    with and without each summoning move.
+  - **Ladder summoners:** from stage 10 a summoner may join the opposing team,
+    about a third of the time at first and around 70% later on, shown in the
+    hub with a "Senior Move" badge.
 
 ## 7. Content requirements
 

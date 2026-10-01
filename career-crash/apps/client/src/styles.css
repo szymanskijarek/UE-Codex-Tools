@@ -2296,3 +2296,8 @@ body:has(.shell.li) {
     gap: 6px;
   }
 }
+
+.li-senior {
+  color: #9333ea;
+  font-weight: 700;
+}

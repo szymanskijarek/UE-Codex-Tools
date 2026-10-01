@@ -2268,6 +2268,38 @@
    "The school kids have {a} completely rattled.",
    "{a} is overwhelmed by the {critter}. Where is the teacher?"
   ],
+  "feed_summon_brag": [
+   "Leadership isn't about doing everything yourself. Today I delegated the fight to a {critter}. Results speak for themselves. 📈",
+   "Proud of my team today, especially the {critter}. Didn't even ask for a salary. #Culture",
+   "They said 'bring your whole self to work'. I brought a {critter}. #Authenticity",
+   "Great collaboration with the {critter} today. Cross-functional synergy at its finest. 🤝",
+   "Hot take: a {critter} is worth three agency temps. Fight me. (Please don't, I'll send the {critter}.)",
+   "Not everyone can manage a {critter} under pressure. I can. Open to leadership roles. 💼",
+   "Shoutout to the {critter} for showing up, adding value and leaving before the debrief. Role model.",
+   "Today's lesson in stakeholder management: if in doubt, release the {critter}.",
+   "Some people network. I summon. 🐾 #ThoughtLeadership",
+   "Reminder that your biggest asset is your team. Mine had a {critter} on it today. 🙌",
+   "Tried something new today: outsourcing the hard part to a {critter}. 10/10 would delegate again.",
+   "Grateful for the {critter}. Truly the MVP nobody will put in the official stats."
+  ],
+  "feed_summon_complain": [
+   "Can we talk about how the other side brought a {critter} to a professional fight? Asking HR.",
+   "Unpopular opinion: summoning a {critter} mid-fight should be a red card. #Integrity",
+   "Lost focus today because a {critter} was involved. I'll be raising this at the retro.",
+   "Not sure what's more unprofessional: the {critter} or the person who summoned it.",
+   "Lessons learned: always check the opposition's roster for a {critter}. 🧵 1/12",
+   "I'd like to formally lodge a complaint about the {critter}. And its manager.",
+   "There was a {critter}. I'm fine. Everything is fine. #Resilience",
+   "Nobody told me the role involved a {critter}. Updating my job alerts."
+  ],
+  "feed_spooked": [
+   "Vulnerable post incoming: I ran away from a {critter} today. Growth isn't linear. 💙",
+   "I want to normalise being terrified of a {critter} in the workplace. Thank you for coming to my TED talk.",
+   "Yes, I dropped everything and ran from the {critter}. No, I won't be taking questions.",
+   "Today a {critter} reminded me that we all have fears. Mine is specifically the {critter}.",
+   "Taking a mental health day after an encounter with a {critter}. Please respect my privacy.",
+   "Shoutout to my team for covering while I hid from the {critter}. That's leadership. (Theirs.)"
+  ],
   "feed_c_congrats": [
    "Congrats {first}! 🎉",
    "Well deserved!",

@@ -125,12 +125,12 @@
   "id": "summon.poodle",
   "kind": "animal",
   "behaviour": "pester",
-  "hp": 30,
+  "hp": 25,
   "speedBp": 13000,
-  "lifetimeTicks": 280,
+  "lifetimeTicks": 200,
   "radiusMm": 250,
   "touch": {
-   "everyTicks": 20,
+   "everyTicks": 30,
    "effects": [
     {
      "type": "damage",
@@ -140,7 +140,7 @@
     {
      "type": "applyStatus",
      "status": "status.slowed",
-     "durationTicks": 20
+     "durationTicks": 10
     }
    ]
   },
@@ -162,7 +162,7 @@
   "lifetimeTicks": 280,
   "radiusMm": 260,
   "touch": {
-   "everyTicks": 60,
+   "everyTicks": 45,
    "effects": [
     {
      "type": "applyStatus",
@@ -171,7 +171,7 @@
     },
     {
      "type": "damage",
-     "amount": 2,
+     "amount": 3,
      "damageType": "blunt"
     }
    ]
@@ -226,16 +226,21 @@
   "lifetimeTicks": 240,
   "radiusMm": 220,
   "touch": {
-   "everyTicks": 30,
+   "everyTicks": 25,
    "effects": [
     {
      "type": "dropHeld",
-     "chanceBp": 2500
+     "chanceBp": 4000
     },
     {
      "type": "damage",
-     "amount": 1,
+     "amount": 2,
      "damageType": "blunt"
+    },
+    {
+     "type": "applyStatus",
+     "status": "status.distracted",
+     "durationTicks": 20
     }
    ]
   },
@@ -309,7 +314,7 @@
   "id": "summon.therapy-dog",
   "kind": "animal",
   "behaviour": "decoy",
-  "hp": 50,
+  "hp": 40,
   "speedBp": 9000,
   "lifetimeTicks": 320,
   "radiusMm": 300,
@@ -327,13 +332,13 @@
    },
    {
     "radiusMm": 2000,
-    "everyTicks": 40,
+    "everyTicks": 60,
     "affects": "allies",
     "effects": [
      {
       "type": "applyStatus",
       "status": "status.regen",
-      "durationTicks": 40
+      "durationTicks": 30
      }
     ]
    }
@@ -362,6 +367,10 @@
      "type": "applyStatus",
      "status": "status.distracted",
      "durationTicks": 40
+    },
+    {
+     "type": "knockdown",
+     "chanceBp": 1500
     }
    ]
   },
@@ -383,7 +392,7 @@
   "lifetimeTicks": 240,
   "radiusMm": 170,
   "touch": {
-   "everyTicks": 40,
+   "everyTicks": 25,
    "effects": [
     {
      "type": "dropHeld",
@@ -391,7 +400,7 @@
     },
     {
      "type": "damage",
-     "amount": 1,
+     "amount": 2,
      "damageType": "blunt"
     }
    ]
@@ -562,17 +571,22 @@
   "id": "summon.parrot",
   "kind": "animal",
   "behaviour": "pester",
-  "hp": 20,
+  "hp": 25,
   "speedBp": 13000,
   "lifetimeTicks": 280,
   "radiusMm": 200,
   "touch": {
-   "everyTicks": 40,
+   "everyTicks": 25,
    "effects": [
     {
      "type": "applyStatus",
      "status": "status.embarrassed",
-     "durationTicks": 40
+     "durationTicks": 60
+    },
+    {
+     "type": "damage",
+     "amount": 2,
+     "damageType": "blunt"
     }
    ]
   },
@@ -596,7 +610,7 @@
   "aura": [
    {
     "radiusMm": 2000,
-    "everyTicks": 20,
+    "everyTicks": 40,
     "affects": "enemies",
     "effects": [
      {
@@ -608,7 +622,7 @@
    },
    {
     "radiusMm": 3000,
-    "everyTicks": 60,
+    "everyTicks": 80,
     "affects": "allies",
     "effects": [
      {
@@ -665,7 +679,7 @@
   "aura": [
    {
     "radiusMm": 2500,
-    "everyTicks": 40,
+    "everyTicks": 60,
     "affects": "allies",
     "effects": [
      {
@@ -752,9 +766,9 @@
   "id": "summon.tourist",
   "kind": "human",
   "behaviour": "decoy",
-  "hp": 30,
+  "hp": 25,
   "speedBp": 6000,
-  "lifetimeTicks": 320,
+  "lifetimeTicks": 240,
   "radiusMm": 300,
   "aura": [
    {
@@ -862,11 +876,11 @@
    "effects": [
     {
      "type": "knockdown",
-     "chanceBp": 4000
+     "chanceBp": 2500
     },
     {
      "type": "damage",
-     "amount": 3,
+     "amount": 2,
      "damageType": "blunt"
     }
    ]

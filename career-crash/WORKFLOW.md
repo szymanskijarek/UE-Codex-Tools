@@ -87,6 +87,7 @@ source files in `art/`; the art pipeline turns them into the game's atlases
 |---|---|---|
 | Arena backdrop | ~1672 × 941 painting with an open floor in the middle | `art/arenas/<arena>.png` |
 | Obstacles / machines | Sheet of large props, 2 rows (2 or 3 per row) | `art/obstacles/<name>.png` + `manifest.json` |
+| Obstacle damage states | The same sheet, damaged (still standing) and destroyed (flat rubble), same order | `art/obstacles/<arena>-damaged.png`, `<arena>-destroyed.png` |
 | Props / items | Sheet of small props, 2 rows (3 or 4 per row) | `art/items/<name>.png` + `manifest.json` |
 | Character body (career or boss) | Posed figure on the left, the same figure cut into parts on the right (head, torso, pelvis, upper arms, forearms with hands, thighs, shins, feet) | `art/sheets/<career>.png` |
 | Faces | Four emotion sheets (neutral, angry, surprised, hurt), heads in a grid | `art/faces/`, `art/faces-b/` |
@@ -99,8 +100,12 @@ manifest (`parts`, `split`, `noFeet`, `flip`).
 **Still needed:** body sheets for **Security Guard, Delivery Driver, Janitor**
 and **Engineer**. They currently draw a plain body under their painted face.
 Ready-to-paste generation prompts: `art/sheets/BODY_SHEET_PROMPTS.md`.
+- **Docks obstacles:** they currently use their weathered art as the intact state, and have no
+  separate damaged state. A clean "intact" sheet would complete them.
+- **Damage states for the six original arenas** (supermarket, office, diner, station,
+  warehouse, construction): their obstacles still topple when destroyed.
 
-**Size budget:** the single-file build is ~6.5 MB, against a 16 MB artifact limit.
+**Size budget:** the single-file build is ~7.2 MB, against a 16 MB artifact limit.
 The website loads images on demand, so size matters less there. Rough costs per
 addition in the single file: a backdrop ~130 KB, a character (body plus faces) ~30 KB,
 an obstacle ~15 KB, a prop ~4 KB. Keep sheets at the sizes above; the pipeline

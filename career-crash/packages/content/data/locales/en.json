@@ -1186,5 +1186,11 @@
  "ability.paparazzi-swarm.name": "Paparazzi",
  "ability.paparazzi-swarm.desc": "Two paparazzi hound an opponent with flashbulbs.",
  "ability.please-mind-the-gap.name": "Mind the Gap",
- "ability.please-mind-the-gap.desc": "Everyone in a line ahead falls into the gap."
+ "ability.please-mind-the-gap.desc": "Everyone in a line ahead falls into the gap.",
+ "trait.ailurophobe.name": "Ailurophobe",
+ "trait.ailurophobe.desc": "Has been hounded by one too many black cats. Now panics around them.",
+ "trait.pigeon-ptsd.name": "Pigeon PTSD",
+ "trait.pigeon-ptsd.desc": "Pecked, swooped and robbed by birds. Now flinches at every flap.",
+ "trait.stage-fright.name": "Stage Fright",
+ "trait.stage-fright.desc": "Crowds, cameras and fans have taken their toll. Freezes up in front of people."
 }

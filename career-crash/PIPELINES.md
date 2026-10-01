@@ -170,6 +170,15 @@ is empty: the 30 newer careers were re-imported from separate sheets through
   suitcase and the airport umbrella); skipped cells cost no bytes.
 - **Output:** `replay/items/items.webp` + `items.json`, and
   `replay/obstacles/obstacles.webp` + `obstacles.json`.
+- **Damage states (obstacles):**
+  - **Where:** `<arena>-damaged.png` and `<arena>-destroyed.png` sheets name
+    their cells `<art>-damaged` and `<art>-destroyed`.
+  - **In play:** the renderer swaps to the damaged art at half health. When
+    the obstacle breaks it shows the destroyed art flat on the floor, under
+    spills and fighters; broken obstacles are already walkable in the sim.
+  - **Missing states:** an obstacle without them falls back to tinting and
+    toppling over.
+  - **Size:** destroyed sheets use `px: 130` in the manifest to save space.
 
 ### 5.5 Arena backdrops
 
