@@ -2707,7 +2707,7 @@ export class BattleRenderer {
     return { ready: this.ready, rootVisible: s.root.visible, puppet: !!s.puppet, puppetVisible: s.puppet?.root.visible, headVisible: head.visible, hb: [hb.x, hb.y, hb.width, hb.height], rag: !!s.rag, flight: !!s.flight };
   }
 
-  photo(id: number, opts: { zoom?: number; face?: 'hurt' | 'surprised' | null; variant?: number } = {}, px = 640): string | null {
+  photo(id: number, opts: { zoom?: number; face?: 'hurt' | 'surprised' | null; variant?: number; with?: number } = {}, px = 640): string | null {
     const s = this.chars.get(id);
     if (!this.ready || !s || !s.root.visible) return null;
     // The subject's face stays in front of their own arms.
@@ -2740,8 +2740,31 @@ export class BattleRenderer {
     const hx = hb.x + hb.width / 2;
     const hy = hb.y + hb.height / 2;
     const toFace = Math.min(1, (1 - zoom) * 2);
-    const cx = body ? body.x + body.width / 2 + (hx - body.x - body.width / 2) * toFace : hx;
-    const cy = body ? body.y + body.height / 2 + (hy - body.y - body.height / 2) * toFace : hy + side * 0.22;
+    let cx = body ? body.x + body.width / 2 + (hx - body.x - body.width / 2) * toFace : hx;
+    let cy = body ? body.y + body.height / 2 + (hy - body.y - body.height / 2) * toFace : hy + side * 0.22;
+    let size = side;
+    // A second subject (whoever landed the blow, or the animal on the attack): widen the frame to take them in.
+    const mate = opts.with !== undefined ? this.chars.get(opts.with) : undefined;
+    const critter = opts.with !== undefined ? this.critters.get(opts.with) : undefined;
+    const other = mate?.root.visible ? (mate.puppet?.bodyBounds() ?? mate.root.getBounds()) : critter ? critter.root.getBounds() : null;
+    const otherPu = mate?.puppet;
+    if (other && other.width > 0) {
+      const x0 = Math.min(cx - side / 2, other.x);
+      const x1 = Math.max(cx + side / 2, other.x + other.width);
+      const y0 = Math.min(cy - side / 2, other.y);
+      const y1 = Math.max(cy + side / 2, other.y + other.height);
+      const both = Math.max(x1 - x0, y1 - y0) * 1.06;
+      // Too far apart for one frame: keep the subject and lean the frame towards the other.
+      if (both <= Math.max(side, height * 1.1) * 1.6) {
+        size = both;
+        cx = (x0 + x1) / 2;
+        cy = (y0 + y1) / 2;
+      } else {
+        cx += Math.sign(other.x + other.width / 2 - cx) * side * 0.2;
+      }
+      // The one dishing it out looks the part.
+      if (otherPu) otherPu.holdFace(pickLook(otherPu.facesFor('angry')) ?? null);
+    }
     const hide: Container[] = [this.uiLayer, this.banner, this.overlay, this.impactFlash, this.fxLayer];
     // Obstacles standing in front of the subject would block the shot: leave them out of the photo.
     const depthY = s.root.zIndex as number;
@@ -2757,7 +2780,7 @@ export class BattleRenderer {
     const was = hide.map((c) => c.visible);
     hide.forEach((c) => (c.visible = false));
     try {
-      const frame = new Rectangle(Math.round(cx - side / 2), Math.round(cy - side / 2), Math.round(side), Math.round(side));
+      const frame = new Rectangle(Math.round(cx - size / 2), Math.round(cy - size / 2), Math.round(size), Math.round(size));
       const canvas = this.app.renderer.extract.canvas({ target: this.app.stage, frame, resolution: px / frame.width, clearColor: hex(this.arena.theme.wall) }) as HTMLCanvasElement;
       const url = canvas.toDataURL('image/webp', 0.82);
       // Browsers without WebP encoding hand back PNG: fall back to JPEG to stay small.
@@ -2766,6 +2789,7 @@ export class BattleRenderer {
       hide.forEach((c, i) => (c.visible = was[i]!));
       pu?.holdFace(null);
       pu?.headOnTop(false);
+      otherPu?.holdFace(null);
     }
   }
 

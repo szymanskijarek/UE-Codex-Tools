@@ -377,7 +377,8 @@ export function collectResults(s: CareerSave): CareerSave {
       if (who?.team === 0 && what && !summons.spooked.some((x) => x.name === who.name)) summons.spooked.push({ name: who.name, summon: what });
     }
   }
-  const photo = pickPhotoMoment(input, [s.mainId]) ?? undefined;
+  // The previous fight's photo steers this one away from the same kind of shot and the same face.
+  const photo = pickPhotoMoment(input, [s.mainId], s.last?.photo) ?? undefined;
   next.last = { stage, outcome, cash, pay, board, growth, ...(s.pending.hr?.length ? { hr: s.pending.hr } : {}), unlockedSquad: !wasUnlocked && squadUnlocked(next), ...(loot ? { loot } : {}), ...(summons.mine.length || summons.theirs.length ? { summons } : {}), ...(photo ? { photo } : {}) };
   next.feed = [...fightPosts(next, next.last), ...(s.feed ?? [])].slice(0, FEED_CAP);
   if (photo && next.feed[0]?.photo) lastFight = { input, fight: next.feed[0].fight };

@@ -63,7 +63,7 @@ export async function captureFightPhoto(input: BattleInput, moment: PhotoMoment,
     }
     renderer.photoMode = true;
     renderer.render(player, 0, []);
-    const url = renderer.photo(moment.id, { zoom: moment.zoom, face: moment.face, variant: moment.variant });
+    const url = renderer.photo(moment.id, { zoom: moment.zoom, face: moment.face, variant: moment.variant, with: moment.with });
     if (!url) {
       console.warn('Fight photo: nothing to frame', moment, renderer.photoDebug(moment.id));
       return;

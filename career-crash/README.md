@@ -46,9 +46,12 @@ pnpm dev                        # worker on :8787, client on :5173 (proxied /api
   ability effects, a director camera, slow-motion action replays, synthesised
   sound and Simlish-style babbling voices (6 voice types), battle reports with jump-to-moment, and the Sandbox.
   Each career fight posts a photo on the results screen and at the top of the feed.
-  The client picks the best moment, preferring the receiving end (thrown, hurt,
-  spooked) over dealing it. The face is set to pained or shocked and never
-  mid-blink, and the zoom varies but never goes wider than the default framing. The client
+  The client draws a kind of shot at random, weighted towards the receiving end:
+  someone taking the final blow (with whoever landed it, scowling, in the frame),
+  a summoned animal going for someone, a fright, a crit, a flight. It shows
+  everyone, not mostly you, and avoids repeating the last fight's kind of shot
+  and subject. The face is set to pained or shocked and never mid-blink, no arm
+  covers it, and captions credit the attacker or the animal. The client
   renders a close-up off screen, and keeps only the latest photo in localStorage
   (`career/photo-moment.ts`, `career/photo.ts`). A standalone
   single-file build (career mode + Sandbox): `pnpm --filter @cc/client build:standalone`.

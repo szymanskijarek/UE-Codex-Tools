@@ -18,9 +18,22 @@ describe('fight photo moment', () => {
       expect(fighter, `entity ${m!.id} is one of the six fighters`).toBeDefined();
       expect(fighter!.team).toBe(m!.team);
       expect(m!.tick).toBeGreaterThanOrEqual(20);
+      // A second subject (whoever landed the blow) is a fighter in the same battle.
+      if (m!.with !== undefined && m!.kind !== 'critter' && m!.kind !== 'spooked') expect(out.result.characters.some((c) => c.entityId === m!.with)).toBe(true);
       kinds.add(m!.kind);
     }
-    // Throws and tosses happen in most fights; airborne shots should come up.
-    expect(kinds.has('air')).toBe(true);
+    // Not the same kind of shot every time (it used to be nearly always a flight).
+    expect(kinds.size).toBeGreaterThanOrEqual(3);
+  });
+
+  it('steers away from the previous photo\'s kind of shot', () => {
+    const rng = Rng.fromSeed('photo-last');
+    let same = 0;
+    for (let i = 0; i < 10; i++) {
+      const input = battleInput(bundle, `pl${i}`, [randomTeam(bundle, rng, 3, 'A'), randomTeam(bundle, rng, 3, 'B')]);
+      const first = pickPhotoMoment(input)!;
+      if (pickPhotoMoment(input, [], first)!.kind === first.kind) same++;
+    }
+    expect(same).toBeLessThan(10);
   });
 });

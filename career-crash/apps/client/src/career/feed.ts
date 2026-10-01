@@ -88,6 +88,10 @@ const MOOD_OF: Record<string, Mood> = {
   feed_photo_ouch_them: 'win',
   feed_photo_spooked_us: 'loss',
   feed_photo_spooked_them: 'win',
+  feed_photo_finisher_us: 'loss',
+  feed_photo_finisher_them: 'win',
+  feed_photo_critter_us: 'loss',
+  feed_photo_critter_them: 'win',
   feed_summon_complain: 'news',
   feed_spooked: 'loss',
 };
@@ -272,9 +276,21 @@ export function fightPosts(s: CareerSave, r: FightSummary): FeedPost[] {
   const ph = r.photo;
   let photo: FeedPost | undefined;
   if (ph) {
-    const kind = ph.kind === 'air' || ph.kind === 'move' || ph.kind === 'spooked' ? ph.kind : ph.kind === 'hurt' ? 'ouch' : 'hit';
+    // A final blow with nobody to credit (a machine, a hazard) is just an ouch.
+    const kind = ph.kind === 'ko' || ph.kind === 'crit' ? 'hit' : ph.kind === 'hurt' || (ph.kind === 'finisher' && !ph.withName) ? 'ouch' : ph.kind;
+    const tags: Record<typeof kind, string> = {
+      air: '#Airtime #NewHeights',
+      move: '#SkillsShowcase',
+      ouch: '#Resilience #Candid',
+      spooked: '#Wildlife #Unfiltered',
+      hit: '#Impact #Results',
+      finisher: '#FinalNotice #Closure',
+      critter: '#BringYourPetToWork #Wildlife',
+    };
     const before = out.length;
-    add({ by: 'me', author: m.c.name, sub: headline(m.c.id), who: meWho, photo: true, tags: kind === 'air' ? '#Airtime #NewHeights' : kind === 'move' ? '#SkillsShowcase' : kind === 'ouch' ? '#Resilience #Candid' : kind === 'spooked' ? '#Wildlife #Unfiltered' : '#Impact #Results', reacts: 200 + rng.int(1500), comments: 10 + rng.int(90) }, `feed_photo_${kind}_${ph.team === 0 ? 'us' : 'them'}`, { name: ph.name });
+    // {by}: whoever landed the blow, or the critter's owner; {other}: the second person in the shot; {critter}: the animal.
+    const extra = { name: ph.name, by: ph.withName || 'someone', other: ph.withName || 'someone', critter: ph.critter ? nameOf(ph.critter).toLowerCase() : 'small animal' };
+    add({ by: 'me', author: m.c.name, sub: headline(m.c.id), who: meWho, photo: true, tags: tags[kind], reacts: 200 + rng.int(1500), comments: 10 + rng.int(90) }, `feed_photo_${kind}_${ph.team === 0 ? 'us' : 'them'}`, extra);
     if (out.length > before) photo = out.pop();
   }
 

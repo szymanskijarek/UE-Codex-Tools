@@ -2351,27 +2351,34 @@
    "📸 Caught this candid of {name} exceeding vertical expectations. Proud of this team.",
    "📸 When they said \"reach for the sky\", {name} took it personally. #GoalSetting",
    "📸 Not every day you see {name} in flight mode. Grateful to be part of the journey.",
-   "📸 Agile? {name} is airborne. #Pivot"
+   "📸 Agile? {name} is airborne. #Pivot",
+   "📸 {name} taking \"remote-first\" a bit too literally. Last seen heading for the ceiling. #Hybrid",
+   "📸 Gravity reached out with an offer. {name} is considering it. #OpenToWork"
   ],
   "feed_photo_air_them": [
    "📸 Helped {name} from {company} explore new heights today. You're welcome. #Mentorship",
    "📸 {name} learning that the sky is not, in fact, the limit. #TeachableMoments",
    "📸 Captured {name} mid-launch. Sometimes career growth is sudden and upward.",
    "📸 Pleased to share that {name} has been successfully redeployed. Through the air. #Restructuring",
-   "📸 Wishing {name} a smooth landing in their next role. And on the floor."
+   "📸 Wishing {name} a smooth landing in their next role. And on the floor.",
+   "📸 {name} from {company} has been fast-tracked. Upwards, then down. #CareerProgression",
+   "📸 We don't fire people at {company}'s level. We launch them. Bon voyage, {name}. 🚀"
   ],
   "feed_photo_hit_us": [
    "📸 {name} closing the deal at the {arena}. Decisive leadership looks like this.",
    "📸 This is what delivering results looks like. Hats off to {name}. #Execution",
    "📸 Snapped {name} mid-negotiation. The other side agreed immediately. #WinWin",
    "📸 {name} putting the \"impact\" in \"high-impact contributor\". 💥",
-   "📸 Framing this one for the office. {name}, everyone. #KPIs"
+   "📸 Framing this one for the office. {name}, everyone. #KPIs",
+   "📸 {name} giving {other} from {company} some unsolicited career advice. 💥",
+   "📸 {name} reaching out to {other}. Personally. Firmly. #Networking"
   ],
   "feed_photo_hit_them": [
    "📸 Respect where it's due: {name} from {company} brought the receipts today. #Humbled",
    "📸 Posting this so I remember: {name} hits harder than a Monday. #LessonsLearned",
    "📸 Someone at {company} sent me this photo of {name}. Thanks, I guess. #Feedback",
-   "📸 Brutal but fair feedback from {name}. Growth mindset activated. 🫠"
+   "📸 Brutal but fair feedback from {name}. Growth mindset activated. 🫠",
+   "📸 Sharing this so I stay humble: {name} from {company} vs {other}. Mostly {name}. #Humility"
   ],
   "feed_photo_move_us": [
    "📸 {name} unleashing a signature move at the {arena}. Some call it a skill. We call it a core competency.",
@@ -2402,12 +2409,15 @@
   "feed_photo_spooked_us": [
    "📸 Opening up about {name}'s fears. It's okay not to be okay around animals. 💙",
    "📸 That face when the {arena} gets a surprise guest. {name}, we see you. #MentalHealth",
-   "📸 {name} meeting their biggest stakeholder: a small animal. #Boundaries"
+   "📸 {name} meeting their biggest stakeholder: a small animal. #Boundaries",
+   "📸 {name} vs one (1) {critter}. The {critter} did not even try. #Unfiltered",
+   "📸 Brave enough to share: {name} has a complicated relationship with {critter}s. 💙"
   ],
   "feed_photo_spooked_them": [
    "📸 Our team brought a plus-one. {name} from {company} did not enjoy the networking. 🐾",
    "📸 Strategic deployment of wildlife: 10/10. {name}'s face: also 10/10. #Innovation",
-   "📸 {name} from {company} meeting our newest intern. The intern has four legs."
+   "📸 {name} from {company} meeting our newest intern. The intern has four legs.",
+   "📸 {name} from {company} meeting our {critter} for the first time. Leadership is about presence. 🐾"
   ],
   "feed_c_congrats": [
    "Congrats {first}! 🎉",
@@ -3359,6 +3369,40 @@
    "Fight!",
    "Here we go!",
    "Round one. Only round."
+  ],
+  "feed_photo_finisher_us": [
+   "📸 The exact moment {name} received some very direct feedback from {by}. Growth is uncomfortable. #Candid",
+   "📸 {name} discovering that {by} from {company} doesn't do soft launches. 🫠",
+   "📸 Every career has a plot twist. {name}'s was {by}. #Resilience",
+   "📸 Posting this for transparency: {name} vs {by}'s closing argument. {by} won. #Authenticity",
+   "📸 {name}, one second before an unscheduled lie-down. Photo credit: {by}'s fist. #WorkLifeBalance",
+   "📸 When {by} said \"let's take this offline\", {name} did not expect the floor. #Learnings",
+   "📸 Not the headshot {name} wanted for their profile. {by} insisted. #PersonalBranding"
+  ],
+  "feed_photo_finisher_them": [
+   "📸 {by} delivering the final slide of the presentation. {name} from {company} has left the meeting. #Closing",
+   "📸 Proud to share that {by} has successfully onboarded {name} onto the floor. #Results",
+   "📸 {name} from {company} receiving their exit interview from {by}. Short, honest, final. 👋",
+   "📸 Caught {name}'s face at the exact second {by} added value. #ROI",
+   "📸 That's not a photo, that's a performance review. {by}: exceeds expectations. {name}: needs improvement.",
+   "📸 Congratulations to {name} from {company} on their new horizontal role, effective immediately. Facilitated by {by}. #Restructuring",
+   "📸 {by} just told {name} \"per my last email\". In person. 💥"
+  ],
+  "feed_photo_critter_us": [
+   "📸 {name} was doing great until a {critter} joined the meeting uninvited. #Boundaries",
+   "📸 Nobody warned {name} that {company} brings a {critter} to work. HR has been informed. 🐾",
+   "📸 {name} in a one-to-one with a {critter}. The {critter} is winning the negotiation.",
+   "📸 \"Bring your pet to work day\", they said. {name} has questions. #WorkplaceSafety",
+   "📸 {name} being mentored, aggressively, by {by}'s {critter}. #Mentorship",
+   "📸 Behind every great fighter is a {critter} attached to their leg. Hang in there, {name}. 🩹"
+  ],
+  "feed_photo_critter_them": [
+   "📸 Our newest hire, a {critter}, closing its first account: {name} from {company}. #OnboardingSuccess",
+   "📸 {by}'s {critter} taking a hands-on approach to stakeholder management. {name} has notes. 🐾",
+   "📸 {name} from {company} meeting our {critter}. It's not personal. It's strategy. #Innovation",
+   "📸 Delegation is a superpower. {by} delegated {name} to a {critter}. #Leadership",
+   "📸 Small team, big impact. Mostly the {critter}, mostly on {name}. #Culture",
+   "📸 {name} from {company} asked to speak to our manager. Our manager is a {critter}."
   ]
  }
 }
