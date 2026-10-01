@@ -1,8 +1,7 @@
 # Impact effects: brief for the image agent
 
-> **Status:** wanted. The game already plays every effect below, using simple
-> shapes drawn in code. Each painted sheet that arrives replaces its stand-in
-> automatically. Nothing else needs to change, and they can arrive one at a time.
+> **Status:** delivered and in the game (all 14 sheets). Kept as the spec for
+> replacing or adding effects.
 
 This file is self-contained: hand it to the image agent together with the
 reference images it names. The code side is in

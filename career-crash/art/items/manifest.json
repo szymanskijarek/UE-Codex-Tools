@@ -167,5 +167,19 @@
  "misc-c": ["stapler", "wet-floor-sign", "wine-bottle", "coffee-cup", "rubber-chicken", null, "axe", "baguette"],
  "tools-c": ["baton", "hammer", "leaf-blower", "moon-rock", "mop", "screwdriver", "rubber-gloves", null],
  "floor-fx": ["fx-puddle-water", "fx-oil-spill", "fx-soda-spill", "fx-flood", "fx-fire-patch", "fx-foam-cloud", "fx-sparks", "fx-broken-glass"],
- "hazard-fx": ["fx-wind", "fx-wind-b", "fx-paper", "fx-papers", "fx-spray", "fx-steam", "fx-dizzy", "fx-dust"]
+ "hazard-fx": ["fx-wind", "fx-wind-b", "fx-paper", "fx-papers", "fx-spray", "fx-steam", "fx-dizzy", "fx-dust"],
+ "fx-hit": {"grid": [4, 1], "px": 160, "names": ["fx-hit-1", "fx-hit-2", "fx-hit-3", "fx-hit-4"]},
+ "fx-hit-heavy": {"grid": [5, 1], "px": 192, "names": ["fx-hit-heavy-1", "fx-hit-heavy-2", "fx-hit-heavy-3", "fx-hit-heavy-4", "fx-hit-heavy-5"]},
+ "fx-crit": {"grid": [5, 1], "px": 192, "names": ["fx-crit-1", "fx-crit-2", "fx-crit-3", "fx-crit-4", "fx-crit-5"]},
+ "fx-slash": {"grid": [4, 1], "px": 160, "names": ["fx-slash-1", "fx-slash-2", "fx-slash-3", "fx-slash-4"]},
+ "fx-zap": {"grid": [4, 1], "px": 160, "names": ["fx-zap-1", "fx-zap-2", "fx-zap-3", "fx-zap-4"]},
+ "fx-scorch": {"grid": [5, 1], "px": 160, "names": ["fx-scorch-1", "fx-scorch-2", "fx-scorch-3", "fx-scorch-4", "fx-scorch-5"]},
+ "fx-social": {"grid": [4, 1], "px": 128, "names": ["fx-social-1", "fx-social-2", "fx-social-3", "fx-social-4"]},
+ "fx-bite": {"grid": [4, 1], "px": 128, "names": ["fx-bite-1", "fx-bite-2", "fx-bite-3", "fx-bite-4"]},
+ "fx-sweat": {"grid": [4, 1], "px": 128, "names": ["fx-sweat-1", "fx-sweat-2", "fx-sweat-3", "fx-sweat-4"]},
+ "fx-land-dust": {"grid": [6, 1], "px": 256, "names": ["fx-land-dust-1", "fx-land-dust-2", "fx-land-dust-3", "fx-land-dust-4", "fx-land-dust-5", "fx-land-dust-6"]},
+ "fx-debris": {"grid": [5, 1], "px": 160, "names": ["fx-debris-1", "fx-debris-2", "fx-debris-3", "fx-debris-4", "fx-debris-5"]},
+ "fx-ko-stars": {"grid": [6, 1], "px": 192, "names": ["fx-ko-stars-1", "fx-ko-stars-2", "fx-ko-stars-3", "fx-ko-stars-4", "fx-ko-stars-5", "fx-ko-stars-6"]},
+ "fx-parry": {"grid": [4, 1], "px": 128, "names": ["fx-parry-1", "fx-parry-2", "fx-parry-3", "fx-parry-4"]},
+ "fx-dust-decals": {"grid": [3, 1], "px": 256, "names": ["fx-dust-decal-1", "fx-dust-decal-2", "fx-dust-decal-3"]}
 }
