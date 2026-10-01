@@ -2222,1220 +2222,1262 @@
    "w": 64,
    "h": 48
   },
-  "career.accountant:hurt2": {
+  "career.referee:angry": {
    "x": 332,
+   "y": 728,
+   "w": 64,
+   "h": 60
+  },
+  "career.referee:hurt": {
+   "x": 398,
+   "y": 728,
+   "w": 64,
+   "h": 64
+  },
+  "career.accountant:hurt2": {
+   "x": 464,
    "y": 728,
    "w": 63,
    "h": 64
   },
   "career.archaeologist:hurt2": {
-   "x": 397,
+   "x": 529,
    "y": 728,
    "w": 64,
    "h": 50
   },
   "career.astronaut:hurt2": {
-   "x": 463,
+   "x": 595,
    "y": 728,
    "w": 64,
    "h": 54
   },
   "career.baker:hurt2": {
-   "x": 529,
+   "x": 661,
    "y": 728,
    "w": 63,
    "h": 64
   },
   "career.barista:hurt2": {
-   "x": 594,
+   "x": 726,
    "y": 728,
    "w": 54,
    "h": 64
   },
   "career.beekeeper:hurt2": {
-   "x": 650,
+   "x": 782,
    "y": 728,
    "w": 64,
    "h": 55
   },
   "career.builder:hurt2": {
-   "x": 716,
+   "x": 848,
    "y": 728,
    "w": 58,
    "h": 64
   },
   "career.bus-driver:hurt2": {
-   "x": 776,
+   "x": 908,
    "y": 728,
    "w": 62,
    "h": 64
   },
   "career.carpenter:hurt2": {
-   "x": 840,
+   "x": 972,
    "y": 728,
    "w": 56,
    "h": 64
   },
   "career.chef:hurt2": {
-   "x": 898,
+   "x": 1030,
    "y": 728,
    "w": 58,
    "h": 64
   },
   "career.chimney-sweep:hurt2": {
-   "x": 958,
+   "x": 1090,
    "y": 728,
    "w": 53,
    "h": 64
   },
   "career.clown:hurt2": {
-   "x": 1013,
+   "x": 1145,
    "y": 728,
    "w": 64,
    "h": 57,
    "k": 1.12
   },
   "career.conspiracy-podcaster:hurt2": {
-   "x": 1079,
+   "x": 1211,
    "y": 728,
    "w": 62,
    "h": 64
   },
   "career.delivery-driver:hurt2": {
-   "x": 1143,
+   "x": 1275,
    "y": 728,
    "w": 60,
    "h": 64
   },
   "career.dentist:hurt2": {
-   "x": 1205,
+   "x": 1337,
    "y": 728,
    "w": 60,
    "h": 64
   },
   "career.dj:hurt2": {
-   "x": 1267,
+   "x": 1399,
    "y": 728,
    "w": 64,
    "h": 56
   },
   "career.dog-groomer:hurt2": {
-   "x": 1333,
+   "x": 1465,
    "y": 728,
    "w": 55,
    "h": 64
   },
   "career.electrician:hurt2": {
-   "x": 1390,
+   "x": 1522,
    "y": 728,
    "w": 54,
    "h": 64
   },
   "career.engineer:hurt2": {
-   "x": 1446,
+   "x": 1578,
    "y": 728,
    "w": 55,
    "h": 64
   },
   "career.farmer:hurt2": {
-   "x": 1503,
+   "x": 1635,
    "y": 728,
    "w": 64,
    "h": 53
   },
   "career.fashion-designer:hurt2": {
-   "x": 1569,
+   "x": 1701,
    "y": 728,
    "w": 64,
    "h": 64
   },
   "career.firefighter:hurt2": {
-   "x": 1635,
+   "x": 1767,
    "y": 728,
    "w": 64,
    "h": 58
   },
   "career.flight-attendant:hurt2": {
-   "x": 1701,
+   "x": 1833,
    "y": 728,
    "w": 55,
    "h": 64
   },
   "career.florist:hurt2": {
-   "x": 1758,
+   "x": 1890,
    "y": 728,
    "w": 64,
    "h": 63
   },
   "career.food-critic:hurt2": {
-   "x": 1824,
+   "x": 1956,
    "y": 728,
    "w": 64,
    "h": 62
   },
   "career.fortune-teller:hurt2": {
-   "x": 1890,
-   "y": 728,
+   "x": 2,
+   "y": 794,
    "w": 64,
    "h": 53
   },
   "career.gardener:hurt2": {
-   "x": 1956,
-   "y": 728,
+   "x": 68,
+   "y": 794,
    "w": 54,
    "h": 64
   },
   "career.hairdresser:hurt2": {
-   "x": 2,
+   "x": 124,
    "y": 794,
    "w": 54,
    "h": 64
   },
   "career.hotel-concierge:hurt2": {
-   "x": 58,
+   "x": 180,
    "y": 794,
    "w": 56,
    "h": 64
   },
   "career.ice-cream-vendor:hurt2": {
-   "x": 116,
+   "x": 238,
    "y": 794,
    "w": 53,
    "h": 64
   },
   "career.influencer:hurt2": {
-   "x": 171,
+   "x": 293,
    "y": 794,
    "w": 64,
    "h": 58
   },
   "career.janitor:hurt2": {
-   "x": 237,
+   "x": 359,
    "y": 794,
    "w": 64,
    "h": 64
   },
   "career.journalist:hurt2": {
-   "x": 303,
+   "x": 425,
    "y": 794,
    "w": 55,
    "h": 64
   },
   "career.lawyer:hurt2": {
-   "x": 360,
+   "x": 482,
    "y": 794,
    "w": 61,
    "h": 64
   },
   "career.librarian:hurt2": {
-   "x": 423,
+   "x": 545,
    "y": 794,
    "w": 64,
    "h": 59
   },
   "career.life-coach:hurt2": {
-   "x": 489,
+   "x": 611,
    "y": 794,
    "w": 54,
    "h": 64
   },
   "career.lifeguard:hurt2": {
-   "x": 545,
+   "x": 667,
    "y": 794,
    "w": 60,
    "h": 64
   },
   "career.magician:hurt2": {
-   "x": 607,
+   "x": 729,
    "y": 794,
    "w": 58,
    "h": 64
   },
   "career.marine-biologist:hurt2": {
-   "x": 667,
+   "x": 789,
    "y": 794,
    "w": 56,
    "h": 64
   },
   "career.mechanic:hurt2": {
-   "x": 725,
+   "x": 847,
    "y": 794,
    "w": 58,
    "h": 64
   },
   "career.mime:hurt2": {
-   "x": 785,
+   "x": 907,
    "y": 794,
    "w": 63,
    "h": 64
   },
   "career.museum-curator:hurt2": {
-   "x": 850,
+   "x": 972,
    "y": 794,
    "w": 63,
    "h": 64
   },
   "career.nurse:hurt2": {
-   "x": 915,
+   "x": 1037,
    "y": 794,
    "w": 56,
    "h": 64
   },
   "career.painter:hurt2": {
-   "x": 973,
+   "x": 1095,
    "y": 794,
    "w": 64,
    "h": 57
   },
   "career.paramedic:hurt2": {
-   "x": 1039,
+   "x": 1161,
    "y": 794,
    "w": 62,
    "h": 64
   },
   "career.personal-trainer:hurt2": {
-   "x": 1103,
+   "x": 1225,
    "y": 794,
    "w": 54,
    "h": 64
   },
   "career.photographer:hurt2": {
-   "x": 1159,
+   "x": 1281,
    "y": 794,
    "w": 61,
    "h": 64
   },
   "career.plumber:hurt2": {
-   "x": 1222,
+   "x": 1344,
    "y": 794,
    "w": 61,
    "h": 64
   },
   "career.police-officer:hurt2": {
-   "x": 1285,
+   "x": 1407,
    "y": 794,
    "w": 59,
    "h": 64
   },
   "career.politician:hurt2": {
-   "x": 1346,
+   "x": 1468,
    "y": 794,
    "w": 57,
    "h": 64
   },
   "career.postal-worker:hurt2": {
-   "x": 1405,
+   "x": 1527,
    "y": 794,
    "w": 60,
    "h": 64
   },
   "career.programmer:hurt2": {
-   "x": 1467,
+   "x": 1589,
    "y": 794,
    "w": 57,
    "h": 64
   },
   "career.psychologist:hurt2": {
-   "x": 1526,
+   "x": 1648,
    "y": 794,
    "w": 56,
    "h": 64
   },
+  "career.referee:hurt2": {
+   "x": 1706,
+   "y": 794,
+   "w": 64,
+   "h": 64
+  },
   "career.sailor:hurt2": {
-   "x": 1584,
+   "x": 1772,
    "y": 794,
    "w": 53,
    "h": 64
   },
   "career.scientist:hurt2": {
-   "x": 1639,
+   "x": 1827,
    "y": 794,
    "w": 57,
    "h": 64
   },
   "career.security-guard:hurt2": {
-   "x": 1698,
+   "x": 1886,
    "y": 794,
    "w": 60,
    "h": 64
   },
   "career.tailor:hurt2": {
-   "x": 1760,
+   "x": 1948,
    "y": 794,
    "w": 64,
    "h": 64
   },
   "career.tattoo-artist:hurt2": {
-   "x": 1826,
-   "y": 794,
+   "x": 2,
+   "y": 860,
    "w": 55,
    "h": 64
   },
   "career.taxi-driver:hurt2": {
-   "x": 1883,
-   "y": 794,
+   "x": 59,
+   "y": 860,
    "w": 56,
    "h": 64
   },
   "career.teacher:hurt2": {
-   "x": 1941,
-   "y": 794,
+   "x": 117,
+   "y": 860,
    "w": 58,
    "h": 64
   },
   "career.train-conductor:hurt2": {
-   "x": 2,
+   "x": 177,
    "y": 860,
    "w": 58,
    "h": 64
   },
   "career.tv-host:hurt2": {
-   "x": 62,
+   "x": 237,
    "y": 860,
    "w": 54,
    "h": 64
   },
   "career.veterinarian:hurt2": {
-   "x": 118,
+   "x": 293,
    "y": 860,
    "w": 58,
    "h": 64
   },
   "career.welder:hurt2": {
-   "x": 178,
+   "x": 353,
    "y": 860,
    "w": 53,
    "h": 64
   },
   "career.window-cleaner:hurt2": {
-   "x": 233,
+   "x": 408,
    "y": 860,
    "w": 63,
    "h": 64
   },
   "career.zookeeper:hurt2": {
-   "x": 298,
+   "x": 473,
    "y": 860,
    "w": 64,
    "h": 48
   },
   "career.accountant:hurt3": {
-   "x": 364,
+   "x": 539,
    "y": 860,
    "w": 55,
    "h": 64,
    "k": 1.15
   },
   "career.archaeologist:hurt3": {
-   "x": 421,
+   "x": 596,
    "y": 860,
    "w": 64,
    "h": 63,
    "k": 1.26
   },
   "career.astronaut:hurt3": {
-   "x": 487,
+   "x": 662,
    "y": 860,
    "w": 64,
    "h": 63,
    "k": 1.17
   },
   "career.baker:hurt3": {
-   "x": 553,
+   "x": 728,
    "y": 860,
    "w": 58,
    "h": 64,
    "k": 1.07
   },
   "career.barista:hurt3": {
-   "x": 613,
+   "x": 788,
    "y": 860,
    "w": 56,
    "h": 64
   },
   "career.beekeeper:hurt3": {
-   "x": 671,
+   "x": 846,
    "y": 860,
    "w": 63,
    "h": 64,
    "k": 1.23
   },
   "career.builder:hurt3": {
-   "x": 736,
+   "x": 911,
    "y": 860,
    "w": 51,
    "h": 64,
    "k": 1.16
   },
   "career.bus-driver:hurt3": {
-   "x": 789,
+   "x": 964,
    "y": 860,
    "w": 54,
    "h": 64,
    "k": 1.15
   },
   "career.carpenter:hurt3": {
-   "x": 845,
+   "x": 1020,
    "y": 860,
    "w": 57,
    "h": 64
   },
   "career.chef:hurt3": {
-   "x": 904,
+   "x": 1079,
    "y": 860,
    "w": 59,
    "h": 64
   },
   "career.chimney-sweep:hurt3": {
-   "x": 965,
+   "x": 1140,
    "y": 860,
    "w": 50,
    "h": 64,
    "k": 1.08
   },
   "career.clown:hurt3": {
-   "x": 1017,
+   "x": 1192,
    "y": 860,
    "w": 64,
    "h": 60,
    "k": 1.18
   },
   "career.conspiracy-podcaster:hurt3": {
-   "x": 1083,
+   "x": 1258,
    "y": 860,
    "w": 55,
    "h": 64,
    "k": 1.13
   },
   "career.delivery-driver:hurt3": {
-   "x": 1140,
+   "x": 1315,
    "y": 860,
    "w": 56,
    "h": 64,
    "k": 1.07
   },
   "career.dentist:hurt3": {
-   "x": 1198,
+   "x": 1373,
    "y": 860,
    "w": 54,
    "h": 64,
    "k": 1.11
   },
   "career.dj:hurt3": {
-   "x": 1254,
+   "x": 1429,
    "y": 860,
    "w": 60,
    "h": 64,
    "k": 1.22
   },
   "career.dog-groomer:hurt3": {
-   "x": 1316,
+   "x": 1491,
    "y": 860,
    "w": 52,
    "h": 64,
    "k": 1.08
   },
   "career.electrician:hurt3": {
-   "x": 1370,
+   "x": 1545,
    "y": 860,
    "w": 51,
    "h": 64
   },
   "career.engineer:hurt3": {
-   "x": 1423,
+   "x": 1598,
    "y": 860,
    "w": 62,
    "h": 64
   },
   "career.farmer:hurt3": {
-   "x": 1487,
+   "x": 1662,
    "y": 860,
    "w": 64,
    "h": 58,
    "k": 1.16
   },
   "career.fashion-designer:hurt3": {
-   "x": 1553,
+   "x": 1728,
    "y": 860,
    "w": 64,
    "h": 61
   },
   "career.firefighter:hurt3": {
-   "x": 1619,
+   "x": 1794,
    "y": 860,
    "w": 64,
    "h": 63,
    "k": 1.11
   },
   "career.flight-attendant:hurt3": {
-   "x": 1685,
+   "x": 1860,
    "y": 860,
    "w": 59,
    "h": 64
   },
   "career.florist:hurt3": {
-   "x": 1746,
+   "x": 1921,
    "y": 860,
    "w": 64,
    "h": 59
   },
   "career.food-critic:hurt3": {
-   "x": 1812,
-   "y": 860,
+   "x": 2,
+   "y": 926,
    "w": 63,
    "h": 64
   },
   "career.fortune-teller:hurt3": {
-   "x": 1877,
-   "y": 860,
+   "x": 67,
+   "y": 926,
    "w": 64,
    "h": 55
   },
   "career.gardener:hurt3": {
-   "x": 1943,
-   "y": 860,
+   "x": 133,
+   "y": 926,
    "w": 63,
    "h": 64
   },
   "career.hairdresser:hurt3": {
-   "x": 2,
+   "x": 198,
    "y": 926,
    "w": 56,
    "h": 64
   },
   "career.hotel-concierge:hurt3": {
-   "x": 60,
+   "x": 256,
    "y": 926,
    "w": 57,
    "h": 64
   },
   "career.ice-cream-vendor:hurt3": {
-   "x": 119,
+   "x": 315,
    "y": 926,
    "w": 62,
    "h": 64
   },
   "career.influencer:hurt3": {
-   "x": 183,
+   "x": 379,
    "y": 926,
    "w": 64,
    "h": 64,
    "k": 1.12
   },
   "career.janitor:hurt3": {
-   "x": 249,
+   "x": 445,
    "y": 926,
    "w": 62,
    "h": 64
   },
   "career.journalist:hurt3": {
-   "x": 313,
+   "x": 509,
    "y": 926,
    "w": 60,
    "h": 64
   },
   "career.lawyer:hurt3": {
-   "x": 375,
+   "x": 571,
    "y": 926,
    "w": 62,
    "h": 64
   },
   "career.librarian:hurt3": {
-   "x": 439,
+   "x": 635,
    "y": 926,
    "w": 64,
    "h": 63,
    "k": 1.09
   },
   "career.life-coach:hurt3": {
-   "x": 505,
+   "x": 701,
    "y": 926,
    "w": 59,
    "h": 64
   },
   "career.lifeguard:hurt3": {
-   "x": 566,
+   "x": 762,
    "y": 926,
    "w": 64,
    "h": 63
   },
   "career.magician:hurt3": {
-   "x": 632,
+   "x": 828,
    "y": 926,
    "w": 61,
    "h": 64
   },
   "career.marine-biologist:hurt3": {
-   "x": 695,
+   "x": 891,
    "y": 926,
    "w": 59,
    "h": 64
   },
   "career.mechanic:hurt3": {
-   "x": 756,
-   "y": 926,
-   "w": 62,
-   "h": 64
-  },
-  "career.mime:hurt3": {
-   "x": 820,
-   "y": 926,
-   "w": 64,
-   "h": 63
-  },
-  "career.museum-curator:hurt3": {
-   "x": 886,
-   "y": 926,
-   "w": 64,
-   "h": 63
-  },
-  "career.nurse:hurt3": {
    "x": 952,
    "y": 926,
    "w": 62,
    "h": 64
   },
-  "career.painter:hurt3": {
+  "career.mime:hurt3": {
    "x": 1016,
+   "y": 926,
+   "w": 64,
+   "h": 63
+  },
+  "career.museum-curator:hurt3": {
+   "x": 1082,
+   "y": 926,
+   "w": 64,
+   "h": 63
+  },
+  "career.nurse:hurt3": {
+   "x": 1148,
+   "y": 926,
+   "w": 62,
+   "h": 64
+  },
+  "career.painter:hurt3": {
+   "x": 1212,
    "y": 926,
    "w": 64,
    "h": 56
   },
   "career.paramedic:hurt3": {
-   "x": 1082,
+   "x": 1278,
    "y": 926,
    "w": 63,
    "h": 64
   },
   "career.personal-trainer:hurt3": {
-   "x": 1147,
+   "x": 1343,
    "y": 926,
    "w": 56,
    "h": 64
   },
   "career.photographer:hurt3": {
-   "x": 1205,
+   "x": 1401,
    "y": 926,
    "w": 61,
    "h": 64
   },
   "career.plumber:hurt3": {
-   "x": 1268,
+   "x": 1464,
    "y": 926,
    "w": 58,
    "h": 64
   },
   "career.police-officer:hurt3": {
-   "x": 1328,
+   "x": 1524,
    "y": 926,
    "w": 59,
    "h": 64
   },
   "career.politician:hurt3": {
-   "x": 1389,
+   "x": 1585,
    "y": 926,
    "w": 59,
    "h": 64
   },
   "career.postal-worker:hurt3": {
-   "x": 1450,
+   "x": 1646,
    "y": 926,
    "w": 55,
    "h": 64,
    "k": 1.11
   },
   "career.programmer:hurt3": {
-   "x": 1507,
+   "x": 1703,
    "y": 926,
    "w": 61,
    "h": 64
   },
   "career.psychologist:hurt3": {
-   "x": 1570,
+   "x": 1766,
    "y": 926,
    "w": 62,
    "h": 64
   },
+  "career.referee:hurt3": {
+   "x": 1830,
+   "y": 926,
+   "w": 64,
+   "h": 61
+  },
   "career.sailor:hurt3": {
-   "x": 1634,
+   "x": 1896,
    "y": 926,
    "w": 60,
    "h": 64
   },
   "career.scientist:hurt3": {
-   "x": 1696,
+   "x": 1958,
    "y": 926,
    "w": 60,
    "h": 64
   },
   "career.security-guard:hurt3": {
-   "x": 1758,
-   "y": 926,
+   "x": 2,
+   "y": 992,
    "w": 60,
    "h": 64
   },
   "career.tailor:hurt3": {
-   "x": 1820,
-   "y": 926,
+   "x": 64,
+   "y": 992,
    "w": 63,
    "h": 64
   },
   "career.tattoo-artist:hurt3": {
-   "x": 1885,
-   "y": 926,
+   "x": 129,
+   "y": 992,
    "w": 59,
    "h": 64
   },
   "career.taxi-driver:hurt3": {
-   "x": 1946,
-   "y": 926,
+   "x": 190,
+   "y": 992,
    "w": 62,
    "h": 64
   },
   "career.teacher:hurt3": {
-   "x": 2,
+   "x": 254,
    "y": 992,
    "w": 62,
    "h": 64
   },
   "career.train-conductor:hurt3": {
-   "x": 66,
+   "x": 318,
    "y": 992,
    "w": 61,
    "h": 64
   },
   "career.tv-host:hurt3": {
-   "x": 129,
+   "x": 381,
    "y": 992,
    "w": 57,
    "h": 64
   },
   "career.veterinarian:hurt3": {
-   "x": 188,
+   "x": 440,
    "y": 992,
    "w": 61,
    "h": 64
   },
   "career.welder:hurt3": {
-   "x": 251,
+   "x": 503,
    "y": 992,
    "w": 59,
    "h": 64
   },
   "career.window-cleaner:hurt3": {
-   "x": 312,
+   "x": 564,
    "y": 992,
    "w": 63,
    "h": 64
   },
   "career.zookeeper:hurt3": {
-   "x": 377,
+   "x": 629,
    "y": 992,
    "w": 64,
    "h": 58,
    "k": 1.21
   },
+  "career.referee:neutral": {
+   "x": 695,
+   "y": 992,
+   "w": 62,
+   "h": 64
+  },
+  "career.referee:surprised": {
+   "x": 759,
+   "y": 992,
+   "w": 54,
+   "h": 64
+  },
   "career.accountant:surprised2": {
-   "x": 443,
+   "x": 815,
    "y": 992,
    "w": 61,
    "h": 64
   },
   "career.archaeologist:surprised2": {
-   "x": 506,
+   "x": 878,
    "y": 992,
    "w": 64,
    "h": 55,
    "k": 1.1
   },
   "career.astronaut:surprised2": {
-   "x": 572,
+   "x": 944,
    "y": 992,
    "w": 64,
    "h": 57
   },
   "career.baker:surprised2": {
-   "x": 638,
+   "x": 1010,
    "y": 992,
    "w": 59,
    "h": 64
   },
   "career.barista:surprised2": {
-   "x": 699,
+   "x": 1071,
    "y": 992,
    "w": 63,
    "h": 64
   },
   "career.beekeeper:surprised2": {
-   "x": 764,
+   "x": 1136,
    "y": 992,
    "w": 64,
    "h": 57,
    "k": 1.08
   },
   "career.builder:surprised2": {
-   "x": 830,
+   "x": 1202,
    "y": 992,
    "w": 61,
    "h": 64
   },
   "career.bus-driver:surprised2": {
-   "x": 893,
+   "x": 1265,
    "y": 992,
    "w": 63,
    "h": 64
   },
   "career.carpenter:surprised2": {
-   "x": 958,
+   "x": 1330,
    "y": 992,
    "w": 61,
    "h": 64
   },
   "career.chef:surprised2": {
-   "x": 1021,
+   "x": 1393,
    "y": 992,
    "w": 59,
    "h": 64
   },
   "career.chimney-sweep:surprised2": {
-   "x": 1082,
+   "x": 1454,
    "y": 992,
    "w": 57,
    "h": 64
   },
   "career.clown:surprised2": {
-   "x": 1141,
+   "x": 1513,
    "y": 992,
    "w": 64,
    "h": 55,
    "k": 1.08
   },
   "career.conspiracy-podcaster:surprised2": {
-   "x": 1207,
+   "x": 1579,
    "y": 992,
    "w": 63,
    "h": 64
   },
   "career.delivery-driver:surprised2": {
-   "x": 1272,
+   "x": 1644,
    "y": 992,
    "w": 64,
    "h": 64
   },
   "career.dentist:surprised2": {
-   "x": 1338,
+   "x": 1710,
    "y": 992,
    "w": 54,
    "h": 64,
    "k": 1.11
   },
   "career.dj:surprised2": {
-   "x": 1394,
+   "x": 1766,
    "y": 992,
    "w": 64,
    "h": 63,
    "k": 1.09
   },
   "career.dog-groomer:surprised2": {
-   "x": 1460,
+   "x": 1832,
    "y": 992,
    "w": 63,
    "h": 64
   },
   "career.electrician:surprised2": {
-   "x": 1525,
+   "x": 1897,
    "y": 992,
    "w": 54,
    "h": 64
   },
   "career.engineer:surprised2": {
-   "x": 1581,
+   "x": 1953,
    "y": 992,
    "w": 64,
    "h": 63
   },
   "career.farmer:surprised2": {
-   "x": 1647,
-   "y": 992,
+   "x": 2,
+   "y": 1058,
    "w": 64,
    "h": 53
   },
   "career.fashion-designer:surprised2": {
-   "x": 1713,
-   "y": 992,
+   "x": 68,
+   "y": 1058,
    "w": 64,
    "h": 62
   },
   "career.firefighter:surprised2": {
-   "x": 1779,
-   "y": 992,
+   "x": 134,
+   "y": 1058,
    "w": 64,
    "h": 59
   },
   "career.flight-attendant:surprised2": {
-   "x": 1845,
-   "y": 992,
+   "x": 200,
+   "y": 1058,
    "w": 64,
    "h": 63
   },
   "career.florist:surprised2": {
-   "x": 1911,
-   "y": 992,
+   "x": 266,
+   "y": 1058,
    "w": 64,
    "h": 64
   },
   "career.food-critic:surprised2": {
-   "x": 1977,
-   "y": 992,
+   "x": 332,
+   "y": 1058,
    "w": 64,
    "h": 56
   },
   "career.fortune-teller:surprised2": {
-   "x": 2,
+   "x": 398,
    "y": 1058,
    "w": 64,
    "h": 52
   },
   "career.gardener:surprised2": {
-   "x": 68,
+   "x": 464,
    "y": 1058,
    "w": 61,
    "h": 64
   },
   "career.hairdresser:surprised2": {
-   "x": 131,
+   "x": 527,
    "y": 1058,
    "w": 60,
    "h": 64
   },
   "career.hotel-concierge:surprised2": {
-   "x": 193,
+   "x": 589,
    "y": 1058,
    "w": 57,
    "h": 64
   },
   "career.ice-cream-vendor:surprised2": {
-   "x": 252,
+   "x": 648,
    "y": 1058,
    "w": 61,
    "h": 64
   },
   "career.influencer:surprised2": {
-   "x": 315,
+   "x": 711,
    "y": 1058,
    "w": 64,
    "h": 61
   },
   "career.janitor:surprised2": {
-   "x": 381,
+   "x": 777,
    "y": 1058,
    "w": 58,
    "h": 64,
    "k": 1.09
   },
   "career.journalist:surprised2": {
-   "x": 441,
+   "x": 837,
    "y": 1058,
    "w": 60,
    "h": 64
   },
   "career.lawyer:surprised2": {
-   "x": 503,
+   "x": 899,
    "y": 1058,
    "w": 62,
    "h": 64
   },
   "career.librarian:surprised2": {
-   "x": 567,
+   "x": 963,
    "y": 1058,
    "w": 60,
    "h": 64,
    "k": 1.18
   },
   "career.life-coach:surprised2": {
-   "x": 629,
+   "x": 1025,
    "y": 1058,
    "w": 51,
    "h": 64
   },
   "career.lifeguard:surprised2": {
-   "x": 682,
+   "x": 1078,
    "y": 1058,
    "w": 57,
    "h": 64,
    "k": 1.07
   },
   "career.magician:surprised2": {
-   "x": 741,
+   "x": 1137,
    "y": 1058,
    "w": 55,
    "h": 64
   },
   "career.marine-biologist:surprised2": {
-   "x": 798,
+   "x": 1194,
    "y": 1058,
    "w": 64,
    "h": 62
   },
   "career.mechanic:surprised2": {
-   "x": 864,
+   "x": 1260,
    "y": 1058,
    "w": 59,
    "h": 64
   },
   "career.mime:surprised2": {
-   "x": 925,
+   "x": 1321,
    "y": 1058,
    "w": 64,
    "h": 64
   },
   "career.museum-curator:surprised2": {
-   "x": 991,
+   "x": 1387,
    "y": 1058,
    "w": 64,
    "h": 63
   },
   "career.nurse:surprised2": {
-   "x": 1057,
+   "x": 1453,
    "y": 1058,
    "w": 64,
    "h": 58
   },
   "career.painter:surprised2": {
-   "x": 1123,
+   "x": 1519,
    "y": 1058,
    "w": 64,
    "h": 56
   },
   "career.paramedic:surprised2": {
-   "x": 1189,
+   "x": 1585,
    "y": 1058,
    "w": 60,
    "h": 64
   },
   "career.personal-trainer:surprised2": {
-   "x": 1251,
+   "x": 1647,
    "y": 1058,
    "w": 59,
    "h": 64
   },
   "career.photographer:surprised2": {
-   "x": 1312,
+   "x": 1708,
    "y": 1058,
    "w": 64,
    "h": 62
   },
   "career.plumber:surprised2": {
-   "x": 1378,
+   "x": 1774,
    "y": 1058,
    "w": 64,
    "h": 64
   },
   "career.police-officer:surprised2": {
-   "x": 1444,
+   "x": 1840,
    "y": 1058,
    "w": 58,
    "h": 64
   },
   "career.politician:surprised2": {
-   "x": 1504,
+   "x": 1900,
    "y": 1058,
    "w": 57,
    "h": 64
   },
   "career.postal-worker:surprised2": {
-   "x": 1563,
+   "x": 1959,
    "y": 1058,
    "w": 57,
    "h": 64,
    "k": 1.07
   },
   "career.programmer:surprised2": {
-   "x": 1622,
-   "y": 1058,
+   "x": 2,
+   "y": 1124,
    "w": 60,
    "h": 64
   },
   "career.psychologist:surprised2": {
-   "x": 1684,
-   "y": 1058,
+   "x": 64,
+   "y": 1124,
    "w": 58,
    "h": 64
   },
+  "career.referee:surprised2": {
+   "x": 124,
+   "y": 1124,
+   "w": 63,
+   "h": 64
+  },
   "career.sailor:surprised2": {
-   "x": 1744,
-   "y": 1058,
+   "x": 189,
+   "y": 1124,
    "w": 54,
    "h": 64
   },
   "career.scientist:surprised2": {
-   "x": 1800,
-   "y": 1058,
+   "x": 245,
+   "y": 1124,
    "w": 64,
    "h": 64
   },
   "career.security-guard:surprised2": {
-   "x": 1866,
-   "y": 1058,
+   "x": 311,
+   "y": 1124,
    "w": 60,
    "h": 64
   },
   "career.tailor:surprised2": {
-   "x": 1928,
-   "y": 1058,
+   "x": 373,
+   "y": 1124,
    "w": 60,
    "h": 64
   },
   "career.tattoo-artist:surprised2": {
-   "x": 1990,
-   "y": 1058,
+   "x": 435,
+   "y": 1124,
    "w": 55,
    "h": 64
   },
   "career.taxi-driver:surprised2": {
-   "x": 2,
+   "x": 492,
    "y": 1124,
    "w": 55,
    "h": 64
   },
   "career.teacher:surprised2": {
-   "x": 59,
+   "x": 549,
    "y": 1124,
    "w": 62,
    "h": 64
   },
   "career.train-conductor:surprised2": {
-   "x": 123,
+   "x": 613,
    "y": 1124,
    "w": 57,
    "h": 64
   },
   "career.tv-host:surprised2": {
-   "x": 182,
+   "x": 672,
    "y": 1124,
    "w": 54,
    "h": 64
   },
   "career.veterinarian:surprised2": {
-   "x": 238,
+   "x": 728,
    "y": 1124,
    "w": 61,
    "h": 64
   },
   "career.welder:surprised2": {
-   "x": 301,
+   "x": 791,
    "y": 1124,
    "w": 56,
    "h": 64
   },
   "career.window-cleaner:surprised2": {
-   "x": 359,
+   "x": 849,
    "y": 1124,
    "w": 62,
    "h": 64
   },
   "career.zookeeper:surprised2": {
-   "x": 423,
+   "x": 913,
    "y": 1124,
    "w": 64,
    "h": 50

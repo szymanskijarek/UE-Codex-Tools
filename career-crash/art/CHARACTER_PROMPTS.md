@@ -1,5 +1,7 @@
 # Character prompts: the missing character art (bosses excluded)
 
+> **Status:** delivered and in the game: all five body sheets and the seven referee heads.
+
 This file is self-contained: hand it to the image agent with the reference
 images it names. Everything else in the game already has character art. What
 is still missing:

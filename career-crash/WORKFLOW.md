@@ -97,9 +97,13 @@ Check each import: the slicers write labelled previews to
 `tools/art-pipeline/out/`. Fix mislabelled or merged parts in the sheet's
 manifest (`parts`, `split`, `noFeet`, `flip`).
 
-**Still needed:** body sheets for **Security Guard, Delivery Driver, Janitor**
-and **Engineer**. They currently draw a plain body under their painted face.
-Ready-to-paste generation prompts: `art/sheets/BODY_SHEET_PROMPTS.md`.
+Every career and the referee now have body sheets and faces. The referee's
+puppet is `career.referee` in the atlas; his sheet needed a head/torso split
+override in the manifest.
+
+**Still needed:**
+- **Boss faces:** the 12 bosses still wear one fixed head (prompts in
+  `art/ART_BRIEF.md` §3).
 - **Docks obstacles:** they currently use their weathered art as the intact state, and have no
   separate damaged state. A clean "intact" sheet would complete them.
 - **Damage states for the six original arenas** (supermarket, office, diner, station,

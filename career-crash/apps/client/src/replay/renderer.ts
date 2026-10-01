@@ -830,7 +830,9 @@ export class BattleRenderer {
     root.addChild(fxG, bar, label, icons, intent);
     this.bodies.addChild(root);
     // Career art available → sprite puppet instead of the paper doll.
-    const puppet = !isRef && career && hasPuppet(career.id) ? new Puppet(career.id, r) : null;
+    // The referee has his own puppet too (art/sheets/referee.png, faces under career.referee).
+    const pupId = isRef ? 'career.referee' : career?.id;
+    const puppet = pupId && hasPuppet(pupId) ? new Puppet(pupId, r) : null;
     let emote: Text | null = null;
     if (puppet) {
       doll.visible = false;

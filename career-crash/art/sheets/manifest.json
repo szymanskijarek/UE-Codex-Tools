@@ -140,5 +140,28 @@
    "footL": 11,
    "footR": 12
   }
+ },
+ "referee": {
+  "split": [
+   [
+    0,
+    0.464
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "torso": 101,
+   "upperArmL": 2,
+   "upperArmR": 3,
+   "foreArmL": 4,
+   "foreArmR": 5,
+   "pelvis": 6,
+   "thighL": 7,
+   "thighR": 8,
+   "shinL": 9,
+   "shinR": 10,
+   "footL": 11,
+   "footR": 12
+  }
  }
 }
