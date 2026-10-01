@@ -1722,11 +1722,12 @@ export class BattleRenderer {
         break;
       }
       default: {
-        // Windmilling arms, running on air.
+        // Windmilling arms, running on air. A photo freezes them flung up and back instead:
+        // a still of the windmill catches an arm across the face.
         angle = fl.dir * (0.3 + Math.sin(age * 7) * 0.15);
-        p.armF = age * 17;
-        p.armB = age * 17 + Math.PI;
-        p.elbowF = p.elbowB = -0.4;
+        p.armF = this.photoMode ? -1.9 * back : age * 17;
+        p.armB = this.photoMode ? -1.4 * back : age * 17 + Math.PI;
+        p.elbowF = p.elbowB = this.photoMode ? -0.5 * back : -0.4;
         const run = Math.sin(age * 20);
         p.legF = run * 0.9;
         p.legB = -run * 0.9;
@@ -2709,6 +2710,8 @@ export class BattleRenderer {
   photo(id: number, opts: { zoom?: number; face?: 'hurt' | 'surprised' | null; variant?: number } = {}, px = 640): string | null {
     const s = this.chars.get(id);
     if (!this.ready || !s || !s.root.visible) return null;
+    // The subject's face stays in front of their own arms.
+    s.puppet?.headOnTop(true);
     // The face: pained or shocked when asked (one of the career's painted variants), and never mid-blink.
     const pu = s.puppet;
     const pickLook = (looks: FaceFrame[]): FaceFrame | undefined => looks[Math.min(looks.length - 1, Math.floor((opts.variant ?? 0) * looks.length))];
@@ -2762,6 +2765,7 @@ export class BattleRenderer {
     } finally {
       hide.forEach((c, i) => (c.visible = was[i]!));
       pu?.holdFace(null);
+      pu?.headOnTop(false);
     }
   }
 

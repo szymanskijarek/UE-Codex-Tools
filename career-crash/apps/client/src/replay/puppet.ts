@@ -112,6 +112,8 @@ export class Puppet {
   private ty = new Float32Array(11);
   /** While > 0, poses ease in from the current points (mode changes: stand ↔ ragdoll ↔ crawl). */
   private blendMs = 0;
+  /** Where the head and face sat in the draw order before headOnTop(true). */
+  private headSlots: number[] | null = null;
   /** Screen px per atlas px. */
   readonly k: number;
   private sprites = new Map<Slot, Sprite>();
@@ -202,6 +204,21 @@ export class Puppet {
           s.visible = false;
         }
       }
+    }
+  }
+
+  /**
+   * Draw the head and face above both arms (a photo: no arm across the face),
+   * or put them back between the torso and the front arm.
+   */
+  headOnTop(on: boolean): void {
+    const parts = [this.sprites.get('head'), this.face].filter((x): x is Sprite => !!x);
+    if (on) {
+      this.headSlots ??= parts.map((x) => this.root.getChildIndex(x));
+      for (const x of parts) this.root.setChildIndex(x, this.root.children.length - 1);
+    } else if (this.headSlots) {
+      parts.forEach((x, i) => this.root.setChildIndex(x, this.headSlots![i]!));
+      this.headSlots = null;
     }
   }
 
