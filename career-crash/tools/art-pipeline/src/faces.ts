@@ -1,7 +1,7 @@
 /**
  * Face slicer: four emotion sheets (art/faces/{neutral,angry,surprised,hurt}.png,
  * plus optional hurt-2…4 / surprised-2…3 variants (as sheets, or as single heads
- * in art/faces-pain/<frame>/<career>.webp),
+ * in art/heads/<frame>/<career>.webp),
  * each a 6 × 6 grid of heads on a transparent background, careers in
  * alphabetical order) → one atlas for the client:
  * apps/client/src/replay/faces/faces.webp + faces.json ({ "career.x:emotion": rect }).
@@ -26,9 +26,14 @@ const EMOTIONS = ['neutral', 'angry', 'surprised', 'hurt'] as const;
  * sheets): art/faces/hurt-2.png → frame `hurt2`, and so on. Missing sheets are skipped.
  */
 const VARIANTS = ['hurt-2', 'hurt-3', 'hurt-4', 'surprised-2', 'surprised-3'] as const;
-/** The same variants as single heads: art/faces-pain/<frame>/<career>.webp (frame names without the dash). */
-const PER_HEAD = join(ROOT, 'art/faces-pain');
-const FRAMES = new Set<string>(VARIANTS.map((v) => v.replace('-', '')));
+/**
+ * Single heads, one file per career: art/heads/<frame>/<career>.{png,webp}.
+ * Any emotion or variant frame (neutral, angry, surprised, hurt, hurt2…4,
+ * surprised2…3), so careers without a sheet (bosses, the referee) can have
+ * faces too. Folders starting with `_` (references) are skipped.
+ */
+const PER_HEAD = join(ROOT, 'art/heads');
+const FRAMES = new Set<string>([...EMOTIONS, ...VARIANTS.map((v) => v.replace('-', ''))]);
 /** Grid order on every sheet. */
 const CAREERS = [
   'accountant',
@@ -443,11 +448,12 @@ async function main(): Promise<void> {
       }
     }
   }
-  // Single heads, one file per career: art/faces-pain/<frame>/<career>.{png,webp} (e.g. hurt2/chef.webp).
+  // Single heads, one file per career: art/heads/<frame>/<career>.{png,webp} (e.g. hurt2/chef.webp).
   if (existsSync(PER_HEAD)) {
     for (const frame of readdirSync(PER_HEAD).sort()) {
+      if (frame.startsWith('_')) continue;
       if (!FRAMES.has(frame)) {
-        console.warn(`✗ faces-pain/${frame}: not a face variant (${[...FRAMES].join(', ')})`);
+        console.warn(`✗ heads/${frame}: not a face frame (${[...FRAMES].join(', ')})`);
         continue;
       }
       for (const file of readdirSync(join(PER_HEAD, frame)).sort()) {
@@ -457,11 +463,16 @@ async function main(): Promise<void> {
         const im = { data, W: info.width };
         const b = bbox(im, { x0: 0, y0: 0, x1: info.width, y1: info.height });
         if (!b) {
-          console.warn(`✗ faces-pain/${frame}/${file}: empty`);
+          console.warn(`✗ heads/${frame}/${file}: empty`);
+          continue;
+        }
+        const name = `career.${career}:${frame}`;
+        if (pieces.some((p) => p.name === name)) {
+          console.warn(`✗ heads/${frame}/${file}: ${name} already comes from a sheet`);
           continue;
         }
         variants++;
-        await add(`career.${career}:${frame}`, crop(im, b), b.x1 - b.x0 + 1, b.y1 - b.y0 + 1);
+        await add(name, crop(im, b), b.x1 - b.x0 + 1, b.y1 - b.y0 + 1);
       }
     }
   }

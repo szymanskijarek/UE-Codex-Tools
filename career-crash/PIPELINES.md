@@ -159,7 +159,10 @@ is empty: the 30 newer careers were re-imported from separate sheets through
   - `hurt-2`, `hurt-3`, `hurt-4`, `surprised-2`, `surprised-3` (`.png` in
     `art/faces/`, `.jpg` in `art/faces-b/`). Missing sheets are skipped.
   - Single heads work too, one per career:
-    `art/faces-pain/<frame>/<career>.webp`, for example `hurt2/chef.webp`.
+    `art/heads/<frame>/<career>.webp`, for example `hurt2/chef.webp`. This
+    works for any frame, base emotions included, so careers without a face
+    sheet (bosses, the referee) can get faces this way. Reference heads for the
+    image agent live in `art/heads/_reference/` and are not imported.
     Underscores in names are fine. This is where the 66 "fun pain" heads
     (`hurt2`) live, stored as quality-92 WebP: 837 KB, against about 6 MB as PNG.
   - They become frames `hurt2`, `surprised2` and so on.
