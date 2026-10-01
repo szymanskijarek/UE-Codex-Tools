@@ -1,5 +1,6 @@
 /**
  * Face slicer: four emotion sheets (art/faces/{neutral,angry,surprised,hurt}.png,
+ * plus optional hurt-2…4 / surprised-2…3 variants,
  * each a 6 × 6 grid of heads on a transparent background, careers in
  * alphabetical order) → one atlas for the client:
  * apps/client/src/replay/faces/faces.webp + faces.json ({ "career.x:emotion": rect }).
@@ -10,7 +11,7 @@
  *
  *   pnpm --filter @cc/art-pipeline faces
  */
-import { mkdirSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, writeFileSync } from 'node:fs';
 import { join } from 'node:path';
 import sharp, { type OverlayOptions } from 'sharp';
 import { writeSheet } from './encode';
@@ -19,6 +20,11 @@ const ROOT = new URL('../../../', import.meta.url).pathname;
 const SHEETS = join(ROOT, 'art/faces');
 const OUT = join(ROOT, 'apps/client/src/replay/faces');
 const EMOTIONS = ['neutral', 'angry', 'surprised', 'hurt'] as const;
+/**
+ * Optional extra pain and shock heads for variety (same grid as the emotion
+ * sheets): art/faces/hurt-2.png → frame `hurt2`, and so on. Missing sheets are skipped.
+ */
+const VARIANTS = ['hurt-2', 'hurt-3', 'hurt-4', 'surprised-2', 'surprised-3'] as const;
 /** Grid order on every sheet. */
 const CAREERS = [
   'accountant',
@@ -362,12 +368,14 @@ async function main(): Promise<void> {
   };
   let blinks = 0;
   let talks = 0;
+  let variants = 0;
   let total = 0;
   for (const set of SETS) {
     const sheets = new Map<string, Img>();
     let cw = 0;
     let ch = 0;
-    for (const emo of EMOTIONS) {
+    const extra = VARIANTS.filter((v) => existsSync(join(set.dir, `${v}.${set.ext}`)));
+    for (const emo of [...EMOTIONS, ...extra]) {
       const { data, info } = await sharp(join(set.dir, `${emo}.${set.ext}`))
         .ensureAlpha()
         .raw()
@@ -398,6 +406,16 @@ async function main(): Promise<void> {
         crops.set(emo, { im: c, w: b.x1 - b.x0 + 1, h: b.y1 - b.y0 + 1 });
         await add(`career.${set.careers[i]}:${emo}`, c, b.x1 - b.x0 + 1, b.y1 - b.y0 + 1);
       }
+      for (const v of extra) {
+        const im = sheets.get(v)!;
+        const b = bbox(im, cell);
+        if (!b) {
+          console.warn(`✗ ${v}: empty cell for ${set.careers[i]}`);
+          continue;
+        }
+        variants++;
+        await add(`career.${set.careers[i]}:${v.replace('-', '')}`, crop(im, b), b.x1 - b.x0 + 1, b.y1 - b.y0 + 1);
+      }
       const n = crops.get('neutral');
       const sp = crops.get('surprised');
       if (!n) continue;
@@ -421,7 +439,7 @@ async function main(): Promise<void> {
       }
     }
   }
-  console.log(`✓ ${total} careers × ${EMOTIONS.length} emotions, ${blinks} blink frames, ${talks} talk frames`);
+  console.log(`✓ ${total} careers × ${EMOTIONS.length} emotions, ${variants} extra pain/shock heads, ${blinks} blink frames, ${talks} talk frames`);
   let x = PAD;
   let y = PAD;
   let rowH = 0;

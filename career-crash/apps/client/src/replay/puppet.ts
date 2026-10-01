@@ -1,5 +1,5 @@
 import { Container, Rectangle, Sprite, Texture } from 'pixi.js';
-import { FACE_ATLAS, faceRect, type Emotion, type FaceFrame } from './face-art';
+import { EMOTION_FRAMES, FACE_ATLAS, faceRect, type Emotion, type FaceFrame } from './face-art';
 import { PUPPET_DEFS as DEFS, puppetUrl, type PuppetDef } from './puppet-art';
 import type { RagdollSpec } from './ragdoll';
 
@@ -120,7 +120,11 @@ export class Puppet {
   /** Painted face over the head (per emotion), when the career has face art. */
   private face: Sprite | null = null;
   private emotion: Emotion = 'neutral';
+  /** The painted head for the current emotion (one of its variants, picked when the emotion changes). */
+  private look: FaceFrame = 'neutral';
   private frame: FaceFrame = 'neutral';
+  /** A face held still for a photo: no blinking or talking. */
+  private held: FaceFrame | null = null;
   /** Blink/talk animation state (ms clock from animateFace). */
   private nextBlink = 1500 + Math.random() * 3000;
   private blinkUntil = 0;
@@ -205,6 +209,28 @@ export class Puppet {
   setEmotion(e: Emotion): void {
     if (!this.face || e === this.emotion || !faceTexture(this.career, e)) return;
     this.emotion = e;
+    const looks = this.facesFor(e);
+    this.look = looks[Math.floor(Math.random() * looks.length)] ?? e;
+  }
+
+  /** The painted heads this career has for an emotion (variants only when the art exists). */
+  facesFor(e: Emotion): FaceFrame[] {
+    return EMOTION_FRAMES[e].filter((f) => faceTexture(this.career, f));
+  }
+
+  /** The painted head currently worn for the emotion (never a blink or talk frame). */
+  get currentLook(): FaceFrame {
+    return this.look;
+  }
+
+  /** Hold one face still (fight photos), or let it animate again with null. Returns whether it is shown. */
+  holdFace(f: FaceFrame | null): boolean {
+    if (!this.face) return false;
+    const t = f && faceTexture(this.career, f);
+    this.held = t ? f : null;
+    this.frame = '' as FaceFrame;
+    this.animateFace(performance.now());
+    return !!t;
   }
 
   /**
@@ -213,8 +239,8 @@ export class Puppet {
    */
   animateFace(now: number): void {
     if (!this.face) return;
-    let f: FaceFrame = this.emotion;
-    if (this.emotion === 'neutral') {
+    let f: FaceFrame = this.held ?? this.look;
+    if (!this.held && this.emotion === 'neutral') {
       if (now >= this.nextBlink) {
         this.blinkUntil = now + 110;
         // Now and then a quick double blink.

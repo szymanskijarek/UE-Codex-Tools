@@ -2332,3 +2332,48 @@ body:has(.shell.li) {
   color: #9333ea;
   font-weight: 700;
 }
+
+/* The fight photo on the results screen: beside the result on wide screens, full width on phones. */
+.row.hero {
+  flex-wrap: wrap;
+}
+
+.result-photo {
+  flex: none;
+  width: 240px;
+  margin: 0;
+  padding: 8px;
+  background: #fff;
+  border: var(--outline);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  transform: rotate(1.5deg);
+}
+
+.result-photo img,
+.result-photo-wait {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  border-radius: 6px;
+  background: #e9e5df;
+}
+
+.result-photo-wait {
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.result-photo figcaption {
+  margin-top: 6px;
+  line-height: 1.3;
+}
+
+@media (max-width: 600px) {
+  .result-photo {
+    width: 100%;
+    transform: none;
+  }
+}

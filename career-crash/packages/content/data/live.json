@@ -2339,6 +2339,31 @@
    "📸 Caught {name} doing their party trick. We were the party. #Unfortunately",
    "📸 {name} from {company} brought a whole skill set. We brought a skill. #Benchmarking"
   ],
+  "feed_photo_ouch_us": [
+   "📸 Real ones post the unflattering photos. Here's {name} absorbing some feedback. #Authenticity",
+   "📸 This is what \"taking one for the team\" looks like. Proud of you, {name}. 🩹",
+   "📸 Not every day is a highlight reel. Sometimes it's {name}'s face doing this. #Vulnerability",
+   "📸 Leadership is showing up even when the day hits back. Literally, in {name}'s case.",
+   "📸 Captured the exact moment {name} learned something new about {company}. #GrowthMindset",
+   "📸 Behind the scenes at the {arena}. {name} is fine. Probably. #Resilience"
+  ],
+  "feed_photo_ouch_them": [
+   "📸 Wishing {name} from {company} a speedy recovery and a reflective weekend. #Kindness",
+   "📸 Delivered some candid feedback to {name} today. They took it… right in the face.",
+   "📸 Framing this one. {name} from {company}, meeting expectations (ours). #Results",
+   "📸 Captured {name}'s reaction to our proposal. I think they're on board. #Closing",
+   "📸 {name} from {company} discovering our competitive advantage. 💥"
+  ],
+  "feed_photo_spooked_us": [
+   "📸 Opening up about {name}'s fears. It's okay not to be okay around animals. 💙",
+   "📸 That face when the {arena} gets a surprise guest. {name}, we see you. #MentalHealth",
+   "📸 {name} meeting their biggest stakeholder: a small animal. #Boundaries"
+  ],
+  "feed_photo_spooked_them": [
+   "📸 Our team brought a plus-one. {name} from {company} did not enjoy the networking. 🐾",
+   "📸 Strategic deployment of wildlife: 10/10. {name}'s face: also 10/10. #Innovation",
+   "📸 {name} from {company} meeting our newest intern. The intern has four legs."
+  ],
   "feed_c_congrats": [
    "Congrats {first}! 🎉",
    "Well deserved!",

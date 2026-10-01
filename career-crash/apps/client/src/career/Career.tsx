@@ -5,10 +5,10 @@ import { Rng } from '@cc/sim';
 import { abilitySummary, descOf, nameOf } from '../i18n';
 import { navigate, notify } from '../state';
 import { Card, CareerChip, Portrait } from '../ui/components';
-import { type BoardRow, career, collectResults, sellLoot, companyName, currentCareer, draftCharacter, mainChar, startCareer, type CareerSave } from './model';
+import { type BoardRow, career, collectResults, lastFight, sellLoot, companyName, currentCareer, draftCharacter, mainChar, startCareer, type CareerSave } from './model';
 import { CompanyPicker } from './CompanyPicker';
 import { NamePicker } from './NamePicker';
-import { captureFightPhoto } from './photo';
+import { captureFightPhoto, developing, fightPhoto } from './photo';
 import { GearScreen } from './Gear';
 import { Hub } from './Hub';
 import { LootCard } from './Loot';
@@ -248,14 +248,27 @@ export function Loadout({ ids }: { ids?: string[] }) {
 // ---------------------------------------------------------------------------
 // Results
 // ---------------------------------------------------------------------------
+/** This fight's photo (the same one that leads the feed), or a placeholder while it develops. */
+function ResultPhoto({ s }: { s: CareerSave }) {
+  const post = s.feed?.[0]?.photo ? s.feed[0] : undefined;
+  if (!post) return null;
+  const ph = fightPhoto.value?.fight === post.fight ? fightPhoto.value : null;
+  if (!ph && developing.value !== post.fight) return null;
+  return (
+    <figure class="result-photo">
+      {ph ? <img src={ph.url} alt={`Fight photo: ${post.text}`} /> : <div class="result-photo-wait">📸 Developing…</div>}
+      <figcaption class="small">{post.text}</figcaption>
+    </figure>
+  );
+}
+
 function Results({ save: s0 }: { save: CareerSave }) {
   const [s] = useState(() => (s0.pending ? collectResults(s0) : s0));
   const r = s.last;
-  // Develop this fight's photo for the feed (the input is gone from the save once results are in).
-  const [shot] = useState(() => s0.pending?.input);
+  // Develop this fight's photo (the input is gone from the save once results are in, so it's kept in memory).
   useEffect(() => {
-    const fight = s.feed?.find((p) => p.photo)?.fight;
-    if (shot && r?.photo && fight && s.feed?.[0]?.fight === fight) void captureFightPhoto(shot, r.photo, fight);
+    const f = lastFight;
+    if (f && r?.photo && s.feed?.[0]?.fight === f.fight && fightPhoto.value?.fight !== f.fight) void captureFightPhoto(f.input, r.photo, f.fight);
   }, []);
   if (!r) {
     return (
@@ -290,6 +303,7 @@ function Results({ save: s0 }: { save: CareerSave }) {
             </div>
           )}
         </div>
+        <ResultPhoto s={s} />
       </div>
       {r.loot && <LootDrop drop={r.loot} />}
       {r.board && (

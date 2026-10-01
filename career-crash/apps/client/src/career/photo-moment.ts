@@ -1,5 +1,5 @@
 import { bundle } from '@cc/content';
-import { createBattle, type BattleInput } from '@cc/sim';
+import { createBattle, Rng, type BattleInput } from '@cc/sim';
 
 /** The best moment of a fight for its photo post (photo.ts renders it). */
 export interface PhotoMoment {
@@ -8,8 +8,23 @@ export interface PhotoMoment {
   id: number;
   name: string;
   team: number;
-  kind: 'air' | 'ko' | 'crit' | 'move';
+  /**
+   * What the subject is doing. On the receiving end (thrown, hurt, spooked)
+   * they pull a pained or shocked face, which makes the best photos; dealing
+   * it (ko, crit, move) is the fallback.
+   */
+  kind: 'air' | 'hurt' | 'spooked' | 'ko' | 'crit' | 'move';
+  /** How tight the crop is: 1 is the widest framing, smaller zooms in closer. */
+  zoom: number;
+  /** Which face to show: pained or shocked for the receiving end, else as it is. */
+  face: 'hurt' | 'surprised' | null;
+  /** Picks among the career's painted variants of that face (0–1). */
+  variant: number;
 }
+
+/** Zoom levels: the widest framing first; airborne shots keep room for the tumble. */
+const ZOOMS = [1, 0.84, 0.7, 0.58];
+const AIR_ZOOMS = [1, 0.88, 0.76];
 
 const SKIP_START_TICKS = 20;
 
@@ -22,7 +37,7 @@ export function pickPhotoMoment(input: BattleInput, favour: string[] = []): Phot
   const battle = createBattle(input, bundle);
   const world = battle.world;
   const seniors = new Set(bundle.careers.flatMap((c) => (c.senior ? [c.senior] : [])));
-  const candidates: (PhotoMoment & { score: number })[] = [];
+  const candidates: (Omit<PhotoMoment, 'zoom' | 'face' | 'variant'> & { score: number })[] = [];
   const flying = new Map<number, number>();
   const who = new Map<number, { name: string; team: number; snap: string }>();
   const add = (tick: number, id: number, raw: number, kind: PhotoMoment['kind']) => {
@@ -46,20 +61,32 @@ export function pickPhotoMoment(input: BattleInput, favour: string[] = []): Phot
         const t0 = flying.get(e.id)!;
         flying.delete(e.id);
         // Just past the middle of the flight: high up, mid-tumble.
-        if (t - t0 >= 4) add(t0 + Math.round((t - t0) * 0.45), e.id, 120 + Math.min(80, (t - t0) * 4), 'air');
+        if (t - t0 >= 4) add(t0 + Math.round((t - t0) * 0.45), e.id, 130 + Math.min(80, (t - t0) * 4), 'air');
       }
     }
+    // Taking it scores above dealing it: pained and shocked faces make the best photos.
     for (const ev of fresh) {
       if (ev.type === 'ko') {
         const c = world.events[ev.cause];
-        if (c && (c.type === 'hit' || c.type === 'crit') && c.t === ev.t) add(t, c.a, 140, 'ko');
-      } else if (ev.type === 'crit') add(t, ev.a, 80 + Math.min(40, ev.v), 'crit');
-      else if (ev.type === 'abilityCast') add(t, ev.a, seniors.has(ev.s) ? 120 : 70, 'move');
+        if (c && (c.type === 'hit' || c.type === 'crit') && c.t === ev.t) {
+          add(t + 2, ev.b, 160, 'hurt');
+          add(t, c.a, 90, 'ko');
+        }
+      } else if (ev.type === 'crit') {
+        add(t + 2, ev.b, 100 + Math.min(40, ev.v), 'hurt');
+        add(t, ev.a, 60 + Math.min(30, ev.v), 'crit');
+      } else if (ev.type === 'panic' && ev.s.startsWith('fear:')) add(t + 3, ev.a, 140, 'spooked');
+      else if (ev.type === 'abilityCast') add(t, ev.a, seniors.has(ev.s) ? 100 : 50, 'move');
     }
   }
-  let best: (PhotoMoment & { score: number }) | null = null;
+  let best: (typeof candidates)[number] | null = null;
   for (const c of candidates) if (!best || c.score > best.score) best = c;
   if (!best) return null;
   const { score: _s, ...moment } = best;
-  return moment;
+  // Vary the framing and the face from fight to fight (same fight, same photo).
+  const rng = Rng.fromSeed(`photo:${input.seed}`);
+  const zooms = moment.kind === 'air' ? AIR_ZOOMS : ZOOMS;
+  const zoom = zooms[rng.int(zooms.length)]!;
+  const face = moment.kind === 'spooked' ? 'surprised' : moment.kind === 'air' ? (rng.int(2) ? 'hurt' : 'surprised') : moment.kind === 'hurt' ? (rng.int(3) ? 'hurt' : 'surprised') : null;
+  return { ...moment, zoom, face, variant: rng.int(1000) / 1000 };
 }

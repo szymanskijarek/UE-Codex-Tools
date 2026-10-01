@@ -14,7 +14,7 @@ import { drawHeavy, heavyLength } from './heavy-art';
 import { critterSprite, CRITTER_CELL_PX, heavySprite, obstacleTexture, heldIsTool, heldSprite, loadItems, propSprite, wallSprite } from './items';
 import { extension, hitPose, MOVES, repertoire, type HitStyle, type Move } from './moves';
 import { drawWall } from './wall-art';
-import { emotionFor } from './face-art';
+import { EMOTION_FRAMES, emotionFor, type FaceFrame } from './face-art';
 import { faceTexture, hasPuppet, loadPuppets, NEUTRAL, Puppet, PUPPET_HEIGHT, type Pose } from './puppet';
 import { Ragdoll } from './ragdoll';
 import { voiceFor, type Shout, type Voice } from './voices';
@@ -1241,7 +1241,7 @@ export class BattleRenderer {
     else if (e.statuses.includes('status.cold')) tint = 0xbfdbfe;
     else if (e.statuses.includes('status.embarrassed')) tint = 0xffc4c4;
     s.torso.tint = tint;
-    s.root.alpha = e.state === 'ko' ? 0.55 : 1;
+    s.root.alpha = e.state === 'ko' && !this.photoMode ? 0.55 : 1;
     if (s.puppet) this.animatePuppet(s, s.puppet, e, t, tint, expr, { down, stunned, winding, casting }, byId);
 
     this.drawStatusFx(s, e, t, casting);
@@ -1275,7 +1275,7 @@ export class BattleRenderer {
     pu.root.visible = s.root.visible;
     pu.root.zIndex = (s.root.zIndex as number) + 0.5;
     pu.root.tint = tint;
-    pu.root.alpha = e.state === 'ko' ? 0.8 : 1;
+    pu.root.alpha = e.state === 'ko' && !this.photoMode ? 0.8 : 1;
     const emote = { angry: '💢', scared: '💦', stunned: '💫', happy: '✨', ko: '😵', hurt: '💥', sleepy: '💤', neutral: '' }[expr];
     if (s.emote && emote !== s.lastEmote) {
       s.emote.text = emote;
@@ -1506,7 +1506,7 @@ export class BattleRenderer {
     if (!s.ragG) return;
     s.rag.draw(s.ragG, { r: s.r, body: s.colors.body, skin: s.colors.skin, hair: s.colors.hair, legs: 0x1f2937, outline: OUTLINE, ko: e.state === 'ko' });
     s.ragG.zIndex = depth + 1;
-    s.ragG.alpha = e.state === 'ko' ? 0.75 : 1;
+    s.ragG.alpha = e.state === 'ko' && !this.photoMode ? 0.75 : 1;
     s.doll.visible = false;
   }
 
@@ -2552,20 +2552,36 @@ export class BattleRenderer {
     return { ready: this.ready, rootVisible: s.root.visible, puppet: !!s.puppet, puppetVisible: s.puppet?.root.visible, headVisible: head.visible, hb: [hb.x, hb.y, hb.width, hb.height], rag: !!s.rag, flight: !!s.flight };
   }
 
-  photo(id: number, px = 640): string | null {
+  photo(id: number, opts: { zoom?: number; face?: 'hurt' | 'surprised' | null; variant?: number } = {}, px = 640): string | null {
     const s = this.chars.get(id);
     if (!this.ready || !s || !s.root.visible) return null;
+    // The face: pained or shocked when asked (one of the career's painted variants), and never mid-blink.
+    const pu = s.puppet;
+    const pickLook = (looks: FaceFrame[]): FaceFrame | undefined => looks[Math.min(looks.length - 1, Math.floor((opts.variant ?? 0) * looks.length))];
+    if (pu) {
+      const want = opts.face ? pickLook(pu.facesFor(opts.face)) : undefined;
+      pu.holdFace(want ?? pu.currentLook);
+    } else if (s.faceSprite && opts.face) {
+      const want = pickLook(EMOTION_FRAMES[opts.face].filter((f) => faceTexture(`career.${s.career}`, f)));
+      const t = want && faceTexture(`career.${s.career}`, want);
+      if (t) s.faceSprite.texture = t;
+    }
     // Frame on the head, sized from the fighter's height on screen (art bounds can include big held items).
     const head = s.puppet?.headSprite() ?? s.head;
     const hb = head.getBounds();
     if (!(hb.width > 0)) return null;
     const height = s.r * PUPPET_HEIGHT * s.depth * Math.abs(this.world.worldTransform.a);
     const acrobatic = !!(s.rag || s.flight);
-    // Head and shoulders when upright; the whole tumbling body (centred on its own pieces) when airborne or floored.
-    const side = acrobatic ? height * 1.35 : height * 0.85;
+    // Widest framing (zoom 1): head and shoulders when upright, the whole tumbling body when airborne or
+    // floored. Zooming in only ever tightens it, closing in on the face.
+    const zoom = Math.max(0.4, Math.min(1, opts.zoom ?? 1));
+    const side = (acrobatic ? height * 1.35 : height * 0.85) * zoom;
     const body = acrobatic ? s.puppet?.bodyBounds() : null;
-    const cx = body ? body.x + body.width / 2 : hb.x + hb.width / 2;
-    const cy = body ? body.y + body.height / 2 : hb.y + hb.height / 2 + side * 0.22;
+    const hx = hb.x + hb.width / 2;
+    const hy = hb.y + hb.height / 2;
+    const toFace = Math.min(1, (1 - zoom) * 2);
+    const cx = body ? body.x + body.width / 2 + (hx - body.x - body.width / 2) * toFace : hx;
+    const cy = body ? body.y + body.height / 2 + (hy - body.y - body.height / 2) * toFace : hy + side * 0.22;
     const hide: Container[] = [this.uiLayer, this.banner, this.overlay, this.impactFlash, this.fxLayer];
     // Obstacles standing in front of the subject would block the shot: leave them out of the photo.
     const depthY = s.root.zIndex as number;
@@ -2588,6 +2604,7 @@ export class BattleRenderer {
       return url.startsWith('data:image/webp') ? url : canvas.toDataURL('image/jpeg', 0.85);
     } finally {
       hide.forEach((c, i) => (c.visible = was[i]!));
+      pu?.holdFace(null);
     }
   }
 

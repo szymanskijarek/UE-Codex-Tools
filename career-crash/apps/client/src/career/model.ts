@@ -240,6 +240,9 @@ export function prepareFight(s: CareerSave): BattleInput {
   return input;
 }
 
+/** The fight whose results were collected last in this session (its photo is rendered from it). */
+export let lastFight: { input: BattleInput; fight: number } | null = null;
+
 /** Apply the pending fight's result (deterministic re-simulation, so it can't be gamed). */
 export function collectResults(s: CareerSave): CareerSave {
   if (!s.pending) return s;
@@ -326,6 +329,7 @@ export function collectResults(s: CareerSave): CareerSave {
   const photo = pickPhotoMoment(input, [s.mainId]) ?? undefined;
   next.last = { stage, outcome, cash, pay, board, growth, unlockedSquad: !wasUnlocked && squadUnlocked(next), ...(loot ? { loot } : {}), ...(summons.mine.length || summons.theirs.length ? { summons } : {}), ...(photo ? { photo } : {}) };
   next.feed = [...fightPosts(next, next.last), ...(s.feed ?? [])].slice(0, FEED_CAP);
+  if (photo && next.feed[0]?.photo) lastFight = { input, fight: next.feed[0].fight };
   save(next);
   return next;
 }

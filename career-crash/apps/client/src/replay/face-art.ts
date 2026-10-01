@@ -5,8 +5,18 @@ import atlas from './faces/faces.json';
  * here, so the UI (portraits) can use it too; puppet.ts loads the texture.
  */
 export type Emotion = 'neutral' | 'angry' | 'surprised' | 'hurt';
-/** Animation frames derived from the neutral face (not every career has both). */
-export type FaceFrame = Emotion | 'blink' | 'talk';
+/** Extra pain/shock heads (optional art, see tools/art-pipeline faces.ts). */
+export type FaceVariant = 'hurt2' | 'hurt3' | 'hurt4' | 'surprised2' | 'surprised3';
+/** Animation frames derived from the neutral face (not every career has both), plus the variants. */
+export type FaceFrame = Emotion | FaceVariant | 'blink' | 'talk';
+
+/** Every painted head for an emotion, the base one first. */
+export const EMOTION_FRAMES: Record<Emotion, FaceFrame[]> = {
+  neutral: ['neutral'],
+  angry: ['angry'],
+  surprised: ['surprised', 'surprised2', 'surprised3'],
+  hurt: ['hurt', 'hurt2', 'hurt3', 'hurt4'],
+};
 
 export interface FaceRect {
   x: number;

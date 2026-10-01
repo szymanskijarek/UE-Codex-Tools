@@ -155,6 +155,12 @@ is empty: the 30 newer careers were re-imported from separate sheets through
 - **Output:** `replay/faces/faces.webp` + `faces.json` (`"career.x:emotion"` → rect).
 - **Derived frames:** `blink` (eyes painted over) and `talk` (the surprised
   mouth pasted onto the neutral face), where the art allows.
+- **Optional variants:** extra pain and shock heads on the same grid:
+  - `hurt-2`, `hurt-3`, `hurt-4`, `surprised-2`, `surprised-3` (`.png` in
+    `art/faces/`, `.jpg` in `art/faces-b/`). Missing sheets are skipped.
+  - They become frames `hurt2`, `surprised2` and so on.
+  - In fights, every new hurt or surprised expression picks one of the career's
+    variants at random. Fight photos pick one too.
 - **Size:** faces are 64 px on their longest side (`FACE_PX`), kept small because the atlas is the largest single image.
 
 ### 5.4 Items and obstacles

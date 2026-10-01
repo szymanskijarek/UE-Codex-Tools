@@ -84,6 +84,10 @@ const MOOD_OF: Record<string, Mood> = {
   feed_photo_hit_them: 'loss',
   feed_photo_move_us: 'win',
   feed_photo_move_them: 'loss',
+  feed_photo_ouch_us: 'loss',
+  feed_photo_ouch_them: 'win',
+  feed_photo_spooked_us: 'loss',
+  feed_photo_spooked_them: 'win',
   feed_summon_complain: 'news',
   feed_spooked: 'loss',
 };
@@ -268,9 +272,9 @@ export function fightPosts(s: CareerSave, r: FightSummary): FeedPost[] {
   const ph = r.photo;
   let photo: FeedPost | undefined;
   if (ph) {
-    const kind = ph.kind === 'air' ? 'air' : ph.kind === 'move' ? 'move' : 'hit';
+    const kind = ph.kind === 'air' || ph.kind === 'move' || ph.kind === 'spooked' ? ph.kind : ph.kind === 'hurt' ? 'ouch' : 'hit';
     const before = out.length;
-    add({ by: 'me', author: m.c.name, sub: headline(m.c.id), who: meWho, photo: true, tags: kind === 'air' ? '#Airtime #NewHeights' : kind === 'move' ? '#SkillsShowcase' : '#Impact #Results', reacts: 200 + rng.int(1500), comments: 10 + rng.int(90) }, `feed_photo_${kind}_${ph.team === 0 ? 'us' : 'them'}`, { name: ph.name });
+    add({ by: 'me', author: m.c.name, sub: headline(m.c.id), who: meWho, photo: true, tags: kind === 'air' ? '#Airtime #NewHeights' : kind === 'move' ? '#SkillsShowcase' : kind === 'ouch' ? '#Resilience #Candid' : kind === 'spooked' ? '#Wildlife #Unfiltered' : '#Impact #Results', reacts: 200 + rng.int(1500), comments: 10 + rng.int(90) }, `feed_photo_${kind}_${ph.team === 0 ? 'us' : 'them'}`, { name: ph.name });
     if (out.length > before) photo = out.pop();
   }
 

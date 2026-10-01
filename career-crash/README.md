@@ -45,8 +45,10 @@ pnpm dev                        # worker on :8787, client on :5173 (proxied /api
   the rest use paper dolls) with floppy ragdolls (expressions, speech bubbles, reactions), drawn props,
   ability effects, a director camera, slow-motion action replays, synthesised
   sound and Simlish-style babbling voices (6 voice types), battle reports with jump-to-moment, and the Sandbox.
-  Each career fight posts a photo at the top of the feed. The client picks the best
-  moment (airborne beats a knockout, which beats a big hit or a signature move),
+  Each career fight posts a photo on the results screen and at the top of the feed.
+  The client picks the best moment, preferring the receiving end (thrown, hurt,
+  spooked) over dealing it. The face is set to pained or shocked and never
+  mid-blink, and the zoom varies but never goes wider than the default framing. The client
   renders a close-up off screen, and keeps only the latest photo in localStorage
   (`career/photo-moment.ts`, `career/photo.ts`). A standalone
   single-file build (career mode + Sandbox): `pnpm --filter @cc/client build:standalone`.
