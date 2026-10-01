@@ -158,6 +158,10 @@ is empty: the 30 newer careers were re-imported from separate sheets through
 - **Optional variants:** extra pain and shock heads on the same grid:
   - `hurt-2`, `hurt-3`, `hurt-4`, `surprised-2`, `surprised-3` (`.png` in
     `art/faces/`, `.jpg` in `art/faces-b/`). Missing sheets are skipped.
+  - Single heads work too, one per career:
+    `art/faces-pain/<frame>/<career>.webp`, for example `hurt2/chef.webp`.
+    Underscores in names are fine. This is where the 66 "fun pain" heads
+    (`hurt2`) live, stored as quality-92 WebP: 837 KB, against about 6 MB as PNG.
   - They become frames `hurt2`, `surprised2` and so on.
   - In fights, every new hurt or surprised expression picks one of the career's
     variants at random. Fight photos pick one too.
