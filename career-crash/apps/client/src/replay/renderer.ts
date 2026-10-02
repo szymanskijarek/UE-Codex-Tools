@@ -175,6 +175,8 @@ interface CritterSprite {
 }
 
 const SUMMONS = new Map(bundle.summons.map((d) => [d.id, d]));
+/** Gatecrasher personas (07) → their set member (colour, icon, lines). */
+const CRASHER_MEMBERS = new Map<string, { art: { color: string; icon: string }; lines: string[] }>(bundle.crashers.flatMap((c) => [[c.leader.persona, c.leader] as const, [c.henchmen.persona, c.henchmen] as const]));
 /** Sprite name for a summon: its art.sprite, else its id (summon.intern → intern). */
 /** How tall a fighter is in real life, for drawing critters at their real size next to one. */
 const FIGHTER_MM = 1800;
@@ -826,7 +828,9 @@ export class BattleRenderer {
   // Characters
   // ---------------------------------------------------------------------------
   private snapOf(e: FrameEntity) {
-    return this.input.teams[e.team]?.characters.find((c) => c.id === e.snap);
+    // Gatecrashers (07) are on a side of their own, after the real teams.
+    const list = e.team >= this.input.teams.length ? (this.input.crashers?.characters ?? []) : (this.input.teams[e.team]?.characters ?? []);
+    return list.find((c) => c.id === e.snap);
   }
 
   private makeChar(e: FrameEntity): CharSprite {
@@ -845,7 +849,10 @@ export class BattleRenderer {
 
     const root = new Container();
     const shadow = new Graphics().ellipse(0, 0, r * 1.1, r * 0.45).fill({ color: 0x000000, alpha: 0.18 });
-    const ring = new Graphics().ellipse(0, 0, r * 1.15, r * 0.5).stroke({ width: Math.max(2, r * 0.18), color: isRef ? 0x111111 : TEAM_COLORS[e.team % TEAM_COLORS.length]! });
+    // Gatecrashers wear their own colour: they're nobody's team.
+    const crasher = snap?.persona ? CRASHER_MEMBERS.get(snap.persona) : undefined;
+    const ringColor = isRef ? 0x111111 : crasher ? hex(crasher.art.color) : TEAM_COLORS[e.team % TEAM_COLORS.length]!;
+    const ring = new Graphics().ellipse(0, 0, r * 1.15, r * 0.5).stroke({ width: Math.max(2, r * 0.18), color: ringColor });
     const doll = new Container();
     const feet = new Graphics();
     const torso = new Container();
@@ -891,7 +898,7 @@ export class BattleRenderer {
     const bar = new Graphics();
     bar.y = -r * 4.35;
     const labelStyle: TextStyleOptions = { fontFamily: FONT, fontSize: Math.max(9, r * 0.75), fontWeight: '800', fill: 0xffffff, stroke: { color: OUTLINE, width: 3 } };
-    const jobIcon = career?.art.icon ?? '';
+    const jobIcon = crasher?.art.icon ?? career?.art.icon ?? '';
     const label = new Text({ text: isRef ? 'REF' : `${jobIcon} ${shortName(bundle, e.name)}`.trim(), style: labelStyle, resolution: 3 });
     label.anchor.set(0.5, 1);
     label.y = -r * 4.5;
@@ -906,7 +913,9 @@ export class BattleRenderer {
     this.bodies.addChild(root);
     // Career art available → sprite puppet instead of the paper doll.
     // The referee has his own puppet too (art/sheets/referee.png, faces under career.referee).
-    const pupId = isRef ? 'career.referee' : career?.id;
+    // A gatecrasher's own sheet once it's painted, else the career they fight with.
+    const own = [snap?.personaArt, snap?.persona].find((x) => x && hasPuppet(x));
+    const pupId = isRef ? 'career.referee' : (own ?? career?.id);
     const puppet = pupId && hasPuppet(pupId) ? new Puppet(pupId, r) : null;
     let emote: Text | null = null;
     if (puppet) {

@@ -467,7 +467,8 @@ async function main(): Promise<void> {
           console.warn(`✗ heads/${frame}/${file}: empty`);
           continue;
         }
-        const name = `career.${career}:${frame}`;
+        // Gatecrasher personas (07): `npc-<persona>.png` → `npc.<persona>`.
+        const name = `${career.startsWith('npc-') ? `npc.${career.slice(4)}` : `career.${career}`}:${frame}`;
         if (pieces.some((p) => p.name === name)) {
           console.warn(`✗ heads/${frame}/${file}: ${name} already comes from a sheet`);
           continue;
@@ -476,7 +477,7 @@ async function main(): Promise<void> {
         await add(name, crop(im, b), b.x1 - b.x0 + 1, b.y1 - b.y0 + 1);
         // Extras drawn above the head (stars, hair flying up) make the art taller than the head: measure
         // the head by its width against the base emotion's proportions, so the game draws it the same size.
-        const base = pieces.find((p) => p.name === `career.${career}:${frame.replace(/\d+$/, '')}`);
+        const base = pieces.find((p) => p.name === name.replace(/\d+$/, ''));
         const me = pieces[pieces.length - 1]!;
         if (base && base !== me) {
           const k = me.h / ((me.w * base.h) / base.w);

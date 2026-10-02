@@ -12,6 +12,7 @@ import { processRules } from './systems/rules';
 import { MAX_TICKS, type BattleInput, type BattleOutput, type BattleResult, type Entity, type World } from './types';
 import { createWorld, emit, announceRivalries, isFighter } from './world';
 import { summonsTick } from './systems/summons';
+import { crashersTick } from './systems/crashers';
 
 /** Canonical serialization of world state for hashing (01 §4.3). */
 export function serializeState(w: World): string {
@@ -49,7 +50,7 @@ function mvpOf(w: World, winner: number): number {
   let best = -1;
   let bestScore = -1;
   for (const e of w.entities) {
-    if (!isFighter(e)) continue;
+    if (!isFighter(e) || e.team >= w.teamCount) continue;
     const c = e.counters;
     let s = c.kos * 100 + c.damageDealt + c.healing * 2 + c.revives * 80 - c.friendlyHits * 10;
     if (e.team === winner) s += 50;
@@ -62,7 +63,8 @@ function mvpOf(w: World, winner: number): number {
 }
 
 function finish(w: World, winner: number, reason: BattleResult['reason']): void {
-  const chars = w.entities.filter((e): e is Entity => isFighter(e));
+  // Gatecrashers (07) are nobody's side: they're left out of the result.
+  const chars = w.entities.filter((e): e is Entity => isFighter(e) && e.team < w.teamCount);
   const teamHp = Array.from({ length: w.teamCount }, (_, t) => teamHpBp(w, t));
   w.result = {
     winner,
@@ -133,6 +135,7 @@ export function step(w: World): void {
   tickStatuses(w);
   resources(w);
   summonsTick(w);
+  crashersTick(w);
   useConsumables(w);
   chokes(w);
   propsTick(w);

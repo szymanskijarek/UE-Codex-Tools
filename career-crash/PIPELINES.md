@@ -138,6 +138,10 @@ Visual rules for new art (palette, outlines, proportions, poses) are in
   height; the lower piece is numbered 101, 102, … (the chief surgeon uses this).
 - **Portraits:** careers without face-sheet heads (the bosses) use the puppet's
   head sprite as their portrait and keep one expression in fights.
+- **Gatecrashers (07):** `art/sheets/npc-<persona>.png` (and `-b` for a
+  second henchman's look) import as the persona `npc.<persona>`; heads go in
+  `art/heads/<expression>/npc-<persona>.png`. The game uses them before the
+  career's art. Brief: `art/GATECRASHER_PROMPTS.md`.
 
 ### 5.2 Grid puppets (currently unused)
 

@@ -237,4 +237,45 @@ describe('systems', () => {
     }
     expect(revenge).toBeGreaterThan(0);
   });
+
+  it('gatecrashers burst in mid-fight, fight both sides and stay out of the result', () => {
+    const rng = Rng.fromSeed('crash');
+    let fought = 0;
+    for (let i = 0; i < 8; i++) {
+      const A = randomTeam(bundle, rng, 3, 'A');
+      const B = randomTeam(bundle, rng, 3, 'B');
+      const set = bundle.crashers[i % bundle.crashers.length]!;
+      const crew = [set.leader, set.henchmen, set.henchmen].map((m, k) => char(`X${k}`, [m.career], m.personality, { persona: m.persona }));
+      const input = { ...battleInput(bundle, `crash${i}`, [A, B]), crashers: { set: set.id, tick: 200, until: 900, minActiveBp: 5000, characters: crew } };
+      const b = createBattle(input, bundle);
+      while (!b.done()) b.step();
+      const w = b.world;
+      const crash = w.events.find((e) => e.type === 'crash');
+      expect(crash, `battle ${i}`).toBeDefined();
+      expect(crash!.t).toBeGreaterThanOrEqual(200);
+      expect(crash!.s).toBe(set.id);
+      expect(crash!.v).toBe(3);
+      const ids = new Set(w.entities.filter((e) => e.team === w.crashTeam && e.kind === 'char' && e.summonOf < 0).map((e) => e.id));
+      expect(ids.size).toBe(3);
+      // They hit people on both sides.
+      const hitTeams = new Set(w.events.filter((e) => (e.type === 'hit' || e.type === 'crit') && ids.has(e.a)).map((e) => w.byId.get(e.b)?.team));
+      if (hitTeams.has(0) && hitTeams.has(1)) fought++;
+      expect(w.result!.characters.every((c) => c.team < w.teamCount)).toBe(true);
+      expect(ids.has(w.result!.mvp)).toBe(false);
+      expect(w.result!.winner).toBeLessThan(w.teamCount);
+    }
+    expect(fought).toBeGreaterThan(0);
+    // Past their last tick, or once a side is mostly down, they don't come.
+    const A = randomTeam(bundle, rng, 3, 'A');
+    const B = randomTeam(bundle, rng, 3, 'B');
+    const set = bundle.crashers[0]!;
+    const late = { ...battleInput(bundle, 'late', [A, B]), crashers: { set: set.id, tick: MAX_TICKS + 1, until: MAX_TICKS + 2, minActiveBp: 5000, characters: [char('X0', [set.leader.career], set.leader.personality)] } };
+    const b = createBattle(late, bundle);
+    while (!b.done()) b.step();
+    expect(b.world.events.some((e) => e.type === 'crash')).toBe(false);
+    const closed = { ...late, seed: 'closed', crashers: { ...late.crashers, tick: 1, until: MAX_TICKS, minActiveBp: 10001 } };
+    const c = createBattle(closed, bundle);
+    while (!c.done()) c.step();
+    expect(c.world.events.some((e) => e.type === 'crash')).toBe(false);
+  });
 });

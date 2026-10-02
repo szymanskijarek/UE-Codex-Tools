@@ -611,6 +611,12 @@ input {
   border-left: 8px solid var(--red);
 }
 
+/* Gatecrashers (07): nobody's team, hazard-tape stripes. */
+.team.crashers {
+  border-left: 8px solid #facc15;
+  background: repeating-linear-gradient(-45deg, #fffbea 0 10px, #fff 10px 20px);
+}
+
 .report {
   position: sticky;
   top: 80px;

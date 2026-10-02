@@ -25,6 +25,9 @@ const REPLAY_RUNUP_SPEED = 0.9;
 const REPLAY_SLOW_WINDOW = 7;
 /** How long a boss's entrance holds the fight before the first tick. */
 const BOSS_INTRO_MS = 3600;
+/** Gatecrashers (07): how long the fight holds while they make their entrance, and the gap between their lines. */
+const CRASH_INTRO_MS = 3400;
+const CRASH_LINE_GAP_MS = 900;
 /**
  * Whether action replays are on. A new key (was `cc.replays`): the old toggle
  * was a bare ⟲ that looked like "watch again", so players switched replays off
@@ -93,6 +96,19 @@ export function Replay({ battleId }: { battleId?: string }) {
       pushLines([{ tick: 0, text: feed.replace('{name}', snap.name).replace('{job}', nameOf(job)).replace('{line}', line), kind: 'boss', importance: 3, actors: [ent.id] }]);
       return;
     }
+  };
+  /** Gatecrashers bursting in: the fight holds while the camera's on them and each shouts a catchphrase. */
+  const crashRef = useRef<{ ids: number[]; lines: string[]; spoken: boolean[]; start: number } | null>(null);
+  const startCrash = (player: ReplayPlayer, renderer: BattleRenderer, setId: string, now: number) => {
+    const set = bundle.crashers.find((c) => c.id === setId);
+    if (!set) return;
+    const side = player.input.teams.length;
+    const ids = player.world.entities.filter((e) => e.kind === 'char' && e.team === side && e.summonOf < 0).map((e) => e.id);
+    if (!ids.length) return;
+    const pickLine = (l: string[], i: number) => l[(Math.floor(Math.random() * l.length) + i) % l.length]!;
+    const lines = ids.map((_, i) => pickLine(i === 0 ? set.leader.lines : set.henchmen.lines, i));
+    crashRef.current = { ids, lines, spoken: ids.map(() => false), start: now };
+    renderer.setReplay(ids, '🚨 GATECRASHERS!', `${nameOf(set.id)} · ${set.leader.name}, ${nameOf(set.leader.persona)}`, 0.9);
   };
   const endBossIntro = (tick: number) => {
     introRef.current = null;
@@ -195,9 +211,22 @@ export function Replay({ battleId }: { battleId?: string }) {
           if (!intro.spoken) intro.spoken = renderer.speak(intro.id, intro.line, BOSS_INTRO_MS - 500);
           if (now >= intro.until) endBossIntro(player.tick);
         }
+        const crash = crashRef.current;
+        if (crash) {
+          // One catchphrase after another, then back to the fight.
+          crash.ids.forEach((id, i) => {
+            // Each line holds until the next one starts; the last holds to the end of the entrance.
+            const last = i === crash.ids.length - 1;
+            if (!crash.spoken[i] && now - crash.start >= i * CRASH_LINE_GAP_MS) crash.spoken[i] = renderer.speak(id, crash.lines[i]!, last ? CRASH_INTRO_MS - i * CRASH_LINE_GAP_MS : CRASH_LINE_GAP_MS + 150);
+          });
+          if (now - crash.start >= CRASH_INTRO_MS) {
+            crashRef.current = null;
+            renderer.setReplay(null);
+          }
+        }
         const ar = actionRef.current;
-        // Start a pending action replay once the moment has had a beat to land.
-        if (ar && !ar.active && now >= ar.startAt) {
+        // Start a pending action replay once the moment has had a beat to land (not over an entrance).
+        if (ar && !ar.active && now >= ar.startAt && !crashRef.current) {
           ar.active = true;
           ar.returnTick = player.tick;
           ar.prevSpeed = player.speed;
@@ -222,10 +251,11 @@ export function Replay({ battleId }: { battleId?: string }) {
           ]);
         }
         // Hit stop: big impacts freeze the battle for a beat.
-        const flow = introRef.current ? 0 : renderer.timeScale();
+        const hold = !!introRef.current || !!crashRef.current;
+        const flow = hold ? 0 : renderer.timeScale();
         player.advance(dt * flow);
         const events = player.drainEvents();
-        renderer.render(player, flow || introRef.current ? dt : dt * 0.1, events);
+        renderer.render(player, flow || hold ? dt : dt * 0.1, events);
         if (ar?.active) {
           // Punchy: quick run-up, slow motion only around the impacts, then straight back.
           const slow = ar.dramatic ? REPLAY_SPEED * 0.7 : REPLAY_SPEED;
@@ -242,6 +272,9 @@ export function Replay({ battleId }: { battleId?: string }) {
           }
         } else {
           if (events.length > 0 && commentatorRef.current) pushLines(commentatorRef.current.consume(events, player.world.events, false, locate));
+          // Gatecrashers just burst in: stop for their entrance.
+          const crashEv = events.find((e) => e.type === 'crash');
+          if (crashEv && !crashRef.current) startCrash(player, renderer, crashEv.s, now);
           // Queue a replay for knockouts and other big moments.
           const pending = actionRef.current && !actionRef.current.active ? actionRef.current : null;
           if (replaysOnRef.current && (pending || (!actionRef.current && (replayCountRef.current < MAX_REPLAYS || events.some((e) => e.type === 'revenge'))))) {
@@ -343,6 +376,8 @@ export function Replay({ battleId }: { battleId?: string }) {
   const p = playerRef.current;
   const total = p?.totalTicks ?? 1;
   const finished = !!p && tick >= total;
+  // When the gatecrashers burst in (they're listed from then on).
+  const crashTick = p?.world.events.find((e) => e.type === 'crash')?.t ?? Infinity;
   if (!finished) overShownRef.current = false;
   const save = rep.id === 'career' ? career.value : null;
   const seek = (t: number) => {
@@ -522,6 +557,16 @@ export function Replay({ battleId }: { battleId?: string }) {
                 ))}
               </div>
             ))}
+            {rep.input.crashers && tick >= crashTick && (
+              <div class="team crashers">
+                <b>🚨 {nameOf(rep.input.crashers.set)}</b>
+                {rep.input.crashers.characters.map((c) => (
+                  <div class="small">
+                    {c.name} <span class="muted">({nameOf(c.persona ?? '')})</span> <CareerChain careers={c.careers} />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </div>

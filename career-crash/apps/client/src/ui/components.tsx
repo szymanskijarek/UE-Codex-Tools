@@ -44,9 +44,10 @@ export function textOn(bg: string): string {
   return lum > 150 ? '#1b1f2a' : '#ffffff';
 }
 
-export function Portrait({ c, size = 56, mood = 'neutral' }: { c: Pick<Character, 'appearance' | 'careers'>; size?: number; mood?: Emotion }) {
+export function Portrait({ c, size = 56, mood = 'neutral' }: { c: Pick<Character, 'appearance' | 'careers'> & { persona?: string; art?: string }; size?: number; mood?: Emotion }) {
   const career = bundle.careers.find((x) => x.id === c.careers[c.careers.length - 1]);
-  const fr = career ? faceRect(career.id, mood) : null;
+  // Gatecrashers (07) show their own painted face once it exists, else their career's.
+  const fr = (c.art ? faceRect(c.art, mood) : null) ?? (c.persona ? faceRect(c.persona, mood) : null) ?? (career ? faceRect(career.id, mood) : null);
   if (fr && FACE_ATLAS.url) {
     // Painted face (four emotions per career), cropped out of the face atlas.
     const S = Math.max(fr.w, fr.h) * 1.04;

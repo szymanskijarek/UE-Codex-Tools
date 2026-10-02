@@ -94,8 +94,8 @@ export class LiveCommentator {
   }
 
   /** Pick a template, avoiding the most recently used one for this kind. */
-  private make(tick: number, kind: string, importance: 1 | 2 | 3, slots: Record<string, string>, actors: number[]): LiveLine | null {
-    const list = this.bundle.live[kind];
+  private make(tick: number, kind: string, importance: 1 | 2 | 3, slots: Record<string, string>, actors: number[], lines?: string[]): LiveLine | null {
+    const list = lines ?? this.bundle.live[kind];
     if (!list || list.length === 0) return null;
     let idx = this.rng.int(list.length);
     if (list.length > 1 && this.used.get(kind) === idx) idx = (idx + 1) % list.length;
@@ -147,10 +147,16 @@ export class LiveCommentator {
     const cause = e.cause >= 0 ? all[e.cause] : undefined;
     switch (e.type) {
       case 'spawn': {
-        const snap = this.input.teams[e.v]?.characters.find((c) => c.id === e.s);
-        if (snap) this.info.set(e.a, { name: snap.name, job: this.nm(snap.careers[snap.careers.length - 1]!), careers: snap.careers, team: e.v, kind: 'char', def: snap.careers[0]! });
+        // Gatecrashers (07) are a side of their own after the real teams, and go by their job title.
+        const crasher = e.v >= this.input.teams.length;
+        const snap = (crasher ? this.input.crashers?.characters : this.input.teams[e.v]?.characters)?.find((c) => c.id === e.s);
+        if (snap) this.info.set(e.a, { name: snap.name, job: this.nm(snap.persona ?? snap.careers[snap.careers.length - 1]!), careers: snap.careers, team: e.v, kind: 'char', def: snap.careers[0]! });
         else this.info.set(e.a, { name: 'The Referee', job: 'referee', careers: [], team: -1, kind: 'npc', def: e.s });
         return null;
+      }
+      case 'crash': {
+        const set = this.bundle.crashers.find((c) => c.id === e.s);
+        return set ? this.make(e.t, 'crash', 3, base, [e.a], set.entrance) : null;
       }
       case 'propSpawned':
         this.info.set(e.b, { name: e.s, job: '', careers: [], team: -1, kind: 'prop', def: e.s });
@@ -234,6 +240,9 @@ export class LiveCommentator {
         return this.make(e.t, 'downed', 2, base, [e.a, e.b]);
       case 'ko':
         if (!bi || bi.kind !== 'char') return null;
+        // Gatecrashers: shown the door, or claiming a scalp.
+        if (bi.team >= this.input.teams.length && ai?.kind === 'char' && ai.team !== bi.team) return this.make(e.t, 'crash_out', 3, base, [e.a, e.b]);
+        if (ai?.kind === 'char' && ai.team >= this.input.teams.length && bi.team !== ai.team) return this.make(e.t, 'crash_ko', 3, base, [e.a, e.b]);
         if (ai?.kind === 'char' && ai.team === bi.team && e.a !== e.b) return this.make(e.t, 'ko_friendly', 3, base, [e.a, e.b]);
         // Bled out on the floor (the downed timer ran out) rather than finished by a hit.
         if (!['hit', 'crit'].includes(all[e.cause]?.type ?? '') || all[e.cause]!.t !== e.t) return this.make(e.t, 'ko_bleed', 2, base, [e.b]);

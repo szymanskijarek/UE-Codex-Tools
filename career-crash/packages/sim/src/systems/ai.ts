@@ -141,10 +141,13 @@ function abilityCandidates(w: World, e: Entity, enemies: Entity[], allies: Entit
  * Duel leash (02 §6.7): while a character's kick-off opponent is still up,
  * they prefer that opponent and are reluctant to chase fights far from their
  * own station. This keeps several separate scraps going instead of one pile-up.
+ * Gatecrashers who come close are the exception.
  */
 export function leashBp(e: Entity, t: Entity): number {
   if (e.duelTarget < 0) return 10000;
   if (t.id === e.duelTarget) return 15000;
+  // A gatecrasher (07) right next to you comes before your duel.
+  if (t.snap?.persona && dist(t.x, t.y, e.x, e.y) < 3000) return 16000;
   return dist(t.x, t.y, e.stationX, e.stationY) > 5000 ? 2500 : 10000;
 }
 

@@ -337,7 +337,8 @@ async function sliceSheet(name: string, override: SheetOverride): Promise<[strin
   const atlasH = y + rowH + PAD;
   mkdirSync(OUT, { recursive: true });
   await writeSheet(sharp({ create: { width: atlasW, height: atlasH, channels: 4, background: { r: 0, g: 0, b: 0, alpha: 0 } } }).composite(composite), join(OUT, `${name}.webp`), { dither: 0.5 });
-  const career = override.career ?? `career.${name}`;
+  // Gatecrasher personas (07) are `npc-<persona>.png` → `npc.<persona>`.
+  const career = override.career ?? (name.startsWith('npc-') ? `npc.${name.slice(4)}` : `career.${name}`);
   console.log(`✓ ${name} → ${career} (${atlasW}×${atlasH})`);
   return [career, { file: `${name}.webp`, w: atlasW, h: atlasH, parts: placed }];
 }

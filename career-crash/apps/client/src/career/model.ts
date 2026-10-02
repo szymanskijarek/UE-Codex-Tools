@@ -28,6 +28,7 @@ import {
   grow,
   hasMilestone,
   opponentTeam,
+  rollCrashers,
   recruitRarity,
   relationshipDeltas,
   SQUAD_UNLOCK_RANK,
@@ -110,6 +111,8 @@ export interface FightSummary {
   summons?: { mine: { by: string; summon: string }[]; theirs: string[]; spooked: { name: string; summon: string }[] };
   /** The fight's best moment for the photo post (the picture itself is rendered after, see photo.ts). */
   photo?: PhotoMoment;
+  /** Gatecrashers (07) who burst in: the set, who they were (leader first), and how many our side put down. */
+  crash?: { set: string; members: { name: string; persona: string; art?: string; career: string; appearance: { skin: string; hair: string; hairStyle: number } }[]; floored: number };
 }
 
 const KEY = 'cc.career.v1';
@@ -275,6 +278,10 @@ export function prepareFight(s: CareerSave): BattleInput {
     ],
     modifiers: [],
   };
+  // Gatecrashers (07): now and then, never in a boss fight or your very first one. As strong as you are.
+  const m = mainChar(s);
+  const crashers = info.boss || s.stage === 0 ? undefined : rollCrashers(bundle, input.seed, info.arenaId, m.c.level, careerRank(m, currentCareer(m)));
+  if (crashers) input.crashers = crashers;
   const hrUsed = team.flatMap((c) => (hr.get(c.c.id) ?? []).map((a) => ({ id: c.c.id, name: c.c.name, note: a.note.id, by: a.by })));
   save({ ...s, pending: { input, stage: s.stage, ...(hrUsed.length ? { hr: hrUsed } : {}) } });
   return input;
@@ -377,9 +384,19 @@ export function collectResults(s: CareerSave): CareerSave {
       if (who?.team === 0 && what && !summons.spooked.some((x) => x.name === who.name)) summons.spooked.push({ name: who.name, summon: what });
     }
   }
+  // Gatecrashers: who came, and how many of them our side floored.
+  const crashEv = out.events.find((e) => e.type === 'crash');
+  let crash: FightSummary['crash'];
+  if (crashEv && input.crashers) {
+    const ours = new Set(out.result.characters.filter((c) => c.team === 0).map((c) => c.entityId));
+    const crew = new Set(out.events.filter((e) => e.type === 'spawn' && e.v === input.teams.length).map((e) => e.a));
+    const floored = new Set(out.events.filter((e) => e.type === 'downed' && crew.has(e.b) && ours.has(e.a)).map((e) => e.b)).size;
+    const members = input.crashers.characters.slice(0, crashEv.v).map((c) => ({ name: c.name, persona: c.persona ?? '', art: c.personaArt, career: c.careers[0]!, appearance: c.appearance }));
+    crash = { set: crashEv.s, members, floored };
+  }
   // The previous fight's photo steers this one away from the same kind of shot and the same face.
   const photo = pickPhotoMoment(input, [s.mainId], s.last?.photo) ?? undefined;
-  next.last = { stage, outcome, cash, pay, board, growth, ...(s.pending.hr?.length ? { hr: s.pending.hr } : {}), unlockedSquad: !wasUnlocked && squadUnlocked(next), ...(loot ? { loot } : {}), ...(summons.mine.length || summons.theirs.length ? { summons } : {}), ...(photo ? { photo } : {}) };
+  next.last = { stage, outcome, cash, pay, board, growth, ...(s.pending.hr?.length ? { hr: s.pending.hr } : {}), unlockedSquad: !wasUnlocked && squadUnlocked(next), ...(loot ? { loot } : {}), ...(summons.mine.length || summons.theirs.length ? { summons } : {}), ...(photo ? { photo } : {}), ...(crash ? { crash } : {}) };
   next.feed = [...fightPosts(next, next.last), ...(s.feed ?? [])].slice(0, FEED_CAP);
   if (photo && next.feed[0]?.photo) lastFight = { input, fight: next.feed[0].fight };
   save(next);

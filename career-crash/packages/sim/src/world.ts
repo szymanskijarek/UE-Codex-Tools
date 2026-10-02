@@ -344,7 +344,7 @@ export function spawnProp(w: World, propId: string, x: number, y: number, cause 
   return added;
 }
 
-function spawnCharacter(w: World, snap: CharacterSnapshot, team: number, x: number, y: number): Entity {
+export function spawnCharacter(w: World, snap: CharacterSnapshot, team: number, x: number, y: number): Entity {
   const c = w.content;
   const e = blankEntity(w.nextId++, 'char', snap.careers[snap.careers.length - 1] ?? 'char');
   const stats = finalStats(c, snap);
@@ -581,6 +581,8 @@ export function createWorld(input: BattleInput, bundle: ContentBundle): World {
     nav: buildNav(arena),
     contacts: new Set(),
     teamCount: input.teams.length,
+    crashTeam: input.teams.length,
+    crashed: false,
     refereeId: -1,
     suddenDeathTick: SUDDEN_DEATH_TICK,
     hazardNext: arena.hazards.map((h) => h.startTick),

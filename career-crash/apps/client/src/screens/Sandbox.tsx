@@ -1,6 +1,6 @@
 import { useState } from 'preact/hooks';
 import { bundle } from '@cc/content';
-import { generateRecruit, toSnapshot } from '@cc/game-rules';
+import { crashersFor, generateRecruit, rollCrashers, toSnapshot } from '@cc/game-rules';
 import { Rng, SIM_VERSION, type BattleInput, type BattleMode, type CharacterSnapshot } from '@cc/sim';
 import { nameOf } from '../i18n';
 import { currentReplay, navigate } from '../state';
@@ -52,6 +52,8 @@ export function Sandbox() {
   const [seed, setSeed] = useState(() => Math.random().toString(16).slice(2, 10));
   const [mode, setMode] = useState<BattleMode>('duel_3v3');
   const [arena, setArena] = useState(bundle.arenas[0]!.id);
+  /** Gatecrashers (07): off, the usual small chance, or a particular set every time. */
+  const [crash, setCrash] = useState('chance');
   const size = mode === 'duel_5v5' ? 5 : 3;
   const [teams, setTeams] = useState<Slot[][]>(() => {
     const rng = Rng.fromSeed(seed);
@@ -76,6 +78,11 @@ export function Sandbox() {
       ? [...teams[0]!.slice(0, 3), ...teams[1]!.slice(0, 3)].map((s, i) => ({ playerId: `p${i}`, playerName: `Player ${i + 1}`, rating: 1000, characters: [snapshot(s, `${i < 3 ? 0 : 1}-${i % 3}`)] }))
       : teams.map((t, ti) => ({ playerId: `sandbox-${ti}`, playerName: ti === 0 ? 'Blue Team' : 'Red Team', rating: 1000, characters: t.slice(0, size).map((s, i) => snapshot(s, `${ti}-${i}`)) }));
     const input: BattleInput = { schemaVersion: 1, contentHash: bundle.hash, simVersion: SIM_VERSION, seed, arenaId: arena, mode, teams: teamSnaps, modifiers: [] };
+    // Gatecrashers as strong as the average fighter here.
+    const all = teamSnaps.flatMap((t) => t.characters);
+    const level = Math.max(1, Math.round(all.reduce((n, c) => n + c.level, 0) / Math.max(1, all.length)));
+    const crashers = crash === 'off' ? undefined : rollCrashers(bundle, seed, arena, level, 2, crash === 'chance' ? {} : { set: crash });
+    if (crashers) input.crashers = crashers;
     currentReplay.value = { id: 'local', input, title: `Sandbox · seed ${seed}`, back: '/sandbox' };
     navigate('/replay/local');
   };
@@ -98,6 +105,16 @@ export function Sandbox() {
           <select value={arena} onChange={(e) => setArena((e.target as HTMLSelectElement).value)}>
             {bundle.arenas.map((a) => (
               <option value={a.id}>{nameOf(a.id)}</option>
+            ))}
+          </select>
+        </label>
+        <label class="field">
+          Gatecrashers
+          <select value={crash} onChange={(e) => setCrash((e.target as HTMLSelectElement).value)}>
+            <option value="chance">Now and then</option>
+            <option value="off">Never</option>
+            {[...crashersFor(bundle, arena).home, ...crashersFor(bundle, arena).visiting].map((c) => (
+              <option value={c.id}>🚨 {nameOf(c.id)}</option>
             ))}
           </select>
         </label>

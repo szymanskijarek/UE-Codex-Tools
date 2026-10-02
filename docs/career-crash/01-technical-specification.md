@@ -168,6 +168,7 @@ interface BattleInput {
   mode: 'duel_3v3' | 'duel_5v5' | 'ffa' | 'koth' | 'boss';
   teams: TeamSnapshot[];      // frozen copies, not references to live characters
   modifiers: string[];        // event/season modifiers, data ids
+  crashers?: CrasherInput;    // gatecrashers (07): set, earliest/latest tick, snapshots
 }
 
 interface BattleRecord {

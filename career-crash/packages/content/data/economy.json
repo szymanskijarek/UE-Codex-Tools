@@ -54,5 +54,6 @@
     "brutalExtraRolls": 1,
     "opponentGearFromStage": [6, 18]
   },
-  "hr": { "squadSize": 2, "staffCap": 6, "gardenLeaveXpBp": 2500 }
+  "hr": { "squadSize": 2, "staffCap": 6, "gardenLeaveXpBp": 2500 },
+  "crashers": { "chanceBp": 1000, "homeBp": 6500, "earliestTick": 360, "latestTick": 1100, "minActiveBp": 6000, "sizeWeights": [2, 4, 4], "leaderLevelOffset": -1, "henchmanLevelOffset": -2, "spendBp": 6000 }
 }

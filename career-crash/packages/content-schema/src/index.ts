@@ -462,6 +462,24 @@ export const economySchema = z.object({
     /** Share of a fight's base XP for staff on Garden Leave. */
     gardenLeaveXpBp: bp,
   }),
+  /** Gatecrashers (07): how often, when, how many and how strong. */
+  crashers: z.object({
+    /** Chance a fight gets gatecrashed. */
+    chanceBp: bp,
+    /** Chance the set is one that belongs to the venue, rather than one visiting it. */
+    homeBp: bp,
+    /** The earliest and latest tick they may burst in (the fight must still be well open, see minActiveBp). */
+    earliestTick: int.min(1),
+    latestTick: int.min(1),
+    /** Each side needs at least this share of its fighters still standing, or they don't come. */
+    minActiveBp: bp,
+    /** Weights for 1, 2 or 3 of them (the leader, plus 0–2 henchmen). */
+    sizeWeights: z.array(int.min(0)).length(3),
+    /** Levels relative to the player's main character, and the share of skills they use. */
+    leaderLevelOffset: int,
+    henchmanLevelOffset: int,
+    spendBp: bp,
+  }),
 });
 export type EconomyDef = z.infer<typeof economySchema>;
 
@@ -497,6 +515,8 @@ export interface ContentBundle {
   summons: SummonDef[];
   /** Personnel-file notes per profession (06). */
   hrNotes: HrNoteDef[];
+  /** Gatecrasher sets (07). */
+  crashers: CrasherDef[];
   /** Real-world size of every piece of obstacle art (furniture.json), so each object looks the same size everywhere. */
   furniture: Record<string, FurnitureDef>;
 }
@@ -631,6 +651,40 @@ export type FurnitureDef = z.infer<typeof furnitureSchema>[string];
 export const namesSchema = z.object({ first: nameWords, last: nameWords, prefixes: nameWords, suffixes: nameWords });
 
 /** Maps content folder → schema. Order matters only for error messages. */
+/**
+ * Gatecrashers (07): a rare mid-fight interruption by up to three people who
+ * belong to the venue (or one like it): the train driver and two ticket
+ * inspectors, the hedge-fund owner and a lackey. They fight everyone, with an
+ * existing career's moves; the persona gives them a name, a job title, art and
+ * lines. Never playable.
+ */
+const crasherMemberSchema = z.object({
+  /** Persona: the job title (`<persona>.name`), and the art (puppet sheet named after it). */
+  persona: ref('npc'),
+  /** Whose moves they fight with. */
+  career: ref('career'),
+  personality: ref('personality'),
+  /** Catchphrases, shouted as they burst in. */
+  lines: z.array(z.string()).min(2),
+  art: z.object({ color: z.string().regex(/^#[0-9a-f]{6}$/), icon: z.string().max(8) }),
+});
+export const crasherSchema = z.object({
+  id: ref('crasher'),
+  /** The venue they belong to, and the others they turn up at. */
+  home: ref('arena'),
+  visits: z.array(ref('arena')).max(4),
+  leader: crasherMemberSchema.extend({ name: z.string() }),
+  /** One kind of sidekick; up to two of them come along, with these names. */
+  henchmen: crasherMemberSchema.extend({ names: z.array(z.string()).length(2) }),
+  /** The commentator as they burst in. */
+  entrance: z.array(z.string()).min(1),
+  /** The leader's post after the fight ({arena}, {me}, {company}). */
+  posts: z.array(z.string()).min(2),
+  /** The henchmen in the comments under it. */
+  comments: z.array(z.string()).min(2),
+});
+export type CrasherDef = z.infer<typeof crasherSchema>;
+
 export const COLLECTIONS = {
   statuses: statusSchema,
   abilities: abilitySchema,
@@ -648,6 +702,7 @@ export const COLLECTIONS = {
   loot: lootBaseSchema,
   summons: summonSchema,
   hrNotes: hrNoteSchema,
+  crashers: crasherSchema,
 } as const;
 export type CollectionName = keyof typeof COLLECTIONS;
 

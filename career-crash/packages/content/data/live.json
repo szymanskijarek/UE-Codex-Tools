@@ -3451,6 +3451,53 @@
    "📸 {name} from {company} experiencing {by}'s {what} first-hand. Reviews are in: ouch. #CustomerExperience",
    "📸 {what}, as delivered by {by} to {name} from {company}. 10/10, would deploy again. #Execution",
    "📸 Proud to see {by} roll out {what} in production. {name} from {company} was our first user. #ShipIt"
+  ],
+  "crash_out": [
+   "{b} the {bJob} has been shown the door by {a}!",
+   "Gatecrasher down! {a} sends {b} back where they came from.",
+   "{a} files {b} under 'uninvited'. KO!",
+   "And {b} the {bJob} is OUT. Nobody will be inviting them back.",
+   "{a} politely escorts {b} off the premises. Horizontally."
+  ],
+  "crash_ko": [
+   "{a} the {aJob} takes out {b}! Nobody even invited them!",
+   "{b} is OUT, floored by a gatecrasher! {a} doesn't even work here!",
+   "KO! {a} the {aJob} came for one thing, and it was {b}.",
+   "{b} has been knocked out by someone who isn't even in this fight. {a} the {aJob}, everybody."
+  ],
+  "feed_crashed": [
+   "Today's fight at the {arena} was interrupted by {leader}, {title}. Nobody invited them. Everybody fought them. #Disruption #Agile",
+   "Plot twist at the {arena}: {leader} ({title}) and friends burst in halfway through. Still processing. #Resilience",
+   "Not how I expected my day to go: halfway through the fight, {leader} the {title} turned up. I have questions. #WorkplaceSurprises",
+   "Shoutout to {leader}, {title}, for gatecrashing our fight at the {arena}. We floored {floored} of them. Unsolicited feedback, received. #Feedback",
+   "Gatecrashers at the {arena} today. I've added 'survived {leader}' to my skills section. #Growth"
+  ],
+  "feed_c_crash": [
+   "Who invited you though?",
+   "Is this… allowed?",
+   "Reported. Then liked.",
+   "Absolute scenes 😂",
+   "This is the content I'm here for.",
+   "{first}, this is a professional networking site.",
+   "Respect the hustle. Not the punching.",
+   "Did anyone get this on video?",
+   "HR would like to know your location.",
+   "Same thing happened at our place last week. They took the kettle."
+  ],
+  "feed_c_crash_me": [
+   "You weren't even ON a team, {first}.",
+   "Next time, ring the bell.",
+   "I've still got your shoe print on my back, {first}.",
+   "See you at the rematch. Uninvited, presumably.",
+   "You owe our team a meal deal."
+  ],
+  "feed_c_crash_about": [
+   "Hold on, who were the people in the hi-vis?",
+   "This is why I work from home.",
+   "Honestly the gatecrashers were the best bit.",
+   "Did they at least sign in at reception?",
+   "I'd pay to watch that again.",
+   "Was that part of the onboarding?"
   ]
  }
 }

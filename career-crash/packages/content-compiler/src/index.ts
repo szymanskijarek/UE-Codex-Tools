@@ -157,6 +157,7 @@ export function compileContent(dataDir: string): CompileResult {
     loot: collections.loot as ContentBundle['loot'],
     summons: collections.summons as ContentBundle['summons'],
     hrNotes: collections.hrNotes as ContentBundle['hrNotes'],
+    crashers: collections.crashers as ContentBundle['crashers'],
     furniture: furniture.data,
   };
   // Every standing obstacle takes its art's real-world footprint.
@@ -271,6 +272,7 @@ export function validateBundle(b: ContentBundle): string[] {
   }
 
   errors.push(...validateHrNotes(b));
+  errors.push(...validateCrashers(b));
 
   // Tag vocabulary (01 §5.2): every used tag must be declared.
   const used = new Set<string>();
@@ -297,6 +299,35 @@ export function validateBundle(b: ContentBundle): string[] {
 
   // Structural monetisation guard (03 §6.1) lives in game-rules; here we just keep
   // cosmetics out of stat-bearing content by construction (no cosmetic collection is compiled).
+  return errors;
+}
+
+/** Gatecrashers (07): references, locale keys, and two sets that belong to every arena. */
+function validateCrashers(b: ContentBundle): string[] {
+  const errors: string[] = [];
+  const arenas = new Set(b.arenas.map((a) => a.id));
+  const careers = new Map(b.careers.map((c) => [c.id, c]));
+  const personalities = new Set(b.personalities.map((p) => p.id));
+  const personas = new Map<string, string>();
+  const homes = new Map<string, number>();
+  for (const x of b.crashers) {
+    for (const a of [x.home, ...x.visits]) if (!arenas.has(a)) errors.push(`${x.id}: unknown arena ${a}`);
+    if (x.visits.includes(x.home)) errors.push(`${x.id}: visits its own home arena`);
+    homes.set(x.home, (homes.get(x.home) ?? 0) + 1);
+    if (!(`${x.id}.name` in b.locale)) errors.push(`locale: missing key ${x.id}.name`);
+    for (const m of [x.leader, x.henchmen]) {
+      const c = careers.get(m.career);
+      if (!c) errors.push(`${x.id}: unknown career ${m.career}`);
+      else if (c.boss || c.deprecated) errors.push(`${x.id}: ${m.career} is a boss or retired career`);
+      if (!personalities.has(m.personality)) errors.push(`${x.id}: unknown personality ${m.personality}`);
+      if (personas.has(m.persona)) errors.push(`${x.id}: persona ${m.persona} is already used by ${personas.get(m.persona)}`);
+      personas.set(m.persona, x.id);
+      if (!(`${m.persona}.name` in b.locale)) errors.push(`locale: missing key ${m.persona}.name`);
+    }
+  }
+  for (const a of arenas) if ((homes.get(a) ?? 0) < 2) errors.push(`${a}: needs at least 2 gatecrasher sets that call it home (has ${homes.get(a) ?? 0})`);
+  const e = b.economy.crashers;
+  if (e.earliestTick >= e.latestTick) errors.push('economy.crashers: earliestTick must come before latestTick');
   return errors;
 }
 

@@ -19,7 +19,7 @@ export interface FeedPost {
   author: string;
   sub: string;
   /** Portrait for people; companies and shops get an icon square instead. */
-  who?: { careers: string[]; appearance: { skin: string; hair: string; hairStyle: number } };
+  who?: { careers: string[]; appearance: { skin: string; hair: string; hairStyle: number }; persona?: string; art?: string };
   icon?: string;
   text: string;
   tags?: string;
@@ -29,7 +29,10 @@ export interface FeedPost {
   /** What the post is about — drives who comments and how people react. */
   mood?: Mood;
   /** Who wrote it. */
-  by?: 'me' | 'staff' | 'temp' | 'company' | 'stranger';
+  by?: 'me' | 'staff' | 'temp' | 'company' | 'stranger' | 'crasher';
+  /** Gatecrashers (07): the set that crashed the fight, and its members (they turn up in the comments). */
+  crash?: string;
+  crew?: { name: string; career: string; persona: string; art?: string; appearance: { skin: string; hair: string; hairStyle: number } }[];
   /** The people from that fight's other team (they turn up in the comments). */
   cast?: { name: string; career: string; appearance: { skin: string; hair: string; hairStyle: number } }[];
   company?: string;
@@ -39,7 +42,7 @@ export interface FeedPost {
   mine?: { react?: ReactionKind; said?: string[] };
 }
 
-export type Mood = 'win' | 'loss' | 'draw' | 'news' | 'beaten' | 'gloat' | 'network' | 'company' | 'temp' | 'perk';
+export type Mood = 'win' | 'loss' | 'draw' | 'news' | 'beaten' | 'gloat' | 'network' | 'company' | 'temp' | 'perk' | 'crash';
 export type ReactionKind = 'like' | 'celebrate' | 'love' | 'insightful' | 'funny' | 'support';
 export const REACTIONS: [ReactionKind, string, string][] = [
   ['like', '👍', 'Like'],
@@ -102,6 +105,7 @@ const MOOD_OF: Record<string, Mood> = {
   feed_photo_ouch_move_them: 'win',
   feed_summon_complain: 'news',
   feed_spooked: 'loss',
+  feed_crashed: 'crash',
 };
 
 export const FEED_CAP = 150;
@@ -189,10 +193,10 @@ export function fightPosts(s: CareerSave, r: FightSummary): FeedPost[] {
   const out: FeedPost[] = [];
   let n = 0;
   const cast = board.filter((b) => b.team !== 0).map((b) => ({ name: b.name, career: b.career, appearance: b.appearance }));
-  const add = (p: Omit<FeedPost, 'id' | 'fight' | 'reacts' | 'comments' | 'text'> & { reacts?: number; comments?: number }, key: string, extra: Record<string, string | number> = {}) => {
-    const list = lines(key);
+  const add = (p: Omit<FeedPost, 'id' | 'fight' | 'reacts' | 'comments' | 'text'> & { reacts?: number; comments?: number; mood?: Mood }, key: string, extra: Record<string, string | number> = {}, own?: string[]) => {
+    const list = own ?? lines(key);
     if (!list.length) return;
-    const mood = MOOD_OF[key] ?? 'network';
+    const mood = p.mood ?? MOOD_OF[key] ?? 'network';
     out.push({ reacts: 10 + rng.int(300), comments: rng.int(45), ...p, id: `${fightNo}-${n++}`, fight: fightNo, text: fill(pick(list), { ...slots, ...extra }), mood, cast, company: info.company });
   };
   const meWho = { careers: [currentCareer(m)], appearance: m.c.appearance };
@@ -273,6 +277,17 @@ export function fightPosts(s: CareerSave, r: FightSummary): FeedPost[] {
       const cc = Object.values(s.chars).find((c) => c.c.name === sp.name);
       if (cc) add({ by: cc.c.id === m.c.id ? 'me' : 'staff', author: cc.c.name, sub: headline(cc.c.id), who: { careers: [currentCareer(cc)], appearance: cc.c.appearance }, tags: '#Vulnerability #MentalHealthMatters' }, 'feed_spooked', { critter: critter(sp.summon) });
     }
+  }
+
+  // 4c. Gatecrashers (07): the leader's take on it, and usually yours.
+  const cr = r.crash;
+  const set = cr && bundle.crashers.find((c) => c.id === cr.set);
+  if (cr && set && cr.members[0]) {
+    const lead = cr.members[0];
+    const crew = cr.members.map((x) => ({ name: x.name, career: x.career, persona: x.persona, ...(x.art ? { art: x.art } : {}), appearance: x.appearance }));
+    const extra = { leader: lead.name, title: nameOf(lead.persona), floored: cr.floored };
+    add({ by: 'crasher', author: lead.name, sub: `${nameOf(lead.persona)} · ${nameOf(set.id)}`, who: { careers: [lead.career], appearance: lead.appearance, persona: lead.persona }, crash: set.id, crew, mood: 'crash', reacts: 300 + rng.int(3000), comments: 20 + rng.int(150) }, 'crash_post', extra, set.posts);
+    if (chance(0.7)) add({ by: 'me', author: m.c.name, sub: headline(m.c.id), who: meWho, crash: set.id, crew, tags: '#Gatecrashed', reacts: 100 + rng.int(900), comments: 10 + rng.int(80) }, 'feed_crashed', extra);
   }
 
   // 5. Strangers with opinions, and the odd item testimonial.
@@ -390,6 +405,7 @@ const REACT_WEIGHTS: Record<Mood, Partial<Record<ReactionKind, number>>> = {
   company: { like: 4, funny: 2, insightful: 1 },
   temp: { like: 4, support: 2, celebrate: 1 },
   perk: { celebrate: 6, love: 3, funny: 3, insightful: 1 },
+  crash: { funny: 7, like: 2, insightful: 1, support: 1 },
 };
 
 type Speaker = Pick<FeedComment, 'author' | 'sub' | 'who' | 'icon'>;
@@ -430,8 +446,10 @@ export function discussion(p: FeedPost, s: CareerSave): Discussion {
 
   const first = shortName(bundle, p.author);
   const slots = { first, author: p.author, company: p.company ?? 'them', me: m.c.name, arena: 'arena' };
+  // Gatecrashers' own lines: what the henchmen say under the post.
+  const crashSet = p.crash ? bundle.crashers.find((c) => c.id === p.crash) : undefined;
   const say = (key: string, extra: Record<string, string> = {}) => {
-    const l = bundle.live[key] ?? bundle.live.feed_c_generic ?? ['Nice.'];
+    const l = (key === 'crash_crew' ? crashSet?.comments : undefined) ?? bundle.live[key] ?? bundle.live.feed_c_generic ?? ['Nice.'];
     return fill(l[rng.int(l.length)]!, { ...slots, ...extra });
   };
   const own = p.by === 'me';
@@ -440,7 +458,14 @@ export function discussion(p: FeedPost, s: CareerSave): Discussion {
   const fromStaff = () => (staff.length ? pick(staff) : null);
   const fromRivals = () => (rivals.length ? pick(rivals) : null);
   const meIfNotAuthor = () => (own ? null : me);
+  const crew: Speaker[] = (p.crew ?? []).filter((x) => x.name !== p.author).map((x) => ({ author: x.name, sub: `${nameOf(x.persona)} · ${crashSet ? nameOf(crashSet.id) : 'Gatecrasher'}`, who: { careers: [x.career], appearance: x.appearance, persona: x.persona, ...(x.art ? { art: x.art } : {}) } }));
+  const fromCrew = () => (crew.length ? pick(crew) : null);
   switch (mood) {
+    case 'crash':
+      // The henchmen pile in under their leader's post; on yours, they still turn up.
+      if (p.by === 'crasher') opts.push([fromCrew, 'crash_crew'], [fromCrew, 'crash_crew'], [meIfNotAuthor, 'feed_c_crash_me'], [fromStaff, 'feed_c_crash'], [stranger, 'feed_c_crash'], [stranger, 'feed_c_crash']);
+      else opts.push([fromCrew, 'crash_crew'], [fromStaff, 'feed_c_crash_about'], [stranger, 'feed_c_crash_about'], [stranger, 'feed_c_crash_about'], [stranger, 'feed_c_generic']);
+      break;
     case 'win':
       opts.push([fromStaff, own ? 'feed_c_teammate' : 'feed_c_congrats'], [meIfNotAuthor, 'feed_c_congrats'], [fromRivals, 'feed_c_rival_win'], [fromRivals, 'feed_c_rival_win'], [stranger, 'feed_c_congrats'], [stranger, 'feed_c_congrats'], [stranger, 'feed_c_recruiter'], [stranger, 'feed_c_generic']);
       break;

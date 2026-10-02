@@ -3,7 +3,7 @@ import type { ContentIndex } from './content';
 import type { Rng } from './core/rng';
 import type { NavGrid } from './systems/nav';
 
-export const SIM_VERSION = '0.14.0';
+export const SIM_VERSION = '0.15.0';
 export const TICKS_PER_SECOND = 20;
 export const MAX_TICKS = 2400;
 export const ENTITY_CAP = 256;
@@ -51,6 +51,28 @@ export interface CharacterSnapshot {
   loadout?: string[];
   /** Statuses applied at kick-off, with kick-off consumables (career-mode HR notes, 06). */
   startStatuses?: { status: string; durationTicks: number }[];
+  /** Gatecrashers (07): who they are (job title and art), on top of the career they fight with. */
+  persona?: string;
+  /** Gatecrashers: a second look for the second henchman (`<persona>-b`), used when that art exists. */
+  personaArt?: string;
+}
+
+/**
+ * Gatecrashers (07): up to three people who burst into the fight from tick
+ * `tick` on, as a side of their own that fights everyone. They only come while
+ * the fight is still well open (see `minActiveBp`), and never count towards
+ * the result.
+ */
+export interface CrasherInput {
+  /** The set (content id), for lines and art. */
+  set: string;
+  /** Earliest tick they may come in, and the last; past it they don't come. */
+  tick: number;
+  until: number;
+  /** Each side needs this share of its fighters still standing. */
+  minActiveBp: number;
+  /** The leader first. */
+  characters: CharacterSnapshot[];
 }
 
 export interface TeamSnapshot {
@@ -69,6 +91,7 @@ export interface BattleInput {
   mode: BattleMode;
   teams: TeamSnapshot[];
   modifiers: string[];
+  crashers?: CrasherInput;
 }
 
 // ---------------------------------------------------------------------------
@@ -118,6 +141,8 @@ export type EventType =
   | 'wallHit'
   | 'wallBroken'
   | 'rivalry'
+  /** Gatecrashers burst in (07): a = the leader, v = how many, s = the set id. */
+  | 'crash'
   | 'revenge'
   | 'consume'
   | 'disarm'
@@ -325,6 +350,9 @@ export interface World {
   nav: NavGrid;
   contacts: Set<number>;
   teamCount: number;
+  /** Gatecrashers: their side (one past the last real team), and whether they've come in. */
+  crashTeam: number;
+  crashed: boolean;
   refereeId: number;
   suddenDeathTick: number;
   hazardNext: number[];

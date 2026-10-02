@@ -15,6 +15,7 @@ can build the game incrementally without inventing architecture as it goes.
 | 04 | [AI-Agent Implementation Roadmap](04-ai-agent-roadmap.md) | In what order is it built, and how is each step verified? |
 | 05 | [Summons & Senior Moves](05-summons-and-senior-moves.md) | A new move for every career, summoned critters, fears and panic, and the art they need. |
 | 06 | [Personnel Files & Garden Leave](06-personnel-files-and-garden-leave.md) | Bigger staff, the Garden Leave bench, and each profession's hidden HR notes (buffs and debuffs by arena, colleague, opponent, perk or snack). |
+| 07 | [Gatecrashers](07-gatecrashers.md) | The rare mid-fight interruption by people who belong to the venue: 24 sets, when they come, how strong they are, and the posts they leave. |
 
 ## Precedence
 

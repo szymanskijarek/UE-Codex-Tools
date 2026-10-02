@@ -394,6 +394,8 @@ battles are spread across the arena:
   and they drift back if dragged more than 6 m away.
 - Once the partner is down, the character is free and joins the nearest fight,
   so scraps merge naturally towards the end.
+- Gatecrashers (07) are the exception: one within 3 m outranks the duel
+  partner (×1.6), so a scrap they barge into turns on them.
 
 Measured effect: average number of separate fight groups between 7.5 s and
 45 s rose from 1.6 to 2.3 (3v3) and to 3.2 (5v5). Live commentary cuts
