@@ -582,6 +582,12 @@ input {
   padding: 4px 10px;
 }
 
+/* Replays switched off: greyed out, so it reads as a setting rather than a button that does nothing. */
+.controls button.replay-toggle.off {
+  opacity: 0.6;
+  text-decoration: line-through;
+}
+
 .teams {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));

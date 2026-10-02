@@ -25,7 +25,12 @@ const REPLAY_RUNUP_SPEED = 0.9;
 const REPLAY_SLOW_WINDOW = 7;
 /** How long a boss's entrance holds the fight before the first tick. */
 const BOSS_INTRO_MS = 3600;
-const REPLAY_KEY = 'cc.replays';
+/**
+ * Whether action replays are on. A new key (was `cc.replays`): the old toggle
+ * was a bare ⟲ that looked like "watch again", so players switched replays off
+ * by accident and never got them back. Everyone starts with them on again.
+ */
+const REPLAY_KEY = 'cc.replays.v2';
 
 function readReplayPref(): boolean {
   try {
@@ -416,13 +421,15 @@ export function Replay({ battleId }: { battleId?: string }) {
               {muted ? '🔇' : '🔊'}
             </button>
             <button
-              class={replaysOn ? 'on' : ''}
-              aria-label="Toggle action replays"
-              title="Slow-motion replays of knockouts"
+              class={`replay-toggle ${replaysOn ? 'on' : 'off'}`}
+              aria-pressed={replaysOn}
+              aria-label={replaysOn ? 'Action replays on: tap to turn off' : 'Action replays off: tap to turn on'}
+              title="Slow-motion replays of knockouts and big moments"
               onClick={() => {
                 const v = !replaysOn;
                 setReplaysOn(v);
                 replaysOnRef.current = v;
+                notify(v ? '🎬 Action replays on.' : '🎬 Action replays off. Tap 🎬 to bring them back.', v ? 'good' : 'info');
                 try {
                   window.localStorage.setItem(REPLAY_KEY, v ? '1' : '0');
                 } catch {
@@ -430,7 +437,7 @@ export function Replay({ battleId }: { battleId?: string }) {
                 }
               }}
             >
-              ⟲
+              🎬 {replaysOn ? 'On' : 'Off'}
             </button>
             {inReplay && (
               <button
