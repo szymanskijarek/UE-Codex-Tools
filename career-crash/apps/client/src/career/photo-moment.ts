@@ -23,6 +23,12 @@ export interface PhotoMoment {
   withName?: string;
   /** For critter shots: which summon it is (for the caption). */
   critter?: string;
+  /**
+   * What landed the blow, for the caption: an object with its article ("a frying
+   * pan", "a flying Freya") or a signature move's name ("Flambé").
+   */
+  what?: string;
+  whatKind?: 'item' | 'move';
   /** How tight the crop is: 1 is the widest framing, smaller zooms in closer. */
   zoom: number;
   /** Which face to show: pained or shocked for the receiving end, else as it is. */
@@ -83,6 +89,31 @@ export function pickPhotoMoment(input: BattleInput, main: string[] = [], last?: 
     const f = who.get(id);
     return f ? { with: id, withName: f.name } : {};
   };
+  const named = (id: string): string => bundle.locale[`${id}.name`] ?? id.replace(/^[a-z]+\./, '').replace(/-/g, ' ');
+  /** "a frying pan", "a pair of scissors", "some sparks". */
+  const withArticle = (name: string): string => {
+    const n = name.toLowerCase();
+    if (/^(sparks|broken glass)$/.test(n)) return `some ${n}`;
+    const last = n.split(' ').pop() ?? n;
+    if (last.endsWith('s') && !last.endsWith('ss') && last !== 'thermos' && !n.includes(' of ')) return `a pair of ${n}`;
+    return `a ${n}`;
+  };
+  const item = (id: string): Partial<Candidate> => ({ what: withArticle(named(id)), whatKind: 'item' });
+  /** What a hit was dealt with: the thrown or swung object, the move, the machine, the flying colleague. */
+  const blowFrom = (hit: (typeof world.events)[number]): Partial<Candidate> => {
+    const src = world.byId.get(hit.a);
+    const c = world.events[hit.cause];
+    if (hit.s === 'body' && src) return { what: `a flying ${src.name}`, whatKind: 'item' };
+    if (src && src.kind === 'prop') return item(src.def);
+    if (src && src.summonOf >= 0) return item(src.summonDef);
+    if (!c) return {};
+    if (c.type === 'throw' && c.s) return item(c.s);
+    if (c.type === 'attack') return c.s ? item(c.s) : { what: 'a bare-knuckle shove', whatKind: 'item' };
+    if (c.type === 'abilityCast' && c.s) return { what: named(c.s), whatKind: 'move' };
+    if (c.type === 'statusApplied' && c.s === 'status.choked') return { what: 'a choke hold', whatKind: 'item' };
+    if (c.type === 'statusApplied' && c.s === 'status.burning') return { what: 'a small but enthusiastic fire', whatKind: 'item' };
+    return {};
+  };
   let cursor = world.events.length;
   let lastKo: Candidate | null = null;
   while (!battle.done()) {
@@ -114,12 +145,12 @@ export function pickPhotoMoment(input: BattleInput, main: string[] = [], last?: 
         // The blow that put them down: the victim's face, with whoever landed it in the shot.
         if (struck && who.has(ev.b)) {
           const before = candidates.length;
-          add(t + 2, ev.b, ev.type === 'ko' ? 170 : 150, 'finisher', by(ev.a !== ev.b ? ev.a : -1));
+          add(t + 2, ev.b, ev.type === 'ko' ? 170 : 150, 'finisher', { ...by(ev.a !== ev.b ? ev.a : -1), ...blowFrom(cause) });
           if (ev.type === 'ko' && candidates.length > before) lastKo = candidates[candidates.length - 1]!;
           add(t, ev.a, 90, 'ko', by(ev.b));
         }
       } else if (ev.type === 'crit') {
-        add(t + 2, ev.b, 100 + Math.min(40, ev.v), 'hurt', by(ev.a));
+        add(t + 2, ev.b, 100 + Math.min(40, ev.v), 'hurt', { ...by(ev.a), ...blowFrom(ev) });
         add(t, ev.a, 60 + Math.min(30, ev.v), 'crit', by(ev.b));
       } else if (ev.type === 'attack' && critters.has(ev.a)) {
         // An animal (or a summoned person) going for a fighter.

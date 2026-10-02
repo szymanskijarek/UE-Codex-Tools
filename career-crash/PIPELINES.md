@@ -258,9 +258,11 @@ is empty: the 30 newer careers were re-imported from separate sheets through
   transparent background, each animal as pose A (standing) then pose B
   (moving). Names in reading order in `art/critters/manifest.json` (`null`
   skips a cell); pose B is `<name>-b`, and `puff` is the dust cloud.
-- **Output:** `replay/critters/critters.webp` + `critters.json`. Every cell is
-  scaled by the same factor, so animals keep their relative size (a crab
-  stays smaller than a capybara).
+- **Output:** `replay/critters/critters.webp` + `critters.json`.
+- **Size in game:** each summon's `art.heightMm` (`data/summons/`) sets how tall it
+  is drawn next to a fighter (about 1800 mm), measured on its standing pose. The
+  smallest critters are a little exaggerated so they read on screen. New summons
+  need a height; the content build fails without one.
 - **Wiring:** a summon's `art.sprite` in `data/summons/` names the sprite.
   Human summons need no art: they use the drawn body in `art.color` holding
   `art.held`.

@@ -22,7 +22,8 @@
    "critter"
   ],
   "art": {
-   "sprite": "rabbit"
+   "sprite": "rabbit",
+   "heightMm": 380
   }
  },
  {
@@ -52,7 +53,8 @@
    "cat"
   ],
   "art": {
-   "sprite": "black-cat"
+   "sprite": "black-cat",
+   "heightMm": 380
   }
  },
  {
@@ -92,7 +94,8 @@
    "critter"
   ],
   "art": {
-   "sprite": "capybara"
+   "sprite": "capybara",
+   "heightMm": 620
   }
  },
  {
@@ -118,7 +121,8 @@
    "critter"
   ],
   "art": {
-   "sprite": "dik-dik"
+   "sprite": "dik-dik",
+   "heightMm": 560
   }
  },
  {
@@ -150,7 +154,8 @@
    "dog"
   ],
   "art": {
-   "sprite": "poodle"
+   "sprite": "poodle",
+   "heightMm": 650
   }
  },
  {
@@ -182,7 +187,8 @@
    "bird"
   ],
   "art": {
-   "sprite": "goose"
+   "sprite": "goose",
+   "heightMm": 760
   }
  },
  {
@@ -214,7 +220,8 @@
    "critter"
   ],
   "art": {
-   "sprite": "crab"
+   "sprite": "crab",
+   "heightMm": 230
   }
  },
  {
@@ -250,7 +257,8 @@
    "bird"
   ],
   "art": {
-   "sprite": "seagull"
+   "sprite": "seagull",
+   "heightMm": 430
   }
  },
  {
@@ -281,7 +289,8 @@
    "bird"
   ],
   "art": {
-   "sprite": "pigeon"
+   "sprite": "pigeon",
+   "heightMm": 330
   }
  },
  {
@@ -307,7 +316,8 @@
    "critter"
   ],
   "art": {
-   "sprite": "lab-rat"
+   "sprite": "lab-rat",
+   "heightMm": 170
   }
  },
  {
@@ -349,7 +359,8 @@
    "dog"
   ],
   "art": {
-   "sprite": "therapy-dog"
+   "sprite": "therapy-dog",
+   "heightMm": 660
   }
  },
  {
@@ -380,7 +391,8 @@
    "bug"
   ],
   "art": {
-   "sprite": "beetle"
+   "sprite": "beetle",
+   "heightMm": 150
   }
  },
  {
@@ -411,7 +423,8 @@
    "critter"
   ],
   "art": {
-   "sprite": "kitchen-rat"
+   "sprite": "kitchen-rat",
+   "heightMm": 210
   }
  },
  {
@@ -447,7 +460,8 @@
    "bug"
   ],
   "art": {
-   "sprite": "scarab"
+   "sprite": "scarab",
+   "heightMm": 150
   }
  },
  {
@@ -478,7 +492,8 @@
    "critter"
   ],
   "art": {
-   "sprite": "hedgehog"
+   "sprite": "hedgehog",
+   "heightMm": 230
   }
  },
  {
@@ -521,7 +536,8 @@
    "balloon"
   ],
   "art": {
-   "sprite": "balloon-dog"
+   "sprite": "balloon-dog",
+   "heightMm": 480
   }
  },
  {
@@ -564,7 +580,8 @@
    "bug"
   ],
   "art": {
-   "sprite": "butterfly"
+   "sprite": "butterfly",
+   "heightMm": 170
   }
  },
  {
@@ -596,7 +613,8 @@
    "bird"
   ],
   "art": {
-   "sprite": "parrot"
+   "sprite": "parrot",
+   "heightMm": 420
   }
  },
  {
@@ -639,7 +657,8 @@
    "bird"
   ],
   "art": {
-   "sprite": "drone-pigeon"
+   "sprite": "drone-pigeon",
+   "heightMm": 360
   }
  },
  {
@@ -665,7 +684,8 @@
   ],
   "art": {
    "color": "#f59e0b",
-   "held": "equipment.notepad"
+   "held": "equipment.notepad",
+   "heightMm": 1200
   }
  },
  {
@@ -696,7 +716,8 @@
   ],
   "art": {
    "color": "#ec4899",
-   "held": "equipment.selfie-stick"
+   "held": "equipment.selfie-stick",
+   "heightMm": 1650
   }
  },
  {
@@ -728,7 +749,8 @@
   ],
   "art": {
    "color": "#374151",
-   "held": "equipment.camera"
+   "held": "equipment.camera",
+   "heightMm": 1700
   }
  },
  {
@@ -759,7 +781,8 @@
   ],
   "art": {
    "color": "#2563eb",
-   "held": "equipment.clipboard"
+   "held": "equipment.clipboard",
+   "heightMm": 1700
   }
  },
  {
@@ -789,7 +812,8 @@
   ],
   "art": {
    "color": "#16a34a",
-   "held": "equipment.umbrella"
+   "held": "equipment.umbrella",
+   "heightMm": 1650
   }
  },
  {
@@ -831,7 +855,8 @@
   ],
   "art": {
    "color": "#7c3aed",
-   "held": "equipment.microphone"
+   "held": "equipment.microphone",
+   "heightMm": 1700
   }
  },
  {
@@ -860,7 +885,8 @@
   ],
   "art": {
    "color": "#94a3b8",
-   "held": "equipment.clipboard"
+   "held": "equipment.clipboard",
+   "heightMm": 1650
   }
  },
  {
@@ -890,7 +916,8 @@
   ],
   "art": {
    "color": "#b91c1c",
-   "held": "equipment.service-bell"
+   "held": "equipment.service-bell",
+   "heightMm": 1700
   }
  },
  {
@@ -921,7 +948,8 @@
   ],
   "art": {
    "color": "#1e293b",
-   "held": "equipment.briefcase"
+   "held": "equipment.briefcase",
+   "heightMm": 1700
   }
  }
 ]

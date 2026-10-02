@@ -1,5 +1,42 @@
 # Damage sheet prompts: the obstacles still without damaged / destroyed art
 
+## Audit (2 October 2026)
+
+Every obstacle the arenas place, checked against the obstacle atlas. When an
+obstacle is down to half health the game swaps in its `-damaged` art; when it
+breaks, its `-destroyed` art lies flat on the floor. Without that art, it is
+tinted as it loses health and squashes into a grey heap when it breaks.
+
+| Arena | Damaged | Destroyed | Objects |
+|---|---|---|---|
+| Airport, hospital, hotel, museum, theatre | ✅ | ✅ | all 4 each |
+| Docks | ❌ 4 missing | ✅ | shipping container, dock crane, winch, bollards |
+| Construction site | ❌ 6 | ❌ 6 | scaffold, jersey barrier, cement mixer, rebar bundle, brick stack, site cabin |
+| Diner | ❌ 6 | ❌ 6 | diner counter, diner booth, jukebox, diner table, diner pass, drinks fridge |
+| Office | ❌ 6 | ❌ 6 | cubicle cluster, meeting table, bench desks, filing cabinets, photocopier, reception desk |
+| Train station | ❌ 6 | ❌ 6 | ticket gates, station bench, news kiosk, coffee kiosk, ticket booth, timetable board |
+| Supermarket | ❌ 5 | ❌ 5 | gondola shelf, fridge wall, checkout, chest freezer, produce stand |
+| Warehouse | ❌ 4 | ❌ 4 | pallet rack, crate stack, cage pallet, drum rack |
+
+**Total: 13 sheets, 37 damaged + 33 destroyed objects.** Not needed: the
+conveyor (a floor belt), the forklift and the floor scrubber (moving machines),
+which never break.
+
+**Suggested order** (most-played arenas first; the ladder runs supermarket →
+office → diner → station → warehouse → construction → docks):
+
+1. `supermarket-damaged`, `supermarket-destroyed`
+2. `office-damaged`, `office-destroyed`
+3. `diner-damaged`, `diner-destroyed`
+4. `station-damaged`, `station-destroyed`
+5. `warehouse-damaged`, `warehouse-destroyed`
+6. `construction-damaged`, `construction-destroyed`
+7. `docks-damaged`
+
+Each sheet can be imported as soon as it arrives; the rest keep their stand-ins.
+
+---
+
 These objects squash into a plain grey heap when destroyed until their sheets
 exist. Each arena needs two sheets, `<arena>-damaged.png` and
 `<arena>-destroyed.png`, saved in `art/obstacles/`. Docks only needs the damaged one.

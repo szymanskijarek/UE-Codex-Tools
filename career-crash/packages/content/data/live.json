@@ -3403,6 +3403,54 @@
    "📸 Delegation is a superpower. {by} delegated {name} to a {critter}. #Leadership",
    "📸 Small team, big impact. Mostly the {critter}, mostly on {name}. #Culture",
    "📸 {name} from {company} asked to speak to our manager. Our manager is a {critter}."
+  ],
+  "feed_photo_finisher_item_us": [
+   "📸 {name} has been formally introduced to {what}. {by} handled the introductions. #Networking",
+   "📸 Breaking: {what} beats {name}. {by} takes the credit, as usual. #Leadership",
+   "📸 Nobody told {name} the meeting would involve {what}. {by} brought one anyway. #Agenda",
+   "📸 Some people get a promotion. {name} got {what}, hand-delivered by {by}. #CareerMoves",
+   "📸 {name}, photographed at the exact moment {what} entered the conversation. Thanks, {by}. 🫠"
+  ],
+  "feed_photo_finisher_item_them": [
+   "📸 {by} closing the deal with {what}. {name} from {company} has signed. Everything. #Closing",
+   "📸 Proud of {by} for thinking outside the box and well inside {name}'s personal space, with {what}. #Innovation",
+   "📸 {name} from {company} meeting {what} at speed. Thanks for the delivery, {by}! 📦",
+   "📸 Key learning for {name} from {company}: never turn your back on {by} holding {what}. #Takeaways",
+   "📸 {by} offered {name} from {company} some constructive feedback in the form of {what}. #Growth"
+  ],
+  "feed_photo_finisher_move_us": [
+   "📸 {name} on the receiving end of {by}'s {what}. Honestly? Textbook. #Respect",
+   "📸 Not every day you get a live demo of {what}. {name} got the private session, courtesy of {by}. #Learning",
+   "📸 {by} said \"{what}\" and {name} believed it. Lying down now. #Vulnerability",
+   "📸 {name} discovering that {by}'s {what} is not just a LinkedIn skill. #Endorsements"
+  ],
+  "feed_photo_finisher_move_them": [
+   "📸 {by} unveiling {what} to {name} from {company}. Product launch: successful. 🚀",
+   "📸 {by} just ran a {what} workshop. {name} from {company} participated fully. Horizontally. #LearningAndDevelopment",
+   "📸 {name} from {company} asked to see {by}'s {what} in action. Request granted. #CustomerFirst",
+   "📸 Every team needs a {what}. Ours belongs to {by}. {name} from {company} can confirm. #CoreCompetency"
+  ],
+  "feed_photo_ouch_item_us": [
+   "📸 {name} taking {what} to the face so the rest of us don't have to. #Teamwork",
+   "📸 Every great career has a setback. {name}'s was {what}, courtesy of {by}. #Resilience",
+   "📸 {name}, mid-feedback. The feedback was {what}. 🩹",
+   "📸 Thoughts and prayers to {name}, who has just met {what}, swung with feeling by {by}. #Wellbeing"
+  ],
+  "feed_photo_ouch_item_them": [
+   "📸 {name} from {company} receiving a gift of {what} from {by}. No need to say thank you. #Generosity",
+   "📸 {by} delivered {what} to {name} from {company}. Signed for in person. 📦",
+   "📸 {name} from {company} learning what {what} feels like. {by} is a natural mentor. #Mentorship",
+   "📸 Customer journey, final step: {name} from {company} meets {what}. Beautifully executed, {by}."
+  ],
+  "feed_photo_ouch_move_us": [
+   "📸 {name} catching the full {what} from {by}. Character-building. #Resilience",
+   "📸 {by}'s {what} landed on {name}. We're filing it under \"lessons learned\". #Retrospective",
+   "📸 {name} now has first-hand experience of {what}. Adding it to the CV. #Upskilling"
+  ],
+  "feed_photo_ouch_move_them": [
+   "📸 {name} from {company} experiencing {by}'s {what} first-hand. Reviews are in: ouch. #CustomerExperience",
+   "📸 {what}, as delivered by {by} to {name} from {company}. 10/10, would deploy again. #Execution",
+   "📸 Proud to see {by} roll out {what} in production. {name} from {company} was our first user. #ShipIt"
   ]
  }
 }

@@ -173,6 +173,8 @@ interface CritterSprite {
 
 const SUMMONS = new Map(bundle.summons.map((d) => [d.id, d]));
 /** Sprite name for a summon: its art.sprite, else its id (summon.intern → intern). */
+/** How tall a fighter is in real life, for drawing critters at their real size next to one. */
+const FIGHTER_MM = 1800;
 const summonArt = (sd: SummonDef): string => sd.art.sprite ?? sd.id.replace('summon.', '');
 
 interface RendererWallView {
@@ -1925,11 +1927,19 @@ export class BattleRenderer {
     });
   }
 
+  /** Screen pixels for a real-world height: a fighter stands PUPPET_HEIGHT radii, about FIGHTER_MM. */
+  private mmToPx(mm: number): number {
+    return (mm / FIGHTER_MM) * 350 * this.scale * PUPPET_HEIGHT;
+  }
+
   /** A summoned animal: pose A standing, pose B on the move, a little hop, flipped to its heading. */
   private drawCritter(e: FrameEntity, sd: SummonDef, p: FrameEntity, sx: number, sy: number, y: number, t: number): void {
     let c = this.critters.get(e.id);
     if (!c) {
-      const k = this.critterScale();
+      // Each critter at its own real-world height (content: art.heightMm), measured on its standing pose.
+      const probe = critterSprite(summonArt(sd), 1);
+      const k = probe ? this.mmToPx(sd.art.heightMm) / probe.sprite.texture.height : this.critterScale();
+      probe?.sprite.destroy();
       const root = new Container();
       const r = e.r * this.scale;
       root.addChild(new Graphics().ellipse(0, 0, r * 1.2, r * 0.5).fill({ color: 0x000000, alpha: 0.2 }));
@@ -2872,7 +2882,8 @@ export class BattleRenderer {
       // The one dishing it out looks the part.
       if (otherPu) otherPu.holdFace(pickLook(otherPu.facesFor('angry')) ?? null);
     }
-    const hide: Container[] = [this.uiLayer, this.banner, this.overlay, this.impactFlash, this.fxLayer];
+    // Names, bars and bubbles stay out of the photo; impact effects (bursts, dust, sweat, bites) stay in.
+    const hide: Container[] = [this.uiLayer, this.banner, this.overlay, this.impactFlash];
     // Obstacles standing in front of the subject would block the shot: leave them out of the photo.
     const depthY = s.root.zIndex as number;
     for (const v of this.wallViews) if (v.c.parent === this.bodies && v.z > depthY) hide.push(v.c);
@@ -2886,6 +2897,9 @@ export class BattleRenderer {
     }
     const was = hide.map((c) => c.visible);
     hide.forEach((c) => (c.visible = false));
+    // Effects go behind the fighters for the photo: bursts and dust frame the body instead of covering the face.
+    const fxAt = this.world.getChildIndex(this.fxLayer);
+    this.world.setChildIndex(this.fxLayer, this.world.getChildIndex(this.bodies));
     try {
       const frame = new Rectangle(Math.round(cx - size / 2), Math.round(cy - size / 2), Math.round(size), Math.round(size));
       const canvas = this.app.renderer.extract.canvas({ target: this.app.stage, frame, resolution: px / frame.width, clearColor: hex(this.arena.theme.wall) }) as HTMLCanvasElement;
@@ -2894,6 +2908,7 @@ export class BattleRenderer {
       return url.startsWith('data:image/webp') ? url : canvas.toDataURL('image/jpeg', 0.85);
     } finally {
       hide.forEach((c, i) => (c.visible = was[i]!));
+      this.world.setChildIndex(this.fxLayer, fxAt);
       pu?.holdFace(null);
       pu?.headOnTop(false);
       otherPu?.holdFace(null);

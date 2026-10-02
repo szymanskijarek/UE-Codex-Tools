@@ -571,7 +571,13 @@ export const summonSchema = z.object({
   scares: tag.optional(),
   tags: z.array(tag),
   /** Animals: sprite name in the critter atlas. Humans: outfit colour and a held item. */
-  art: z.object({ sprite: z.string().optional(), color: z.string().regex(/^#[0-9a-f]{6}$/).optional(), held: ref('equipment').optional() }),
+  art: z.object({
+    sprite: z.string().optional(),
+    color: z.string().regex(/^#[0-9a-f]{6}$/).optional(),
+    held: ref('equipment').optional(),
+    /** Standing height in mm (a fighter is about 1800), so every critter is drawn at its own real-world size. */
+    heightMm: int.min(50).max(2200),
+  }),
 });
 export type SummonDef = z.infer<typeof summonSchema>;
 

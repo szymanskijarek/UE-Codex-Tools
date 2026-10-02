@@ -92,6 +92,14 @@ const MOOD_OF: Record<string, Mood> = {
   feed_photo_finisher_them: 'win',
   feed_photo_critter_us: 'loss',
   feed_photo_critter_them: 'win',
+  feed_photo_finisher_item_us: 'loss',
+  feed_photo_finisher_item_them: 'win',
+  feed_photo_finisher_move_us: 'loss',
+  feed_photo_finisher_move_them: 'win',
+  feed_photo_ouch_item_us: 'loss',
+  feed_photo_ouch_item_them: 'win',
+  feed_photo_ouch_move_us: 'loss',
+  feed_photo_ouch_move_them: 'win',
   feed_summon_complain: 'news',
   feed_spooked: 'loss',
 };
@@ -289,8 +297,10 @@ export function fightPosts(s: CareerSave, r: FightSummary): FeedPost[] {
     };
     const before = out.length;
     // {by}: whoever landed the blow, or the critter's owner; {other}: the second person in the shot; {critter}: the animal.
-    const extra = { name: ph.name, by: ph.withName || 'someone', other: ph.withName || 'someone', critter: ph.critter ? nameOf(ph.critter).toLowerCase() : 'small animal' };
-    add({ by: 'me', author: m.c.name, sub: headline(m.c.id), who: meWho, photo: true, tags: tags[kind], reacts: 200 + rng.int(1500), comments: 10 + rng.int(90) }, `feed_photo_${kind}_${ph.team === 0 ? 'us' : 'them'}`, extra);
+    const extra = { name: ph.name, by: ph.withName || 'someone', other: ph.withName || 'someone', critter: ph.critter ? nameOf(ph.critter).toLowerCase() : 'small animal', what: ph.what ?? '' };
+    // Say what they were hit with, most of the time: "{name} has been formally introduced to {what}".
+    const withWhat = ph.what && ph.whatKind && ph.withName && (kind === 'finisher' || kind === 'ouch') && chance(0.75) ? `_${ph.whatKind}` : '';
+    add({ by: 'me', author: m.c.name, sub: headline(m.c.id), who: meWho, photo: true, tags: tags[kind], reacts: 200 + rng.int(1500), comments: 10 + rng.int(90) }, `feed_photo_${kind}${withWhat}_${ph.team === 0 ? 'us' : 'them'}`, extra);
     if (out.length > before) photo = out.pop();
   }
 
