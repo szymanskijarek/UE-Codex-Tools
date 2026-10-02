@@ -1,4 +1,4 @@
-# Damage sheet prompts: the obstacles still without damaged / destroyed art
+# Damage sheet prompts: damaged / destroyed obstacle art
 
 ## Audit (2 October 2026)
 
@@ -9,20 +9,16 @@ tinted as it loses health and squashes into a grey heap when it breaks.
 
 | Arena | Damaged | Destroyed | Objects |
 |---|---|---|---|
-| Airport, hospital, hotel, museum, theatre | ✅ | ✅ | all 4 each |
-| Docks | ❌ 4 missing | ✅ | shipping container, dock crane, winch, bollards |
-| Construction site | ❌ 6 | ❌ 6 | scaffold, jersey barrier, cement mixer, rebar bundle, brick stack, site cabin |
-| Diner | ❌ 6 | ❌ 6 | diner counter, diner booth, jukebox, diner table, diner pass, drinks fridge |
-| Office | ❌ 6 | ❌ 6 | cubicle cluster, meeting table, bench desks, filing cabinets, photocopier, reception desk |
-| Train station | ❌ 6 | ❌ 6 | ticket gates, station bench, news kiosk, coffee kiosk, ticket booth, timetable board |
-| Supermarket | ❌ 5 | ❌ 5 | gondola shelf, fridge wall, checkout, chest freezer, produce stand |
-| Warehouse | ❌ 4 | ❌ 4 | pallet rack, crate stack, cage pallet, drum rack |
+| All 12 arenas | ✅ | ✅ | every obstacle that can break |
 
-**Total: 13 sheets, 37 damaged + 33 destroyed objects.** Not needed: the
-conveyor (a floor belt), the forklift and the floor scrubber (moving machines),
-which never break.
+**Imported 2 October 2026:** 13 sheets, 37 damaged and 33 destroyed objects
+(the supermarket, office, diner, station, warehouse and construction site, plus
+the docks' damaged state). The prompts below stay as the reference for new arenas.
 
-**Suggested order** (most-played arenas first; the ladder runs supermarket →
+Not needed: the conveyor (a floor belt), the forklift and the floor scrubber
+(moving machines), which never break.
+
+**Order they were made in** (most-played arenas first; the ladder runs supermarket →
 office → diner → station → warehouse → construction → docks):
 
 1. `supermarket-damaged`, `supermarket-destroyed`

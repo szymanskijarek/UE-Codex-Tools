@@ -24,5 +24,18 @@
  "docks-destroyed": {"cols": 2, "names": ["shipping-container-destroyed", "dock-crane-destroyed", "winch-destroyed", "bollards-destroyed"], "px": 130},
  "props-big": {"cols": 3, "names": ["water-cooler", "coffee-machine", "robot-vacuum", "shopping-trolley", "cardboard-display", "trolley-tipped"]},
  "hazards-a": {"cols": 3, "names": ["industrial-fan", "industrial-fan-on", "revolving-door", "sprinkler", "trapdoor", "trapdoor-open"]},
- "hazards-b": {"cols": 3, "names": ["crane-hook", "trolley-train", "boulder", "gurney", "steam-vent", "desk-fans"]}
+ "hazards-b": {"cols": 3, "names": ["crane-hook", "trolley-train", "boulder", "gurney", "steam-vent", "desk-fans"]},
+ "supermarket-damaged": {"anchors": true, "cols": 3, "names": ["gondola-shelf-damaged", "fridge-wall-damaged", "checkout-damaged", "chest-freezer-damaged", "produce-stand-damaged", null]},
+ "supermarket-destroyed": {"anchors": true, "cols": 3, "names": ["gondola-shelf-destroyed", "fridge-wall-destroyed", "checkout-destroyed", "chest-freezer-destroyed", "produce-stand-destroyed", null], "px": 130},
+ "office-damaged": {"anchors": true, "cols": 3, "names": ["cubicle-cluster-damaged", "meeting-table-damaged", "bench-desks-damaged", "filing-cabinets-damaged", "photocopier-damaged", "reception-desk-damaged"]},
+ "office-destroyed": {"anchors": true, "cols": 3, "names": ["cubicle-cluster-destroyed", "meeting-table-destroyed", "bench-desks-destroyed", "filing-cabinets-destroyed", "photocopier-destroyed", "reception-desk-destroyed"], "px": 130},
+ "diner-damaged": {"anchors": true, "cols": 3, "names": ["diner-counter-damaged", "diner-booth-damaged", "jukebox-damaged", "diner-table-damaged", "diner-pass-damaged", "drinks-fridge-damaged"]},
+ "diner-destroyed": {"anchors": true, "cols": 3, "names": ["diner-counter-destroyed", "diner-booth-destroyed", "jukebox-destroyed", "diner-table-destroyed", "diner-pass-destroyed", "drinks-fridge-destroyed"], "px": 130},
+ "station-damaged": {"anchors": true, "cols": 3, "names": ["ticket-gates-damaged", "station-bench-damaged", "news-kiosk-damaged", "coffee-kiosk-damaged", "ticket-booth-damaged", "timetable-board-damaged"]},
+ "station-destroyed": {"anchors": true, "cols": 3, "names": ["ticket-gates-destroyed", "station-bench-destroyed", "news-kiosk-destroyed", "coffee-kiosk-destroyed", "ticket-booth-destroyed", "timetable-board-destroyed"], "px": 130},
+ "warehouse-damaged": {"anchors": true, "cols": 2, "names": ["pallet-rack-damaged", "crate-stack-damaged", "cage-pallet-damaged", "drum-rack-damaged"]},
+ "warehouse-destroyed": {"anchors": true, "cols": 2, "names": ["pallet-rack-destroyed", "crate-stack-destroyed", "cage-pallet-destroyed", "drum-rack-destroyed"], "px": 130},
+ "construction-damaged": {"anchors": true, "cols": 3, "names": ["scaffold-damaged", "jersey-barrier-damaged", "cement-mixer-damaged", "rebar-bundle-damaged", "brick-stack-damaged", "site-cabin-damaged"]},
+ "construction-destroyed": {"anchors": true, "cols": 3, "names": ["scaffold-destroyed", "jersey-barrier-destroyed", "cement-mixer-destroyed", "rebar-bundle-destroyed", "brick-stack-destroyed", "site-cabin-destroyed"], "px": 130},
+ "docks-damaged": {"anchors": true, "cols": 2, "names": ["shipping-container-damaged", "dock-crane-damaged", "winch-damaged", "bollards-damaged"]}
 }

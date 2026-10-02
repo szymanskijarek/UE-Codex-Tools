@@ -194,8 +194,12 @@ is empty: the 30 newer careers were re-imported from separate sheets through
   - **Missing states:** an obstacle without damaged art is tinted as it loses
     health. One without destroyed art squashes flat into a grey heap on the
     same rubble layer; nothing rotates.
-  - **Prompts:** `art/obstacles/DAMAGE_SHEET_PROMPTS.md` covers the sheets still
-    missing.
+  - **Debris sheets:** add `"anchors": true` to a sheet's manifest entry
+    when shards or smoke sit between objects. The largest blobs become the
+    items and every smaller bit joins the nearest one, instead of cells being
+    found from gaps.
+  - **Prompts:** `art/obstacles/DAMAGE_SHEET_PROMPTS.md` has the prompts used
+    for every arena's sheets; all of them are imported.
 - **Real-world sizes (`packages/content/data/furniture.json`):** every piece of
   obstacle art has one size, so it looks the same in every arena and next to
   fighters (about 1900 mm tall).

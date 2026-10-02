@@ -11,6 +11,11 @@
  * Each item is everything opaque in its cell (cells found from the gaps
  * between blobs), so multi-part items (a rope post, the mime's box) stay whole.
  *
+ * Debris sheets (destroyed or damaged obstacles with bits scattered between
+ * them) add `anchors: true`: the largest blobs are the items, laid out in rows
+ * and columns, and every smaller blob (a shard, a puff of smoke) joins the
+ * nearest one, so stray bits can't be mistaken for a cell of their own.
+ *
  * Animation frames (impact effects, art/FX_BRIEF.md) use { grid: [cols, rows],
  * px, names } instead: the sheet is cut into equal cells and every cell is kept
  * whole (transparent margins included) at the same scale, so frames stay
@@ -108,6 +113,24 @@ function groups<T>(items: T[], key: (t: T) => number, n: number): T[][] {
   return out;
 }
 
+/** Cells from the `n` largest blobs (rows × cols), with every other blob joining the nearest. */
+function anchored(all: Blob[], rows: number, cols: number): Blob[][] {
+  const big = [...all].sort((a, b) => b.area - a.area).slice(0, rows * cols);
+  const order = groups(big, (b) => b.cy, rows).flatMap((row) => [...row].sort((a, b) => a.cx - b.cx));
+  const cells = order.map((b) => [b]);
+  for (const b of all) {
+    if (big.includes(b)) continue;
+    let best = 0;
+    let bestD = Infinity;
+    order.forEach((a, i) => {
+      const d = (a.cx - b.cx) ** 2 + (a.cy - b.cy) ** 2;
+      if (d < bestD) [best, bestD] = [i, d];
+    });
+    cells[best]!.push(b);
+  }
+  return cells;
+}
+
 /** Equal cells in reading order, each kept whole and scaled so its longest side is `px`. */
 async function gridCells(file: string, [cols, rows]: [number, number], px: number, names: (string | null)[]): Promise<{ name: string; png: Buffer; w: number; h: number }[]> {
   const meta = await sharp(file).metadata();
@@ -133,7 +156,7 @@ async function gridCells(file: string, [cols, rows]: [number, number], px: numbe
 
 async function main(): Promise<void> {
   // A null name skips that cell (art the atlas already has), so it costs no bytes.
-  const manifest = JSON.parse(readFileSync(join(SHEETS, 'manifest.json'), 'utf8')) as Record<string, (string | null)[] | { cols?: number; grid?: [number, number]; px?: number; names: (string | null)[] }>;
+  const manifest = JSON.parse(readFileSync(join(SHEETS, 'manifest.json'), 'utf8')) as Record<string, (string | null)[] | { cols?: number; grid?: [number, number]; px?: number; anchors?: boolean; names: (string | null)[] }>;
   const pieces: { name: string; png: Buffer; w: number; h: number }[] = [];
   for (const [sheet, entry] of Object.entries(manifest)) {
     const names = Array.isArray(entry) ? entry : entry.names;
@@ -152,8 +175,7 @@ async function main(): Promise<void> {
     const { data, info } = await sharp(file).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
     const labels = new Int32Array(info.width * info.height);
     const all = blobs(data, info.width, info.height, labels);
-    const rows = groups(all, (b) => b.cy, 2);
-    const cells = rows.flatMap((row) => groups(row, (b) => b.cx, cols));
+    const cells = !Array.isArray(entry) && entry.anchors ? anchored(all, Math.ceil(names.length / cols), cols) : groups(all, (b) => b.cy, 2).flatMap((row) => groups(row, (b) => b.cx, cols));
     if (cells.length !== names.length) {
       console.warn(`✗ ${sheet}: found ${cells.length} cells for ${names.length} names`);
       continue;
