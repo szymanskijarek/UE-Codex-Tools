@@ -3,7 +3,7 @@ import 'pixi.js/unsafe-eval';
 import { Application, Container, Graphics, Rectangle, Sprite, Text, Texture, type TextStyleOptions } from 'pixi.js';
 import { bundle } from '@cc/content';
 import { shortName } from '@cc/game-rules';
-import type { AbilityDef, ArenaDef, SummonDef } from '@cc/content-schema';
+import type { AbilityDef, ArenaDef, PropDef, SummonDef } from '@cc/content-schema';
 import { layoutArena, type BattleEvent, type BattleInput, type FrameEntity, type PlacedObstacle } from '@cc/sim';
 import { nameOf, STATUS_ICONS } from '../i18n';
 import { Sfx, type SfxName } from './audio';
@@ -66,6 +66,9 @@ interface CharSprite {
   face: Graphics;
   feet: Graphics;
   fx: Graphics;
+  /** Painted status effects (flames, dizzy stars...), drawn over the body; made on first use. */
+  statusC?: Container;
+  statusArt?: Map<string, Sprite | null>;
   /** Team-coloured floor ring. */
   ring: Graphics;
   bar: Graphics;
@@ -444,6 +447,45 @@ export class BattleRenderer {
     });
   }
 
+  /**
+   * A painted floor decal: a random one of `<name>-1…3` (or `<name>` alone),
+   * `size` px across, flipped at random. False without art.
+   */
+  private artDecal(at: [number, number], name: string, size: number, opts: { tint?: number; alpha?: number } = {}): boolean {
+    const v = 1 + Math.floor(Math.random() * 3);
+    const art = fxSprite(`${name}-${v}`) ?? fxSprite(`${name}-1`) ?? fxSprite(name);
+    if (!art) return false;
+    art.position.set(at[0], at[1]);
+    const k = size / art.texture.width;
+    art.scale.set(k * (Math.random() < 0.5 ? -1 : 1), k);
+    if (opts.tint !== undefined) art.tint = opts.tint;
+    art.alpha = opts.alpha ?? 1;
+    this.decalNode(art);
+    return true;
+  }
+
+  /** Rubble where a wall or obstacle came down: painted rubble, else scuffed dust. */
+  private rubbleDecal(at: [number, number], size: number): void {
+    if (!this.artDecal(at, 'fx-rubble-decal', size)) this.dustDecal(at, size * 0.5);
+  }
+
+  /**
+   * What a broken prop leaves on the floor, by what it was made of: glass
+   * shards, papers, a food or liquid splat (painted art, tinted for liquids),
+   * splinters and chips for anything solid (scuffed dust until that art exists).
+   */
+  private brokenDecal(at: [number, number] | null, def: PropDef | undefined, color: number, size: number): void {
+    if (!at) return;
+    const tags = def?.tags ?? [];
+    const has = (t: string) => tags.includes(t);
+    if (has('material:glass') && this.artDecal(at, 'fx-broken-glass', size * 1.6)) return;
+    if (has('material:paper') && this.artDecal(at, 'fx-papers', size * 1.6)) return;
+    if (has('liquid') && this.artDecal(at, 'fx-splat-liquid', size * 2, { tint: color, alpha: 0.9 })) return;
+    if (has('food') && this.artDecal(at, 'fx-splat-food', size * 2)) return;
+    if (has('food') || has('liquid')) this.splat(at, color, size);
+    else if (!this.artDecal(at, 'fx-chips-decal', size * 1.8)) this.dustDecal(at, size);
+  }
+
   /** A splat of bits in the colour of whatever broke. */
   private splat(at: [number, number] | null, color: number, size: number): void {
     if (!at) return;
@@ -535,6 +577,7 @@ export class BattleRenderer {
       s.root.destroy({ children: true });
       s.ragG?.destroy();
       s.puppet?.root.destroy({ children: true });
+      s.statusC?.destroy({ children: true });
     }
     this.chars.clear();
     for (const s of this.props.values()) s.root.destroy({ children: true });
@@ -1810,69 +1853,200 @@ export class BattleRenderer {
   }
 
   /** Per-frame status visuals drawn around a character. */
+  /**
+   * A painted status effect on a fighter, shown this frame: the first of
+   * `names` with art (the dedicated loop first, then a stand-in from art we
+   * already have), sized `w` across. Null without any art: draw it instead.
+   */
+  private statusSprite(s: CharSprite, key: string, w: number, ...names: string[]): Sprite | null {
+    const m = (s.statusArt ??= new Map());
+    if (!m.has(key)) {
+      let sp: Sprite | null = null;
+      for (const n of names) if ((sp = fxSprite(n))) break;
+      if (sp) {
+        s.statusC ??= new Container();
+        s.statusC.addChild(sp);
+        if (!s.statusC.parent) this.bodies.addChild(s.statusC);
+      }
+      m.set(key, sp);
+    }
+    const sp = m.get(key) ?? null;
+    if (!sp) return null;
+    sp.visible = true;
+    sp.alpha = 1;
+    sp.rotation = 0;
+    sp.scale.set(w / sp.texture.width);
+    return sp;
+  }
+
+  /** A looping status animation `fx-status-<id>-1…n` when the art exists, else the `fallback` single sprite. */
+  private statusLoop(s: CharSprite, id: string, n: number, w: number, t: number, fallback?: string, fps = 10): Sprite | null {
+    const frames = fxFrames(`status-${id}`, n);
+    const sp = this.statusSprite(s, id, w, frames ? `fx-status-${id}-1` : (fallback ?? ''));
+    if (sp && frames) {
+      sp.texture = frames[Math.floor(t * fps + s.id) % n]!;
+      sp.scale.set(w / sp.texture.width);
+    }
+    return sp;
+  }
+
   private drawStatusFx(s: CharSprite, e: FrameEntity, t: number, casting: boolean): void {
     const g = s.fx;
     const r = s.r;
     g.clear();
+    if (s.statusC) {
+      // Rides along with the fighter, just in front of their body.
+      for (const c of s.statusC.children) c.visible = false;
+      s.statusC.position.copyFrom(s.root.position);
+      s.statusC.scale.copyFrom(s.root.scale);
+      s.statusC.zIndex = (s.root.zIndex as number) + 0.75;
+      s.statusC.visible = s.root.visible;
+    }
     const st = e.statuses;
     if (casting) {
       const k = (t * 3) % 1;
-      g.ellipse(0, 0, r * (1.2 + k), r * (0.5 + k * 0.4)).stroke({ width: Math.max(2, r * 0.2), color: s.castColor, alpha: 1 - k });
-      g.ellipse(0, 0, r * 1.3, r * 0.55).fill({ color: s.castColor, alpha: 0.25 });
+      const ring = this.statusSprite(s, 'cast', r * 2.8 * (1 + k * 0.6), 'fx-cast-ring');
+      if (ring) {
+        ring.anchor.set(0.5);
+        ring.scale.y *= 0.45;
+        ring.tint = s.castColor;
+        ring.alpha = 1 - k * 0.8;
+      } else {
+        g.ellipse(0, 0, r * (1.2 + k), r * (0.5 + k * 0.4)).stroke({ width: Math.max(2, r * 0.2), color: s.castColor, alpha: 1 - k });
+        g.ellipse(0, 0, r * 1.3, r * 0.55).fill({ color: s.castColor, alpha: 0.25 });
+      }
     }
     if (st.includes('status.burning')) {
-      for (let i = 0; i < 5; i++) {
-        const x = (i - 2) * r * 0.35;
-        const h = r * (1.0 + 0.5 * Math.sin(t * 14 + i * 2));
-        const base = -r * (1.2 + (i % 2) * 0.6);
-        g.poly([x - r * 0.25, base, x + r * 0.25, base, x, base - h]).fill({ color: i % 2 ? 0xef4444 : 0xfb923c, alpha: 0.9 });
+      // Flames licking up the body: the dedicated loop, or three flickering fire-patch flames.
+      const loop = this.statusLoop(s, 'burning', 4, r * 2.6, t);
+      if (loop) {
+        loop.anchor.set(0.5, 1);
+        loop.position.set(0, -r * 0.2);
+      } else {
+        for (let i = 0; i < 3; i++) {
+          const f = this.statusSprite(s, `burning${i}`, r * (i === 1 ? 1.5 : 1.1), 'fx-fire-patch');
+          if (!f) {
+            for (let j = 0; j < 5; j++) {
+              const x = (j - 2) * r * 0.35;
+              const h = r * (1.0 + 0.5 * Math.sin(t * 14 + j * 2));
+              const base = -r * (1.2 + (j % 2) * 0.6);
+              g.poly([x - r * 0.25, base, x + r * 0.25, base, x, base - h]).fill({ color: j % 2 ? 0xef4444 : 0xfb923c, alpha: 0.9 });
+            }
+            break;
+          }
+          const wob = Math.sin(t * 13 + i * 2.1 + s.id);
+          f.anchor.set(0.5, 1);
+          f.position.set((i - 1) * r * 0.55, -r * (i === 1 ? 1.6 : 0.9));
+          f.scale.set(f.scale.x * (i === 2 ? -1 : 1) * (1 - wob * 0.06), f.scale.y * (1 + wob * 0.12));
+          f.alpha = 0.85 + wob * 0.15;
+        }
       }
     }
     if (st.includes('status.electrified')) {
-      for (let i = 0; i < 3; i++) {
-        let x = (Math.random() - 0.5) * r * 2.4;
-        let y = -r * (0.5 + Math.random() * 3);
-        g.moveTo(x, y);
-        for (let k = 0; k < 3; k++) {
-          x += (Math.random() - 0.5) * r * 1.2;
-          y += (Math.random() - 0.5) * r * 1.2;
-          g.lineTo(x, y);
+      // Crackling: the dedicated loop, or the zap burst flickering through its frames.
+      const zap = fxFrames('status-electrified', 4) ?? fxFrames('zap', 4);
+      const sp = this.statusLoop(s, 'electrified', 4, r * 3, t, 'fx-zap-2', 14);
+      if (sp && zap) {
+        if (!fxFrames('status-electrified', 4)) sp.texture = zap[1 + (Math.floor(t * 14 + s.id) % 3)]!;
+        sp.anchor.set(0.5);
+        sp.position.set(0, -r * 2.2);
+        sp.scale.x *= Math.floor(t * 7) % 2 ? -1 : 1;
+        sp.alpha = 0.9;
+      } else {
+        for (let i = 0; i < 3; i++) {
+          let x = (Math.random() - 0.5) * r * 2.4;
+          let y = -r * (0.5 + Math.random() * 3);
+          g.moveTo(x, y);
+          for (let k = 0; k < 3; k++) {
+            x += (Math.random() - 0.5) * r * 1.2;
+            y += (Math.random() - 0.5) * r * 1.2;
+            g.lineTo(x, y);
+          }
         }
+        g.stroke({ width: Math.max(1.5, r * 0.12), color: 0xfff176 });
       }
-      g.stroke({ width: Math.max(1.5, r * 0.12), color: 0xfff176 });
     }
     if (st.includes('status.wet')) {
-      for (let i = 0; i < 3; i++) {
-        const k = (t * 1.5 + i / 3) % 1;
-        g.ellipse((i - 1) * r * 0.6, -r * (2.4 - k * 2.2), r * 0.1, r * 0.16).fill({ color: 0x60a5fa, alpha: 1 - k });
+      // Dripping: the dedicated loop, or two painted drops falling off them.
+      const loop = this.statusLoop(s, 'wet', 4, r * 2.4, t);
+      if (loop) {
+        loop.anchor.set(0.5, 1);
+        loop.position.set(0, 0);
+      } else {
+        for (let i = 0; i < 2; i++) {
+          const k = (t * 1.5 + i / 2) % 1;
+          const d = this.statusSprite(s, `wet${i}`, r * 0.9, 'fx-sweat-2');
+          if (d) {
+            d.anchor.set(0.5);
+            d.position.set((i ? 0.5 : -0.5) * r, -r * (2.4 - k * 2.2));
+            d.alpha = 1 - k;
+          } else g.ellipse((i - 0.5) * r * 0.9, -r * (2.4 - k * 2.2), r * 0.1, r * 0.16).fill({ color: 0x60a5fa, alpha: 1 - k });
+        }
       }
     }
     if (st.includes('status.stunned') || st.includes('status.electrified') || e.state === 'downed') {
-      for (let i = 0; i < 3; i++) {
-        const ang = t * 5 + (i * Math.PI * 2) / 3;
-        const x = Math.cos(ang) * r * 0.9;
-        const y = -r * 4.0 + Math.sin(ang) * r * 0.3;
-        star(g, x, y, r * 0.22, 0xfde047);
+      // Seeing stars: the dedicated loop, or the painted ring of stars wobbling round their head.
+      const sp = this.statusLoop(s, 'dizzy', 4, r * 2.6, t, 'fx-dizzy');
+      if (sp) {
+        sp.anchor.set(0.5);
+        sp.position.set(0, -r * 4.0);
+        if (!fxFrames('status-dizzy', 4)) {
+          sp.scale.x *= 0.8 + 0.2 * Math.cos(t * 5 + s.id);
+          sp.rotation = Math.sin(t * 3 + s.id) * 0.12;
+        }
+      } else {
+        for (let i = 0; i < 3; i++) {
+          const ang = t * 5 + (i * Math.PI * 2) / 3;
+          star(g, Math.cos(ang) * r * 0.9, -r * 4.0 + Math.sin(ang) * r * 0.3, r * 0.22, 0xfde047);
+        }
       }
     }
-    if (st.includes('status.foamed')) for (let i = 0; i < 6; i++) g.circle(Math.cos(i * 1.7) * r * 0.8, -r * (0.6 + (i % 3) * 0.7), r * 0.28).fill({ color: 0xffffff, alpha: 0.9 }).stroke({ width: 1, color: 0xcbd5e1 });
+    if (st.includes('status.foamed')) {
+      const sp = this.statusLoop(s, 'foamed', 4, r * 2.8, t, 'fx-foam-cloud', 6);
+      if (sp) {
+        sp.anchor.set(0.5);
+        sp.position.set(0, -r * 1.3);
+        sp.scale.y *= 1 + Math.sin(t * 3 + s.id) * 0.05;
+      } else for (let i = 0; i < 6; i++) g.circle(Math.cos(i * 1.7) * r * 0.8, -r * (0.6 + (i % 3) * 0.7), r * 0.28).fill({ color: 0xffffff, alpha: 0.9 }).stroke({ width: 1, color: 0xcbd5e1 });
+    }
     if (st.includes('status.inspired')) {
-      for (let i = 0; i < 3; i++) {
-        const k = (t * 1.2 + i / 3) % 1;
-        star(g, (i - 1) * r * 0.9, -r * (1 + k * 3), r * 0.18 * (1 - k) + 1, 0xfff3a0);
-      }
+      const sp = this.statusLoop(s, 'inspired', 4, r * 2.6, t);
+      if (sp) {
+        sp.anchor.set(0.5, 1);
+        sp.position.set(0, -r * 0.6);
+      } else
+        for (let i = 0; i < 3; i++) {
+          const k = (t * 1.2 + i / 3) % 1;
+          star(g, (i - 1) * r * 0.9, -r * (1 + k * 3), r * 0.18 * (1 - k) + 1, 0xfff3a0);
+        }
     }
     if (st.includes('status.caffeinated')) {
-      g.moveTo(-r * 1.2, -r * 1.5).lineTo(-r * 1.6, -r * 1.5).moveTo(-r * 1.2, -r * 2.1).lineTo(-r * 1.7, -r * 2.1).stroke({ width: Math.max(1, r * 0.1), color: 0x78350f });
+      const sp = this.statusLoop(s, 'caffeinated', 4, r * 1.6, t, undefined, 14);
+      if (sp) {
+        sp.anchor.set(0.5);
+        sp.position.set(-r * 1.4, -r * 2.2);
+      } else g.moveTo(-r * 1.2, -r * 1.5).lineTo(-r * 1.6, -r * 1.5).moveTo(-r * 1.2, -r * 2.1).lineTo(-r * 1.7, -r * 2.1).stroke({ width: Math.max(1, r * 0.1), color: 0x78350f });
     }
     if (st.includes('status.slipping') && !st.includes('status.knocked-down')) {
-      g.moveTo(r * 1.1, 0).arc(0, 0, r * 1.1, 0, Math.PI * (0.6 + Math.sin(t * 8) * 0.3)).stroke({ width: Math.max(1, r * 0.12), color: 0x60a5fa });
+      const sp = this.statusLoop(s, 'slipping', 4, r * 2.6, t, undefined, 12);
+      if (sp) {
+        sp.anchor.set(0.5, 0.5);
+        sp.position.set(0, 0);
+      } else g.moveTo(r * 1.1, 0).arc(0, 0, r * 1.1, 0, Math.PI * (0.6 + Math.sin(t * 8) * 0.3)).stroke({ width: Math.max(1, r * 0.12), color: 0x60a5fa });
     }
     if (e.panicking) {
-      for (let i = 0; i < 2; i++) {
-        const k = (t * 2 + i / 2) % 1;
-        g.ellipse(r * (0.9 + i * 0.3), -r * (3.2 - k * 1.2), r * 0.12, r * 0.2).fill({ color: 0x93c5fd, alpha: 1 - k });
-      }
+      // Sweating buckets: the dedicated loop, or the sweat burst cycling by their head.
+      const sweat = fxFrames('sweat', 4);
+      const sp = this.statusLoop(s, 'panic', 4, r * 1.8, t, 'fx-sweat-1', 8);
+      if (sp) {
+        if (sweat && !fxFrames('status-panic', 4)) sp.texture = sweat[Math.floor(t * 8 + s.id) % 4]!;
+        sp.anchor.set(0.5);
+        sp.position.set(r * 0.9, -r * 3.6);
+      } else
+        for (let i = 0; i < 2; i++) {
+          const k = (t * 2 + i / 2) % 1;
+          g.ellipse(r * (0.9 + i * 0.3), -r * (3.2 - k * 1.2), r * 0.12, r * 0.2).fill({ color: 0x93c5fd, alpha: 1 - k });
+        }
     }
   }
 
@@ -2004,22 +2178,30 @@ export class BattleRenderer {
     });
   }
 
-  /** Dust puff + motion streaks left behind by a dash or dodge. */
+  /** Dust puff + motion streaks left behind by a dash or dodge (`dir` is the way they moved). */
   private speedLines(at: [number, number] | null, dir: number, r: number): void {
     if (!at) return;
-    const [x, y] = at;
-    const lines = [0.8, 1.6, 2.4, 3.2].map((h) => ({ h, len: r * (1.6 + Math.random() * 1.4) }));
-    this.addShape((g, k) => {
-      for (const l of lines) {
-        const x0 = x - dir * r * 0.6;
-        g.moveTo(x0, y - l.h * r).lineTo(x0 - dir * l.len * (1.2 - k * 0.5), y - l.h * r);
-      }
-      g.stroke({ width: Math.max(1.5, r * 0.18), color: 0xffffff, alpha: 0.7 * k });
-      g.ellipse(x - dir * r * 0.4, y, r * (1.4 - k * 0.6), r * 0.35).fill({ color: 0xd6d3d1, alpha: 0.45 * k });
-    }, 380);
+    this.impact('dash', [at[0] - dir * r * 0.4, at[1]], { dir, scale: r / (350 * this.scale) });
   }
 
-  private addShape(draw: (g: Graphics, k: number) => void, life: number): void {
+  /**
+   * A short-lived painted effect: `update` places the sprite each frame (k runs
+   * 1 → 0 over `life` ms). `tint` colours neutral art (cast rings, blasts) in the
+   * ability's colour. False without art, so the caller can draw a stand-in.
+   */
+  private artFx(name: string, life: number, tint: number | undefined, update: (sp: Sprite, k: number) => void): boolean {
+    const sp = fxSprite(name);
+    if (!sp) return false;
+    if (tint !== undefined) sp.tint = tint;
+    this.fxLayer.addChild(sp);
+    update(sp, 1);
+    this.fx.push({ g: sp, life, max: life, update: (k) => update(sp, k) });
+    return true;
+  }
+
+  /** A drawn effect, or the painted `art` sprite moved by `artUpdate` when that art exists. */
+  private addShape(draw: (g: Graphics, k: number) => void, life: number, artUpdate?: (sp: Sprite, k: number) => void, art?: string, tint?: number): void {
+    if (artUpdate && art && this.artFx(art, life, tint, artUpdate)) return;
     const g = new Graphics();
     this.fxLayer.addChild(g);
     this.fx.push({
@@ -2091,6 +2273,18 @@ export class BattleRenderer {
     if (!at) return;
     const [x, y0] = at;
     const y = y0 - this.scale * 350 * 2;
+    const art = fxSprite('fx-sparks');
+    if (art) {
+      art.position.set(x, y);
+      art.rotation = Math.random() * Math.PI * 2;
+      const k0 = (size * 2.4) / art.texture.width;
+      this.fxLayer.addChild(art);
+      this.fx.push({ g: art, life: 260, max: 260, update: (k) => {
+        art.scale.set(k0 * (0.7 + (1 - k) * 0.5));
+        art.alpha = k;
+      } });
+      return;
+    }
     const rays = 7;
     const angles = Array.from({ length: rays }, (_, i) => (i / rays) * Math.PI * 2 + Math.random() * 0.4);
     this.addShape((g, k) => {
@@ -2107,6 +2301,13 @@ export class BattleRenderer {
     const [cx, cy] = this.px(caster.x, caster.y);
     const S = this.scale;
     const ring = (x: number, y: number, rad: number, life = 520) =>
+      this.artFx('fx-cast-ring', life, color, (sp, k) => {
+        const p = 1 - k;
+        sp.position.set(x, y);
+        const w = (rad * 2 * (0.2 + p * 0.8)) / sp.texture.width;
+        sp.scale.set(w, w * this.ysq);
+        sp.alpha = k;
+      }) ||
       this.addShape((g, k) => {
         const p = 1 - k;
         g.ellipse(x, y, rad * (0.2 + p * 0.8), rad * (0.2 + p * 0.8) * this.ysq).fill({ color, alpha: 0.25 * k });
@@ -2118,6 +2319,18 @@ export class BattleRenderer {
         const ang = Math.atan2((target.y - caster.y) * this.ysq, target.x - caster.x);
         const half = Math.acos(Math.max(-1, Math.min(1, (tg.coneCosBp ?? 7071) / 10000)));
         const R = tg.rangeMm * S;
+        const oy = cy - 10 * S * 100;
+        // Painted blast pointing right from the caster, spread to the cone's width.
+        const painted = this.artFx('fx-cone-blast', 480, color, (sp, k) => {
+          const p = 1 - k;
+          sp.anchor.set(0, 0.5);
+          sp.position.set(cx, oy);
+          sp.rotation = ang;
+          const len = (R * (0.3 + p * 0.7)) / sp.texture.width;
+          sp.scale.set(len, ((2 * Math.sin(half) * R * (0.3 + p * 0.7)) / sp.texture.height) * Math.max(0.6, this.ysq + (1 - this.ysq) * Math.abs(Math.cos(ang))));
+          sp.alpha = Math.min(1, k * 1.6);
+        });
+        if (painted) break;
         this.addShape((g, k) => {
           const p = 1 - k;
           const rr = R * (0.3 + p * 0.7);
@@ -2148,7 +2361,13 @@ export class BattleRenderer {
           const x = cx + (tx - cx) * p;
           const y = cy + (ty - cy) * p - Math.sin(p * Math.PI) * 60 * S * 30;
           if (p < 1) g.circle(x, y - 350 * S * 2, Math.max(4, 180 * S)).fill(color).stroke({ width: 2, color: OUTLINE });
-        }, 450);
+        }, 450, (sp, k) => {
+          const p = Math.min(1, (1 - k) * 2.2);
+          sp.visible = p < 1;
+          sp.position.set(cx + (tx - cx) * p, cy + (ty - cy) * p - Math.sin(p * Math.PI) * 60 * S * 30 - 350 * S * 2);
+          sp.rotation = p * 9;
+          sp.scale.set((Math.max(8, 420 * S)) / sp.texture.width);
+        }, 'fx-projectile', color);
         setTimeout(() => this.ready && ring(tx, ty, rad, 500), 200);
         break;
       }
@@ -2160,7 +2379,9 @@ export class BattleRenderer {
         const [tx, ty] = this.px(target.x, target.y);
         const hy = 350 * S * 2;
         const melee = tg.rangeMm < 2200;
-        if (melee) {
+        if (melee && fxFrames('slash', IMPACT_FX.slash.frames)) {
+          this.impact('slash', [tx, ty - hy], { dir: Math.sign(tx - cx) || 1, scale: 1.2 });
+        } else if (melee) {
           this.addShape((g, k) => {
             const a0 = Math.atan2(ty - cy, tx - cx);
             const s0 = a0 - 1.2 + (1 - k) * 0.6;
@@ -2168,6 +2389,15 @@ export class BattleRenderer {
               .arc(tx, ty - hy, 500 * S, s0, a0 + 0.2 + (1 - k) * 1.2)
               .stroke({ width: Math.max(3, 8 * k), color, alpha: k });
           }, 260);
+        } else if (color === ABILITY_COLORS.electric && fxSprite('fx-bolt')) {
+          // A painted bolt stretched from caster to target, flickering.
+          this.artFx('fx-bolt', 300, undefined, (sp, k) => {
+            sp.anchor.set(0, 0.5);
+            sp.position.set(cx, cy - hy);
+            sp.rotation = Math.atan2(ty - cy, tx - cx);
+            sp.scale.set(Math.hypot(tx - cx, ty - cy) / sp.texture.width, ((Math.max(10, 300 * S)) / sp.texture.height) * (Math.floor(k * 20) % 2 ? 1 : -1));
+            sp.alpha = k;
+          });
         } else if (color === ABILITY_COLORS.electric) {
           this.addShape((g, k) => {
             g.moveTo(cx, cy - hy);
@@ -2181,7 +2411,13 @@ export class BattleRenderer {
             const y = cy - hy + (ty - cy) * p;
             g.moveTo(cx + (tx - cx) * Math.max(0, p - 0.3), cy - hy + (ty - cy) * Math.max(0, p - 0.3)).lineTo(x, y).stroke({ width: Math.max(2, 180 * S), color, alpha: 0.6 * k });
             g.circle(x, y, Math.max(3, 150 * S)).fill(color).stroke({ width: 1.5, color: OUTLINE });
-          }, 380);
+          }, 380, (sp, k) => {
+            const p = Math.min(1, (1 - k) * 2.5);
+            sp.position.set(cx + (tx - cx) * p, cy - hy + (ty - cy) * p);
+            sp.rotation = Math.atan2(ty - cy, tx - cx);
+            sp.scale.set((Math.max(8, 380 * S)) / sp.texture.width);
+            sp.alpha = Math.min(1, k * 3);
+          }, 'fx-projectile', color);
         }
       }
     }
@@ -2436,15 +2672,11 @@ export class BattleRenderer {
           v.dir = ev.v >= 0 ? 1 : -1;
           v.brokenAt = this.now;
           const at: [number, number] = [v.cx, v.by];
-          for (let i = 0; i < 3; i++) this.sparks([at[0] + (i - 1) * v.h * 0.5, at[1] - v.h * 0.3], 0xd6d3d1, 26);
+          for (let i = 0; i < 3; i++) this.impact('debris', [at[0] + (i - 1) * v.h * 0.5, at[1] + v.dir * v.h * 0.1], { scale: 1.1, delayMs: i * 60 });
+          this.impact('land-dust', at, { scale: 1.6, dir: v.dir });
           this.float(Math.random() < 0.5 ? 'CRASH!' : 'TIMBER!', [at[0], at[1] + v.h * 0.3], 0xfb923c, 24);
           // Rubble stays where it fell.
-          const w = v.h * 1.3;
-          const bits = Array.from({ length: 14 }, () => [(Math.random() - 0.5) * w * 1.6, v.dir * Math.random() * v.h * 0.35, 3 + Math.random() * v.h * 0.08, Math.random()] as const);
-          this.decal((g) => {
-            g.ellipse(at[0], at[1] + v.dir * v.h * 0.15, w * 0.9, v.h * 0.18).fill({ color: 0x78716c, alpha: 0.35 });
-            for (const [dx, dy, r, c] of bits) g.rect(at[0] + dx, at[1] + dy, r * 1.6, r).fill(c < 0.5 ? 0x9ca3af : 0xa16207);
-          });
+          this.rubbleDecal([at[0], at[1] + v.dir * v.h * 0.15], v.h * 2.4);
         }
         this.hitStop(130, 0.25);
         this.shake = Math.max(this.shake, 14);
@@ -2564,11 +2796,13 @@ export class BattleRenderer {
           const at = this.posOf(ev.b, byId);
           if (at) {
             const r = 420 * this.scale;
-            const cracks = Array.from({ length: 6 }, (_, i) => (i / 6) * Math.PI * 2 + Math.random() * 0.5);
-            this.decal((g) => {
-              for (const a of cracks) g.moveTo(at[0], at[1]).lineTo(at[0] + Math.cos(a) * r * (0.8 + Math.random() * 0.8), at[1] + Math.sin(a) * r * 0.45);
-              g.stroke({ width: Math.max(1, 25 * this.scale), color: 0x1f2937, alpha: 0.45 });
-            });
+            if (!this.artDecal(at, 'fx-crack-decal', r * 2.6, { alpha: 0.85 })) {
+              const cracks = Array.from({ length: 6 }, (_, i) => (i / 6) * Math.PI * 2 + Math.random() * 0.5);
+              this.decal((g) => {
+                for (const a of cracks) g.moveTo(at[0], at[1]).lineTo(at[0] + Math.cos(a) * r * (0.8 + Math.random() * 0.8), at[1] + Math.sin(a) * r * 0.45);
+                g.stroke({ width: Math.max(1, 25 * this.scale), color: 0x1f2937, alpha: 0.45 });
+              });
+            }
           }
         }
         if (ev.v > 0) {
@@ -2660,9 +2894,10 @@ export class BattleRenderer {
         const def = bundle.props.find((p) => p.id === ev.s);
         if (def?.heavy) this.float('BROKE!', this.posOf(ev.b, byId) ?? this.posOf(ev.a, byId), 0xfacc15, 16);
         if (def?.area) break;
-        this.splat(this.posOf(ev.b, byId), hex(def?.art.color ?? '#9ca3af'), Math.max(10, (eb?.r ?? 300) * this.scale * 1.6));
+        this.brokenDecal(this.posOf(ev.b, byId), def, hex(def?.art.color ?? '#9ca3af'), Math.max(10, (eb?.r ?? 300) * this.scale * 1.6));
         this.sfx.play(def?.tags.includes('material:glass') ? 'glass' : def?.tags.includes('food') || def?.tags.includes('liquid') ? 'splash' : 'thud');
-        this.sparks(this.posOf(ev.b, byId), 0xe5e7eb, 16);
+        if (def?.tags.includes('material:glass') || def?.tags.includes('conductive')) this.sparks(this.posOf(ev.b, byId), 0xe5e7eb, 16);
+        else this.impact('debris', this.posOf(ev.b, byId), { scale: 0.6 });
         break;
       }
       case 'drop':
@@ -2754,13 +2989,9 @@ export class BattleRenderer {
         const e = byId.get(ev.b);
         const at = e ? this.px(e.x, e.y) : null;
         if (at) {
-          const rad = ev.v * this.scale;
-          this.addShape((g, k) => {
-            const p = 1 - k;
-            g.circle(at[0], at[1], rad * (0.3 + p * 0.8)).fill({ color: 0xff7a00, alpha: 0.55 * k });
-            g.circle(at[0], at[1], rad * (0.15 + p * 0.5)).fill({ color: 0xfff176, alpha: 0.7 * k });
-            g.circle(at[0], at[1], rad * (0.3 + p)).stroke({ width: 4, color: 0x1b1f2a, alpha: 0.4 * k });
-          }, 600);
+          // The art is drawn `size` fighter-radii wide: scale it to the blast's diameter.
+          this.impact('explosion', at, { scale: (ev.v * 2) / (IMPACT_FX.explosion.size * 350) });
+          this.impact('debris', at, { scale: 1.2 });
           this.witnesses(e, (s) => {
             this.setExpr(s, 'scared', 900);
             this.bark(s, 'bark_explosion', 0.4);

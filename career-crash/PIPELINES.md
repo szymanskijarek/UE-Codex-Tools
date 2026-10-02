@@ -224,6 +224,13 @@ is empty: the 30 newer careers were re-imported from separate sheets through
   prompts: `art/FX_BRIEF.md`.
 - **Fallback:** an effect without art plays a stand-in drawn in code; art
   replaces it as soon as all of its frames are in the atlas.
+- **Status loops, ability effects and floor decals:** looping
+  `fx-status-<status>-1…4` over a fighter, `fx-explosion`, `fx-dash`, tintable
+  `fx-cast-ring` / `fx-cone-blast` / `fx-projectile`, `fx-bolt`, and floor
+  decals `fx-rubble-decal-1…3`, `fx-crack-decal-…`, `fx-chips-decal-…`,
+  `fx-splat-food-…`, `fx-splat-liquid-…`. The renderer uses each one as soon as
+  it is in the atlas, with a stand-in from older art (or a drawing) until then.
+  Audit, brief and manifest lines: `art/FX_GAPS_BRIEF.md`.
 
 ### 5.4b Hazard fixtures and effects
 

@@ -20,7 +20,9 @@ export type ImpactFxId =
   | 'land-dust'
   | 'debris'
   | 'ko-stars'
-  | 'parry';
+  | 'parry'
+  | 'explosion'
+  | 'dash';
 
 export interface ImpactFxDef {
   /** Painted frames, played once over `ms`. */
@@ -306,6 +308,39 @@ export const IMPACT_FX: Record<ImpactFxId, ImpactFxDef> = {
       const r = (w / 2) * (0.5 + ease(p) * 0.5);
       sparkle(g, x, y, r, 0xfde047, k);
       sparkle(g, x, y, r * 0.55, 0xffffff, k);
+    },
+  },
+  /** Something going bang (a gas bottle, a microwave): a fireball with a dark smoke ring. Sized by the caller to the blast radius. */
+  explosion: {
+    frames: 6,
+    ms: 600,
+    size: 6,
+    anchor: 'center',
+    directional: false,
+    draw: (g, p, x, y, w) => {
+      const k = 1 - p;
+      const r = w / 2;
+      g.circle(x, y, r * (0.3 + p * 0.8)).fill({ color: 0xff7a00, alpha: 0.55 * k });
+      g.circle(x, y, r * (0.15 + p * 0.5)).fill({ color: 0xfff176, alpha: 0.7 * k });
+      g.circle(x, y, r * (0.3 + p)).stroke({ width: 4, color: INK, alpha: 0.4 * k });
+    },
+  },
+  /** A dash or dodge: a scuff of dust and speed streaks left behind, pointing back along the move. */
+  dash: {
+    frames: 4,
+    ms: 380,
+    size: 2.6,
+    anchor: 'bottom',
+    directional: true,
+    draw: (g, p, x, y, w, dir, seed) => {
+      const k = 1 - p;
+      for (let i = 0; i < 4; i++) {
+        const h = w * (0.12 + i * 0.12);
+        const len = w * (0.35 + rnd(seed, i) * 0.3) * (0.7 + p * 0.5);
+        g.moveTo(x, y - h).lineTo(x - dir * len, y - h);
+      }
+      g.stroke({ width: Math.max(1.5, w * 0.04), color: 0xffffff, alpha: 0.7 * k });
+      g.ellipse(x + dir * w * 0.05, y, w * (0.3 - p * 0.12), w * 0.08).fill({ color: 0xd6d3d1, alpha: 0.45 * k });
     },
   },
 };
