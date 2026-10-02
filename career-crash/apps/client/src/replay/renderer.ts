@@ -2675,8 +2675,10 @@ export class BattleRenderer {
           for (let i = 0; i < 3; i++) this.impact('debris', [at[0] + (i - 1) * v.h * 0.5, at[1] + v.dir * v.h * 0.1], { scale: 1.1, delayMs: i * 60 });
           this.impact('land-dust', at, { scale: 1.6, dir: v.dir });
           this.float(Math.random() < 0.5 ? 'CRASH!' : 'TIMBER!', [at[0], at[1] + v.h * 0.3], 0xfb923c, 24);
-          // Rubble stays where it fell.
-          this.rubbleDecal([at[0], at[1] + v.dir * v.h * 0.15], v.h * 2.4);
+          // Rubble stays where it fell; painted wreckage is rubble enough, so it only gets a dust patch.
+          const w = v.w ?? v.h * 1.3;
+          if (v.art && obstacleTexture(`${v.art}-destroyed`)) this.dustDecal(at, w * 0.45);
+          else this.rubbleDecal([at[0], at[1] + v.dir * v.h * 0.1], w * 0.9);
         }
         this.hitStop(130, 0.25);
         this.shake = Math.max(this.shake, 14);

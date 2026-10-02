@@ -38,7 +38,8 @@ const OUT = join(ROOT, `apps/client/src/replay/${KIND}`);
 /** Longest side of an item in the atlas (px). */
 const ITEM_PX = KIND === 'obstacles' ? 170 : 96;
 const COLS = KIND === 'obstacles' ? 3 : 4;
-const ATLAS_W = KIND === 'obstacles' ? 2048 : 1024;
+/** Both atlases are 2048 wide, which keeps them well under the 4096 px texture limit of older phones. */
+const ATLAS_W = 2048;
 const PAD = 2;
 
 interface Blob {

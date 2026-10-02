@@ -1,8 +1,10 @@
 # Effect gaps: brief for the image agent
 
-> **Status:** requested 2 October 2026, not delivered yet. The game already
-> looks for every name below: drop a sheet in, import it, and it replaces the
-> stand-in. Nothing else needs changing in code.
+> **Status:** delivered and in the game (all 20 sheets, 2 October 2026). Kept
+> as the spec for replacing or adding effects. The explosion sheet arrived with
+> slivers of neighbouring frames in its cells; they were removed and the frames
+> re-centred, but frames 2, 3 and 5 still have one flat, cropped side. Worth
+> regenerating with the brief's margin rule if it shows.
 
 This file is self-contained: hand it to the image agent together with the
 reference images it names. It follows the same rules as `art/FX_BRIEF.md` (the

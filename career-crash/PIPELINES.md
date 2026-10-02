@@ -230,7 +230,9 @@ is empty: the 30 newer careers were re-imported from separate sheets through
   decals `fx-rubble-decal-1…3`, `fx-crack-decal-…`, `fx-chips-decal-…`,
   `fx-splat-food-…`, `fx-splat-liquid-…`. The renderer uses each one as soon as
   it is in the atlas, with a stand-in from older art (or a drawing) until then.
-  Audit, brief and manifest lines: `art/FX_GAPS_BRIEF.md`.
+  All of them are delivered. Audit, brief and manifest lines: `art/FX_GAPS_BRIEF.md`.
+- **Atlas size:** both atlases are 2048 px wide, so they stay well under the
+  4096 px texture limit of older phones. Keep an eye on the height when adding sheets.
 
 ### 5.4b Hazard fixtures and effects
 
