@@ -54,5 +54,14 @@ export async function act<T>(fn: () => Promise<T>, success?: string): Promise<T 
 }
 
 export function navigate(path: string): void {
+  // Same page (e.g. the career home after creating a character): no hashchange fires, so scroll here.
+  if (window.location.hash.replace(/^#/, '') === path) scrollToTop();
   window.location.hash = path;
+}
+
+/** Every screen opens at the top, including steps inside a screen that don't change the URL. */
+export function scrollToTop(): void {
+  window.scrollTo(0, 0);
+  // Once more after the new screen has rendered (a long page may still have been laid out).
+  requestAnimationFrame(() => window.scrollTo(0, 0));
 }

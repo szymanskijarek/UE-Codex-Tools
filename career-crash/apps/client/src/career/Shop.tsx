@@ -2,9 +2,10 @@ import { useState } from 'preact/hooks';
 import { bundle } from '@cc/content';
 import { LOADOUT_SLOTS, shopTierAt, shortName } from '@cc/game-rules';
 import { nameOf, t } from '../i18n';
-import { navigate, notify } from '../state';
+import { notify } from '../state';
 import { Card } from '../ui/components';
 import { buy, equip, lineup, owned, shopStock, unequip, type CareerSave } from './model';
+import { PageHead } from './CoreActions';
 import { PuppetView } from './PuppetView';
 
 function when(itemId: string): string {
@@ -24,14 +25,10 @@ export function ShopScreen({ save: s }: { save: CareerSave }) {
   const tier = shopTierAt(s.stage);
   return (
     <section>
-      <button class="ghost small" onClick={() => navigate('/career')}>
-        ← Career
-      </button>
-      <h1>🛒 Corner Shop</h1>
-      <p class="muted">
+      <PageHead back="/career" backLabel="Home" title="🛒 Corner Shop">
         💵 {s.cash} · Each fighter carries up to {LOADOUT_SLOTS} items. Consumables fire once in a fight and are used up. Stat-boosting gear comes as a perk for winning fights: see <a href="#/career/perks">🎁 Perks & Benefits</a>.
         {tier < 3 && ' More stock arrives as you climb the ladder.'}
-      </p>
+      </PageHead>
 
       <div class="grid two">
         <Card>

@@ -2,9 +2,10 @@ import { useState } from 'preact/hooks';
 import { bundle } from '@cc/content';
 import { allocatePoints, careerRank, pointsLeft, RANKS, skillPointsAt, skillTree, unlockBlocker, unlockNode, type SkillNode } from '@cc/game-rules';
 import { abilitySummary, nameOf } from '../i18n';
-import { navigate, notify } from '../state';
+import { notify } from '../state';
 import { Card, CareerChip, Portrait } from '../ui/components';
 import { PuppetView } from './PuppetView';
+import { PageHead } from './CoreActions';
 import { RankBar, StatBars } from './Career';
 import { pickCareer, save, type CareerSave } from './model';
 
@@ -56,13 +57,10 @@ export function SkillsScreen({ save: s, id }: { save: CareerSave; id: string }) 
 
   return (
     <section>
-      <button class="ghost small" onClick={() => navigate(id === s.mainId ? '/career' : '/career/squad')}>
-        ← {id === s.mainId ? 'Career' : 'Squad'}
-      </button>
-      <div class="row hero">
-        <PuppetView careerId={cc.c.careers[cc.c.careers.length - 1]!} personality={cc.c.personality} appearance={cc.c.appearance} size={140} hype={hype} voiceId={cc.c.id} lines={hype > 1 ? 'menu_skill' : 'menu_hello'} />
+      <div class="row hero skills-hero">
+        <PuppetView careerId={cc.c.careers[cc.c.careers.length - 1]!} personality={cc.c.personality} appearance={cc.c.appearance} size={110} hype={hype} voiceId={cc.c.id} lines={hype > 1 ? 'menu_skill' : 'menu_hello'} />
         <div class="grow">
-          <h1>{cc.c.name}</h1>
+          <PageHead back={id === s.mainId ? '/career' : '/career/squad'} backLabel={id === s.mainId ? 'Home' : 'Squad'} title={cc.c.name} />
           <div class="muted">
             Level {cc.c.level} · {nameOf(cc.c.personality)}
             {cc.c.traits.length > 0 && <> · {cc.c.traits.map((t) => nameOf(t)).join(', ')}</>}

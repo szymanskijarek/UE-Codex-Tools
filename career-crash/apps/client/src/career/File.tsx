@@ -20,19 +20,20 @@ const arrow = (n: HrNoteDef): string => (hrDirection(n) > 0 ? '▲' : hrDirectio
  * The HR notes in effect for one fighter in the next fight, as small chips:
  * read notes say what they do, unread ones only hint (06 §4).
  */
-export function HrChips({ cc, active }: { cc: CareerChar; active: readonly ActiveHrNote[] }) {
+export function HrChips({ cc, active, compact = false }: { cc: CareerChar; active: readonly ActiveHrNote[]; compact?: boolean }) {
   if (!active.length) return null;
   const read = new Set(cc.readNotes ?? []);
   return (
-    <div class="hr-chips">
+    <div class={`hr-chips ${compact ? 'compact' : ''}`}>
       {active.map(({ note, by }) =>
         read.has(note.id) ? (
-          <span class={`hr-chip ${TONE[note.tone].cls}`} title={`${describeHrWhen(bundle, note)}${by.length ? ` (${by.join(', ')})` : ''}`}>
-            {arrow(note)} {nameOf(note.id)}: {describeHrEffect(bundle, note)}
+          <span class={`hr-chip ${TONE[note.tone].cls}`} title={`${describeHrEffect(bundle, note)} · ${describeHrWhen(bundle, note)}${by.length ? ` (${by.join(', ')})` : ''}`}>
+            {arrow(note)} {nameOf(note.id)}
+            {compact ? '' : `: ${describeHrEffect(bundle, note)}`}
           </span>
         ) : (
           <span class={`hr-chip unread ${TONE[note.tone].cls}`} title="Open their personnel file to find out">
-            📁 {arrow(note)} Something in their file
+            📁 {arrow(note)} {compact ? 'File note' : 'Something in their file'}
           </span>
         ),
       )}
@@ -66,7 +67,7 @@ export function FileScreen({ save: s, charId }: { save: CareerSave; charId?: str
   const status = cc.c.id === s.mainId ? 'Founder' : leave ? '🌷 On Garden Leave' : '💼 In the squad';
   return (
     <section>
-      <button class="ghost small" onClick={() => navigate('/career/squad')}>
+      <button class="li-btn small" onClick={() => navigate('/career/squad')}>
         ← Squad
       </button>
       <div class="hr-folder">

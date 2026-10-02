@@ -3,12 +3,13 @@ import { bundle } from '@cc/content';
 import { careerRank, DIFFICULTIES, pointsLeft, formatName, partsFromName, randomCompany, RANK_XP, RANKS, SQUAD_UNLOCK_RANK, stageInfo, type CareerChar, type CompanyName, type DifficultyId, type NameParts } from '@cc/game-rules';
 import { Rng } from '@cc/sim';
 import { abilitySummary, descOf, nameOf } from '../i18n';
-import { navigate, notify } from '../state';
+import { navigate, notify, scrollToTop } from '../state';
 import { Card, CareerChip, Portrait } from '../ui/components';
-import { type BoardRow, career, collectResults, lastFight, sellLoot, companyName, currentCareer, draftCharacter, mainChar, startCareer, type CareerSave } from './model';
+import { type BoardRow, career, collectResults, sellLoot, companyName, currentCareer, draftCharacter, mainChar, startCareer, type CareerSave } from './model';
 import { CompanyPicker } from './CompanyPicker';
 import { NamePicker } from './NamePicker';
-import { captureFightPhoto, developing, fightPhoto } from './photo';
+import { developing, fightPhoto } from './photo';
+import { CoreActions, developPhoto, EasyApplyFab } from './CoreActions';
 import { GearScreen } from './Gear';
 import { Hub } from './Hub';
 import { LootCard } from './Loot';
@@ -22,13 +23,21 @@ import { SquadScreen } from './Squad';
 export function CareerScreen({ sub, arg }: { sub?: string; arg?: string }) {
   const s = career.value;
   if (!s) return <CreateCharacter />;
-  if (sub === 'skills') return <SkillsScreen save={s} id={arg ?? s.mainId} />;
-  if (sub === 'squad') return <SquadScreen save={s} />;
-  if (sub === 'file') return <FileScreen save={s} charId={arg} />;
-  if (sub === 'shop') return <ShopScreen save={s} />;
-  if (sub === 'perks' || sub === 'gear') return <GearScreen save={s} charId={arg} />;
   if (sub === 'results') return <Results save={s} />;
-  return <Hub save={s} />;
+  // Every other career screen keeps the next fight one tap away (on the hub, once its own button has scrolled off).
+  const screen =
+    sub === 'skills' ? <SkillsScreen save={s} id={arg ?? s.mainId} /> :
+    sub === 'squad' ? <SquadScreen save={s} /> :
+    sub === 'file' ? <FileScreen save={s} charId={arg} /> :
+    sub === 'shop' ? <ShopScreen save={s} /> :
+    sub === 'perks' || sub === 'gear' ? <GearScreen save={s} charId={arg} /> :
+    <Hub save={s} />;
+  return (
+    <>
+      {screen}
+      <EasyApplyFab s={s} afterScroll={screen.type === Hub ? 520 : 0} />
+    </>
+  );
 }
 
 // ---------------------------------------------------------------------------
@@ -57,6 +66,8 @@ function CreateCharacter() {
   const [hype, setHype] = useState(1);
   const [company, setCompany] = useState<CompanyName>(() => randomCompany(Rng.fromSeed(Math.random().toString(16))));
   const draft = useMemo(() => (careerId ? draftCharacter(seed, careerId) : null), [seed, careerId]);
+  // Picking (or changing) the job swaps the whole screen: start it at the top.
+  useEffect(() => scrollToTop(), [careerId]);
 
   if (!careerId || !draft) {
     return (
@@ -93,7 +104,7 @@ function CreateCharacter() {
   const c = bundle.careers.find((x) => x.id === careerId)!;
   return (
     <section>
-      <button class="ghost small" onClick={() => setCareerId('')}>
+      <button class="li-btn small" onClick={() => setCareerId('')}>
         ← Pick another job
       </button>
       <div class="row hero">
@@ -113,6 +124,12 @@ function CreateCharacter() {
             ) : null}{' '}
             as they rank up.
           </p>
+          <div class="core-actions">
+            <button class="li-btn primary big" onClick={start}>
+              🥊 Start career
+            </button>
+            <span class="muted small">Or tweak the name, personality, difficulty and company below first.</span>
+          </div>
         </div>
       </div>
       <div class="grid two">
@@ -168,7 +185,7 @@ function CreateCharacter() {
         <p class="muted small">Your squad fights under this name, and other players will see it.</p>
         <CompanyPicker value={company} onChange={setCompany} />
       </Card>
-      <button class="primary big" onClick={start}>
+      <button class="li-btn primary big" onClick={start}>
         🥊 Start career
       </button>
     </section>
@@ -268,10 +285,7 @@ function Results({ save: s0 }: { save: CareerSave }) {
   const [s] = useState(() => (s0.pending ? collectResults(s0) : s0));
   const r = s.last;
   // Develop this fight's photo (the input is gone from the save once results are in, so it's kept in memory).
-  useEffect(() => {
-    const f = lastFight;
-    if (f && r?.photo && s.feed?.[0]?.fight === f.fight && fightPhoto.value?.fight !== f.fight) void captureFightPhoto(f.input, r.photo, f.fight);
-  }, []);
+  useEffect(() => developPhoto(s), []);
   if (!r) {
     return (
       <section>
@@ -283,9 +297,9 @@ function Results({ save: s0 }: { save: CareerSave }) {
   const title = r.outcome === 'win' ? '🏆 Victory!' : r.outcome === 'draw' ? '🤝 Draw' : '💥 Defeat';
   const m = mainChar(s);
   return (
-    <section>
-      <div class="row hero">
-        <PuppetView careerId={currentCareer(m)} personality={r.outcome === 'win' ? m.c.personality : 'personality.lazy'} appearance={m.c.appearance} size={170} hype={r.outcome === 'win' ? 1 : 0} voiceId={m.c.id} lines="bark_win" mood={r.outcome === 'loss' ? 'hurt' : 'neutral'} />
+    <section class="results">
+      <div class="row hero results-hero">
+        <PuppetView careerId={currentCareer(m)} personality={r.outcome === 'win' ? m.c.personality : 'personality.lazy'} appearance={m.c.appearance} size={130} hype={r.outcome === 'win' ? 1 : 0} voiceId={m.c.id} lines="bark_win" mood={r.outcome === 'loss' ? 'hurt' : 'neutral'} />
         <div class="grow">
           <h1>{title}</h1>
           <p class="lead">
@@ -305,8 +319,9 @@ function Results({ save: s0 }: { save: CareerSave }) {
             </div>
           )}
         </div>
-        <ResultPhoto s={s} />
       </div>
+      <CoreActions s={s} here="results" />
+      <ResultPhoto s={s} />
       {r.loot && <LootDrop drop={r.loot} />}
       {r.board && (
         <Card>
@@ -366,14 +381,6 @@ function Results({ save: s0 }: { save: CareerSave }) {
             {g.milestone && <div class="good">✨ Career milestone — pick a new job on their skills page!</div>}
           </Card>
         ))}
-      </div>
-      <div class="cta-row">
-        <button class="primary" onClick={() => navigate('/career')}>
-          Continue
-        </button>
-        <button class="ghost" onClick={() => navigate(`/career/skills/${s.mainId}`)}>
-          🌳 Spend points
-        </button>
       </div>
     </section>
   );

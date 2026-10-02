@@ -10,6 +10,8 @@ import { currentReplay, navigate, notify } from '../state';
 import { ReplayPlayer } from '../replay/player';
 import { BattleRenderer } from '../replay/renderer';
 import { Card, CareerChain, Empty } from '../ui/components';
+import { career } from '../career/model';
+import { startNextFight } from '../career/CoreActions';
 
 const SPEEDS = [1, 2, 4];
 const FEED_MAX = 40;
@@ -61,6 +63,8 @@ export function Replay({ battleId }: { battleId?: string }) {
   const rendererRef = useRef<BattleRenderer | null>(null);
   const commentatorRef = useRef<LiveCommentator | null>(null);
   const keyRef = useRef(0);
+  /** The fight-over bar has been scrolled into view once for this ending. */
+  const overShownRef = useRef(false);
   const [tick, setTick] = useState(0);
   const [speed, setSpeed] = useState(1);
   const [paused, setPaused] = useState(false);
@@ -334,6 +338,8 @@ export function Replay({ battleId }: { battleId?: string }) {
   const p = playerRef.current;
   const total = p?.totalTicks ?? 1;
   const finished = !!p && tick >= total;
+  if (!finished) overShownRef.current = false;
+  const save = rep.id === 'career' ? career.value : null;
   const seek = (t: number) => {
     const player = playerRef.current;
     if (!player) return;
@@ -438,7 +444,29 @@ export function Replay({ battleId }: { battleId?: string }) {
               </button>
             )}
           </div>
-          <div class="feed" aria-live="polite">
+          {finished && save && (
+            <div
+              class="fight-over"
+              ref={(el) => {
+                // Bring the next step on screen once, when the fight ends.
+                if (el && !overShownRef.current) {
+                  overShownRef.current = true;
+                  el.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                }
+              }}
+            >
+              <b class="fight-over-title">{report?.winnerName ? `🏆 ${report.winnerName} wins` : report ? '🤝 Draw' : 'Fight over'}</b>
+              <div class="fight-over-actions">
+                <button class="li-btn primary big" onClick={() => navigate('/career/results')}>
+                  📋 Collect results
+                </button>
+                <button class="li-btn" onClick={() => startNextFight(save)} title="Collect the results and go straight into the next fight">
+                  🥊 Next fight
+                </button>
+              </div>
+            </div>
+          )}
+          <div class={`feed ${finished && save ? 'done' : ''}`} aria-live="polite">
             {feed.length === 0 && <div class="feed-line muted">…</div>}
             {feed.map((l, i) => (
               <div key={l.key} class={`feed-line imp${l.importance} ${i === 0 ? 'fresh' : ''}`}>
@@ -451,12 +479,8 @@ export function Replay({ battleId }: { battleId?: string }) {
         <div class="side">
           {finished && report ? (
             <Card class="report">
-              {rep.id === 'career' && (
-                <button class="primary big" onClick={() => navigate('/career/results')}>
-                  📋 Collect results
-                </button>
-              )}
-              <h2>{report.winnerName ? `🏆 ${report.winnerName} wins` : 'Draw'}</h2>
+              {/* Career fights already say who won in the fight-over bar. */}
+              {save ? <h2>📋 Match report</h2> : <h2>{report.winnerName ? `🏆 ${report.winnerName} wins` : 'Draw'}</h2>}
               {report.headline && (
                 <p class="headline clickable" onClick={() => seek(Math.max(0, report.headline!.tick - 60))}>
                   “{report.headline.text}”

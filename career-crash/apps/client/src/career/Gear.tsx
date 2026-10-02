@@ -2,10 +2,11 @@ import { useState } from 'preact/hooks';
 import { bundle } from '@cc/content';
 import { LOOT_RARITIES } from '@cc/content-schema/constants';
 import { lootSellPrice, shortName } from '@cc/game-rules';
-import { navigate, notify } from '../state';
+import { notify } from '../state';
 import { Card } from '../ui/components';
 import { LootCard, RARITY_NAMES } from './Loot';
 import { equipGear, mainChar, sellLoot, unequipGear, type CareerSave } from './model';
+import { PageHead } from './CoreActions';
 
 /**
  * Perks & Benefits: loot in LinkedIn language. What each fighter (you and every
@@ -21,15 +22,11 @@ export function GearScreen({ save: s, charId }: { save: CareerSave; charId?: str
   const worn = target.gear ?? [];
   return (
     <section>
-      <button class="ghost small" onClick={() => navigate('/career')}>
-        ← Career
-      </button>
-      <h1>🎁 Perks & Benefits</h1>
-      <p class="muted">
+      <PageHead back="/career" backLabel="Home" title="🎁 Perks & Benefits">
         💵 {s.cash} · Every win comes with a tax-free* perk. Each fighter, hires included, can hold {L.slots}; the rest stay unclaimed ({bag.length}/{L.bagCap}) or cash out for consumables money.
         <br />
         <span class="small">*Not financial advice. Please consult your accountant, who is also in a fight.</span>
-      </p>
+      </PageHead>
       <div class="grid two">
         <Card>
           <h2>Benefits package</h2>

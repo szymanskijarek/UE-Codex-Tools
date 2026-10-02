@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'preact/hooks';
 import { Money } from './ui/components';
-import { me, online, refreshMe, STANDALONE, toast } from './state';
+import { me, online, refreshMe, scrollToTop, STANDALONE, toast } from './state';
 import { Home } from './screens/Home';
 import { Roster } from './screens/Roster';
 import { CharacterScreen } from './screens/Character';
@@ -17,9 +17,11 @@ function useRoute(): string[] {
   const read = () => (window.location.hash.replace(/^#\/?/, '') || (STANDALONE ? 'career' : 'home')).split('/');
   const [route, setRoute] = useState(read());
   useEffect(() => {
+    // We decide where a screen opens (the top), not the browser's scroll memory.
+    if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
     const on = () => {
       setRoute(read());
-      window.scrollTo(0, 0);
+      scrollToTop();
     };
     window.addEventListener('hashchange', on);
     return () => window.removeEventListener('hashchange', on);

@@ -7,6 +7,7 @@ import { Card, CareerChip, Portrait } from '../ui/components';
 import { PuppetView } from './PuppetView';
 import { Loadout, RankBar, skillAlert } from './Career';
 import { HrChips } from './File';
+import { PageHead } from './CoreActions';
 import { GearIcons } from './Loot';
 import { applicants, currentCareer, dismiss, hire, HIRE_COST, lineup, lineupHr, mainChar, onGardenLeave, rarityOf, ROSTER_CAP, SQUAD_SIZE, squadUnlocked, toggleSquad, type CareerSave } from './model';
 
@@ -24,9 +25,7 @@ export function SquadScreen({ save: s }: { save: CareerSave }) {
     const need = RANK_XP[SQUAD_UNLOCK_RANK - 1]!;
     return (
       <section>
-        <button class="ghost small" onClick={() => navigate('/career')}>
-          ← Career
-        </button>
+        <PageHead back="/career" backLabel="Home" title="👥 Squad" />
         <Card class="locked-card">
           <h1>🔒 Squad building</h1>
           <p>
@@ -99,13 +98,9 @@ export function SquadScreen({ save: s }: { save: CareerSave }) {
   };
   return (
     <section>
-      <button class="ghost small" onClick={() => navigate('/career')}>
-        ← Career
-      </button>
-      <h1>👥 Squad</h1>
-      <p class="muted">
+      <PageHead back="/career" backLabel="Home" title="👥 Squad">
         {SQUAD_SIZE} teammates fight with {m.c.name}; empty slots are filled by agency temps. Everyone else is on 🌷 Garden Leave. 💵 {s.cash} · staff {staff.length + 1}/{ROSTER_CAP}
-      </p>
+      </PageHead>
 
       <Card>
         <h2>Next fight line-up</h2>
@@ -134,7 +129,7 @@ export function SquadScreen({ save: s }: { save: CareerSave }) {
                 <b>{cc.c.name}</b>
                 {!cc.temp && <Loadout ids={cc.loadout} />}
                 <span class="muted small">{i === 0 ? 'You' : cc.temp ? 'Agency temp' : `Lv ${cc.c.level} ${nameOf(currentCareer(cc))}`}</span>
-                {!cc.temp && <HrChips cc={cc} active={active} />}
+                {!cc.temp && <HrChips cc={cc} active={active} compact />}
                 {!cc.temp && (
                   <button class={`ghost small ${unreadHrNotes(bundle, cc).length ? 'alert' : ''}`} onClick={() => navigate(`/career/file/${cc.c.id}`)}>
                     📁 File

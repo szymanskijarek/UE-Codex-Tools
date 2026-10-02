@@ -2543,3 +2543,172 @@ body:has(.shell.li) {
   margin: 0;
   padding-left: 18px;
 }
+
+/* Core loop: the after-fight action row, the floating Easy Apply and the compact page header. */
+.core-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  margin: 4px 0 14px;
+}
+
+.core-actions .li-btn {
+  margin: 0;
+}
+
+.easy-fab {
+  position: fixed;
+  right: 16px;
+  bottom: 24px;
+  z-index: 25;
+  margin: 0;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 999px;
+  background: var(--li-blue, #0a66c2);
+  color: #fff;
+  font: 700 1rem/1 -apple-system, system-ui, 'Segoe UI', Roboto, sans-serif;
+  box-shadow: 0 6px 18px #0004;
+  cursor: pointer;
+}
+
+.easy-fab:hover {
+  background: var(--li-blue-dark, #004182);
+  transform: none;
+}
+
+.page-head {
+  margin: 0 0 12px;
+}
+
+.page-head-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.page-head-row h1 {
+  margin: 0;
+  font-size: 1.5rem;
+}
+
+.page-head-row .li-btn {
+  margin: 0;
+}
+
+.page-head-note {
+  margin: 6px 0 0;
+  line-height: 1.4;
+}
+
+/* End of a career fight: the next step right under the controls. */
+.fight-over {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px 12px;
+  margin: 8px 0;
+  padding: 12px 14px;
+  background: #fff;
+  border: 1px solid var(--li-line, #e0dfdc);
+  border-radius: 8px;
+}
+
+.fight-over-title {
+  font-size: 1.1rem;
+}
+
+.fight-over-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.fight-over-actions .li-btn {
+  margin: 0;
+}
+
+.feed.done {
+  display: none;
+}
+
+.report h2 {
+  margin: 0 0 8px;
+}
+
+/* Results: a compact hero, the actions, then the photo at a readable size. */
+.results-hero {
+  align-items: center;
+  margin-bottom: 4px;
+}
+
+.results-hero h1 {
+  margin: 0;
+}
+
+.results-hero .lead {
+  margin: 2px 0 6px;
+}
+
+.results .result-photo {
+  width: min(100%, 340px);
+  margin: 0 auto 14px;
+  transform: rotate(1deg);
+}
+
+@media (max-width: 720px) {
+  .easy-fab {
+    bottom: calc(68px + env(safe-area-inset-bottom));
+  }
+
+  /* Room for the floating button above the bottom bar. */
+  .shell.li main {
+    padding-bottom: 72px;
+  }
+
+  .core-actions .li-btn.primary {
+    flex: 1 1 100%;
+  }
+
+  .core-actions .li-btn:not(.primary) {
+    flex: 1 1 0;
+    padding: 8px 6px;
+    font-size: 0.9rem;
+  }
+
+  .fight-over-actions,
+  .fight-over-actions .li-btn.primary {
+    flex: 1 1 100%;
+  }
+
+  .page-head-row h1 {
+    font-size: 1.25rem;
+  }
+
+  .results-hero .puppet-view {
+    width: 96px !important;
+  }
+}
+
+/* Line-up chips in narrow columns: one line each, the full effect in the tooltip. */
+.hr-chips.compact {
+  justify-content: center;
+}
+
+.hr-chips.compact .hr-chip {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 100%;
+}
+
+.skills-hero {
+  align-items: center;
+}
+
+.skills-hero .page-head {
+  margin-bottom: 2px;
+}

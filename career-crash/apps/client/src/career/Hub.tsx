@@ -3,14 +3,15 @@ import { bundle } from '@cc/content';
 import { careerRank, DIFFICULTIES, isNameParts, partsFromName, difficulty, RANKS, SQUAD_UNLOCK_RANK, stageInfo, STAGES_PER_ARENA, hrMood, type ActiveHrNote, type CareerChar, type DifficultyId } from '@cc/game-rules';
 import { descOf, nameOf } from '../i18n';
 import { arenaArt } from '../replay/arena-art';
-import { currentReplay, navigate } from '../state';
+import { navigate } from '../state';
 import { Portrait } from '../ui/components';
 import { levelProgress, Loadout, RankBar, skillAlert } from './Career';
 import { CompanyPicker } from './CompanyPicker';
 import { NamePicker } from './NamePicker';
 import { HrChips } from './File';
+import { startNextFight } from './CoreActions';
 import { GearIcons } from './Loot';
-import { abandon, applicants, companyName, renameCharacter, renameCompany, setPostMine, currentCareer, lineup, lineupHr, mainChar, nextOpponents, prepareFight, save, squadUnlocked, type CareerSave } from './model';
+import { abandon, applicants, companyName, renameCharacter, renameCompany, setPostMine, currentCareer, lineup, lineupHr, mainChar, nextOpponents, save, squadUnlocked, type CareerSave } from './model';
 import { developing, fightPhoto } from './photo';
 import { PuppetView } from './PuppetView';
 import { discussion, promotedPosts, REACTIONS, starterPosts, type FeedPost, type ReactionKind } from './feed';
@@ -244,11 +245,7 @@ export function Hub({ save: s }: { save: CareerSave }) {
   const art = arenaArt(info.arenaId);
   const chapter = Math.floor(s.stage / STAGES_PER_ARENA);
   const viewers = 13 + s.wins * 7 + s.losses * 3;
-  const fight = () => {
-    const input = prepareFight(s);
-    currentReplay.value = { id: 'career', input, title: `Stage ${s.stage + 1} · vs ${info.company}`, back: '/career/results' };
-    navigate('/replay/career');
-  };
+  const fight = () => startNextFight(s);
   const people = unlocked ? applicants(s).slice(0, 3) : [];
   return (
     <section class="li-page">
