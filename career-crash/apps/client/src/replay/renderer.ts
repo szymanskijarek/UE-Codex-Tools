@@ -6,7 +6,8 @@ import { shortName } from '@cc/game-rules';
 import type { AbilityDef, ArenaDef, PropDef, SummonDef } from '@cc/content-schema';
 import { layoutArena, type BattleEvent, type BattleInput, type FrameEntity, type PlacedObstacle } from '@cc/sim';
 import { nameOf, STATUS_ICONS } from '../i18n';
-import { Sfx, type SfxName } from './audio';
+import { critterVoice, Sfx, type SfxName } from './audio';
+import { music } from './music';
 import type { ReplayPlayer } from './player';
 import { arenaArt, type ArenaArt } from './arena-art';
 import { drawArea, drawProp } from './props-art';
@@ -2304,6 +2305,24 @@ export class BattleRenderer {
     }, 260);
   }
 
+  /**
+   * What a blow sounds like, by what landed it: teeth, blades, metal, a
+   * thrown object, a body or a heavy weapon, a zap, a burn, an insult.
+   */
+  private impactSound(type: string, src: FrameEntity | undefined, heavy: boolean): SfxName {
+    if (src?.def.startsWith('summon.')) return SUMMONS.get(src.def)?.kind === 'animal' ? 'chomp' : 'bonk';
+    if (type === 'electric') return 'zap';
+    if (type === 'fire') return 'fire';
+    if (type === 'social') return 'wah';
+    if (type === 'body' || heavy || (src && isMover(src.def))) return 'crunch';
+    if (type === 'sharp') return 'slash';
+    const tags = src?.kind === 'prop' ? (bundle.props.find((p) => p.id === src.def)?.tags ?? []) : src?.weapon ? (bundle.equipment.find((q) => q.id === src.weapon)?.tags ?? []) : [];
+    if (tags.includes('material:metal')) return 'clang';
+    if (tags.includes('material:glass')) return 'glass';
+    if (src?.kind === 'prop' || src?.weapon) return 'bonk';
+    return 'punch';
+  }
+
   private abilityVfx(ab: AbilityDef, caster: FrameEntity, target: FrameEntity | undefined, color: number): void {
     const tg = ab.targeting;
     if (!tg) return;
@@ -2463,7 +2482,9 @@ export class BattleRenderer {
       case 'summon': {
         const at = eb ? this.px(eb.x, eb.y, 0) : A ? [A.x, A.y] as [number, number] : null;
         if (at) this.puff(at);
-        this.sfx.play('pop');
+        // Each critter announces itself: a honk, a yap, a camera shutter.
+        this.sfx.play('pop', 0.6);
+        this.sfx.play(critterVoice(ev.s));
         break;
       }
       case 'summonGone': {
@@ -2474,6 +2495,11 @@ export class BattleRenderer {
         break;
       }
       case 'attack':
+        // A critter going for someone: its own noise, not a fighter's grunt and swing.
+        if (ea && ea.def.startsWith('summon.')) {
+          if (Math.random() < 0.6) this.sfx.play(critterVoice(ea.def), 0.9);
+          break;
+        }
         if (A) {
           A.lungeUntil = this.now + 220;
           if (A.puppet) {
@@ -2551,7 +2577,13 @@ export class BattleRenderer {
           this.sfx.play('thud', 1.4);
           this.vox(B, 'scream', 1, true);
         }
-        this.sfx.play(crit ? 'crit' : ev.s === 'electric' ? 'zap' : ev.s === 'fire' ? 'fire' : 'punch', Math.min(1.4, 0.5 + ev.v / 20));
+        {
+          const loud = Math.min(1.4, 0.5 + ev.v / 20);
+          const sound = this.impactSound(ev.s, ea, A ? A.heavyUntil > this.now : false);
+          this.sfx.play(sound, loud);
+          // Crits land with their own crack on top of whatever hit them.
+          if (crit) this.sfx.play('crit', loud);
+        }
         break;
       }
       case 'heal':
@@ -2959,6 +2991,8 @@ export class BattleRenderer {
         this.sfx.play('heal');
         break;
       case 'panic':
+        // Spooked by a critter: hear what spooked them.
+        if (ev.s.startsWith('fear:') && eb) this.sfx.play(critterVoice(eb.def), 1.1);
         this.bark(A, 'bark_panic', 0.9, {}, true);
         this.vox(A, 'scream', 0.8, true);
         this.sfx.play('ooh');
@@ -3023,7 +3057,8 @@ export class BattleRenderer {
           }
         }
         this.announce(ev.v >= 0 ? `${this.input.teams[ev.v]?.playerName ?? 'Winners'} WIN!` : 'DRAW!');
-        this.sfx.play('fanfare');
+        // With music on, the result has its own cue (music.sting from the replay screen).
+        if (!music.enabled) this.sfx.play('fanfare');
         this.sfx.play('cheer');
         break;
       default:

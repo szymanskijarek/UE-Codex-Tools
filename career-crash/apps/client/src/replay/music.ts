@@ -314,6 +314,48 @@ function readOn(): boolean {
 
 const hz = (n: number) => 440 * 2 ** ((n - 69) / 12);
 
+/**
+ * Short musical cues over the song (or after it ends): a fight's count-in, a
+ * boss's entrance, gatecrashers bursting in, sudden death, and the result.
+ * Lead and bass parts as "note:sixteenths" tokens ("." rests); `drums` uses
+ * the song drum letters, one per sixteenth.
+ */
+export type StingId = 'start' | 'boss' | 'crash' | 'suddenDeath' | 'win' | 'lose' | 'draw' | 'ko';
+interface Sting {
+  bpm: number;
+  lead: string;
+  bass?: string;
+  drums?: string;
+  duty: 0 | 1 | 2;
+  /** How far the song ducks under the cue (0 = silent, 1 = unchanged). */
+  duck: number;
+}
+const STINGS: Record<StingId, Sting> = {
+  // "Ready… FIGHT!": three rising beeps and a bright hit.
+  start: { bpm: 150, lead: 'C5:4 .:4 C5:4 .:4 G5:4 .:4 C6:8', bass: 'C3:4 .:4 C3:4 .:4 G2:4 .:4 C3:8', drums: 'k...k...k...X.......', duty: 1, duck: 0.15 },
+  // Ominous descending minor line under a low drone.
+  boss: { bpm: 96, lead: 'A4:2 Ab4:2 G4:2 F#4:2 F4:6 E4:2 F4:2 E4:4', bass: 'A2:12 E2:10', drums: 'k.......k.......k...X.', duty: 0, duck: 0.1 },
+  // Siren-style alternating riff with a snare roll: they're here.
+  crash: { bpm: 168, lead: 'E5:2 B4:2 E5:2 B4:2 E5:2 B4:2 G5:4 F#5:2 E5:6', bass: 'E3:4 E3:4 E3:4 G2:2 B2:6', drums: 'k.s.k.s.ssssX.......', duty: 2, duck: 0.12 },
+  // Tense chromatic climb.
+  suddenDeath: { bpm: 132, lead: 'C5:2 C#5:2 D5:2 D#5:2 E5:2 F5:2 F#5:2 G5:6', bass: 'C3:8 G2:8', drums: 'k.k.k.k.k.k.X...', duty: 1, duck: 0.25 },
+  // Victory fanfare.
+  win: { bpm: 140, lead: 'G4:2 C5:2 E5:2 G5:4 E5:2 G5:8 .:2 A5:2 B5:2 C6:12', bass: 'C3:6 C3:6 G2:8 F2:4 G2:4 C3:12', drums: 'k...s...k...s...k.k.s...X...........', duty: 2, duck: 0 },
+  // Sad trombone, chiptune edition.
+  lose: { bpm: 84, lead: 'G4:3 F#4:3 F4:3 E4:12', bass: 'C3:3 B2:3 Bb2:3 A2:12', duty: 0, duck: 0 },
+  // A shrug: two notes that don't resolve.
+  draw: { bpm: 110, lead: 'E5:4 D5:4 E5:4 D5:8', bass: 'C3:8 G2:12', duty: 1, duck: 0 },
+  // Short punctuation for a knockout.
+  ko: { bpm: 180, lead: 'G5:2 E5:2 C5:6', drums: 'X.......', duty: 2, duck: 0.4 },
+};
+
+function stingNotes(part: string): { n: number | null; len: number }[] {
+  return part.split(/\s+/).filter(Boolean).map((tok) => {
+    const [note, len] = tok.split(':');
+    return { n: note === '.' ? null : midi(note!), len: Number(len ?? 1) };
+  });
+}
+
 export class Music {
   private ctx: BaseAudioContext | null = null;
   private out: GainNode | null = null;
@@ -422,6 +464,54 @@ export class Music {
   /** Tempo multiplier (1 = written tempo); eased so it never jumps. */
   setTempo(mul: number): void {
     this.tempo += (mul - this.tempo) * 0.1;
+  }
+
+  /**
+   * Play a short cue (see STINGS) over whatever's playing, ducking the song
+   * for its length, or on its own after the song has finished.
+   */
+  sting(id: StingId): void {
+    if (!this.enabled || !this.ctx || !this.out || (this.ctx as AudioContext).state !== 'running') return;
+    const ctx = this.ctx;
+    const st = STINGS[id];
+    const sx = 60 / st.bpm / 4;
+    const t0 = ctx.currentTime + 0.03;
+    // Its own output, so it plays even when the song has faded out.
+    const out = this.out;
+    const saved = out;
+    const sOut = ctx.createGain();
+    // A touch louder than the song (which plays at 0.22).
+    sOut.gain.value = 0.3;
+    sOut.connect(ctx.destination);
+    this.out = sOut;
+    let end = t0;
+    const part = (spec: string | undefined, wave: PeriodicWave | 'triangle', vol: number) => {
+      let t = t0;
+      for (const { n, len } of stingNotes(spec ?? '')) {
+        if (n !== null) this.tone(wave, n, t, len * sx * 0.95, vol, len >= 8);
+        t += len * sx;
+      }
+      end = Math.max(end, t);
+    };
+    part(st.lead, this.waves[st.duty]!, 0.15);
+    part(st.bass, 'triangle', 0.26);
+    [...(st.drums ?? '')].forEach((d, i) => {
+      const t = t0 + i * sx;
+      if (d === 'k' || d === 'X') this.kick(t);
+      if (d === 's' || d === 'X') this.hit(t, 'bandpass', 1800, 0.13, 0.22);
+    });
+    this.out = saved;
+    // Duck the song under the cue, then bring it back.
+    if (!this.finished && st.duck < 1) {
+      const g = out.gain;
+      const level = 0.22;
+      g.cancelScheduledValues(t0);
+      g.setValueAtTime(g.value, t0);
+      g.linearRampToValueAtTime(level * st.duck, t0 + 0.06);
+      g.setValueAtTime(level * st.duck, end);
+      g.linearRampToValueAtTime(level, end + 0.4);
+    }
+    window.setTimeout(() => sOut.disconnect(), (end - ctx.currentTime + 1) * 1000);
   }
 
   /** Fade the song out (end of a match); `play` brings it back. */

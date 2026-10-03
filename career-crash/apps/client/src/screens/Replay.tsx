@@ -92,12 +92,14 @@ export function Replay({ battleId }: { battleId?: string }) {
       const line = lines[Math.floor(Math.random() * lines.length)]!;
       introRef.current = { id: ent.id, until: performance.now() + BOSS_INTRO_MS, line, spoken: false };
       renderer.setReplay([ent.id], '☠ BOSS FIGHT', `${snap.name} · ${nameOf(job)}`, 0.85);
+      music.sting('boss');
       const feed = (bundle.live.boss_intro_feed ?? ['{name}: “{line}”'])[0]!;
       pushLines([{ tick: 0, text: feed.replace('{name}', snap.name).replace('{job}', nameOf(job)).replace('{line}', line), kind: 'boss', importance: 3, actors: [ent.id] }]);
       return;
     }
   };
   /** Gatecrashers bursting in: the fight holds while the camera's on them and each shouts a catchphrase. */
+  const lastKoStingRef = useRef(-1e9);
   const crashRef = useRef<{ ids: number[]; lines: string[]; spoken: boolean[]; start: number } | null>(null);
   const startCrash = (player: ReplayPlayer, renderer: BattleRenderer, setId: string, now: number) => {
     const set = bundle.crashers.find((c) => c.id === setId);
@@ -108,9 +110,11 @@ export function Replay({ battleId }: { battleId?: string }) {
     const pickLine = (l: string[], i: number) => l[(Math.floor(Math.random() * l.length) + i) % l.length]!;
     const lines = ids.map((_, i) => pickLine(i === 0 ? set.leader.lines : set.henchmen.lines, i));
     crashRef.current = { ids, lines, spoken: ids.map(() => false), start: now };
+    music.sting('crash');
     renderer.setReplay(ids, '🚨 GATECRASHERS!', `${nameOf(set.id)} · ${set.leader.name}, ${nameOf(set.leader.persona)}`, 0.9);
   };
   const endBossIntro = (tick: number) => {
+    music.sting('start');
     introRef.current = null;
     rendererRef.current?.setReplay(null);
     const go = bundle.live.boss_fight ?? ['Fight!'];
@@ -202,6 +206,8 @@ export function Replay({ battleId }: { battleId?: string }) {
     let alive = true;
     void renderer.mount(host.current).then(() => {
       startBossIntro(player, renderer);
+      // Count-in for the fight (a boss fight gets it after the boss's entrance).
+      if (!introRef.current) music.sting('start');
       const loop = (now: number) => {
         if (!alive) return;
         const dt = Math.min(100, now - last);
@@ -272,6 +278,14 @@ export function Replay({ battleId }: { battleId?: string }) {
           }
         } else {
           if (events.length > 0 && commentatorRef.current) pushLines(commentatorRef.current.consume(events, player.world.events, false, locate));
+          // Music cues: sudden death, knockouts (not too often) and the result.
+          for (const e of events) {
+            if (e.type === 'suddenDeath') music.sting('suddenDeath');
+            else if (e.type === 'ko' && player.world.byId.get(e.b)?.kind === 'char' && now - lastKoStingRef.current > 4000) {
+              lastKoStingRef.current = now;
+              music.sting('ko');
+            } else if (e.type === 'battleEnd') music.sting(e.v < 0 ? 'draw' : rep.id === 'career' && e.v !== 0 ? 'lose' : 'win');
+          }
           // Gatecrashers just burst in: stop for their entrance.
           const crashEv = events.find((e) => e.type === 'crash');
           if (crashEv && !crashRef.current) startCrash(player, renderer, crashEv.s, now);
