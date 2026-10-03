@@ -12,6 +12,7 @@ import { BattleRenderer } from '../replay/renderer';
 import { Card, CareerChain, Empty } from '../ui/components';
 import { career } from '../career/model';
 import { startNextFight } from '../career/CoreActions';
+import { keepAwake } from '../wake-lock';
 
 const SPEEDS = [1, 2, 4];
 const FEED_MAX = 40;
@@ -130,6 +131,11 @@ export function Replay({ battleId }: { battleId?: string }) {
   const [report, setReport] = useState<BattleReport | null>(null);
   const [loading, setLoading] = useState(false);
   const rep = currentReplay.value;
+
+  // Keep the screen on while the fight plays, like a video; let it dim when paused, over or left.
+  const playing = !paused && !!playerRef.current && tick < playerRef.current.totalTicks;
+  useEffect(() => keepAwake(playing), [playing]);
+  useEffect(() => () => keepAwake(false), []);
 
   // Deep link: load from the server when we don't already have the input.
   useEffect(() => {
