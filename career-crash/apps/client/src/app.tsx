@@ -10,6 +10,7 @@ import { Reports } from './screens/Reports';
 import { Office } from './screens/Office';
 import { Lab } from './screens/Lab';
 import { Sandbox } from './screens/Sandbox';
+import { Privacy } from './screens/Privacy';
 import { CareerScreen } from './career/Career';
 import { music } from './replay/music';
 
@@ -72,6 +73,13 @@ export function App() {
       {musicOn ? '🎵' : '🔇'}
     </button>
   );
+  // A quiet link to the privacy page under every screen except a fight.
+  const footer =
+    page === 'replay' ? null : (
+      <footer class="site-foot">
+        <a href="#/privacy">Privacy</a> · No cookies, no tracking
+      </footer>
+    );
   let screen;
   switch (page) {
     case 'roster':
@@ -100,6 +108,9 @@ export function App() {
       break;
     case 'career':
       screen = <CareerScreen sub={arg} arg={arg2} />;
+      break;
+    case 'privacy':
+      screen = <Privacy />;
       break;
     default:
       screen = <Home />;
@@ -131,6 +142,7 @@ export function App() {
           </div>
         </header>
         <main>{screen}</main>
+        {footer}
         {toast.value && <div class={`toast ${toast.value.kind}`}>{toast.value.text}</div>}
       </div>
     );
@@ -147,6 +159,7 @@ export function App() {
         </span>
       </header>
       <main>{screen}</main>
+      {footer}
       <nav class="tabs">
         {TABS.filter(([id]) => !STANDALONE || id === 'sandbox' || id === 'career').map(([id, icon, label]) => (
           <a key={id} href={`#/${id}`} class={page === id || (id === 'roster' && page === 'character') ? 'active' : ''}>

@@ -2724,3 +2724,25 @@ body:has(.shell.li) {
 .skills-hero .page-head {
   margin-bottom: 2px;
 }
+
+/* Footer: the privacy link under every screen but a fight. */
+.site-foot {
+  margin: 24px auto 8px;
+  text-align: center;
+  font-size: 0.8rem;
+  opacity: 0.65;
+}
+
+.site-foot a {
+  color: inherit;
+}
+
+.privacy {
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.privacy ul {
+  padding-left: 1.2em;
+  line-height: 1.5;
+}
