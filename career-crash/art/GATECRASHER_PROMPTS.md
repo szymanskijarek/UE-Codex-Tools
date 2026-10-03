@@ -1,9 +1,7 @@
 # Gatecrasher prompts: brief for the image agent
 
-> **Status:** body sheets delivered and in the game (all 72, 3 October 2026).
-> Heads: 4 of 72 characters so far (mystery shopper, trolley marshal, change
-> consultant, IT support lead); the rest show the face from their body sheet
-> until their heads arrive (`HEAD_BATCH_PLAN` batches 03–36).
+> **Status:** delivered and in the game (3 October 2026): all 72 body sheets
+> and all 288 heads (72 characters × 4 expressions).
 
 This file is self-contained: hand it to the image agent with the reference
 images it names. Design: `docs/career-crash/07-gatecrashers.md`.
