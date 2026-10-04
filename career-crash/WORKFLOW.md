@@ -98,19 +98,16 @@ Check each import: the slicers write labelled previews to
 `tools/art-pipeline/out/`. Fix mislabelled or merged parts in the sheet's
 manifest (`parts`, `split`, `noFeet`, `flip`).
 
-Every career and the referee now have body sheets and faces. The referee's
-puppet is `career.referee` in the atlas; his sheet needed a head/torso split
-override in the manifest.
+Every career, the referee and all 72 gatecrasher looks have body sheets and
+faces; every arena's obstacles have damaged and destroyed art; every impact,
+status and floor effect is painted (`art/FX_BRIEF.md`, `art/FX_GAPS_BRIEF.md`,
+`art/GATECRASHER_PROMPTS.md`).
 
 **Still needed:**
 - **Boss faces:** the 12 bosses still wear one fixed head (prompts in
   `art/ART_BRIEF.md` §3).
-- **Docks obstacles:** they currently use their weathered art as the intact state, and have no
-  separate damaged state. A clean "intact" sheet would complete them.
-- **Damage states for the six original arenas** (supermarket, office, diner, station,
-  warehouse, construction), plus the docks damaged sheet. Their obstacles squash
-  into a plain grey heap when destroyed until real rubble art exists.
-  Ready-to-paste prompts: `art/obstacles/DAMAGE_SHEET_PROMPTS.md`.
+- **Docks obstacles:** they use their weathered art as the intact state. A clean
+  "intact" sheet would complete them.
 
 **Size budget:** the single-file build is ~8.0 MB, against a 16 MB artifact limit.
 The website loads images on demand, so size matters less there. Rough costs per

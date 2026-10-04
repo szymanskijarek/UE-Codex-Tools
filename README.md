@@ -1,5 +1,9 @@
 # UE-Codex-Tools
 
+> **Looking for Career Crash** (the browser game at careercrash.org)? It lives in
+> `career-crash/` (this is the `dev`/`prod` line; `main` has only the Unreal tooling).
+> Agents: start with [`CLAUDE.md`](CLAUDE.md).
+
 Portable Codex tooling for Unreal Engine projects.
 
 ## Contents
