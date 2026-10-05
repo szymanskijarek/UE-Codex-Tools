@@ -376,5 +376,9 @@
    "footL": 10,
    "footR": 11
   }
+ },
+ "npc-bro-pepe": {
+  "split": [[10, 0.5], [11, 0.5]],
+  "parts": {"footL": 101, "footR": 102}
  }
 }

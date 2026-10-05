@@ -6,5 +6,6 @@
  "butterfly-parrot-drone-puff": ["butterfly", "butterfly-b", "parrot", "parrot-b", "drone-pigeon", "drone-pigeon-b", "puff", null],
  "humans-1": ["intern", "intern-b", "paparazzo", "paparazzo-b", "paralegal", "paralegal-b", "bellhop", "bellhop-b"],
  "humans-2": ["school-kid", "school-kid-b", "tourist", "tourist-b", "fan", "fan-b", "audience-member", "audience-member-b"],
- "humans-3": ["campaign-volunteer", "campaign-volunteer-b", null, null, null, null, null, null]
+ "humans-3": ["campaign-volunteer", "campaign-volunteer-b", null, null, null, null, null, null],
+ "shiba-frog-bull-bear": ["shiba", "shiba-b", "frog", "frog-b", "bull", "bull-b", "bear", "bear-b"]
 }

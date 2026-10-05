@@ -19,6 +19,8 @@ import { ReplayPlayer } from '../replay/player';
 import { BattleRenderer } from '../replay/renderer';
 import { arenaSong, music } from '../replay/music';
 import { keepAwake } from '../wake-lock';
+import { Portrait } from '../ui/components';
+import frameUrl from './ticker-frame.webp';
 import { loadFeed, type LoadedFeed } from './feed';
 import { fightersOf, tallyPastCandles } from './past';
 
@@ -293,7 +295,10 @@ export function Floor() {
           return (
             <button role="listitem" class={`cb-coin${follow === sym ? ' on' : ''}${out ? ' out' : ''}`} style={{ '--c': m.art.color }} onClick={() => setFollow(follow === sym ? null : sym)} title={`${m.name} · ${bundle.locale[`${m.persona}.name`] ?? ''}`}>
               <span class="cb-coin-top">
-                <span class="cb-icon">{m.art.icon}</span>
+                <span class="cb-face" style={{ backgroundImage: `url(${frameUrl})` }}>
+                  {/* Their face reacts to the market: shouting when pumping, shocked when leveraged, hurt when delisted. */}
+                  <Portrait c={{ careers: [m.career], appearance: ent?.snap?.appearance ?? { skin: '#e0ac69', hair: '#3b2a1a', hairStyle: 0 }, persona: m.persona }} size={30} mood={out ? 'hurt' : c.leveraged ? 'surprised' : c.pumping ? 'angry' : 'neutral'} />
+                </span>
                 <b>{sym}</b>
                 {c.leveraged && <span class="cb-badge lev">100×</span>}
                 {c.pumping && <span class="cb-badge">🚀</span>}

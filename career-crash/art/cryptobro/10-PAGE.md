@@ -1,5 +1,7 @@
 # Crypto Bros 10: page art
 
+> **Status:** share image and ticker frame delivered and in use (5 October 2026): the share image is the link preview for /cryptobro (`public/cryptobro/share.jpg`, title set into its left side), the frame holds each bro's face in the ticker. The logo mark is still to come.
+
 > Part of the Crypto Bros art set (`art/cryptobro/README.md`).
 
 Art for the page around the fight, not the fight itself. The page title and
