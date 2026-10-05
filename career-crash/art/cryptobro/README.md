@@ -20,6 +20,7 @@ repeats the house style and the layout rules it needs.
 | 8 | [`08-REGULATORS.md`](08-REGULATORS.md) | The Regulators gatecrasher set: leader + two auditors, bodies + heads | 3 + 12 | 4 |
 | 9 | [`09-BROS_BODIES_B.md`](09-BROS_BODIES_B.md) | Body sheets, the bench (TON, SHIB, LTC, PEPE, DOT, Anon Bro) | 6 | 4 |
 | 10 | [`10-PAGE.md`](10-PAGE.md) | Page logo, share image, ticker portraits frame | 3 | 5 |
+| 11 | [`11-MISSING.md`](11-MISSING.md) | **Everything still missing, in one file** (5 Oct 2026): bench bros, their heads, the rest of the Regulators, whale and swan, props, logo | 38 | **next** |
 
 Until a piece of art arrives the game uses a stand-in (a borrowed career
 puppet, the Office backdrop, a drawn effect), so anything can come in any
