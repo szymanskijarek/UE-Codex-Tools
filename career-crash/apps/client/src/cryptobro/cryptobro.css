@@ -60,7 +60,9 @@ body.cb button.ghost {
 }
 
 .cb-logo {
-  font-size: 26px;
+  width: 40px;
+  height: 40px;
+  image-rendering: pixelated;
 }
 
 .cb-clock {

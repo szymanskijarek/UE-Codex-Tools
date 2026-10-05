@@ -1,6 +1,6 @@
 # Crypto Bros 6: critters
 
-> **Status:** sheet 1 (shiba, frog, bull, bear) delivered and imported (5 October 2026; scaled from 1774 × 887 to 1024 × 512); sheet 2 (whale, black swan) still to come. They join the fight with the bros' own moves and the scene events (phase 3).
+> **Status:** both sheets delivered and in the game (5 October 2026). They join the fight with the bros' own moves and the scene events (phase 3).
 
 > Part of the Crypto Bros art set (`art/cryptobro/README.md`). Same format
 > as the main game's critter sheets (`PIPELINES.md` §5.5b).

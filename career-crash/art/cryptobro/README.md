@@ -1,5 +1,7 @@
 # Crypto Bros: art briefs for the image agent
 
+> **Status:** the whole set is delivered and in the game (5 October 2026).
+
 Art for **careercrash.org/cryptobro** (design: `docs/career-crash/08-cryptobro.md`):
 an endless brawl between the top 10 cryptocurrencies, each played by a crypto
 bro, on a floor called *The Trading Floor*.
@@ -20,7 +22,7 @@ repeats the house style and the layout rules it needs.
 | 8 | [`08-REGULATORS.md`](08-REGULATORS.md) | The Regulators gatecrasher set: leader + two auditors, bodies + heads | 3 + 12 | 4 |
 | 9 | [`09-BROS_BODIES_B.md`](09-BROS_BODIES_B.md) | Body sheets, the bench (TON, SHIB, LTC, PEPE, DOT, Anon Bro) | 6 | 4 |
 | 10 | [`10-PAGE.md`](10-PAGE.md) | Page logo, share image, ticker portraits frame | 3 | 5 |
-| 11 | [`11-MISSING.md`](11-MISSING.md) | **Everything still missing, in one file** (5 Oct 2026): bench bros, their heads, the rest of the Regulators, whale and swan, props, logo | 38 | **next** |
+| 11 | [`11-MISSING.md`](11-MISSING.md) | **Everything still missing, in one file** (5 Oct 2026) | 38 | ✓ delivered |
 
 Until a piece of art arrives the game uses a stand-in (a borrowed career
 puppet, the Office backdrop, a drawn effect), so anything can come in any

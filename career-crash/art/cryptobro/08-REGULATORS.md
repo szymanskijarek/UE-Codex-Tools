@@ -1,6 +1,6 @@
 # Crypto Bros 8: The Regulators (gatecrashers)
 
-> **Status:** in the atlas (5 October 2026): the compliance officer's body and neutral/angry/hurt heads; auditor A's body and neutral/angry heads; auditor B's angry/hurt heads. Still to come: auditor B's body sheet and the missing heads (compliance officer surprised; auditor A surprised and hurt; auditor B neutral and surprised).
+> **Status:** all three bodies and all twelve heads delivered and in the game (5 October 2026); the gatecrasher set itself comes in phase 3.
 
 > Part of the Crypto Bros art set (`art/cryptobro/README.md`). Same format as
 > the main game's gatecrashers (`art/GATECRASHER_PROMPTS.md`).

@@ -1,5 +1,7 @@
 # Crypto Bros 7: small props
 
+> **Status:** both sheets delivered and in the game (5 October 2026); they appear with the scene events (phase 3).
+
 > Part of the Crypto Bros art set (`art/cryptobro/README.md`). Same format
 > as the main game's item sheets (`art/items/careers-a.png`).
 

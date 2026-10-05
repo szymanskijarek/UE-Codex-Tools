@@ -1,5 +1,7 @@
 # Crypto Bros 11: everything still missing
 
+> **Status:** all 38 images delivered and in the game (5 October 2026), at the exact sizes asked for. The Crypto Bros art set is complete.
+
 > Part of the Crypto Bros art set (`art/cryptobro/README.md`). Written 5 October 2026,
 > after three batches. **This file is all the image agent needs**: it lists
 > only what isn't in the game yet, with the prompts, sizes and file names. The

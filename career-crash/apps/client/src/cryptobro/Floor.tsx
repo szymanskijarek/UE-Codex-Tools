@@ -21,6 +21,7 @@ import { arenaSong, music } from '../replay/music';
 import { keepAwake } from '../wake-lock';
 import { Portrait } from '../ui/components';
 import frameUrl from './ticker-frame.webp';
+import logoUrl from './logo.webp';
 import { loadFeed, type LoadedFeed } from './feed';
 import { fightersOf, tallyPastCandles } from './past';
 
@@ -267,7 +268,7 @@ export function Floor() {
     <main class="cb-page">
       <header class="cb-head">
         <a class="cb-brand" href="/" title="Career Crash">
-          <span class="cb-logo">📈</span>
+          <img class="cb-logo" src={logoUrl} alt="" width={40} height={40} />
           <span>
             <b>Crypto Bros</b>
             <small>by Career Crash</small>

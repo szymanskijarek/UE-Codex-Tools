@@ -1,6 +1,6 @@
 # Crypto Bros 9: body sheets, the bench
 
-> **Status:** LTC (Silver Steve) and PEPE (Degen Dex) delivered and in the game (5 October 2026; PEPE's crocs split from his shins in the sheet manifest). Still to come: Anon Bro, TON, SHIB, DOT, and heads for all six bench bros (brief 02).
+> **Status:** all six delivered and in the game (5 October 2026) (PEPE's crocs split from his shins in the sheet manifest).
 
 > Part of the Crypto Bros art set (`art/cryptobro/README.md`). Same format as
 > `01-BROS_BODIES_A.md`.

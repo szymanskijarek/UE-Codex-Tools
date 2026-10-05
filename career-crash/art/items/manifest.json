@@ -208,5 +208,7 @@
  "fx-coin-shower": {"grid": [6, 1], "px": 160, "names": ["fx-coin-shower-1", "fx-coin-shower-2", "fx-coin-shower-3", "fx-coin-shower-4", "fx-coin-shower-5", "fx-coin-shower-6"]},
  "fx-ceiling-launch": {"grid": [5, 1], "px": 160, "names": ["fx-ceiling-launch-1", "fx-ceiling-launch-2", "fx-ceiling-launch-3", "fx-ceiling-launch-4", "fx-ceiling-launch-5"]},
  "fx-gas-fog": {"grid": [4, 1], "px": 256, "names": ["fx-gas-fog-1", "fx-gas-fog-2", "fx-gas-fog-3", "fx-gas-fog-4"]},
- "fx-fud-cloud": {"grid": [4, 1], "px": 128, "names": ["fx-fud-cloud-1", "fx-fud-cloud-2", "fx-fud-cloud-3", "fx-fud-cloud-4"]}
+ "fx-fud-cloud": {"grid": [4, 1], "px": 128, "names": ["fx-fud-cloud-1", "fx-fud-cloud-2", "fx-fud-cloud-3", "fx-fud-cloud-4"]},
+ "cryptobro-a": ["airdrop-crate", "airdrop-parachute", "gold-coin", "coin-pile", "hardware-wallet", "seed-card", "mining-rig", "paper-rocket"],
+ "cryptobro-b": ["kombucha", "ring-light", "whitepaper-stack", "relaunch-box", "lambo-key", "rolled-rug", "sticker-laptop", "laser-duck"]
 }
