@@ -22,7 +22,13 @@ export type ImpactFxId =
   | 'ko-stars'
   | 'parry'
   | 'explosion'
-  | 'dash';
+  | 'dash'
+  /** Market floors (08, art/cryptobro/05-FX.md). */
+  | 'laser-eyes'
+  | 'liquidated-stamp'
+  | 'margin-call'
+  | 'coin-shower'
+  | 'ceiling-launch';
 
 export interface ImpactFxDef {
   /** Painted frames, played once over `ms`. */
@@ -341,6 +347,68 @@ export const IMPACT_FX: Record<ImpactFxId, ImpactFxDef> = {
       }
       g.stroke({ width: Math.max(1.5, w * 0.04), color: 0xffffff, alpha: 0.7 * k });
       g.ellipse(x + dir * w * 0.05, y, w * (0.3 - p * 0.12), w * 0.08).fill({ color: 0xd6d3d1, alpha: 0.45 * k });
+    },
+  },
+  /** The OG's laser eyes: two red beams shooting forward from the eyes. */
+  'laser-eyes': {
+    frames: 4,
+    ms: 420,
+    size: 5,
+    anchor: 'center',
+    directional: true,
+    draw: (g, p, x, y, w, dir) => {
+      const len = w * ease(Math.min(1, p * 1.6));
+      for (const dy of [-w * 0.04, w * 0.04]) g.moveTo(x, y + dy).lineTo(x + dir * len, y + dy);
+      g.stroke({ width: Math.max(2, w * 0.025), color: 0xef4444, alpha: 1 - p * 0.6 });
+    },
+  },
+  /** A liquidation: the giant red stamp slamming down over the fighter. */
+  'liquidated-stamp': {
+    frames: 5,
+    ms: 1600,
+    size: 7,
+    anchor: 'center',
+    directional: false,
+    draw: (g, p, x, y, w) => {
+      const s = 1 + Math.max(0, 0.3 - p) * 4;
+      g.roundRect(x - (w / 2) * s * 0.9, y - w * 0.22 * s, w * 0.9 * s, w * 0.44 * s, 8).stroke({ width: Math.max(3, w * 0.04), color: 0xdc2626, alpha: 1 - p * 0.4 });
+    },
+  },
+  /** The margin-call klaxon flashing over a leveraged fighter as they go down. */
+  'margin-call': {
+    frames: 4,
+    ms: 700,
+    size: 2.4,
+    anchor: 'center',
+    directional: false,
+    draw: (g, p, x, y, w, _d, seed) => {
+      burst(g, x, y, (w / 2) * (0.6 + 0.4 * Math.abs(Math.sin(p * 9))), 8, 0.5, 0xef4444, 1 - p * 0.5, seed);
+    },
+  },
+  /** The liquidated fighter's coins bursting out and raining down. */
+  'coin-shower': {
+    frames: 6,
+    ms: 1200,
+    size: 3.6,
+    anchor: 'bottom',
+    directional: false,
+    draw: (g, p, x, y, w, _d, seed) => {
+      for (let i = 0; i < 8; i++) {
+        const a = rnd(seed, i) * 2 - 1;
+        const h = Math.sin(Math.PI * Math.min(1, p * 1.2)) * w * (0.4 + rnd(seed, i + 5) * 0.4);
+        g.circle(x + a * w * 0.45 * ease(p), y - h, w * 0.035).fill(0xfacc15).stroke({ width: 1, color: INK });
+      }
+    },
+  },
+  /** Bursting out through the ceiling tiles, above the fighter. */
+  'ceiling-launch': {
+    frames: 5,
+    ms: 900,
+    size: 3,
+    anchor: 'center',
+    directional: false,
+    draw: (g, p, x, y, w, _d, seed) => {
+      burst(g, x, y, (w / 2) * (0.4 + ease(p) * 0.6), 7, 0.45, 0xe5e7eb, 1 - p, seed);
     },
   },
 };

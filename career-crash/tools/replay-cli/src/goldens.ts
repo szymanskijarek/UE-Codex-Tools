@@ -21,7 +21,7 @@ export interface GoldenFile {
 export function goldenInputs(bundle: ContentBundle): { name: string; input: BattleInput }[] {
   const out: { name: string; input: BattleInput }[] = [];
   const specs: [string, string, BattleMode, number][] = [];
-  for (const arena of bundle.arenas.map((a) => a.id)) {
+  for (const arena of bundle.arenas.filter((a) => !a.marketOnly).map((a) => a.id)) {
     for (let i = 0; i < 5; i++) specs.push([`${arena}-3v3-${i}`, arena, 'duel_3v3', 3]);
     for (let i = 0; i < 2; i++) specs.push([`${arena}-5v5-${i}`, arena, 'duel_5v5', 5]);
     specs.push([`${arena}-ffa`, arena, 'ffa', 1]);

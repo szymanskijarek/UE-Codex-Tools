@@ -1549,5 +1549,7 @@
  "npc.bro-ltc.name": "Digital Silversmith",
  "npc.bro-pepe.name": "Degen Streamer",
  "npc.bro-dot.name": "Networking Bro",
- "npc.bro-anon.name": "Anonymous Founder"
+ "npc.bro-anon.name": "Anonymous Founder",
+ "arena.trading-floor.name": "The Trading Floor",
+ "npc.pegged-peggy.name": "Stablecoin Referee"
 }

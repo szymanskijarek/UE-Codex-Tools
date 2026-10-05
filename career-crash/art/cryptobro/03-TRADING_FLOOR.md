@@ -1,5 +1,7 @@
 # Crypto Bros 3: The Trading Floor (backdrop and furniture)
 
+> **Status:** delivered and in the game (5 October 2026): backdrop, and all three furniture sheets.
+
 > Part of the Crypto Bros art set (`art/cryptobro/README.md`).
 
 The only arena on the Crypto Bros page: a start-up-style trading floor in a

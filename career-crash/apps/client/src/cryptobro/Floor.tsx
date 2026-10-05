@@ -212,7 +212,7 @@ export function Floor() {
           const ent = f ? player.world.entities.find((e) => e.kind === 'char' && e.summonOf < 0 && input.teams[e.team]?.playerId === f) : undefined;
           renderer.setReplay(ent ? [ent.id] : null, `👀 ${f}`, ent?.name ?? '', 1);
         }
-        if (!mutedRef.current && !player.done) music.play(arenaSong(input.arenaId));
+        if (!mutedRef.current && !player.done) music.play(arenaSong(input.arenaId) === 'menu' ? 'office' : arenaSong(input.arenaId));
         if (t - lastUi > 250) {
           lastUi = t;
           setFrame((n) => n + 1);
@@ -320,7 +320,6 @@ export function Floor() {
           )}
           {liq && (
             <div class="cb-overlay liq">
-              <b class="cb-stamp">LIQUIDATED</b>
               <small>
                 {liq.name.includes(liq.sym) ? liq.name : `${liq.name} (${liq.sym})`} · by {liq.by}
               </small>

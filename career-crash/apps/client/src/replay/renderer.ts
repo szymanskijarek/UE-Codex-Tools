@@ -922,7 +922,9 @@ export class BattleRenderer {
     // The referee has his own puppet too (art/sheets/referee.png, faces under career.referee).
     // A gatecrasher's own sheet once it's painted, else the career they fight with.
     const own = [snap?.personaArt, snap?.persona].find((x) => x && hasPuppet(x));
-    const pupId = isRef ? 'career.referee' : (own ?? career?.id);
+    // Market floors bring their own referee (Pegged Peggy) once her puppet is in.
+    const refArt = this.input.endless?.referee?.persona;
+    const pupId = isRef ? (refArt && hasPuppet(refArt) ? refArt : 'career.referee') : (own ?? career?.id);
     const puppet = pupId && hasPuppet(pupId) ? new Puppet(pupId, r) : null;
     let emote: Text | null = null;
     if (puppet) {
@@ -2970,6 +2972,20 @@ export class BattleRenderer {
           setTimeout(() => this.ready && this.bark(victim, 'bark_downed_crawl', 0.6), 1400);
         }
         break;
+      case 'liquidated': {
+        // Market floors (08 §7): klaxon, the stamp, out through the ceiling, coins everywhere.
+        const at = this.posOf(ev.b, byId);
+        const head = this.impactAt(ev.b, undefined, byId, 'head');
+        this.impact('margin-call', head ? [head[0], head[1] - 350 * this.scale * 2.2] : null, { scale: 1.2 });
+        this.impact('liquidated-stamp', head, { scale: 1.5, delayMs: 250 });
+        // The painted stamp is blank: the word goes on top.
+        setTimeout(() => this.ready && this.float('LIQUIDATED', at, 0xef4444, 30, 0.2), 330);
+        this.impact('ceiling-launch', head ? [head[0], head[1] - 350 * this.scale * 6] : null, { scale: 1.4, delayMs: 650 });
+        this.impact('coin-shower', at, { scale: 1.5, delayMs: 500 });
+        this.shake = Math.max(this.shake, 16);
+        this.sfx.play('ooh');
+        break;
+      }
       case 'ko':
         this.float('KO!', this.posOf(ev.b, byId), 0xff3b3b, 26);
         // Over the body: a KO usually finds them already on the floor.

@@ -74,5 +74,11 @@
  "boulder": {"w": 1900},
  "gurney": {"w": 2100},
  "steam-vent": {"w": 1300},
- "desk-fans": {"w": 2300}
+ "desk-fans": {"w": 2300},
+ "trading-desk": {"w": 3000, "fp": [2700, 1200]},
+ "screen-wall": {"w": 2800, "fp": [2500, 800]},
+ "bell-podium": {"w": 1400, "fp": [1100, 900]},
+ "server-rack": {"w": 1500, "fp": [1300, 800]},
+ "beanbag-pile": {"w": 2400, "fp": [2100, 1200]},
+ "gold-bull-statue": {"w": 2600, "fp": [2300, 1300]}
 }

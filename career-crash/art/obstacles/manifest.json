@@ -37,5 +37,8 @@
  "warehouse-destroyed": {"anchors": true, "cols": 2, "names": ["pallet-rack-destroyed", "crate-stack-destroyed", "cage-pallet-destroyed", "drum-rack-destroyed"], "px": 130},
  "construction-damaged": {"anchors": true, "cols": 3, "names": ["scaffold-damaged", "jersey-barrier-damaged", "cement-mixer-damaged", "rebar-bundle-damaged", "brick-stack-damaged", "site-cabin-damaged"]},
  "construction-destroyed": {"anchors": true, "cols": 3, "names": ["scaffold-destroyed", "jersey-barrier-destroyed", "cement-mixer-destroyed", "rebar-bundle-destroyed", "brick-stack-destroyed", "site-cabin-destroyed"], "px": 130},
- "docks-damaged": {"anchors": true, "cols": 2, "names": ["shipping-container-damaged", "dock-crane-damaged", "winch-damaged", "bollards-damaged"]}
+ "docks-damaged": {"anchors": true, "cols": 2, "names": ["shipping-container-damaged", "dock-crane-damaged", "winch-damaged", "bollards-damaged"]},
+ "trading-floor": ["trading-desk", "screen-wall", "bell-podium", "server-rack", "beanbag-pile", "gold-bull-statue"],
+ "trading-floor-damaged": {"anchors": true, "cols": 3, "names": ["trading-desk-damaged", "screen-wall-damaged", "bell-podium-damaged", "server-rack-damaged", "beanbag-pile-damaged", "gold-bull-statue-damaged"]},
+ "trading-floor-destroyed": {"anchors": true, "cols": 3, "names": ["trading-desk-destroyed", "screen-wall-destroyed", "bell-podium-destroyed", "server-rack-destroyed", "beanbag-pile-destroyed", "gold-bull-statue-destroyed"], "px": 130}
 }

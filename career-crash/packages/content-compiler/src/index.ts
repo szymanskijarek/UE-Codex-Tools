@@ -327,7 +327,7 @@ function validateCrashers(b: ContentBundle): string[] {
       if (!(`${m.persona}.name` in b.locale)) errors.push(`locale: missing key ${m.persona}.name`);
     }
   }
-  for (const a of arenas) if ((homes.get(a) ?? 0) < 2) errors.push(`${a}: needs at least 2 gatecrasher sets that call it home (has ${homes.get(a) ?? 0})`);
+  for (const a of b.arenas.filter((x) => !x.marketOnly).map((x) => x.id)) if ((homes.get(a) ?? 0) < 2) errors.push(`${a}: needs at least 2 gatecrasher sets that call it home (has ${homes.get(a) ?? 0})`);
   const e = b.economy.crashers;
   if (e.earliestTick >= e.latestTick) errors.push('economy.crashers: earliestTick must come before latestTick');
   return errors;
@@ -354,7 +354,10 @@ function validateMarkets(b: ContentBundle): string[] {
       personas.add(x.persona);
       if (!(`${x.persona}.name` in b.locale)) errors.push(`locale: missing key ${x.persona}.name`);
     }
+    if (m.referee && !(`${m.referee.persona}.name` in b.locale)) errors.push(`locale: missing key ${m.referee.persona}.name`);
+    if (!b.arenas.find((a) => a.id === m.arena)?.marketOnly) errors.push(`${m.id}: ${m.arena} should be a marketOnly arena`);
   }
+  for (const a of b.arenas) if (a.marketOnly && !b.markets.some((m) => m.arena === a.id)) errors.push(`${a.id}: marketOnly, but no market floor uses it`);
   return errors;
 }
 

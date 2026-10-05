@@ -1,5 +1,7 @@
 # Crypto Bros 2: heads (four per bro)
 
+> **Status:** first ten bros delivered and in the game (5 October 2026), all four expressions; the bench bros (TON, SHIB, LTC, PEPE, DOT, Anon Bro) still to come.
+
 > Part of the Crypto Bros art set (`art/cryptobro/README.md`).
 
 The game swaps heads during a fight (a bro pumping looks smug, a bro

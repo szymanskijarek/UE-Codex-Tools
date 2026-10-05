@@ -19,6 +19,7 @@ export interface SummonRow {
  * seeds, teammates and opponents), once with the move and once without it.
  */
 export function summonReport(bundle: ContentBundle, battles: number): SummonRow[] {
+  const PLAYABLE = bundle.arenas.filter((a) => !a.marketOnly);
   const regular = bundle.careers.filter((c) => !c.boss && !c.deprecated && c.tier === 1).map((c) => c.id);
   const rows: SummonRow[] = [];
   for (const c of bundle.careers) {
@@ -47,7 +48,7 @@ export function summonReport(bundle: ContentBundle, battles: number): SummonRow[
           contentHash: bundle.hash,
           simVersion: SIM_VERSION,
           seed: `summons:${c.id}:${i}`,
-          arenaId: bundle.arenas[i % bundle.arenas.length]!.id,
+          arenaId: PLAYABLE[i % PLAYABLE.length]!.id,
           mode: 'duel_3v3',
           teams: [
             { playerId: 'a', playerName: 'A', rating: 1000, characters: [x, ...mates] },

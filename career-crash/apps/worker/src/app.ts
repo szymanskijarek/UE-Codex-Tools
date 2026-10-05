@@ -542,7 +542,7 @@ export function createApp() {
     if (!isBot && !defender) fail(404, 'opponent', 'Opponent not found');
 
     const seed = randomHex(16);
-    const arenas = bundle.arenas.filter((a) => a.unlock.league === 'intern' || a.unlock.league === p.league);
+    const arenas = bundle.arenas.filter((a) => !a.marketOnly && (a.unlock.league === 'intern' || a.unlock.league === p.league));
     const input: BattleInput = {
       schemaVersion: 1,
       contentHash: bundle.hash,

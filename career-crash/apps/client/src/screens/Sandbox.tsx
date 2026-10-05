@@ -103,7 +103,7 @@ export function Sandbox() {
         <label class="field">
           Arena
           <select value={arena} onChange={(e) => setArena((e.target as HTMLSelectElement).value)}>
-            {bundle.arenas.map((a) => (
+            {bundle.arenas.filter((a) => !a.marketOnly).map((a) => (
               <option value={a.id}>{nameOf(a.id)}</option>
             ))}
           </select>

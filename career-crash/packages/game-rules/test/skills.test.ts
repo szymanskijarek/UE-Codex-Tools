@@ -157,13 +157,15 @@ describe('ladder bosses', () => {
 
   it('every arena has its own boss at the end of its stages', () => {
     const seen = new Set<string>();
-    for (let chapter = 0; chapter < bundle.arenas.length; chapter++) {
+    // Market floors (08) aren't on the ladder.
+    const chapters = bundle.arenas.filter((a) => !a.marketOnly).length;
+    for (let chapter = 0; chapter < chapters; chapter++) {
       const info = stageInfo(bundle, chapter * STAGES_PER_ARENA + STAGES_PER_ARENA - 1);
       expect(info.boss).toBe(true);
       expect(info.bossCareer).toBeTruthy();
       seen.add(info.bossCareer!);
     }
-    expect(seen.size).toBe(bundle.arenas.length);
+    expect(seen.size).toBe(chapters);
     expect(stageInfo(bundle, 0).bossCareer).toBeUndefined();
   });
 

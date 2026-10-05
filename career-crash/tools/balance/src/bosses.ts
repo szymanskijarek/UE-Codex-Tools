@@ -36,9 +36,10 @@ function fight(bundle: ContentBundle, seed: string, arenaId: string, mine: Caree
  */
 export function bossReport(bundle: ContentBundle, battles: number): BossRow[] {
   const generic: ContentBundle = { ...bundle, arenas: bundle.arenas.map(({ boss: _boss, ...a }) => a) };
+  const chapters = bundle.arenas.filter((a) => !a.marketOnly).length;
   const normal = difficulty('normal');
   const rows: BossRow[] = [];
-  for (let chapter = 0; chapter < bundle.arenas.length; chapter++) {
+  for (let chapter = 0; chapter < chapters; chapter++) {
     const stage = chapter * STAGES_PER_ARENA + STAGES_PER_ARENA - 1;
     const info = stageInfo(bundle, stage);
     let win = 0;

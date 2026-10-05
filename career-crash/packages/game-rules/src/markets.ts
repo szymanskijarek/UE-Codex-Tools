@@ -166,6 +166,7 @@ export function candleInput(bundle: ContentBundle, def: MarketDef, snapshot: Mar
       liquidatedTicks: def.candle.liquidatedTicks,
       shieldTicks: def.candle.shieldTicks,
       spawns: def.spawns.map(([x, y]) => [x, y]),
+      ...(def.referee ? { referee: { name: def.referee.name, persona: def.referee.persona } } : {}),
     },
   };
 }

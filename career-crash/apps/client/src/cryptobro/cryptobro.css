@@ -211,25 +211,18 @@ body.cb button.ghost {
 
 .cb-overlay.liq {
   animation: cb-strobe 0.35s steps(2) 6;
+  place-content: end center;
+  padding-bottom: 14%;
 }
 
-.cb-stamp {
-  font-size: clamp(30px, 8vw, 76px);
-  color: #ef4444;
-  border: 6px double #ef4444;
-  padding: 2px 18px;
-  transform: rotate(-8deg);
-  background: #0008;
-  letter-spacing: 3px;
-  animation: cb-stamp 0.35s cubic-bezier(0.2, 1.6, 0.4, 1) both;
+.cb-overlay.liq small {
+  background: #000b;
+  border: 2px solid #ef4444;
+  border-radius: 8px;
+  padding: 4px 12px;
 }
 
-@keyframes cb-stamp {
-  from {
-    transform: rotate(-8deg) scale(2.6);
-    opacity: 0;
-  }
-}
+
 
 @keyframes cb-strobe {
   0% {

@@ -1,0 +1,674 @@
+{
+ "id": "arena.trading-floor",
+ "sizeMm": [
+  22000,
+  14000
+ ],
+ "navCellMm": 500,
+ "walls": [],
+ "spawns": {
+  "a": [
+   [
+    1800,
+    7000
+   ],
+   [
+    1800,
+    4500
+   ],
+   [
+    1800,
+    9500
+   ],
+   [
+    3000,
+    3000
+   ],
+   [
+    3000,
+    11000
+   ]
+  ],
+  "b": [
+   [
+    20200,
+    7000
+   ],
+   [
+    20200,
+    4500
+   ],
+   [
+    20200,
+    9500
+   ],
+   [
+    19000,
+    3000
+   ],
+   [
+    19000,
+    11000
+   ]
+  ],
+  "ffa": [
+   [
+    2500,
+    2500
+   ],
+   [
+    19500,
+    2500
+   ],
+   [
+    2500,
+    11500
+   ],
+   [
+    19500,
+    11500
+   ],
+   [
+    8000,
+    7000
+   ],
+   [
+    14000,
+    7000
+   ],
+   [
+    11000,
+    2500
+   ],
+   [
+    11000,
+    11500
+   ]
+  ]
+ },
+ "refereeSpawn": [
+  11000,
+  5000
+ ],
+ "props": [
+  {
+   "prop": "prop.office-chair",
+   "at": [
+    4000,
+    5000
+   ]
+  },
+  {
+   "prop": "prop.office-chair",
+   "at": [
+    18000,
+    5000
+   ]
+  },
+  {
+   "prop": "prop.office-chair",
+   "at": [
+    4000,
+    9000
+   ]
+  },
+  {
+   "prop": "prop.office-chair",
+   "at": [
+    18000,
+    9000
+   ]
+  },
+  {
+   "prop": "prop.water-cooler",
+   "at": [
+    1200,
+    1200
+   ]
+  },
+  {
+   "prop": "prop.water-cooler",
+   "at": [
+    20800,
+    1200
+   ]
+  },
+  {
+   "prop": "prop.power-strip",
+   "at": [
+    2000,
+    1800
+   ]
+  },
+  {
+   "prop": "prop.power-strip",
+   "at": [
+    20000,
+    1800
+   ]
+  },
+  {
+   "prop": "prop.printer",
+   "at": [
+    6500,
+    1000
+   ]
+  },
+  {
+   "prop": "prop.printer",
+   "at": [
+    15500,
+    1000
+   ]
+  },
+  {
+   "prop": "prop.laptop",
+   "at": [
+    6500,
+    4600
+   ]
+  },
+  {
+   "prop": "prop.laptop",
+   "at": [
+    15500,
+    4600
+   ]
+  },
+  {
+   "prop": "prop.stapler",
+   "at": [
+    6000,
+    9400
+   ]
+  },
+  {
+   "prop": "prop.stapler",
+   "at": [
+    16000,
+    9400
+   ]
+  },
+  {
+   "prop": "prop.potted-plant",
+   "at": [
+    3000,
+    13000
+   ]
+  },
+  {
+   "prop": "prop.potted-plant",
+   "at": [
+    19000,
+    13000
+   ]
+  },
+  {
+   "prop": "prop.filing-cabinet",
+   "at": [
+    8500,
+    13000
+   ]
+  },
+  {
+   "prop": "prop.filing-cabinet",
+   "at": [
+    13500,
+    13000
+   ]
+  },
+  {
+   "prop": "prop.paper-stack",
+   "at": [
+    8200,
+    5200
+   ]
+  },
+  {
+   "prop": "prop.paper-stack",
+   "at": [
+    13800,
+    5200
+   ]
+  },
+  {
+   "prop": "prop.fire-extinguisher",
+   "at": [
+    9000,
+    1000
+   ]
+  },
+  {
+   "prop": "prop.fire-extinguisher",
+   "at": [
+    13000,
+    1000
+   ]
+  },
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    7500,
+    8200
+   ]
+  },
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    14500,
+    8200
+   ]
+  },
+  {
+   "prop": "prop.coffee-machine",
+   "at": [
+    11000,
+    800
+   ]
+  },
+  {
+   "prop": "prop.gas-canister",
+   "at": [
+    11000,
+    13200
+   ]
+  },
+  {
+   "prop": "prop.rubber-chicken",
+   "at": [
+    11000,
+    5400
+   ]
+  },
+  {
+   "prop": "prop.desk-lamp",
+   "at": [
+    6000,
+    2600
+   ]
+  },
+  {
+   "prop": "prop.desk-lamp",
+   "at": [
+    16000,
+    2600
+   ]
+  },
+  {
+   "prop": "prop.waste-bin",
+   "at": [
+    3200,
+    11000
+   ]
+  },
+  {
+   "prop": "prop.waste-bin",
+   "at": [
+    18800,
+    11000
+   ]
+  },
+  {
+   "prop": "prop.umbrella",
+   "at": [
+    11000,
+    11400
+   ]
+  },
+  {
+   "prop": "prop.coat-stand",
+   "at": [
+    6600,
+    4200
+   ]
+  },
+  {
+   "prop": "prop.coat-stand",
+   "at": [
+    15400,
+    9800
+   ]
+  },
+  {
+   "prop": "prop.novelty-cheque",
+   "at": [
+    6600,
+    9800
+   ]
+  },
+  {
+   "prop": "prop.novelty-cheque",
+   "at": [
+    15400,
+    4200
+   ]
+  }
+ ],
+ "hazards": [
+  {
+   "id": "hazard.birthday-cake",
+   "startTick": 500,
+   "everyTicks": 700,
+   "telegraphTicks": 40,
+   "region": [
+    8000,
+    4500,
+    6000,
+    1500
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.cake",
+     "count": 1
+    }
+   }
+  },
+  {
+   "id": "hazard.printer-jam",
+   "startTick": 400,
+   "everyTicks": 550,
+   "telegraphTicks": 30,
+   "region": [
+    5500,
+    500,
+    11000,
+    1500
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.sparks",
+     "count": 1
+    }
+   }
+  },
+  {
+   "id": "hazard.fire-drill",
+   "startTick": 1100,
+   "everyTicks": 900,
+   "telegraphTicks": 60,
+   "region": [
+    0,
+    0,
+    22000,
+    14000
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.puddle-water",
+     "count": 4
+    },
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.wet",
+      "durationTicks": 100
+     }
+    ]
+   },
+   "art": {
+    "active": "sprinkler",
+    "activeTicks": 60,
+    "at": [
+     11000,
+     6500
+    ],
+    "fx": "spray"
+   }
+  },
+  {
+   "id": "hazard.desk-fans",
+   "startTick": 750,
+   "everyTicks": 650,
+   "telegraphTicks": 40,
+   "region": [
+    4000,
+    9000,
+    14000,
+    4600
+   ],
+   "action": {
+    "wind": {
+     "vx": 0,
+     "vy": -40,
+     "ticks": 70
+    },
+    "spawn": {
+     "prop": "prop.paper-stack",
+     "count": 2
+    },
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.distracted",
+      "durationTicks": 30,
+      "chanceBp": 5000
+     }
+    ]
+   },
+   "art": {
+    "sprite": "desk-fans",
+    "at": [
+     11000,
+     13700
+    ],
+    "activeTicks": 70,
+    "fx": "wind"
+   }
+  }
+ ],
+ "suddenDeath": {
+  "everyTicks": 200,
+  "region": [
+   0,
+   0,
+   22000,
+   14000
+  ],
+  "action": {
+   "spawn": {
+    "prop": "prop.flood",
+    "count": 1
+   },
+   "effects": [
+    {
+     "type": "applyStatus",
+     "status": "status.distracted",
+     "durationTicks": 80
+    }
+   ]
+  }
+ },
+ "theme": {
+  "floor": "#3a3550",
+  "wall": "#120d24",
+  "accent": "#22c55e"
+ },
+ "unlock": {
+  "league": "intern"
+ },
+ "stations": [
+  {
+   "id": "bell",
+   "name": "the Bell",
+   "at": [
+    11000,
+    2200
+   ]
+  },
+  {
+   "id": "bar",
+   "name": "the Kombucha Bar",
+   "at": [
+    2800,
+    7000
+   ]
+  },
+  {
+   "id": "servers",
+   "name": "the Server Room",
+   "at": [
+    19200,
+    7000
+   ]
+  },
+  {
+   "id": "bull",
+   "name": "the Golden Bull",
+   "at": [
+    11000,
+    9600
+   ]
+  },
+  {
+   "id": "desks",
+   "name": "the Trading Desks",
+   "at": [
+    11000,
+    12600
+   ]
+  }
+ ],
+ "movers": [
+  {
+   "id": "hazard.robot-vacuum",
+   "prop": "prop.robot-vacuum",
+   "path": [
+    [
+     1500,
+     5200
+    ],
+    [
+     8000,
+     5200
+    ],
+    [
+     8000,
+     8800
+    ],
+    [
+     14000,
+     8800
+    ],
+    [
+     14000,
+     5200
+    ],
+    [
+     20500,
+     5200
+    ],
+    [
+     20500,
+     8800
+    ],
+    [
+     13000,
+     12800
+    ],
+    [
+     9000,
+     12800
+    ],
+    [
+     1500,
+     8800
+    ]
+   ],
+   "startTick": 200,
+   "telegraphTicks": 40,
+   "speedMm": 55,
+   "loop": true
+  }
+ ],
+ "obstacles": [
+  {
+   "at": [
+    5000,
+    3000,
+    3000,
+    1200
+   ],
+   "art": [
+    "trading-desk"
+   ]
+  },
+  {
+   "at": [
+    14000,
+    3000,
+    3000,
+    1200
+   ],
+   "art": [
+    "trading-desk"
+   ]
+  },
+  {
+   "at": [
+    5000,
+    9800,
+    3000,
+    1200
+   ],
+   "art": [
+    "trading-desk",
+    "screen-wall"
+   ]
+  },
+  {
+   "at": [
+    14000,
+    9800,
+    3000,
+    1200
+   ],
+   "art": [
+    "screen-wall",
+    "trading-desk"
+   ]
+  },
+  {
+   "at": [
+    9500,
+    6300,
+    3000,
+    1400
+   ],
+   "art": [
+    "gold-bull-statue"
+   ]
+  },
+  {
+   "at": [
+    5500,
+    400,
+    2000,
+    800
+   ],
+   "art": [
+    "server-rack",
+    "beanbag-pile"
+   ],
+   "chanceBp": 7000
+  },
+  {
+   "at": [
+    14500,
+    400,
+    2000,
+    800
+   ],
+   "art": [
+    "beanbag-pile",
+    "server-rack"
+   ],
+   "chanceBp": 7000
+  }
+ ],
+ "debris": [
+  "prop.paper-stack",
+  "prop.laptop",
+  "prop.desk-lamp"
+ ],
+ "marketOnly": true
+}

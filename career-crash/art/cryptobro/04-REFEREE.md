@@ -1,5 +1,7 @@
 # Crypto Bros 4: the referee, Pegged Peggy
 
+> **Status:** delivered and in the game (5 October 2026): body sheet and all five heads.
+
 > Part of the Crypto Bros art set (`art/cryptobro/README.md`).
 
 Stablecoins never go up or down, so they don't fight: the biggest one

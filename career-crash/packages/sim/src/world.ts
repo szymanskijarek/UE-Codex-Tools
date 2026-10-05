@@ -499,7 +499,7 @@ export function announceRivalries(w: World): void {
 
 function spawnReferee(w: World): void {
   const e = blankEntity(w.nextId++, 'npc', 'npc.referee');
-  e.name = 'The Referee';
+  e.name = w.input.endless?.referee?.name ?? 'The Referee';
   e.team = -1;
   [e.x, e.y] = w.arena.refereeSpawn;
   e.radius = CHAR_RADIUS;

@@ -1,6 +1,6 @@
 {
  "id": "market.crypto",
- "arena": "arena.office",
+ "arena": "arena.trading-floor",
  "field": 10,
  "spawns": [
   [
@@ -360,5 +360,9 @@
    "color": "#4b5563",
    "icon": "🕶️"
   }
+ },
+ "referee": {
+  "persona": "npc.pegged-peggy",
+  "name": "Pegged Peggy"
  }
 }

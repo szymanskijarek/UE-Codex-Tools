@@ -3,7 +3,7 @@ import type { ContentIndex } from './content';
 import type { Rng } from './core/rng';
 import type { NavGrid } from './systems/nav';
 
-export const SIM_VERSION = '0.16.0';
+export const SIM_VERSION = '0.16.1';
 export const TICKS_PER_SECOND = 20;
 export const MAX_TICKS = 2400;
 export const ENTITY_CAP = 256;
@@ -92,6 +92,8 @@ export interface EndlessInput {
   liquidatedTicks: number;
   shieldTicks: number;
   spawns: [number, number][];
+  /** Who referees the floor: their name, and the persona their art comes from. */
+  referee?: { name: string; persona: string };
 }
 
 export interface TeamSnapshot {

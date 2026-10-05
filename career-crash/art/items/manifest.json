@@ -201,5 +201,12 @@
  "fx-crack-decals": {"grid": [3, 1], "px": 256, "names": ["fx-crack-decal-1", "fx-crack-decal-2", "fx-crack-decal-3"]},
  "fx-chips-decals": {"grid": [3, 1], "px": 192, "names": ["fx-chips-decal-1", "fx-chips-decal-2", "fx-chips-decal-3"]},
  "fx-splat-food-decals": {"grid": [3, 1], "px": 192, "names": ["fx-splat-food-1", "fx-splat-food-2", "fx-splat-food-3"]},
- "fx-splat-liquid-decals": {"grid": [3, 1], "px": 192, "names": ["fx-splat-liquid-1", "fx-splat-liquid-2", "fx-splat-liquid-3"]}
+ "fx-splat-liquid-decals": {"grid": [3, 1], "px": 192, "names": ["fx-splat-liquid-1", "fx-splat-liquid-2", "fx-splat-liquid-3"]},
+ "fx-laser-eyes": {"grid": [4, 1], "px": 256, "names": ["fx-laser-eyes-1", "fx-laser-eyes-2", "fx-laser-eyes-3", "fx-laser-eyes-4"]},
+ "fx-liquidated-stamp": {"grid": [5, 1], "px": 256, "names": ["fx-liquidated-stamp-1", "fx-liquidated-stamp-2", "fx-liquidated-stamp-3", "fx-liquidated-stamp-4", "fx-liquidated-stamp-5"]},
+ "fx-margin-call": {"grid": [4, 1], "px": 160, "names": ["fx-margin-call-1", "fx-margin-call-2", "fx-margin-call-3", "fx-margin-call-4"]},
+ "fx-coin-shower": {"grid": [6, 1], "px": 160, "names": ["fx-coin-shower-1", "fx-coin-shower-2", "fx-coin-shower-3", "fx-coin-shower-4", "fx-coin-shower-5", "fx-coin-shower-6"]},
+ "fx-ceiling-launch": {"grid": [5, 1], "px": 160, "names": ["fx-ceiling-launch-1", "fx-ceiling-launch-2", "fx-ceiling-launch-3", "fx-ceiling-launch-4", "fx-ceiling-launch-5"]},
+ "fx-gas-fog": {"grid": [4, 1], "px": 256, "names": ["fx-gas-fog-1", "fx-gas-fog-2", "fx-gas-fog-3", "fx-gas-fog-4"]},
+ "fx-fud-cloud": {"grid": [4, 1], "px": 128, "names": ["fx-fud-cloud-1", "fx-fud-cloud-2", "fx-fud-cloud-3", "fx-fud-cloud-4"]}
 }

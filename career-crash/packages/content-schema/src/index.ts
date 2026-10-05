@@ -324,6 +324,8 @@ export const arenaSchema = z.object({
   debris: z.array(ref('prop')).optional(),
   theme: z.object({ floor: z.string(), wall: z.string(), accent: z.string() }),
   unlock: z.object({ league: z.string() }),
+  /** Market floors only (08): never in the ladder, the Sandbox, online fights, gatecrashers or balance runs. */
+  marketOnly: z.boolean().optional(),
   /** The career-ladder boss fought at the end of this arena's stages. */
   boss: z.object({ career: ref('career'), name: z.string() }).optional(),
 });
@@ -754,6 +756,8 @@ export const marketSchema = z.object({
   /** One persona per symbol, and one for any symbol without one. */
   cast: z.record(z.string(), marketMemberSchema),
   anon: marketMemberSchema,
+  /** Who referees the floor: a persona (art and job line) and a name. */
+  referee: z.object({ persona: ref('npc'), name: z.string() }).optional(),
 });
 export type MarketDef = z.infer<typeof marketSchema>;
 

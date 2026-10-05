@@ -48,7 +48,7 @@ function team(bundle: ContentBundle, rng: Rng, size: number, id: string): TeamSn
 export function runBalance(bundle: ContentBundle, opts: BalanceOptions): BalanceReport {
   const rng = Rng.fromSeed(opts.seed);
   const size = opts.mode === 'duel_5v5' ? 5 : 3;
-  const arenas = opts.arenas ?? bundle.arenas.map((a) => a.id);
+  const arenas = opts.arenas ?? bundle.arenas.filter((a) => !a.marketOnly).map((a) => a.id);
   const durations: number[] = [];
   const perf: number[] = [];
   const careers = new Map<string, { games: number; wins: number }>();
