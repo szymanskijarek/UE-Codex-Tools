@@ -339,7 +339,7 @@ and a second mapping file, no new engine work.
    balance run on recorded hours, tuning to the 60–75% target.
 3. **Liquidation and events.** The full liquidation sequence, the scene events,
    the text pack.
-4. **Art.** Image brief (`art/CRYPTOBRO_PROMPTS.md`, in the style of
+4. **Art.** Image briefs (`career-crash/art/cryptobro/`, one file per kind, in the style of
    `FX_BRIEF.md`): the Trading Floor backdrop and obstacles; a body sheet and
    four faces per bro (15 + Anon Bro + Pegged Peggy); critters (shiba, frog,
    bull, bear, whale, black swan); FX (laser eyes, LIQUIDATED stamp, coin
