@@ -3520,6 +3520,91 @@
    "🔔 Candle {v} opens. Ten bros, one floor, zero adult supervision.",
    "🔔 New candle. {sym} leads the hour.",
    "🔔 Candle {v}. The bros return to their desks. Briefly."
+  ],
+  "bro_post_opportunity": [
+   "I don't usually share this, but I'm sharing it with my 40,000 closest connections. ${sym} is about to do something. I can't say what. I can't say when. But I can say: few understand. 🚀",
+   "Opportunity alert 🚨 I'm letting 10 people into my private ${sym} signal group. 9 spots left. 11 spots left. The number goes up as people leave.",
+   "Most people work 9 to 5. I work 5 to 9. Then I check ${sym}. Then I go back to bed. Comment 'MOON' and I'll DM you the strategy.",
+   "Unpopular opinion: your pension should be in ${sym}. Popular opinion among my lawyers: this is not advice.",
+   "Just launched a course: 'From Zero to ${sym}'. Module 1: buy ${sym}. Module 2: tell everyone. Module 3: there is no module 3. Early bird price: also ${sym}.",
+   "My uncle asked me at dinner what I do. I said 'I'm early.' He said 'Early to what?' I said 'Exactly.' Anyway, ${sym}.",
+   "You're not late. You're just early to being late. Which is early. ${sym} 🧠",
+   "Hiring a Chief Vibes Officer for my ${sym} fund. Salary: equity. Equity: vibes. Apply in the comments.",
+   "Selling my car to buy more ${sym}. Walking to work builds character. And calves. 🦵",
+   "Here's a unique opportunity: a fund that only buys ${sym} and only sells ${sym}. Fees are 2 and 20. Of what? Exactly.",
+   "Just watched {me} fight at the {arena}. Imagine that energy, but tokenised. DM me for the whitepaper. It's one page. The page is blank.",
+   "{company} employees: your boss doesn't want you to know about ${sym}. Neither do I, honestly, I'm still buying."
+  ],
+  "bro_post_flex": [
+   "Woke up at 4am, ice bath, journaling, checked ${sym}, went back to bed. Grateful. 🙏",
+   "Just bought a watch that tells me the ${sym} price instead of the time. Time is a construct. Price is a feeling.",
+   "Landed a knockout on the trading floor today. Three, actually. Then a margin call. Then a nap. Big day. 💪",
+   "Some people collect stamps. I collect ${sym}. And stamps, it turns out, from all the court letters.",
+   "Took my team out for lunch. Paid in ${sym}. The restaurant is now my team.",
+   "My therapist asked how I was. I showed her the ${sym} chart. We're both in therapy now.",
+   "They laughed when I put my whole bonus in ${sym}. They're still laughing. So am I. Different reasons.",
+   "Down 40% this week and I've never felt more alive. Diamond hands, diamond heart, diamond overdraft. 💎",
+   "New personal best on the trading floor: 9 knockouts in one candle. Not financial advice. Physical advice.",
+   "Just got back from a retreat for founders who haven't founded anything yet. Life changing. ${sym}."
+  ],
+  "bro_post_wisdom": [
+   "Lesson from the trading floor: if you can't take the punch, you don't deserve the pump. #Leadership",
+   "Three things I learned from losing everything: 1) WAGMI 2) WAGMI 3) where is the bathroom in this court building.",
+   "The market is like a brawl in an office: whoever's still standing at the bell gets to write the LinkedIn post.",
+   "Fun fact: 'HODL' stands for 'Hold On for Dear Life'. It was a typo. So is my portfolio. So am I. Agree?",
+   "Your network is your net worth. My network is mostly bros on a trading floor hitting each other with laptops. Do the maths.",
+   "Never invest more than you can afford to explain to your mum.",
+   "Every dip is a discount. Every crash is a sale. Every liquidation is a learning. I have learned a lot.",
+   "Stop asking 'wen moon'. Start asking 'wen me'. Then buy ${sym}."
+  ],
+  "bro_post_about_win": [
+   "Congrats to {me} on the win at the {arena}. Imagine where you'd be if you'd put that energy into ${sym}. Probably also the {arena}, but richer.",
+   "{me} just KO'd a whole team. Respect. Now do it on the trading floor, where the punches are denominated in ${sym}.",
+   "Watching {me} beat {company} reminds me of ${sym}: everyone doubted, nobody understood, somebody got hit with a chair."
+  ],
+  "bro_post_about_loss": [
+   "Sorry about the loss, {me}. You know what never loses? ${sym}. Also loses. But differently.",
+   "Tough day for {me} at the {arena}. Hey, a loss is just a dip with feelings. Buy the dip. Be the dip.",
+   "{me} got flattened by {company} today. Brother, I've been liquidated twice before breakfast. You'll be fine. WAGMI."
+  ],
+  "feed_c_bro": [
+   "Is this a pyramid? Asking for my pension.",
+   "Ser, this is a professional networking site.",
+   "Reported for 'financial advice'. Then unreported. It's not advice of any kind.",
+   "My nan bought ${sym} because of this post. She's on the trading floor now. She's winning.",
+   "Following for the knockouts, staying for the delusion.",
+   "Great insight. What does it mean?",
+   "Can I pay my rent in vibes?",
+   "Not financial advice. Not advice. Barely a sentence.",
+   "Watched the trading floor at lunch. Someone got liquidated through the ceiling. 10/10.",
+   "Thought leader? More like thought follower. Of ${sym}."
+  ],
+  "feed_c_bro_rival": [
+   "Imagine still holding ${sym} in this economy. Have fun staying poor. 🙂",
+   "See you on the floor at the top of the hour, {first}. Bring a helmet.",
+   "Ser, I KO'd you twice this morning.",
+   "Respectfully: no.",
+   "This is why ${sym} keeps getting liquidated, {first}.",
+   "Gm. Also, you owe me gas money.",
+   "My crystal ball says this post ages badly."
+  ],
+  "feed_c_bro_me": [
+   "I'll stick to punching people for a living, thanks.",
+   "Is this why you were hitting someone with a laptop on the trading floor?",
+   "My accountant read this and resigned.",
+   "Hard pass, {first}. Soft punch, though, if you want one."
+  ],
+  "feed_c_bro_reply": [
+   "DM'd you, {commenter}. 🚀",
+   "Few understand, {commenter}. You're one of the few. Or the many. Hard to tell.",
+   "{commenter} gets it. Ser.",
+   "Have fun staying poor, {commenter}. ❤️",
+   "Bro. {commenter}. Bro."
+  ],
+  "bro_link": [
+   "Watch the bros brawl live",
+   "Every coin is a crypto bro. Every hour is a fight.",
+   "Live: the crypto market, as a brawl"
   ]
  }
 }

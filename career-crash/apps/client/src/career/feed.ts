@@ -1,5 +1,5 @@
 import { bundle } from '@cc/content';
-import { careerRank, grantableAbilities, RANKS, shortName, stageInfo } from '@cc/game-rules';
+import { careerRank, grantableAbilities, marketFighter, RANKS, shortName, stageInfo } from '@cc/game-rules';
 import { Rng } from '@cc/sim';
 import { nameOf } from '../i18n';
 import { lootName, lootStatsText, RARITY_NAMES } from './Loot';
@@ -29,7 +29,11 @@ export interface FeedPost {
   /** What the post is about — drives who comments and how people react. */
   mood?: Mood;
   /** Who wrote it. */
-  by?: 'me' | 'staff' | 'temp' | 'company' | 'stranger' | 'crasher';
+  by?: 'me' | 'staff' | 'temp' | 'company' | 'stranger' | 'crasher' | 'bro';
+  /** Crypto Bros (08): the ticker of the bro who wrote it. */
+  bro?: string;
+  /** A link preview under the post (the Crypto Bros page). */
+  link?: { href: string; title: string; blurb: string };
   /** Gatecrashers (07): the set that crashed the fight, and its members (they turn up in the comments). */
   crash?: string;
   crew?: { name: string; career: string; persona: string; art?: string; appearance: { skin: string; hair: string; hairStyle: number } }[];
@@ -42,7 +46,7 @@ export interface FeedPost {
   mine?: { react?: ReactionKind; said?: string[] };
 }
 
-export type Mood = 'win' | 'loss' | 'draw' | 'news' | 'beaten' | 'gloat' | 'network' | 'company' | 'temp' | 'perk' | 'crash';
+export type Mood = 'win' | 'loss' | 'draw' | 'news' | 'beaten' | 'gloat' | 'network' | 'company' | 'temp' | 'perk' | 'crash' | 'bro';
 export type ReactionKind = 'like' | 'celebrate' | 'love' | 'insightful' | 'funny' | 'support';
 export const REACTIONS: [ReactionKind, string, string][] = [
   ['like', '👍', 'Like'],
@@ -145,7 +149,23 @@ const TAGS: Record<string, string[]> = {
   draw: ['#Balance #Alignment', '#WinWin #LoseLose'],
   news: ['#NewRole', '#CareerGrowth', '#Promotion #Grateful', '#LevelUp'],
   company: ['#Culture #Hiring', '#WeAreFamily', '#Values', '#Accountability'],
+  bro: ['#NFA #DYOR', '#WAGMI #Grindset', '#ToTheMoon #Blessed', '#HODL #Leadership', '#FewUnderstand', '#DiamondHands #Mindset'],
 };
+
+/** Crypto Bros (08): the market floor's cast, and where the floor lives. */
+const CRYPTO = bundle.markets.find((m) => m.id === 'market.crypto');
+const BRO_SYMBOLS = CRYPTO ? Object.keys(CRYPTO.cast).sort() : [];
+/** The single-file build has no second page: send players to the site. */
+export const CRYPTO_URL = import.meta.env?.VITE_INLINE === '1' ? 'https://careercrash.org/cryptobro/' : '/cryptobro/';
+
+/** A bro as a feed author: name, job line and portrait (their own art once it's painted). */
+function broSpeaker(sym: string): Pick<FeedPost, 'author' | 'sub' | 'who'> | null {
+  const m = CRYPTO?.cast[sym];
+  if (!CRYPTO || !m) return null;
+  // The same face as on the floor: build the fighter at a neutral score.
+  const f = marketFighter(bundle, CRYPTO, { symbol: sym, changeBp: 0, capRank: 1, score: 0, pumping: false, dumping: false, leveraged: false });
+  return { author: m.name, sub: `${nameOf(m.persona)} · $${sym} · Not financial advice`, who: { careers: [m.career], appearance: f.appearance, persona: m.persona } };
+}
 
 function fill(text: string, slots: Record<string, string | number>): string {
   return text.replace(/\{(\w+)\}/g, (_, k: string) => String(slots[k] ?? k)).replace(/\b([Aa]) ([aeiouAEIOU])/g, '$1n $2');
@@ -327,7 +347,36 @@ export function fightPosts(s: CareerSave, r: FightSummary): FeedPost[] {
     const j = rng.int(i + 1);
     [rest[i], rest[j]] = [rest[j]!, rest[i]!];
   }
-  return [...(photo ? [photo] : []), ...(first ? [first] : []), ...perks, ...rest];
+  const posts = [...(photo ? [photo] : []), ...(first ? [first] : []), ...perks, ...rest];
+
+  // 7. A crypto bro (08) slides in, 2nd or 3rd: an "opportunity", a flex, some wisdom, or your fight.
+  const sym = BRO_SYMBOLS.length ? pick(BRO_SYMBOLS) : '';
+  const bro = sym ? broSpeaker(sym) : null;
+  if (bro) {
+    const about = r.outcome === 'win' ? 'bro_post_about_win' : r.outcome === 'loss' ? 'bro_post_about_loss' : '';
+    const kinds = ['bro_post_opportunity', 'bro_post_opportunity', 'bro_post_flex', 'bro_post_flex', 'bro_post_wisdom', ...(about ? [about] : [])];
+    const key = pick(kinds);
+    const list = lines(key);
+    if (list.length) {
+      const blurbs = lines('bro_link');
+      posts.splice(Math.min(posts.length, 1 + rng.int(2)), 0, {
+        id: `${fightNo}-bro`,
+        fight: fightNo,
+        ...bro,
+        by: 'bro',
+        bro: sym,
+        mood: 'bro',
+        text: fill(pick(list), { ...slots, sym, name: bro.author }),
+        tags: pick(TAGS.bro!),
+        reacts: 400 + rng.int(6000),
+        comments: 15 + rng.int(200),
+        cast,
+        company: info.company,
+        link: { href: CRYPTO_URL, title: 'Crypto Bros · careercrash.org/cryptobro', blurb: blurbs.length ? pick(blurbs) : 'Watch the bros brawl live' },
+      });
+    }
+  }
+  return posts;
 }
 
 /** A few posts to fill the feed before the first fight. */
@@ -406,6 +455,7 @@ const REACT_WEIGHTS: Record<Mood, Partial<Record<ReactionKind, number>>> = {
   temp: { like: 4, support: 2, celebrate: 1 },
   perk: { celebrate: 6, love: 3, funny: 3, insightful: 1 },
   crash: { funny: 7, like: 2, insightful: 1, support: 1 },
+  bro: { insightful: 5, funny: 6, like: 2, celebrate: 1 },
 };
 
 type Speaker = Pick<FeedComment, 'author' | 'sub' | 'who' | 'icon'>;
@@ -445,7 +495,7 @@ export function discussion(p: FeedPost, s: CareerSave): Discussion {
   const reactedBy = p.mine?.react ? 'You' : (staff.length && rng.int(2) ? pick(staff).author : stranger().author);
 
   const first = shortName(bundle, p.author);
-  const slots = { first, author: p.author, company: p.company ?? 'them', me: m.c.name, arena: 'arena' };
+  const slots = { first, author: p.author, company: p.company ?? 'them', me: m.c.name, arena: 'arena', sym: p.bro ?? 'BTC' };
   // Gatecrashers' own lines: what the henchmen say under the post.
   const crashSet = p.crash ? bundle.crashers.find((c) => c.id === p.crash) : undefined;
   const say = (key: string, extra: Record<string, string> = {}) => {
@@ -460,7 +510,13 @@ export function discussion(p: FeedPost, s: CareerSave): Discussion {
   const meIfNotAuthor = () => (own ? null : me);
   const crew: Speaker[] = (p.crew ?? []).filter((x) => x.name !== p.author).map((x) => ({ author: x.name, sub: `${nameOf(x.persona)} · ${crashSet ? nameOf(crashSet.id) : 'Gatecrasher'}`, who: { careers: [x.career], appearance: x.appearance, persona: x.persona, ...(x.art ? { art: x.art } : {}) } }));
   const fromCrew = () => (crew.length ? pick(crew) : null);
+  // Crypto Bros (08): the other bros pile in under each other's posts.
+  const bros: Speaker[] = p.bro ? BRO_SYMBOLS.filter((x) => x !== p.bro).flatMap((x) => broSpeaker(x) ?? []) : [];
+  const fromBros = () => (bros.length ? pick(bros) : null);
   switch (mood) {
+    case 'bro':
+      opts.push([fromBros, 'feed_c_bro_rival'], [fromBros, 'feed_c_bro_rival'], [meIfNotAuthor, 'feed_c_bro_me'], [fromStaff, 'feed_c_bro'], [stranger, 'feed_c_bro'], [stranger, 'feed_c_bro'], [stranger, 'feed_c_bro']);
+      break;
     case 'crash':
       // The henchmen pile in under their leader's post; on yours, they still turn up.
       if (p.by === 'crasher') opts.push([fromCrew, 'crash_crew'], [fromCrew, 'crash_crew'], [meIfNotAuthor, 'feed_c_crash_me'], [fromStaff, 'feed_c_crash'], [stranger, 'feed_c_crash'], [stranger, 'feed_c_crash']);
@@ -506,7 +562,7 @@ export function discussion(p: FeedPost, s: CareerSave): Discussion {
     if (!who || seen.has(who.author)) continue;
     seen.add(who.author);
     comments.push({ ...who, text: say(key), likes: rng.int(40) });
-    if (rng.int(10) < 4) comments.push({ ...author, text: say('feed_c_reply', { commenter: shortName(bundle, who.author) }), likes: rng.int(12), reply: true });
+    if (rng.int(10) < 4) comments.push({ ...author, text: say(mood === 'bro' ? 'feed_c_bro_reply' : 'feed_c_reply', { commenter: shortName(bundle, who.author) }), likes: rng.int(12), reply: true });
   }
   // The player's own comments, each answered by the author (or a passer-by on your own posts).
   (p.mine?.said ?? []).forEach((text, i) => {

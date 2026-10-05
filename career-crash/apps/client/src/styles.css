@@ -1759,6 +1759,40 @@ body:has(.shell.li) {
   font-weight: 600;
 }
 
+/* Crypto Bros (08): the link preview under a bro's post. */
+.li-linkcard {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 6px 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #120d24;
+  color: #f4f1ff;
+  text-decoration: none;
+  border: 2px solid #3a2f66;
+}
+
+.li-linkcard:hover {
+  border-color: #22c55e;
+}
+
+.li-linkcard-art {
+  font-size: 26px;
+  line-height: 1;
+}
+
+.li-linkcard b {
+  display: block;
+  font-size: 14px;
+}
+
+.li-linkcard small {
+  color: #a59cc9;
+  font-size: 12px;
+  font-weight: 400;
+}
+
 .li-counts {
   display: flex;
   justify-content: space-between;

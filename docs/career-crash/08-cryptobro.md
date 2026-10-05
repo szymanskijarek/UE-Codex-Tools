@@ -369,5 +369,6 @@ What exists now, and where it differs from the plan above.
 | Liquidation | Basic version: over-leveraged bros' KOs emit `liquidated`, keep them out 45 s, and the page plays a red strobe, a LIQUIDATED stamp and a slow-motion focus. The ceiling launch, coin shower and margin-call gauge come in phase 3. |
 | Cast | 15 bros plus Anon Bro as personas on borrowed careers' moves and art (`npc.bro-*`); their own art and moves follow the briefs in `career-crash/art/cryptobro/`. Pegged Peggy is still the main game's referee. |
 | Arena | The Office, with ten spawn spots from the market file, until the Trading Floor art arrives. |
+| Career feed link | Built: after every career fight one bro posts 2nd or 3rd in the feed (an "opportunity", a flex, crypto-bro wisdom, or a take on your fight), with a link card to `/cryptobro/` (the full careercrash.org address in the single-file build). Other bros, your staff, you and sceptics comment underneath. Text: `live.json` `bro_post_*`, `feed_c_bro*`, `bro_link`; code: `apps/client/src/career/feed.ts`. Portraits use the bros' heads once they're in. |
 | Not yet | Feed worker and KV, Opening/Closing Bell, scene events, Rewind, `pnpm balance --markets`, Regulators. |
 

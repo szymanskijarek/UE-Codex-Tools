@@ -102,6 +102,17 @@ function PostCard({ p, fights, s }: { p: FeedPost; fights: number; s: CareerSave
       <p>{p.text}</p>
       {p.photo && fightPhoto.value?.fight === p.fight && <img class="li-photo" src={fightPhoto.value.url} alt={`Fight photo: ${p.text}`} />}
       {p.photo && developing.value === p.fight && fightPhoto.value?.fight !== p.fight && <div class="li-photo li-photo-wait">📸 Developing…</div>}
+      {p.link && (
+        <a class="li-linkcard" href={p.link.href} {...(p.link.href.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {})}>
+          <span class="li-linkcard-art" aria-hidden="true">
+            📈🥊
+          </span>
+          <span>
+            <b>{p.link.blurb}</b>
+            <small>{p.link.title}</small>
+          </span>
+        </a>
+      )}
       {p.tags && <p class="li-tags">{p.tags}</p>}
       <div class="li-counts muted small">
         <span class="li-reacts" title={talk.reactions.map(([k, n]) => `${REACTIONS.find(([x]) => x === k)?.[2]}: ${n}`).join(' · ')}>
