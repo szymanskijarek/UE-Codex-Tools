@@ -498,6 +498,45 @@ command, not ours.
 **Rolling back the online game:** revert step 7 (the site goes back to
 offline play); the API can stay deployed.
 
+### 7.2 The Crypto Bros market feed (one-time)
+
+`apps/markets` (Worker `career-crash-markets` on **feed.careercrash.org**,
+design: `docs/career-crash/08-cryptobro.md` §10). At the top of every hour
+(and again two minutes later if that failed) it fetches the top 40 coins
+from CoinGecko, turns them into the hour's snapshot and keeps it in KV for
+49 hours. It serves `/crypto/latest.json`, `/crypto/<hour>.json` and
+`/crypto/hours.json` to careercrash.org/cryptobro. Until it's live, the page
+runs on its sample snapshot and says so in the footer.
+
+1. **KV namespace:** Cloudflare dashboard → Storage & Databases → KV →
+   Create → name `career-crash-feed`. Copy its ID into `id` under
+   `[[kv_namespaces]]` in `apps/markets/wrangler.toml` (not a secret) and commit.
+2. **GitHub secrets:** the same `CLOUDFLARE_API_TOKEN` and
+   `CLOUDFLARE_ACCOUNT_ID` as the API (§7.1 steps 2–3). The token needs
+   *Workers Scripts · Edit*, *Workers KV Storage · Edit* and the
+   `careercrash.org` zone (for the feed.careercrash.org custom domain); the
+   *Edit Cloudflare Workers* template has all three.
+3. **First deploy:** push to `prod` (or run the `career-crash-markets` workflow
+   by hand). It skips itself until steps 1–2 are done, then tests, deploys, and
+   checks that feed.careercrash.org serves a snapshot (the first request fills
+   an empty store straight away).
+4. **Optional:** a free CoinGecko Demo key as the secret `COINGECKO_KEY`
+   (dashboard → `career-crash-markets` → Settings → Variables and Secrets).
+   Without it the keyless public API is used, which is plenty for two
+   requests an hour.
+
+**Locally:** `pnpm --filter @cc/markets dev` runs the Worker on
+http://localhost:8788 with a local KV; trigger the hourly job with
+`curl "http://localhost:8788/__scheduled?cron=0+*+*+*+*"`, then run the
+client against it: `VITE_FEED_URL=http://localhost:8788/crypto pnpm dev:client`.
+
+**Balance on real markets:** `pnpm balance --record-markets [--hours=48]`
+records recent real hours from CoinGecko into `tools/balance/data/crypto-hours.json`;
+`pnpm balance --markets [--hours=48] [--candles=12]` replays them and reports how
+often the hour's best coin wins it (target 60–75%); `pnpm balance --markets-flat`
+measures each bro's strength in a flat market, which `statBonus` in
+`markets/crypto.json` evens out.
+
 ## 8. CI
 
 `.github/workflows/career-crash.yml` runs on pushes and PRs that touch

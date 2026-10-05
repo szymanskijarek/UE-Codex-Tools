@@ -3605,6 +3605,19 @@
    "Watch the bros brawl live",
    "Every coin is a crypto bro. Every hour is a fight.",
    "Live: the crypto market, as a brawl"
+  ],
+  "market_opening": [
+   "🔔 The Opening Bell! {up} leads the hour, {down} is already sweating.",
+   "🔔 Ding ding. New hour, new bros. {up} walks on shirtless; {down} walks on in a hoodie.",
+   "🔔 Markets are open. {up} is pumping, {down} is pretending not to check the chart."
+  ],
+  "market_closing": [
+   "🔔 Closing Bell! {sym} wins the hour and rings the bell. {loser} holds the 'WILL WORK FOR GAS' sign.",
+   "🔔 That's the hour. {sym} rings the bell like they invented it. {loser}: see you next hour, ser.",
+   "🔔 Closing Bell. {sym} closes the hour on top. {loser} closes it on the floor."
+  ],
+  "market_delayed": [
+   "📡 Market data delayed. Last hour's bros are still fighting."
   ]
  }
 }

@@ -1,0 +1,17 @@
+{
+  "name": "@cc/markets",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev -c wrangler.toml --test-scheduled",
+    "deploy": "wrangler deploy -c wrangler.toml"
+  },
+  "dependencies": {
+    "@cc/content": "workspace:*",
+    "@cc/game-rules": "workspace:*"
+  },
+  "devDependencies": {
+    "wrangler": "^4.40.0"
+  }
+}

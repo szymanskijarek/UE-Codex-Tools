@@ -83,6 +83,12 @@ describe('market floors (08)', () => {
     const inBreaker = at(new Date(Date.parse('2026-10-05T14:00:00Z') + (def.candle.ticks / 20 + 1) * 1000).toISOString());
     expect(inBreaker).toMatchObject({ candle: 0, breaker: true });
     expect(at('2026-10-05T14:59:59Z').candle).toBe(at('2026-10-05T14:00:00Z').candles - 1);
+    // The hour opens with the Opening Bell and its last candle ends early for the Closing Bell.
+    expect(at('2026-10-05T14:00:05Z').opening).toBe(true);
+    expect(at('2026-10-05T14:30:05Z').opening).toBe(false);
+    const closing = at('2026-10-05T14:59:30Z');
+    expect(closing).toMatchObject({ closing: true, breaker: false, fightTicks: def.candle.ticks - def.candle.closingTicks });
+    expect(at('2026-10-05T14:57:00Z').closing).toBe(false);
   });
 
   it('every viewer gets the same candle, and standings add up', () => {

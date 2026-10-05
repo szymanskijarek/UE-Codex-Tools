@@ -80,7 +80,8 @@ export function marketMood(def: MarketDef, coins: MarketCoin[]): number {
 }
 
 export function castMember(def: MarketDef, symbol: string) {
-  return def.cast[symbol.toUpperCase()] ?? def.anon;
+  const sym = symbol.toUpperCase();
+  return def.cast[def.aliases?.[sym] ?? sym] ?? def.anon;
 }
 
 const ALL_SKILLS: DifficultyDef = { ...DIFFICULTIES[2]!, allSkills: true };
@@ -97,7 +98,7 @@ export function marketFighter(bundle: ContentBundle, def: MarketDef, coin: Score
   const rng = Rng.fromSeed(`market:${def.id}:${sym}`);
   const f = generatedFighter(bundle, rng, id, level, def.power.rank, ALL_SKILLS, [m.career]);
   // One career's moves; every other slot becomes stat points (like a boss or gatecrasher).
-  const extra = (f.c.careers.length - 1) * 4 + Math.round((coin.score * def.power.statSwing) / def.score.max);
+  const extra = (f.c.careers.length - 1) * 4 + (m.statBonus ?? 0) + Math.round((coin.score * def.power.statSwing) / def.score.max);
   const stats = f.c.stats;
   const keys = STAT_KEYS;
   for (let p = 0, guard = 0; p < Math.abs(extra) && guard < 400; guard++) {
@@ -123,9 +124,16 @@ export interface FloorClock {
   hour: string;
   candle: number;
   candles: number;
-  /** Ticks since the candle started (past `def.candle.ticks` = the circuit breaker). */
+  /** Ticks since the candle started. */
   tick: number;
+  /** How long this candle's fight runs (the hour's last one is shorter: the Closing Bell follows). */
+  fightTicks: number;
+  /** The circuit breaker after a candle (08 §4.2). */
   breaker: boolean;
+  /** The first seconds of the hour: the Opening Bell (08 §3). */
+  opening: boolean;
+  /** After the hour's last candle: the Closing Bell. */
+  closing: boolean;
   /** Milliseconds until the next candle. */
   msToNext: number;
 }
@@ -134,17 +142,38 @@ export function candleSlotTicks(def: MarketDef): number {
   return def.candle.ticks + def.candle.breakerTicks;
 }
 
+export function candlesPerHour(def: MarketDef): number {
+  return Math.max(1, Math.floor((3600 * TICKS_PER_SECOND) / candleSlotTicks(def)));
+}
+
+/** How long a candle's fight runs: the last of the hour stops early for the Closing Bell. */
+export function candleFightTicks(def: MarketDef, candle: number): number {
+  return candle === candlesPerHour(def) - 1 ? def.candle.ticks - def.candle.closingTicks : def.candle.ticks;
+}
+
 export function floorClock(def: MarketDef, nowMs: number): FloorClock {
   const hourMs = 3_600_000;
   const start = Math.floor(nowMs / hourMs) * hourMs;
   const slotMs = (candleSlotTicks(def) * 1000) / TICKS_PER_SECOND;
-  const candles = Math.max(1, Math.floor(hourMs / slotMs));
+  const candles = candlesPerHour(def);
   const into = nowMs - start;
   const candle = Math.min(candles - 1, Math.floor(into / slotMs));
   const msIn = into - candle * slotMs;
   const tick = Math.floor((msIn * TICKS_PER_SECOND) / 1000);
   const end = candle === candles - 1 ? hourMs : (candle + 1) * slotMs;
-  return { hour: new Date(start).toISOString().slice(0, 13), candle, candles, tick, breaker: tick >= def.candle.ticks, msToNext: end - into };
+  const fightTicks = candleFightTicks(def, candle);
+  const last = candle === candles - 1;
+  return {
+    hour: new Date(start).toISOString().slice(0, 13),
+    candle,
+    candles,
+    tick,
+    fightTicks,
+    breaker: !last && tick >= fightTicks,
+    opening: candle === 0 && tick < def.candle.openingTicks,
+    closing: last && tick >= fightTicks,
+    msToNext: end - into,
+  };
 }
 
 /** The battle for one candle of an hour (08 §4.2). */
@@ -161,7 +190,7 @@ export function candleInput(bundle: ContentBundle, def: MarketDef, snapshot: Mar
     modifiers: [],
     endless: {
       round: candle,
-      ticks: def.candle.ticks,
+      ticks: candleFightTicks(def, candle),
       relistTicks: def.candle.relistTicks,
       liquidatedTicks: def.candle.liquidatedTicks,
       shieldTicks: def.candle.shieldTicks,

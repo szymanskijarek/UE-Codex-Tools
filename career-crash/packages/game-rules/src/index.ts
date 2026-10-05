@@ -8,3 +8,4 @@ export * from './loot';
 export * from './hr';
 export * from './crashers';
 export * from './markets';
+export * from './coingecko';

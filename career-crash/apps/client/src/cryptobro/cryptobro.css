@@ -389,3 +389,113 @@ body.cb button.ghost {
     min-width: 96px;
   }
 }
+
+/* Phase 2: the bells, the delay notice, Rewind. */
+.cb-overlay.opening,
+.cb-overlay.closing {
+  background: linear-gradient(#120d24cc, #120d2499);
+  font-size: clamp(22px, 4.5vw, 40px);
+  text-shadow: 0 3px 0 #000;
+  padding: 12px;
+}
+
+.cb-placards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  max-width: 760px;
+  font-size: 14px;
+  text-shadow: none;
+}
+
+.cb-placard {
+  background: var(--cb-panel);
+  border: 2px solid var(--c);
+  border-radius: 8px;
+  padding: 4px 8px;
+  font-weight: 700;
+  animation: cb-walk-on 0.5s ease-out both;
+}
+
+.cb-placard.up {
+  color: var(--cb-up);
+}
+
+.cb-placard.down {
+  color: var(--cb-down);
+}
+
+.cb-placard b {
+  color: var(--cb-text);
+}
+
+.cb-placard:nth-child(2) { animation-delay: 0.15s; }
+.cb-placard:nth-child(3) { animation-delay: 0.3s; }
+.cb-placard:nth-child(4) { animation-delay: 0.45s; }
+.cb-placard:nth-child(5) { animation-delay: 0.6s; }
+.cb-placard:nth-child(6) { animation-delay: 0.75s; }
+.cb-placard:nth-child(7) { animation-delay: 0.9s; }
+.cb-placard:nth-child(8) { animation-delay: 1.05s; }
+.cb-placard:nth-child(9) { animation-delay: 1.2s; }
+.cb-placard:nth-child(10) { animation-delay: 1.35s; }
+
+@keyframes cb-walk-on {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+}
+
+.cb-podium {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+  font-size: 18px;
+  text-shadow: none;
+}
+
+.cb-podium li {
+  background: var(--cb-panel);
+  border-left: 6px solid var(--c);
+  border-radius: 8px;
+  padding: 6px 14px;
+  font-weight: 700;
+}
+
+.cb-delayed {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000c;
+  border: 2px solid #f59e0b;
+  border-radius: 8px;
+  padding: 4px 12px;
+  font-size: 13px;
+  font-weight: 700;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.cb-rewind {
+  background: var(--cb-panel-2);
+  color: var(--cb-text);
+  border: 2px solid var(--cb-line);
+  border-radius: 8px;
+  padding: 4px 6px;
+  font-size: 13px;
+}
+
+.cb-rewind-tag {
+  color: #fcd34d;
+  font-weight: 700;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cb-placard {
+    animation: none;
+  }
+}

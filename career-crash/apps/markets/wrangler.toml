@@ -1,0 +1,25 @@
+# The hourly market feed for careercrash.org/cryptobro (docs/career-crash/08-cryptobro.md §10).
+# Every hour it fetches the top coins from CoinGecko and stores the hour's
+# snapshot in KV; the page reads it from feed.careercrash.org.
+name = "career-crash-markets"
+main = "src/index.ts"
+compatibility_date = "2025-09-01"
+
+# Its own subdomain, so it never competes with the site's routes.
+routes = [{ pattern = "feed.careercrash.org", custom_domain = true }]
+
+# At the top of every hour, and again two minutes later in case the first try failed.
+[triggers]
+crons = ["0 * * * *", "2 * * * *"]
+
+[[kv_namespaces]]
+binding = "FEED"
+id = "00000000000000000000000000000000" # the id of the KV namespace "career-crash-feed" (dashboard → Storage & Databases → KV)
+
+[vars]
+# Pages that may read the feed from the browser.
+ALLOWED_ORIGIN = "https://careercrash.org,https://www.careercrash.org,http://localhost:5173"
+
+# Optional secret (dashboard → career-crash-markets → Settings → Variables and Secrets, type Secret):
+#   COINGECKO_KEY: a free CoinGecko Demo API key. Without it the public, keyless API is used,
+#   which is enough for one request an hour.

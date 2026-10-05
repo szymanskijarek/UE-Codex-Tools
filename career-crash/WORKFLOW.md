@@ -18,6 +18,7 @@ a Claude Code session. Exact commands for every build step are in
 | Build and pipeline commands | `PIPELINES.md` |
 | CI | `.github/workflows/career-crash.yml`: content, lint, typecheck, tests, goldens, balance smoke, client build |
 | API deploy | `.github/workflows/career-crash-api.yml` |
+| Crypto Bros feed | Cloudflare Worker `career-crash-markets` + KV `career-crash-feed` on feed.careercrash.org, deployed by `.github/workflows/career-crash-markets.yml` from `prod` (launch steps: `PIPELINES.md` §7.2) |
 
 ## Branches and releases
 

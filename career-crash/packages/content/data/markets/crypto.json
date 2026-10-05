@@ -72,7 +72,15 @@
   "BTCB",
   "LEO",
   "XAUT",
-  "PAXG"
+  "PAXG",
+  "FIGR_HELOC",
+  "WBT",
+  "USDG",
+  "USYC",
+  "SUSDS",
+  "SUSDE",
+  "RLUSD",
+  "USDF"
  ],
  "score": {
   "spreadFloor": 25,
@@ -80,8 +88,8 @@
  },
  "power": {
   "baseLevel": 20,
-  "levelSwing": 8,
-  "statSwing": 10,
+  "levelSwing": 18,
+  "statSwing": 140,
   "rank": 4,
   "pumpAt": 150,
   "dumpAt": -150,
@@ -91,6 +99,8 @@
  "candle": {
   "ticks": 5920,
   "breakerTicks": 80,
+  "openingTicks": 240,
+  "closingTicks": 900,
   "relistTicks": 300,
   "liquidatedTicks": 900,
   "shieldTicks": 40
@@ -118,7 +128,8 @@
    "art": {
     "color": "#f7931a",
     "icon": "🔴"
-   }
+   },
+   "statBonus": 15
   },
   "ETH": {
    "persona": "npc.bro-eth",
@@ -134,7 +145,8 @@
    "art": {
     "color": "#627eea",
     "icon": "⛽"
-   }
+   },
+   "statBonus": 37
   },
   "XRP": {
    "persona": "npc.bro-xrp",
@@ -150,7 +162,8 @@
    "art": {
     "color": "#00aae4",
     "icon": "⚖️"
-   }
+   },
+   "statBonus": 32
   },
   "BNB": {
    "persona": "npc.bro-bnb",
@@ -166,7 +179,8 @@
    "art": {
     "color": "#f3ba2f",
     "icon": "🎧"
-   }
+   },
+   "statBonus": 6
   },
   "SOL": {
    "persona": "npc.bro-sol",
@@ -182,7 +196,8 @@
    "art": {
     "color": "#9945ff",
     "icon": "⚡"
-   }
+   },
+   "statBonus": -15
   },
   "DOGE": {
    "persona": "npc.bro-doge",
@@ -198,12 +213,13 @@
    "art": {
     "color": "#c2a633",
     "icon": "🐕"
-   }
+   },
+   "statBonus": 24
   },
   "ADA": {
    "persona": "npc.bro-ada",
    "name": "Peer-Review Pete",
-   "career": "career.scientist",
+   "career": "career.teacher",
    "personality": "personality.lazy",
    "lines": [
     "It's coming. Phase five. Peer reviewed.",
@@ -214,7 +230,8 @@
    "art": {
     "color": "#0033ad",
     "icon": "📄"
-   }
+   },
+   "statBonus": -14
   },
   "TRX": {
    "persona": "npc.bro-trx",
@@ -230,7 +247,8 @@
    "art": {
     "color": "#eb0029",
     "icon": "💡"
-   }
+   },
+   "statBonus": -40
   },
   "AVAX": {
    "persona": "npc.bro-avax",
@@ -246,7 +264,8 @@
    "art": {
     "color": "#e84142",
     "icon": "🏂"
-   }
+   },
+   "statBonus": 6
   },
   "LINK": {
    "persona": "npc.bro-link",
@@ -262,7 +281,8 @@
    "art": {
     "color": "#2a5ada",
     "icon": "🔮"
-   }
+   },
+   "statBonus": 26
   },
   "TON": {
    "persona": "npc.bro-ton",
@@ -278,7 +298,8 @@
    "art": {
     "color": "#0098ea",
     "icon": "🧱"
-   }
+   },
+   "statBonus": -32
   },
   "SHIB": {
    "persona": "npc.bro-shib",
@@ -294,7 +315,8 @@
    "art": {
     "color": "#e44d26",
     "icon": "🦮"
-   }
+   },
+   "statBonus": 15
   },
   "LTC": {
    "persona": "npc.bro-ltc",
@@ -310,7 +332,8 @@
    "art": {
     "color": "#a6a9aa",
     "icon": "🥈"
-   }
+   },
+   "statBonus": -19
   },
   "PEPE": {
    "persona": "npc.bro-pepe",
@@ -326,12 +349,13 @@
    "art": {
     "color": "#3d9b3f",
     "icon": "🐸"
-   }
+   },
+   "statBonus": 1
   },
   "DOT": {
    "persona": "npc.bro-dot",
    "name": "Para Pat",
-   "career": "career.politician",
+   "career": "career.life-coach",
    "personality": "personality.helpful",
    "lines": [
     "Interoperable. With your face.",
@@ -342,8 +366,12 @@
    "art": {
     "color": "#e6007a",
     "icon": "🎀"
-   }
+   },
+   "statBonus": 28
   }
+ },
+ "aliases": {
+  "GRAM": "TON"
  },
  "anon": {
   "persona": "npc.bro-anon",
@@ -359,7 +387,8 @@
   "art": {
    "color": "#4b5563",
    "icon": "🕶️"
-  }
+  },
+  "statBonus": 20
  },
  "referee": {
   "persona": "npc.pegged-peggy",

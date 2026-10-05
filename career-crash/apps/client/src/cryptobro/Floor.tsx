@@ -22,7 +22,7 @@ import { keepAwake } from '../wake-lock';
 import { Portrait } from '../ui/components';
 import frameUrl from './ticker-frame.webp';
 import logoUrl from './logo.webp';
-import { loadFeed, type LoadedFeed } from './feed';
+import { listHours, loadFeed, type LoadedFeed } from './feed';
 import { fightersOf, tallyPastCandles } from './past';
 
 const DEF = bundle.markets.find((m) => m.id === 'market.crypto')!;
@@ -95,6 +95,8 @@ export function Floor() {
   followRef.current = follow;
   const mutedRef = useRef(muted);
   mutedRef.current = muted;
+  /** The hour's standings right now (read by the render loop at the Closing Bell). */
+  const closingRef = useRef<() => Standing[]>(() => []);
 
   const push = (text: string, kind: string) => {
     if (!text) return;
@@ -110,12 +112,18 @@ export function Floor() {
     };
   }, [clock.hour]);
 
+  // Hours on file for Rewind.
+  const [hours, setHours] = useState<string[]>([]);
+  useEffect(() => {
+    void listHours().then(setHours);
+  }, [clock.hour]);
+
   // The wall clock, a few times a second (the floor itself runs per frame).
   useEffect(() => {
     const id = setInterval(() => {
       setClock((c) => {
         const n = floorClock(DEF, now());
-        return n.candle !== c.candle || n.hour !== c.hour || n.breaker !== c.breaker || Math.floor(n.tick / 20) !== Math.floor(c.tick / 20) ? n : c;
+        return n.candle !== c.candle || n.hour !== c.hour || n.breaker !== c.breaker || n.opening !== c.opening || n.closing !== c.closing || Math.floor(n.tick / 20) !== Math.floor(c.tick / 20) ? n : c;
       });
     }, 250);
     keepAwake(true);
@@ -156,7 +164,13 @@ export function Floor() {
     renderer.sfx.setMuted(mutedRef.current);
     const symOf = (entityId: number) => input.teams[player.world.byId.get(entityId)?.team ?? -1]?.playerId ?? '';
     const nameOf = (entityId: number) => player.world.byId.get(entityId)?.name ?? 'someone';
-    if (startAt < 40) push(fill('market_open', { v: clock.candle + 1, sym: symbols[0] ?? '' }), 'open');
+    if (startAt < 40) {
+      if (clock.candle === 0) {
+        const byChange = [...scored].sort((a, b) => b.changeBp - a.changeBp);
+        push(fill('market_opening', { up: byChange[0]?.symbol.toUpperCase() ?? '', down: byChange[byChange.length - 1]?.symbol.toUpperCase() ?? '' }), 'open');
+        music.sting('start');
+      } else push(fill('market_open', { v: clock.candle + 1, sym: symbols[0] ?? '' }), 'open');
+    }
     let raf = 0;
     let last = performance.now();
     let alive = true;
@@ -205,8 +219,15 @@ export function Floor() {
         if (player.done && !breakerSaid) {
           breakerSaid = true;
           const rows = tallyCandle(DEF, symbols, player.world.events, fightersOf(player.world, symbols.length)).sort((a, b) => b.points - a.points);
-          push(fill('market_breaker', { sym: rows[0]?.symbol ?? '' }), 'breaker');
-          music.sting('crash');
+          if (clock.candle === clock.candles - 1) {
+            // The Closing Bell: the hour's table is the earlier candles plus this one.
+            const hourRows = closingRef.current();
+            push(fill('market_closing', { sym: hourRows[0]?.symbol ?? '', loser: hourRows[hourRows.length - 1]?.symbol ?? '' }), 'breaker');
+            music.sting('win');
+          } else {
+            push(fill('market_breaker', { sym: rows[0]?.symbol ?? '' }), 'breaker');
+            music.sting('crash');
+          }
         }
         // Follow one contender with the camera (tap in the ticker).
         const f = followRef.current;
@@ -246,6 +267,7 @@ export function Floor() {
     return { ...h, points: h.points + l.points, kos: h.kos + l.kos, liquidations: h.liquidations + l.liquidations };
   });
   table.sort((a, b) => b.points - a.points || a.symbol.localeCompare(b.symbol));
+  closingRef.current = () => table;
   const mktRank = new Map([...scored].sort((a, b) => b.score - a.score).map((c, i) => [c.symbol.toUpperCase(), i + 1]));
   const winnerOf = (c: number) => {
     const rows = past.get(c);
@@ -253,7 +275,14 @@ export function Floor() {
     return [...rows].sort((a, b) => b.points - a.points)[0]?.symbol ?? null;
   };
   const colorOf = (sym: string) => castMember(DEF, sym).art.color;
-  const secsLeft = clock.breaker ? 0 : Math.max(0, Math.ceil((DEF.candle.ticks - clock.tick) / TICKS_PER_SECOND));
+  const secsLeft = clock.breaker || clock.closing ? 0 : Math.max(0, Math.ceil((clock.fightTicks - clock.tick) / TICKS_PER_SECOND));
+  const rewinding = CLOCK_OFFSET !== 0;
+  const pickHour = (h: string) => {
+    const u = new URL(window.location.href);
+    if (h) u.searchParams.set('t', `${h}:00:01Z`);
+    else u.searchParams.delete('t');
+    window.location.href = u.toString();
+  };
   const hourLabel = `${clock.hour.slice(11, 13)}:00–${String((Number(clock.hour.slice(11, 13)) + 1) % 24).padStart(2, '0')}:00\u00a0UTC`;
 
   const toggleSound = () => {
@@ -277,10 +306,24 @@ export function Floor() {
         <div class="cb-clock">
           <b>{hourLabel}</b>
           <small>
-            Candle {clock.candle + 1}/{clock.candles} · {clock.breaker ? 'trading halted' : `${Math.floor(secsLeft / 60)}:${String(secsLeft % 60).padStart(2, '0')} left`}
+            {rewinding && <span class="cb-rewind-tag">⏪ Rewind · </span>}
+            Candle {clock.candle + 1}/{clock.candles} · {clock.closing ? 'closing bell' : clock.breaker ? 'trading halted' : `${Math.floor(secsLeft / 60)}:${String(secsLeft % 60).padStart(2, '0')} left`}
             <span class="cb-mood"> · market {pct(mood)}</span>
           </small>
         </div>
+        {(hours.length > 1 || rewinding) && (
+          <select class="cb-rewind" aria-label="Rewind to an earlier hour" value={rewinding ? clock.hour : ''} onChange={(e) => pickHour((e.target as HTMLSelectElement).value)}>
+            <option value="">● Live</option>
+            {[...new Set([...hours, ...(rewinding ? [clock.hour] : [])])]
+              .sort()
+              .reverse()
+              .map((h) => (
+                <option value={h}>
+                  ⏪ {h.slice(5, 10)} {h.slice(11, 13)}:00 UTC
+                </option>
+              ))}
+          </select>
+        )}
         <button class="ghost small" onClick={toggleSound} aria-label={muted ? 'Sound on' : 'Sound off'}>
           {muted ? '🔇' : '🔊'}
         </button>
@@ -318,6 +361,39 @@ export function Floor() {
       <div class="cb-body">
         <div class="cb-stage-wrap">
           <div class="stage cb-stage" ref={host} />
+          {clock.opening && snapshot && (
+            <div class="cb-overlay opening">
+              <b>🔔 OPENING BELL</b>
+              <div class="cb-placards">
+                {[...scored]
+                  .sort((a, b) => b.changeBp - a.changeBp)
+                  .map((c) => (
+                    <span class={`cb-placard ${c.changeBp >= 0 ? 'up' : 'down'}`} style={{ '--c': colorOf(c.symbol) }}>
+                      <b>{c.symbol.toUpperCase()}</b> {pct(c.changeBp)} {c.pumping ? '🚀' : c.leveraged ? '💀' : c.changeBp >= 0 ? '📈' : '📉'}
+                    </span>
+                  ))}
+              </div>
+            </div>
+          )}
+          {clock.closing && (
+            <div class="cb-overlay closing">
+              <b>🔔 CLOSING BELL</b>
+              <ol class="cb-podium">
+                {table.slice(0, 3).map((r, i) => (
+                  <li style={{ '--c': colorOf(r.symbol) }}>
+                    <span>{['🥇', '🥈', '🥉'][i]}</span> <b>{r.symbol}</b> {castMember(DEF, r.symbol).name} · {r.points} pts
+                  </li>
+                ))}
+              </ol>
+              {table.length > 0 && (
+                <small>
+                  🔔 {castMember(DEF, table[0]!.symbol).name} rings the bell · 🪧 {castMember(DEF, table[table.length - 1]!.symbol).name} ({table[table.length - 1]!.symbol}) will work for gas
+                </small>
+              )}
+              <small>Next hour's bros in {Math.ceil(clock.msToNext / 1000)}s</small>
+            </div>
+          )}
+          {feed?.delayed && !clock.opening && <div class="cb-delayed">📡 Market data delayed: last hour's bros are still fighting.</div>}
           {clock.breaker && (
             <div class="cb-overlay breaker">
               <b>⛔ TRADING HALTED</b>

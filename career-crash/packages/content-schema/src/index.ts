@@ -706,6 +706,8 @@ const marketMemberSchema = z.object({
   /** Shouted as they walk on at the Opening Bell. */
   lines: z.array(z.string()).min(2),
   art: z.object({ color: z.string().regex(/^#[0-9a-f]{6}$/), icon: z.string().max(8) }),
+  /** Evens out the borrowed careers (08 §5.3): stat points added or taken, tuned with `pnpm balance --markets-flat`. */
+  statBonus: int.min(-40).max(40).optional(),
 });
 export const marketSchema = z.object({
   id: ref('market'),
@@ -745,6 +747,9 @@ export const marketSchema = z.object({
     /** One candle of play, and the circuit breaker after it; together they make one candle slot. */
     ticks: int.min(200),
     breakerTicks: int.min(0),
+    /** The Opening Bell at the start of the hour (the fight runs underneath it), and the Closing Bell that ends the hour's last candle early. */
+    openingTicks: int.min(0),
+    closingTicks: int.min(0),
     /** How long a knocked-out contender is delisted, and a liquidated one. */
     relistTicks: int.min(20),
     liquidatedTicks: int.min(20),
@@ -755,6 +760,8 @@ export const marketSchema = z.object({
   points: z.object({ ko: int, liquidation: int, candle: int, damagePer: int.min(1), koed: int, liquidated: int }),
   /** One persona per symbol, and one for any symbol without one. */
   cast: z.record(z.string(), marketMemberSchema),
+  /** Renamed tickers that keep their persona (a coin's new symbol → the cast symbol). */
+  aliases: z.record(z.string(), z.string()).optional(),
   anon: marketMemberSchema,
   /** Who referees the floor: a persona (art and job line) and a name. */
   referee: z.object({ persona: ref('npc'), name: z.string() }).optional(),
