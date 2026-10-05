@@ -1,5 +1,7 @@
 # Crypto Bros 1: body sheets, the first ten bros
 
+> **Status:** delivered and in the game (5 October 2026): all ten sheets.
+
 > Part of the Crypto Bros art set (`art/cryptobro/README.md`). Design:
 > `docs/career-crash/08-cryptobro.md` §8.
 
