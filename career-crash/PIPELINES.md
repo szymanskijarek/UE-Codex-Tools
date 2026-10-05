@@ -356,6 +356,21 @@ multi-file site: images are separate files, loaded when a fight or screen
 first needs them. For development, `pnpm dev:client` serves the offline
 client on http://localhost:5173, and `pnpm dev` also runs the API worker.
 
+**Second page: Crypto Bros** (`docs/career-crash/08-cryptobro.md`).
+- **Where:** `apps/client/cryptobro/index.html` (entry `src/cryptobro/main.tsx`)
+  builds to `dist-web/cryptobro/index.html`, served at careercrash.org/cryptobro.
+  It is a Vite input next to `index.html` (`vite.config.ts`); the single-file
+  build leaves it out. The main page's input is named `index`, so its script
+  stays `assets/index-*.js` for the release check.
+- **Locally:** http://localhost:5173/cryptobro/. Add `?t=2026-10-05T14:37:00Z`
+  to pin the floor's clock to any moment (screenshots, a liquidation, a
+  circuit breaker); the clock runs on from there.
+- **Data:** it fetches `/cryptobro/feed/latest.json` and falls back to the
+  sample snapshot in `src/cryptobro/mock-feed.json` (relabelled as the current
+  hour) until the hourly feed worker exists.
+- **Content:** `packages/content/data/markets/crypto.json` (cast, scoring,
+  candle timings, points), text in `live.json` (`market_*`).
+
 ### 6.2 Single-file build
 
 `pnpm --filter @cc/client build:standalone` builds the offline game (career

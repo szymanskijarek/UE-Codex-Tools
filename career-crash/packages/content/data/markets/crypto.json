@@ -1,0 +1,364 @@
+{
+ "id": "market.crypto",
+ "arena": "arena.office",
+ "field": 10,
+ "spawns": [
+  [
+   2500,
+   2500
+  ],
+  [
+   19500,
+   2500
+  ],
+  [
+   2500,
+   11500
+  ],
+  [
+   19500,
+   11500
+  ],
+  [
+   8000,
+   7000
+  ],
+  [
+   14000,
+   7000
+  ],
+  [
+   11000,
+   2500
+  ],
+  [
+   11000,
+   11500
+  ],
+  [
+   2500,
+   7000
+  ],
+  [
+   19500,
+   7000
+  ]
+ ],
+ "exclude": [
+  "USDT",
+  "USDC",
+  "USDE",
+  "USDS",
+  "DAI",
+  "FDUSD",
+  "PYUSD",
+  "TUSD",
+  "USD1",
+  "USDD",
+  "BUIDL",
+  "USDTB",
+  "BSC-USD",
+  "WBTC",
+  "WETH",
+  "STETH",
+  "WSTETH",
+  "WEETH",
+  "CBBTC",
+  "WBETH",
+  "RETH",
+  "JITOSOL",
+  "LBTC",
+  "SOLVBTC",
+  "BTCB",
+  "LEO",
+  "XAUT",
+  "PAXG"
+ ],
+ "score": {
+  "spreadFloor": 25,
+  "max": 200
+ },
+ "power": {
+  "baseLevel": 20,
+  "levelSwing": 8,
+  "statSwing": 10,
+  "rank": 4,
+  "pumpAt": 150,
+  "dumpAt": -150,
+  "leverageAt": -500,
+  "moodTicks": 1200
+ },
+ "candle": {
+  "ticks": 5920,
+  "breakerTicks": 80,
+  "relistTicks": 300,
+  "liquidatedTicks": 900,
+  "shieldTicks": 40
+ },
+ "points": {
+  "ko": 3,
+  "liquidation": 5,
+  "candle": 5,
+  "damagePer": 100,
+  "koed": -1,
+  "liquidated": -3
+ },
+ "cast": {
+  "BTC": {
+   "persona": "npc.bro-btc",
+   "name": "The OG",
+   "career": "career.security-guard",
+   "personality": "personality.confident",
+   "lines": [
+    "Have fun staying poor.",
+    "I bought at three dollars.",
+    "Laser eyes: engaged.",
+    "Tick tock, next block."
+   ],
+   "art": {
+    "color": "#f7931a",
+    "icon": "🔴"
+   }
+  },
+  "ETH": {
+   "persona": "npc.bro-eth",
+   "name": "Gas Fee Gavin",
+   "career": "career.accountant",
+   "personality": "personality.greedy",
+   "lines": [
+    "That'll be forty dollars to throw that punch.",
+    "Sorry, the network is busy.",
+    "Ultrasound money, ultrasound fists.",
+    "Gas is cheap today. For me."
+   ],
+   "art": {
+    "color": "#627eea",
+    "icon": "⛽"
+   }
+  },
+  "XRP": {
+   "persona": "npc.bro-xrp",
+   "name": "Litigation Larry",
+   "career": "career.lawyer",
+   "personality": "personality.competitive",
+   "lines": [
+    "My lawyer will see you in round two.",
+    "Objection! Sustained. By me.",
+    "Settled out of court. With my fists.",
+    "Still not a security."
+   ],
+   "art": {
+    "color": "#00aae4",
+    "icon": "⚖️"
+   }
+  },
+  "BNB": {
+   "persona": "npc.bro-bnb",
+   "name": "Exchange Eddie",
+   "career": "career.train-conductor",
+   "personality": "personality.greedy",
+   "lines": [
+    "Funds are SAFU. Mostly.",
+    "Withdrawals are paused for maintenance.",
+    "Your order has been filled. With pain.",
+    "Customer support will reply in 6 to 8 weeks."
+   ],
+   "art": {
+    "color": "#f3ba2f",
+    "icon": "🎧"
+   }
+  },
+  "SOL": {
+   "persona": "npc.bro-sol",
+   "name": "Speedrun Sol",
+   "career": "career.delivery-driver",
+   "personality": "personality.chaotic",
+   "lines": [
+    "Already there. Wait, where am I?",
+    "Fast. Cheap. Occasionally offline.",
+    "Four hundred milliseconds to your face.",
+    "Restarting validator..."
+   ],
+   "art": {
+    "color": "#9945ff",
+    "icon": "⚡"
+   }
+  },
+  "DOGE": {
+   "persona": "npc.bro-doge",
+   "name": "Such Wow Wes",
+   "career": "career.dog-groomer",
+   "personality": "personality.clumsy",
+   "lines": [
+    "Wow. Such punch. Very rekt.",
+    "Much brawl. So moon.",
+    "Who let the doges out?",
+    "Do only good everyday. Except today."
+   ],
+   "art": {
+    "color": "#c2a633",
+    "icon": "🐕"
+   }
+  },
+  "ADA": {
+   "persona": "npc.bro-ada",
+   "name": "Peer-Review Pete",
+   "career": "career.scientist",
+   "personality": "personality.lazy",
+   "lines": [
+    "It's coming. Phase five. Peer reviewed.",
+    "According to my whitepaper, you lose.",
+    "Formally verified punch incoming. Eventually.",
+    "We're in the research stage of this fight."
+   ],
+   "art": {
+    "color": "#0033ad",
+    "icon": "📄"
+   }
+  },
+  "TRX": {
+   "persona": "npc.bro-trx",
+   "name": "Neon Trent",
+   "career": "career.dj",
+   "personality": "personality.competitive",
+   "lines": [
+    "Faster. Cheaper. Brighter.",
+    "Lights on. You're out.",
+    "Mainnet of pain, launching now.",
+    "Partnership announcement: me and your face."
+   ],
+   "art": {
+    "color": "#eb0029",
+    "icon": "💡"
+   }
+  },
+  "AVAX": {
+   "persona": "npc.bro-avax",
+   "name": "Avalanche Al",
+   "career": "career.ice-cream-vendor",
+   "personality": "personality.aggressive",
+   "lines": [
+    "It's all downhill from here. For you.",
+    "Subnet of snow, incoming!",
+    "Finality in under a second. Yours.",
+    "Après-ski? Après YOU."
+   ],
+   "art": {
+    "color": "#e84142",
+    "icon": "🏂"
+   }
+  },
+  "LINK": {
+   "persona": "npc.bro-link",
+   "name": "Oracle Olly",
+   "career": "career.fortune-teller",
+   "personality": "personality.paranoid",
+   "lines": [
+    "I knew you'd do that.",
+    "The price feed says: ouch.",
+    "Off-chain data confirms you're down.",
+    "My crystal ball has a 98% uptime."
+   ],
+   "art": {
+    "color": "#2a5ada",
+    "icon": "🔮"
+   }
+  },
+  "TON": {
+   "persona": "npc.bro-ton",
+   "name": "Tony Tons",
+   "career": "career.builder",
+   "personality": "personality.aggressive",
+   "lines": [
+    "A ton of value. Mostly bricks.",
+    "Open the mini app. It's a brick.",
+    "Tap to earn. Tap to fight.",
+    "Heavy bags, heavy hands."
+   ],
+   "art": {
+    "color": "#0098ea",
+    "icon": "🧱"
+   }
+  },
+  "SHIB": {
+   "persona": "npc.bro-shib",
+   "name": "Shiba Sharon",
+   "career": "career.veterinarian",
+   "personality": "personality.helpful",
+   "lines": [
+    "Who's a good investment? You are!",
+    "Walkies! Into your shins!",
+    "Burn rate: your dignity.",
+    "Doge killer? I'm a doge carer."
+   ],
+   "art": {
+    "color": "#e44d26",
+    "icon": "🦮"
+   }
+  },
+  "LTC": {
+   "persona": "npc.bro-ltc",
+   "name": "Silver Steve",
+   "career": "career.postal-worker",
+   "personality": "personality.confident",
+   "lines": [
+    "I was here first. Second.",
+    "Silver to his gold. Bronze to your face.",
+    "Faster blocks, same punches.",
+    "Still relevant. Very relevant."
+   ],
+   "art": {
+    "color": "#a6a9aa",
+    "icon": "🥈"
+   }
+  },
+  "PEPE": {
+   "persona": "npc.bro-pepe",
+   "name": "Degen Dex",
+   "career": "career.influencer",
+   "personality": "personality.chaotic",
+   "lines": [
+    "Not a frog. A movement.",
+    "PUMP IT. Then DUMP IT.",
+    "This is not financial advice. It's a punch.",
+    "Ribbit ribbit, I'm rich."
+   ],
+   "art": {
+    "color": "#3d9b3f",
+    "icon": "🐸"
+   }
+  },
+  "DOT": {
+   "persona": "npc.bro-dot",
+   "name": "Para Pat",
+   "career": "career.politician",
+   "personality": "personality.helpful",
+   "lines": [
+    "Interoperable. With your face.",
+    "Let's connect! Parachain-style.",
+    "Slot auction: your teeth.",
+    "Networking is my love language."
+   ],
+   "art": {
+    "color": "#e6007a",
+    "icon": "🎀"
+   }
+  }
+ },
+ "anon": {
+  "persona": "npc.bro-anon",
+  "name": "Anon Bro",
+  "career": "career.conspiracy-podcaster",
+  "personality": "personality.paranoid",
+  "lines": [
+   "Few understand.",
+   "DYOR. Do your own rekt.",
+   "Gm. Gn. Get rekt.",
+   "Not your keys, not your fight."
+  ],
+  "art": {
+   "color": "#4b5563",
+   "icon": "🕶️"
+  }
+ }
+}

@@ -3498,6 +3498,28 @@
    "Did they at least sign in at reception?",
    "I'd pay to watch that again.",
    "Was that part of the onboarding?"
+  ],
+  "market_relist": [
+   "📈 {sym} re-lists. {name} is back, v{v}.",
+   "🔁 {name} ({sym}) relaunches. Version {v}. Same bro.",
+   "📈 {sym} is back on the board. Buy the dip?",
+   "🔁 {name} re-enters the market. Bagholders cheer."
+  ],
+  "market_liquidated": [
+   "💥 LIQUIDATED! {name} ({sym}) is margin-called by {by}.",
+   "💥 Margin call! {by} liquidates {sym}. Leverage: a lesson.",
+   "💥 {sym} gets REKT. {by} takes the coins.",
+   "💥 {name} was 100× long on themselves. {by} closed the position."
+  ],
+  "market_breaker": [
+   "⛔ Circuit breaker. Trading halted. {sym} takes the candle.",
+   "⛔ TRADING HALTED. Everybody breathe. {sym} wins the candle.",
+   "⛔ Halt! The candle closes green for {sym}."
+  ],
+  "market_open": [
+   "🔔 Candle {v} opens. Ten bros, one floor, zero adult supervision.",
+   "🔔 New candle. {sym} leads the hour.",
+   "🔔 Candle {v}. The bros return to their desks. Briefly."
   ]
  }
 }

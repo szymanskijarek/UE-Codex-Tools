@@ -3,7 +3,7 @@ import type { ContentIndex } from './content';
 import type { Rng } from './core/rng';
 import type { NavGrid } from './systems/nav';
 
-export const SIM_VERSION = '0.15.0';
+export const SIM_VERSION = '0.16.0';
 export const TICKS_PER_SECOND = 20;
 export const MAX_TICKS = 2400;
 export const ENTITY_CAP = 256;
@@ -55,6 +55,8 @@ export interface CharacterSnapshot {
   persona?: string;
   /** Gatecrashers: a second look for the second henchman (`<persona>-b`), used when that art exists. */
   personaArt?: string;
+  /** Endless floors (08 §7): over-leveraged, so a knockout is a liquidation and keeps them out longer. */
+  leveraged?: boolean;
 }
 
 /**
@@ -75,6 +77,23 @@ export interface CrasherInput {
   characters: CharacterSnapshot[];
 }
 
+/**
+ * Endless floors (08 §4): nobody is eliminated. A knocked-out fighter is
+ * delisted for `relistTicks` (`liquidatedTicks` when leveraged), then comes
+ * back at one of `spawns` with full health and a short shield. No sudden
+ * death; the battle runs for exactly `ticks`. Every round of one seed shares
+ * the same floor layout, so candles follow on from each other.
+ */
+export interface EndlessInput {
+  /** Which candle of the hour: the floor's layout comes from the seed, the fight from seed and round. */
+  round: number;
+  ticks: number;
+  relistTicks: number;
+  liquidatedTicks: number;
+  shieldTicks: number;
+  spawns: [number, number][];
+}
+
 export interface TeamSnapshot {
   playerId: string;
   playerName: string;
@@ -92,6 +111,7 @@ export interface BattleInput {
   teams: TeamSnapshot[];
   modifiers: string[];
   crashers?: CrasherInput;
+  endless?: EndlessInput;
 }
 
 // ---------------------------------------------------------------------------
@@ -147,6 +167,10 @@ export type EventType =
   | 'consume'
   | 'disarm'
   | 'choke'
+  /** Endless floors: a knocked-out fighter is back (a = them, v = how many times now). */
+  | 'relist'
+  /** Endless floors: a leveraged fighter was knocked out (a = who did it, b = them). */
+  | 'liquidated'
   | 'battleEnd';
 
 export interface BattleEvent {
@@ -328,6 +352,9 @@ export interface Entity {
   /** Summoned critters (05 §3): who summoned it (-1 = not a summon), its summon id, when it leaves, next touch tick. */
   summonOf: number;
   summonDef: string;
+  /** Endless floors: the tick they were knocked out (-1 when up), and how often they've come back. */
+  koTick: number;
+  relists: number;
   expires: number;
   touchAt: number;
 }

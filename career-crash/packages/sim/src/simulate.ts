@@ -13,6 +13,7 @@ import { MAX_TICKS, type BattleInput, type BattleOutput, type BattleResult, type
 import { createWorld, emit, announceRivalries, isFighter } from './world';
 import { summonsTick } from './systems/summons';
 import { crashersTick } from './systems/crashers';
+import { relistTick } from './systems/endless';
 
 /** Canonical serialization of world state for hashing (01 §4.3). */
 export function serializeState(w: World): string {
@@ -89,6 +90,11 @@ function finish(w: World, winner: number, reason: BattleResult['reason']): void 
 
 /** Win conditions (02 §10). */
 function winCheck(w: World): void {
+  // Endless floors (08 §4): nobody is out for good; the candle just ends.
+  if (w.input.endless) {
+    if (w.tick >= w.input.endless.ticks) finish(w, -1, 'timeout');
+    return;
+  }
   const alive: number[] = [];
   for (let t = 0; t < w.teamCount; t++) if (teamAlive(w, t)) alive.push(t);
   if (alive.length <= 1) {
@@ -134,6 +140,7 @@ export function step(w: World): void {
   processRules(w);
   tickStatuses(w);
   resources(w);
+  relistTick(w);
   summonsTick(w);
   crashersTick(w);
   useConsumables(w);

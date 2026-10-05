@@ -145,6 +145,8 @@ function blankEntity(id: number, kind: Entity['kind'], def: string): Entity {
     chokeId: -1,
     summonOf: -1,
     summonDef: '',
+    koTick: -1,
+    relists: 0,
     expires: 0,
     touchAt: 0,
   };
@@ -562,7 +564,7 @@ function assignStations(w: World): void {
 export function createWorld(input: BattleInput, bundle: ContentBundle): World {
   const content = indexContent(bundle);
   const { arena, obstacles } = layoutArena(must(content.arenas, input.arenaId, 'arena'), input.seed);
-  const root = Rng.fromSeed(input.seed);
+  const root = Rng.fromSeed(input.endless ? `${input.seed}#${input.endless.round}` : input.seed);
   const w: World = {
     tick: 0,
     seed: input.seed,
@@ -584,7 +586,7 @@ export function createWorld(input: BattleInput, bundle: ContentBundle): World {
     crashTeam: input.teams.length,
     crashed: false,
     refereeId: -1,
-    suddenDeathTick: SUDDEN_DEATH_TICK,
+    suddenDeathTick: input.endless ? Number.MAX_SAFE_INTEGER : SUDDEN_DEATH_TICK,
     hazardNext: arena.hazards.map((h) => h.startTick),
     finished: false,
     result: null,
@@ -599,14 +601,17 @@ export function createWorld(input: BattleInput, bundle: ContentBundle): World {
   initWalls(w);
   for (const p of arena.props) spawnProp(w, p.prop, p.at[0], p.at[1]);
   if (input.mode === 'ffa') {
+    // Endless floors (08) bring their own spots, enough for the whole field, and a referee.
+    const spots = input.endless?.spawns.length ? input.endless.spawns : arena.spawns.ffa;
     let k = 0;
     input.teams.forEach((team, ti) => {
       for (const snap of team.characters) {
-        const [x, y] = arena.spawns.ffa[k % arena.spawns.ffa.length]!;
+        const [x, y] = spots[k % spots.length]!;
         spawnCharacter(w, snap, ti, x, y);
         k++;
       }
     });
+    if (input.endless) spawnReferee(w);
   } else {
     input.teams.forEach((team, ti) => {
       const spots = ti === 0 ? arena.spawns.a : arena.spawns.b;

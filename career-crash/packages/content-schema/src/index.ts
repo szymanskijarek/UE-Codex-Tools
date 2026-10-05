@@ -517,6 +517,8 @@ export interface ContentBundle {
   hrNotes: HrNoteDef[];
   /** Gatecrasher sets (07). */
   crashers: CrasherDef[];
+  /** Market floors (08). */
+  markets: MarketDef[];
   /** Real-world size of every piece of obstacle art (furniture.json), so each object looks the same size everywhere. */
   furniture: Record<string, FurnitureDef>;
 }
@@ -685,6 +687,76 @@ export const crasherSchema = z.object({
 });
 export type CrasherDef = z.infer<typeof crasherSchema>;
 
+
+/**
+ * Market floors (08): an endless brawl between the top contenders of a live
+ * market (the top 10 coins, later countries), each played by a persona. Their
+ * strength each hour comes from how they did against the rest of the field.
+ */
+const marketMemberSchema = z.object({
+  /** Persona: the job line (`<persona>.name`) and the art (puppet sheet named after it). */
+  persona: ref('npc'),
+  /** The fighter's name on the floor. */
+  name: z.string(),
+  /** Whose moves they fight with until they get their own. */
+  career: ref('career'),
+  personality: ref('personality'),
+  /** Shouted as they walk on at the Opening Bell. */
+  lines: z.array(z.string()).min(2),
+  art: z.object({ color: z.string().regex(/^#[0-9a-f]{6}$/), icon: z.string().max(8) }),
+});
+export const marketSchema = z.object({
+  id: ref('market'),
+  arena: ref('arena'),
+  /** How many contenders fight at once. */
+  field: int.min(2).max(12),
+  /** Where contenders stand at the start of a candle and come back in after a knockout (mm). */
+  spawns: z.array(z.tuple([int, int])).min(2),
+  /** Contenders that never fight (stablecoins, wrapped copies), by symbol. */
+  exclude: z.array(z.string()),
+  /** Scoring against the field (08 §5.1). All changes in basis points of a percent (100 = 1%). */
+  score: z.object({
+    /** The field's spread never counts as smaller than this. */
+    spreadFloor: int.min(1),
+    /** Scores are clamped to ±max, in hundredths (200 = ±2). */
+    max: int.min(1),
+  }),
+  /** Score → power (08 §5.2). */
+  power: z.object({
+    /** Everyone's level before the score, and how many levels a score of ±max adds or takes. */
+    baseLevel: int.min(1),
+    levelSwing: int.min(0),
+    /** Stat points a score of ±max adds or takes. */
+    statSwing: int.min(0),
+    /** Career rank they fight at. */
+    rank: int.min(1).max(5),
+    /** Score at or above which they start each candle pumped, and at or below which embarrassed. */
+    pumpAt: int,
+    dumpAt: int,
+    /** A 1h change at or below this (or the lowest score) makes them over-leveraged (08 §7). */
+    leverageAt: int,
+    /** How long the pump and dump statuses last from kick-off. */
+    moodTicks: int.min(1),
+  }),
+  /** The endless floor (08 §4). */
+  candle: z.object({
+    /** One candle of play, and the circuit breaker after it; together they make one candle slot. */
+    ticks: int.min(200),
+    breakerTicks: int.min(0),
+    /** How long a knocked-out contender is delisted, and a liquidated one. */
+    relistTicks: int.min(20),
+    liquidatedTicks: int.min(20),
+    /** Respawn shield. */
+    shieldTicks: int.min(0),
+  }),
+  /** Standings points (08 §5.3). */
+  points: z.object({ ko: int, liquidation: int, candle: int, damagePer: int.min(1), koed: int, liquidated: int }),
+  /** One persona per symbol, and one for any symbol without one. */
+  cast: z.record(z.string(), marketMemberSchema),
+  anon: marketMemberSchema,
+});
+export type MarketDef = z.infer<typeof marketSchema>;
+
 export const COLLECTIONS = {
   statuses: statusSchema,
   abilities: abilitySchema,
@@ -703,6 +775,7 @@ export const COLLECTIONS = {
   summons: summonSchema,
   hrNotes: hrNoteSchema,
   crashers: crasherSchema,
+  markets: marketSchema,
 } as const;
 export type CollectionName = keyof typeof COLLECTIONS;
 

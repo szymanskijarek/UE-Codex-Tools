@@ -1,5 +1,9 @@
 import preact from '@preact/preset-vite';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { defineConfig } from 'vite';
+
+const root = dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
   plugins: [preact()],
@@ -12,5 +16,6 @@ export default defineConfig({
     // offline game (career mode + Sandbox) as a normal multi-file site, as served on careercrash.org.
     process.env.VITE_INLINE === '1'
       ? { target: 'es2022', outDir: 'dist-standalone', assetsInlineLimit: 100_000_000, cssCodeSplit: false, chunkSizeWarningLimit: 5000, rollupOptions: { output: { inlineDynamicImports: true } } }
-      : { target: 'es2022', chunkSizeWarningLimit: 1500 },
+      : // careercrash.org/cryptobro (08) is a second page of the same site.
+        { target: 'es2022', chunkSizeWarningLimit: 1500, rollupOptions: { input: { index: resolve(root, 'index.html'), cryptobro: resolve(root, 'cryptobro/index.html') } } },
 });

@@ -1,0 +1,382 @@
+/* Crypto Bros (08): the main game's outlines and type on a night trading floor. */
+body.cb {
+  --cb-bg: #120d24;
+  --cb-panel: #1d1638;
+  --cb-panel-2: #261d49;
+  --cb-text: #f4f1ff;
+  --cb-muted: #a59cc9;
+  --cb-up: #22c55e;
+  --cb-down: #ef4444;
+  --cb-line: #3a2f66;
+  background: var(--cb-bg);
+  background-image:
+    linear-gradient(#ffffff08 1px, transparent 1px),
+    linear-gradient(90deg, #ffffff08 1px, transparent 1px);
+  background-size: 28px 28px;
+  color: var(--cb-text);
+}
+
+body.cb .muted {
+  color: var(--cb-muted);
+}
+
+body.cb button.ghost {
+  background: var(--cb-panel-2);
+  color: var(--cb-text);
+}
+
+.cb-page {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 10px 16px 24px;
+  display: grid;
+  gap: 10px;
+}
+
+.cb-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.cb-brand {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--cb-text);
+  text-decoration: none;
+}
+
+.cb-brand b {
+  display: block;
+  font-size: 20px;
+  line-height: 1;
+}
+
+.cb-brand small,
+.cb-clock small {
+  color: var(--cb-muted);
+  font-size: 12px;
+}
+
+.cb-logo {
+  font-size: 26px;
+}
+
+.cb-clock {
+  flex: 1;
+  text-align: right;
+  display: grid;
+}
+
+.cb-ticker {
+  display: flex;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 4px;
+  scrollbar-width: thin;
+}
+
+.cb-coin {
+  flex: 0 0 auto;
+  min-width: 112px;
+  display: grid;
+  gap: 2px;
+  padding: 6px 8px;
+  text-align: left;
+  background: var(--cb-panel);
+  color: var(--cb-text);
+  border: 2px solid var(--cb-line);
+  border-top: 4px solid var(--c);
+  border-radius: 10px;
+  box-shadow: none;
+}
+
+.cb-coin.on {
+  border-color: var(--c);
+  background: var(--cb-panel-2);
+}
+
+.cb-coin.out {
+  opacity: 0.55;
+}
+
+.cb-coin-top {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.cb-badge {
+  font-size: 11px;
+  font-weight: 900;
+}
+
+.cb-badge.lev {
+  background: var(--cb-down);
+  color: #fff;
+  border-radius: 4px;
+  padding: 0 4px;
+  animation: cb-blink 0.9s steps(2) infinite;
+}
+
+.cb-chg {
+  font-weight: 900;
+  font-variant-numeric: tabular-nums;
+}
+
+.cb-chg.up {
+  color: var(--cb-up);
+}
+
+.cb-chg.down {
+  color: var(--cb-down);
+}
+
+.cb-spark {
+  width: 100%;
+  height: 18px;
+}
+
+.cb-hp {
+  height: 5px;
+  background: #0006;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.cb-hp i {
+  display: block;
+  height: 100%;
+  background: var(--c);
+  transition: width 0.25s;
+}
+
+.cb-name {
+  color: var(--cb-muted);
+  font-size: 11px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 112px;
+}
+
+.cb-body {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 1000px) {
+  .cb-body {
+    grid-template-columns: 1fr 330px;
+    align-items: start;
+  }
+}
+
+.cb-stage-wrap {
+  position: relative;
+  min-width: 0;
+}
+
+.cb-stage {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 3px solid var(--cb-line);
+}
+
+.cb-overlay {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-content: center;
+  text-align: center;
+  gap: 6px;
+  pointer-events: none;
+  font-weight: 900;
+  font-size: 20px;
+  border-radius: 12px;
+}
+
+.cb-overlay small {
+  font-size: 14px;
+  color: var(--cb-text);
+}
+
+.cb-overlay.breaker {
+  background: repeating-linear-gradient(-45deg, #0009 0 22px, #f59e0b55 22px 44px);
+  font-size: clamp(22px, 5vw, 44px);
+  text-shadow: 0 3px 0 #000;
+}
+
+.cb-overlay.liq {
+  animation: cb-strobe 0.35s steps(2) 6;
+}
+
+.cb-stamp {
+  font-size: clamp(30px, 8vw, 76px);
+  color: #ef4444;
+  border: 6px double #ef4444;
+  padding: 2px 18px;
+  transform: rotate(-8deg);
+  background: #0008;
+  letter-spacing: 3px;
+  animation: cb-stamp 0.35s cubic-bezier(0.2, 1.6, 0.4, 1) both;
+}
+
+@keyframes cb-stamp {
+  from {
+    transform: rotate(-8deg) scale(2.6);
+    opacity: 0;
+  }
+}
+
+@keyframes cb-strobe {
+  0% {
+    background: #ef444455;
+  }
+  100% {
+    background: transparent;
+  }
+}
+
+@keyframes cb-blink {
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.cb-side {
+  display: grid;
+  gap: 10px;
+  min-width: 0;
+}
+
+.cb-card {
+  background: var(--cb-panel);
+  border: 2px solid var(--cb-line);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+.cb-card h2 {
+  margin: 0 0 6px;
+  font-size: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.cb-card h2 small {
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.cb-table {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 3px;
+}
+
+.cb-table li {
+  display: grid;
+  grid-template-columns: 22px 56px 44px 1fr;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 6px;
+  border-left: 4px solid var(--c);
+  background: #ffffff08;
+  border-radius: 4px;
+  font-variant-numeric: tabular-nums;
+}
+
+.cb-table small {
+  font-size: 11px;
+  text-align: right;
+}
+
+.cb-rank {
+  color: var(--cb-muted);
+}
+
+.cb-pts {
+  font-weight: 900;
+  text-align: right;
+}
+
+.cb-candles {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 3px;
+  margin-top: 8px;
+}
+
+.cb-candle {
+  height: 14px;
+  border-radius: 3px;
+  background: #ffffff14;
+}
+
+.cb-candle.now {
+  outline: 2px solid var(--cb-text);
+  animation: cb-blink 1.2s ease-in-out infinite;
+}
+
+.cb-feed ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 4px;
+  max-height: 260px;
+  overflow-y: auto;
+  font-size: 13px;
+}
+
+.cb-feed li {
+  padding: 3px 0;
+  border-bottom: 1px solid #ffffff10;
+}
+
+.cb-feed .k-liquidated {
+  color: #fca5a5;
+  font-weight: 900;
+}
+
+.cb-feed .k-breaker,
+.cb-feed .k-open {
+  color: #fcd34d;
+}
+
+.cb-foot {
+  font-size: 12px;
+  color: var(--cb-muted);
+  text-align: center;
+}
+
+.cb-foot a {
+  color: #c4b5fd;
+}
+
+@media (max-width: 700px) {
+  .cb-stage {
+    aspect-ratio: 4 / 3;
+    max-height: 58vh;
+  }
+  .cb-brand small,
+  .cb-clock .cb-mood {
+    display: none;
+  }
+  .cb-clock b {
+    font-size: 13px;
+  }
+  .cb-clock small {
+    font-size: 11px;
+  }
+  .cb-coin {
+    min-width: 96px;
+  }
+}

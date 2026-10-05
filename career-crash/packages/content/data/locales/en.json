@@ -1532,5 +1532,22 @@
  "npc.understudy.name": "Understudy",
  "crasher.panto.name": "Panto Season",
  "npc.pantomime-dame.name": "Pantomime Dame",
- "npc.panto-horse.name": "Pantomime Horse (One Half)"
+ "npc.panto-horse.name": "Pantomime Horse (One Half)",
+ "market.crypto.name": "Crypto Bros",
+ "npc.bro-btc.name": "Bitcoin Maximalist",
+ "npc.bro-eth.name": "Gas Fee Collector",
+ "npc.bro-xrp.name": "Litigation Enthusiast",
+ "npc.bro-bnb.name": "Exchange Floor Manager",
+ "npc.bro-sol.name": "Validator Speedrunner",
+ "npc.bro-doge.name": "Meme Coin Evangelist",
+ "npc.bro-ada.name": "Peer Reviewer",
+ "npc.bro-trx.name": "Neon Showman",
+ "npc.bro-avax.name": "Ski Bro",
+ "npc.bro-link.name": "Price Oracle",
+ "npc.bro-ton.name": "Brick Holder",
+ "npc.bro-shib.name": "Professional Dog Walker",
+ "npc.bro-ltc.name": "Digital Silversmith",
+ "npc.bro-pepe.name": "Degen Streamer",
+ "npc.bro-dot.name": "Networking Bro",
+ "npc.bro-anon.name": "Anonymous Founder"
 }

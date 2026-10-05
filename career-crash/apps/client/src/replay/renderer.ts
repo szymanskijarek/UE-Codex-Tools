@@ -177,7 +177,11 @@ interface CritterSprite {
 
 const SUMMONS = new Map(bundle.summons.map((d) => [d.id, d]));
 /** Gatecrasher personas (07) → their set member (colour, icon, lines). */
-const CRASHER_MEMBERS = new Map<string, { art: { color: string; icon: string }; lines: string[] }>(bundle.crashers.flatMap((c) => [[c.leader.persona, c.leader] as const, [c.henchmen.persona, c.henchmen] as const]));
+const CRASHER_MEMBERS = new Map<string, { art: { color: string; icon: string }; lines: string[] }>([
+  ...bundle.crashers.flatMap((c) => [[c.leader.persona, c.leader] as const, [c.henchmen.persona, c.henchmen] as const]),
+  // Market floors (08): each contender wears its coin's colour too.
+  ...bundle.markets.flatMap((m) => [...Object.values(m.cast), m.anon].map((x) => [x.persona, x] as const)),
+]);
 /** Sprite name for a summon: its art.sprite, else its id (summon.intern → intern). */
 /** How tall a fighter is in real life, for drawing critters at their real size next to one. */
 const FIGHTER_MM = 1800;
@@ -900,7 +904,9 @@ export class BattleRenderer {
     bar.y = -r * 4.35;
     const labelStyle: TextStyleOptions = { fontFamily: FONT, fontSize: Math.max(9, r * 0.75), fontWeight: '800', fill: 0xffffff, stroke: { color: OUTLINE, width: 3 } };
     const jobIcon = crasher?.art.icon ?? career?.art.icon ?? '';
-    const label = new Text({ text: isRef ? 'REF' : `${jobIcon} ${shortName(bundle, e.name)}`.trim(), style: labelStyle, resolution: 3 });
+    // Market floors label contenders by their ticker (the side's name), not the bro's.
+    const tag = this.input.endless ? (this.input.teams[e.team]?.playerName ?? shortName(bundle, e.name)) : shortName(bundle, e.name);
+    const label = new Text({ text: isRef ? 'REF' : `${jobIcon} ${tag}`.trim(), style: labelStyle, resolution: 3 });
     label.anchor.set(0.5, 1);
     label.y = -r * 4.5;
     const icons = new Text({ text: '', style: { fontSize: Math.max(9, r * 0.8) }, resolution: 3 });

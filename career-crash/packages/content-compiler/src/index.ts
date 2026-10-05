@@ -158,6 +158,7 @@ export function compileContent(dataDir: string): CompileResult {
     summons: collections.summons as ContentBundle['summons'],
     hrNotes: collections.hrNotes as ContentBundle['hrNotes'],
     crashers: collections.crashers as ContentBundle['crashers'],
+    markets: collections.markets as ContentBundle['markets'],
     furniture: furniture.data,
   };
   // Every standing obstacle takes its art's real-world footprint.
@@ -273,6 +274,7 @@ export function validateBundle(b: ContentBundle): string[] {
 
   errors.push(...validateHrNotes(b));
   errors.push(...validateCrashers(b));
+  errors.push(...validateMarkets(b));
 
   // Tag vocabulary (01 §5.2): every used tag must be declared.
   const used = new Set<string>();
@@ -328,6 +330,31 @@ function validateCrashers(b: ContentBundle): string[] {
   for (const a of arenas) if ((homes.get(a) ?? 0) < 2) errors.push(`${a}: needs at least 2 gatecrasher sets that call it home (has ${homes.get(a) ?? 0})`);
   const e = b.economy.crashers;
   if (e.earliestTick >= e.latestTick) errors.push('economy.crashers: earliestTick must come before latestTick');
+  return errors;
+}
+
+/** Market floors (08): references, locale keys, one persona per contender. */
+function validateMarkets(b: ContentBundle): string[] {
+  const errors: string[] = [];
+  const arenas = new Set(b.arenas.map((a) => a.id));
+  const careers = new Map(b.careers.map((c) => [c.id, c]));
+  const personalities = new Set(b.personalities.map((p) => p.id));
+  const personas = new Set(b.crashers.flatMap((c) => [c.leader.persona, c.henchmen.persona]));
+  for (const m of b.markets) {
+    if (!arenas.has(m.arena)) errors.push(`${m.id}: unknown arena ${m.arena}`);
+    if (!(`${m.id}.name` in b.locale)) errors.push(`locale: missing key ${m.id}.name`);
+    if (m.power.dumpAt >= m.power.pumpAt) errors.push(`${m.id}: power.dumpAt must be below pumpAt`);
+    for (const [sym, x] of [...Object.entries(m.cast), ['(anon)', m.anon] as const]) {
+      if (m.exclude.includes(sym)) errors.push(`${m.id}: ${sym} has a persona but is excluded`);
+      const c = careers.get(x.career);
+      if (!c) errors.push(`${m.id} ${sym}: unknown career ${x.career}`);
+      else if (c.boss || c.deprecated) errors.push(`${m.id} ${sym}: ${x.career} is a boss or retired career`);
+      if (!personalities.has(x.personality)) errors.push(`${m.id} ${sym}: unknown personality ${x.personality}`);
+      if (personas.has(x.persona)) errors.push(`${m.id} ${sym}: persona ${x.persona} is already used`);
+      personas.add(x.persona);
+      if (!(`${x.persona}.name` in b.locale)) errors.push(`locale: missing key ${x.persona}.name`);
+    }
+  }
   return errors;
 }
 

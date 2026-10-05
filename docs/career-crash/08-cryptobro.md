@@ -1,6 +1,6 @@
 # 08 — Crypto Bros (design v0.1)
 
-Status: **design**, nothing built yet. A side attraction at
+Status: **phase 1 prototype built** (§15), on sample data. A side attraction at
 **careercrash.org/cryptobro**: an endless brawl between the top 10
 cryptocurrencies, each played by a crypto bro. Not a game you play, a market
 you watch. Every hour the bros are rebuilt from how their coin did in the last
@@ -355,3 +355,19 @@ and a second mapping file, no new engine work.
   cheering for a coin (a cosmetic confetti burst), never anything that changes
   the fight.
 - **Embedding** the floor as a widget on other sites: later, if wanted.
+
+## 15. As built (phase 1)
+
+What exists now, and where it differs from the plan above.
+
+| Piece | State |
+|---|---|
+| Page `/cryptobro` | Built: floor, ticker (1h %, 24h sparkline, health, 100× and 🚀 badges, tap to follow), hour standings, candle clock, floor feed, footer. Sample data until the feed worker exists (`feed.ts`). |
+| Endless mode | Built in the sim: `BattleInput.endless` (`round`, `ticks`, `relistTicks`, `liquidatedTicks`, `shieldTicks`, `spawns`), `relist` and `liquidated` events, referee on the floor, no sudden death. `SIM_VERSION` 0.16.0; ordinary fights unchanged (all 96 goldens matched). Each candle is a `round` of one seed, so the floor's layout stays the same all hour. |
+| Candles | 5 min slots: 296 s of fight + 4 s circuit breaker, 12 an hour. A candle is caught up from its start on load: a full candle of 10 bros simulates in 0.3–0.6 s (Node and headless Chromium), so joining mid-candle is under a second. Earlier candles' standings are worked out in the background in slices; the feed worker will publish them instead (§4.2). |
+| Scoring and power | `game-rules/src/markets.ts`: median and median absolute deviation of the field, score clamped to ±2, ±8 levels and ±10 stat points around level 20 at rank 4, pumped/embarrassed for 60 s at kick-off. Numbers in `markets/crypto.json`. Not yet tuned to the 60–75% target (phase 2). |
+| Liquidation | Basic version: over-leveraged bros' KOs emit `liquidated`, keep them out 45 s, and the page plays a red strobe, a LIQUIDATED stamp and a slow-motion focus. The ceiling launch, coin shower and margin-call gauge come in phase 3. |
+| Cast | 15 bros plus Anon Bro as personas on borrowed careers' moves and art (`npc.bro-*`); their own art and moves follow the briefs in `career-crash/art/cryptobro/`. Pegged Peggy is still the main game's referee. |
+| Arena | The Office, with ten spawn spots from the market file, until the Trading Floor art arrives. |
+| Not yet | Feed worker and KV, Opening/Closing Bell, scene events, Rewind, `pnpm balance --markets`, Regulators. |
+

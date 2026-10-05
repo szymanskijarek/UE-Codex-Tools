@@ -7,3 +7,4 @@ export * from './names';
 export * from './loot';
 export * from './hr';
 export * from './crashers';
+export * from './markets';

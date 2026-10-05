@@ -150,7 +150,9 @@ export class LiveCommentator {
         // Gatecrashers (07) are a side of their own after the real teams, and go by their job title.
         const crasher = e.v >= this.input.teams.length;
         const snap = (crasher ? this.input.crashers?.characters : this.input.teams[e.v]?.characters)?.find((c) => c.id === e.s);
-        if (snap) this.info.set(e.a, { name: snap.name, job: this.nm(snap.persona ?? snap.careers[snap.careers.length - 1]!), careers: snap.careers, team: e.v, kind: 'char', def: snap.careers[0]! });
+        // Market floors (08) call each contender by its ticker: "Down goes BTC!".
+        const ticker = this.input.endless ? this.input.teams[e.v]?.playerName : undefined;
+        if (snap) this.info.set(e.a, { name: ticker ?? snap.name, job: this.nm(snap.persona ?? snap.careers[snap.careers.length - 1]!), careers: snap.careers, team: e.v, kind: 'char', def: snap.careers[0]! });
         else this.info.set(e.a, { name: 'The Referee', job: 'referee', careers: [], team: -1, kind: 'npc', def: e.s });
         return null;
       }

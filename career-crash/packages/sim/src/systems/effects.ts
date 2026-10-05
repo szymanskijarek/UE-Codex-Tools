@@ -151,7 +151,9 @@ export function knockOut(w: World, target: Entity, sourceId: number, cause: numb
   dropHeld(w, target, cause);
   if (target.rideId >= 0) dismount(w, target);
   const src = get(w, sourceId) ?? w.byId.get(sourceId);
+  target.koTick = w.tick;
   const koEv = emit(w, 'ko', sourceId, target.id, 0, '', cause);
+  if (w.input.endless && target.snap?.leveraged) emit(w, 'liquidated', sourceId, target.id, 0, '', koEv);
   if (src && src.kind === 'char' && src.id !== target.id) {
     if (src.team !== target.team) {
       src.counters.kos++;

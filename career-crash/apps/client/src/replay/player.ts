@@ -20,8 +20,16 @@ export class ReplayPlayer {
   totalTicks = 0;
   finalHash = '';
 
-  constructor(readonly input: BattleInput) {
+  constructor(
+    readonly input: BattleInput,
+    opts: { probe?: boolean } = {},
+  ) {
     this.reset();
+    // Endless candles (08) have a fixed length; skip the pre-run, it would double the catch-up.
+    if (opts.probe === false) {
+      this.totalTicks = input.endless?.ticks ?? 0;
+      return;
+    }
     // Pre-run once to learn the length (for the timeline) and the final hash.
     const probe = createBattle(input, bundle);
     while (!probe.done()) probe.step();
