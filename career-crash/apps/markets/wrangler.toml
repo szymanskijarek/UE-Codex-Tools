@@ -14,7 +14,7 @@ crons = ["0 * * * *", "2 * * * *"]
 
 [[kv_namespaces]]
 binding = "FEED"
-id = "00000000000000000000000000000000" # the id of the KV namespace "career-crash-feed" (dashboard → Storage & Databases → KV)
+id = "43f3682bff5f492da698731987f92196" # the id of the KV namespace "career-crash-feed" (dashboard → Storage & Databases → KV)
 
 [vars]
 # Pages that may read the feed from the browser.
