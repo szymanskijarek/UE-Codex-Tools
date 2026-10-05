@@ -1,0 +1,4 @@
+[
+  {"id": "summon.shiba", "kind": "animal", "behaviour": "pester", "hp": 22, "speedBp": 14000, "lifetimeTicks": 220, "radiusMm": 230, "touch": {"everyTicks": 30, "effects": [{"type": "damage", "amount": 2, "damageType": "blunt"}, {"type": "applyStatus", "status": "status.slipping", "durationTicks": 15, "chanceBp": 2500}]}, "scares": "fear:dogs", "tags": ["animal", "dog"], "art": {"sprite": "shiba", "heightMm": 500}},
+  {"id": "summon.frog", "kind": "animal", "behaviour": "pester", "hp": 15, "speedBp": 9000, "lifetimeTicks": 240, "radiusMm": 180, "touch": {"everyTicks": 35, "effects": [{"type": "applyStatus", "status": "status.distracted", "durationTicks": 30}, {"type": "applyStatus", "status": "status.slipping", "durationTicks": 10, "chanceBp": 2000}]}, "scares": "fear:critters", "tags": ["animal", "critter"], "art": {"sprite": "frog", "heightMm": 300}}
+]

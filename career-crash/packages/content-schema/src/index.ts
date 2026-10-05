@@ -281,7 +281,7 @@ const hazardArtSchema = z.object({
   /** Floor fixtures (trapdoor, vent) lie under everyone; the rest stand like obstacles. */
   floor: z.boolean().optional(),
   /** Effect drawn while it runs: wind streaks, water spray, steam, or dust. */
-  fx: z.enum(['wind', 'spray', 'steam', 'dust']).optional(),
+  fx: z.enum(['wind', 'spray', 'steam', 'dust', 'gas', 'fud', 'airdrop', 'rug']).optional(),
 });
 
 export const arenaSchema = z.object({
@@ -700,14 +700,25 @@ const marketMemberSchema = z.object({
   persona: ref('npc'),
   /** The fighter's name on the floor. */
   name: z.string(),
-  /** Whose moves they fight with until they get their own. */
+  /** Whose moves they fight with, on top of their own. */
   career: ref('career'),
+  /** Their own signature moves (08 §8.2), on top of the career's. */
+  moves: z.array(ref('ability')).max(3).optional(),
   personality: ref('personality'),
   /** Shouted as they walk on at the Opening Bell. */
   lines: z.array(z.string()).min(2),
   art: z.object({ color: z.string().regex(/^#[0-9a-f]{6}$/), icon: z.string().max(8) }),
   /** Evens out the borrowed careers (08 §5.3): stat points added or taken, tuned with `pnpm balance --markets-flat`. */
   statBonus: int.min(-40).max(40).optional(),
+  /** How they sound (client only): a voice type, pitch and pace on top of their career's, and an effect (a barking dog, a croaking frog, a voice changer, auto-tune). */
+  voice: z
+    .object({
+      type: z.enum(['deep', 'gravel', 'mid', 'bright', 'squeaky', 'whisper']).optional(),
+      pitch: z.number().min(0.5).max(2).optional(),
+      speed: z.number().min(0.5).max(2).optional(),
+      fx: z.enum(['bark', 'yip', 'croak', 'robot', 'autotune']).optional(),
+    })
+    .optional(),
 });
 export const marketSchema = z.object({
   id: ref('market'),
@@ -765,6 +776,39 @@ export const marketSchema = z.object({
   anon: marketMemberSchema,
   /** Who referees the floor: a persona (art and job line) and a name. */
   referee: z.object({ persona: ref('npc'), name: z.string() }).optional(),
+  /** A gatecrasher set (07) that raids the floor in `chanceBp` of hours, in one candle of that hour, `size` strong. */
+  regulators: z
+    .object({ set: ref('crasher'), chanceBp: bp, size: int.min(1).max(3), earliestTick: int.min(0), latestTick: int.min(0) })
+    .optional(),
+  /**
+   * Scene events (08 §6): one every `gapTicks` (a range, rolled per candle), each
+   * picked by weight from those the hour's mood allows (median 1h change, bp).
+   */
+  events: z
+    .object({
+      gapTicks: z.tuple([int.min(1), int.min(1)]),
+      /** Nothing happens in the candle's first ticks, so the floor can warm up. */
+      firstTick: int.min(0),
+      list: z.array(
+        z.object({
+          id: z.string().regex(/^hazard\.[a-z0-9-]+$/),
+          weight: int.min(1),
+          minMoodBp: int.optional(),
+          maxMoodBp: int.optional(),
+          /** At most this many a candle. */
+          maxPerCandle: int.min(1).optional(),
+          telegraphTicks: int.min(0),
+          /** A creature (mover prop) that crosses the floor from one side to the other. */
+          mover: z.object({ prop: ref('prop'), speedMm: int.min(1) }).optional(),
+          /** Where the action lands: a zone this big, somewhere on the floor. */
+          zoneMm: point.optional(),
+          action: hazardActionSchema.optional(),
+          /** How it looks; effects play over the zone. */
+          art: hazardArtSchema.omit({ at: true }).optional(),
+        }),
+      ),
+    })
+    .optional(),
 });
 export type MarketDef = z.infer<typeof marketSchema>;
 

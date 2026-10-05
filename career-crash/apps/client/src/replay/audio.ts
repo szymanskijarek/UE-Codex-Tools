@@ -49,7 +49,8 @@ export type SfxName =
   | 'buzz'
   | 'clack'
   | 'snort'
-  | 'flutter';
+  | 'flutter'
+  | 'croak';
 
 /** Which voice each summoned animal (or person) makes when it arrives, attacks or spooks someone. */
 const CRITTER_VOICE: Record<string, SfxName> = {
@@ -62,6 +63,8 @@ const CRITTER_VOICE: Record<string, SfxName> = {
   'summon.capybara': 'snort',
   'summon.hedgehog': 'snort',
   'summon.poodle': 'yap',
+  'summon.shiba': 'yap',
+  'summon.frog': 'croak',
   'summon.therapy-dog': 'bark',
   'summon.goose': 'honk',
   'summon.crab': 'clack',
@@ -85,10 +88,10 @@ export function critterVoice(summonId: string): SfxName {
 
 import { babble, shout, type Shout, type Voice } from './voices';
 
-const MIN_GAP_MS: Partial<Record<SfxName, number>> = { slash: 70, clang: 80, bonk: 80, crunch: 120, chomp: 120, wah: 600, shutter: 250, bark: 260, yap: 200, meow: 500, honk: 350, caw: 400, squawk: 400, coo: 500, eek: 200, buzz: 400, clack: 160, snort: 400, flutter: 400, punch: 70, thud: 90, whoosh: 90, pop: 120, blah: 200, ooh: 900, cheer: 1500, fire: 400, zap: 150, splash: 200 };
+const MIN_GAP_MS: Partial<Record<SfxName, number>> = { slash: 70, clang: 80, bonk: 80, crunch: 120, chomp: 120, wah: 600, shutter: 250, bark: 260, yap: 200, meow: 500, honk: 350, caw: 400, squawk: 400, coo: 500, eek: 200, buzz: 400, croak: 300, clack: 160, snort: 400, flutter: 400, punch: 70, thud: 90, whoosh: 90, pop: 120, blah: 200, ooh: 900, cheer: 1500, fire: 400, zap: 150, splash: 200 };
 const MUTE_KEY = 'cc.muted';
 /** Level trim so every sound sits at about the same loudness as a punch. */
-const GAIN: Partial<Record<SfxName, number>> = { fire: 2.2, zap: 1.8, slash: 2.4, chomp: 4.5, wah: 3, shutter: 2, bark: 3.5, yap: 4.5, meow: 3, honk: 3.5, caw: 5, squawk: 5, coo: 3, eek: 5, buzz: 6, clack: 9, snort: 3.5, flutter: 14, squeak: 4 };
+const GAIN: Partial<Record<SfxName, number>> = { fire: 2.2, zap: 1.8, slash: 2.4, chomp: 4.5, wah: 3, shutter: 2, bark: 3.5, yap: 4.5, meow: 3, honk: 3.5, caw: 5, squawk: 5, coo: 3, eek: 5, buzz: 6, croak: 4, clack: 9, snort: 3.5, flutter: 14, squeak: 4 };
 
 function readMuted(): boolean {
   try {
@@ -416,6 +419,13 @@ export class Sfx {
         // Pigeon: soft "coo-roo".
         this.tone('sine', 380, 420, t, 0.18, 0.18, 0.04);
         this.tone('sine', 420, 340, T(0.2), 0.3, 0.16, 0.04);
+        break;
+      case 'croak':
+        // Frog: "rib-bit", two throaty bumps.
+        for (let i = 0; i < 2; i++) {
+          this.tone('square', r(150, 175), r(110, 130), T(i * 0.12), 0.07, 0.12);
+          this.hiss('bandpass', 600, 450, T(i * 0.12), 0.06, 0.18, 0.004, 3);
+        }
         break;
       case 'eek':
         // Rodent / rabbit: tiny high squeaks.

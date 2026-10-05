@@ -60,19 +60,31 @@ function runAction(w: World, action: HazardAction, region: [number, number, numb
   }
 }
 
+function spawnMover(w: World, prop: string, path: [number, number][], speedMm: number, loop: boolean, cause: number): void {
+  const [x0, y0] = path[0]!;
+  const p = spawnProp(w, prop, x0, y0, cause, -1);
+  if (!p) return;
+  p.moverPath = path.flatMap(([x, y]) => [x, y]);
+  p.moverIdx = 1;
+  p.moverSpeed = speedMm;
+  p.moverLoop = loop;
+}
+
 /** Scheduled hazards, patrolling machines and sudden death (02 §7.4, §10). */
 export function scheduled(w: World): void {
   for (const m of w.arena.movers ?? []) {
     if (m.telegraphTicks > 0 && w.tick === m.startTick - m.telegraphTicks) emit(w, 'hazardWarn', -1, -1, m.telegraphTicks, m.id);
     if (w.tick !== m.startTick) continue;
     const ev = emit(w, 'hazardStart', -1, -1, 0, m.id);
-    const [x0, y0] = m.path[0]!;
-    const p = spawnProp(w, m.prop, x0, y0, ev, -1);
-    if (!p) continue;
-    p.moverPath = m.path.flatMap(([x, y]) => [x, y]);
-    p.moverIdx = 1;
-    p.moverSpeed = m.speedMm;
-    p.moverLoop = m.loop;
+    spawnMover(w, m.prop, m.path, m.speedMm, m.loop, ev);
+  }
+  // Endless floors (08 §6): the candle's scene events.
+  for (const e of w.input.endless?.events ?? []) {
+    if (e.telegraphTicks > 0 && w.tick === e.tick - e.telegraphTicks) emit(w, 'hazardWarn', -1, -1, e.telegraphTicks, e.id);
+    if (w.tick !== e.tick) continue;
+    const ev = emit(w, 'hazardStart', -1, -1, 0, e.id);
+    if (e.mover) spawnMover(w, e.mover.prop, e.mover.path, e.mover.speedMm, false, ev);
+    if (e.action) runAction(w, e.action, e.region, ev, 1);
   }
   w.arena.hazards.forEach((h, i) => {
     const next = w.hazardNext[i]!;

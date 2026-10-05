@@ -19,7 +19,7 @@ import { IMPACT_FX, type ImpactFxId } from './impact-fx';
 import { EMOTION_FRAMES, emotionFor, faceScale, type FaceFrame } from './face-art';
 import { faceTexture, hasPuppet, loadPuppets, NEUTRAL, Puppet, PUPPET_HEIGHT, type Pose } from './puppet';
 import { Ragdoll } from './ragdoll';
-import { voiceFor, type Shout, type Voice } from './voices';
+import { voiceFor, withVoice, type Shout, type Voice } from './voices';
 
 /**
  * Battle renderer (04 R-3): PixiJS scene graph in a 3/4 "stage" projection
@@ -160,7 +160,29 @@ interface PropSprite {
   animated: boolean;
   color: number;
   seed: number;
+  /** A creature crossing the floor (08 §6): standing and walking poses. */
+  poses?: [Container, Container];
 }
+
+/** Scene-event creatures (08 §6): mover props drawn with critter art, at their real height (mm). */
+const CREATURE_ART: Record<string, [string, number]> = {
+  'prop.bull': ['bull', 2600],
+  'prop.bear': ['bear', 2800],
+  'prop.whale': ['whale', 3600],
+  'prop.black-swan': ['black-swan', 1500],
+};
+
+/** What each scene event shouts as it starts. */
+const EVENT_ICON: Record<string, string> = {
+  'hazard.bull-run': '🐂',
+  'hazard.bear-market': '🐻',
+  'hazard.whale-alert': '🐋',
+  'hazard.black-swan': '🦢',
+  'hazard.airdrop': '🪂',
+  'hazard.gas-spike': '⛽',
+  'hazard.fud-cloud': '☁️',
+  'hazard.rug-pull': '🧶',
+};
 
 /** A summoned animal: two poses on a hopping body (05). */
 interface CritterSprite {
@@ -176,6 +198,9 @@ interface CritterSprite {
 }
 
 const SUMMONS = new Map(bundle.summons.map((d) => [d.id, d]));
+/** Market personas (08) → their own voice (a barking DOGE, a croaking PEPE). */
+const PERSONA_VOICES = new Map(bundle.markets.flatMap((m) => [...Object.values(m.cast), m.anon].filter((x) => x.voice).map((x) => [x.persona, x.voice] as const)));
+
 /** Gatecrasher personas (07) → their set member (colour, icon, lines). */
 const CRASHER_MEMBERS = new Map<string, { art: { color: string; icon: string }; lines: string[] }>([
   ...bundle.crashers.flatMap((c) => [[c.leader.persona, c.leader] as const, [c.henchmen.persona, c.henchmen] as const]),
@@ -761,8 +786,8 @@ export class BattleRenderer {
     }
   }
 
-  /** Effects while a hazard runs: wind streaks blowing across, water spray, steam puffs, dust. */
-  private hazardFx(h: ArenaDef['hazards'][number]): void {
+  /** Effects while a hazard runs: wind streaks blowing across, water spray, steam puffs, dust; on market floors gas fog, a FUD cloud, an airdrop, a rug. */
+  private hazardFx(h: Pick<ArenaDef['hazards'][number], 'region' | 'action' | 'art'>): void {
     const a = h.art;
     if (!a?.fx) return;
     const [rx, ry, rw, rh] = h.region;
@@ -820,6 +845,72 @@ export class BattleRenderer {
           size(s, 900 + k * 900);
         });
       }
+    } else if (a.fx === 'gas' || a.fx === 'fud') {
+      // A drifting fog bank (gas) or a grey cloud that sags and rains doubt (FUD).
+      const n = a.fx === 'gas' ? 6 : 4;
+      for (let i = 0; i < n; i++) {
+        const x0 = rx + (rw * (i + 0.5)) / n + (rnd(1) - 0.5) * 800;
+        const y0 = ry + rh * (0.3 + rnd(0.5));
+        const delay = rnd(0.25);
+        const name = `${a.fx === 'gas' ? 'fx-gas-fog' : 'fx-fud-cloud'}-${1 + (i % 4)}`;
+        spawn(name, x0, y0, ms, (a.fx === 'gas' ? 3200 : 2400) * (i % 2 ? -1 : 1), (s, f) => {
+          const k = Math.max(0, (1 - f - delay) / (1 - delay));
+          const [px, py] = this.px(x0 + Math.sin(k * 3 + i) * 300, y0, a.fx === 'fud' ? 2600 : 200);
+          s.position.set(px, py);
+          s.alpha = k > 0 ? Math.min(1, Math.sin(k * Math.PI) * 1.6) * 0.85 : 0;
+        });
+      }
+    } else if (a.fx === 'airdrop') {
+      // Crates on parachutes float down over the zone.
+      for (let i = 0; i < 3; i++) {
+        const x0 = rx + rnd(rw);
+        const y0 = ry + rnd(rh);
+        const delay = i * 0.12;
+        const chute = fxSprite('airdrop-parachute');
+        const crate = fxSprite('airdrop-crate');
+        if (chute) chute.scale.set((1100 * this.scale) / chute.texture.width);
+        if (crate) crate.scale.set((800 * this.scale) / crate.texture.width);
+        const c = new Container();
+        if (chute) c.addChild(chute);
+        if (crate) {
+          crate.y = chute ? chute.height * 0.55 : 0;
+          c.addChild(crate);
+        }
+        if (!c.children.length) continue;
+        c.alpha = 0;
+        this.fxLayer.addChild(c);
+        this.fx.push({
+          g: c,
+          life: ms,
+          max: ms,
+          update: (f) => {
+            const k = Math.max(0, (1 - f - delay) / (1 - delay));
+            const [px, py] = this.px(x0 + Math.sin(k * 6 + i) * 200, y0, 5000 * (1 - k));
+            c.position.set(px, py);
+            c.alpha = k > 0 ? Math.min(1, f * 4) : 0;
+          },
+        });
+      }
+    } else if (a.fx === 'rug') {
+      // The rug, yanked out from under everyone.
+      const [cx, cy] = this.px(rx + rw / 2, ry + rh / 2);
+      const rug = fxSprite('rolled-rug');
+      if (rug) {
+        rug.scale.set((1800 * this.scale) / rug.texture.width);
+        this.fxLayer.addChild(rug);
+        this.fx.push({
+          g: rug,
+          life: ms,
+          max: ms,
+          update: (f) => {
+            const p = 1 - f;
+            rug.position.set(cx + p * rw * this.scale * 0.9, cy - Math.sin(p * Math.PI) * 120);
+            rug.rotation = p * 8;
+            rug.alpha = f;
+          },
+        });
+      }
+      this.impact('land-dust', [cx, cy], { scale: 2.2 });
     } else if (a.fx === 'dust') {
       const [x, y] = a.at;
       spawn('fx-dust', x, y, 700, 1600, (s, f) => {
@@ -1019,7 +1110,7 @@ export class BattleRenderer {
       kick: null,
       colors: { body: bodyColor, skin, hair },
       career: (career?.id ?? '').replace('career.', ''),
-      voice: voiceFor((career?.id ?? '').replace('career.', ''), snap?.id ?? `${e.id}`, snap?.personality ?? '', isRef),
+      voice: withVoice(voiceFor((career?.id ?? '').replace('career.', ''), snap?.id ?? `${e.id}`, snap?.personality ?? '', isRef), snap?.persona ? PERSONA_VOICES.get(snap.persona) : undefined),
       alive: true,
       intent,
       lastIntent: '',
@@ -1229,6 +1320,23 @@ export class BattleRenderer {
         this.bodies.addChild(root);
         return s;
       }
+      const creature = CREATURE_ART[e.def];
+      if (creature && hasCritterArt(creature[0])) {
+        const probe = critterSprite(creature[0], 1)!;
+        const k = this.mmToPx(creature[1]) / probe.sprite.texture.height;
+        probe.sprite.destroy();
+        g.ellipse(0, 0, e.r * this.scale * 1.1, e.r * this.scale * 0.42).fill({ color: 0x000000, alpha: 0.22 });
+        const a = new Container();
+        const b = new Container();
+        const pa = critterSprite(creature[0], k);
+        const pb = critterSprite(`${creature[0]}-b`, k);
+        if (pa) a.addChild(pa.sprite);
+        if (pb) b.addChild(pb.sprite);
+        root.addChild(a, b);
+        s.poses = [a, b];
+        this.bodies.addChild(root);
+        return s;
+      }
       // Item art when we have it (props read ~2.6× their collision radius), else the drawn version.
       const art = propSprite(e.def, e.r * this.scale * 2.6, this.scale);
       const spin = new Container();
@@ -1311,6 +1419,13 @@ export class BattleRenderer {
           (s.spin ?? s.root).rotation = e.flying ? t * 12 : 0;
           const dk = this.depth(y);
           s.root.scale.set(isMover(e.def) && e.fx < 0 ? -dk : dk, dk);
+          if (s.poses) {
+            // Plodding along: alternate the two poses, with a heavy bob.
+            const step = Math.floor(t * 5 + s.seed) % 2 === 1 && s.poses[1].children.length > 0;
+            s.poses[0].visible = !step;
+            s.poses[1].visible = step;
+            s.poses[0].y = s.poses[1].y = -Math.abs(Math.sin(t * 10 + s.seed)) * 4;
+          }
           const live = e.statuses.includes('status.burning') || e.statuses.includes('status.electrified') || e.statuses.includes('status.live');
           s.root.alpha = live && Math.floor(t * 8) % 2 === 0 ? 0.7 : 1;
         }
@@ -2336,6 +2451,28 @@ export class BattleRenderer {
     if (!tg) return;
     const [cx, cy] = this.px(caster.x, caster.y);
     const S = this.scale;
+    if (ab.id.startsWith('ability.laser-eyes') && target) {
+      // The OG's laser eyes (08): two red beams from the shades to the target's face.
+      const [tx, ty] = this.px(target.x, target.y);
+      const eye = cy - 350 * S * 2.35;
+      const face = ty - 350 * S * 2.1;
+      const dir = Math.sign(tx - cx) || 1;
+      this.impact('laser-eyes', [cx + dir * 120 * S, eye], { dir, scale: 0.5 });
+      this.addShape((g, k) => {
+        const p = Math.min(1, (1 - k) * 4);
+        for (const dy of [-40 * S, 40 * S]) {
+          g.moveTo(cx + dir * 100 * S, eye + dy).lineTo(cx + (tx - cx) * p, eye + dy + (face - eye) * p);
+        }
+        g.stroke({ width: Math.max(6, 160 * S) * k, color: 0xef4444, alpha: 0.35 * k });
+        for (const dy of [-40 * S, 40 * S]) {
+          g.moveTo(cx + dir * 100 * S, eye + dy).lineTo(cx + (tx - cx) * p, eye + dy + (face - eye) * p);
+        }
+        g.stroke({ width: Math.max(2, 50 * S), color: 0xfff1f2, alpha: k });
+        if (p >= 1) g.circle(tx, face, Math.max(4, 220 * S) * k).fill({ color: 0xef4444, alpha: 0.6 * k });
+      }, 420);
+      this.sfx.play('zap');
+      return;
+    }
     const ring = (x: number, y: number, rad: number, life = 520) =>
       this.artFx('fx-cast-ring', life, color, (sp, k) => {
         const p = 1 - k;
@@ -2899,6 +3036,13 @@ export class BattleRenderer {
       case 'hazardStart': {
         const hz = this.arena.hazards.find((h) => h.id === ev.s);
         if (hz) this.hazardFx(hz);
+        const scene = this.input.endless?.events?.find((x) => x.id === ev.s && x.tick === ev.t);
+        if (scene) {
+          if (scene.art) this.hazardFx({ region: scene.region, action: scene.action ?? {}, art: scene.art });
+          this.announce(`${EVENT_ICON[scene.id] ?? '⚠'} ${nameOf(scene.id).toUpperCase()}!`);
+          this.sfx.play('alarm');
+          this.shake = Math.max(this.shake, scene.mover ? 4 : 2);
+        }
         if (isMover(ev.s.replace('hazard.', 'prop.'))) {
           this.announce(`⚠ ${nameOf(ev.s.replace('hazard.', 'prop.'))} incoming!`);
           this.sfx.play('alarm');

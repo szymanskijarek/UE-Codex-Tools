@@ -1,7 +1,7 @@
 import { bundle } from '@cc/content';
 import { simulate } from '@cc/sim';
 import { describe, expect, it } from 'vitest';
-import { addStandings, candleInput, emptyStandings, floorClock, marketFighter, pickField, scoreField, tallyCandle, type MarketCoin, type MarketSnapshot } from '../src/markets';
+import { addStandings, candleEvents, candleInput, candleRaid, candlesPerHour, emptyStandings, floorClock, marketFighter, pickField, scoreField, tallyCandle, type MarketCoin, type MarketSnapshot } from '../src/markets';
 
 const def = bundle.markets.find((m) => m.id === 'market.crypto')!;
 
@@ -108,5 +108,48 @@ describe('market floors (08)', () => {
     const hour = addStandings(def, emptyStandings(symbols), rows);
     const best = Math.max(...rows.map((r) => r.points));
     expect(hour.filter((r) => r.candlesWon === 1).every((r) => rows.find((x) => x.symbol === r.symbol)!.points === best)).toBe(true);
+  });
+
+  it('bros fight with their own moves on top of the borrowed career', () => {
+    const s = scoreField(def, COINS);
+    const btc = marketFighter(bundle, def, s.find((c) => c.symbol === 'BTC')!);
+    expect(btc.granted).toContain('ability.laser-eyes');
+    const doge = marketFighter(bundle, def, s.find((c) => c.symbol === 'DOGE')!);
+    expect(doge.granted).toContain('ability.shiba-pack');
+  });
+
+  it('scene events follow the mood, and every viewer gets the same ones', () => {
+    const green: MarketSnapshot = { market: def.id, hour: '2026-10-05T14', coins: COINS.map((c) => ({ ...c, changeBp: c.changeBp + 300 })) };
+    const red: MarketSnapshot = { ...green, coins: COINS.map((c) => ({ ...c, changeBp: c.changeBp - 300 })) };
+    const ids = (snap: MarketSnapshot) => [...Array(candlesPerHour(def)).keys()].flatMap((c) => candleEvents(def, snap, c, def.candle.ticks).map((e) => e.id));
+    const g = ids(green);
+    const r = ids(red);
+    expect(g).toContain('hazard.bull-run');
+    expect(g).not.toContain('hazard.bear-market');
+    expect(r).toContain('hazard.bear-market');
+    expect(r).not.toContain('hazard.bull-run');
+    expect(candleEvents(def, green, 3, def.candle.ticks)).toEqual(candleEvents(def, structuredClone(green), 3, def.candle.ticks));
+    for (const e of candleEvents(def, green, 3, def.candle.ticks)) {
+      expect(e.tick).toBeGreaterThanOrEqual(def.events!.firstTick);
+      expect(e.tick).toBeLessThan(def.candle.ticks);
+    }
+  });
+
+  it('the Regulators raid about one hour in six, in one candle, and stay down once floored', () => {
+    const hours = Array.from({ length: 240 }, (_, i) => new Date(Date.UTC(2026, 9, 1) + i * 3_600_000).toISOString().slice(0, 13));
+    const raided = hours.filter((h) => [...Array(candlesPerHour(def)).keys()].some((c) => candleRaid(bundle, def, h, c)));
+    expect(raided.length).toBeGreaterThan(240 / 6 - 20);
+    expect(raided.length).toBeLessThan(240 / 6 + 20);
+    const hour = raided[0]!;
+    const candles = [...Array(candlesPerHour(def)).keys()].filter((c) => candleRaid(bundle, def, hour, c));
+    expect(candles).toHaveLength(1);
+    const input = candleInput(bundle, def, { market: def.id, hour, coins: COINS }, candles[0]!);
+    expect(input.crashers?.set).toBe(def.regulators!.set);
+    expect(input.crashers?.characters).toHaveLength(def.regulators!.size);
+    const out = simulate(input, bundle);
+    expect(out.events.some((e) => e.type === 'crash')).toBe(true);
+    const crasherIds = new Set(out.events.filter((e) => e.type === 'spawn' && e.v === input.teams.length).map((e) => e.a));
+    expect(crasherIds.size).toBe(def.regulators!.size);
+    expect(out.events.some((e) => e.type === 'relist' && crasherIds.has(e.a))).toBe(false);
   });
 });

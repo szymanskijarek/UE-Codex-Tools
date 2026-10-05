@@ -6,7 +6,7 @@
  * progression in a style, and a drum pattern. One song for the menus and one
  * per arena; `setTempo` speeds a song up as a match heads for its finish.
  */
-export type SongId = 'menu' | 'supermarket' | 'office' | 'station' | 'diner' | 'construction' | 'warehouse' | 'docks' | 'theatre' | 'hotel' | 'hospital' | 'museum' | 'airport';
+export type SongId = 'menu' | 'supermarket' | 'office' | 'station' | 'diner' | 'construction' | 'warehouse' | 'docks' | 'theatre' | 'hotel' | 'hospital' | 'museum' | 'airport' | 'trading-floor' | 'trading-floor-bear';
 
 type BassStyle = 'octave' | 'walk' | 'chug' | 'half' | 'funk';
 type ArpStyle = 'arp16' | 'stab' | 'none';
@@ -185,6 +185,30 @@ const SONGS: Record<SongId, Song> = {
     bass: 'octave',
     arp: 'arp16',
     drums: 'k.hks.h.k.hks.ho',
+  },
+  // Crypto Bros (08), a green hour: four-on-the-floor euphoria climbing "to the moon".
+  'trading-floor': {
+    bpm: 140,
+    swing: 0,
+    chords: ['A', 'E', 'F#m', 'D', 'A', 'E', 'D', 'E'],
+    lead: 'A4 . C#5 E5 A5 - E5 C#5 | B4 . E5 G#5 B5 - G#5 E5 | C#5 . F#5 A5 C#6 - A5 F#5 | D5 - F#5 - A5 - F#5 D5 | E5 - A5 - C#6 - E6 - | D6 - B5 G#5 E5 - G#5 B5 | A5 - F#5 D5 A4 - D5 F#5 | E5 - G#5 - B5 - E6 -',
+    leadDuty: 2,
+    arpDuty: 0,
+    bass: 'octave',
+    arp: 'arp16',
+    drums: 'k.o.X.o.k.o.X.oh',
+  },
+  // A red hour: the same floor, everything heading down.
+  'trading-floor-bear': {
+    bpm: 112,
+    swing: 0.06,
+    chords: ['Am', 'F', 'Dm', 'E', 'Am', 'F', 'Dm', 'E7'],
+    lead: 'E5 - - D5 C5 - B4 - | C5 - A4 - F4 - A4 - | D5 - - C5 A4 - F4 - | G#4 - B4 - E5 - - . | A5 - G5 - E5 - C5 - | F5 - E5 - C5 - A4 - | D5 - F5 - A5 - G5 F5 | E5 - G#4 - B4 - . .',
+    leadDuty: 1,
+    arpDuty: 2,
+    bass: 'half',
+    arp: 'stab',
+    drums: 'k...s..kk...s.h.',
   },
 };
 

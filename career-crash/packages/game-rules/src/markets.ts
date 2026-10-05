@@ -1,6 +1,7 @@
 import type { ContentBundle, MarketDef } from '@cc/content-schema';
 import { STAT_KEYS } from '@cc/content-schema/constants';
-import { Rng, SIM_VERSION, TICKS_PER_SECOND, type BattleEvent, type BattleInput, type CharCounters, type CharacterSnapshot } from '@cc/sim';
+import { Rng, SIM_VERSION, TICKS_PER_SECOND, type BattleEvent, type BattleInput, type CharCounters, type CharacterSnapshot, type CrasherInput, type EndlessEvent } from '@cc/sim';
+import { rollCrashers } from './crashers';
 import { careerSnapshot, DIFFICULTIES, generatedFighter, type DifficultyDef } from './skills';
 
 /**
@@ -112,7 +113,7 @@ export function marketFighter(bundle: ContentBundle, def: MarketDef, coin: Score
   f.c.name = m === def.anon ? `${m.name} (${sym})` : m.name;
   f.c.personality = m.personality;
   f.c.traits = [];
-  const snap: CharacterSnapshot = { ...careerSnapshot(bundle, f), loadout: [], persona: m.persona };
+  const snap: CharacterSnapshot = { ...careerSnapshot(bundle, f), loadout: [], persona: m.persona, ...(m.moves?.length ? { granted: [...m.moves] } : {}) };
   const mood = coin.pumping ? 'status.pumped' : coin.dumping ? 'status.embarrassed' : '';
   if (mood) snap.startStatuses = [{ status: mood, durationTicks: def.power.moodTicks }];
   if (coin.leveraged) snap.leveraged = true;
@@ -176,9 +177,70 @@ export function floorClock(def: MarketDef, nowMs: number): FloorClock {
   };
 }
 
+/**
+ * The candle's scene events (08 §6): one every `gapTicks`, each drawn by weight
+ * from the events the hour's mood allows, from a seed of the hour and candle so
+ * every viewer sees the same bull at the same moment. Zones land somewhere on
+ * the floor (the box around its spawn spots); creatures cross it end to end.
+ */
+export function candleEvents(def: MarketDef, snapshot: MarketSnapshot, candle: number, ticks: number): EndlessEvent[] {
+  const cfg = def.events;
+  if (!cfg || cfg.list.length === 0) return [];
+  const mood = marketMood(def, snapshot.coins);
+  const allowed = cfg.list.filter((e) => (e.minMoodBp === undefined || mood >= e.minMoodBp) && (e.maxMoodBp === undefined || mood <= e.maxMoodBp));
+  if (allowed.length === 0) return [];
+  const rng = Rng.fromSeed(`events:${def.id}:${snapshot.hour}#${candle}`);
+  const xs = def.spawns.map(([x]) => x);
+  const ys = def.spawns.map(([, y]) => y);
+  const [x0, x1, y0, y1] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
+  const used = new Map<string, number>();
+  const out: EndlessEvent[] = [];
+  const [gMin, gMax] = cfg.gapTicks;
+  for (let t = cfg.firstTick + rng.int(gMax - gMin + 1); t < ticks - 200; t += gMin + rng.int(gMax - gMin + 1)) {
+    const pool = allowed.filter((e) => (used.get(e.id) ?? 0) < (e.maxPerCandle ?? Infinity));
+    const total = pool.reduce((n, e) => n + e.weight, 0);
+    if (total === 0) break;
+    let roll = rng.int(total);
+    const e = pool.find((x) => (roll -= x.weight) < 0)!;
+    used.set(e.id, (used.get(e.id) ?? 0) + 1);
+    const [zw, zh] = e.zoneMm ?? [x1 - x0, y1 - y0];
+    const zx = x0 + rng.int(Math.max(1, x1 - x0 - zw + 1));
+    const zy = y0 + rng.int(Math.max(1, y1 - y0 - zh + 1));
+    const region: [number, number, number, number] = [zx, zy, zw, zh];
+    const ev: EndlessEvent = { id: e.id, tick: t, telegraphTicks: e.telegraphTicks, region };
+    if (e.action) ev.action = e.action;
+    if (e.art) ev.art = { ...e.art, at: [zx + Math.floor(zw / 2), zy + Math.floor(zh / 2)] };
+    if (e.mover) {
+      const y = y0 + rng.int(y1 - y0 + 1);
+      const [from, to] = rng.int(2) === 0 ? [x0 - 2500, x1 + 2500] : [x1 + 2500, x0 - 2500];
+      ev.mover = { prop: e.mover.prop, speedMm: e.mover.speedMm, path: [[from, y], [to, y]] };
+    }
+    out.push(ev);
+  }
+  return out;
+}
+
+/**
+ * The Regulators (08 §6): in about one hour in six a gatecrasher set raids the
+ * floor, in one candle of the hour picked from the hour's seed. They come at the
+ * floor's base level and fight every bro at once; nobody has to be standing for
+ * them to come in, and once floored they stay down (they don't re-list).
+ */
+export function candleRaid(bundle: ContentBundle, def: MarketDef, hour: string, candle: number): CrasherInput | undefined {
+  const r = def.regulators;
+  if (!r) return undefined;
+  const rng = Rng.fromSeed(`raid:${def.id}:${hour}`);
+  if (rng.int(10000) >= r.chanceBp || rng.int(candlesPerHour(def)) !== candle) return undefined;
+  const raid = rollCrashers(bundle, `${def.id}:${hour}`, def.arena, def.power.baseLevel, def.power.rank, { set: r.set, size: r.size });
+  if (!raid) return undefined;
+  const latest = Math.min(r.latestTick, candleFightTicks(def, candle) - 600);
+  return { ...raid, tick: r.earliestTick + rng.int(Math.max(1, latest - r.earliestTick)), until: latest, minActiveBp: 0 };
+}
+
 /** The battle for one candle of an hour (08 §4.2). */
 export function candleInput(bundle: ContentBundle, def: MarketDef, snapshot: MarketSnapshot, candle: number): BattleInput {
   const scored = scoreField(def, snapshot.coins);
+  const raid = candleRaid(bundle, def, snapshot.hour, candle);
   return {
     schemaVersion: 1,
     contentHash: bundle.hash,
@@ -188,6 +250,7 @@ export function candleInput(bundle: ContentBundle, def: MarketDef, snapshot: Mar
     mode: 'ffa',
     teams: scored.map((c) => ({ playerId: c.symbol.toUpperCase(), playerName: c.symbol.toUpperCase(), rating: 1000, characters: [marketFighter(bundle, def, c)] })),
     modifiers: [],
+    ...(raid ? { crashers: raid } : {}),
     endless: {
       round: candle,
       ticks: candleFightTicks(def, candle),
@@ -196,6 +259,7 @@ export function candleInput(bundle: ContentBundle, def: MarketDef, snapshot: Mar
       shieldTicks: def.candle.shieldTicks,
       spawns: def.spawns.map(([x, y]) => [x, y]),
       ...(def.referee ? { referee: { name: def.referee.name, persona: def.referee.persona } } : {}),
+      ...(def.events ? { events: candleEvents(def, snapshot, candle, candleFightTicks(def, candle)) } : {}),
     },
   };
 }
@@ -224,7 +288,8 @@ interface Fighter {
  * contender each, so `symbols[team]` names them.
  */
 export function tallyCandle(def: MarketDef, symbols: string[], events: BattleEvent[], fighters: Fighter[]): Standing[] {
-  const byEntity = new Map<number, number>(fighters.map((f) => [f.id, f.team]));
+  // Only the market's own contenders score: gatecrashers (a side after theirs) don't.
+  const byEntity = new Map<number, number>(fighters.filter((f) => f.team < symbols.length).map((f) => [f.id, f.team]));
   const rows: Standing[] = symbols.map((symbol) => ({ symbol, points: 0, kos: 0, liquidations: 0, koed: 0, liquidated: 0, damage: 0, candlesWon: 0 }));
   for (const e of events) {
     if (e.type !== 'ko' && e.type !== 'liquidated') continue;

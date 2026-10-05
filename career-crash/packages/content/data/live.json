@@ -3619,5 +3619,37 @@
   "market_delayed": [
    "📡 Market data delayed. Last hour's bros are still fighting."
   ]
- }
+ },
+  "hazard_start_bull-run": [
+   "BULL RUN! A bull is charging across the floor. Green candles, horns first.",
+   "The bull is loose! Pumpers, hold on to something. Everyone else, run."
+  ],
+  "hazard_start_bear-market": [
+   "A bear has wandered onto the floor. It is in no hurry. Neither is recovery.",
+   "Bear market! Something large and red is swatting portfolios."
+  ],
+  "hazard_start_whale-alert": [
+   "WHALE ALERT! Someone very large is moving very slowly. Get out of the way.",
+   "A whale in a suit is crossing the floor. Liquidity has entered the building."
+  ],
+  "hazard_start_black-swan": [
+   "A black swan! Nobody saw it coming. That's the whole point.",
+   "Black swan event! Your risk model did not include birds."
+  ],
+  "hazard_start_airdrop": [
+   "AIRDROP! Free coffee, falling from the ceiling. Claim before it's gone.",
+   "Airdrop incoming! Eligibility: whoever's standing underneath."
+  ],
+  "hazard_start_gas-spike": [
+   "Gas spike! Every move in that corner now costs forty dollars.",
+   "The gas fees have gone green and foggy. Moving is expensive."
+  ],
+  "hazard_start_fud-cloud": [
+   "A cloud of FUD rolls in. Everyone underneath suddenly feels uncertain.",
+   "FUD cloud! Fear, uncertainty and a light drizzle of doubt."
+  ],
+  "hazard_start_rug-pull": [
+   "RUG PULL! The carpet's gone, and so is everyone who stood on it.",
+   "Somebody pulled the rug. The devs are already on a beach."
+  ]
 }

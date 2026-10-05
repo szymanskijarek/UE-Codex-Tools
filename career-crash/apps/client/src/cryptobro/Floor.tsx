@@ -17,7 +17,7 @@ import {
 import { TICKS_PER_SECOND, type BattleEvent } from '@cc/sim';
 import { ReplayPlayer } from '../replay/player';
 import { BattleRenderer } from '../replay/renderer';
-import { arenaSong, music } from '../replay/music';
+import { music } from '../replay/music';
 import { keepAwake } from '../wake-lock';
 import { Portrait } from '../ui/components';
 import frameUrl from './ticker-frame.webp';
@@ -151,6 +151,8 @@ export function Floor() {
     const input = candleInput(bundle, DEF, snapshot, clock.candle);
     const t0 = performance.now();
     const player = new ReplayPlayer(input, { probe: false });
+    // The floor's song follows the hour: a green market parties, a red one sulks.
+    const song = marketMood(DEF, snapshot.coins) < 0 ? 'trading-floor-bear' : 'trading-floor';
     const startAt = Math.min(floorClock(DEF, now()).tick, input.endless!.ticks);
     player.seek(startAt);
     player.drainEvents();
@@ -236,7 +238,7 @@ export function Floor() {
           const ent = f ? player.world.entities.find((e) => e.kind === 'char' && e.summonOf < 0 && input.teams[e.team]?.playerId === f) : undefined;
           renderer.setReplay(ent ? [ent.id] : null, `👀 ${f}`, ent?.name ?? '', 1);
         }
-        if (!mutedRef.current && !player.done) music.play(arenaSong(input.arenaId) === 'menu' ? 'office' : arenaSong(input.arenaId));
+        if (!mutedRef.current && !player.done) music.play(song);
         if (t - lastUi > 250) {
           lastUi = t;
           setFrame((n) => n + 1);

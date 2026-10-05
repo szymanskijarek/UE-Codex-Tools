@@ -1390,5 +1390,59 @@
    "Front half here. Back half is NOT speaking to me.",
    "Oh no it wasn't! (It was.)"
   ]
+ },
+ {
+  "id": "crasher.regulators",
+  "home": "arena.trading-floor",
+  "visits": [],
+  "leader": {
+   "persona": "npc.compliance-officer",
+   "career": "career.lawyer",
+   "personality": "personality.confident",
+   "lines": [
+    "Nobody move. Where are the reserves?",
+    "Is this a security? Everything is a security.",
+    "Please hold your punches for the audit.",
+    "I'll need that in writing. In triplicate."
+   ],
+   "art": {
+    "color": "#1e3a8a",
+    "icon": "⚖️"
+   },
+   "name": "Prudence Ledger"
+  },
+  "henchmen": {
+   "persona": "npc.reg-auditor",
+   "career": "career.accountant",
+   "personality": "personality.paranoid",
+   "lines": [
+    "The numbers don't add up. Neither do you.",
+    "Can I see the wallet? The other wallet.",
+    "I've found a discrepancy. It's your face.",
+    "Proof of reserves, please. Proof of anything."
+   ],
+   "art": {
+    "color": "#2563eb",
+    "icon": "🧮"
+   },
+   "names": [
+    "Nigel Footnote",
+    "Priya Reconcile"
+   ]
+  },
+  "entrance": [
+   "Sirens! The Regulators are on the floor. Prudence Ledger wants to see everyone's reserves. Nobody has any.",
+   "The doors burst open: compliance! Two auditors and a ring binder the size of a door. The bros scatter."
+  ],
+  "posts": [
+   "Routine visit to the {arena} today. Reserves found: zero. Bros found hiding under desks: eleven. Fines issued: all of them. #Compliance #Oversight",
+   "Spent the hour auditing the {arena}. One of them tried to pay the fine in a coin named after his dog. #Regulation #NotFinancialAdvice",
+   "Another productive inspection. Nobody on the {arena} could define 'decentralised', but they all could run. #Audit"
+  ],
+  "comments": [
+   "Took 40 pages of notes. 39 are about the shiba.",
+   "Priya found a hardware wallet in the beanbag pile. It contains a sandwich.",
+   "Can we expense the ring binder? It took a lot of punches."
+  ]
  }
 ]

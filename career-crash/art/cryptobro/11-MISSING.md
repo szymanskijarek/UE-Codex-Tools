@@ -121,9 +121,9 @@ The Regulators are a compliance officer and two auditors (A and B: same job
 and uniform, different people) who burst onto the trading floor and fight
 every bro.
 
-**C1. Auditor B's body** → `art/sheets/npc-auditor-b.png`
+**C1. Auditor B's body** → `art/sheets/npc-reg-auditor-b.png`
 Same canvas, layout and preamble as Part A. **Attach** the example sheet
-**and** `art/sheets/npc-auditor.png` (auditor A), so the uniform matches.
+**and** `art/sheets/npc-reg-auditor.png` (auditor A), so the uniform matches.
 > Priya, a sharp young auditor in a navy waistcoat over a white shirt,
 > sleeves rolled up, a navy tie, a tablet in a holster on the hip, a pencil
 > behind the ear, slim navy trousers, trainers, hair in a tight ponytail.
@@ -134,10 +134,10 @@ character's body sheet):
 | File | Character (attach) | Expression |
 |---|---|---|
 | `art/heads/surprised/npc-compliance-officer.png` | `npc-compliance-officer.png` | eyes wide, mouth open, glasses slipping |
-| `art/heads/surprised/npc-auditor.png` | `npc-auditor.png` | eyes wide, mouth open |
-| `art/heads/hurt/npc-auditor.png` | `npc-auditor.png` | eyes squeezed shut, teeth gritted |
-| `art/heads/neutral/npc-auditor-b.png` | `npc-auditor-b.png` (C1) | stern, unimpressed |
-| `art/heads/surprised/npc-auditor-b.png` | `npc-auditor-b.png` (C1) | eyes wide, mouth open |
+| `art/heads/surprised/npc-reg-auditor.png` | `npc-reg-auditor.png` | eyes wide, mouth open |
+| `art/heads/hurt/npc-reg-auditor.png` | `npc-reg-auditor.png` | eyes squeezed shut, teeth gritted |
+| `art/heads/neutral/npc-reg-auditor-b.png` | `npc-reg-auditor-b.png` (C1) | stern, unimpressed |
+| `art/heads/surprised/npc-reg-auditor-b.png` | `npc-reg-auditor-b.png` (C1) | eyes wide, mouth open |
 
 (Auditor B's angry and hurt heads are already in: match them.)
 
@@ -224,16 +224,16 @@ art/sheets/npc-bro-anon.png
 art/sheets/npc-bro-ton.png
 art/sheets/npc-bro-shib.png
 art/sheets/npc-bro-dot.png
-art/sheets/npc-auditor-b.png
+art/sheets/npc-reg-auditor-b.png
 art/heads/neutral/npc-bro-{anon,ton,shib,ltc,pepe,dot}.png      (6)
 art/heads/angry/npc-bro-{anon,ton,shib,ltc,pepe,dot}.png        (6)
 art/heads/surprised/npc-bro-{anon,ton,shib,ltc,pepe,dot}.png    (6)
 art/heads/hurt/npc-bro-{anon,ton,shib,ltc,pepe,dot}.png         (6)
 art/heads/surprised/npc-compliance-officer.png
-art/heads/surprised/npc-auditor.png
-art/heads/hurt/npc-auditor.png
-art/heads/neutral/npc-auditor-b.png
-art/heads/surprised/npc-auditor-b.png
+art/heads/surprised/npc-reg-auditor.png
+art/heads/hurt/npc-reg-auditor.png
+art/heads/neutral/npc-reg-auditor-b.png
+art/heads/surprised/npc-reg-auditor-b.png
 art/critters/whale-swan.png
 art/items/cryptobro-a.png
 art/items/cryptobro-b.png
@@ -243,7 +243,7 @@ art/ui/cryptobro-logo.png
 ## Importing (Claude does this)
 
 ```
-pnpm --filter @cc/art-pipeline puppets npc-bro-anon npc-bro-ton npc-bro-shib npc-bro-dot npc-auditor-b
+pnpm --filter @cc/art-pipeline puppets npc-bro-anon npc-bro-ton npc-bro-shib npc-bro-dot npc-reg-auditor-b
 pnpm --filter @cc/art-pipeline faces
 pnpm --filter @cc/art-pipeline critters        # manifest: whale-swan
 pnpm --filter @cc/art-pipeline items           # manifest: cryptobro-a, cryptobro-b

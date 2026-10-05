@@ -26,5 +26,6 @@
   {"id": "status.choked", "tags": ["state:choked"], "durationTicks": 45, "stacking": "ignore", "flags": {"noActions": true, "noMove": true}, "periodic": {"everyTicks": 4, "effects": [{"type": "damage", "amount": 2, "damageType": "blunt"}]}, "onApply": [{"type": "morale", "amount": -8}]},
   {"id": "status.choking", "tags": ["state:choking"], "durationTicks": 45, "stacking": "ignore", "flags": {"noActions": true, "noMove": true}},
   {"id": "status.spooked", "tags": ["state:spooked"], "durationTicks": 50, "stacking": "ignore", "mods": {"moveBp": 2500, "damageDealtBp": -3000}},
-  {"id": "status.jinxed", "tags": ["state:jinxed"], "durationTicks": 80, "stacking": "refresh", "mods": {"damageDealtBp": -1000, "damageTakenBp": 1000}}
+  {"id": "status.jinxed", "tags": ["state:jinxed"], "durationTicks": 80, "stacking": "refresh", "mods": {"damageDealtBp": -1000, "damageTakenBp": 1000}},
+  {"id": "status.pump-and-dump", "tags": ["state:pumped"], "durationTicks": 160, "stacking": "refresh", "mods": {"damageDealtBp": 4000, "moveBp": 2000}, "onExpire": [{"type": "applyStatus", "status": "status.crash", "durationTicks": 160}]}
 ]

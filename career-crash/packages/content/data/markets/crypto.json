@@ -118,6 +118,10 @@
    "persona": "npc.bro-btc",
    "name": "The OG",
    "career": "career.security-guard",
+   "moves": [
+    "ability.laser-eyes",
+    "ability.halving"
+   ],
    "personality": "personality.confident",
    "lines": [
     "Have fun staying poor.",
@@ -129,12 +133,20 @@
     "color": "#f7931a",
     "icon": "🔴"
    },
-   "statBonus": 15
+   "statBonus": 15,
+   "voice": {
+    "type": "deep",
+    "pitch": 0.9
+   }
   },
   "ETH": {
    "persona": "npc.bro-eth",
    "name": "Gas Fee Gavin",
    "career": "career.accountant",
+   "moves": [
+    "ability.gas-fee",
+    "ability.the-merge"
+   ],
    "personality": "personality.greedy",
    "lines": [
     "That'll be forty dollars to throw that punch.",
@@ -146,12 +158,20 @@
     "color": "#627eea",
     "icon": "⛽"
    },
-   "statBonus": 37
+   "statBonus": 22,
+   "voice": {
+    "type": "mid",
+    "speed": 1.1
+   }
   },
   "XRP": {
    "persona": "npc.bro-xrp",
    "name": "Litigation Larry",
    "career": "career.lawyer",
+   "moves": [
+    "ability.cease-and-desist",
+    "ability.ripple"
+   ],
    "personality": "personality.competitive",
    "lines": [
     "My lawyer will see you in round two.",
@@ -163,12 +183,21 @@
     "color": "#00aae4",
     "icon": "⚖️"
    },
-   "statBonus": 32
+   "statBonus": 32,
+   "voice": {
+    "type": "mid",
+    "pitch": 1.05,
+    "speed": 1.25
+   }
   },
   "BNB": {
    "persona": "npc.bro-bnb",
    "name": "Exchange Eddie",
    "career": "career.train-conductor",
+   "moves": [
+    "ability.withdrawals-paused",
+    "ability.token-burn"
+   ],
    "personality": "personality.greedy",
    "lines": [
     "Funds are SAFU. Mostly.",
@@ -180,12 +209,18 @@
     "color": "#f3ba2f",
     "icon": "🎧"
    },
-   "statBonus": 6
+   "statBonus": 6,
+   "voice": {
+    "type": "gravel"
+   }
   },
   "SOL": {
    "persona": "npc.bro-sol",
    "name": "Speedrun Sol",
    "career": "career.delivery-driver",
+   "moves": [
+    "ability.validator-rush"
+   ],
    "personality": "personality.chaotic",
    "lines": [
     "Already there. Wait, where am I?",
@@ -197,12 +232,21 @@
     "color": "#9945ff",
     "icon": "⚡"
    },
-   "statBonus": -15
+   "statBonus": -20,
+   "voice": {
+    "type": "squeaky",
+    "speed": 1.45
+   }
   },
   "DOGE": {
    "persona": "npc.bro-doge",
    "name": "Such Wow Wes",
    "career": "career.dog-groomer",
+   "moves": [
+    "ability.much-bark",
+    "ability.shiba-pack",
+    "ability.to-the-moon"
+   ],
    "personality": "personality.clumsy",
    "lines": [
     "Wow. Such punch. Very rekt.",
@@ -214,12 +258,19 @@
     "color": "#c2a633",
     "icon": "🐕"
    },
-   "statBonus": 24
+   "statBonus": 24,
+   "voice": {
+    "type": "bright",
+    "fx": "bark"
+   }
   },
   "ADA": {
    "persona": "npc.bro-ada",
    "name": "Peer-Review Pete",
    "career": "career.teacher",
+   "moves": [
+    "ability.citation-needed"
+   ],
    "personality": "personality.lazy",
    "lines": [
     "It's coming. Phase five. Peer reviewed.",
@@ -231,12 +282,19 @@
     "color": "#0033ad",
     "icon": "📄"
    },
-   "statBonus": -14
+   "statBonus": -14,
+   "voice": {
+    "type": "bright",
+    "speed": 0.75
+   }
   },
   "TRX": {
    "persona": "npc.bro-trx",
    "name": "Neon Trent",
    "career": "career.dj",
+   "moves": [
+    "ability.energy-rental"
+   ],
    "personality": "personality.competitive",
    "lines": [
     "Faster. Cheaper. Brighter.",
@@ -248,12 +306,19 @@
     "color": "#eb0029",
     "icon": "💡"
    },
-   "statBonus": -40
+   "statBonus": -40,
+   "voice": {
+    "type": "mid",
+    "fx": "autotune"
+   }
   },
   "AVAX": {
    "persona": "npc.bro-avax",
    "name": "Avalanche Al",
    "career": "career.ice-cream-vendor",
+   "moves": [
+    "ability.avalanche"
+   ],
    "personality": "personality.aggressive",
    "lines": [
     "It's all downhill from here. For you.",
@@ -265,12 +330,19 @@
     "color": "#e84142",
     "icon": "🏂"
    },
-   "statBonus": 6
+   "statBonus": 14,
+   "voice": {
+    "type": "gravel",
+    "pitch": 1.1
+   }
   },
   "LINK": {
    "persona": "npc.bro-link",
    "name": "Oracle Olly",
    "career": "career.fortune-teller",
+   "moves": [
+    "ability.off-chain"
+   ],
    "personality": "personality.paranoid",
    "lines": [
     "I knew you'd do that.",
@@ -282,12 +354,18 @@
     "color": "#2a5ada",
     "icon": "🔮"
    },
-   "statBonus": 26
+   "statBonus": 26,
+   "voice": {
+    "type": "whisper"
+   }
   },
   "TON": {
    "persona": "npc.bro-ton",
    "name": "Tony Tons",
    "career": "career.builder",
+   "moves": [
+    "ability.ton-of-bricks"
+   ],
    "personality": "personality.aggressive",
    "lines": [
     "A ton of value. Mostly bricks.",
@@ -299,12 +377,19 @@
     "color": "#0098ea",
     "icon": "🧱"
    },
-   "statBonus": -32
+   "statBonus": -32,
+   "voice": {
+    "type": "deep",
+    "pitch": 0.85
+   }
   },
   "SHIB": {
    "persona": "npc.bro-shib",
    "name": "Shiba Sharon",
    "career": "career.veterinarian",
+   "moves": [
+    "ability.walkies"
+   ],
    "personality": "personality.helpful",
    "lines": [
     "Who's a good investment? You are!",
@@ -316,12 +401,19 @@
     "color": "#e44d26",
     "icon": "🦮"
    },
-   "statBonus": 15
+   "statBonus": 15,
+   "voice": {
+    "type": "squeaky",
+    "fx": "yip"
+   }
   },
   "LTC": {
    "persona": "npc.bro-ltc",
    "name": "Silver Steve",
    "career": "career.postal-worker",
+   "moves": [
+    "ability.laser-eyes-lite"
+   ],
    "personality": "personality.confident",
    "lines": [
     "I was here first. Second.",
@@ -333,12 +425,21 @@
     "color": "#a6a9aa",
     "icon": "🥈"
    },
-   "statBonus": -19
+   "statBonus": -12,
+   "voice": {
+    "type": "mid",
+    "pitch": 0.95,
+    "speed": 0.9
+   }
   },
   "PEPE": {
    "persona": "npc.bro-pepe",
    "name": "Degen Dex",
    "career": "career.influencer",
+   "moves": [
+    "ability.ribbit-rally",
+    "ability.pump-and-dump"
+   ],
    "personality": "personality.chaotic",
    "lines": [
     "Not a frog. A movement.",
@@ -350,12 +451,19 @@
     "color": "#3d9b3f",
     "icon": "🐸"
    },
-   "statBonus": 1
+   "statBonus": 1,
+   "voice": {
+    "type": "deep",
+    "fx": "croak"
+   }
   },
   "DOT": {
    "persona": "npc.bro-dot",
    "name": "Para Pat",
    "career": "career.life-coach",
+   "moves": [
+    "ability.slot-auction"
+   ],
    "personality": "personality.helpful",
    "lines": [
     "Interoperable. With your face.",
@@ -367,7 +475,11 @@
     "color": "#e6007a",
     "icon": "🎀"
    },
-   "statBonus": 28
+   "statBonus": 40,
+   "voice": {
+    "type": "bright",
+    "pitch": 1.1
+   }
   }
  },
  "aliases": {
@@ -377,6 +489,10 @@
   "persona": "npc.bro-anon",
   "name": "Anon Bro",
   "career": "career.conspiracy-podcaster",
+  "moves": [
+   "ability.shill",
+   "ability.dyor"
+  ],
   "personality": "personality.paranoid",
   "lines": [
    "Few understand.",
@@ -388,10 +504,165 @@
    "color": "#4b5563",
    "icon": "🕶️"
   },
-  "statBonus": 20
+  "statBonus": 20,
+  "voice": {
+   "type": "mid",
+   "fx": "robot"
+  }
  },
  "referee": {
   "persona": "npc.pegged-peggy",
   "name": "Pegged Peggy"
+ },
+ "events": {
+  "gapTicks": [
+   600,
+   1100
+  ],
+  "firstTick": 400,
+  "list": [
+   {
+    "id": "hazard.bull-run",
+    "weight": 4,
+    "minMoodBp": 10,
+    "telegraphTicks": 60,
+    "mover": {
+     "prop": "prop.bull",
+     "speedMm": 160
+    }
+   },
+   {
+    "id": "hazard.bear-market",
+    "weight": 4,
+    "maxMoodBp": -10,
+    "telegraphTicks": 60,
+    "mover": {
+     "prop": "prop.bear",
+     "speedMm": 70
+    }
+   },
+   {
+    "id": "hazard.whale-alert",
+    "weight": 2,
+    "maxPerCandle": 1,
+    "telegraphTicks": 80,
+    "mover": {
+     "prop": "prop.whale",
+     "speedMm": 55
+    }
+   },
+   {
+    "id": "hazard.black-swan",
+    "weight": 1,
+    "maxPerCandle": 1,
+    "telegraphTicks": 40,
+    "mover": {
+     "prop": "prop.black-swan",
+     "speedMm": 190
+    }
+   },
+   {
+    "id": "hazard.airdrop",
+    "weight": 3,
+    "telegraphTicks": 60,
+    "zoneMm": [
+     7000,
+     4500
+    ],
+    "action": {
+     "spawn": {
+      "prop": "prop.coffee-cup",
+      "count": 3,
+      "dropFromMm": 5000
+     }
+    },
+    "art": {
+     "fx": "airdrop",
+     "activeTicks": 50
+    }
+   },
+   {
+    "id": "hazard.gas-spike",
+    "weight": 3,
+    "telegraphTicks": 50,
+    "zoneMm": [
+     6500,
+     4500
+    ],
+    "action": {
+     "effects": [
+      {
+       "type": "energy",
+       "amount": -30
+      },
+      {
+       "type": "applyStatus",
+       "status": "status.slowed",
+       "durationTicks": 50
+      }
+     ]
+    },
+    "art": {
+     "fx": "gas",
+     "activeTicks": 80
+    }
+   },
+   {
+    "id": "hazard.fud-cloud",
+    "weight": 3,
+    "maxMoodBp": -10,
+    "telegraphTicks": 50,
+    "zoneMm": [
+     5500,
+     4000
+    ],
+    "action": {
+     "effects": [
+      {
+       "type": "applyStatus",
+       "status": "status.spooked",
+       "durationTicks": 70
+      },
+      {
+       "type": "applyStatus",
+       "status": "status.embarrassed",
+       "durationTicks": 40
+      }
+     ]
+    },
+    "art": {
+     "fx": "fud",
+     "activeTicks": 80
+    }
+   },
+   {
+    "id": "hazard.rug-pull",
+    "weight": 1,
+    "maxPerCandle": 1,
+    "telegraphTicks": 60,
+    "zoneMm": [
+     6000,
+     3500
+    ],
+    "action": {
+     "spin": {
+      "distanceMm": 3500,
+      "heightMm": 1800,
+      "landDamage": 8
+     }
+    },
+    "art": {
+     "fx": "rug",
+     "activeTicks": 40
+    }
+   }
+  ]
+ },
+ "regulators": {
+  "set": "crasher.regulators",
+  "chanceBp": 1667,
+  "size": 3,
+  "earliestTick": 600,
+  "latestTick": 3600
  }
 }

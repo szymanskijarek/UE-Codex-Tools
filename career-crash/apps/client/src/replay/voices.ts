@@ -9,6 +9,13 @@
  */
 export type VoiceType = 'deep' | 'gravel' | 'mid' | 'bright' | 'squeaky' | 'whisper';
 
+/**
+ * What a voice does to the words (Crypto Bros, 08): a dog barks every word, a
+ * small dog yips, a frog croaks "ribbit", a voice changer goes robotic, and
+ * auto-tune snaps every syllable to a pentatonic note.
+ */
+export type VoiceFx = 'bark' | 'yip' | 'croak' | 'robot' | 'autotune';
+
 export interface Voice {
   type: VoiceType;
   /** Pitch multiplier (per character). */
@@ -19,6 +26,13 @@ export interface Voice {
   loud: number;
   /** Intonation range multiplier (chaotic characters swoop about). */
   range: number;
+  fx?: VoiceFx;
+}
+
+/** A content override (a market member's `voice`) on top of the voice their career gives them. */
+export function withVoice(v: Voice, over: { type?: VoiceType; pitch?: number; speed?: number; fx?: VoiceFx } | undefined): Voice {
+  if (!over) return v;
+  return { ...v, type: over.type ?? v.type, pitch: v.pitch * (over.pitch ?? 1), speed: v.speed * (over.speed ?? 1), fx: over.fx ?? v.fx };
 }
 
 interface VoiceParams {
@@ -213,12 +227,77 @@ interface Note {
   pause: number;
 }
 
+/** Major pentatonic steps over two octaves (auto-tune), or just two notes (a robot). */
+const PENTA = [0.5, 0.5625, 0.625, 0.75, 0.8333, 1, 1.125, 1.25, 1.5, 1.6667, 2, 2.25, 2.5];
+const ROBOT = [0.9, 1, 1.12];
+function snapPitch(p: number, robot: boolean): number {
+  const steps = robot ? ROBOT : PENTA;
+  return steps.reduce((best, s) => (Math.abs(Math.log(s / p)) < Math.abs(Math.log(best / p)) ? s : best), steps[0]!);
+}
+
+/**
+ * Animal "words": one bark, yip or ribbit per word of the line, so a dog bro
+ * still barks longer for a longer post. Shouts become a big bark, a whimper or
+ * a howl.
+ */
+function animalNotes(fx: 'bark' | 'yip' | 'croak', words: number, R: () => number, exclaim: boolean): Note[] {
+  const out: Note[] = [];
+  const n = Math.min(7, Math.max(1, words));
+  for (let i = 0; i < n; i++) {
+    const last = i === n - 1;
+    const lift = (exclaim ? 1.12 : 1) * (0.94 + R() * 0.14);
+    const gap = 0.06 + R() * 0.07 + (last ? 0 : R() < 0.25 ? 0.12 : 0);
+    if (fx === 'croak') {
+      // "rib-bit": two short throaty bumps, or now and then one long "croooak".
+      if (R() < 0.3) out.push({ onset: 'kr', vowel: 'o', vowel2: 'a', dur: 0.2, pitch: 0.62 * lift, pitch2: 0.5 * lift, gain: 1.1, hardStart: true, hardEnd: true, pause: gap });
+      else {
+        out.push({ onset: 'r', vowel: 'i', dur: 0.07, pitch: 0.7 * lift, pitch2: 0.66 * lift, gain: 1, hardStart: true, hardEnd: true, pause: 0.025 });
+        out.push({ onset: 'b', vowel: 'i', vowel2: 'u', dur: 0.09, pitch: 0.66 * lift, pitch2: 0.55 * lift, gain: 1.05, hardStart: true, hardEnd: true, pause: gap });
+      }
+    } else if (fx === 'yip') {
+      out.push({ onset: 'y', vowel: 'i', vowel2: 'a', dur: 0.055, pitch: 2.1 * lift, pitch2: 1.6 * lift, gain: 1, hardStart: true, hardEnd: true, pause: gap * 0.6 });
+    } else {
+      // "WOOF" / "ARF": a sharp attack, the jaw opening then closing, falling pitch.
+      const ruff = R() < 0.4;
+      out.push({ onset: ruff ? 'r' : 'wh', vowel: ruff ? 'a' : 'u', vowel2: ruff ? 'u' : 'o', dur: 0.1 + R() * 0.04, pitch: 1.75 * lift, pitch2: 1.05 * lift, gain: 1.15, hardStart: true, hardEnd: true, pause: gap });
+    }
+  }
+  return out;
+}
+
+const ANIMAL_ROUGH = { bark: 0.5, yip: 0.25, croak: 0.85 } as const;
+/** Level trim per effect, so a croak sits as loud as a sentence. */
+const FX_GAIN: Record<VoiceFx, number> = { bark: 0.85, yip: 1.5, croak: 2, robot: 1, autotune: 1 };
+
+function animalShout(fx: 'bark' | 'yip' | 'croak', kind: Shout, k: number): Note[] {
+  const n = (vowel: string, dur: number, pitch: number, pitch2: number, gain = 1, onset = '', vowel2?: string, pause = 0): Note => ({ onset, vowel, vowel2, dur, pitch, pitch2, gain, hardStart: true, hardEnd: true, pause });
+  const base = fx === 'croak' ? 0.6 : fx === 'yip' ? 1.9 : 1.6;
+  switch (kind) {
+    case 'ouch': // a yelp
+      return [n('i', 0.12, base * 1.5, base * 1.1, 1.1, 'y', 'u')];
+    case 'wail': // a howl, or the long sad croak
+      return fx === 'croak' ? [n('o', 0.6, 0.7, 0.42, 1.1, 'kr', 'u')] : [n('a', 0.15, base * 0.8, base * 1.15, 0.9, 'w', 'o'), n('u', 0.75, base * 1.15, base * 0.6, 1.1, '', 'o')];
+    case 'scream': // whimper-yelps all the way across the room
+      return [0, 1, 2].map((i) => n('i', 0.1, base * (1.6 - i * 0.12), base * (1.2 - i * 0.12), 1.1, 'y', 'u', 0.05));
+    case 'grunt':
+    case 'gasp':
+      return [n('u', 0.08, base * 0.7, base * 0.6, 0.8, 'h')];
+    case 'cheer': // happy barking
+      return [0, 1, 2].map((i) => n('a', 0.08, base * (1.1 + i * 0.1), base * (0.9 + i * 0.1), 1.1, 'r', 'u', 0.06));
+    case 'yell':
+    default: // one big BARK (twice for k=2)
+      return k === 2 ? [n('a', 0.1, base * 1.1, base * 0.8, 1.2, 'r', 'u', 0.07), n('a', 0.14, base * 1.15, base * 0.75, 1.25, 'r', 'u')] : [n('a', 0.16, base * 1.15, base * 0.7, 1.3, fx === 'croak' ? 'kr' : 'wh', 'u')];
+  }
+}
+
 /** Schedule a list of notes in one voice; returns the length in seconds. */
 function utter(ctx: BaseAudioContext, dest: AudioNode, noise: AudioBuffer, voice: Voice, notes: Note[], at: number, rate: number, seed: string, opts: { vibrato?: number; rough?: number; breath?: number } = {}): number {
   if (notes.length === 0) return 0;
   const P = PARAMS[voice.type];
   const R = rng(seed);
   const f0 = P.f0 * voice.pitch * rate;
+  const robot = voice.fx === 'robot';
+  const tuned = voice.fx === 'autotune' || robot;
   const fs = P.formant * (0.97 + (voice.pitch - 1) * 0.5) * (rate < 1 ? 0.85 : 1);
 
   // Source → amplitude envelope → (creak) → three parallel formant filters → out.
@@ -233,7 +312,7 @@ function utter(ctx: BaseAudioContext, dest: AudioNode, noise: AudioBuffer, voice
     src = n;
   } else {
     osc = ctx.createOscillator();
-    osc.type = P.wave;
+    osc.type = robot ? 'square' : P.wave;
     osc.frequency.value = f0 * notes[0]!.pitch;
     src = osc;
   }
@@ -255,7 +334,18 @@ function utter(ctx: BaseAudioContext, dest: AudioNode, noise: AudioBuffer, voice
     chain = creak;
     extras.push(lfo);
   }
-  const vibAmt = opts.vibrato ?? P.vibrato;
+  if (robot) {
+    // Voice changer: ring-modulate the whole voice for that tin-can buzz.
+    const ring = ctx.createGain();
+    ring.gain.value = 0;
+    const lfo = ctx.createOscillator();
+    lfo.frequency.value = 62 * rate;
+    lfo.connect(ring.gain);
+    chain.connect(ring);
+    chain = ring;
+    extras.push(lfo);
+  }
+  const vibAmt = robot ? 0 : (opts.vibrato ?? P.vibrato);
   if (osc && vibAmt > 0) {
     const vib = ctx.createOscillator();
     vib.frequency.value = (opts.vibrato ? 9 : 5.5) + R() * 1.5;
@@ -265,7 +355,7 @@ function utter(ctx: BaseAudioContext, dest: AudioNode, noise: AudioBuffer, voice
     extras.push(vib);
   }
   const out = ctx.createGain();
-  out.gain.value = (voice.type === 'whisper' ? 1.6 : 1) * P.gain * voice.loud;
+  out.gain.value = (voice.type === 'whisper' ? 1.6 : 1) * P.gain * voice.loud * (voice.fx ? FX_GAIN[voice.fx] : 1);
   out.connect(dest);
   const filters = [0, 1, 2].map((k) => {
     const f = ctx.createBiquadFilter();
@@ -327,7 +417,11 @@ function utter(ctx: BaseAudioContext, dest: AudioNode, noise: AudioBuffer, voice
     }
     const v0 = t + lead / rate;
     const d = n.dur / rate;
-    if (osc) {
+    if (osc && tuned) {
+      // Hard steps between notes, no glide: the giveaway of auto-tune (and of a robot).
+      osc.frequency.setValueAtTime(f0 * snapPitch(n.pitch, robot), v0);
+      if (n.pitch2 !== n.pitch) osc.frequency.setValueAtTime(f0 * snapPitch(n.pitch2, robot), v0 + d * 0.5);
+    } else if (osc) {
       osc.frequency.setTargetAtTime(f0 * n.pitch, v0, 0.012);
       if (n.pitch2 !== n.pitch) osc.frequency.setTargetAtTime(f0 * n.pitch2, v0 + d * 0.3, d * 0.35);
     }
@@ -369,6 +463,10 @@ export function babble(ctx: BaseAudioContext, dest: AudioNode, noise: AudioBuffe
   const syl = syllables(text, 16);
   if (syl.length === 0) return 0;
   const exclaim = /!/.test(text);
+  if (voice.fx === 'bark' || voice.fx === 'yip' || voice.fx === 'croak') {
+    const words = syl.filter((s) => s.wordStart).length;
+    return utter(ctx, dest, noise, voice, animalNotes(voice.fx, Math.ceil(words * 0.7), R, exclaim), at, rate, text + voice.fx, { rough: ANIMAL_ROUGH[voice.fx], breath: voice.fx === 'bark' ? 0.04 : 0 });
+  }
   const question = /\?\s*$/.test(text);
   const baseDur = P.syll / voice.speed;
   const n = syl.length;
@@ -404,6 +502,7 @@ export function shout(ctx: BaseAudioContext, dest: AudioNode, noise: AudioBuffer
   const k = variant % 3;
   const n = (vowel: string, dur: number, pitch: number, pitch2: number, gain = 1, onset = '', vowel2?: string): Note => ({ onset, vowel, vowel2, dur, pitch, pitch2, gain, hardStart: true, hardEnd: true, pause: 0 });
   const seed = `${kind}${variant}${voice.type}`;
+  if (voice.fx === 'bark' || voice.fx === 'yip' || voice.fx === 'croak') return utter(ctx, dest, noise, voice, animalShout(voice.fx, kind, k), at, rate, seed, { rough: ANIMAL_ROUGH[voice.fx], breath: voice.fx === 'bark' ? 0.05 : 0 });
   switch (kind) {
     case 'yell': // "HYAAH!" / "RAAH!" / "HUP-HAH!"
       return utter(ctx, dest, noise, voice, k === 2 ? [{ ...n('u', 0.07, 1.25, 1.3, 1, 'h'), pause: 0.03 }, n('a', 0.2, 1.45, 1.15, 1.2, 'h')] : [n('a', 0.28, 1.35, 1.6, 1.25, k === 0 ? 'hy' : 'r')], at, rate, seed, { rough: 0.25 });

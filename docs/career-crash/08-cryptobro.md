@@ -356,7 +356,7 @@ and a second mapping file, no new engine work.
   the fight.
 - **Embedding** the floor as a widget on other sites: later, if wanted.
 
-## 15. As built (phase 1)
+## 15. As built (phases 1–3)
 
 What exists now, and where it differs from the plan above.
 
@@ -375,5 +375,11 @@ What exists now, and where it differs from the plan above.
 | Rewind | Built: a picker in the header lists the hours on file (48 h); choosing one replays that hour from its start (`?t=`). |
 | Balance | Tuned on 48 recorded real hours (`pnpm balance --markets`): the best coin wins the hour **63%** of the time (target 60–75%), is in the top 3 **96%**, score vs points correlates at **0.86**. Each bro's borrowed career was evened out first (`statBonus`, `pnpm balance --markets-flat`: every bro within ±25% of an even share in a flat market); Peer-Review Pete now fights as a teacher and Para Pat as a life coach. Power: ±18 levels and ±140 stat points at score ±2. About 23 knockouts per candle, 9 liquidations an hour. |
 | Field | Real top-10 quirks handled: tokenised loans, exchange tokens and more stablecoins are excluded (`exclude`), a renamed ticker keeps its bro (`aliases`: GRAM → Tony Tons). |
-| Not yet (phase 3) | The bros' own moves (summons, laser eyes), scene events (bull, bear, whale, airdrops, rug pull, gas spike, FUD cloud), the Regulators visiting, the filling 100× gauge, a Trading Floor song. |
+| Voices (phase 3) | Each bro has a voice of their own (`voice` in `markets/crypto.json`: type, pitch, pace, effect). Effects in `replay/voices.ts`: DOGE **barks** every word, SHIB yips, PEPE croaks "ribbit", Neon Trent is auto-tuned, Anon Bro talks through a robotic voice changer; the OG is deep, Oracle Olly whispers, Speedrun Sol talks at 1.45×. Shouts (yells, ouches, KO wails) follow the effect: a yelp, a howl, a long sad croak. Shibas yap and frogs croak (`audio.ts`). |
+| Music (phase 3) | Two Trading Floor songs (`music.ts`): `trading-floor`, 140 bpm four-on-the-floor in A major for a green hour, and `trading-floor-bear`, 112 bpm in A minor, heading down, when the hour's median change is negative. |
+| Bros' own moves (phase 3) | `moves` per bro (granted on top of the borrowed career), 23 abilities in `abilities/cryptobro.json`, all from existing effects: Laser Eyes (a painted red beam), Halving, Gas Fee, The Merge, Ripple, Withdrawals Paused, Token Burn, Validator Rush, Much Bark, **Shiba Pack** (3 shibas), To The Moon, Citation Needed, Energy Rental, Avalanche, Off-Chain, Ton of Bricks, Walkies (2 shibas), Laser Eyes (Lite), **Ribbit Rally** (3 frogs), Pump & Dump (a big buff, then the crash), Slot Auction, Shill, DYOR. New critters `summon.shiba` and `summon.frog`. The ★ moves (engine concepts) are still to come. |
+| Scene events (phase 3) | `events` in the market: one every 30–55 s (`gapTicks`), drawn by weight from what the hour's mood allows (`minMoodBp`/`maxMoodBp`, median 1h change), seeded per hour and candle so everyone sees the same bull. **Bull Run** (green hours: charges across, tosses people), **Bear Market** (red: swats, knocks down, slows), **Whale Alert** (a whale in a suit, big knockback), **Black Swan** (rare, fast, stuns), **Airdrop** (crates on parachutes drop coffee), **Gas Spike** (green fog: energy drained, slowed), **FUD Cloud** (red: spooked and embarrassed), **Rug Pull** (rare: everyone on it goes flying). Creatures are mover props drawn with the critter art; in the sim they're `BattleInput.endless.events`. The office's own hazards are gone from the Trading Floor. `SIM_VERSION` 0.17.0. |
+| The Regulators (phase 3) | `crasher.regulators` (Prudence Ledger, compliance officer, with auditors Nigel Footnote and Priya Reconcile, `npc.reg-auditor`, `-b`) raid one candle in about one hour in six (`regulators` in the market), fighting every bro. They don't score and don't re-list once floored. |
+| Balance (phase 3) | Re-tuned with the new moves (`statBonus`): every bro within ±25% of an even share in a flat market (0.81–1.19); on 48 real hours the best coin wins the hour **65%**, is in the top 3 **98%**, ρ **0.88**. |
+| Not yet | The ★ moves (Smart Contract, Roadmap, Light Trail, Parachain, Network Outage), the filling 100× gauge, the Hype Train, coin-shower pickups. |
 

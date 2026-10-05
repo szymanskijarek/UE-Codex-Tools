@@ -1,6 +1,6 @@
 # Crypto Bros 8: The Regulators (gatecrashers)
 
-> **Status:** all three bodies and all twelve heads delivered and in the game (5 October 2026); the gatecrasher set itself comes in phase 3.
+> **Status:** all three bodies and all twelve heads delivered and in the game (5 October 2026); in the game as the gatecrasher set `crasher.regulators` (phase 3). The auditors are `npc-reg-auditor` (A, B): the main game already has an `npc-auditor` (the Stocktake leader).
 
 > Part of the Crypto Bros art set (`art/cryptobro/README.md`). Same format as
 > the main game's gatecrashers (`art/GATECRASHER_PROMPTS.md`).
@@ -41,20 +41,20 @@ a gap around it, transparent background, 1254 × 1254 (or 1536 × 1024).
 > back like a shield, sensible black shoes, a severe grey bob, half-moon
 > glasses, lips pressed thin.
 
-**2. Auditor** (`auditor`, navy #2563eb)
+**2. Auditor** (`reg-auditor`, navy #2563eb)
 > A: Nigel, a thin, sweaty auditor in a blue short-sleeved shirt and a navy
 > tie, a pocket protector full of pens, a calculator holstered on the belt,
-> beige trousers, brown shoes, a comb-over. → `art/sheets/npc-auditor.png`
+> beige trousers, brown shoes, a comb-over. → `art/sheets/npc-reg-auditor.png`
 > B: Priya, a sharp young auditor in a navy waistcoat over a white shirt,
 > sleeves rolled up, a tablet in a holster on the hip, a pencil behind the
-> ear, slim trousers, trainers, hair in a tight ponytail. → `art/sheets/npc-auditor-b.png`
+> ear, slim trousers, trainers, hair in a tight ponytail. → `art/sheets/npc-reg-auditor-b.png`
 
 ## Heads
 
 - 256 × 256, transparent, head only, centred, ~85% of the canvas, 3/4 facing
   right. Attach the character's body sheet.
 - Files: `art/heads/<expression>/npc-compliance-officer.png`,
-  `npc-auditor.png`, `npc-auditor-b.png`, for `neutral`, `angry`,
+  `npc-reg-auditor.png`, `npc-reg-auditor-b.png`, for `neutral`, `angry`,
   `surprised`, `hurt` (12 heads).
 
 > Pixel-art cartoon head for "Career Crash": chunky clean pixel art, thick dark

@@ -3,7 +3,7 @@ import type { ContentIndex } from './content';
 import type { Rng } from './core/rng';
 import type { NavGrid } from './systems/nav';
 
-export const SIM_VERSION = '0.16.1';
+export const SIM_VERSION = '0.17.0';
 export const TICKS_PER_SECOND = 20;
 export const MAX_TICKS = 2400;
 export const ENTITY_CAP = 256;
@@ -94,6 +94,21 @@ export interface EndlessInput {
   spawns: [number, number][];
   /** Who referees the floor: their name, and the persona their art comes from. */
   referee?: { name: string; persona: string };
+  /** Scene events (08 §6), rolled for the candle from the market's mood. */
+  events?: EndlessEvent[];
+}
+
+/** A scene event on an endless floor: a hazard action over a region and/or a creature crossing the floor. */
+export interface EndlessEvent {
+  id: string;
+  tick: number;
+  telegraphTicks: number;
+  region: [number, number, number, number];
+  action?: ArenaDef['hazards'][number]['action'];
+  /** A creature (a mover prop) walking `path` at `speedMm` per tick, then leaving. */
+  mover?: { prop: string; path: [number, number][]; speedMm: number };
+  /** How it looks (client only). */
+  art?: ArenaDef['hazards'][number]['art'];
 }
 
 export interface TeamSnapshot {

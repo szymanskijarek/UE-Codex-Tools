@@ -13,6 +13,8 @@ export function relistTick(w: World): void {
   if (!cfg) return;
   for (const e of w.entities) {
     if (!isFighter(e) || e.removed || e.state !== 'ko' || e.koTick < 0 || e.carriedBy >= 0) continue;
+    // Gatecrashers (the Regulators) aren't listed: floored, they stay down.
+    if (e.team === w.crashTeam) continue;
     const wait = e.snap?.leveraged ? cfg.liquidatedTicks : cfg.relistTicks;
     if (w.tick - e.koTick < wait) continue;
     relist(w, e, cfg.spawns, cfg.shieldTicks);
