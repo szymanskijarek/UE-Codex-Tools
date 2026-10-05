@@ -1,0 +1,17 @@
+{
+  "name": "@cc/commentary",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@cc/content-schema": "workspace:*",
+    "@cc/sim": "workspace:*"
+  },
+  "devDependencies": {
+    "@cc/content": "workspace:*",
+    "@cc/game-rules": "workspace:*"
+  }
+}

@@ -1,0 +1,665 @@
+{
+ "id": "arena.diner",
+ "sizeMm": [
+  22000,
+  16000
+ ],
+ "navCellMm": 500,
+ "walls": [],
+ "spawns": {
+  "a": [
+   [
+    2000,
+    8000
+   ],
+   [
+    2000,
+    5500
+   ],
+   [
+    2000,
+    10500
+   ],
+   [
+    3200,
+    4000
+   ],
+   [
+    3200,
+    12000
+   ]
+  ],
+  "b": [
+   [
+    20000,
+    8000
+   ],
+   [
+    20000,
+    5500
+   ],
+   [
+    20000,
+    10500
+   ],
+   [
+    18800,
+    4000
+   ],
+   [
+    18800,
+    12000
+   ]
+  ],
+  "ffa": [
+   [
+    2500,
+    2000
+   ],
+   [
+    19500,
+    2000
+   ],
+   [
+    2500,
+    14000
+   ],
+   [
+    19500,
+    14000
+   ],
+   [
+    7500,
+    8000
+   ],
+   [
+    14500,
+    8000
+   ],
+   [
+    11000,
+    1600
+   ],
+   [
+    11000,
+    14400
+   ]
+  ]
+ },
+ "refereeSpawn": [
+  11000,
+  6000
+ ],
+ "props": [
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    4500,
+    2600
+   ]
+  },
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    17500,
+    2600
+   ]
+  },
+  {
+   "prop": "prop.olive-oil",
+   "at": [
+    6200,
+    2400
+   ]
+  },
+  {
+   "prop": "prop.olive-oil",
+   "at": [
+    15800,
+    2400
+   ]
+  },
+  {
+   "prop": "prop.snack",
+   "at": [
+    5400,
+    5400
+   ]
+  },
+  {
+   "prop": "prop.snack",
+   "at": [
+    16600,
+    5400
+   ]
+  },
+  {
+   "prop": "prop.soda-can",
+   "at": [
+    3600,
+    8200
+   ]
+  },
+  {
+   "prop": "prop.soda-can",
+   "at": [
+    18400,
+    8200
+   ]
+  },
+  {
+   "prop": "prop.wine-bottle",
+   "at": [
+    7000,
+    12800
+   ]
+  },
+  {
+   "prop": "prop.wine-bottle",
+   "at": [
+    15000,
+    12800
+   ]
+  },
+  {
+   "prop": "prop.fire-extinguisher",
+   "at": [
+    1400,
+    14800
+   ]
+  },
+  {
+   "prop": "prop.fire-extinguisher",
+   "at": [
+    20600,
+    14800
+   ]
+  },
+  {
+   "prop": "prop.wet-floor-sign",
+   "at": [
+    8200,
+    9400
+   ]
+  },
+  {
+   "prop": "prop.wet-floor-sign",
+   "at": [
+    13800,
+    9400
+   ]
+  },
+  {
+   "prop": "prop.rubber-chicken",
+   "at": [
+    9200,
+    4800
+   ]
+  },
+  {
+   "prop": "prop.rubber-chicken",
+   "at": [
+    12800,
+    4800
+   ]
+  },
+  {
+   "prop": "prop.coffee-machine",
+   "at": [
+    11000,
+    700
+   ]
+  },
+  {
+   "prop": "prop.cake",
+   "at": [
+    11000,
+    8000
+   ]
+  },
+  {
+   "prop": "prop.gas-canister",
+   "at": [
+    11000,
+    15200
+   ]
+  },
+  {
+   "prop": "prop.mop-bucket",
+   "at": [
+    11000,
+    12600
+   ]
+  },
+  {
+   "prop": "prop.watermelon",
+   "at": [
+    8600,
+    1600
+   ]
+  },
+  {
+   "prop": "prop.watermelon",
+   "at": [
+    13400,
+    1600
+   ]
+  },
+  {
+   "prop": "prop.ketchup",
+   "at": [
+    7800,
+    2400
+   ]
+  },
+  {
+   "prop": "prop.ketchup",
+   "at": [
+    14200,
+    2400
+   ]
+  },
+  {
+   "prop": "prop.coffee-pot",
+   "at": [
+    9800,
+    2200
+   ]
+  },
+  {
+   "prop": "prop.coffee-pot",
+   "at": [
+    12200,
+    2200
+   ]
+  },
+  {
+   "prop": "prop.diner-tray",
+   "at": [
+    4300,
+    7400
+   ]
+  },
+  {
+   "prop": "prop.diner-tray",
+   "at": [
+    17700,
+    7400
+   ]
+  },
+  {
+   "prop": "prop.diner-stool",
+   "at": [
+    8200,
+    3600
+   ]
+  },
+  {
+   "prop": "prop.diner-stool",
+   "at": [
+    13800,
+    3600
+   ]
+  },
+  {
+   "prop": "prop.diner-stool",
+   "at": [
+    11000,
+    11800
+   ]
+  },
+  {
+   "prop": "prop.beer-keg",
+   "at": [
+    6600,
+    4800
+   ]
+  },
+  {
+   "prop": "prop.beer-keg",
+   "at": [
+    15400,
+    11200
+   ]
+  },
+  {
+   "prop": "prop.pepper-grinder",
+   "at": [
+    6600,
+    11200
+   ]
+  },
+  {
+   "prop": "prop.pepper-grinder",
+   "at": [
+    15400,
+    4800
+   ]
+  }
+ ],
+ "hazards": [
+  {
+   "id": "hazard.order-up",
+   "startTick": 400,
+   "everyTicks": 550,
+   "telegraphTicks": 30,
+   "region": [
+    5000,
+    500,
+    12000,
+    2500
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.snack",
+     "count": 2,
+     "dropFromMm": 2000
+    }
+   }
+  },
+  {
+   "id": "hazard.grease-fire",
+   "startTick": 800,
+   "everyTicks": 700,
+   "telegraphTicks": 50,
+   "region": [
+    7000,
+    600,
+    8000,
+    1500
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.fire-patch",
+     "count": 1
+    }
+   }
+  },
+  {
+   "id": "hazard.milkshake-spill",
+   "startTick": 600,
+   "everyTicks": 450,
+   "telegraphTicks": 30,
+   "region": [
+    3000,
+    4000,
+    16000,
+    9000
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.soda-spill",
+     "count": 1
+    }
+   }
+  },
+  {
+   "id": "hazard.jukebox",
+   "startTick": 500,
+   "everyTicks": 650,
+   "telegraphTicks": 30,
+   "region": [
+    1500,
+    12000,
+    6500,
+    4000
+   ],
+   "action": {
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.distracted",
+      "durationTicks": 60
+     }
+    ]
+   }
+  },
+  {
+   "id": "hazard.steam-vent",
+   "startTick": 350,
+   "everyTicks": 380,
+   "telegraphTicks": 30,
+   "region": [
+    10200,
+    4600,
+    1600,
+    1100
+   ],
+   "action": {
+    "effects": [
+     {
+      "type": "damage",
+      "amount": 3,
+      "damageType": "fire"
+     },
+     {
+      "type": "applyStatus",
+      "status": "status.distracted",
+      "durationTicks": 40
+     },
+     {
+      "type": "knockback",
+      "forceMm": 600
+     }
+    ]
+   },
+   "art": {
+    "active": "steam-vent",
+    "activeTicks": 40,
+    "at": [
+     11000,
+     5700
+    ],
+    "floor": true,
+    "fx": "steam"
+   }
+  }
+ ],
+ "suddenDeath": {
+  "everyTicks": 200,
+  "region": [
+   0,
+   0,
+   22000,
+   16000
+  ],
+  "action": {
+   "spawn": {
+    "prop": "prop.oil-spill",
+    "count": 1
+   },
+   "effects": [
+    {
+     "type": "applyStatus",
+     "status": "status.caffeinated",
+     "durationTicks": 100
+    }
+   ]
+  }
+ },
+ "stations": [
+  {
+   "id": "counter",
+   "name": "the Counter",
+   "at": [
+    11000,
+    2400
+   ]
+  },
+  {
+   "id": "booths-w",
+   "name": "the Window Booths",
+   "at": [
+    3200,
+    4200
+   ]
+  },
+  {
+   "id": "booths-e",
+   "name": "the Corner Booths",
+   "at": [
+    18800,
+    4200
+   ]
+  },
+  {
+   "id": "jukebox",
+   "name": "the Jukebox",
+   "at": [
+    5200,
+    13600
+   ]
+  },
+  {
+   "id": "restrooms",
+   "name": "the Restrooms",
+   "at": [
+    16800,
+    13600
+   ]
+  }
+ ],
+ "movers": [
+  {
+   "id": "hazard.robot-vacuum",
+   "prop": "prop.robot-vacuum",
+   "path": [
+    [
+     1500,
+     8400
+    ],
+    [
+     20500,
+     8400
+    ],
+    [
+     20500,
+     14500
+    ],
+    [
+     1500,
+     14500
+    ]
+   ],
+   "startTick": 300,
+   "telegraphTicks": 40,
+   "speedMm": 55,
+   "loop": true
+  }
+ ],
+ "theme": {
+  "floor": "#c9ccbf",
+  "wall": "#7f1d1d",
+  "accent": "#dc2626"
+ },
+ "unlock": {
+  "league": "intern"
+ },
+ "obstacles": [
+  {
+   "at": [
+    5200,
+    5800,
+    2400,
+    1100
+   ],
+   "art": [
+    "diner-booth",
+    "diner-table"
+   ]
+  },
+  {
+   "at": [
+    14400,
+    5800,
+    2400,
+    1100
+   ],
+   "art": [
+    "diner-table",
+    "diner-booth"
+   ]
+  },
+  {
+   "at": [
+    5200,
+    10600,
+    2400,
+    1100
+   ],
+   "art": [
+    "diner-booth",
+    "diner-table"
+   ]
+  },
+  {
+   "at": [
+    14400,
+    10600,
+    2400,
+    1100
+   ],
+   "art": [
+    "diner-table",
+    "diner-booth"
+   ]
+  },
+  {
+   "at": [
+    4300,
+    15100,
+    1000,
+    700
+   ],
+   "art": [
+    "jukebox"
+   ]
+  },
+  {
+   "at": [
+    9800,
+    3600,
+    2400,
+    800
+   ],
+   "art": [
+    "diner-pass"
+   ],
+   "chanceBp": 6000
+  },
+  {
+   "at": [
+    20800,
+    600,
+    900,
+    800
+   ],
+   "art": [
+    "drinks-fridge"
+   ],
+   "chanceBp": 7000
+  },
+  {
+   "at": [
+    8800,
+    12300,
+    4400,
+    900
+   ],
+   "art": [
+    "diner-counter"
+   ],
+   "chanceBp": 6000
+  }
+ ],
+ "debris": [
+  "prop.ketchup",
+  "prop.diner-tray",
+  "prop.coffee-cup",
+  "prop.diner-stool"
+ ],
+ "boss": {
+  "career": "career.head-chef",
+  "name": "Marco Bellissimo"
+ }
+}

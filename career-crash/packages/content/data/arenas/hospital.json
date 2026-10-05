@@ -1,0 +1,558 @@
+{
+ "id": "arena.hospital",
+ "sizeMm": [
+  24000,
+  13000
+ ],
+ "navCellMm": 500,
+ "walls": [],
+ "spawns": {
+  "a": [
+   [
+    2000,
+    6500
+   ],
+   [
+    2000,
+    4200
+   ],
+   [
+    2000,
+    8800
+   ],
+   [
+    3200,
+    2800
+   ],
+   [
+    3200,
+    10200
+   ]
+  ],
+  "b": [
+   [
+    22000,
+    6500
+   ],
+   [
+    22000,
+    4200
+   ],
+   [
+    22000,
+    8800
+   ],
+   [
+    20800,
+    2800
+   ],
+   [
+    20800,
+    10200
+   ]
+  ],
+  "ffa": [
+   [
+    2500,
+    1900
+   ],
+   [
+    21500,
+    1900
+   ],
+   [
+    2500,
+    11100
+   ],
+   [
+    21500,
+    11100
+   ],
+   [
+    8500,
+    6500
+   ],
+   [
+    15500,
+    6500
+   ],
+   [
+    12000,
+    1600
+   ],
+   [
+    12000,
+    11400
+   ]
+  ]
+ },
+ "refereeSpawn": [
+  12000,
+  5200
+ ],
+ "props": [
+  {
+   "prop": "prop.first-aid-case",
+   "at": [
+    3000,
+    11600
+   ]
+  },
+  {
+   "prop": "prop.first-aid-case",
+   "at": [
+    21000,
+    11600
+   ]
+  },
+  {
+   "prop": "prop.stethoscope",
+   "at": [
+    7400,
+    6600
+   ]
+  },
+  {
+   "prop": "prop.stethoscope",
+   "at": [
+    16600,
+    6600
+   ]
+  },
+  {
+   "prop": "prop.spray-bottle",
+   "at": [
+    8800,
+    2600
+   ]
+  },
+  {
+   "prop": "prop.spray-bottle",
+   "at": [
+    15200,
+    2600
+   ]
+  },
+  {
+   "prop": "prop.towel-stack",
+   "at": [
+    3200,
+    7400
+   ]
+  },
+  {
+   "prop": "prop.towel-stack",
+   "at": [
+    20800,
+    7400
+   ]
+  },
+  {
+   "prop": "prop.bedpan",
+   "at": [
+    5600,
+    6000
+   ]
+  },
+  {
+   "prop": "prop.bedpan",
+   "at": [
+    18400,
+    6000
+   ]
+  },
+  {
+   "prop": "prop.iv-bag",
+   "at": [
+    9400,
+    10600
+   ]
+  },
+  {
+   "prop": "prop.iv-bag",
+   "at": [
+    14600,
+    10600
+   ]
+  },
+  {
+   "prop": "prop.office-chair",
+   "at": [
+    2400,
+    2200
+   ]
+  },
+  {
+   "prop": "prop.office-chair",
+   "at": [
+    21600,
+    2200
+   ]
+  },
+  {
+   "prop": "prop.fire-extinguisher",
+   "at": [
+    2000,
+    5000
+   ]
+  },
+  {
+   "prop": "prop.fire-extinguisher",
+   "at": [
+    22000,
+    5000
+   ]
+  },
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    6200,
+    11800
+   ]
+  },
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    17800,
+    11800
+   ]
+  },
+  {
+   "prop": "prop.wet-floor-sign",
+   "at": [
+    9800,
+    7800
+   ]
+  },
+  {
+   "prop": "prop.wet-floor-sign",
+   "at": [
+    14200,
+    7800
+   ]
+  },
+  {
+   "prop": "prop.mop-bucket",
+   "at": [
+    12000,
+    9400
+   ]
+  },
+  {
+   "prop": "prop.first-aid-case",
+   "at": [
+    12000,
+    11600
+   ]
+  },
+  {
+   "prop": "prop.iv-bag",
+   "at": [
+    12000,
+    4200
+   ]
+  }
+ ],
+ "hazards": [
+  {
+   "id": "hazard.saline-spill",
+   "startTick": 400,
+   "everyTicks": 550,
+   "telegraphTicks": 30,
+   "region": [
+    3000,
+    2000,
+    18000,
+    9000
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.puddle-water",
+     "count": 1
+    }
+   }
+  },
+  {
+   "id": "hazard.code-blue",
+   "startTick": 700,
+   "everyTicks": 700,
+   "telegraphTicks": 30,
+   "region": [
+    2000,
+    1500,
+    20000,
+    10000
+   ],
+   "action": {
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.distracted",
+      "durationTicks": 60
+     },
+     {
+      "type": "morale",
+      "amount": -10
+     }
+    ]
+   }
+  },
+  {
+   "id": "hazard.supply-drop",
+   "startTick": 1000,
+   "everyTicks": 800,
+   "telegraphTicks": 30,
+   "region": [
+    8000,
+    5000,
+    8000,
+    3000
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.first-aid-case",
+     "count": 1
+    }
+   }
+  },
+  {
+   "id": "hazard.sprinklers",
+   "startTick": 1200,
+   "everyTicks": 800,
+   "telegraphTicks": 50,
+   "region": [
+    6000,
+    4500,
+    12000,
+    5000
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.puddle-water",
+     "count": 3
+    },
+    "effects": [
+     {
+      "type": "removeStatus",
+      "status": "status.burning"
+     },
+     {
+      "type": "applyStatus",
+      "status": "status.wet",
+      "durationTicks": 100
+     }
+    ]
+   },
+   "art": {
+    "active": "sprinkler",
+    "activeTicks": 60,
+    "at": [
+     12000,
+     7000
+    ],
+    "fx": "spray"
+   }
+  }
+ ],
+ "suddenDeath": {
+  "everyTicks": 200,
+  "region": [
+   0,
+   0,
+   24000,
+   13000
+  ],
+  "action": {
+   "spawn": {
+    "prop": "prop.bedpan",
+    "count": 2,
+    "dropFromMm": 4000
+   },
+   "effects": [
+    {
+     "type": "applyStatus",
+     "status": "status.stunned",
+     "durationTicks": 20
+    }
+   ]
+  }
+ },
+ "stations": [
+  {
+   "id": "centre",
+   "name": "the Nurses' Station",
+   "at": [
+    12000,
+    3000
+   ]
+  },
+  {
+   "id": "nw",
+   "name": "Bed 4",
+   "at": [
+    3800,
+    2800
+   ]
+  },
+  {
+   "id": "ne",
+   "name": "Bed 12",
+   "at": [
+    20200,
+    2800
+   ]
+  },
+  {
+   "id": "sw",
+   "name": "the Supply Closet",
+   "at": [
+    4800,
+    10600
+   ]
+  },
+  {
+   "id": "se",
+   "name": "A&E Doors",
+   "at": [
+    19200,
+    10600
+   ]
+  }
+ ],
+ "obstacles": [
+  {
+   "at": [
+    4200,
+    4400,
+    2400,
+    900
+   ],
+   "art": [
+    "hospital-bed",
+    "ward-screen"
+   ]
+  },
+  {
+   "at": [
+    17400,
+    4400,
+    2400,
+    900
+   ],
+   "art": [
+    "ward-screen",
+    "hospital-bed"
+   ]
+  },
+  {
+   "at": [
+    6000,
+    8800,
+    2400,
+    800
+   ],
+   "art": [
+    "ward-screen",
+    "nurses-station"
+   ]
+  },
+  {
+   "at": [
+    15600,
+    8800,
+    2400,
+    800
+   ],
+   "art": [
+    "nurses-station",
+    "ward-screen"
+   ]
+  },
+  {
+   "at": [
+    10800,
+    5800,
+    2400,
+    1000
+   ],
+   "art": [
+    "mri-scanner"
+   ],
+   "chanceBp": 6000
+  }
+ ],
+ "debris": [
+  "prop.bedpan",
+  "prop.towel-stack",
+  "prop.spray-bottle",
+  "prop.paper-stack"
+ ],
+ "theme": {
+  "floor": "#5fb8b0",
+  "wall": "#0f766e",
+  "accent": "#ef4444"
+ },
+ "unlock": {
+  "league": "intern"
+ },
+ "movers": [
+  {
+   "id": "hazard.floor-scrubber",
+   "prop": "prop.floor-scrubber",
+   "path": [
+    [
+     500,
+     7400
+    ],
+    [
+     23500,
+     7400
+    ]
+   ],
+   "startTick": 600,
+   "telegraphTicks": 60,
+   "speedMm": 90,
+   "loop": false
+  },
+  {
+   "id": "hazard.floor-scrubber",
+   "prop": "prop.floor-scrubber",
+   "path": [
+    [
+     23500,
+     3600
+    ],
+    [
+     500,
+     3600
+    ]
+   ],
+   "startTick": 1500,
+   "telegraphTicks": 60,
+   "speedMm": 90,
+   "loop": false
+  },
+  {
+   "id": "hazard.gurney",
+   "prop": "prop.gurney",
+   "path": [
+    [
+     23500,
+     7400
+    ],
+    [
+     500,
+     7400
+    ]
+   ],
+   "startTick": 1050,
+   "telegraphTicks": 60,
+   "speedMm": 120,
+   "loop": false
+  }
+ ],
+ "boss": {
+  "career": "career.chief-surgeon",
+  "name": "Dr Victor Stitch"
+ }
+}

@@ -1,0 +1,544 @@
+{
+ "id": "arena.theatre",
+ "sizeMm": [
+  24000,
+  13000
+ ],
+ "navCellMm": 500,
+ "walls": [],
+ "spawns": {
+  "a": [
+   [
+    2000,
+    6500
+   ],
+   [
+    2000,
+    4200
+   ],
+   [
+    2000,
+    8800
+   ],
+   [
+    3200,
+    2800
+   ],
+   [
+    3200,
+    10200
+   ]
+  ],
+  "b": [
+   [
+    22000,
+    6500
+   ],
+   [
+    22000,
+    4200
+   ],
+   [
+    22000,
+    8800
+   ],
+   [
+    20800,
+    2800
+   ],
+   [
+    20800,
+    10200
+   ]
+  ],
+  "ffa": [
+   [
+    2500,
+    1900
+   ],
+   [
+    21500,
+    1900
+   ],
+   [
+    2500,
+    11100
+   ],
+   [
+    21500,
+    11100
+   ],
+   [
+    8500,
+    6500
+   ],
+   [
+    15500,
+    6500
+   ],
+   [
+    12000,
+    1600
+   ],
+   [
+    12000,
+    11400
+   ]
+  ]
+ },
+ "refereeSpawn": [
+  12000,
+  5200
+ ],
+ "props": [
+  {
+   "prop": "prop.rolled-carpet",
+   "at": [
+    3200,
+    2400
+   ]
+  },
+  {
+   "prop": "prop.rolled-carpet",
+   "at": [
+    20800,
+    2400
+   ]
+  },
+  {
+   "prop": "prop.coat-stand",
+   "at": [
+    8800,
+    11000
+   ]
+  },
+  {
+   "prop": "prop.coat-stand",
+   "at": [
+    15200,
+    11000
+   ]
+  },
+  {
+   "prop": "prop.rubber-chicken",
+   "at": [
+    7400,
+    6800
+   ]
+  },
+  {
+   "prop": "prop.rubber-chicken",
+   "at": [
+    16600,
+    6800
+   ]
+  },
+  {
+   "prop": "prop.desk-lamp",
+   "at": [
+    3000,
+    8200
+   ]
+  },
+  {
+   "prop": "prop.desk-lamp",
+   "at": [
+    21000,
+    8200
+   ]
+  },
+  {
+   "prop": "prop.paint-bucket",
+   "at": [
+    5400,
+    11600
+   ]
+  },
+  {
+   "prop": "prop.paint-bucket",
+   "at": [
+    18600,
+    11600
+   ]
+  },
+  {
+   "prop": "prop.paper-stack",
+   "at": [
+    9000,
+    3000
+   ]
+  },
+  {
+   "prop": "prop.paper-stack",
+   "at": [
+    15000,
+    3000
+   ]
+  },
+  {
+   "prop": "prop.cardboard-box",
+   "at": [
+    2200,
+    11800
+   ]
+  },
+  {
+   "prop": "prop.cardboard-box",
+   "at": [
+    21800,
+    11800
+   ]
+  },
+  {
+   "prop": "prop.fire-extinguisher",
+   "at": [
+    9600,
+    8200
+   ]
+  },
+  {
+   "prop": "prop.fire-extinguisher",
+   "at": [
+    14400,
+    8200
+   ]
+  },
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    5600,
+    6000
+   ]
+  },
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    18400,
+    6000
+   ]
+  },
+  {
+   "prop": "prop.gas-canister",
+   "at": [
+    2000,
+    1600
+   ]
+  },
+  {
+   "prop": "prop.gas-canister",
+   "at": [
+    22000,
+    1600
+   ]
+  },
+  {
+   "prop": "prop.gas-canister",
+   "at": [
+    8400,
+    6400
+   ]
+  },
+  {
+   "prop": "prop.gas-canister",
+   "at": [
+    15600,
+    6400
+   ]
+  },
+  {
+   "prop": "prop.power-strip",
+   "at": [
+    4200,
+    5200
+   ]
+  },
+  {
+   "prop": "prop.power-strip",
+   "at": [
+    19800,
+    5200
+   ]
+  },
+  {
+   "prop": "prop.novelty-cheque",
+   "at": [
+    12000,
+    9000
+   ]
+  },
+  {
+   "prop": "prop.cake",
+   "at": [
+    12000,
+    11400
+   ]
+  },
+  {
+   "prop": "prop.crate",
+   "at": [
+    12000,
+    1600
+   ]
+  }
+ ],
+ "hazards": [
+  {
+   "id": "hazard.falling-sandbag",
+   "startTick": 350,
+   "everyTicks": 450,
+   "telegraphTicks": 35,
+   "region": [
+    3000,
+    1500,
+    18000,
+    9000
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.brick",
+     "count": 2,
+     "dropFromMm": 5000
+    }
+   }
+  },
+  {
+   "id": "hazard.dry-ice",
+   "startTick": 700,
+   "everyTicks": 650,
+   "telegraphTicks": 30,
+   "region": [
+    4000,
+    3000,
+    16000,
+    6000
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.foam-cloud",
+     "count": 1
+    },
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.slowed",
+      "durationTicks": 60
+     }
+    ]
+   }
+  },
+  {
+   "id": "hazard.spotlight",
+   "startTick": 1000,
+   "everyTicks": 700,
+   "telegraphTicks": 30,
+   "region": [
+    8000,
+    4000,
+    8000,
+    4000
+   ],
+   "action": {
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.inspired",
+      "durationTicks": 100
+     }
+    ]
+   }
+  },
+  {
+   "id": "hazard.trapdoor",
+   "startTick": 500,
+   "everyTicks": 450,
+   "telegraphTicks": 40,
+   "region": [
+    11000,
+    7900,
+    2000,
+    1400
+   ],
+   "action": {
+    "trapdoor": {
+     "stunTicks": 40
+    }
+   },
+   "art": {
+    "sprite": "trapdoor",
+    "active": "trapdoor-open",
+    "activeTicks": 40,
+    "at": [
+     12000,
+     9300
+    ],
+    "floor": true,
+    "fx": "dust"
+   }
+  }
+ ],
+ "suddenDeath": {
+  "everyTicks": 200,
+  "region": [
+   0,
+   0,
+   24000,
+   13000
+  ],
+  "action": {
+   "spawn": {
+    "prop": "prop.crate",
+    "count": 2,
+    "dropFromMm": 5000
+   },
+   "effects": [
+    {
+     "type": "applyStatus",
+     "status": "status.stunned",
+     "durationTicks": 20
+    }
+   ]
+  }
+ },
+ "stations": [
+  {
+   "id": "centre",
+   "name": "Upstage",
+   "at": [
+    12000,
+    3000
+   ]
+  },
+  {
+   "id": "nw",
+   "name": "Stage Left",
+   "at": [
+    3800,
+    2800
+   ]
+  },
+  {
+   "id": "ne",
+   "name": "Stage Right",
+   "at": [
+    20200,
+    2800
+   ]
+  },
+  {
+   "id": "sw",
+   "name": "the Wings",
+   "at": [
+    4800,
+    10600
+   ]
+  },
+  {
+   "id": "se",
+   "name": "the Prompt Box",
+   "at": [
+    19200,
+    10600
+   ]
+  }
+ ],
+ "obstacles": [
+  {
+   "at": [
+    5000,
+    2200,
+    2800,
+    700
+   ],
+   "art": [
+    "scenery-flat"
+   ]
+  },
+  {
+   "at": [
+    16200,
+    2200,
+    2800,
+    700
+   ],
+   "art": [
+    "scenery-flat"
+   ]
+  },
+  {
+   "at": [
+    6200,
+    8800,
+    2200,
+    900
+   ],
+   "art": [
+    "costume-rack"
+   ]
+  },
+  {
+   "at": [
+    15600,
+    8800,
+    2200,
+    900
+   ],
+   "art": [
+    "costume-rack"
+   ]
+  },
+  {
+   "at": [
+    1000,
+    5200,
+    1800,
+    900
+   ],
+   "art": [
+    "prop-trunk"
+   ],
+   "chanceBp": 6000
+  },
+  {
+   "at": [
+    21200,
+    5200,
+    1800,
+    900
+   ],
+   "art": [
+    "prop-trunk"
+   ],
+   "chanceBp": 6000
+  },
+  {
+   "at": [
+    10700,
+    5400,
+    2600,
+    1000
+   ],
+   "art": [
+    "lighting-desk"
+   ],
+   "chanceBp": 6000
+  }
+ ],
+ "debris": [
+  "prop.crate",
+  "prop.paper-stack",
+  "prop.cardboard-box",
+  "prop.paint-bucket"
+ ],
+ "theme": {
+  "floor": "#7c4a2d",
+  "wall": "#3b0764",
+  "accent": "#fbbf24"
+ },
+ "unlock": {
+  "league": "intern"
+ },
+ "boss": {
+  "career": "career.impresario",
+  "name": "Maestro Lucien Velour"
+ }
+}

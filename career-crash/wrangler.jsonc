@@ -1,0 +1,17 @@
+// careercrash.org: the offline game (career mode + Sandbox) as a static site on
+// Cloudflare Workers. Built by `pnpm build:web`, deployed by Workers Builds from
+// the `prod` branch (see PIPELINES.md §6.4). The API worker is separate
+// (apps/worker/wrangler.toml).
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "career-crash",
+  "compatibility_date": "2025-09-01",
+  "assets": {
+    "directory": "./apps/client/dist-web",
+    "not_found_handling": "single-page-application"
+  },
+  "routes": [
+    { "pattern": "careercrash.org", "custom_domain": true },
+    { "pattern": "www.careercrash.org", "custom_domain": true }
+  ]
+}

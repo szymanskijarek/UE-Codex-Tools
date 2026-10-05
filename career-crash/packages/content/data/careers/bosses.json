@@ -1,0 +1,428 @@
+[
+ {
+  "id": "career.store-manager",
+  "tier": 3,
+  "boss": true,
+  "tags": [
+   "role:office",
+   "skill:persuade"
+  ],
+  "statMods": {
+   "confidence": 2,
+   "charisma": 1,
+   "health": 1
+  },
+  "passive": "ability.customer-is-always-right",
+  "active": "ability.price-check",
+  "extraActives": [
+   "ability.clean-up-aisle-five",
+   "ability.store-closing"
+  ],
+  "defense": {
+   "parryBp": 400
+  },
+  "prerequisites": null,
+  "unlock": {
+   "type": "achievement",
+   "achievement": "boss"
+  },
+  "art": {
+   "color": "#b91c1c",
+   "hat": "#facc15",
+   "icon": "🏷️"
+  }
+ },
+ {
+  "id": "career.ceo",
+  "tier": 3,
+  "boss": true,
+  "tags": [
+   "role:office",
+   "skill:persuade",
+   "skill:numbers"
+  ],
+  "statMods": {
+   "strength": 2,
+   "confidence": 2,
+   "health": 2,
+   "charisma": 1,
+   "awareness": -1
+  },
+  "passive": "ability.golden-parachute",
+  "active": "ability.hostile-takeover",
+  "extraActives": [
+   "ability.downsizing",
+   "ability.bonus-season"
+  ],
+  "defense": {
+   "parryBp": 600
+  },
+  "prerequisites": null,
+  "unlock": {
+   "type": "achievement",
+   "achievement": "boss"
+  },
+  "art": {
+   "color": "#1f2937",
+   "hat": "#dc2626",
+   "icon": "💼"
+  }
+ },
+ {
+  "id": "career.head-chef",
+  "tier": 3,
+  "boss": true,
+  "tags": [
+   "role:food",
+   "skill:cook"
+  ],
+  "statMods": {
+   "strength": 2,
+   "health": 2,
+   "confidence": 1,
+   "throwing": 1,
+   "intelligence": -1
+  },
+  "passive": "ability.heat-of-the-kitchen",
+  "active": "ability.flambe-finale",
+  "extraActives": [
+   "ability.stock-pot-splash",
+   "ability.behind"
+  ],
+  "defense": {
+   "parryBp": 600
+  },
+  "prerequisites": null,
+  "unlock": {
+   "type": "achievement",
+   "achievement": "boss"
+  },
+  "art": {
+   "color": "#f8fafc",
+   "hat": "#dc2626",
+   "icon": "👨‍🍳"
+  }
+ },
+ {
+  "id": "career.stationmaster",
+  "tier": 3,
+  "boss": true,
+  "tags": [
+   "role:transport",
+   "skill:drive"
+  ],
+  "statMods": {
+   "awareness": 3,
+   "confidence": 2,
+   "health": 2,
+   "energy": 1,
+   "charisma": -1
+  },
+  "passive": "ability.always-on-time",
+  "active": "ability.mind-the-gap",
+  "extraActives": [
+   "ability.delayed-service",
+   "ability.express-service"
+  ],
+  "defense": {
+   "parryBp": 600,
+   "dashBp": 1200
+  },
+  "prerequisites": null,
+  "unlock": {
+   "type": "achievement",
+   "achievement": "boss"
+  },
+  "art": {
+   "color": "#1e3a8a",
+   "hat": "#1e3a8a",
+   "icon": "🚉"
+  }
+ },
+ {
+  "id": "career.warehouse-foreman",
+  "tier": 3,
+  "boss": true,
+  "tags": [
+   "role:manual",
+   "skill:carry",
+   "skill:drive"
+  ],
+  "statMods": {
+   "strength": 2,
+   "health": 2,
+   "throwing": 2,
+   "recovery": 1,
+   "charisma": -2
+  },
+  "passive": "ability.steel-toecaps",
+  "active": "ability.pallet-drop",
+  "extraActives": [
+   "ability.safety-briefing",
+   "ability.forklift-certified"
+  ],
+  "defense": {
+   "parryBp": 700
+  },
+  "prerequisites": null,
+  "unlock": {
+   "type": "achievement",
+   "achievement": "boss"
+  },
+  "art": {
+   "color": "#d9f99d",
+   "hat": "#1f2937",
+   "icon": "📦"
+  }
+ },
+ {
+  "id": "career.site-foreman",
+  "tier": 3,
+  "boss": true,
+  "tags": [
+   "role:manual",
+   "skill:build"
+  ],
+  "statMods": {
+   "strength": 3,
+   "health": 3,
+   "confidence": 1,
+   "recovery": 1,
+   "speed": -1
+  },
+  "passive": "ability.hard-hat-area",
+  "active": "ability.wrecking-ball",
+  "extraActives": [
+   "ability.concrete-pour",
+   "ability.condemned"
+  ],
+  "defense": {
+   "parryBp": 1000
+  },
+  "prerequisites": null,
+  "unlock": {
+   "type": "achievement",
+   "achievement": "boss"
+  },
+  "art": {
+   "color": "#1e3a8a",
+   "hat": "#facc15",
+   "icon": "🦺"
+  }
+ },
+ {
+  "id": "career.harbour-master",
+  "tier": 3,
+  "boss": true,
+  "tags": [
+   "role:transport",
+   "skill:swim"
+  ],
+  "statMods": {
+   "strength": 3,
+   "health": 3,
+   "throwing": 2,
+   "awareness": 1,
+   "speed": -2
+  },
+  "passive": "ability.fifty-years-at-sea",
+  "active": "ability.man-overboard",
+  "extraActives": [
+   "ability.reel-em-in",
+   "ability.rogue-wave"
+  ],
+  "defense": {
+   "parryBp": 800
+  },
+  "prerequisites": null,
+  "unlock": {
+   "type": "achievement",
+   "achievement": "boss"
+  },
+  "art": {
+   "color": "#1e3a5f",
+   "hat": "#f8fafc",
+   "icon": "⚓"
+  }
+ },
+ {
+  "id": "career.hotel-manager",
+  "tier": 3,
+  "boss": true,
+  "tags": [
+   "role:office",
+   "skill:persuade"
+  ],
+  "statMods": {
+   "charisma": 3,
+   "confidence": 2,
+   "health": 2,
+   "awareness": 1,
+   "strength": -1
+  },
+  "passive": "ability.five-star-service",
+  "active": "ability.check-out-time",
+  "extraActives": [
+   "ability.do-not-disturb",
+   "ability.complimentary-upgrade"
+  ],
+  "defense": {
+   "evadeBp": 700,
+   "parryBp": 500
+  },
+  "prerequisites": null,
+  "unlock": {
+   "type": "achievement",
+   "achievement": "boss"
+  },
+  "art": {
+   "color": "#7f1d1d",
+   "hat": "#3f2a14",
+   "icon": "🛎️"
+  }
+ },
+ {
+  "id": "career.chief-surgeon",
+  "tier": 3,
+  "boss": true,
+  "tags": [
+   "role:medical",
+   "skill:heal"
+  ],
+  "statMods": {
+   "strength": 3,
+   "awareness": 3,
+   "health": 2,
+   "recovery": 2,
+   "charisma": -1
+  },
+  "passive": "ability.surgeons-hands",
+  "active": "ability.precision-incision",
+  "extraActives": [
+   "ability.general-anaesthetic",
+   "ability.second-opinion"
+  ],
+  "defense": {
+   "parryBp": 900,
+   "evadeBp": 600
+  },
+  "prerequisites": null,
+  "unlock": {
+   "type": "achievement",
+   "achievement": "boss"
+  },
+  "art": {
+   "color": "#f8fafc",
+   "hat": "#0f766e",
+   "icon": "🩺"
+  }
+ },
+ {
+  "id": "career.museum-director",
+  "tier": 3,
+  "boss": true,
+  "tags": [
+   "role:arts",
+   "skill:investigate"
+  ],
+  "statMods": {
+   "intelligence": 3,
+   "confidence": 3,
+   "awareness": 2,
+   "throwing": 2,
+   "health": 1,
+   "speed": -2
+  },
+  "passive": "ability.old-money",
+  "active": "ability.priceless-exhibit",
+  "extraActives": [
+   "ability.please-dont-touch",
+   "ability.monocle-glare"
+  ],
+  "defense": {
+   "parryBp": 800
+  },
+  "prerequisites": null,
+  "unlock": {
+   "type": "achievement",
+   "achievement": "boss"
+  },
+  "art": {
+   "color": "#78350f",
+   "hat": "#9ca3af",
+   "icon": "🧐"
+  }
+ },
+ {
+  "id": "career.airline-captain",
+  "tier": 3,
+  "boss": true,
+  "tags": [
+   "role:transport",
+   "skill:pilot"
+  ],
+  "statMods": {
+   "confidence": 3,
+   "awareness": 2,
+   "health": 2,
+   "speed": 1,
+   "luck": -1
+  },
+  "passive": "ability.frequent-flyer",
+  "active": "ability.turbulence",
+  "extraActives": [
+   "ability.cleared-for-takeoff",
+   "ability.brace-brace-brace"
+  ],
+  "defense": {
+   "evadeBp": 600,
+   "dashBp": 1500
+  },
+  "prerequisites": null,
+  "unlock": {
+   "type": "achievement",
+   "achievement": "boss"
+  },
+  "art": {
+   "color": "#1e3a8a",
+   "hat": "#1e3a8a",
+   "icon": "✈️"
+  }
+ },
+ {
+  "id": "career.impresario",
+  "tier": 3,
+  "boss": true,
+  "tags": [
+   "role:arts",
+   "skill:persuade"
+  ],
+  "statMods": {
+   "charisma": 3,
+   "confidence": 3,
+   "health": 2,
+   "luck": 1,
+   "strength": -1
+  },
+  "passive": "ability.star-billing",
+  "active": "ability.curtain-call",
+  "extraActives": [
+   "ability.dramatic-monologue",
+   "ability.standing-ovation"
+  ],
+  "defense": {
+   "evadeBp": 800,
+   "parryBp": 500
+  },
+  "prerequisites": null,
+  "unlock": {
+   "type": "achievement",
+   "achievement": "boss"
+  },
+  "art": {
+   "color": "#7f1d1d",
+   "hat": "#1f2937",
+   "icon": "🎭"
+  }
+ }
+]

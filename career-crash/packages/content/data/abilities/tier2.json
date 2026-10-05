@@ -1,0 +1,14 @@
+[
+  {"id": "ability.structural-analysis", "kind": "active", "cost": {"energy": 30}, "cooldownTicks": 200, "castTicks": 20, "targeting": {"type": "enemy", "rangeMm": 6000}, "aiHints": {"goal": "damage"}, "effects": [{"type": "damage", "amount": 16, "damageType": "blunt"}, {"type": "knockdown", "chanceBp": 5000}]},
+  {"id": "ability.overengineered", "kind": "passive", "passive": {"statMods": {"interactionSpeed": 3}, "tags": ["skill:repair"]}},
+  {"id": "ability.empty-promises", "kind": "active", "cost": {"energy": 30}, "cooldownTicks": 240, "castTicks": 12, "targeting": {"type": "circleSelf", "rangeMm": 0, "radiusMm": 5500, "affects": "enemies"}, "aiHints": {"goal": "control", "minTargets": 1}, "effects": [{"type": "morale", "amount": -15}, {"type": "taunt", "ticks": 60}, {"type": "applyStatus", "status": "status.armoured", "durationTicks": 60, "toSelf": true}]},
+  {"id": "ability.photo-op", "kind": "passive", "passive": {"statMods": {"charisma": 3}}},
+  {"id": "ability.how-does-that-feel", "kind": "active", "cost": {"energy": 25}, "cooldownTicks": 200, "castTicks": 12, "targeting": {"type": "enemy", "rangeMm": 6000}, "aiHints": {"goal": "control"}, "effects": [{"type": "applyStatus", "status": "status.stunned", "durationTicks": 40}, {"type": "morale", "amount": -10}]},
+  {"id": "ability.calm-presence", "kind": "passive", "passive": {"statMods": {"confidence": 2}}},
+  {"id": "ability.you-got-this", "kind": "active", "cost": {"energy": 25}, "cooldownTicks": 200, "castTicks": 8, "targeting": {"type": "ally", "rangeMm": 6000}, "aiHints": {"goal": "support", "aimAt": "ally"}, "effects": [{"type": "applyStatus", "status": "status.inspired", "durationTicks": 140}, {"type": "morale", "amount": 30}]},
+  {"id": "ability.morning-routine", "kind": "passive", "passive": {"statMods": {"recovery": 2}}},
+  {"id": "ability.commercial-break", "kind": "active", "cost": {"energy": 35}, "cooldownTicks": 300, "castTicks": 10, "targeting": {"type": "circleSelf", "rangeMm": 0, "radiusMm": 6000, "affects": "allExceptSelf"}, "aiHints": {"goal": "chaos", "minTargets": 1}, "effects": [{"type": "applyStatus", "status": "status.stunned", "durationTicks": 30}]},
+  {"id": "ability.camera-ready", "kind": "passive", "passive": {"statMods": {"charisma": 2}}},
+  {"id": "ability.scathing-review", "kind": "active", "cost": {"energy": 25}, "cooldownTicks": 180, "castTicks": 10, "targeting": {"type": "enemy", "rangeMm": 8000}, "aiHints": {"goal": "control"}, "effects": [{"type": "applyStatus", "status": "status.embarrassed", "durationTicks": 100}, {"type": "damage", "amount": 8, "damageType": "social"}]},
+  {"id": "ability.refined-palate", "kind": "passive", "passive": {"statMods": {"luck": 2}, "tags": ["skill:cook"]}}
+]

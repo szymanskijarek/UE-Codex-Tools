@@ -1,0 +1,1394 @@
+[
+ {
+  "id": "crasher.mystery-shopper",
+  "home": "arena.supermarket",
+  "visits": [
+   "arena.diner",
+   "arena.hotel"
+  ],
+  "leader": {
+   "persona": "npc.mystery-shopper",
+   "career": "career.food-critic",
+   "personality": "personality.confident",
+   "lines": [
+    "Act natural. I'm not here.",
+    "Nobody saw me. Two stars.",
+    "I'm just browsing. Violently.",
+    "This visit will be reflected in your scores."
+   ],
+   "art": {
+    "color": "#6b21a8",
+    "icon": "🕶️"
+   },
+   "name": "Agnes Clipboard-Hale"
+  },
+  "henchmen": {
+   "persona": "npc.trainee-shopper",
+   "career": "career.journalist",
+   "personality": "personality.paranoid",
+   "lines": [
+    "Is this... is this the test?",
+    "I'm also not here!",
+    "She said blend in. I'm blending.",
+    "Do I write this down or punch it?"
+   ],
+   "art": {
+    "color": "#7c3aed",
+    "icon": "📝"
+   },
+   "names": [
+    "Dev Lurke",
+    "Pippa Undercover"
+   ]
+  },
+  "entrance": [
+   "A woman in very large sunglasses has entered the {arena}. Nobody knows why. She's taking notes.",
+   "Wait, who are they? Agnes Clipboard-Hale, Mystery Shopper, is 'just browsing' straight into the fight."
+  ],
+  "posts": [
+   "Visited the {arena} today, entirely anonymously. Staff were fighting. Customer service: one star. Fighting: four. #MysteryShopper #Feedback",
+   "Report on today's {arena} visit: no greeting at the door, three people threw a melon at me. Would return. #CustomerExperience",
+   "Disguise held for 40 seconds. A personal best. The {company} lot never suspected a thing (they were busy losing)."
+  ],
+  "comments": [
+   "I was also undercover. Nobody noticed me either. Or helped me up.",
+   "Do we get expenses for the melon?",
+   "Agnes, are we allowed to post this? Isn't the whole point that we're secret?",
+   "Still in the sunglasses. Can't find my car."
+  ]
+ },
+ {
+  "id": "crasher.trolley-marshals",
+  "home": "arena.supermarket",
+  "visits": [
+   "arena.warehouse",
+   "arena.airport"
+  ],
+  "leader": {
+   "persona": "npc.trolley-marshal",
+   "career": "career.builder",
+   "personality": "personality.aggressive",
+   "lines": [
+    "Nobody leaves a trolley in MY bay!",
+    "That's a pound coin's worth of disrespect.",
+    "Line 'em up. Nose to tail.",
+    "I've pushed forty trolleys uphill. I can push you."
+   ],
+   "art": {
+    "color": "#ea580c",
+    "icon": "🛒"
+   },
+   "name": "Big Kev Pushworth"
+  },
+  "henchmen": {
+   "persona": "npc.trolley-lad",
+   "career": "career.delivery-driver",
+   "personality": "personality.chaotic",
+   "lines": [
+    "Train of trolleys coming through!",
+    "Kev said get stuck in!",
+    "WHEEEE!",
+    "Hi-vis means I'm allowed."
+   ],
+   "art": {
+    "color": "#f97316",
+    "icon": "🦺"
+   },
+   "names": [
+    "Jordan \"Wheels\" Reilly",
+    "Tyler Castor"
+   ]
+  },
+  "entrance": [
+   "A rattling noise from the car park... it's Big Kev, Trolley Marshal, and he's brought a train of forty trolleys!",
+   "Here come the Trolley Marshals! Somebody left a trolley outside bay 6 and now we ALL pay."
+  ],
+  "posts": [
+   "Forty trolleys returned to the bay today and four people returned to the floor. Productive shift. #Hustle #CarParkLife",
+   "Found a fight in the {arena} with NO trolley discipline. Fixed it. #Leadership #LineThemUp",
+   "People ask what a Trolley Marshal does. Today I showed the {company} lot. They won't ask again."
+  ],
+  "comments": [
+   "Kev that was mint",
+   "Can I drive the trolley train next time?",
+   "Lost a wheel. Not mine. Somebody's.",
+   "Still smell of car park. Proud."
+  ]
+ },
+ {
+  "id": "crasher.consultants",
+  "home": "arena.office",
+  "visits": [
+   "arena.hotel",
+   "arena.hospital"
+  ],
+  "leader": {
+   "persona": "npc.change-consultant",
+   "career": "career.life-coach",
+   "personality": "personality.confident",
+   "lines": [
+    "We're not here to fire anyone. Today.",
+    "Let's circle back to the punching.",
+    "I'm seeing a lot of inefficiency in this fight.",
+    "Have you considered being restructured?"
+   ],
+   "art": {
+    "color": "#0f766e",
+    "icon": "📊"
+   },
+   "name": "Tristan Vale"
+  },
+  "henchmen": {
+   "persona": "npc.junior-associate",
+   "career": "career.accountant",
+   "personality": "personality.helpful",
+   "lines": [
+    "I've made a deck about you.",
+    "Billable! This is billable!",
+    "Per my last punch...",
+    "Slide 47: your downfall."
+   ],
+   "art": {
+    "color": "#14b8a6",
+    "icon": "💼"
+   },
+   "names": [
+    "Hamish Lovelock",
+    "Ottilie Spreadsheet"
+   ]
+  },
+  "entrance": [
+   "The doors swing open: Tristan Vale, Change Management Consultant, and his associates. They charge £4,000 a day. Today they charge everyone.",
+   "Oh no. Consultants. They've drawn a two-by-two matrix and everyone in the {arena} is in the bottom-left."
+  ],
+  "posts": [
+   "Productive engagement at the {arena} today. Key finding: too many people were standing up. We've optimised that. #Transformation #ChangeManagement",
+   "Our invoice for today's fight is in the post. It's mostly for the chair I threw. #ValueAdd",
+   "Three learnings from today's {arena} brawl (a thread). 1. Synergy is a contact sport. 2. {company} are not agile. 3. Invoice attached."
+  ],
+  "comments": [
+   "Slides are in the shared drive. Slide 12 is just a picture of a bruise.",
+   "Can I bill the ambulance time?",
+   "Tristan, the client is asking what 'right-sizing them' meant.",
+   "I learned so much today. Mostly about falling."
+  ]
+ },
+ {
+  "id": "crasher.it-support",
+  "home": "arena.office",
+  "visits": [
+   "arena.airport",
+   "arena.museum"
+  ],
+  "leader": {
+   "persona": "npc.it-support-lead",
+   "career": "career.programmer",
+   "personality": "personality.lazy",
+   "lines": [
+    "Have you tried turning it off and on again?",
+    "Who unplugged the server? WHO?",
+    "I'm going to need you to restart. Your face.",
+    "Ticket closed. Problem solved."
+   ],
+   "art": {
+    "color": "#1d4ed8",
+    "icon": "💾"
+   },
+   "name": "Gary from IT"
+  },
+  "henchmen": {
+   "persona": "npc.it-intern",
+   "career": "career.electrician",
+   "personality": "personality.clumsy",
+   "lines": [
+    "Is this the cable? Is THIS?",
+    "Gary said just hit it till it works!",
+    "Sorry, did you raise a ticket?",
+    "I'm on the helpdesk rota AND the fight rota."
+   ],
+   "art": {
+    "color": "#3b82f6",
+    "icon": "🔌"
+   },
+   "names": [
+    "Neil Patchwell",
+    "Becca Bluescreen"
+   ]
+  },
+  "entrance": [
+   "Somebody unplugged the printer. Gary from IT has arrived, and he has NOT had his lunch.",
+   "IT Support in the {arena}! They've heard the words 'quick question' one too many times."
+  ],
+  "posts": [
+   "Responded to an urgent ticket in the {arena} today (priority 'someone is punching the router'). Resolved. #ITLife #HaveYouTriedTurningItOff",
+   "Turned four people off and on again. Two of them came back on. #TechSupport",
+   "Reminder: the {company} team's request to 'please stop fighting near the server' is now ticket #4471. Expected response: never."
+  ],
+  "comments": [
+   "I didn't unplug it, Gary. Well. I did. But in a fighting way.",
+   "Raising a ticket about my back.",
+   "Gary can I go home it's 5:01",
+   "The printer is still broken btw"
+  ]
+ },
+ {
+  "id": "crasher.health-inspection",
+  "home": "arena.diner",
+  "visits": [
+   "arena.supermarket",
+   "arena.hospital"
+  ],
+  "leader": {
+   "persona": "npc.health-inspector",
+   "career": "career.scientist",
+   "personality": "personality.paranoid",
+   "lines": [
+    "Nobody move. Is that a HAIR?",
+    "Gloves! Where are your GLOVES?",
+    "This fight is a two out of five.",
+    "I'm shutting you down. Personally."
+   ],
+   "art": {
+    "color": "#15803d",
+    "icon": "🧪"
+   },
+   "name": "Mona Grubb"
+  },
+  "henchmen": {
+   "persona": "npc.swab-deputy",
+   "career": "career.nurse",
+   "personality": "personality.helpful",
+   "lines": [
+    "Hold still, I need a swab.",
+    "Ooh, that's growing something.",
+    "Inspector, I found another fridge!",
+    "It's for science. And for fighting."
+   ],
+   "art": {
+    "color": "#22c55e",
+    "icon": "🧫"
+   },
+   "names": [
+    "Lionel Swabb",
+    "Tasha Petri"
+   ]
+  },
+  "entrance": [
+   "Clipboards up! The Health Inspector has walked into the {arena}. Everyone is suddenly washing their hands. Mid-fight.",
+   "It's Inspector Mona Grubb and her swab deputies. She's already found a hair. It's on someone's head. Still counts."
+  ],
+  "posts": [
+   "Inspection report, {arena}: hygiene 1/5, fighting 5/5. Temporary closure issued to the {company} team's faces. #FoodSafety #Standards",
+   "I've seen dirtier kitchens. Not many. Not today. Not after we were done. #Inspection",
+   "Swabbed seven surfaces and four fighters today. Results pending. Smells conclusive."
+  ],
+  "comments": [
+   "The swabs are in the van. One of them moved.",
+   "Mona, do we have to fill in a form for the trifle?",
+   "Should we have told them we were coming?",
+   "That was my best inspection yet. I'm bleeding."
+  ]
+ },
+ {
+  "id": "crasher.food-truck",
+  "home": "arena.diner",
+  "visits": [
+   "arena.construction",
+   "arena.docks"
+  ],
+  "leader": {
+   "persona": "npc.food-truck-boss",
+   "career": "career.chef",
+   "personality": "personality.greedy",
+   "lines": [
+    "This is taco territory now.",
+    "Nobody serves lunch on my patch!",
+    "Extra spicy? Oh, you'll get extra spicy.",
+    "My truck, my rules, my salsa."
+   ],
+   "art": {
+    "color": "#b91c1c",
+    "icon": "🌮"
+   },
+   "name": "Don Taco Delgado"
+  },
+  "henchmen": {
+   "persona": "npc.sauce-boy",
+   "career": "career.barista",
+   "personality": "personality.aggressive",
+   "lines": [
+    "Squeeze bottle locked and loaded!",
+    "Mild, medium or MAYHEM?",
+    "The Don sends his regards!",
+    "You want sauce? You GET sauce."
+   ],
+   "art": {
+    "color": "#dc2626",
+    "icon": "🌶️"
+   },
+   "names": [
+    "Sriracha Sam",
+    "Mayo Mario"
+   ]
+  },
+  "entrance": [
+   "You hear the jingle of a food truck... it's Don Taco Delgado, the Food Truck Kingpin, and this {arena} serves lunch on HIS patch!",
+   "The Food Truck Mafia rolls in! Somebody undercut them on burritos and now everybody's on the menu."
+  ],
+  "posts": [
+   "Expanded into a new territory today: the {arena}. Customers were reluctant. Then they were on the floor. #SmallBusiness #Entrepreneur",
+   "Mild, medium or mayhem? Today the {company} team picked mayhem. It's not on the menu any more. #FoodTruckLife",
+   "Lunch service at the {arena}: 3 tacos sold, 4 fighters served. #Hospitality"
+  ],
+  "comments": [
+   "Boss I ran out of sauce halfway through",
+   "The truck has a parking ticket again",
+   "Don, can we go back to just selling tacos",
+   "Squeeze bottle's broken. Totally worth it."
+  ]
+ },
+ {
+  "id": "crasher.the-0742",
+  "home": "arena.station",
+  "visits": [
+   "arena.airport",
+   "arena.docks"
+  ],
+  "leader": {
+   "persona": "npc.train-driver",
+   "career": "career.bus-driver",
+   "personality": "personality.confident",
+   "lines": [
+    "Mind the gap. The gap is me.",
+    "This service is now terminating. You.",
+    "Delays are expected. Mostly yours.",
+    "Leaves on the line? I AM the leaves."
+   ],
+   "art": {
+    "color": "#1e3a8a",
+    "icon": "🚆"
+   },
+   "name": "Doug Platt"
+  },
+  "henchmen": {
+   "persona": "npc.ticket-inspector",
+   "career": "career.police-officer",
+   "personality": "personality.competitive",
+   "lines": [
+    "Tickets, please. ALL of them.",
+    "That's a penalty fare, sunshine.",
+    "Off-peak ticket on a peak fight?",
+    "Railcard? Didn't think so."
+   ],
+   "art": {
+    "color": "#1e40af",
+    "icon": "🎫"
+   },
+   "names": [
+    "Barry Gripps",
+    "Joan Punchwell"
+   ]
+  },
+  "entrance": [
+   "Ding-dong! 'The train now arriving is the 07:42 service, calling at: this fight.' Driver Doug Platt and the ticket inspectors are here!",
+   "Here comes the 07:42! Twelve minutes late, and furious about it."
+  ],
+  "posts": [
+   "The 07:42 called at the {arena} today. Unscheduled stop. Passengers were 'assisted' off. We apologise for any inconvenience. #Rail #Delays",
+   "Ran over schedule at the {arena}. Ran over the {company} team too. #TrainLife #MindTheGap",
+   "Reminder: fighting without a valid ticket carries a penalty fare. Today's penalty: everything."
+  ],
+  "comments": [
+   "Checked 14 tickets. Fined 14 people. One was a pigeon.",
+   "Doug we've left the train running",
+   "Do we get overtime for the fight?",
+   "That was a peak-time beating. Full fare."
+  ]
+ },
+ {
+  "id": "crasher.rail-replacement",
+  "home": "arena.station",
+  "visits": [
+   "arena.construction",
+   "arena.warehouse"
+  ],
+  "leader": {
+   "persona": "npc.replacement-coordinator",
+   "career": "career.taxi-driver",
+   "personality": "personality.chaotic",
+   "lines": [
+    "Your train is now a bus. Your fight is now MY fight.",
+    "Please follow the signs. The signs are me.",
+    "Next stop: an hour from now, somewhere else.",
+    "Engineering works! Stand back!"
+   ],
+   "art": {
+    "color": "#ca8a04",
+    "icon": "🚌"
+   },
+   "name": "Brenda Diversion"
+  },
+  "henchmen": {
+   "persona": "npc.hi-vis-marshal",
+   "career": "career.security-guard",
+   "personality": "personality.lazy",
+   "lines": [
+    "This way. No. That way.",
+    "Have you seen the sign? I am the sign.",
+    "Queue here. Queue THERE.",
+    "Are you on the replacement bus? You are now."
+   ],
+   "art": {
+    "color": "#eab308",
+    "icon": "🦺"
+   },
+   "names": [
+    "Clive Cones",
+    "Dot Signage"
+   ]
+  },
+  "entrance": [
+   "Engineering works in the {arena}! Brenda Diversion from Rail Replacement and her hi-vis marshals are rerouting this fight. Somewhere worse.",
+   "Sorry, this fight is now being replaced by a bus. Brenda's in charge, and the bus is on fire."
+  ],
+  "posts": [
+   "Replacement service ran smoothly at the {arena} today. Nobody knew where to go, which is the standard. #Rail #CustomerJourney",
+   "Diverted the {company} team via the floor. Journey time: one second. #EngineeringWorks",
+   "Today's rail replacement went to the {arena}. Nobody asked it to. That's the service."
+  ],
+  "comments": [
+   "I pointed at nothing for 3 hours. Proud.",
+   "Brenda the bus is still in the car park, should we",
+   "Who took my lollipop sign",
+   "I directed traffic AND punches. Multi-skilled."
+  ]
+ },
+ {
+  "id": "crasher.stocktake",
+  "home": "arena.warehouse",
+  "visits": [
+   "arena.supermarket",
+   "arena.museum"
+  ],
+  "leader": {
+   "persona": "npc.auditor",
+   "career": "career.accountant",
+   "personality": "personality.paranoid",
+   "lines": [
+    "Nobody touches anything until I've counted it.",
+    "That's one. Two. You moved. Start again.",
+    "Discrepancy detected. You.",
+    "This fight is NOT in the inventory."
+   ],
+   "art": {
+    "color": "#4b5563",
+    "icon": "📋"
+   },
+   "name": "Margaret Tally"
+  },
+  "henchmen": {
+   "persona": "npc.barcode-scanner",
+   "career": "career.postal-worker",
+   "personality": "personality.competitive",
+   "lines": [
+    "BEEP. You've been scanned.",
+    "Item not recognised. Reboot.",
+    "Unexpected item in the fighting area!",
+    "I scan, therefore I am."
+   ],
+   "art": {
+    "color": "#6b7280",
+    "icon": "📟"
+   },
+   "names": [
+    "Ron Beepman",
+    "Kirsty SKU"
+   ]
+  },
+  "entrance": [
+   "Freeze! It's stocktake. Margaret Tally, Auditor, is in the {arena}, and nobody's leaving till everything's counted. Including teeth.",
+   "Here comes Stocktake! Margaret Tally has counted every fighter. The numbers are about to go down."
+  ],
+  "posts": [
+   "Stocktake at the {arena} complete. Opening count: 6 fighters. Closing count: lower. Variance attributed to {company}. #Audit #Inventory",
+   "Counted to 4,212 today, then someone knocked the clipboard out of my hand. Starting again Monday. #Stocktake",
+   "Discrepancies found today: 1 missing pallet, 3 missing teeth. Reported."
+  ],
+  "comments": [
+   "BEEP",
+   "My scanner thinks the {company} lot are bananas",
+   "Margaret, we're 2 people short. Is that us?",
+   "I scanned a fist. Unknown item."
+  ]
+ },
+ {
+  "id": "crasher.union-rep",
+  "home": "arena.warehouse",
+  "visits": [
+   "arena.construction",
+   "arena.docks"
+  ],
+  "leader": {
+   "persona": "npc.union-rep",
+   "career": "career.politician",
+   "personality": "personality.aggressive",
+   "lines": [
+    "Everybody out! ...After this.",
+    "This fight breaches the agreement!",
+    "Tea break is a human right!",
+    "Solidarity! And a slap."
+   ],
+   "art": {
+    "color": "#7f1d1d",
+    "icon": "✊"
+   },
+   "name": "Big Sal Strickland"
+  },
+  "henchmen": {
+   "persona": "npc.shop-steward",
+   "career": "career.builder",
+   "personality": "personality.helpful",
+   "lines": [
+    "All in favour of punching?",
+    "Motion carried!",
+    "Sal's got the floor. And so will you.",
+    "No fighting without a union rep present. I'm present."
+   ],
+   "art": {
+    "color": "#991b1b",
+    "icon": "📣"
+   },
+   "names": [
+    "Dennis Picket",
+    "Fay Motion"
+   ]
+  },
+  "entrance": [
+   "Whistles blow! Big Sal Strickland, Union Rep, is here: someone's been fighting without a proper tea break!",
+   "The Union's here! And this fight is officially a dispute."
+  ],
+  "posts": [
+   "Represented the workers of the {arena} today. They didn't ask. Solidarity doesn't ask. #Union #WorkersRights",
+   "Today's negotiation with the {company} team went well. They're lying down. #CollectiveBargaining",
+   "Motion: no more fighting without a tea break. Carried unanimously by everyone still standing."
+  ],
+  "comments": [
+   "Seconded!",
+   "Sal I think the vote was 2 to 4 actually",
+   "Tea break was unfairly cut short by a forklift",
+   "Picket line holding. Mostly holding. One fell over."
+  ]
+ },
+ {
+  "id": "crasher.planning-permission",
+  "home": "arena.construction",
+  "visits": [
+   "arena.office",
+   "arena.theatre"
+  ],
+  "leader": {
+   "persona": "npc.planning-officer",
+   "career": "career.lawyer",
+   "personality": "personality.paranoid",
+   "lines": [
+    "This fight does not have planning permission!",
+    "Objection lodged. With my fist.",
+    "Section 14b. Look it up.",
+    "You need a permit for that face."
+   ],
+   "art": {
+    "color": "#065f46",
+    "icon": "🏛️"
+   },
+   "name": "Gordon Pruitt"
+  },
+  "henchmen": {
+   "persona": "npc.surveyor",
+   "career": "career.engineer",
+   "personality": "personality.clumsy",
+   "lines": [
+    "Hold this tape measure. With your face.",
+    "That's three metres of nope.",
+    "Everything here is in violation!",
+    "Plumb line! PLUMB LINE!"
+   ],
+   "art": {
+    "color": "#047857",
+    "icon": "📐"
+   },
+   "names": [
+    "Ian Theodolite",
+    "Bev Boundary"
+   ]
+  },
+  "entrance": [
+   "Hold everything! The council's here. Councillor Gordon Pruitt says this fight is 'not in keeping with the character of the area'.",
+   "Planning Permission has arrived, and this {arena} brawl has NOT been approved. Appeals take six weeks. Punches take one."
+  ],
+  "posts": [
+   "Site visit to the {arena} today. Unauthorised fighting found. Enforcement action taken (by hand). #LocalGovernment #Planning",
+   "The {company} team applied for permission to win today. Application refused. #Council",
+   "Reminder that all fighting requires a permit, a fee, and a 6-week consultation period. Or Gordon."
+  ],
+  "comments": [
+   "Measured the fight. It's 4m over the limit.",
+   "Gordon the theodolite is bent now",
+   "Can we put 'punched a builder' on the timesheet?",
+   "Objection noted. Objection also bruised."
+  ]
+ },
+ {
+  "id": "crasher.crane-gang",
+  "home": "arena.construction",
+  "visits": [
+   "arena.docks",
+   "arena.warehouse"
+  ],
+  "leader": {
+   "persona": "npc.crane-operator",
+   "career": "career.mechanic",
+   "personality": "personality.confident",
+   "lines": [
+    "Tea break's over. So are you.",
+    "I can see your house from up there. It's next.",
+    "Load incoming! The load is me!",
+    "Hard hats ON. Faces OFF."
+   ],
+   "art": {
+    "color": "#b45309",
+    "icon": "🏗️"
+   },
+   "name": "Mick 'Hook' O'Hara"
+  },
+  "henchmen": {
+   "persona": "npc.labourer",
+   "career": "career.builder",
+   "personality": "personality.lazy",
+   "lines": [
+    "Is it break time? It's always break time.",
+    "Hold my tea.",
+    "Mick said come down, so I came down.",
+    "Wolf-whistles are banned. Punches aren't."
+   ],
+   "art": {
+    "color": "#d97706",
+    "icon": "☕"
+   },
+   "names": [
+    "Gaz Mortar",
+    "Stevie Breezeblock"
+   ]
+  },
+  "entrance": [
+   "Something large swings into view... it's Mick 'Hook' O'Hara, Crane Operator, and his tea-break crew!",
+   "The Crane Gang are here! Somebody parked under the crane again."
+  ],
+  "posts": [
+   "Climbed down from the crane for the first time this year to sort out the {arena}. Worth it. #Construction #Lifting",
+   "Lifted 4 tonnes today. And the {company} team, briefly. #CraneLife",
+   "Hard hats on, faces off. Good day at the {arena}."
+  ],
+  "comments": [
+   "Back up the crane Mick, the boss is looking",
+   "My tea went cold during the fight. Unforgivable.",
+   "I held the tea the whole time. Didn't spill a drop.",
+   "Someone tell Mick the crane's still swinging"
+  ]
+ },
+ {
+  "id": "crasher.customs-raid",
+  "home": "arena.docks",
+  "visits": [
+   "arena.airport",
+   "arena.warehouse"
+  ],
+  "leader": {
+   "persona": "npc.customs-officer",
+   "career": "career.police-officer",
+   "personality": "personality.paranoid",
+   "lines": [
+    "Anything to declare? Besides defeat?",
+    "This container is now evidence. So are you.",
+    "Step aside, please. Further. Into the floor.",
+    "I'll need to see some ID. And some fear."
+   ],
+   "art": {
+    "color": "#334155",
+    "icon": "🛃"
+   },
+   "name": "Hilda Stamp"
+  },
+  "henchmen": {
+   "persona": "npc.dog-handler",
+   "career": "career.zookeeper",
+   "personality": "personality.helpful",
+   "lines": [
+    "Rex has found something! It's you!",
+    "Good boy. GOOD boy. Get 'em.",
+    "He can smell guilt.",
+    "Sit. Stay. Fight."
+   ],
+   "art": {
+    "color": "#475569",
+    "icon": "🐕"
+   },
+   "names": [
+    "Colin Leash",
+    "Mo Biscuit"
+   ]
+  },
+  "entrance": [
+   "Customs! Officer Hilda Stamp has found something suspicious in the {arena}: a fight. With undeclared punches.",
+   "The Customs Raid is here, and the sniffer dogs are very excited about the {arena}."
+  ],
+  "posts": [
+   "Routine inspection of the {arena} today. Seized: 3 undeclared punches, 1 suspicious pallet, the {company} team. #Customs #BorderForce",
+   "Nothing to declare? The {company} team had plenty to declare by the end. Mostly 'ow'.",
+   "Proud of Rex today. He found 4 people and a sandwich."
+  ],
+  "comments": [
+   "Rex ate the evidence",
+   "Hilda, do we have to fill in a seizure form for the forklift?",
+   "Good boy. Me, not the dog.",
+   "Two biscuits, one KO. Rex is having a career year."
+  ]
+ },
+ {
+  "id": "crasher.fishmongers",
+  "home": "arena.docks",
+  "visits": [
+   "arena.diner",
+   "arena.supermarket"
+  ],
+  "leader": {
+   "persona": "npc.trawler-captain",
+   "career": "career.sailor",
+   "personality": "personality.aggressive",
+   "lines": [
+    "Smell that? That's victory. And mackerel.",
+    "I've wrestled tuna bigger than you.",
+    "Gut 'em and grade 'em!",
+    "Fresh catch! Fresh FIGHT!"
+   ],
+   "art": {
+    "color": "#0e7490",
+    "icon": "🎣"
+   },
+   "name": "Barnaby Sole"
+  },
+  "henchmen": {
+   "persona": "npc.gutting-crew",
+   "career": "career.marine-biologist",
+   "personality": "personality.chaotic",
+   "lines": [
+    "Slippery! Slippery!",
+    "Have a haddock!",
+    "The Captain's in a mood. Again.",
+    "I've got a fish in each hand and I'm not afraid to use them."
+   ],
+   "art": {
+    "color": "#0891b2",
+    "icon": "🐟"
+   },
+   "names": [
+    "Gilly McKipper",
+    "Ray Pollock"
+   ]
+  },
+  "entrance": [
+   "A foghorn blows! Captain Barnaby Sole and his gutting crew have come ashore, and they smell like a decision.",
+   "The Fishmongers are here! Something in the {arena} insulted the catch of the day."
+  ],
+  "posts": [
+   "Landed at the {arena} today. Biggest catch: the {company} team. Threw two back. #Fishing #FreshCatch",
+   "Smell that? That's me. Still. Three days later. Worth it.",
+   "Today's catch: 4 fighters, 1 haddock, 0 regrets. #SeaLife"
+  ],
+  "comments": [
+   "Captain I've lost a fish. Somewhere in there.",
+   "The haddock was a real team player",
+   "Still finding scales in my ears",
+   "Slippery day at the office"
+  ]
+ },
+ {
+  "id": "crasher.hedge-fund",
+  "home": "arena.hotel",
+  "visits": [
+   "arena.office",
+   "arena.airport"
+  ],
+  "leader": {
+   "persona": "npc.hedge-fund-owner",
+   "career": "career.politician",
+   "personality": "personality.greedy",
+   "lines": [
+    "I'm buying this fight. Then shorting it.",
+    "Everyone in this room is a liability.",
+    "Synergise THIS.",
+    "My lawyer will be in touch. He's behind me."
+   ],
+   "art": {
+    "color": "#854d0e",
+    "icon": "💰"
+   },
+   "name": "Sterling Vance III"
+  },
+  "henchmen": {
+   "persona": "npc.lackey",
+   "career": "career.lawyer",
+   "personality": "personality.coward",
+   "lines": [
+    "Yes, Mr Vance. Right away, Mr Vance.",
+    "He's not angry, he's disappointed. And angry.",
+    "I'll need you to sign here. With your blood.",
+    "Mr Vance would like you to fall over now."
+   ],
+   "art": {
+    "color": "#a16207",
+    "icon": "🗂️"
+   },
+   "names": [
+    "Fitzgerald Yesman",
+    "Penelope Notetaker"
+   ]
+  },
+  "entrance": [
+   "A limousine parks across three spaces. Sterling Vance III, Hedge Fund Owner, has bought the {arena}. And the fight. And the referee's whistle.",
+   "The Hedge Fund are here! Somebody's portfolio just went down. It's everyone's."
+  ],
+  "posts": [
+   "Acquired the {arena} today, for about an hour. Restructured the {company} team. Exited at a profit. #Finance #Leadership",
+   "Short position on the {company} team paid off nicely today. They were very short by the end. #Markets",
+   "Today I learned violence is a diversified asset. #ThoughtLeadership"
+  ],
+  "comments": [
+   "Mr Vance, the limo's been clamped",
+   "I've drafted the press release, sir. It says 'no comment' 40 times.",
+   "Sir, the hotel would like you to stop owning it",
+   "Fetching the car, Mr Vance! Again, Mr Vance!"
+  ]
+ },
+ {
+  "id": "crasher.hen-party",
+  "home": "arena.hotel",
+  "visits": [
+   "arena.diner",
+   "arena.theatre"
+  ],
+  "leader": {
+   "persona": "npc.bride-to-be",
+   "career": "career.dj",
+   "personality": "personality.chaotic",
+   "lines": [
+    "It's MY special day and you're IN it!",
+    "Somebody get me a prosecco! And a chair! To throw!",
+    "Last night of freedom, girls!",
+    "Nobody upstages the BRIDE."
+   ],
+   "art": {
+    "color": "#db2777",
+    "icon": "👰"
+   },
+   "name": "Kayleigh Fairweather"
+  },
+  "henchmen": {
+   "persona": "npc.bridesmaid",
+   "career": "career.hairdresser",
+   "personality": "personality.aggressive",
+   "lines": [
+    "Don't you DARE ruin her day!",
+    "I didn't fly in from Malaga for this!",
+    "Sash on. Gloves off.",
+    "Hen party coming through!"
+   ],
+   "art": {
+    "color": "#ec4899",
+    "icon": "💐"
+   },
+   "names": [
+    "Shaz",
+    "Big Lou"
+   ]
+  },
+  "entrance": [
+   "WOOO! The doors burst open: it's Kayleigh's hen party, and they've lost the coach driver, the plot and three shoes. Nobody is safe.",
+   "Oh no. A hen party has stumbled into the {arena}. L-plates on, gloves off."
+  ],
+  "posts": [
+   "Best. Hen. EVER. Somebody please tell me what happened in the {arena}?? 💍🥂 #HenDo #NoRegrets",
+   "Shoutout to the {company} team for joining my hen party uninvited. You will not be invited to the wedding. #Bridezilla",
+   "I lost a shoe in the {arena}. If found, keep it, it's cursed now."
+  ],
+  "comments": [
+   "Kayleigh I've lost my sash AND my voice",
+   "Who invited the ref?? He was a laugh tbh",
+   "Has anyone seen Big Lou? Last seen holding a chair",
+   "Never again. Same time next week?"
+  ]
+ },
+ {
+  "id": "crasher.visiting-hours",
+  "home": "arena.hospital",
+  "visits": [
+   "arena.hotel",
+   "arena.supermarket"
+  ],
+  "leader": {
+   "persona": "npc.professional-visitor",
+   "career": "career.florist",
+   "personality": "personality.helpful",
+   "lines": [
+    "I brought grapes. They're for throwing.",
+    "Visiting hours are NOW, dear.",
+    "Have you eaten? You look peaky.",
+    "I've visited everyone in this hospital. Twice."
+   ],
+   "art": {
+    "color": "#9d174d",
+    "icon": "🍇"
+   },
+   "name": "Nana Edith Bunch"
+  },
+  "henchmen": {
+   "persona": "npc.grandchild",
+   "career": "career.ice-cream-vendor",
+   "personality": "personality.chaotic",
+   "lines": [
+    "Nana, can we go now?",
+    "I'm SO bored. Let's fight.",
+    "Nana said I can have a sweet if I win.",
+    "Is that a wheelchair? Can I ride it?"
+   ],
+   "art": {
+    "color": "#be185d",
+    "icon": "🎈"
+   },
+   "names": [
+    "Tyler, 19",
+    "Kayden, 22"
+   ]
+  },
+  "entrance": [
+   "It's visiting hours! Nana Edith has arrived with grapes, a balloon and two very bored grandchildren.",
+   "Visiting Hours in the {arena}! Nana Edith only wanted to drop off some grapes. She's going to drop off a lot more."
+  ],
+  "posts": [
+   "Lovely visit to the {arena} today. Brought grapes, left bruises. The young {company} people really should eat more. #Grandma #Visiting",
+   "Hello dear, is this the Facebook? I hit a man today. He was very rude about my grapes.",
+   "Told the {company} lot to sit up straight. They lay down instead. Kids today."
+  ],
+  "comments": [
+   "Nana can we go home now",
+   "Nana this is LinkedIn",
+   "I got the sweet!!",
+   "Nana threw the grapes at a referee"
+  ]
+ },
+ {
+  "id": "crasher.drug-rep",
+  "home": "arena.hospital",
+  "visits": [
+   "arena.office",
+   "arena.hotel"
+  ],
+  "leader": {
+   "persona": "npc.pharma-rep",
+   "career": "career.influencer",
+   "personality": "personality.greedy",
+   "lines": [
+    "Have you heard about our new side effects?",
+    "Free pens for everyone! Pointy end first.",
+    "Ask your doctor if punching is right for you.",
+    "Results may vary. Mostly bruising."
+   ],
+   "art": {
+    "color": "#0369a1",
+    "icon": "💊"
+   },
+   "name": "Chad Pfennig"
+  },
+  "henchmen": {
+   "persona": "npc.free-pen-intern",
+   "career": "career.teacher",
+   "personality": "personality.helpful",
+   "lines": [
+    "Free pen? FREE PEN?",
+    "Chad says hand these out. Hard.",
+    "This lanyard has a logo on it!",
+    "Side effects include: me."
+   ],
+   "art": {
+    "color": "#0284c7",
+    "icon": "🖊️"
+   },
+   "names": [
+    "Josh Lanyard",
+    "Freya Samples"
+   ]
+  },
+  "entrance": [
+   "Somebody's wheeling in a trolley of free samples: it's Chad Pfennig, Pharmaceutical Sales Rep, and he has a quota to hit. Literally.",
+   "The Pharma Rep's here! Free pens, free lanyards, free concussion."
+  ],
+  "posts": [
+   "Great day networking at the {arena}! Handed out 300 pens and 12 punches. #Pharma #Sales #Quota",
+   "Side effects of meeting me today included dizziness, falling over and losing to {company}. Speak to your doctor.",
+   "Exceeded quota! The quota was 'disrupt the {arena}'."
+  ],
+  "comments": [
+   "Chad we're out of pens",
+   "Do the punches count towards the bonus?",
+   "I think someone stole the trolley",
+   "Free pen interns are a family 💙"
+  ]
+ },
+ {
+  "id": "crasher.school-trip",
+  "home": "arena.museum",
+  "visits": [
+   "arena.theatre",
+   "arena.station"
+  ],
+  "leader": {
+   "persona": "npc.school-teacher",
+   "career": "career.teacher",
+   "personality": "personality.competitive",
+   "lines": [
+    "Line up in twos. Then ATTACK in twos.",
+    "I can wait. I can wait all day.",
+    "Whoever's chewing gum: you're next.",
+    "Lunch boxes away, fists out!"
+   ],
+   "art": {
+    "color": "#7c2d12",
+    "icon": "🍎"
+   },
+   "name": "Mrs Pickering"
+  },
+  "henchmen": {
+   "persona": "npc.parent-helper",
+   "career": "career.gardener",
+   "personality": "personality.clumsy",
+   "lines": [
+    "I only came to hold the clipboard!",
+    "Has anyone seen Oliver? OLIVER?",
+    "Is this the gift shop?",
+    "Mrs Pickering said I can hit people if they push."
+   ],
+   "art": {
+    "color": "#9a3412",
+    "icon": "🎒"
+   },
+   "names": [
+    "Mr Dawson (dad)",
+    "Mrs Ahmed (mum)"
+   ]
+  },
+  "entrance": [
+   "A whistle! Mrs Pickering's school trip has taken a wrong turn into the {arena}. She's counted her helpers. She's counting YOU.",
+   "It's the School Trip! Mrs Pickering has lost a child, a packed lunch and her patience."
+  ],
+  "posts": [
+   "Wonderful trip to the {arena} with Year 4 today. Learning objective: 'teamwork'. We demonstrated it on the {company} team. #Education #Teacher",
+   "Reminder to parents: trip letters were due on Friday. Also, don't fight Mrs Pickering.",
+   "No children were harmed. Several adults were. Back on the coach by 3."
+  ],
+  "comments": [
+   "Oliver was in the gift shop the whole time",
+   "I'd like a word about the permission slip",
+   "Can I be a parent helper again? That was cathartic",
+   "Mrs Pickering is my hero"
+  ]
+ },
+ {
+  "id": "crasher.night-watch",
+  "home": "arena.museum",
+  "visits": [
+   "arena.hotel",
+   "arena.theatre"
+  ],
+  "leader": {
+   "persona": "npc.night-watchman",
+   "career": "career.security-guard",
+   "personality": "personality.coward",
+   "lines": [
+    "I've seen things in this museum. Now you'll see me.",
+    "Who goes there? Oh. Everyone.",
+    "Torch on. Gloves off.",
+    "The exhibits are moving again. Help."
+   ],
+   "art": {
+    "color": "#312e81",
+    "icon": "🔦"
+   },
+   "name": "Reg Lantern"
+  },
+  "henchmen": {
+   "persona": "npc.wax-figure",
+   "career": "career.mime",
+   "personality": "personality.aggressive",
+   "lines": [
+    "...",
+    "Do not touch the exhibits. The exhibits will touch YOU.",
+    "I have been standing still for 200 years.",
+    "Melt? MELT?"
+   ],
+   "art": {
+    "color": "#4338ca",
+    "icon": "🕯️"
+   },
+   "names": [
+    "Henry VIII (wax)",
+    "Napoleon (wax)"
+   ]
+  },
+  "entrance": [
+   "The lights flicker... Reg Lantern, Night Watchman, stumbles in, followed by two wax figures who have absolutely come to life.",
+   "It's the Night Watch! Reg says the exhibits 'just started walking'. They also just started punching."
+  ],
+  "posts": [
+   "Another quiet night at the {arena}. Two wax figures came to life and beat up the {company} team. Normal. #NightShift #Security",
+   "I just want to state for the record: I did not let them out. They let themselves out.",
+   "My shift ends at 6. The exhibits' shifts apparently don't."
+  ],
+  "comments": [
+   "...",
+   "Reg I've melted a bit",
+   "The museum would like its kings back",
+   "Napoleon was SHORT but he was effective"
+  ]
+ },
+ {
+  "id": "crasher.duty-free",
+  "home": "arena.airport",
+  "visits": [
+   "arena.supermarket",
+   "arena.hotel"
+  ],
+  "leader": {
+   "persona": "npc.perfume-queen",
+   "career": "career.fashion-designer",
+   "personality": "personality.confident",
+   "lines": [
+    "Have you tried 'Defeat' by Valentina?",
+    "One spritz and you'll be on the floor.",
+    "Tax-free! Punch-free? Never.",
+    "Smell is the first thing they notice. Then the punch."
+   ],
+   "art": {
+    "color": "#a21caf",
+    "icon": "🌸"
+   },
+   "name": "Valentina Spritz"
+  },
+  "henchmen": {
+   "persona": "npc.sample-sprayer",
+   "career": "career.hairdresser",
+   "personality": "personality.chaotic",
+   "lines": [
+    "Free sample! FREE SAMPLE!",
+    "Wrist? Neck? Eyes?",
+    "Smell this. No, really. SMELL it.",
+    "Are you travelling today? You are now."
+   ],
+   "art": {
+    "color": "#c026d3",
+    "icon": "💨"
+   },
+   "names": [
+    "Mikey Mist",
+    "Clara Cologne"
+   ]
+  },
+  "entrance": [
+   "A cloud of perfume rolls into the {arena}... Valentina Spritz, Duty Free Perfume Counter Queen, and two over-eager tester sprayers!",
+   "Duty Free is here! Everyone in the {arena} is getting a free sample, whether they like it or not."
+  ],
+  "posts": [
+   "Brought the Duty Free experience to the {arena} today. Everyone smelled amazing on the way down. #Luxury #Fragrance",
+   "Introducing my new fragrance, 'Defeat', modelled today by the {company} team. #Launch",
+   "The {arena} smells so much better now. You're welcome."
+  ],
+  "comments": [
+   "My eyes still sting",
+   "Valentina I've emptied six bottles",
+   "Somebody bought a candle mid-fight??",
+   "The ref smells like vanilla now. Proud."
+  ]
+ },
+ {
+  "id": "crasher.lost-luggage",
+  "home": "arena.airport",
+  "visits": [
+   "arena.station",
+   "arena.warehouse"
+  ],
+  "leader": {
+   "persona": "npc.baggage-handler",
+   "career": "career.delivery-driver",
+   "personality": "personality.lazy",
+   "lines": [
+    "Your bag went to Lisbon. You're going down.",
+    "Fragile? Not any more.",
+    "I just throw them. That's the job.",
+    "Overweight! Extra charge! In punches!"
+   ],
+   "art": {
+    "color": "#78350f",
+    "icon": "🧳"
+   },
+   "name": "Terry Carousel"
+  },
+  "henchmen": {
+   "persona": "npc.carousel-crew",
+   "career": "career.postal-worker",
+   "personality": "personality.aggressive",
+   "lines": [
+    "Mind the carousel!",
+    "This bag's ticking. Is your bag ticking?",
+    "Heavy! Catch!",
+    "No label? Straight to the pile."
+   ],
+   "art": {
+    "color": "#92400e",
+    "icon": "🏷️"
+   },
+   "names": [
+    "Danny Tags",
+    "Big Sue Strap"
+   ]
+  },
+  "entrance": [
+   "A luggage carousel squeaks to life... Terry Carousel, Head Baggage Handler, and his crew have lost someone's bag. In the {arena}.",
+   "Lost Luggage! Terry's here to throw things. That's the job, apparently."
+  ],
+  "posts": [
+   "Handled 4,000 bags today and 4 people. Same technique. #Aviation #Logistics",
+   "If you lost a bag at the {arena} today, it's now in Lisbon. So are the {company} team, emotionally.",
+   "Fragile stickers are a suggestion. #BaggageHandler"
+  ],
+  "comments": [
+   "Terry someone's bag was full of cheese",
+   "I threw a suitcase AND a man today",
+   "We're on our break now right",
+   "The carousel is still going round with someone on it"
+  ]
+ },
+ {
+  "id": "crasher.the-critics",
+  "home": "arena.theatre",
+  "visits": [
+   "arena.museum",
+   "arena.diner"
+  ],
+  "leader": {
+   "persona": "npc.theatre-critic",
+   "career": "career.journalist",
+   "personality": "personality.confident",
+   "lines": [
+    "Dreadful. Unwatchable. I'll stay till the end.",
+    "One star. And that's for the lighting.",
+    "I've seen better fights at a funeral.",
+    "Derivative! Overacted! Let me in."
+   ],
+   "art": {
+    "color": "#3f3f46",
+    "icon": "🎭"
+   },
+   "name": "Lady Penelope Scathe"
+  },
+  "henchmen": {
+   "persona": "npc.understudy",
+   "career": "career.magician",
+   "personality": "personality.competitive",
+   "lines": [
+    "I KNOW all the lines!",
+    "This is my big break!",
+    "I've been waiting in the wings for years!",
+    "Is the lead injured? I can be the lead."
+   ],
+   "art": {
+    "color": "#52525b",
+    "icon": "🎟️"
+   },
+   "names": [
+    "Rupert Wings",
+    "Jess Standby"
+   ]
+  },
+  "entrance": [
+   "A program rustles... Lady Penelope Scathe, Theatre Critic, has arrived to review this fight. She already hates it.",
+   "The Critics are here! Lady Penelope has written her review. Now she's going to make it come true."
+  ],
+  "posts": [
+   "Review: 'Brawl at the {arena}'. A tedious first act, a muddled middle, then I got involved. Four stars. #Theatre #Review",
+   "The {company} team's performance was wooden, unconvincing and mostly horizontal. One star.",
+   "Finally, a production with conflict. Shame about the cast."
+  ],
+  "comments": [
+   "I went on for the second act!!",
+   "Penelope my agent wants to know if this was paid",
+   "Understudy life: waiting for someone to fall over. Today: everyone did.",
+   "Encore? Please no."
+  ]
+ },
+ {
+  "id": "crasher.panto",
+  "home": "arena.theatre",
+  "visits": [
+   "arena.hospital",
+   "arena.hotel"
+  ],
+  "leader": {
+   "persona": "npc.pantomime-dame",
+   "career": "career.clown",
+   "personality": "personality.chaotic",
+   "lines": [
+    "Oh yes I am!",
+    "He's behind you! No, really, he IS.",
+    "Hello boys and girls! And goodbye.",
+    "My wig's coming off and so are the gloves."
+   ],
+   "art": {
+    "color": "#be123c",
+    "icon": "💄"
+   },
+   "name": "Dame Trevor Twankey"
+  },
+  "henchmen": {
+   "persona": "npc.panto-horse",
+   "career": "career.mime",
+   "personality": "personality.clumsy",
+   "lines": [
+    "Neigh?",
+    "Which way is forward?!",
+    "I'm the BACK half. Show some respect.",
+    "Clip-clop. Clip-CLOP."
+   ],
+   "art": {
+    "color": "#e11d48",
+    "icon": "🐴"
+   },
+   "names": [
+    "Barry (front half)",
+    "Barry (back half)"
+   ]
+  },
+  "entrance": [
+   "Oh no it isn't! Oh yes it is! Dame Trevor Twankey and both halves of a pantomime horse have arrived in the {arena}!",
+   "It's Panto Season! Look out! They're behind you! No, really, turn around."
+  ],
+  "posts": [
+   "Oh yes I DID take on the {company} team at the {arena} today! Oh no they DIDN'T win! #Panto #ItsBehindYou",
+   "Brought a little sparkle to the {arena} today. And a lot of custard. #Theatre",
+   "Thank you to my horse, both halves, for their commitment. #Panto"
+  ],
+  "comments": [
+   "Neigh",
+   "Trev the back half's gone missing",
+   "Front half here. Back half is NOT speaking to me.",
+   "Oh no it wasn't! (It was.)"
+  ]
+ }
+]

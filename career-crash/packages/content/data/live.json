@@ -1,0 +1,3503 @@
+{
+ "templates": {
+  "intro": [
+   "Welcome to the {arena}! Nobody here was trained for this.",
+   "Live from the {arena}, where job descriptions go to die.",
+   "The {arena} is open for business. And violence.",
+   "It's a beautiful day at the {arena}. That's about to change.",
+   "Referee's in position. Staff are clocked in. Let's go!"
+  ],
+  "hit": [
+   "{a} lands one on {b}.",
+   "{b} takes a solid hit from {a}.",
+   "Ooh, {a} connects!",
+   "{a} with a {aJob}'s touch — right on {b}.",
+   "{b} did not see that coming from {a}.",
+   "Clean shot by {a}.",
+   "{a} is making it personal with {b}.",
+   "That's gonna leave a mark on {b}."
+  ],
+  "crit": [
+   "CRITICAL! {a} absolutely flattens {b}!",
+   "What a hit from {a}! {b} felt that one in their pension.",
+   "{a} finds the sweet spot on {b}!",
+   "MASSIVE hit! {a} sends a message to {b}.",
+   "{b} just felt the full force of {a}."
+  ],
+  "ability": [
+   "{a} busts out {ability}!",
+   "Here it comes — {ability} from {a}!",
+   "{a} the {aJob} goes for {ability}.",
+   "Signature move! {ability}!",
+   "{a} has been practising {ability} all week.",
+   "Straight from the {aJob} handbook: {ability}!"
+  ],
+  "ability_self": [
+   "{a} takes a moment for {ability}.",
+   "{a} goes with {ability}. Bold.",
+   "{ability}! {a} knows exactly what they're doing. Probably."
+  ],
+  "status_burning": [
+   "{b} is ON FIRE!",
+   "Somebody get {b} a fire extinguisher!",
+   "{b} is now officially too hot to handle.",
+   "Smoke is coming off {b}. That's not a good sign.",
+   "{b} has caught fire. HR will want a word."
+  ],
+  "status_wet": [
+   "{b} is soaked!",
+   "{b} is dripping wet. Stay away from anything electrical!",
+   "Splash! {b} is drenched.",
+   "{b} did not dress for this weather."
+  ],
+  "status_electrified": [
+   "ZAP! {b} is electrified!",
+   "{b} is conducting about eleven thousand volts.",
+   "{b}'s hair is standing on end!",
+   "Bzzzt! {b} lights up like a Christmas tree."
+  ],
+  "status_slipping": [
+   "{b} is sliding everywhere!",
+   "{b} has lost all traction.",
+   "Whoa! {b} is doing the moonwalk. Involuntarily.",
+   "{b} forgot to read the wet floor sign."
+  ],
+  "status_stunned": [
+   "{b} is seeing stars.",
+   "{b} is stunned!",
+   "{b} needs a minute.",
+   "Lights on, nobody home — {b} is dazed."
+  ],
+  "status_knocked-down": [
+   "{b} hits the floor!",
+   "Down goes {b}!",
+   "{b} is having a little lie down.",
+   "Timber! {b} is on the ground."
+  ],
+  "status_caffeinated": [
+   "{b} is wired on caffeine!",
+   "{b} just went full espresso.",
+   "{b} is vibrating at a new frequency."
+  ],
+  "status_embarrassed": [
+   "{b} is mortified.",
+   "{b} is going red in the face.",
+   "That's embarrassing for {b}.",
+   "{b} wants the floor to swallow them up."
+  ],
+  "status_inspired": [
+   "{b} is feeling inspired!",
+   "{b} looks ready to take on the world.",
+   "Motivation levels rising for {b}!"
+  ],
+  "status_foamed": [
+   "{b} is covered in foam!",
+   "{b} looks like a cappuccino now.",
+   "Foam party! Mostly on {b}."
+  ],
+  "status_cold": [
+   "{b} is freezing!",
+   "{b} is chilled to the bone.",
+   "Brrr, {b} is moving in slow motion."
+  ],
+  "status_lectured": [
+   "The referee is giving {b} a long talking-to.",
+   "{b} is being lectured. It's going to take a while."
+  ],
+  "status_distracted": [
+   "{b} is completely distracted.",
+   "{b} is checking their phone. In the middle of a fight.",
+   "{b} has lost the plot."
+  ],
+  "status_slowed": [
+   "{b} is barely moving.",
+   "{b} is running through treacle."
+  ],
+  "status_armoured": [
+   "{b} is bracing for impact.",
+   "{b} is turtling up!"
+  ],
+  "status_live": [
+   "That puddle is now LIVE with current!",
+   "Uh oh. The water is electrified."
+  ],
+  "throw": [
+   "{a} hurls a {prop}!",
+   "{a} throws a {prop} at {b}!",
+   "Incoming {prop}!",
+   "{a} winds up and launches a {prop}.",
+   "A {prop} is airborne, courtesy of {a}!",
+   "{a} has decided the {prop} is a weapon now."
+  ],
+  "throw_hit": [
+   "The {prop} smacks right into {b}!",
+   "Direct hit! {b} wears the {prop}.",
+   "{b} catches the {prop} with their face.",
+   "Bullseye! {prop} to {b}!"
+  ],
+  "throw_miss": [
+   "The {prop} sails wide.",
+   "{a} misses with the {prop}. Embarrassing.",
+   "That {prop} went nowhere near anyone."
+  ],
+  "pickup": [
+   "{a} grabs a {prop}.",
+   "{a} picks up a {prop}. That can't be good.",
+   "{a} has armed themselves with a {prop}.",
+   "{a} eyes up a {prop}... and takes it."
+  ],
+  "push": [
+   "{a} shoves a {prop} across the floor!",
+   "{a} sends a {prop} sliding!",
+   "Look out! {a} has launched a {prop}!"
+  ],
+  "ride": [
+   "{a} hops on a {prop}!",
+   "{a} is riding a {prop}! Health and safety is weeping.",
+   "Wheee! {a} on the {prop}!",
+   "{a} commandeers a {prop}."
+  ],
+  "ride_hit": [
+   "{a} runs {b} over with a {prop}!",
+   "Road rage! {a} plows into {b}!",
+   "{b} gets flattened by {a} on a {prop}."
+  ],
+  "use_coffee": [
+   "{a} downs a coffee. Oh no.",
+   "{a} takes a caffeine break mid-fight.",
+   "Espresso for {a}!"
+  ],
+  "use_food": [
+   "{a} stops for a snack.",
+   "{a} is eating. Right now. During this.",
+   "{a} refuels with a {prop}."
+  ],
+  "use_machine": [
+   "{a} gets something from the {prop}.",
+   "{a} is using the {prop}. Priorities!",
+   "{a} jams the buttons on the {prop}."
+  ],
+  "prop_broken": [
+   "The {prop} is destroyed!",
+   "There goes the {prop}.",
+   "Smash! That {prop} is history.",
+   "Somebody's paying for that {prop}."
+  ],
+  "explosion": [
+   "KABOOM! The {prop} explodes!",
+   "EXPLOSION! That {prop} had it coming.",
+   "The {prop} goes up in a massive blast!",
+   "BOOM! Everyone near the {prop} is having a bad day."
+  ],
+  "downed": [
+   "{b} is DOWN!",
+   "{a} puts {b} on the floor!",
+   "{b} is down and needs help!",
+   "{b} crumples. Can anyone revive them?"
+  ],
+  "ko": [
+   "{b} is OUT!",
+   "KNOCKOUT! {a} finishes {b}!",
+   "That's it for {b}!",
+   "{b} has clocked out. Permanently.",
+   "{a} sends {b} home early!",
+   "{b} won't be making the afternoon meeting."
+  ],
+  "ko_env": [
+   "{b} is out — taken down by the environment!",
+   "The {arena} claims {b}!"
+  ],
+  "ko_friendly": [
+   "Oh no — {a} knocked out their OWN teammate {b}!",
+   "Friendly fire! {a} takes out {b}! Awkward.",
+   "{a} and {b} will be having words at the Christmas party."
+  ],
+  "revived": [
+   "{a} gets {b} back on their feet!",
+   "{b} is back! Thanks, {a}!",
+   "Miraculous recovery for {b}!",
+   "{a} drags {b} back into the fight."
+  ],
+  "panic": [
+   "{a} is PANICKING!",
+   "{a} has lost their nerve and is running!",
+   "{a} wants no part of this anymore.",
+   "{a} is screaming and running in circles."
+  ],
+  "taunt": [
+   "{a} is taunting the other team.",
+   "{a} does a little dance. Rude.",
+   "{a} is showing off!",
+   "{a} blows a raspberry."
+  ],
+  "taunted": [
+   "{b} has been provoked by {a}!",
+   "{b} can't let that go — charging at {a}!"
+  ],
+  "foul": [
+   "The referee has noticed that.",
+   "That's a foul from {b}!",
+   "The ref is writing something down about {b}."
+  ],
+  "card": [
+   "YELLOW CARD for {b}!",
+   "The referee has had enough of {b}!",
+   "{b} gets carded and a lecture!"
+  ],
+  "referee_down": [
+   "THE REFEREE IS DOWN! Nobody is in charge!",
+   "They've taken out the referee! Chaos reigns!",
+   "No more rules! The referee is out!"
+  ],
+  "referee_hit": [
+   "Somebody hit the referee!",
+   "Watch the ref!",
+   "The referee takes one for the team."
+  ],
+  "hazard_warn": [
+   "Attention shoppers: {hazard} incoming!",
+   "Heads up — {hazard}!",
+   "Something's happening: {hazard}!"
+  ],
+  "hazard": [
+   "{hazard}!",
+   "And here comes {hazard}!"
+  ],
+  "sudden_death": [
+   "SUDDEN DEATH! The {arena} is turning on everyone!",
+   "It's sudden death! Things are getting worse!",
+   "The {arena} has had enough. SUDDEN DEATH!"
+  ],
+  "heal": [
+   "{a} patches up {b}.",
+   "{b} gets some first aid from {a}.",
+   "A bit of healing for {b}."
+  ],
+  "heal_enemy": [
+   "Wait — {a} just healed {b} from the OTHER team!",
+   "{a} is helping the enemy. Professional ethics?"
+  ],
+  "drop": [
+   "{a} drops the {prop}!",
+   "Butterfingers! {a} loses the {prop}.",
+   "The {prop} slips out of {a}'s hands."
+  ],
+  "rule_fire": [
+   "The fire is spreading!",
+   "Flames everywhere!",
+   "Things are heating up — literally."
+  ],
+  "rule_shock": [
+   "Water and electricity — what a combination!",
+   "Electricity is finding its way through everyone!",
+   "ZAP! That's why you don't mix water and wires."
+  ],
+  "rule_water": [
+   "Splash! That put the fire out.",
+   "Water to the rescue!"
+  ],
+  "rule_slip": [
+   "Slip hazard claims another victim!",
+   "Who left this floor wet?!"
+  ],
+  "rule_cook": [
+   "{a} is cooking up a snack mid-fight!",
+   "Only a chef would make lunch during a brawl."
+  ],
+  "first_blood": [
+   "First blood goes to {a}!",
+   "{a} draws first blood!"
+  ],
+  "low_hp": [
+   "{b} is hanging on by a thread!",
+   "{b} is barely standing.",
+   "One more hit and {b} is done!"
+  ],
+  "end_win": [
+   "It's over! {team} win!",
+   "{team} take it! What a fight!",
+   "Victory for {team}!",
+   "{team} clock out as winners!"
+  ],
+  "end_draw": [
+   "It's a draw! Nobody wins, everyone's fired.",
+   "Time's up — and it's all square!"
+  ],
+  "bark_hurt": [
+   "Ow!",
+   "Ouch!",
+   "Hey!",
+   "Oof!",
+   "My back!",
+   "Not the face!",
+   "That hurt!",
+   "Ugh!",
+   "I'm telling HR!",
+   "Rude!",
+   "Workers' comp!",
+   "I'm filing a grievance!",
+   "Not the face! I have headshots Thursday!",
+   "That's going in my review!",
+   "My pension!",
+   "Mind the exhibits!",
+   "I've got a flight to catch!"
+  ],
+  "bark_hit_by_prop": [
+   "Who threw that?!",
+   "My head!",
+   "Was that a {prop}?!",
+   "OW! A {prop}!",
+   "Seriously?!"
+  ],
+  "bark_attack": [
+   "Take that!",
+   "Hiyah!",
+   "Come here!",
+   "Gotcha!",
+   "Bam!",
+   "Have some!",
+   "Per my last email!",
+   "Here's my feedback!",
+   "Consider this a formal warning!",
+   "Let's take this offline!"
+  ],
+  "bark_crit": [
+   "BOOM!",
+   "Nailed it!",
+   "Did you see that?!",
+   "Textbook!",
+   "Clocked!",
+   "And THAT'S a KPI!",
+   "Put that in the minutes!",
+   "Stonks!",
+   "Exceeds expectations!"
+  ],
+  "bark_ko_win": [
+   "Next!",
+   "And STAY down!",
+   "Who's next?",
+   "Easy.",
+   "Overtime's cancelled!",
+   "Too easy!",
+   "You're fired!",
+   "Let's call it a day.",
+   "Out of office!",
+   "Closing that ticket.",
+   "Consider yourself restructured."
+  ],
+  "bark_ally_down": [
+   "NOOO!",
+   "Hang in there!",
+   "Medic!",
+   "Not them!",
+   "We'll get them!",
+   "Man down! Someone file a report!",
+   "I'll take your desk!",
+   "Not Kevin! Wait, who's Kevin?"
+  ],
+  "bark_enemy_down": [
+   "Ha!",
+   "One down!",
+   "Yes!",
+   "Get in!",
+   "Bye bye!",
+   "One less meeting.",
+   "Bye! Update your CV!",
+   "Consider that feedback."
+  ],
+  "bark_burning": [
+   "HOT HOT HOT!",
+   "I'M ON FIRE!",
+   "AAAH!",
+   "Water! WATER!",
+   "Stop drop and roll!",
+   "It's getting hot in here!",
+   "Not the blazer!",
+   "I'm a smoke alarm now!"
+  ],
+  "bark_electrified": [
+   "BZZZT!",
+   "Zzzap!",
+   "My fillings!",
+   "Ngggh!"
+  ],
+  "bark_wet": [
+   "Ugh, soaked!",
+   "My suit!",
+   "So cold!",
+   "Brr!"
+  ],
+  "bark_slip": [
+   "Whoa!",
+   "Woah woah!",
+   "Slippy!",
+   "Nooo—",
+   "Who mopped this?!",
+   "Wet floor sign! WHERE'S THE SIGN?!",
+   "Whoa-oa-oa!"
+  ],
+  "bark_coffee": [
+   "LET'S GO!",
+   "Caffeine!",
+   "I can see sounds!",
+   "So. Much. Energy."
+  ],
+  "bark_food": [
+   "Mmm!",
+   "Snack time!",
+   "Delicious."
+  ],
+  "bark_panic": [
+   "RUN!",
+   "I quit!",
+   "Not today!",
+   "Help!",
+   "I'm out!",
+   "Mummy!",
+   "I'm just an intern!",
+   "I want my mum!",
+   "This wasn't in the job description!",
+   "I quit! I QUIT!"
+  ],
+  "bark_revived": [
+   "I'm back!",
+   "What happened?",
+   "Thanks!",
+   "Round two!"
+  ],
+  "bark_reviver": [
+   "Up you get!",
+   "Walk it off!",
+   "You're fine!",
+   "Get up!"
+  ],
+  "bark_card": [
+   "What?!",
+   "I barely touched them!",
+   "Come on, ref!",
+   "That's harsh!"
+  ],
+  "bark_ref_card": [
+   "Foul!",
+   "That's a card!",
+   "Unacceptable!",
+   "Behave!"
+  ],
+  "bark_taunt": [
+   "Come on then!",
+   "Is that all?",
+   "Too slow!",
+   "You call that a job?",
+   "Ha ha!",
+   "Is that all you've got?",
+   "My nan hits harder!",
+   "Were you hired through a raffle?",
+   "You fight like a spreadsheet!"
+  ],
+  "bark_pickup": [
+   "Ooh, a {prop}!",
+   "This'll do.",
+   "Perfect.",
+   "Mine!",
+   "Ooh, is this {prop} free?",
+   "Nobody's using this {prop}."
+  ],
+  "bark_throw": [
+   "Catch!",
+   "Heads up!",
+   "Fore!",
+   "Incoming!"
+  ],
+  "bark_explosion": [
+   "WHOA!",
+   "My ears!",
+   "Duck!"
+  ],
+  "bark_ref_down": [
+   "Uh oh.",
+   "Is the ref OK?",
+   "Free for all!"
+  ],
+  "bark_ride": [
+   "Wheee!",
+   "Out of the way!",
+   "Beep beep!",
+   "Coming through!"
+  ],
+  "bark_heal_enemy": [
+   "Wait, wrong team!",
+   "Oops, force of habit."
+  ],
+  "bark_friendly": [
+   "Sorry!",
+   "My bad!",
+   "Oops!",
+   "Whose side am I on?"
+  ],
+  "bark_win": [
+   "We did it!",
+   "Pay rise please!",
+   "Champions!",
+   "Clocking out!",
+   "Team drinks on me!",
+   "Updating my LinkedIn now.",
+   "Put it in the newsletter!",
+   "Pay rise? Pay rise."
+  ],
+  "ab_flambe": [
+   "{a} flambés {b}. Chef's kiss.",
+   "{a} sets {b} on fire and calls it presentation.",
+   "Yes chef! {b} is on fire!"
+  ],
+  "ab_hose-down": [
+   "{a} hoses down everyone. Friend or foe, doesn't matter.",
+   "Firefighter protocol: soak everything. {b} is drenched."
+  ],
+  "ab_live-wire": [
+   "{a} finds a live wire. Of course they do.",
+   "{a} sparks up — {b} is conducting beautifully."
+  ],
+  "ab_short-circuit": [
+   "{a} shorts the whole area out!",
+   "Not up to code! {a} starts a short circuit."
+  ],
+  "ab_detention": [
+   "{a} gives {b} detention. Sit down and think about what you've done.",
+   "{b} is in detention. {a} is not accepting excuses."
+  ],
+  "ab_pop-quiz": [
+   "Pop quiz! Nobody studied!",
+   "{a} springs a pop quiz. Everyone's panicking."
+  ],
+  "ab_objection": [
+   "OBJECTION! {b} has been overruled.",
+   "{a} objects to {b}'s entire existence."
+  ],
+  "ab_cease-and-desist": [
+   "{a} serves {b} a cease and desist. Legally binding punch."
+  ],
+  "ab_audit": [
+   "{a} audits {b}. The numbers do not add up.",
+   "{b} is being audited. This is worse than being punched."
+  ],
+  "ab_tax-return": [
+   "{a} files a tax return mid-fight and gets money back."
+  ],
+  "ab_blue-screen": [
+   "{b} just blue-screened. Have you tried turning them off and on again?",
+   "{a} crashes {b}. Fatal error."
+  ],
+  "ab_ddos": [
+   "{a} launches a DDoS. Nobody can think straight."
+  ],
+  "ab_go-live": [
+   "{a} goes live! The team is feeling the likes.",
+   "{a} is streaming this. Like and subscribe."
+  ],
+  "ab_ring-light-flash": [
+   "{a} flashes the ring light. {b} can't see a thing."
+  ],
+  "ab_numbing-gel": [
+   "{a} numbs {b}'s face. This won't hurt a bit.",
+   "Open wide, {b}!"
+  ],
+  "ab_laughing-gas": [
+   "{a} releases laughing gas. Everyone's giggling. Including the enemy."
+  ],
+  "ab_wrench-toss": [
+   "{a} throws a wrench into {b}'s plans. Literally.",
+   "Spanner in the works! {a} nails {b}."
+  ],
+  "ab_tow-hook": [
+   "{a} tows {b} away. No parking here."
+  ],
+  "ab_pitchfork-prod": [
+   "{a} prods {b} with a pitchfork. Get off my land!"
+  ],
+  "ab_manure-spread": [
+   "{a} spreads manure. The smell is... tactical."
+  ],
+  "ab_shhh": [
+   "SHHH! {a} silences the whole aisle.",
+   "{a} shushes everyone. The fighting stops out of pure shame."
+  ],
+  "ab_book-avalanche": [
+   "{a} brings down a shelf of books on {b}. Overdue!"
+  ],
+  "ab_road-rage": [
+   "{a} goes full road rage on {b}.",
+   "Beep beep! {a} ploughs into {b}."
+  ],
+  "ab_honk": [
+   "HONK! {a} leans on the horn. Everyone jumps."
+  ],
+  "ab_defibrillator": [
+   "CLEAR! {a} shocks {b} back to life."
+  ],
+  "ab_adrenaline-shot": [
+   "{a} jabs {b} with adrenaline. They're buzzing."
+  ],
+  "ab_not-on-the-list": [
+   "{b} is NOT on the list. {a} makes sure of it."
+  ],
+  "ab_radio-for-backup": [
+   "{a} radios for backup. The team braces."
+  ],
+  "ab_expose": [
+   "{a} publishes an exposé on {b}. Career over."
+  ],
+  "ab_flash-photography": [
+   "{a} snaps a photo. {b} is blinded by journalism."
+  ],
+  "ab_drop-the-bass": [
+   "{a} DROPS THE BASS! Everyone flies.",
+   "The beat drops. So does {b}."
+  ],
+  "ab_strobe-lights": [
+   "{a} turns on the strobes. It's a rave now."
+  ],
+  "ab_hard-hat-charge": [
+   "{a} charges head-first. Safety first!"
+  ],
+  "ab_wrecking-swing": [
+   "{a} spins like a wrecking ball!"
+  ],
+  "ab_taser": [
+   "{a} tases {b}. Don't tase me, bro!"
+  ],
+  "ab_pepper-spray": [
+   "{a} pepper-sprays {b}. Eyes watering all round."
+  ],
+  "ab_parcel-throw": [
+   "Special delivery for {b}! Signed for with their face.",
+   "{a} leaves a parcel on {b}. Nobody was home."
+  ],
+  "ab_express-delivery": [
+   "Express delivery! {a} arrives at {b} at speed."
+  ],
+  "ab_mop-slide": [
+   "{a} mops the floor. {b} goes skating."
+  ],
+  "ab_bucket-toss": [
+   "{a} empties a mop bucket over everyone."
+  ],
+  "ab_burst-pipe": [
+   "{a} bursts a pipe. The {arena} is flooding!",
+   "That's a plumbing emergency — caused by the plumber."
+  ],
+  "ab_plunger-pull": [
+   "{a} plungers {b} across the floor. Unblocked."
+  ],
+  "ab_empty-promises": [
+   "{a} makes empty promises. The crowd turns on them."
+  ],
+  "ab_commercial-break": [
+   "We'll be right back after this commercial break!"
+  ],
+  "ab_scathing-review": [
+   "{a} gives {b} one star. 'Overcooked. Undeserving.'"
+  ],
+  "ab_you-got-this": [
+   "{a} tells {b} they've got this. They believe it."
+  ],
+  "ab_how-does-that-feel": [
+   "{a} asks {b} how that makes them feel. {b} has to sit down."
+  ],
+  "ab_structural-analysis": [
+   "{a} finds the structural weakness in {b}. It's their knees."
+  ],
+  "ab_scalding-latte": [
+   "{a} serves {b} an extra-hot latte. Directly. On them.",
+   "One oat milk latte, scalding, for {b}!"
+  ],
+  "ab_espresso-round": [
+   "{a} gets a round of espressos in. The team is vibrating."
+  ],
+  "ab_hairspray-blaze": [
+   "{a} uses hairspray and a lighter. Flamethrower hairdo!",
+   "That's not how hairspray works, {a}!"
+  ],
+  "ab_bad-haircut": [
+   "{a} gives {b} the worst haircut of their life.",
+   "{b} will be wearing a hat for months."
+  ],
+  "ab_rescue-tube": [
+   "{a} throws {b} a rescue tube and drags them in."
+  ],
+  "ab_whistle-blast": [
+   "{a} blows the lifeguard whistle. Everyone out of the pool!"
+  ],
+  "ab_burpee-challenge": [
+   "{a} makes everyone do burpees. The enemy is exhausted."
+  ],
+  "ab_no-pain-no-gain": [
+   "{a} screams motivation at {b}. NO PAIN NO GAIN!"
+  ],
+  "ab_hose-pipe": [
+   "{a} turns the garden hose on everyone.",
+   "{a} waters {b} like a hydrangea."
+  ],
+  "ab_rake-trap": [
+   "{a} leaves a rake on the floor. Nobody will see it coming. Nobody ever does."
+  ],
+  "ab_invisible-wall": [
+   "{a} puts up an invisible wall. {b} walks straight into it.",
+   "{b} is trapped in an invisible box. Somehow."
+  ],
+  "ab_imaginary-rope": [
+   "{a} pulls {b} in with an imaginary rope. It works?!"
+  ],
+  "ab_zero-g-leap": [
+   "{a} leaps like there's no gravity. One small step for {a}..."
+  ],
+  "ab_rocket-pack": [
+   "{a} fires up a rocket pack. Liftoff!",
+   "Houston, we have a problem: {a} has a rocket pack."
+  ],
+  "ab_theyre-lying-to-you": [
+   "{a} tells everyone the referee is a government plant.",
+   "{a}: 'Do your own research!' Everyone is confused."
+  ],
+  "ab_tinfoil-hat": [
+   "{a} puts on a tinfoil hat. Can't zap them now."
+  ],
+  "ab_live-cooking-show": [
+   "{a} starts a live cooking show. Snacks for the team!"
+  ],
+  "ab_the-moon-is-fake": [
+   "{a} reveals the moon is fake. Everyone stops to process this."
+  ],
+  "ab_haymaker": [
+   "{a} throws a haymaker at {b}!"
+  ],
+  "ab_table-flip": [
+   "{a} flips a table. (╯°□°)╯︵ ┻━┻"
+  ],
+  "ab_power-nap": [
+   "{a} takes a power nap. In the middle of a fight.",
+   "Zzz... {a} is napping."
+  ],
+  "ab_play-dead": [
+   "{a} plays dead. Oscar-worthy."
+  ],
+  "ab_oops": [
+   "Oops! {a} trips and takes everyone down with them."
+  ],
+  "ab_pickpocket": [
+   "{a} pickpockets {b}. Classic."
+  ],
+  "ab_trash-talk": [
+   "{a} trash-talks {b}. That was personal."
+  ],
+  "ab_panic-button": [
+   "{a} hits the panic button. Literally."
+  ],
+  "ab_victory-pose": [
+   "{a} strikes a victory pose. Bit early."
+  ],
+  "ab_pep-talk": [
+   "{a} gives {b} a pep talk. Team spirit!"
+  ],
+  "irony_fire": [
+   "A {bJob}, on fire. The irony is not lost on anyone.",
+   "{b} the {bJob} is burning. Professionally embarrassing."
+  ],
+  "irony_shock": [
+   "{b} is an electrician. Electrocuted. Should have checked the fuse.",
+   "The electrician gets electrocuted. Health and safety are furious."
+  ],
+  "irony_slip": [
+   "{b} the {bJob} slips on a wet floor. They KNOW better.",
+   "A {bJob} slipping over. You love to see it."
+  ],
+  "irony_wet": [
+   "The lifeguard is soaked. That's just Tuesday for them."
+  ],
+  "mover_scrubber": [
+   "{b} gets run over by the floor scrubber!",
+   "The floor scrubber flattens {b}. Clean-up on aisle everywhere.",
+   "{b} is now part of the floor-cleaning process."
+  ],
+  "mover_vacuum": [
+   "The robot vacuum trips {b}!",
+   "{b} tripped over the robot vacuum. It didn't even notice.",
+   "The Roomba strikes again — {b} is down!"
+  ],
+  "vacuum_eats": [
+   "The robot vacuum just ate a {prop}.",
+   "Om nom. The vacuum hoovers up a {prop}."
+  ],
+  "scrubber_eats": [
+   "The floor scrubber swallows a {prop}."
+  ],
+  "rule_rake": [
+   "{b} steps on a rake. THWACK.",
+   "Rake to the face! {b} walked right into that.",
+   "Classic rake. Classic {b}."
+  ],
+  "meanwhile": [
+   "Meanwhile, at {place}: ",
+   "Over at {place}: ",
+   "At {place}: ",
+   "Cut to {place} — "
+  ],
+  "hazard_start_floor-scrubber": [
+   "Here comes the floor scrubber! Everyone out of the way!"
+  ],
+  "hazard_start_robot-vacuum": [
+   "The robot vacuum has started its rounds. Watch your ankles."
+  ],
+  "bark_mover": [
+   "MY FEET!",
+   "Who's driving that?!",
+   "It ran me over!",
+   "Not the {prop}!",
+   "AAARGH!",
+   "Who gave that thing a licence?!",
+   "PUT ME DOWN, FORKLIFT!"
+  ],
+  "bark_rake": [
+   "OW! Who leaves a rake here?!",
+   "WHY IS THERE A RAKE?!",
+   "Every. Single. Time.",
+   "My nose!"
+  ],
+  "replay_intro": [
+   "Let's see that again!",
+   "Instant replay!",
+   "Roll the tape!",
+   "One more time, in slow motion..."
+  ],
+  "banter": [
+   "{a} to {b}: “{line}”",
+   "{a} yells at {b}: “{line}”",
+   "“{line}” — {a}, to {b}"
+  ],
+  "grab": [
+   "{a} grabs {b}!",
+   "{a} has {b} in a hold!",
+   "{a} gets a grip on {b}..."
+  ],
+  "grab_behind": [
+   "SUPLEX! {a} sends {b} over the shoulder!",
+   "{a} throws {b} over their back!",
+   "Judo! {a} flips {b}!"
+  ],
+  "grab_up": [
+   "{a} lifts {b} into the air — BODY SLAM!",
+   "Up goes {b}... and DOWN!",
+   "{a} picks {b} up like a sack of potatoes!"
+  ],
+  "grab_away": [
+   "{a} launches {b} across the {arena}!",
+   "{b} is thrown like a parcel!",
+   "{a} tosses {b}! They're airborne!",
+   "Yeet! {b} is flying!"
+  ],
+  "landed_big": [
+   "{b} hits the floor HARD!",
+   "OOF. {b} felt every bone in that landing.",
+   "{b} lands with a thud they'll feel till Monday."
+  ],
+  "body_hit": [
+   "{b} got bowled over by a flying {aJob}!",
+   "Human missile! {b} goes down!",
+   "{b} is hit by a flying colleague!"
+  ],
+  "bark_thrown": [
+   "WHOA-OA-OA!",
+   "PUT ME DOWN!",
+   "AAAAAH!",
+   "Not like this!",
+   "I can fly!",
+   "Put me DOWN!",
+   "I'm flyiiiing!"
+  ],
+  "bark_thrower": [
+   "Up you go!",
+   "Catch!",
+   "Hup!",
+   "Special delivery!",
+   "Get OUT!",
+   "Returned to sender!",
+   "Heave!"
+  ],
+  "job_teacher": [
+   "Eyes on the board!",
+   "This WILL be on the test!",
+   "Hands up if you're hurt!"
+  ],
+  "jobhurt_teacher": [
+   "I've survived Year 9, I can survive this!",
+   "My marking!"
+  ],
+  "job_electrician": [
+   "Live wire!",
+   "Mind the voltage!",
+   "Don't touch that!"
+  ],
+  "jobhurt_electrician": [
+   "Who flipped the breaker?!",
+   "That's not earthed!"
+  ],
+  "job_chef": [
+   "Yes, chef!",
+   "Order up!",
+   "Taste THIS!"
+  ],
+  "jobhurt_chef": [
+   "My soufflé!",
+   "I've been deglazed!"
+  ],
+  "job_taxi-driver": [
+   "Where to, mate?",
+   "Meter's running!",
+   "Shortcut!"
+  ],
+  "jobhurt_taxi-driver": [
+   "Mind the upholstery!",
+   "That's a one-star review!"
+  ],
+  "job_paramedic": [
+   "Stay with me!",
+   "This'll sting!",
+   "Clear!"
+  ],
+  "jobhurt_paramedic": [
+   "I need a medic! Oh wait.",
+   "Who's going to treat ME?"
+  ],
+  "job_programmer": [
+   "sudo punch!",
+   "It's not a bug, it's a feature!",
+   "Deploying fix!"
+  ],
+  "jobhurt_programmer": [
+   "Segfault!",
+   "Stack overflow!"
+  ],
+  "job_influencer": [
+   "Like and subscribe!",
+   "Content!",
+   "This is going viral!"
+  ],
+  "jobhurt_influencer": [
+   "My ring light!",
+   "Delete that!"
+  ],
+  "job_dentist": [
+   "Open wide!",
+   "Just a little pinch!",
+   "Rinse!"
+  ],
+  "jobhurt_dentist": [
+   "I've chipped a tooth!",
+   "My crowns!"
+  ],
+  "job_mechanic": [
+   "Needs a new clutch!",
+   "Torque!",
+   "I'll tighten that!"
+  ],
+  "jobhurt_mechanic": [
+   "My back! Like a transmission!",
+   "That's a write-off!"
+  ],
+  "job_farmer": [
+   "Get off my land!",
+   "Harvest time!",
+   "Oo-arr!"
+  ],
+  "jobhurt_farmer": [
+   "Me turnips!",
+   "I've been ploughed!"
+  ],
+  "job_librarian": [
+   "Overdue!",
+   "Shh!",
+   "Dewey decimal THIS!"
+  ],
+  "jobhurt_librarian": [
+   "My glasses!",
+   "That's a late fee!"
+  ],
+  "job_accountant": [
+   "Audit!",
+   "That doesn't add up!",
+   "Deductible!"
+  ],
+  "jobhurt_accountant": [
+   "My spreadsheets!",
+   "That's a loss!"
+  ],
+  "job_firefighter": [
+   "Stand back!",
+   "Everybody out!",
+   "Hose it!"
+  ],
+  "jobhurt_firefighter": [
+   "I've had worse!",
+   "That's hot!"
+  ],
+  "job_security-guard": [
+   "Not on the list!",
+   "Move along!",
+   "Out!"
+  ],
+  "jobhurt_security-guard": [
+   "I need backup!",
+   "Code red!"
+  ],
+  "job_lawyer": [
+   "Objection!",
+   "Sue you!",
+   "Pro bono punch!"
+  ],
+  "jobhurt_lawyer": [
+   "Personal injury! I'm claiming!",
+   "That's assault!"
+  ],
+  "job_journalist": [
+   "Scoop!",
+   "Exclusive!",
+   "Breaking news!"
+  ],
+  "jobhurt_journalist": [
+   "Off the record!",
+   "My deadline!"
+  ],
+  "job_dj": [
+   "Drop it!",
+   "Hands in the air!",
+   "Bass!"
+  ],
+  "jobhurt_dj": [
+   "Record scratch!",
+   "My decks!"
+  ],
+  "job_builder": [
+   "Hard hat area!",
+   "Cowboy job!",
+   "Solid!"
+  ],
+  "jobhurt_builder": [
+   "Mind the scaffolding!",
+   "Me back's gone!"
+  ],
+  "job_police-officer": [
+   "Freeze!",
+   "You're nicked!",
+   "Hands where I can see 'em!"
+  ],
+  "jobhurt_police-officer": [
+   "Officer down!",
+   "I'll write you up for that!"
+  ],
+  "job_delivery-driver": [
+   "Parcel!",
+   "Signed for!",
+   "Left in porch!"
+  ],
+  "jobhurt_delivery-driver": [
+   "Damaged in transit!",
+   "I'm on a schedule!"
+  ],
+  "job_janitor": [
+   "Mind the floor!",
+   "Mop that up!",
+   "Clean-up!"
+  ],
+  "jobhurt_janitor": [
+   "I just mopped that!",
+   "Not the bucket!"
+  ],
+  "job_plumber": [
+   "Unblocked!",
+   "Pipe down!",
+   "That's a leak!"
+  ],
+  "jobhurt_plumber": [
+   "Me pipes!",
+   "I'm flooding!"
+  ],
+  "job_engineer": [
+   "Structurally sound!",
+   "Calculated!",
+   "Load test!"
+  ],
+  "jobhurt_engineer": [
+   "That's a design flaw!",
+   "Tolerances exceeded!"
+  ],
+  "job_politician": [
+   "Vote for me!",
+   "Promise!",
+   "Order, order!"
+  ],
+  "jobhurt_politician": [
+   "Scandal!",
+   "My approval rating!"
+  ],
+  "job_psychologist": [
+   "Let's talk about it!",
+   "Breathe!",
+   "Repressed!"
+  ],
+  "jobhurt_psychologist": [
+   "That's triggering!",
+   "I need therapy!"
+  ],
+  "job_life-coach": [
+   "You got this!",
+   "Manifest it!",
+   "Believe!"
+  ],
+  "jobhurt_life-coach": [
+   "This is a growth opportunity!",
+   "Negative energy!"
+  ],
+  "job_tv-host": [
+   "We're live!",
+   "And action!",
+   "Smile for the camera!"
+  ],
+  "jobhurt_tv-host": [
+   "Cut! CUT!",
+   "My makeup!"
+  ],
+  "job_food-critic": [
+   "One star!",
+   "Bland!",
+   "Deconstructed!"
+  ],
+  "jobhurt_food-critic": [
+   "Undercooked!",
+   "I'm sending this back!"
+  ],
+  "job_barista": [
+   "Extra shot!",
+   "Oat or dairy?",
+   "Order for... YOU!"
+  ],
+  "jobhurt_barista": [
+   "I've been decaffeinated!",
+   "My foam art!"
+  ],
+  "job_hairdresser": [
+   "Snip snip!",
+   "Layers!",
+   "Something off the top?"
+  ],
+  "jobhurt_hairdresser": [
+   "My blow-dry!",
+   "Split ends!"
+  ],
+  "job_lifeguard": [
+   "No running!",
+   "Whistle!",
+   "Save!"
+  ],
+  "jobhurt_lifeguard": [
+   "I'm drowning! On land!",
+   "Man overboard!"
+  ],
+  "job_personal-trainer": [
+   "One more rep!",
+   "Feel the burn!",
+   "Core!"
+  ],
+  "jobhurt_personal-trainer": [
+   "I've pulled something!",
+   "That's not cardio!"
+  ],
+  "job_gardener": [
+   "Prune!",
+   "Weed!",
+   "Fertiliser!"
+  ],
+  "jobhurt_gardener": [
+   "My roses!",
+   "Stepped on my seedlings!"
+  ],
+  "job_mime": [
+   "*mimes punching*",
+   "...!",
+   "*mimes victory*"
+  ],
+  "jobhurt_mime": [
+   "*mimes pain*",
+   "*mimes crying*"
+  ],
+  "job_conspiracy-podcaster": [
+   "Wake up, sheeple!",
+   "It's all connected!",
+   "Follow the money!"
+  ],
+  "jobhurt_conspiracy-podcaster": [
+   "They're coming for me!",
+   "It's a cover-up!"
+  ],
+  "job_astronaut": [
+   "Houston!",
+   "Liftoff!",
+   "One small step!"
+  ],
+  "jobhurt_astronaut": [
+   "Houston, we have a problem!",
+   "Mayday!"
+  ],
+  "status_crawling": [
+   "{b} is crawling for it!",
+   "{b} drags themselves along the floor.",
+   "Not getting up yet, {b}?",
+   "{b} commando-crawls to safety.",
+   "{b} is taking the scenic route. On their belly.",
+   "Army crawl from {b}! Inspirational."
+  ],
+  "ko_bleed": [
+   "{b} crawls one last metre and gives up.",
+   "{b} has stopped crawling. {b} is OUT.",
+   "Nobody came for {b}. Knocked out!",
+   "{b} waited for help. Help did not come. OUT!",
+   "Lights out for {b}, face-down on the floor."
+  ],
+  "bark_crawl": [
+   "I'm fine! I'm fine!",
+   "Just... resting...",
+   "Medic?",
+   "Tactical crawl!",
+   "Nobody look at me.",
+   "My legs are on strike.",
+   "Five more minutes...",
+   "Just... need... a minute...",
+   "I'll crawl to HR if I have to.",
+   "Tell my plants I love them."
+  ],
+  "bark_downed_crawl": [
+   "Help...",
+   "Someone... anyone...",
+   "Tell my manager...",
+   "I can see the light... it's the exit sign.",
+   "Revive me, cowards!"
+  ],
+  "mover_forklift": [
+   "The forklift scoops up {b} and yeets them!",
+   "{b} gets forklifted. Straight into the air.",
+   "Forklift 1, {b} 0.",
+   "{b} has been delivered. By forklift. At speed.",
+   "The forklift driver did not see {b}. Nobody's driving."
+  ],
+  "hazard_start_industrial-fan": [
+   "The industrial fan kicks in. Hold on to your lanyards!",
+   "Somebody switched on the big fan. Everyone is now going sideways.",
+   "Wind warning! The fan has opinions about where you should stand."
+  ],
+  "hazard_start_desk-fans": [
+   "All desk fans on full! The quarterly reports are airborne.",
+   "A gale sweeps the office. Paperwork everywhere, as usual."
+  ],
+  "hazard_start_revolving-door": [
+   "The revolving door spins up. Anyone nearby is leaving. Fast.",
+   "Revolving door at max RPM! Check-out time is NOW."
+  ],
+  "hazard_start_sprinklers": [
+   "Sprinklers! Everyone gets a free shower.",
+   "The sprinklers go off. Mind the floor, it's a slip-and-slide now."
+  ],
+  "hazard_start_trapdoor": [
+   "The stage trapdoor drops open! Exit, stage down.",
+   "Trapdoor! Someone just made a very dramatic exit."
+  ],
+  "hazard_start_steam-vent": [
+   "The kitchen vent blasts steam. Facial, anyone?",
+   "Steam vent! Something's cooking, and it's whoever stood there."
+  ],
+  "mover_crane-hook": [
+   "The crane hook swings through and collects {b}.",
+   "{b} gets hooked. Literally.",
+   "Crane hook 1, {b} 0."
+  ],
+  "mover_trolley-train": [
+   "A runaway trolley train bowls over {b}! Strike!",
+   "{b} is flattened by eight trolleys and a sense of irony.",
+   "Clean-up on aisle {b}."
+  ],
+  "mover_boulder": [
+   "The exhibit boulder rolls right over {b}. Very authentic.",
+   "{b} discovers why that boulder was behind glass.",
+   "Ancient artefact 1, {b} 0."
+  ],
+  "mover_gurney": [
+   "A runaway gurney takes out {b}. They'll need it after.",
+   "{b} gets admitted. By gurney. At speed.",
+   "Gurney through! {b} is bowled over."
+  ],
+  "forklift_eats": [
+   "The forklift shoves a {prop} out of the way."
+  ],
+  "hazard_start_forklift": [
+   "BEEP BEEP BEEP — the forklift is reversing through the fight!",
+   "A forklift! Who gave it the keys?!",
+   "Forklift incoming. Health and safety has left the building."
+  ],
+  "hazard_start_rush-hour": [
+   "Rush hour! Coffee everywhere!",
+   "Commuters incoming — watch the coffee!"
+  ],
+  "hazard_start_platform-announcement": [
+   "\"The 17:45 is delayed by... everything.\" Everyone stops to listen.",
+   "Platform announcement! Nobody can understand a word."
+  ],
+  "hazard_start_lost-luggage": [
+   "Unattended luggage raining from the racks!",
+   "Lost property is having a moment."
+  ],
+  "hazard_start_order-up": [
+   "ORDER UP! Food flying off the pass!",
+   "The chef is throwing plates. As a service."
+  ],
+  "hazard_start_grease-fire": [
+   "Grease fire on the grill!",
+   "The kitchen is on fire. That's the special."
+  ],
+  "hazard_start_milkshake-spill": [
+   "Milkshake down! Sticky floor ahead.",
+   "Someone dropped a strawberry shake. It's everywhere."
+  ],
+  "hazard_start_falling-rebar": [
+   "Rebar falling from the crane!",
+   "Hard hats on! Metal from above!"
+  ],
+  "hazard_start_cement-splash": [
+   "The cement mixer burps all over the slab!",
+   "Wet cement! Everyone's slowing down."
+  ],
+  "hazard_start_lunch-break": [
+   "Lunch break! Sandwiches on the slab.",
+   "The foreman brought snacks. Truce? No."
+  ],
+  "hazard_start_falling-boxes": [
+   "Boxes tumbling off the top racks!",
+   "Stock is falling. It's always falling."
+  ],
+  "hazard_start_delivery-arrives": [
+   "A delivery just arrived at the dock. Mid-fight.",
+   "Parcels! Somebody sign for these!"
+  ],
+  "hazard_start_leaking-drum": [
+   "A drum is leaking something slippery.",
+   "Oil on the warehouse floor. Of course."
+  ],
+  "parry": [
+   "{a} PARRIES {b}! Denied.",
+   "Blocked! {a} swats {b} away.",
+   "{a} reads {b} like a book. Parry!",
+   "Parry from {a}! {b} is seeing stars.",
+   "{a} catches it and shoves {b} back. Rude."
+  ],
+  "evade": [
+   "{a} dodges! {b} hits nothing but air.",
+   "Whiff! {a} is already somewhere else.",
+   "{a} sidesteps {b}. Matador stuff.",
+   "Missed! {a} hops out of the way.",
+   "{a} evades — {b} punches the breeze."
+  ],
+  "evade_back": [
+   "{a} backpedals out of range!",
+   "{a} leaps back. Not today, {b}."
+  ],
+  "dash": [
+   "{a} DASHES in!",
+   "{a} closes the gap in a blink!",
+   "Zoom — {a} is on the move.",
+   "{a} sprints across the floor!"
+  ],
+  "dash_retreat": [
+   "{a} dashes away. Tactical!",
+   "{a} legs it!"
+  ],
+  "bark_evade": [
+   "Too slow!",
+   "Nope!",
+   "Missed me!",
+   "Ole!",
+   "Try again!"
+  ],
+  "bark_parry": [
+   "Blocked!",
+   "Not today!",
+   "Denied!",
+   "Nice try!"
+  ],
+  "bark_dash": [
+   "Coming through!",
+   "Here I come!",
+   "Excuse me!"
+  ],
+  "hazard_start_jukebox": [
+   "The jukebox drops a banger — everyone near it stops to dance.",
+   "Jukebox! Nobody can resist this tune."
+  ],
+  "wall_broken": [
+   "CRASH! The {obstacle} comes down!",
+   "TIMBER! There goes the {obstacle}.",
+   "That {obstacle} was load-bearing. Was.",
+   "The {obstacle} has left the building. Horizontally.",
+   "Health and safety would like a word about that {obstacle}."
+  ],
+  "wall_broken_by": [
+   "{a} brings the whole {obstacle} down!",
+   "{a} demolishes the {obstacle}. Someone's paying for that.",
+   "Thanks to {a}, the {obstacle} is now floor."
+  ],
+  "rivalry": [
+   "Grudge match! {a} hasn't forgotten what {b} did last time.",
+   "{a} spots {b}. Oh, this is personal.",
+   "Old wounds: {a} vs {b}, round two.",
+   "{a} has been waiting for this rematch with {b}."
+  ],
+  "revenge": [
+   "REVENGE! {a} settles the score with {b}!",
+   "{a} pays {b} back in full. With interest.",
+   "Revenge is a dish best served... right now. {a} floors {b}!",
+   "The grudge is settled: {a} gets {b}!"
+  ],
+  "bark_rivalry": [
+   "You again?!",
+   "Remember me?",
+   "This time it's personal.",
+   "We meet again.",
+   "I've been practising.",
+   "YOU again!",
+   "We have unfinished business!",
+   "I remember you. I remember EVERYTHING."
+  ],
+  "bark_revenge": [
+   "That's for last time!",
+   "Payback!",
+   "Now we're even!",
+   "Who's laughing now?",
+   "Payback's a spreadsheet!",
+   "Revenge tastes like vending-machine coffee!"
+  ],
+  "bark_wall": [
+   "MY SPINE!",
+   "Who put that there?!",
+   "Ow, shelf!",
+   "Not the merchandise!"
+  ],
+  "consume": [
+   "{a} cracks open a {item} mid-fight.",
+   "{a} reaches for the {item}. Refuel!",
+   "Quick {item} break for {a}.",
+   "{a} goes for the {item}. Bold choice."
+  ],
+  "consume_start": [
+   "{a} starts with a {item}. Professional.",
+   "{a} fuels up with a {item} before the bell."
+  ],
+  "bark_consume": [
+   "Snack time!",
+   "Hold on, I need this.",
+   "Don't mind me.",
+   "Lunch break!",
+   "Ahh, that's the stuff."
+  ],
+  "menu_hello": [
+   "Let's do this!",
+   "Put me in, coach!",
+   "I was born for this.",
+   "Ready when you are!",
+   "Who's first?",
+   "I've done the training. Mostly.",
+   "Is this a paid position?",
+   "Let's get to work!",
+   "Try me!",
+   "Hold my coffee.",
+   "Is it Friday yet?",
+   "I've got a good feeling about today.",
+   "I've stretched. I think.",
+   "My LinkedIn says 'open to work'. My fists say 'open to fights'.",
+   "Is there a dental plan?",
+   "Just point me at someone.",
+   "I've got a good feeling about this. And a bad knee.",
+   "Let's circle back. With fists.",
+   "Can we make this quick? I've got a 3 o'clock.",
+   "Per my last email: let's fight."
+  ],
+  "menu_equip": [
+   "Ooh, nice.",
+   "Very practical.",
+   "Is this company property?",
+   "I'll look after it. Probably.",
+   "Now we're talking!",
+   "Receipt?",
+   "Ooh, is that for me?",
+   "I'll take it. No refunds.",
+   "This goes nicely with my lanyard.",
+   "Right, now I look professional.",
+   "Keep the receipt. Just in case."
+  ],
+  "menu_hire": [
+   "Happy to be here!",
+   "When do I get paid?",
+   "First day nerves!",
+   "Where's the break room?",
+   "You won't regret this!",
+   "Excited to join the team!",
+   "Where's my desk? What do you mean 'there are no desks'?",
+   "Do I get a lanyard?",
+   "I've read the handbook. It's mostly just 'duck'.",
+   "Ready to synergise."
+  ],
+  "menu_skill": [
+   "New trick!",
+   "Look what I can do!",
+   "Knew that'd come in handy.",
+   "Training pays off!",
+   "Watch this!",
+   "I feel different. Stronger. Slightly taller.",
+   "Adding that to my CV immediately.",
+   "Oh, I can do THAT now.",
+   "Professional development!",
+   "Upskilled. Upskilling. Upskill."
+  ],
+  "menu_loss": [
+   "Next time.",
+   "That's going on my CV anyway.",
+   "I need a lie down.",
+   "Ow. Everything hurts.",
+   "Let's never speak of this.",
+   "I'm fine. Everything is fine.",
+   "Can we not talk about it?",
+   "I'll be back. After a nap.",
+   "My agent will hear about this.",
+   "That wasn't a loss. That was research."
+  ],
+  "feed_win": [
+   "I'm humbled and honoured to announce that our team took down {company} today. {kos} KOs, zero regrets.",
+   "Agree? 👇 Beating {company} isn't about fists. It's about synergy. (It was mostly fists.)",
+   "Stage {stage}: ✅. Another day, another {company} lying on the floor. Grateful for this journey.",
+   "Big win against {company} today. Couldn't have done it without {star}, who dealt {stardealt} damage. Legend.",
+   "They said I couldn't beat {company}. They were wrong. Anyway, here's what it taught me about leadership 🧵",
+   "Some people wait for opportunity. I walk into the {arena} and punch it.",
+   "Proud of the team today. We went into the {arena} as colleagues and came out as colleagues who won.",
+   "Just closed a major deal with {company}. The deal was that they fall over.",
+   "Hard work pays off. Literally: 💵 {cash} today. Treating myself to a slightly better meal deal.",
+   "Reminder: your competition is not your enemy. Unless they're {company}. Then they're on the floor.",
+   "What does a winning mindset look like? It looks like {company} crawling towards the exit.",
+   "I don't always win. Today I did. Against {company}. In the {arena}. #Blessed",
+   "Leadership isn't a title. It's standing up while everyone from {company} isn't.",
+   "The secret to my success? Show up. Stay hydrated. Hit {company} with whatever's nearest.",
+   "Another milestone! Stage {stage} cleared. Thank you to everyone who believed in me, and to {company} for being so easy to knock over.",
+   "I asked {company} for feedback. They were unconscious, so I'm taking that as a yes.",
+   "5 lessons from beating {company}: 1. Duck. 2. Duck again. 3. Pick up a chair. 4. Use the chair. 5. Network.",
+   "Today I learned that {company} does not have a fire exit strategy. Or a fists strategy.",
+   "Some call it violence. I call it a cross-functional alignment session with {company}.",
+   "We won! Special shout-out to {mvp}, who was named MVP and will not shut up about it.",
+   "Just wrapped a productive meeting with {company} in the {arena}. Action items: ice packs.",
+   "Wins like today remind me why I got into this industry. The industry is fighting. At work.",
+   "Nobody: … Me after beating {company}: 'Let's circle back.' (I circled back and hit them again.)",
+   "{company} had the budget. We had the drive. And the fire extinguisher.",
+   "I'm excited to share that {company} has been successfully onboarded. Onto the floor.",
+   "Culture eats strategy for breakfast. My team ate {company} for lunch.",
+   "Grateful. Humbled. Slightly bruised. What a day at the {arena}.",
+   "If you'd told me a year ago I'd be knocking out people from {company}, I'd have said 'is that legal?' Still not sure!",
+   "This win is for everyone who was ever told to 'take it offline'. We took it to the {arena}.",
+   "Stage {stage} done. On to {next}. Let's gooo 🚀",
+   "Won against {company} today. Not bragging. Just posting it, pinning it, and emailing it to my old manager.",
+   "Humbled to share that {company} is now a former obstacle. {kos} KOs. Zero meetings that could have been emails.",
+   "Today {star} did {stardealt} damage and I did the post. That's leadership: knowing your strengths.",
+   "A win against {company} and {cash} coins in fight pay. Reinvesting it all in myself (crisps).",
+   "People ask me how I beat {company}. Simple: I woke up, I showed up, I threw a chair.",
+   "Stage {stage} done. Next up: {next}. I've already drafted the victory post. Manifesting.",
+   "What beating {company} taught me about customer service: always follow up. Especially with a second punch.",
+   "Reminder that {company} had a ping-pong table and a mission statement. We had elbows.",
+   "Grateful to my team, my mentors and whoever left that fire extinguisher in the {arena}.",
+   "Just closed a deal with {company}. The deal was that they lie down. They agreed.",
+   "Shoutout to {mvp}, MVP today. I'd tag them but they're still icing their knuckles.",
+   "Some wins are loud. This one was also loud. The {arena} manager has asked us not to come back.",
+   "Beat {company}. Went home. Microwaved a lasagne. Stayed humble. #Grounded",
+   "My mentor once said: 'Nobody remembers second place.' I don't remember {company} either.",
+   "Onwards to {next}. Tell them I'm bringing the same energy. And a first-aid kit, just in case it's theirs."
+  ],
+  "feed_win_big": [
+   "{kos} KOs against {company}. Not bad for a Tuesday. #Efficiency",
+   "We didn't just beat {company}. We restructured them. {kos} knockouts.",
+   "Headcount at {company} after today: temporarily 0. {kos} KOs for the team 💪",
+   "{kos} knockouts. I'd call it a clean sweep, but the {arena} is definitely not clean now.",
+   "When they say 'bring your whole self to work', they don't mean all {kos} KOs. But here we are.",
+   "I've been asked how we got {kos} KOs against {company}. Short answer: teamwork. Long answer: a mop bucket.",
+   "Delighted to report {kos} KOs and a very quiet {company} group chat.",
+   "{kos} KOs today. HR has asked me to stop posting about it. Posting about it.",
+   "Quarterly target: 1 KO. Today: {kos}. I'll be expecting a bonus.",
+   "You miss 100% of the punches you don't throw. We threw a lot. {kos} landed where it counts.",
+   "{kos} KOs at the {arena}. The cleaners have asked for a pay rise and honestly? Deserved.",
+   "{company} sent six people. HR is now sending flowers. {kos} of them, specifically.",
+   "They say you can't please everyone. We knocked out {kos} of {company}'s staff instead. Much easier.",
+   "Absolute clean sweep at the {arena}. {company} is currently rebranding as a 'lean team'.",
+   "{kos} KOs. I'd call it a restructure, but {company} would call it Tuesday."
+  ],
+  "feed_flawless": [
+   "Nobody on my team went down today. Not once. That's what good process looks like.",
+   "Flawless against {company}. Zero downs. Zero sick days needed tomorrow.",
+   "We finished the fight with everyone standing. Rare. Beautiful. Documented.",
+   "Clean win over {company}. Not a single one of us hit the floor. Health & Safety would be proud.",
+   "Perfect fight. I'd frame it, but you can't frame a feeling. You can frame a receipt for the meal deals though.",
+   "Zero downs. The {arena} floor stayed empty of our team. Very on-brand.",
+   "No injuries, no excuses, no {company}. A textbook day.",
+   "Our team: untouched. {company}: extremely touched. Win-win (for us).",
+   "Not a single one of us hit the floor today. {company} hit it enough for everyone.",
+   "Flawless. Like my attendance record. Like my spreadsheet formatting. Like this {arena} brawl against {company}.",
+   "Zero knockdowns. The paramedics at the {arena} got to finish their sandwiches. You're welcome.",
+   "We didn't even get our hair messed up. {company}, a word of advice: stretch first."
+  ],
+  "feed_mvp_me": [
+   "Named MVP today. I'd like to thank my team, my mum, and the chair I found in the {arena}.",
+   "MVP! {dealt} damage dealt. Humbled, but also: {dealt} damage.",
+   "Honoured to be recognised as MVP against {company}. The real MVP was the friends we floored along the way.",
+   "Just got the MVP award. It's not a real award. I've added it to my CV anyway.",
+   "MVP again? Stop, stop. Okay, one more post about it.",
+   "{dealt} damage and an MVP title. Excited to bring this energy to my next performance review.",
+   "MVP. Most Valuable Puncher. Look it up. (Don't, I made it up.)",
+   "Being MVP is a team effort. Mostly mine, but a team effort.",
+   "MVP today. {dealt} damage. I'd like to thank me, myself, and the vending machine I threw.",
+   "Named MVP against {company}. I'm putting it on my CV above 'proficient in Excel'.",
+   "{dealt} damage in the {arena}. My performance review is going to be very uncomfortable for my manager.",
+   "They gave me MVP. I gave {company} {dealt} damage. Fair trade."
+  ],
+  "feed_star": [
+   "What a fight! Big thanks to {me} for the leadership. And for pointing at who to hit.",
+   "Dealt {selfdealt} damage today. Not bragging. Okay, slightly bragging.",
+   "Proud to be part of {me}'s squad. We beat {company} and I only cried once.",
+   "Learned so much from {me} today. Mainly how to dodge a flying printer.",
+   "Day one: nervous. Day {fights}: knocking out {company}. Growth. 🌱",
+   "Team win! I'd like to publicly apologise to the {arena} for what we did to it.",
+   "Grateful for a manager like {me} who lets me be my authentic, violent self.",
+   "Honoured to fight alongside {me}. Also honoured that they paid for lunch.",
+   "Won against {company}. I'm calling my mum.",
+   "That feeling when {company} underestimates you. Priceless. Also worth 💵 {cash}.",
+   "Some of you have never seen {me} throw a shopping trolley and it shows.",
+   "Every win is a chance to reflect. I reflected. I was great.",
+   "Did {selfdealt} damage today and {me} took the credit on their post. Classic. Still grateful for the opportunity 🙂",
+   "Fight {fights} for the team. Still haven't been given a desk. Still hitting people with a chair. Fair.",
+   "{selfdealt} damage and a sprained dignity. Proud to be part of the {me} squad.",
+   "Nobody tells you that the hardest part of beating {company} is getting the glitter out afterwards.",
+   "Told my mum I got a job in 'conflict resolution'. Technically true. {selfdealt} conflicts resolved today.",
+   "Some people climb the ladder. I throw it. {company} can confirm.",
+   "Big thanks to {me} for the chance. Small thanks for the bruise. We move."
+  ],
+  "feed_loss": [
+   "Today I got knocked flat by {company}. And that's okay. Here are 5 things it taught me about B2B sales 🧵",
+   "Failure is just success that hasn't been punched yet. Back at it tomorrow, {company}.",
+   "Some days you're the stapler. Some days you're the paper. Tough one against {company}.",
+   "Lost to {company}. I'm not upset. I'm 'reframing'.",
+   "I took {taken} damage today and I'm choosing to see that as {taken} learning opportunities.",
+   "We didn't lose. We gathered data. Very painful data.",
+   "Setbacks are setups for comebacks. Right now I'm set up on the floor of the {arena}.",
+   "Losing to {company} hurt. Especially the bit with the fire extinguisher.",
+   "You can't spell 'loser' without 'lose'. Wait, that's not the inspirational one. Hold on.",
+   "Rough day at the office. Well, at the {arena}. Same energy.",
+   "Taking a moment to be vulnerable: {company} beat us. Please like this post.",
+   "Our team gave 110% today. {company} gave 111%. Respect.",
+   "I'd like to thank {company} for the free lesson in humility and the free concussion.",
+   "Getting knocked out is just your body saying 'let's take this offline'.",
+   "No win today. But I made eye contact with the ceiling for a long time and grew as a person.",
+   "Every expert was once a beginner who got beaten up by {company}.",
+   "Lost the fight, gained perspective. Specifically, the perspective from the floor.",
+   "We'll be back, {company}. After a lie down.",
+   "It's not about how many times you get knocked down. It's about how many times you post about it.",
+   "Today's result doesn't define me. My LinkedIn headline does.",
+   "Unpopular opinion: losing builds character. My character is now very built.",
+   "Fell short against {company}. Grateful for the journey. Less grateful for the stairs.",
+   "A loss is just a win that took a different career path.",
+   "I've been in the industry long enough to know: sometimes the {arena} wins.",
+   "Tough loss. Taking tomorrow as a wellness day. Taking today as a lie-down day.",
+   "If you're not failing, you're not trying. I tried VERY hard today.",
+   "{company} 1, us 0. But in the game of life? Still 0. But growing.",
+   "Humbled by {company}. Also by a pallet jack.",
+   "Lost. Learned. Limped home. The three Ls of leadership.",
+   "Resilience isn't a skill. It's what happens when {company} knocks you over and you have rent to pay.",
+   "Lost to {company}. Taking some time to reflect, recharge, and find my other shoe.",
+   "Today I learned that the {arena} floor is surprisingly comfortable. I spent most of the fight on it.",
+   "Hot take: losing to {company} builds character. I now have so much character. Mostly bruises.",
+   "{taken} damage taken. Legally that's a restructure of my face.",
+   "Lost today. Not because {company} was better, but because they hit harder, more often, and on purpose.",
+   "Not every day is a win. Some days you get put in a bin by {company}. Grateful for the bin, honestly.",
+   "My therapist says I should stop posting about {company}. So this is the last one. Until the rematch.",
+   "Here's what nobody tells you about losing: the walk back to the car is SO long.",
+   "Didn't win, but I did get to see the {arena} ceiling from a brand-new angle. Perspective is everything.",
+   "Some losses are lessons. This one was a whole semester. Tuition paid in teeth.",
+   "Would I fight {company} again? Yes. Would I stand in the same spot? Absolutely not.",
+   "Today I was humbled. Tomorrow I will be humbled again, probably, but with better shoes."
+  ],
+  "feed_draw": [
+   "Honoured to share a hard-fought draw with {company}. We both lost, and we both grew.",
+   "A draw with {company}. Nobody won. Nobody lost. Everybody's bruised. Very corporate.",
+   "Time ran out before anyone could finish the job. Like most of my projects.",
+   "Draw today. Some would call it a stalemate. I call it a strategic partnership.",
+   "Neither team won. It's what the consultants call 'mutual value alignment'.",
+   "We drew with {company}. I've scheduled a follow-up. In the {arena}.",
+   "Tie. The referee looked as tired as we did.",
+   "50/50 split with {company}. Let's circle back next quarter.",
+   "A draw is just a win that forgot to finish. Onwards!",
+   "Nobody won today, but the {arena} definitely lost.",
+   "Draw. My dad asked who won and I said 'the journey'.",
+   "Couldn't get it over the line against {company}. Couldn't get them over the line either.",
+   "Drew with {company}. Both teams lying on the floor, staring at the ceiling, reflecting. Beautiful, really.",
+   "A draw. My LinkedIn coach says I can round that up to a win. So: huge win today everyone 🎉",
+   "Nobody won at the {arena} today. Except the physio. The physio always wins.",
+   "It's a tie with {company}. We've agreed to settle it the traditional way: passive-aggressive emails.",
+   "Draw. Or, as I'm telling my family, 'a strategic partnership with {company}'."
+  ],
+  "feed_teammate_loss": [
+   "Tough one today. {me}, we'll get them next time. I'll bring snacks.",
+   "Lost to {company}. Honestly? The {arena} had it in for us.",
+   "Personal update: I have a bruise shaped like {company}'s logo.",
+   "Took a beating today. Grateful to {me} for dragging me out by the ankles.",
+   "Not our day. Not our week. Possibly not our year. But still grateful!",
+   "I was told there'd be pizza. There was no pizza. Only {company}.",
+   "We lost, but I dealt {selfdealt} damage, which I'll be mentioning in every interview.",
+   "Big thanks to the {arena} floor for catching me. Several times.",
+   "Agency said 'easy shift'. It was not an easy shift.",
+   "Currently icing everything. Open to kind messages.",
+   "We lost to {company}. I did {selfdealt} damage, which I'm choosing to frame as a personal win.",
+   "Rough day at the {arena}. {me} says 'we go again'. My knees say 'please no'.",
+   "I've been asked not to post about today by {me}. Anyway, here's a post about today.",
+   "Lost. Iced. Rested. Ready. (Not ready. Still icing.)",
+   "Taking accountability for today's loss. Also taking a nap."
+  ],
+  "feed_rankup": [
+   "🎉 I'm happy to share that I'm starting a new position as {rank} {career}!",
+   "Big news: promoted to {rank} {career}! Same desk, more punching.",
+   "After many fights and several concussions, I'm now a {rank} {career}. Thank you all!",
+   "New role alert 🚨 {rank} {career}. Please endorse me for 'Standing Up'.",
+   "Excited to announce my promotion to {rank} {career}. The title is fancy. The bruises are real.",
+   "I'm now a {rank} {career}! My mum still doesn't understand what I do.",
+   "From trainee to {rank} {career}. If I can do it, you can too (please don't, I need the job).",
+   "Thrilled to step into my new role as {rank} {career}. First order of business: new moves.",
+   "Levelled up professionally: {rank} {career}. Updating my email signature immediately.",
+   "{rank} {career}. Say it with me. Now say it louder so {company} can hear.",
+   "New title just dropped: {rank} {career}. Same salary, bigger ego. Let's go.",
+   "Promoted to {rank} {career}! My parents still don't know what I do but they know I do it at a higher level now.",
+   "{rank} {career}. I asked for a raise and they gave me a word in front of my job title. Thrilled.",
+   "Excited to announce I'm now a {rank} {career}. Please update your mental image of me accordingly.",
+   "Some of you have been asking how I became a {rank} {career}. I hit people. Professionally. Repeatedly."
+  ],
+  "feed_levelup": [
+   "Levelled up to Level {level} 💪 Personal growth is a marathon, not a sprint. Except when running from a forklift.",
+   "Level {level} unlocked. Stats go up. Confidence goes up. Posting goes up.",
+   "Hit Level {level} today. Treating myself to a stat point.",
+   "Level {level}! Every fight, a little stronger. Every post, a little longer.",
+   "Reached Level {level}. Growth mindset: activated. Knees: less so.",
+   "Level {level}. I'd like to thank the gym, the {arena}, and whoever left that chair lying around.",
+   "Proud moment: Level {level}. Please congratulate me in the comments. I'll wait.",
+   "New level, new me. Level {level} me. Same haircut.",
+   "Just hit Level {level}. My LinkedIn coach says this is 'content'.",
+   "Level {level}: because every setback is a stat point in disguise.",
+   "Level {level} unlocked. I can now carry two coffees AND a grudge.",
+   "Hit level {level} today. My body says 'stop'. My career coach says 'scale'.",
+   "Level {level}! Still can't fold a fitted sheet, but I can fold a man at the {arena}.",
+   "Personal growth update: level {level}. Emotional growth update: pending."
+  ],
+  "feed_trait": [
+   "Just got endorsed for \"{trait}\" 🏷️ Thanks, everyone who watched it happen.",
+   "New skill on my profile: {trait}. Earned the hard way. In the {arena}.",
+   "People keep calling me \"{trait}\". I've decided it's a compliment.",
+   "Added \"{trait}\" to my profile. Recruiters, you know where to find me.",
+   "Turns out I'm \"{trait}\". Who knew? Everyone in the {arena}, apparently.",
+   "Proud to announce I've been recognised as \"{trait}\". The certificate is a bruise.",
+   "My colleagues have endorsed me for \"{trait}\". I'm choosing not to ask why.",
+   "\"{trait}\" — that's me now. Personal brand: evolving.",
+   "New personal brand: {trait}. Please endorse me for it.",
+   "Apparently I'm '{trait}' now. The fights at the {arena} have changed me.",
+   "My manager wrote '{trait}' in my review. I've added it to my bio in bold.",
+   "Unlocked a new trait: {trait}. Updating my Myers-Briggs. Updating my enemies."
+  ],
+  "feed_beaten": [
+   "After careful consideration, {company} has decided to pivot away from winning.",
+   "Update from {company}: we're restructuring. Mostly our faces.",
+   "Today {company} learned valuable lessons from {me}. We'd like to unlearn them.",
+   "{company} would like to congratulate {me} on their win. Through gritted teeth. Some of which are loose.",
+   "We at {company} take full accountability for today's result. And several ice packs.",
+   "Tough day at {company}. Our team gave everything. {me} took it.",
+   "{company} is now accepting applications for people who can take a punch better than our last lot.",
+   "Out-of-office: the entire {company} team is at A&E. Thank you for your patience.",
+   "{company} values: Integrity. Innovation. Remaining Conscious (in progress).",
+   "We underestimated {me}. We will not make that mistake again. We will make different mistakes.",
+   "Post-incident review at {company}: the incident was {me}.",
+   "{company} is thrilled to announce… nothing. Nothing today.",
+   "We're proud of how {company} handled today's loss. Mostly lying down.",
+   "Our CEO would like to remind everyone that {company} is 'a family'. A family that got flattened.",
+   "Moving forward, {company} will be avoiding the {arena}. And {me}.",
+   "{company} would like to thank {me} for a valuable learning experience. We are learning to walk again.",
+   "Following today's events at the {arena}, {company} will be pivoting to a remote-first model. Very remote. Other country.",
+   "{company} is proud of our team's resilience. Most of them are still on the floor, but resiliently.",
+   "An update from {company}: we are aware of {me}. We have questions. Mostly 'why' and 'the chair?'",
+   "{company} remains committed to excellence. Just not today. Or at the {arena}. Or against {me}.",
+   "Q3 at {company}: revenue flat. Staff also flat. Thank you, {me}."
+  ],
+  "feed_gloat": [
+   "{company} is proud to announce a decisive win against {me}. Hire us for your next dispute.",
+   "Great teamwork today at {company}. Special thanks to {me} for falling over so professionally.",
+   "Another satisfied opponent! {me} left the {arena} horizontally.",
+   "{company} Q-results: 1 fight, 1 win, 1 {me} on the floor. Stonks 📈",
+   "We'd like to thank {me} for a great fight. It was great for us.",
+   "At {company} we believe in second chances. {me}, see you next time. Bring a helmet.",
+   "Culture win at {company}! Team building exercise: {me}.",
+   "Some companies do away days. We do {me}.",
+   "Proud of our people today. And proud of the mop-up crew in the {arena}.",
+   "{company} wins again! {me}, our door is always open. Our fists too.",
+   "We're hiring! Must be at least as tough as whoever beat {me} (it was us).",
+   "Nothing personal, {me}. Just business. Violent business.",
+   "{company}: leaders in customer service and not losing to {me}.",
+   "Fun fact: {company} has a 100% win rate against {me} today.",
+   "Shout-out to {me}'s squad for being great sports. Mostly great at falling.",
+   "{company} is delighted to report that {me} has left the building. Carried, but left.",
+   "Our team defeated {me} today. Our interns filmed it. Our marketing team is making it a carousel.",
+   "Customer satisfaction at {company}: 100%. Opponent satisfaction: {me} has not responded to our survey.",
+   "Big thanks to {me} for choosing {company} for today's beating. We hope to see you again soon!",
+   "{company} values: Integrity. Innovation. Putting {me} through a display stand at the {arena}.",
+   "We're not saying {me} lost badly. We're just saying our cleaner found a tooth."
+  ],
+  "feed_hiring": [
+   "We're hiring! Looking for rockstar ninjas who can take a punch. Competitive salary (lunch). Fast-paced environment (we will chase you).",
+   "Culture is everything at {next}. That's why we fight every new starter in the {arena}.",
+   "Heard {me} is coming for us. Our door is open. Our fists are also open. Then closed. Into fists.",
+   "{next} is growing! Roles available: Brawler, Senior Brawler, Head of Hitting.",
+   "Join {next}: unlimited holiday*, free fruit**, weekly fights***. *Not unlimited **Not free ***Mandatory",
+   "At {next}, we don't have a hierarchy. We have a pecking order. Settled weekly.",
+   "{next} is looking for self-starters. Starting fights, mostly.",
+   "Our team at {next} is like a family. A family that trains in the {arena} at 6am.",
+   "Think you've got what it takes? {next} is waiting. So is our goalkeeper.",
+   "New job opening at {next}: Person Who Stands Near The Door. Must be very large.",
+   "{next} values: Hustle. Grit. Throwing Things. Apply today.",
+   "At {next} we believe in work-life balance: 50% work, 50% fight.",
+   "{next} was voted 'Most Likely To Hit You' three years running. Proudly hiring.",
+   "We've heard about {me}. We're not scared. (We're a bit scared.) Apply to {next}.",
+   "Come for the salary, stay because {next} has locked the doors.",
+   "{next} is hiring! Requirements: 5 years' experience fighting in a {arena}, a clean criminal record, a dirty right hook.",
+   "We're a family at {next}. Which is why we don't let anyone leave.",
+   "{next} is looking for a Head of Throwing Things. Must be comfortable with ambiguity and furniture.",
+   "No experience necessary at {next}! We'll teach you everything, starting with how to fall.",
+   "Heard {me} is on the way. Hiring bodyguards, backup, and someone who knows first aid. Urgent.",
+   "{next} benefits: dental (you'll need it), gym (you'll need it), therapy (you'll need it)."
+  ],
+  "feed_temp_win": [
+   "#OpenToWork. Just helped {me} beat {company}. Agency rates, very reasonable.",
+   "Temp life: new job, new team, new people to punch. Great shift today!",
+   "The agency sent me to {me}'s squad. Five stars, would get sent again.",
+   "Agency temp, full-time energy. We won! Invoice incoming.",
+   "I don't know anyone's name but we beat {company} together. That's bonding.",
+   "Short contract, big impact. #TempLife #Winning",
+   "Thanks {me} for having me! Still waiting on that permanent offer 👀",
+   "My agency says I'm 'flexible'. Today I was flexibly punching {company}.",
+   "Agency temp here. Won a fight for {me}'s team. Got paid in 'exposure'. Exposed to {company}'s fists mostly.",
+   "Day one on the job, beat {company}. Asked about a permanent contract. They laughed. I laughed. Nobody signed anything.",
+   "Temp life: new team every day, new bruises every night. Proud to have helped {me} beat {company}.",
+   "Filled in for someone today. Beat {company}. Nobody learnt my name. #OpenToWork"
+  ],
+  "feed_temp_loss": [
+   "#OpenToWork. Previous employer: {me}. Reason for leaving: {company}.",
+   "Temp life: new job, new team, new bruises.",
+   "The agency said 'light office duties'. The agency lied.",
+   "Please remove me from the {company} fight rota. Kind regards, a temp.",
+   "Filled in for {me}'s squad today. Emptied out quite quickly.",
+   "Short contract, long recovery. #TempLife",
+   "Rate my shift: 2/10. The meal deal was nice.",
+   "If anyone needs a temp who's great at lying on floors, I'm available.",
+   "Temped for {me} today. We lost to {company}. I'd like it noted that I was only here for the free sandwiches.",
+   "Short contract, long fight. Didn't go our way against {company}. Still #OpenToWork. Still #OpenToIce.",
+   "The agency said 'light duties'. The agency lied. {company} did not do light duties.",
+   "Lost with {me}'s team. Looking for my next opportunity (and my left shoe)."
+  ],
+  "feed_network_win": [
+   "Congrats to {me} on the win against {company}! Would love to connect and discuss synergies. 🤝",
+   "Watching {me} beat {company} today made me rethink my entire career. I'm becoming a {career}.",
+   "Just saw {me}'s fight. As a recruiter, I have one question: are you open to relocating?",
+   "Inspiring stuff from {me} today. Reminds me of when I beat my own personal best at stapling.",
+   "I don't know {me} personally but I've written a 12-part thread about their win.",
+   "Following {me} was the best decision I've made this quarter. Unfollowing {company}.",
+   "Hot take: {me} is the most exciting {career} in the industry right now. Fight me. (Please don't.)",
+   "When {me} wins, we all win. Except {company}.",
+   "Leadership lesson from {me}: when in doubt, throw the office chair.",
+   "Congratulations {me}! If you ever want a coach, I charge very reasonable rates.",
+   "I was at the {arena} today. I've never seen anything like {me}. I've also never been so scared.",
+   "The {me} effect is real. Our office has started stretching before meetings.",
+   "Who else is following {me}'s journey? Absolutely electric. (One of them was actually electric.)",
+   "Proud to say I once shared a lift with {me}. They didn't punch me. Networking works.",
+   "Big congrats to {me}. Adding 'witnessed {company} lose' to my skills section.",
+   "Just watched {me} beat {company}. Genuinely inspiring. I'm quitting my job to throw staplers full-time.",
+   "Everyone's talking about {me}. I was talking about {me} before it was cool. We went to the same {arena} once.",
+   "What {me}'s win over {company} can teach us about B2B SaaS: absolutely nothing, but here's a 12-part thread.",
+   "{me} is proof that anyone can make it as a {career}. Anyone with a very strong neck.",
+   "Called it. {me} was always going to beat {company}. (I did not call it. I had money on {company}.)"
+  ],
+  "feed_network_loss": [
+   "Thoughts are with {me} after today. Also, I'm a recruiter, are you open to new roles?",
+   "Loss for {me} today. Here's what I would have done differently (I have never been in a fight):",
+   "Tough watch, {me}. Remember: it's not a loss if you post about it inspirationally.",
+   "Great effort from {me}! Would you consider a career in something with fewer punches? DM me.",
+   "Watching {me} get flattened by {company} really made me appreciate my desk job.",
+   "Hey {me}, sorry about today. I run a resilience workshop. 20% off with code OUCH.",
+   "Sending strength to {me}. And a list of good physiotherapists.",
+   "Everyone's talking about {me}'s loss. I'm talking about it the most.",
+   "Losing to {company}? Been there. (I haven't. I'm an accountant.)",
+   "I believe in {me}. I also believe in helmets.",
+   "Unpopular opinion: {me} will be back. Popular opinion: ouch.",
+   "Just want to say {me} handled that loss with grace. And a limp.",
+   "Reminder that even {me} gets knocked down. Be kind to yourselves. Wear padding.",
+   "{company} really came to play today. {me}, we're all rooting for the rematch.",
+   "Lesson from today's {company} fight: never skip leg day. Or dodge day.",
+   "Tough day for {me}. Sending thoughts, prayers and an ergonomic chair.",
+   "Losing to {company} is not the end. It's a chapter. A short, painful chapter with lots of sirens.",
+   "Everyone piling on {me} today should remember: you've all lost to worse than {company}. I've seen your posts.",
+   "{me} lost to {company} and I think that's beautiful. Failure is where the real networking happens.",
+   "Watching {me} get thrown across the room made me rethink my own career. Anyway I'm a dentist now."
+  ],
+  "feed_network": [
+   "I woke up at 3:45am, ran 10k, closed three deals and headbutted a vending machine. What's your morning routine?",
+   "Hiring managers hate this one trick: showing up to interviews holding a fire extinguisher.",
+   "My 6-year-old asked me what synergy means. I made her fight her brother. She gets it now.",
+   "Just finished reading 'Punch Your Way To The Top'. Life-changing. 11/10.",
+   "Reminder: your network is your net worth. Your fists are also worth something.",
+   "Rejected by 47 companies. Got hired by the 48th because I knocked over their receptionist. Never give up.",
+   "The best leaders I know eat lunch at their desk. Mostly because the canteen is a battlefield.",
+   "Hot take: meetings should be shorter and have more chairs to throw.",
+   "Grateful for every no. Every no brought me closer to the {arena}.",
+   "I asked a chatbot how to win a brawl. It said 'don't'. That's why I don't use chatbots.",
+   "Agree? The future of work is hybrid: half office, half fistfight.",
+   "Just had coffee with a {career}. Absolutely humbling. They spilled it on me on purpose.",
+   "Don't tell me your job title. Tell me how many props you've thrown.",
+   "What's one thing you'd tell your younger self? Mine: 'duck'.",
+   "Friday feeling: the fight's on, the meal deal's paid, the forklift's charged.",
+   "10 signs you're ready for a promotion: 1. You've been punched. 2–10. You've been punched more.",
+   "I don't hire for skills. I hire for how they handle a collapsing shelf.",
+   "Personal news: I've started a podcast about office fights. Episode 1 is just me breathing heavily.",
+   "Networking tip: always carry business cards. They make great throwing stars.",
+   "Excited to announce I'm now 'Head of Vibes' at a company that fights every Thursday.",
+   "Leaders don't wait for the fight to find them. They book the {arena}.",
+   "I'm not saying the printer is the enemy. I'm saying it attacked me first.",
+   "My manager said 'think outside the box'. So I threw the box.",
+   "Nobody talks about how hard it is to find a good meal deal near the {arena}.",
+   "Controversial: agency temps are the backbone of this industry. Also the punching bags.",
+   "Starting today, I'm replacing 'per my last email' with 'per my last punch'.",
+   "If your team isn't fighting, are they even passionate?",
+   "I spent £3,000 on a leadership course. The lesson was: hit first.",
+   "Imposter syndrome? Just imagine everyone in the meeting is wearing a hi-vis vest.",
+   "Gentle reminder to hydrate. Energy drinks count. The doctor says they don't. The doctor is wrong.",
+   "Agree or disagree: the {arena} is the new office. Thoughts? 👇",
+   "I don't hire people with degrees. I hire people who can survive the {arena}. Low retention, high morale.",
+   "Unpopular opinion: you should fight your coworkers at least once. Clears the air. And the kitchen.",
+   "My daily stand-up is literally standing up after being knocked down. Discipline.",
+   "Stop networking. Start net-WORKING. (I can't explain this. It came to me in the shower.)",
+   "Five things I learned from getting hit with a mop: 1. Duck.",
+   "Hot take: every {career} should know how to take a punch. Every other job should know how to give one.",
+   "I asked ChatGPT how to succeed and it said 'be yourself'. So I bit someone. Awaiting results.",
+   "Leadership is not a title. It's a willingness to be first through the door at the {arena}.",
+   "Just got back from a 10-day silent retreat. Punched the first person who spoke. Growth is not linear.",
+   "Someone told me I'm 'too intense for LinkedIn'. I've blocked them. And their family.",
+   "Your posture is your brand. Your brand is your posture. Please stop slouching in fights.",
+   "I left a six-figure job to follow my passion: shouting 'OBJECTION!' at strangers. Best decision I ever made.",
+   "Burnout is real. That's why I only work 4 days a week and fight on the 5th.",
+   "If you're not getting knocked down, you're not standing close enough to anything interesting.",
+   "Congratulations to me on 9 years of being endorsed for 'Microsoft Word' and 'Grappling'.",
+   "I didn't choose the {arena}. The {arena} chose me. Also I lost a bet.",
+   "Hiring tip: bring every candidate a coffee. If they throw it, hire them. If they drink it, also hire them. We're desperate.",
+   "Just landed. Fought in the departures lounge. Still made my connection. #Hustle",
+   "Unpopular opinion: hotel lobbies are the new boardroom. The fountain is the new water cooler.",
+   "Spent the day at the museum. Learned nothing. Punched a curator. Growth.",
+   "My hospital stay taught me three things: hydrate, rest, and always keep a bedpan within reach."
+  ],
+  "feed_item": [
+   "Honestly, the {item} carried me today. Not sponsored. (Please sponsor me.)",
+   "Pro tip: always pack a {item}. Today it was the difference between a win and a nap.",
+   "Just used a {item} mid-fight. Game changer. Also slightly sticky.",
+   "Wouldn't have survived without that {item}. Adding it to my skills section.",
+   "Shout-out to the {item} that got me through {company}. Five stars.",
+   "Some people have mentors. I have a {item}.",
+   "Hot take: a {item} is the most underrated piece of workplace equipment.",
+   "Used my {item} at exactly the right moment. That's what they call 'strategic resource allocation'.",
+   "Real talk: the {item} did more for my career than my degree ever did.",
+   "Not sponsored, but the {item} carried me today against {company}. Corner Shop, DM me.",
+   "Brought a {item} to the fight. Left with a win. Coincidence? My lawyer says yes.",
+   "Five stars for the {item}. Would bring to a fight again. Would not recommend eating."
+  ],
+  "feed_shop": [
+   "Meal deals, energy drinks, steel-toe boots. Everything a working professional needs to survive a Tuesday. Pack up to 3 per fighter.",
+   "New in: Smelling Salts. For when the meeting runs long and the fists run longer.",
+   "Lucky Socks: scientifically proven* to improve your luck. *Not scientifically proven.",
+   "Hi-Vis Vests — because you can't punch what you can see coming. Wait, other way round.",
+   "Our Meal Deal: sandwich, crisps, drink, and a 45% chance of surviving the {arena}.",
+   "Treat your team. Treat yourself. Treat your wounds. Corner Shop, open till late.",
+   "Corner Shop: open 7am–late. Meal deals, energy drinks and one cricket bat 'for decorative purposes'.",
+   "New in store: bandages, bananas and a mystery box that nobody has been brave enough to open.",
+   "Heading to the {arena}? Pop in first. We don't ask questions. We do ask for exact change.",
+   "Corner Shop loyalty card: buy 9 energy drinks, get the 10th and a free heart monitor."
+  ],
+  "feed_boss_win": [
+   "We beat the boss of the {arena}. I'd like to say it was easy. It was not easy.",
+   "Boss fight cleared ☠️✅ {company} had a real reputation. Had.",
+   "Took down the big one today. {company} won't be forgetting {me}. Or remembering much else.",
+   "Boss level: complete. New arena unlocked. New LinkedIn banner incoming.",
+   "The final boss of the {arena} is down. Treating the whole squad to the good meal deals.",
+   "They told me {company} was unbeatable. I told them 'hold my energy drink'.",
+   "Took down {company} at the {arena}. The big one. The boss. The one whose name we don't say in the canteen.",
+   "Beat {company}. I'm told there's a board meeting about me. I'd like to attend. I'll bring a chair. To throw.",
+   "{me} vs {company}: a David vs Goliath story, if David had brought four coworkers and a mop.",
+   "Beat {boss} today. Yes, THE {boss}. Framing the receipt.",
+   "They said nobody beats {boss} at the {arena}. I have been told I am nobody. I will take it.",
+   "{boss} is down. Somebody tell {company} they need a new {bossjob}."
+  ],
+  "feed_boss_loss": [
+   "The boss of the {arena} is… a lot. Regrouping.",
+   "{company} is the real deal. Round two soon. Round two with more meal deals.",
+   "Got schooled by the boss today. Taking notes. The notes say 'ow'.",
+   "Boss fight: 1. Us: working on it.",
+   "Note to self: bosses hit harder. Bring more painkillers.",
+   "Respect to {company}. I'll be back. Stronger, wiser, better packed.",
+   "{company} is the final boss for a reason. I respect it. I will also be crying in the car park.",
+   "Fought {company} at the {arena}. They have a CEO who deadlifts. Nobody warned me.",
+   "Big fight, big loss against {company}. Back to the ladder. My knees can't do stairs right now, so the lift.",
+   "{boss} is not a person. {boss} is a weather event.",
+   "Lost to {boss} ({bossjob}, {company}). Honestly an honour to be thrown by a legend.",
+   "Note to self: when {boss} says \"brace\", you brace."
+  ],
+  "feed_perk_epic": [
+   "Humbled and honoured to share that {company_me} has awarded me the {perk} ({rarity}). {stats}. I'd like to thank my manager, my mentor and the person I took it from.",
+   "Some people wait their whole career for an Epic perk. I waited one fight. 🎁 Introducing: {perk}. {stats}. #Blessed #BenefitsInKind",
+   "They say you can't buy happiness. You can't buy the {perk} either — you have to win it in a {arena}. {stats}. Grateful. 🙏",
+   "📣 PERSONAL NEWS: I am now the proud holder of the {perk}. {stats}. My accountant says it's tax-free. My accountant is also in hospital.",
+   "Excited to announce my benefits package now includes the {perk} ({rarity}, {stats}). Salary unchanged. Vibes significantly improved.",
+   "Reminder that perks are earned, not given. Anyway, look what I was given: {perk}. {stats}. 💜",
+   "Just unboxed the {perk} live after the fight. {stats}. If you're not getting Epic perks, have you tried winning? Just a thought. 💡",
+   "Honestly speechless. {stats} from one {perk}. Taking the rest of the day off to process this (and the concussion)."
+  ],
+  "feed_perk_legendary": [
+   "🟧 I don't usually post about this, but I've just been awarded a LEGENDARY perk: the {perk}. {stats}. 0.5% drop rate. 100% deserved. #TopPerformer",
+   "Agree? 👇 The {perk} is the single greatest thing to happen to {company_me} this quarter. {stats}. Legendary. Like me. Humbly.",
+   "Five years ago I was sleeping in a stockroom. Today I hold the Legendary {perk}. {stats}. Never let anyone tell you fights don't pay. (They pay in socks.)",
+   "📢 BIG ANNOUNCEMENT 📢 The {perk} (Legendary, {stats}) has chosen me. I did not choose it. It fell out of a vending machine and into my benefits package.",
+   "Legendary perk unlocked 🏆 {perk}. {stats}. HR has asked me to stop calling it my \"legacy\". I will not be doing that.",
+   "What a Legendary perk taught me about B2B sales: 1. Win the fight. 2. Get the {perk}. 3. {stats}. 4. There is no step 4. Repost if this resonates. ♻️",
+   "They said it was a 1-in-200 drop. I said: I am the 1. {perk}, Legendary, {stats}. #Manifesting #Grindset",
+   "I'll be honest, I cried. The {perk} ({stats}) is now part of my compensation package and possibly my personality."
+  ],
+  "feed_perk_ability": [
+   "Plot twist: the {perk} came with {ability}, which is apparently a {abilitycareer} move. I have never been a {abilitycareer}. I am now, spiritually. 🔄 #CareerPivot",
+   "Adding \"{ability}\" to my skills section. Where did I learn it? A {abilitycareer} left it in a perk. Transferable skills are REAL, people.",
+   "New perk, new me: the {perk} lets me use {ability}, like a real {abilitycareer}. No training, no certificate, no questions. #Upskilling",
+   "Recruiters, please update my profile: I now do {ability} ({abilitycareer} speciality, perk-assisted). Open to cross-functional opportunities. 🤝",
+   "Imposter syndrome? Never heard of it. I just used {ability} and I'm not even a {abilitycareer}. Thanks, {perk}. 💼",
+   "Nobody: … Me, with the {perk}: *uses a {abilitycareer}'s {ability} in a fight* Growth mindset in action. 📈"
+  ],
+  "feed_c_perk": [
+   "Congrats {first}! Well deserved 👏",
+   "Is that taxable? Asking for a friend who is HMRC.",
+   "Where do I apply for this benefits package?",
+   "{first} I've been in this industry 20 years and never seen perks like this. Proud of you. Also furious.",
+   "Does it come in my size?",
+   "Love this for you {first} 🎉 (I got a mug.)",
+   "Our company gives us fruit on Fridays. Just saying.",
+   "Humblebrag of the year, {first}. Nominating you. 🏆",
+   "Wait, you can win these?? I've been buying mine.",
+   "This is the content I'm here for 🔥",
+   "Please tell me it's not the socks. It's the socks, isn't it."
+  ],
+  "feed_c_perk_hr": [
+   "HR here. Please declare this on your P11D, {first}. 😊",
+   "Legal has asked me to remind everyone that perks won in fights are not a contractual entitlement.",
+   "Finance would like a receipt.",
+   "Payroll has questions. Payroll always has questions.",
+   "As a Benefits Manager, I have never been more threatened by a post.",
+   "Reminder: perks are non-transferable. Unless you win them off someone. Then they're very transferable."
+  ],
+  "summon": [
+   "{a} calls in reinforcements: a {critter}.",
+   "A {critter} appears! {a} looks very pleased with themselves.",
+   "{a} has brought a {critter} to a fist fight."
+  ],
+  "summon_rabbit": [
+   "{a} pulls not one, not two, but three rabbits out of a hat!",
+   "Rabbits! {a}'s hat is apparently bottomless.",
+   "{a}: 'Pick a card.' Three rabbits: 'No.'"
+  ],
+  "summon_black-cat": [
+   "Two black cats slink out from behind {a}. That's bad luck for someone.",
+   "{a} releases the black cats. Nobody walk under a ladder.",
+   "Black cats cross the floor. The other team's luck just ran out."
+  ],
+  "summon_capybara": [
+   "A capybara wanders in, completely unbothered. {a} knew it would come.",
+   "{a}'s capybara arrives and immediately becomes everyone's favourite.",
+   "Enter the capybara. Nothing can hurt it emotionally."
+  ],
+  "summon_dik-dik": [
+   "A dik-dik! Tiny, fast, and nobody knows what it is.",
+   "{a} releases a dik-dik. It is already everywhere.",
+   "That's a dik-dik. Yes, really. Look it up later."
+  ],
+  "summon_poodle": [
+   "{a} unleashes a perfectly groomed poodle. It wants ankles.",
+   "The poodle is out. The bow is pink. The intent is violent.",
+   "{a}'s poodle trots in like it owns the place."
+  ],
+  "summon_goose": [
+   "{a} lets the goose out. Everybody knows what happens now.",
+   "HONK. The goose has entered the arena.",
+   "A goose. {a} has chosen chaos, and so has the goose."
+  ],
+  "summon_crab": [
+   "{a} opens a crab pot. Pinching incoming.",
+   "Two crabs scuttle sideways into the fight. Watch your toes!",
+   "Crabs! {a} came prepared."
+  ],
+  "summon_seagull": [
+   "{a} waves an ice cream cone. The seagulls are here.",
+   "Seagulls! Nothing held in anyone's hands is safe now.",
+   "Two seagulls swoop in. They don't care whose side they're on. Well, they do."
+  ],
+  "summon_pigeon": [
+   "{a} disturbs the pigeons. The pigeons are furious.",
+   "Three pigeons flap into everyone's faces. Classic window-ledge move.",
+   "The pigeons have arrived and they have opinions."
+  ],
+  "summon_lab-rat": [
+   "The lab rats have escaped! {a} looks suspiciously innocent.",
+   "{a} releases three lab rats. Science marches on.",
+   "Lab rats underfoot! This is not in the safety manual."
+  ],
+  "summon_therapy-dog": [
+   "A therapy dog arrives to help {a}'s team talk about their feelings.",
+   "{a}'s therapy dog is here. Enemies are finding it very hard to hit something that sweet.",
+   "Good dog! The therapy dog is on duty."
+  ],
+  "summon_beetle": [
+   "{a} releases three bugs into production. They're features.",
+   "Bugs in the arena! {a} insists they're intentional.",
+   "It's not a bug, it's three bugs. {a} is shipping them anyway."
+  ],
+  "summon_kitchen-rat": [
+   "A rat in a chef's hat joins the fight. {a} calls him 'Chef'.",
+   "Le Petit Chef is in the kitchen, and by kitchen we mean the fight.",
+   "{a}'s kitchen rat has its eye on somebody's lunch."
+  ],
+  "summon_scarab": [
+   "Scarabs pour out of an ancient jar! {a} dug this up earlier.",
+   "The curse of the scarabs is upon us!",
+   "{a} opens something they really shouldn't have. Scarabs."
+  ],
+  "summon_hedgehog": [
+   "A hedgehog wanders in. Please don't punch the hedgehog.",
+   "{a} has deployed a hedgehog. Touching it is a mistake.",
+   "Enter the hedgehog. It's prickly and it knows it."
+  ],
+  "summon_balloon-dog": [
+   "{a} twists up a balloon dog. It's adorable. It's also a bomb.",
+   "A balloon dog joins the team. Someone is going to pop it.",
+   "Squeak squeak squeak. {a}'s balloon dog is ready."
+  ],
+  "summon_butterfly": [
+   "Butterflies flutter out of {a}'s bouquet. Very distracting.",
+   "{a} releases butterflies. The mood improves for one team only.",
+   "Butterflies everywhere! Someone swats at the air."
+  ],
+  "summon_parrot": [
+   "{a}'s parrot lands on the nearest enemy's shoulder and starts talking.",
+   "The parrot is out! It knows everyone's secrets.",
+   "Pieces of eight! The parrot has arrived."
+  ],
+  "summon_drone-pigeon": [
+   "{a} releases the drone pigeons. Birds aren't real. Wake up.",
+   "Surveillance pigeons are overhead. {a} did warn us.",
+   "Those aren't pigeons. {a} knows it. We all know it."
+  ],
+  "summon_school-kid": [
+   "{a} has brought a school trip. Four kids, zero supervision.",
+   "The school trip is here! Somebody count them.",
+   "Children in the arena! {a} calls it 'a learning experience'."
+  ],
+  "summon_fan": [
+   "{a}'s superfans have found the fight. Selfie sticks out!",
+   "Two fans burst in screaming {a}'s name.",
+   "The fans are here. {a} waves like it's a red carpet."
+  ],
+  "summon_paparazzo": [
+   "Paparazzi! Flashbulbs everywhere. {a} tipped them off.",
+   "{a} calls the press. Two photographers arrive in seconds.",
+   "The paparazzi are here and they want a scandal."
+  ],
+  "summon_campaign-volunteer": [
+   "{a}'s campaign volunteers are handing out leaflets. Mid-fight.",
+   "Volunteers! Vote {a}! Nobody asked.",
+   "Two volunteers start canvassing the opposition. Aggressively."
+  ],
+  "summon_tourist": [
+   "{a} leads a guided tour right through the middle of the fight.",
+   "A tour group! Please keep up. Please stop photographing the violence.",
+   "The tour group has stopped to look at something. In everyone's way."
+  ],
+  "summon_audience-member": [
+   "{a} brings in a studio audience. Applause sign: ON.",
+   "The audience is cheering for {a}! And booing everyone else.",
+   "Studio audience, live! {a} works the crowd."
+  ],
+  "summon_intern": [
+   "{a} delegates the fight to the intern.",
+   "The intern has arrived. Nobody told them what this job involves.",
+   "{a}: 'Intern, handle this.' The intern cannot handle this."
+  ],
+  "summon_bellhop": [
+   "{a} rings for the bellhop, who charges in with the luggage.",
+   "Bellhop! Mind your feet, the trolley's coming through!",
+   "The bellhop is here and he is not stopping."
+  ],
+  "summon_paralegal": [
+   "{a}'s paralegal arrives with twelve boxes of discovery.",
+   "Paperwork! The paralegal is spreading documents everywhere.",
+   "{a} files a motion. A paralegal appears with the paperwork."
+  ],
+  "summon_beaten": [
+   "{b} sends the {critter} packing.",
+   "And the {critter} is out of here! {b} shows no mercy.",
+   "{b} deals with the {critter}. Harsh, but fair.",
+   "The {critter} has had enough and bolts.",
+   "{b} clears the {critter} out of the way.",
+   "Poof! The {critter} is gone. {b} looks almost guilty."
+  ],
+  "summon_nip": [
+   "The {critter} gets a nip in on {b}!",
+   "{b} is being harassed by the {critter}.",
+   "The {critter} is all over {b}!",
+   "{b} tries to shake off the {critter}. No luck."
+  ],
+  "fear_panic": [
+   "{a} sees the {critter} and completely loses it!",
+   "{a} was NOT ready for a {critter}. Running!",
+   "The {critter} has sent {a} running for the exit.",
+   "{a} screams at the {critter}. The {critter} is unbothered.",
+   "{a} drops everything. It's the {critter}. It's always the {critter}."
+  ],
+  "fear_dogs": [
+   "{a} has a thing about dogs, and this {critter} knows it.",
+   "Every postal worker's nightmare: a {critter} off the lead!",
+   "{a} backs away from the {critter}. Slowly. Then very quickly."
+  ],
+  "fear_cats": [
+   "{a} is terrified of cats. The {critter} is thrilled.",
+   "A {critter}! {a} has had a bad feeling about cats all along.",
+   "{a} flees the {critter}. The cat does not care."
+  ],
+  "fear_birds": [
+   "{a} hates birds, and the {critter} can tell.",
+   "{a} is being pecked into a panic!",
+   "The {critter} flaps once and {a} is gone."
+  ],
+  "fear_critters": [
+   "{a} spots the {critter} and jumps onto the nearest furniture.",
+   "Eek! {a} is not a {critter} person.",
+   "{a} runs from the {critter}. It's about the size of a shoe."
+  ],
+  "fear_bugs": [
+   "{a} can't stand bugs. The {critter} is right there.",
+   "{a} flails wildly at the {critter}!",
+   "A {critter}! {a} is out of here."
+  ],
+  "fear_crowds": [
+   "Crowds! {a} freezes up like it's opening night.",
+   "{a} has stage fright, and the {critter} is not helping.",
+   "Too many people! {a} needs a quiet room."
+  ],
+  "fear_kids": [
+   "Children! {a} would rather fight anyone else.",
+   "The school kids have {a} completely rattled.",
+   "{a} is overwhelmed by the {critter}. Where is the teacher?"
+  ],
+  "feed_summon_brag": [
+   "Leadership isn't about doing everything yourself. Today I delegated the fight to a {critter}. Results speak for themselves. 📈",
+   "Proud of my team today, especially the {critter}. Didn't even ask for a salary. #Culture",
+   "They said 'bring your whole self to work'. I brought a {critter}. #Authenticity",
+   "Great collaboration with the {critter} today. Cross-functional synergy at its finest. 🤝",
+   "Hot take: a {critter} is worth three agency temps. Fight me. (Please don't, I'll send the {critter}.)",
+   "Not everyone can manage a {critter} under pressure. I can. Open to leadership roles. 💼",
+   "Shoutout to the {critter} for showing up, adding value and leaving before the debrief. Role model.",
+   "Today's lesson in stakeholder management: if in doubt, release the {critter}.",
+   "Some people network. I summon. 🐾 #ThoughtLeadership",
+   "Reminder that your biggest asset is your team. Mine had a {critter} on it today. 🙌",
+   "Tried something new today: outsourcing the hard part to a {critter}. 10/10 would delegate again.",
+   "Grateful for the {critter}. Truly the MVP nobody will put in the official stats."
+  ],
+  "feed_summon_complain": [
+   "Can we talk about how the other side brought a {critter} to a professional fight? Asking HR.",
+   "Unpopular opinion: summoning a {critter} mid-fight should be a red card. #Integrity",
+   "Lost focus today because a {critter} was involved. I'll be raising this at the retro.",
+   "Not sure what's more unprofessional: the {critter} or the person who summoned it.",
+   "Lessons learned: always check the opposition's roster for a {critter}. 🧵 1/12",
+   "I'd like to formally lodge a complaint about the {critter}. And its manager.",
+   "There was a {critter}. I'm fine. Everything is fine. #Resilience",
+   "Nobody told me the role involved a {critter}. Updating my job alerts."
+  ],
+  "feed_spooked": [
+   "Vulnerable post incoming: I ran away from a {critter} today. Growth isn't linear. 💙",
+   "I want to normalise being terrified of a {critter} in the workplace. Thank you for coming to my TED talk.",
+   "Yes, I dropped everything and ran from the {critter}. No, I won't be taking questions.",
+   "Today a {critter} reminded me that we all have fears. Mine is specifically the {critter}.",
+   "Taking a mental health day after an encounter with a {critter}. Please respect my privacy.",
+   "Shoutout to my team for covering while I hid from the {critter}. That's leadership. (Theirs.)"
+  ],
+  "feed_photo_air_us": [
+   "📸 Thrilled to announce that {name} briefly left the ground today. #Growth #Airtime",
+   "📸 {name}, mid-air, at the {arena}. Some people climb the ladder. Some skip it. #Leadership",
+   "📸 Caught this candid of {name} exceeding vertical expectations. Proud of this team.",
+   "📸 When they said \"reach for the sky\", {name} took it personally. #GoalSetting",
+   "📸 Not every day you see {name} in flight mode. Grateful to be part of the journey.",
+   "📸 Agile? {name} is airborne. #Pivot",
+   "📸 {name} taking \"remote-first\" a bit too literally. Last seen heading for the ceiling. #Hybrid",
+   "📸 Gravity reached out with an offer. {name} is considering it. #OpenToWork"
+  ],
+  "feed_photo_air_them": [
+   "📸 Helped {name} from {company} explore new heights today. You're welcome. #Mentorship",
+   "📸 {name} learning that the sky is not, in fact, the limit. #TeachableMoments",
+   "📸 Captured {name} mid-launch. Sometimes career growth is sudden and upward.",
+   "📸 Pleased to share that {name} has been successfully redeployed. Through the air. #Restructuring",
+   "📸 Wishing {name} a smooth landing in their next role. And on the floor.",
+   "📸 {name} from {company} has been fast-tracked. Upwards, then down. #CareerProgression",
+   "📸 We don't fire people at {company}'s level. We launch them. Bon voyage, {name}. 🚀"
+  ],
+  "feed_photo_hit_us": [
+   "📸 {name} closing the deal at the {arena}. Decisive leadership looks like this.",
+   "📸 This is what delivering results looks like. Hats off to {name}. #Execution",
+   "📸 Snapped {name} mid-negotiation. The other side agreed immediately. #WinWin",
+   "📸 {name} putting the \"impact\" in \"high-impact contributor\". 💥",
+   "📸 Framing this one for the office. {name}, everyone. #KPIs",
+   "📸 {name} giving {other} from {company} some unsolicited career advice. 💥",
+   "📸 {name} reaching out to {other}. Personally. Firmly. #Networking"
+  ],
+  "feed_photo_hit_them": [
+   "📸 Respect where it's due: {name} from {company} brought the receipts today. #Humbled",
+   "📸 Posting this so I remember: {name} hits harder than a Monday. #LessonsLearned",
+   "📸 Someone at {company} sent me this photo of {name}. Thanks, I guess. #Feedback",
+   "📸 Brutal but fair feedback from {name}. Growth mindset activated. 🫠",
+   "📸 Sharing this so I stay humble: {name} from {company} vs {other}. Mostly {name}. #Humility"
+  ],
+  "feed_photo_move_us": [
+   "📸 {name} unleashing a signature move at the {arena}. Some call it a skill. We call it a core competency.",
+   "📸 Behind every great team is {name} doing something absolutely unhinged. #Culture",
+   "📸 When {name} says \"leave it with me\", this is what happens. #Ownership",
+   "📸 {name} showcasing transferable skills. Mostly transferring them onto other people."
+  ],
+  "feed_photo_move_them": [
+   "📸 Not gonna lie, {name} from {company} had moves today. Open to collaborating. #Networking",
+   "📸 Caught {name} doing their party trick. We were the party. #Unfortunately",
+   "📸 {name} from {company} brought a whole skill set. We brought a skill. #Benchmarking"
+  ],
+  "feed_photo_ouch_us": [
+   "📸 Real ones post the unflattering photos. Here's {name} absorbing some feedback. #Authenticity",
+   "📸 This is what \"taking one for the team\" looks like. Proud of you, {name}. 🩹",
+   "📸 Not every day is a highlight reel. Sometimes it's {name}'s face doing this. #Vulnerability",
+   "📸 Leadership is showing up even when the day hits back. Literally, in {name}'s case.",
+   "📸 Captured the exact moment {name} learned something new about {company}. #GrowthMindset",
+   "📸 Behind the scenes at the {arena}. {name} is fine. Probably. #Resilience"
+  ],
+  "feed_photo_ouch_them": [
+   "📸 Wishing {name} from {company} a speedy recovery and a reflective weekend. #Kindness",
+   "📸 Delivered some candid feedback to {name} today. They took it… right in the face.",
+   "📸 Framing this one. {name} from {company}, meeting expectations (ours). #Results",
+   "📸 Captured {name}'s reaction to our proposal. I think they're on board. #Closing",
+   "📸 {name} from {company} discovering our competitive advantage. 💥"
+  ],
+  "feed_photo_spooked_us": [
+   "📸 Opening up about {name}'s fears. It's okay not to be okay around animals. 💙",
+   "📸 That face when the {arena} gets a surprise guest. {name}, we see you. #MentalHealth",
+   "📸 {name} meeting their biggest stakeholder: a small animal. #Boundaries",
+   "📸 {name} vs one (1) {critter}. The {critter} did not even try. #Unfiltered",
+   "📸 Brave enough to share: {name} has a complicated relationship with {critter}s. 💙"
+  ],
+  "feed_photo_spooked_them": [
+   "📸 Our team brought a plus-one. {name} from {company} did not enjoy the networking. 🐾",
+   "📸 Strategic deployment of wildlife: 10/10. {name}'s face: also 10/10. #Innovation",
+   "📸 {name} from {company} meeting our newest intern. The intern has four legs.",
+   "📸 {name} from {company} meeting our {critter} for the first time. Leadership is about presence. 🐾"
+  ],
+  "feed_c_congrats": [
+   "Congrats {first}! 🎉",
+   "Well deserved!",
+   "This is the content I'm here for.",
+   "Huge! Let's grab a coffee sometime ☕",
+   "Absolutely crushing it.",
+   "Love to see it 🙌",
+   "Inspiring stuff, {first}.",
+   "Massive. Proud to be connected.",
+   "Who's going to tell {company}?",
+   "Legendary behaviour.",
+   "Big if true. It is true. Big.",
+   "Nobody deserves it more.",
+   "Saving this for my next bad day.",
+   "Get in!! 🔥",
+   "You make it look easy, {first}.",
+   "Top-tier punching as always.",
+   "Can't stop, won't stop.",
+   "Genuinely made my morning.",
+   "This is what leadership looks like.",
+   "Sharing with my whole team.",
+   "10/10, no notes.",
+   "The {company} lot will be feeling that tomorrow 😬",
+   "Pure class.",
+   "Saw it live. Still shaking.",
+   "Congratulations! Also, are you hiring?",
+   "Get in, {first}! 🥊",
+   "Legend behaviour.",
+   "{company} will be feeling that for a while 😂",
+   "This is going on my vision board.",
+   "Proud to have once been in the same lift as you.",
+   "Showed this to my kids. They want to be {first} when they grow up.",
+   "The {company} slander we needed.",
+   "Main character energy 🔥",
+   "Absolute unit. Congrats!",
+   "Saving this for my next performance review.",
+   "Bookmarked. Will quote this at my wedding.",
+   "Can I get your autograph? On a cast, ideally."
+  ],
+  "feed_c_support": [
+   "Sending strength 💪",
+   "Chin up, {first}. You'll get them next time.",
+   "Proud of you for posting this.",
+   "Losses build legends.",
+   "Ice, rest, and more ice.",
+   "Rooting for the rematch!",
+   "We've all been there. Mostly on the floor.",
+   "This took guts. So did the fight.",
+   "Honestly {company} got lucky.",
+   "Take care of yourself first.",
+   "You're still my favourite brawler.",
+   "Rest up. Come back stronger.",
+   "Thank you for being so open about this.",
+   "The comeback will be glorious.",
+   "That floor had it coming for you, sorry.",
+   "Big hug. Gentle one. You look bruised.",
+   "One fight doesn't define you.",
+   "Anyone who saw that knows you gave everything.",
+   "Here if you need a chat (or a sandwich).",
+   "Next time, bring more meal deals.",
+   "It happens to the best of us, {first}. It's happened to me eleven times this month.",
+   "Rest up. Ice and a biscuit.",
+   "{company} got lucky. Very lucky. Lucky several times in a row.",
+   "Honestly you looked great falling over.",
+   "You'll get them next time 💪",
+   "The {company} lot cheat, everyone knows it.",
+   "Sending you a meal deal and good vibes.",
+   "This is why I never leave the house.",
+   "Strong post, stronger comeback incoming.",
+   "Losing builds character. You now have loads of character, {first}."
+  ],
+  "feed_c_teammate": [
+   "Couldn't have done it without me tbh 😏",
+   "Tell them about the chair!",
+   "Same time next week? 👊",
+   "Team dinner's on you, {first}.",
+   "Proud to fight next to you.",
+   "My knuckles are still humming.",
+   "Best squad in the business.",
+   "Did anyone find my other shoe?",
+   "We're unstoppable!",
+   "I'll be framing this post.",
+   "Still buzzing from that one!",
+   "Who's buying the ice packs this time?",
+   "Don't forget who threw the fire extinguisher, {first}.",
+   "'Our team' 👀 I did most of it but go off.",
+   "Proud to fight next to you. Slightly behind you, specifically.",
+   "Same time next week? I'll bring the plasters.",
+   "Great fight! Can I have my shoe back now?",
+   "This team is a family. A loud, bruised family."
+  ],
+  "feed_c_teammate_loss": [
+   "We'll get them, {first}.",
+   "I blame the floor.",
+   "My fault, I tripped over a box.",
+   "Rematch. I'm in.",
+   "Anyone else still seeing stars?",
+   "Bring snacks next time, I'm begging.",
+   "At least we look good in the replay.",
+   "Team hug. Carefully.",
+   "We go again, {first}. After a nap.",
+   "It's fine. I didn't need that tooth.",
+   "Next time I'm standing further away from you.",
+   "Honestly? Worth it for the look on the referee's face.",
+   "Team dinner on me. Soup. Through a straw."
+  ],
+  "feed_c_rival_win": [
+   "We let you win.",
+   "Enjoy it while it lasts.",
+   "See you at the rematch.",
+   "My lawyer will be in touch.",
+   "Lucky punch. Several lucky punches.",
+   "Our HR team is reviewing the footage.",
+   "Pretty sure that was a foul.",
+   "Fine. Good fight. FINE.",
+   "You got the win. We got the sympathy.",
+   "Don't get used to it.",
+   "Respect. Grudging respect.",
+   "We're 'restructuring'. Thanks to you.",
+   "Asking for a friend: where did you get that meal deal?",
+   "I'll be back. After physio.",
+   "Deleted my congratulations twice before posting this.",
+   "Rematch. Same place. Bring your whole department.",
+   "I wasn't even warmed up.",
+   "The referee was clearly on your side.",
+   "Screenshotting this for our legal team.",
+   "Congrats. I'm going to be professional about this. (I'm not.)",
+   "Our CEO has asked me to 'like' this. I've done it with extreme sarcasm.",
+   "I slipped. On purpose. Tactically.",
+   "I let you win because it was your birthday. Is it your birthday? It should be."
+  ],
+  "feed_c_rival_loss": [
+   "Good game 😏",
+   "No hard feelings. Some hard floors.",
+   "Better luck next time!",
+   "Thanks for the practice.",
+   "Loved working with you. Loved beating you more.",
+   "Our door's always open if you want a real team.",
+   "Nothing personal, just business.",
+   "Send my regards to your physio.",
+   "That was fun. For us.",
+   "Happy to share some tips. For a fee.",
+   "GG. Mostly G for us.",
+   "You fought well. We fought better.",
+   "Great effort! Almost looked like a fight.",
+   "Anytime you want lessons, DM me.",
+   "Tell your knees I said hi.",
+   "You were very brave. Very, very brave. And then very horizontal.",
+   "Rematch? We could use the practice. Oh wait.",
+   "Thanks for the cardio.",
+   "No hard feelings. Mostly hard floors.",
+   "Our intern did most of that, by the way."
+  ],
+  "feed_c_news": [
+   "Congrats on the new role! 🎉",
+   "Endorsed you for 'Punching'.",
+   "Well earned!",
+   "Can't wait to see what you do next.",
+   "About time!",
+   "New title, same legend.",
+   "Hope it comes with a pay rise.",
+   "You're going places. Mostly other companies' arenas.",
+   "Proud of you!",
+   "Level up! 📈",
+   "Congratulations — first round of meal deals on you.",
+   "Updating my network to include more people like you.",
+   "Look at you go!",
+   "Deserved. Totally deserved.",
+   "The trainee days feel so long ago 🥲",
+   "Massive! 🎉",
+   "Well deserved, you've been hitting people so consistently.",
+   "Congrats! Does this come with a parking space?",
+   "Remember us when you're famous.",
+   "The glow-up is real.",
+   "Next stop: CEO. Or at least a chair with wheels.",
+   "Love this for you!",
+   "HR will be thrilled. Or terrified. Both."
+  ],
+  "feed_c_beaten": [
+   "GG. Same time next week?",
+   "Tell your CEO I said hi. From above.",
+   "Anytime.",
+   "You fought hard. Just not hard enough.",
+   "Pivot to winning, maybe?",
+   "Get well soon 💐",
+   "Thanks for having us!",
+   "It's giving 'restructuring'.",
+   "Respectfully: lol.",
+   "Your culture is great. Your guard is not.",
+   "We should do this again. For you, I mean.",
+   "Glassdoor review incoming: 'floors are comfy'.",
+   "The flat structure at that place is now very literal.",
+   "Genuinely the best PR they've ever done.",
+   "Were you taking notes? Because I was.",
+   "This is corporate speak for 'ouch'.",
+   "Checks notes: 'pivoting' means lying down now?",
+   "Someone get their social media manager a hug.",
+   "Their stock is down. Their staff is down. Everything is down.",
+   "Imagine being the person who has to write this post."
+  ],
+  "feed_c_gloat": [
+   "Rematch. Now.",
+   "Enjoy it. It won't happen twice.",
+   "That was a warm-up.",
+   "My team was on their lunch break, technically.",
+   "I'll see you in the arena.",
+   "Screenshotting this for motivation.",
+   "We'll talk. With fists.",
+   "Bold of you to post this.",
+   "Noted. Filed. Revenge scheduled.",
+   "Our physio says hi.",
+   "Delete this.",
+   "Mate, the fight was fixed and you know it.",
+   "Enjoy it. The rematch is coming.",
+   "This post is why nobody likes corporate accounts.",
+   "Strong words from a company with a beanbag room.",
+   "My lawyer has read this post and she's laughing too. At you.",
+   "Posting a win against us? Bold. Brave. Blocked."
+  ],
+  "feed_c_company": [
+   "Is the salary really lunch?",
+   "Applied! 🙏",
+   "Do you offer dental? Asking after today.",
+   "Glassdoor says otherwise.",
+   "What's the fight-life balance like?",
+   "Is there parking?",
+   "Just applied for 'Person Who Stands Near The Door'.",
+   "Do you sponsor visas? And helmets?",
+   "Remote-first or punch-first?",
+   "DM'd you my CV and a medical waiver.",
+   "My cousin worked there. He's fine now. Mostly.",
+   "Is the free fruit actually free?",
+   "Interested! Do you do part-time brawling?",
+   "Love the energy, fear the recruitment process.",
+   "Is the free fruit still just one sad banana?",
+   "Applied. Got a rejection email and a black eye in the same afternoon.",
+   "'Work hard, fight harder' should NOT be on the office wall.",
+   "Is the salary competitive or just the fighting?",
+   "Interviewed there. Round two was a boxing ring.",
+   "Your careers page has a first-aid section. Concerning.",
+   "Every job ad here is a threat.",
+   "Do you do internships? My nephew bites."
+  ],
+  "feed_c_generic": [
+   "Agree 💯",
+   "Great insight.",
+   "This.",
+   "Following for more.",
+   "Can you share the slides?",
+   "Interested.",
+   "Thanks for sharing!",
+   "Commenting for reach.",
+   "Needed to hear this today.",
+   "So true. So, so true.",
+   "Couldn't agree more.",
+   "Bookmarking this.",
+   "Wise words.",
+   "Wow. Just wow.",
+   "Saving this for later.",
+   "Big if true.",
+   "Tagging my manager.",
+   "Someone had to say it.",
+   "Real.",
+   "Strong post.",
+   "Underrated take.",
+   "Absolutely spot on.",
+   "Printing this out for the office wall.",
+   "What a journey!",
+   "Instant classic.",
+   "Agreed. Thoughts? 👇",
+   "This. So much this.",
+   "Tagging my manager so they see this.",
+   "Read this on the toilet. Changed my life.",
+   "Unsubscribe.",
+   "Why is this on my feed?",
+   "Sharing with my network. All 4 of them.",
+   "Printing this and putting it on the fridge.",
+   "The algorithm brought me here and I'm staying.",
+   "I disagree but I'm too tired to explain why.",
+   "Every day this app gets weirder. Love it.",
+   "Is anyone else getting these posts?",
+   "Did anyone else see the fight at the airport? My flight was delayed by 40 minutes and one suplex."
+  ],
+  "feed_c_recruiter": [
+   "Hi {first}! I have an exciting opportunity that could be a great fit. DM me 🚀",
+   "{first}, are you open to new challenges? Competitive package + gym.",
+   "Love your profile! We're hiring for a Senior Brawler. Let's chat.",
+   "Hi {first}, fast-growing company, great culture, occasional fights. Interested?",
+   "Would you consider relocating to the warehouse district?",
+   "Your skills are exactly what our client is looking for (they are looking for punches).",
+   "Just sent you an InMail about a very exciting role.",
+   "Hi {first}, quick call this week? 15 minutes, 3 rounds.",
+   "We'd love to have someone with your 'energy' on the team.",
+   "{first}, have you considered a career in consultancy? Same fights, better chairs.",
+   "Hi {first}! Loved this. I have an exciting role that's 90% fighting and 10% Excel. Open to a chat?",
+   "{first}, you'd be a great culture fit for a startup that fights on Fridays. DM me!",
+   "Hi {first}, are you open to new opportunities? Asking for a client who's scared of you.",
+   "Impressive stuff {first}! Our client values grit, hustle, and not suing us.",
+   "{first}! I've got a role that's perfect for you. It's the same role as you have now but further away.",
+   "Hey {first}, I see you have 'punching' as a skill. We have 'being punched' as a job. Interested?"
+  ],
+  "feed_c_reply": [
+   "Thanks {commenter}! 🙏",
+   "Appreciate you!",
+   "Let's connect!",
+   "Means a lot.",
+   "Haha, you know it 😄",
+   "Cheers!",
+   "Thank you, genuinely.",
+   "Coffee soon!",
+   "Right back at you.",
+   "Ha! Maybe 😉",
+   "You're too kind.",
+   "🙌🙌🙌",
+   "Thanks {commenter}, means a lot 🙏",
+   "Ha! Cheers {commenter}.",
+   "You're too kind. Also too loud.",
+   "Let's grab a coffee! I'll throw it this time.",
+   "Appreciate the love!",
+   "Noted. Filed. Ignored. 🙂",
+   "Back at you {commenter}!",
+   "We'll talk about this at the next fight.",
+   "Honestly couldn't have done it without the snacks.",
+   "Thanks {commenter}! Sorry about your car."
+  ],
+  "feed_c_temp": [
+   "The agency says hi.",
+   "Temp life represent 🙌",
+   "Hope they kept you on!",
+   "Same agency? Small world.",
+   "Great shift!",
+   "Ask for the permanent contract!",
+   "Can you cover my Thursday?",
+   "Five-star temp. Would hire.",
+   "Give this person a contract!",
+   "The agency always sends the best ones.",
+   "Temp today, CEO tomorrow.",
+   "Was that you with the traffic cone? Iconic.",
+   "Hire them before the competition does.",
+   "Brave to temp in this economy. And this arena."
+  ],
+  "disarm": [
+   "{b} loses their grip — the {item} goes flying!",
+   "Disarmed! {b}'s {item} skids across the floor.",
+   "{a} knocks the {item} clean out of {b}'s hands!",
+   "There goes {b}'s {item}. Finders keepers?",
+   "{b} is empty-handed after that one!",
+   "The {item} leaves {b}'s hands at speed."
+  ],
+  "choke": [
+   "{a} gets {b} in a choke hold!",
+   "{a} wraps an arm round {b}'s neck. No weapon needed.",
+   "Choke hold! {b} is turning a funny colour.",
+   "{a} goes old-school on {b}: headlock!",
+   "{b} is in trouble — {a} won't let go!",
+   "Bare hands, big trouble: {a} has {b} in a sleeper hold."
+  ],
+  "heavy_pickup": [
+   "{a} picks up the {item}. Oh no.",
+   "{a} has found the {item}. Everybody back up.",
+   "Two hands, one {item}, zero mercy: {a} is armed.",
+   "{a} hefts the {item}. This is going to hurt someone.",
+   "The {item} is in play — and {a} is holding it!"
+  ],
+  "weapon_back": [
+   "{a} snatches up the {item}.",
+   "{a} is armed again — with a {item}.",
+   "{a} grabs the {item} off the floor."
+  ],
+  "bark_disarmed": [
+   "My {item}!",
+   "Hey, that's mine!",
+   "Butterfingers!",
+   "Not the {item}!",
+   "I needed that!"
+  ],
+  "bark_choking": [
+   "Nap time.",
+   "Shhh. Sleep.",
+   "Tap out!",
+   "Gotcha!",
+   "Say uncle!"
+  ],
+  "bark_heavy": [
+   "Oh, this is nice.",
+   "Now we're talking!",
+   "Stand back!",
+   "Who wants some {prop}?",
+   "Heavy lifting time!"
+  ],
+  "bark_rearmed": [
+   "Where were we?",
+   "Back in business!",
+   "Mine again!",
+   "Much better."
+  ],
+  "job_archaeologist": [
+   "It belongs in a museum!",
+   "Mind the artefacts!",
+   "Careful, that's Bronze Age!"
+  ],
+  "job_baker": [
+   "Fresh out of the oven!",
+   "Proving time!",
+   "Knead it!"
+  ],
+  "job_beekeeper": [
+   "Easy, girls...",
+   "Bzzzzz!",
+   "You're upsetting the hive!"
+  ],
+  "job_bus-driver": [
+   "Move down the bus!",
+   "Exact change only!",
+   "Next stop: pain!"
+  ],
+  "job_carpenter": [
+   "Measure twice!",
+   "Nailed it!",
+   "Solid oak, this."
+  ],
+  "job_chimney-sweep": [
+   "Chim-chiminey!",
+   "Shake for luck?",
+   "Mind the soot!"
+  ],
+  "job_clown": [
+   "Honk honk!",
+   "Tada!",
+   "Want to see a trick?"
+  ],
+  "job_dog-groomer": [
+   "Who's a good boy?",
+   "Hold still!",
+   "Needs a trim!"
+  ],
+  "job_fashion-designer": [
+   "Darling, no.",
+   "That colour? Really?",
+   "It's giving... defeat."
+  ],
+  "job_flight-attendant": [
+   "Please remain seated.",
+   "Chicken or pasta?",
+   "Cabin crew, seats for landing!"
+  ],
+  "job_florist": [
+   "These are for you!",
+   "Mind the thorns!",
+   "Roses are red..."
+  ],
+  "job_fortune-teller": [
+   "I see... pain.",
+   "The cards never lie.",
+   "Your future is... short."
+  ],
+  "job_hotel-concierge": [
+   "Right this way.",
+   "Will that be all?",
+   "Enjoy your stay!"
+  ],
+  "job_ice-cream-vendor": [
+   "Ninety-nine flake?",
+   "Brain freeze!",
+   "Who wants sprinkles?"
+  ],
+  "job_magician": [
+   "Abracadabra!",
+   "Is this your card?",
+   "And for my next trick..."
+  ],
+  "job_marine-biologist": [
+   "Fascinating specimen!",
+   "Mind the tentacles!",
+   "Stay hydrated!"
+  ],
+  "job_museum-curator": [
+   "Please do not touch!",
+   "That's 3,000 years old!",
+   "Fascinating. Primitive."
+  ],
+  "job_nurse": [
+   "Deep breaths.",
+   "Sharp scratch!",
+   "Back in bed, now!"
+  ],
+  "job_painter": [
+   "Wet paint!",
+   "Needs a second coat!",
+   "Art is pain!"
+  ],
+  "job_photographer": [
+   "Say cheese!",
+   "Hold that pose!",
+   "Great light for a KO."
+  ],
+  "job_postal-worker": [
+   "Special delivery!",
+   "Sign here!",
+   "Return to sender!"
+  ],
+  "job_sailor": [
+   "Ahoy!",
+   "All hands on deck!",
+   "Heave ho!"
+  ],
+  "job_scientist": [
+   "Fascinating!",
+   "For science!",
+   "Stand back — it might explode!"
+  ],
+  "job_tailor": [
+   "A perfect fit!",
+   "Hold still, I'm measuring!",
+   "Hemmed in!"
+  ],
+  "job_tattoo-artist": [
+   "That'll scar nicely.",
+   "No regrets!",
+   "Hold still, this won't hurt. Much."
+  ],
+  "job_train-conductor": [
+   "Tickets, please!",
+   "All aboard!",
+   "Mind the gap!"
+  ],
+  "job_veterinarian": [
+   "Who's been bitten?",
+   "Easy, easy...",
+   "Open wide!"
+  ],
+  "job_welder": [
+   "Mask down!",
+   "Sparks flying!",
+   "Solid bead, that."
+  ],
+  "job_window-cleaner": [
+   "Streak-free!",
+   "Mind the drips!",
+   "Nothing a squeegee can't fix!"
+  ],
+  "job_zookeeper": [
+   "Feeding time!",
+   "Easy, big fella!",
+   "Back in your enclosure!"
+  ],
+  "hazard_start_wave-splash": [
+   "A wave slaps over the edge of the pier!",
+   "The sea wants in. The sea is getting in.",
+   "Splash zone! Nobody bought a splash-zone ticket."
+  ],
+  "hazard_start_seagulls": [
+   "Seagulls! Hold on to your chips!",
+   "A squadron of gulls dives in. Nobody is safe. Especially the chips.",
+   "The gulls have unionised."
+  ],
+  "hazard_start_catch-of-the-day": [
+   "The crane's dropping today's catch!",
+   "Fish incoming. From above. As nature intended.",
+   "Crates of fish are coming down. Smells like victory. Mostly smells like fish."
+  ],
+  "hazard_start_falling-sandbag": [
+   "Sandbags off the fly rail!",
+   "Somebody in the rigging has let go of something.",
+   "Look out below! The stagehands are on strike."
+  ],
+  "hazard_start_dry-ice": [
+   "The smoke machine goes off. Everyone's in a music video now.",
+   "Dry ice floods the stage. Very dramatic. Very slow.",
+   "Fog! Can't see a thing. The audience loves it."
+  ],
+  "hazard_start_spotlight": [
+   "Spotlight! Somebody's having their big moment.",
+   "The follow-spot finds a star. Egos inflate.",
+   "Lights up centre stage. Everyone wants that spot."
+  ],
+  "hazard_start_luggage-avalanche": [
+   "The luggage cart gives way!",
+   "Suitcases tumbling down the grand staircase!",
+   "Somebody packed for a fortnight. It's all coming down."
+  ],
+  "hazard_start_room-service": [
+   "Room service! Snacks on the house.",
+   "A trolley of little sandwiches rolls in. Crusts off. Violence on.",
+   "Complimentary snacks for the lobby. Management regrets this already."
+  ],
+  "hazard_start_fountain-overflow": [
+   "The fountain's overflowing onto the carpet!",
+   "Water all over the lobby. That carpet cost more than your car.",
+   "Fountain malfunction. The pennies are free now."
+  ],
+  "hazard_start_saline-spill": [
+   "Saline on the floor! Mind your step.",
+   "Someone's knocked over a drip stand.",
+   "Spillage in the ward. Health and safety are typing."
+  ],
+  "hazard_start_code-blue": [
+   "CODE BLUE! Everyone panics professionally.",
+   "The alarms go off. Nobody knows which alarm.",
+   "Code blue on the ward. Code brawl in the corridor."
+  ],
+  "hazard_start_supply-drop": [
+   "Fresh supplies wheeled in from the stores!",
+   "A first aid case appears. Fight for it.",
+   "Medical supplies incoming. Healthcare, but make it competitive."
+  ],
+  "hazard_start_new-exhibit": [
+   "A new exhibit arrives. Please do not throw the exhibits.",
+   "Priceless pottery delivered to the middle of a fight. Bold.",
+   "Crates from the dig site! Handle with care. They won't."
+  ],
+  "hazard_start_alarm": [
+   "The museum alarm goes off! Everyone freezes like a statue.",
+   "Security alarm! Somebody touched the T. rex.",
+   "Alarm bells. The guards are on their lunch."
+  ],
+  "hazard_start_falling-frame": [
+   "A painting drops off the wall!",
+   "Exhibit placards coming loose!",
+   "Modern art, arriving at speed."
+  ],
+  "hazard_start_boarding-call": [
+   "Final boarding call! Half the room looks at their phone.",
+   "Gate change! Everyone is distracted and furious.",
+   "This is a customer announcement: please stop fighting at Gate 13."
+  ],
+  "hazard_start_duty-free-sample": [
+   "Free samples at Duty Free!",
+   "Duty Free bags on the floor. That's someone's holiday.",
+   "Tax-free treats, fight-priced."
+  ],
+  "ab_price-check": [
+   "{a} demands a PRICE CHECK on {b}!",
+   "\"Can I get a price check on {b}?\" {a} asks the whole building."
+  ],
+  "ab_clean-up-aisle-five": [
+   "\"Clean-up on aisle five!\" says {a}. Nobody comes. Everyone slips.",
+   "{a} declares a spillage. It is, in fact, a crime scene."
+  ],
+  "ab_store-closing": [
+   "\"This store is now closing,\" {a} announces, and physically enforces it.",
+   "{a} ushers everyone towards the exit. With her elbows."
+  ],
+  "ab_hostile-takeover": [
+   "{a} launches a hostile takeover of {b}. {b} has been acquired. By the floor.",
+   "Hostile takeover! {a} throws {b} out of the org chart."
+  ],
+  "ab_downsizing": [
+   "{a} announces some difficult decisions. Everyone nearby is let go. Onto the floor.",
+   "Downsizing! {a} flattens the whole department."
+  ],
+  "ab_bonus-season": [
+   "{a} hands out bonuses. Only to the people still standing.",
+   "It's bonus season, and {a}'s team is suddenly very motivated."
+  ],
+  "ab_flambe-finale": [
+   "{a} serves the Flambé Finale. {b} is well done.",
+   "Brandy, a lighter and no health-and-safety training: {a} torches {b}."
+  ],
+  "ab_stock-pot-splash": [
+   "{a} throws the stock pot. Soup of the day: everyone.",
+   "A wave of boiling stock from {a}. The front row is now a broth."
+  ],
+  "ab_behind": [
+   "\"BEHIND!\" yells {a}, and {b} goes over his shoulder.",
+   "{a} calls \"Behind!\" as a courtesy before throwing {b} into it."
+  ],
+  "ab_mind-the-gap": [
+   "\"Mind the gap!\" warns {a}, shoving {b} straight into it.",
+   "{a} reminds {b} to mind the gap. Too late."
+  ],
+  "ab_delayed-service": [
+   "{a} announces delays on all services. Everyone just stands there, sighing.",
+   "\"We apologise for the delay,\" says {a}, who is the delay."
+  ],
+  "ab_express-service": [
+   "{a} runs the express service straight through {b}. No stopping.",
+   "Express service! {a} doesn't stop at {b}. Or for {b}."
+  ],
+  "ab_pallet-drop": [
+   "{a} calls in a pallet drop. It lands on {b}.",
+   "A crate falls from nowhere onto {b}. {a} signs for it."
+  ],
+  "ab_safety-briefing": [
+   "{a} gives a mandatory health and safety briefing. Everyone is frozen with boredom.",
+   "\"Lift with your legs,\" {a} explains, for twenty minutes."
+  ],
+  "ab_forklift-certified": [
+   "{a} is forklift certified, and {b} is the pallet.",
+   "{a} picks up {b} and files them under \"returns\"."
+  ],
+  "ab_wrecking-ball": [
+   "{a} goes full wrecking ball on {b}.",
+   "Demolition day! {a} knocks {b} down to the foundations."
+  ],
+  "ab_concrete-pour": [
+   "{a} pours concrete around {b}. {b} is now part of the foundations.",
+   "Wet concrete everywhere! {a} laughs. {b} does not."
+  ],
+  "ab_condemned": [
+   "{a} inspects {b} and declares them condemned.",
+   "\"That's not load-bearing,\" says {a}, pointing at {b}'s whole body."
+  ],
+  "ab_man-overboard": [
+   "MAN OVERBOARD! {a} hurls {b} towards the water.",
+   "{a} throws {b} to the fishes. The fishes decline."
+  ],
+  "ab_reel-em-in": [
+   "{a} hooks {b} and reels them in. Heave ho!",
+   "Grappling hook! {a} lands a big one: {b}."
+  ],
+  "ab_rogue-wave": [
+   "A rogue wave! {a} sends everyone sliding across the deck.",
+   "{a} brings the sea ashore. Everyone nearby is wet and humbled."
+  ],
+  "ab_check-out-time": [
+   "It's check-out time for {b}, and {a} is helping with the luggage. The luggage is {b}.",
+   "{a} checks {b} out. Through the air."
+  ],
+  "ab_do-not-disturb": [
+   "{a} hangs a Do Not Disturb sign on everyone. It works.",
+   "\"Do not disturb,\" says {a}, and the whole lobby freezes."
+  ],
+  "ab_complimentary-upgrade": [
+   "{a} gives the team a complimentary upgrade. Suites all round.",
+   "Complimentary upgrade! {a}'s team gets the minibar."
+  ],
+  "ab_precision-incision": [
+   "{a} makes a precise incision on {b}. Textbook.",
+   "\"This won't hurt a bit,\" {a} lies to {b}."
+  ],
+  "ab_general-anaesthetic": [
+   "{a} administers a general anaesthetic. {b} is counting backwards from ten.",
+   "Lights out! {a} puts {b} under."
+  ],
+  "ab_second-opinion": [
+   "{a} gets a second opinion. From {a}. It's good news.",
+   "{a} stitches himself up mid-fight. Show-off."
+  ],
+  "ab_priceless-exhibit": [
+   "{a} hurls a priceless artefact at {b}. It was priceless. Now it's pieces.",
+   "{a} throws the Ming vase. At {b}. On purpose."
+  ],
+  "ab_please-dont-touch": [
+   "\"PLEASE do not touch the exhibits!\" {a} shoves everyone back.",
+   "{a} enforces the no-touching rule. With both hands."
+  ],
+  "ab_monocle-glare": [
+   "{a} glares at {b} through the monocle. {b} is paralysed with shame.",
+   "The monocle catches the light. {b} forgets what they were doing."
+  ],
+  "ab_turbulence": [
+   "\"We're expecting some turbulence,\" says {a}, and flattens everyone.",
+   "Turbulence! {a} rattles the whole lounge."
+  ],
+  "ab_cleared-for-takeoff": [
+   "{a} is cleared for takeoff, and so is {b}.",
+   "{a} launches {b} to cruising altitude. Landing: rough."
+  ],
+  "ab_brace-brace-brace": [
+   "\"Brace, brace, brace!\" shouts {a}. The team tucks in.",
+   "{a} tells the team to adopt the brace position. It works, weirdly."
+  ],
+  "ab_curtain-call": [
+   "Curtain call! The curtain comes down on {b}, courtesy of {a}.",
+   "{a} drops the curtain on {b}. The critics are raving."
+  ],
+  "ab_dramatic-monologue": [
+   "{a} launches into a dramatic monologue. Everyone stops to listen. They can't help it.",
+   "\"To be, or not to be,\" begins {a}. Everyone nearby chooses not to be."
+  ],
+  "ab_standing-ovation": [
+   "{a} takes a bow. The team gets a standing ovation, and a second wind.",
+   "Bravo! Bravo! {a}'s company rises to the occasion."
+  ],
+  "boss_intro_store-manager": [
+   "I've banned people for less.",
+   "Is that a till receipt or a death warrant? Both.",
+   "Staff discount? Not for you.",
+   "You look like a man who returns opened yoghurt.",
+   "Every aisle is my aisle.",
+   "I've seen your loyalty card. It's pathetic.",
+   "The customer is always right. You're not a customer.",
+   "Bag for life? You'll need a body bag.",
+   "Unexpected item in the bagging area: YOU.",
+   "I don't do refunds. I do beatings.",
+   "I'll put you on the reduced shelf.",
+   "Management would like a word. I am management."
+  ],
+  "boss_intro_ceo": [
+   "I've fired better people than you before breakfast.",
+   "Let's circle back to your funeral.",
+   "You're not a threat. You're a line item.",
+   "I bought this building. I'll buy your silence.",
+   "My watch costs more than your career.",
+   "Consider this your exit interview.",
+   "Synergy? I'll show you synergy.",
+   "I don't negotiate. I acquire.",
+   "Your quarterly results: disappointing.",
+   "I'm not your boss. I'm your boss's boss's boss.",
+   "Profit margins, people. Punch with profit.",
+   "I'll see you in the annual report. Under 'losses'."
+  ],
+  "boss_intro_head-chef": [
+   "You're raw. Beautifully raw. I'll fix that.",
+   "Welcome to my kitchen. Nobody leaves hungry. Or conscious.",
+   "Yes, Chef? YES, CHEF.",
+   "I'll serve you with a side of humility.",
+   "This is a five-star beating.",
+   "Too much salt. In your attitude.",
+   "Your technique is a crime against food.",
+   "Service! SERVICE!",
+   "I've plated tougher than you.",
+   "Tonight's special: pain, jus.",
+   "Get out of my kitchen. Through the window.",
+   "I don't burn food. I burn people."
+  ],
+  "boss_intro_stationmaster": [
+   "You're three seconds late. Unacceptable.",
+   "This platform closes in ten seconds. So do you.",
+   "All stations to Pain Central.",
+   "I run a tight schedule. Your schedule ends today.",
+   "Please stand clear of my fists.",
+   "Mind the gap between us. It's about to close.",
+   "Tickets, please. Oh, you haven't got one.",
+   "The next service is a beating, calling at all stops.",
+   "Delays expected. On your recovery.",
+   "I've never been late. I'm early to your defeat.",
+   "Signal failure detected: your chances.",
+   "This train terminates here. So do you."
+  ],
+  "boss_intro_warehouse-foreman": [
+   "Who authorised you to be on my floor?",
+   "Hi-vis on. Hope off.",
+   "Lift with your legs. You'll need them to run.",
+   "That's not how you stack a pallet. Or a fight.",
+   "I've signed for heavier parcels than you.",
+   "Health and safety says you're a hazard.",
+   "You'll be returned to sender.",
+   "Forklift's on the way. For you.",
+   "Bay 7. That's where you'll be found.",
+   "I've got a clipboard and I'm not afraid to use it.",
+   "Out of stock: your dignity.",
+   "Sign here, here, and here. Then lie down."
+  ],
+  "boss_intro_site-foreman": [
+   "Hard hat area. Your head's soft.",
+   "I've knocked down better walls than you.",
+   "That's not load-bearing. Neither are you.",
+   "Tea break's over. So are you.",
+   "You call that a foundation?",
+   "I pour concrete for fun. And people.",
+   "I've got a JCB with your name on it.",
+   "Condemned. Structurally and personally.",
+   "This site's been here thirty years. You won't last three minutes.",
+   "Measure twice, punch once.",
+   "Who hired you? Fire them.",
+   "Planning permission denied."
+  ],
+  "boss_intro_harbour-master": [
+   "Fifty years at sea and you're the ugliest fish yet.",
+   "Batten down the hatches. And your teeth.",
+   "I've wrestled sharks with nicer manners.",
+   "Welcome aboard. Now walk the plank.",
+   "The tide's coming in. So is my fist.",
+   "You're about to be keelhauled.",
+   "I'll tie you in a knot you can't undo.",
+   "Arr. That's it. That's the line.",
+   "Permission to come aboard denied.",
+   "Your ship has sailed. Mine is ramming it.",
+   "I can smell a landlubber from the lighthouse.",
+   "Anchors away. Mostly into your face."
+  ],
+  "boss_intro_hotel-manager": [
+   "I'm afraid you're not on the guest list.",
+   "Checkout is immediate.",
+   "We don't do complimentary mercy.",
+   "Please, do not disturb me. Ever.",
+   "Room service will be bringing your bruises shortly.",
+   "Your reservation has been cancelled. Permanently.",
+   "Housekeeping will tidy up what's left.",
+   "A five-star lobby for a one-star fighter.",
+   "The concierge regrets to inform you: you've lost.",
+   "Late checkout? You'll be checked out early.",
+   "Mind the carpet. It cost more than your life.",
+   "Welcome. I hope you enjoy your very short stay."
+  ],
+  "boss_intro_chief-surgeon": [
+   "This won't hurt a bit. That's a lie.",
+   "I've operated on bigger egos than yours.",
+   "Scalpel. Now.",
+   "You're going under. Anaesthetic optional.",
+   "My hands are steady. Yours are shaking.",
+   "Second opinion: you lose.",
+   "I took an oath to do no harm. It was a long time ago.",
+   "I'll have you in theatre in five minutes.",
+   "Your prognosis? Poor.",
+   "Nurse, prep the patient. The patient is you.",
+   "I've seen your X-rays. You're mostly fear.",
+   "Visiting hours are over."
+  ],
+  "boss_intro_museum-director": [
+   "Please do not touch the exhibits. I'm an exhibit.",
+   "You'll be on display by closing time.",
+   "I've catalogued more interesting fossils.",
+   "Old money doesn't bruise.",
+   "This T. rex had better manners.",
+   "Your technique is prehistoric.",
+   "I shall have you archived.",
+   "One does not simply walk into my museum.",
+   "That's a priceless artefact. So is my right hook.",
+   "Gift shop's that way. You'll need a souvenir. Of pain.",
+   "Carbon dating suggests you're finished.",
+   "I'll have you stuffed and mounted."
+  ],
+  "boss_intro_airline-captain": [
+   "This is your captain speaking. You're going down.",
+   "Please return to your seat. Permanently.",
+   "We're expecting some turbulence. It's me.",
+   "Cabin crew, prepare for impact.",
+   "Twenty thousand hours flying. Zero hours losing.",
+   "Your baggage has been lost. So has your fight.",
+   "Brace, brace, brace!",
+   "Final boarding call for the pain train.",
+   "Please ensure your tray table is in the upright position. Then duck.",
+   "We'll be landing shortly. On you.",
+   "Seatbelt sign's on. You're not going anywhere.",
+   "Thank you for flying with Captain Altitude."
+  ],
+  "boss_intro_impresario": [
+   "Ladies and gentlemen, the final act.",
+   "The stage is mine. It has always been mine.",
+   "Every hero needs a villain. Tonight I'm both.",
+   "Places, everyone. Your place is the floor.",
+   "Break a leg. I insist.",
+   "A tragedy in three acts: you arrive, you fight, you lose.",
+   "The critics will adore your downfall.",
+   "Curtain up!",
+   "I've never missed a performance. I won't miss you.",
+   "Bravo. Now bow. Lower.",
+   "Encore? There won't be one.",
+   "Exit, pursued by me."
+  ],
+  "boss_intro_feed": [
+   "☠ BOSS FIGHT: {name}, {job}: “{line}”"
+  ],
+  "boss_fight": [
+   "Fight!",
+   "Here we go!",
+   "Round one. Only round."
+  ],
+  "feed_photo_finisher_us": [
+   "📸 The exact moment {name} received some very direct feedback from {by}. Growth is uncomfortable. #Candid",
+   "📸 {name} discovering that {by} from {company} doesn't do soft launches. 🫠",
+   "📸 Every career has a plot twist. {name}'s was {by}. #Resilience",
+   "📸 Posting this for transparency: {name} vs {by}'s closing argument. {by} won. #Authenticity",
+   "📸 {name}, one second before an unscheduled lie-down. Photo credit: {by}'s fist. #WorkLifeBalance",
+   "📸 When {by} said \"let's take this offline\", {name} did not expect the floor. #Learnings",
+   "📸 Not the headshot {name} wanted for their profile. {by} insisted. #PersonalBranding"
+  ],
+  "feed_photo_finisher_them": [
+   "📸 {by} delivering the final slide of the presentation. {name} from {company} has left the meeting. #Closing",
+   "📸 Proud to share that {by} has successfully onboarded {name} onto the floor. #Results",
+   "📸 {name} from {company} receiving their exit interview from {by}. Short, honest, final. 👋",
+   "📸 Caught {name}'s face at the exact second {by} added value. #ROI",
+   "📸 That's not a photo, that's a performance review. {by}: exceeds expectations. {name}: needs improvement.",
+   "📸 Congratulations to {name} from {company} on their new horizontal role, effective immediately. Facilitated by {by}. #Restructuring",
+   "📸 {by} just told {name} \"per my last email\". In person. 💥"
+  ],
+  "feed_photo_critter_us": [
+   "📸 {name} was doing great until a {critter} joined the meeting uninvited. #Boundaries",
+   "📸 Nobody warned {name} that {company} brings a {critter} to work. HR has been informed. 🐾",
+   "📸 {name} in a one-to-one with a {critter}. The {critter} is winning the negotiation.",
+   "📸 \"Bring your pet to work day\", they said. {name} has questions. #WorkplaceSafety",
+   "📸 {name} being mentored, aggressively, by {by}'s {critter}. #Mentorship",
+   "📸 Behind every great fighter is a {critter} attached to their leg. Hang in there, {name}. 🩹"
+  ],
+  "feed_photo_critter_them": [
+   "📸 Our newest hire, a {critter}, closing its first account: {name} from {company}. #OnboardingSuccess",
+   "📸 {by}'s {critter} taking a hands-on approach to stakeholder management. {name} has notes. 🐾",
+   "📸 {name} from {company} meeting our {critter}. It's not personal. It's strategy. #Innovation",
+   "📸 Delegation is a superpower. {by} delegated {name} to a {critter}. #Leadership",
+   "📸 Small team, big impact. Mostly the {critter}, mostly on {name}. #Culture",
+   "📸 {name} from {company} asked to speak to our manager. Our manager is a {critter}."
+  ],
+  "feed_photo_finisher_item_us": [
+   "📸 {name} has been formally introduced to {what}. {by} handled the introductions. #Networking",
+   "📸 Breaking: {what} beats {name}. {by} takes the credit, as usual. #Leadership",
+   "📸 Nobody told {name} the meeting would involve {what}. {by} brought one anyway. #Agenda",
+   "📸 Some people get a promotion. {name} got {what}, hand-delivered by {by}. #CareerMoves",
+   "📸 {name}, photographed at the exact moment {what} entered the conversation. Thanks, {by}. 🫠"
+  ],
+  "feed_photo_finisher_item_them": [
+   "📸 {by} closing the deal with {what}. {name} from {company} has signed. Everything. #Closing",
+   "📸 Proud of {by} for thinking outside the box and well inside {name}'s personal space, with {what}. #Innovation",
+   "📸 {name} from {company} meeting {what} at speed. Thanks for the delivery, {by}! 📦",
+   "📸 Key learning for {name} from {company}: never turn your back on {by} holding {what}. #Takeaways",
+   "📸 {by} offered {name} from {company} some constructive feedback in the form of {what}. #Growth"
+  ],
+  "feed_photo_finisher_move_us": [
+   "📸 {name} on the receiving end of {by}'s {what}. Honestly? Textbook. #Respect",
+   "📸 Not every day you get a live demo of {what}. {name} got the private session, courtesy of {by}. #Learning",
+   "📸 {by} said \"{what}\" and {name} believed it. Lying down now. #Vulnerability",
+   "📸 {name} discovering that {by}'s {what} is not just a LinkedIn skill. #Endorsements"
+  ],
+  "feed_photo_finisher_move_them": [
+   "📸 {by} unveiling {what} to {name} from {company}. Product launch: successful. 🚀",
+   "📸 {by} just ran a {what} workshop. {name} from {company} participated fully. Horizontally. #LearningAndDevelopment",
+   "📸 {name} from {company} asked to see {by}'s {what} in action. Request granted. #CustomerFirst",
+   "📸 Every team needs a {what}. Ours belongs to {by}. {name} from {company} can confirm. #CoreCompetency"
+  ],
+  "feed_photo_ouch_item_us": [
+   "📸 {name} taking {what} to the face so the rest of us don't have to. #Teamwork",
+   "📸 Every great career has a setback. {name}'s was {what}, courtesy of {by}. #Resilience",
+   "📸 {name}, mid-feedback. The feedback was {what}. 🩹",
+   "📸 Thoughts and prayers to {name}, who has just met {what}, swung with feeling by {by}. #Wellbeing"
+  ],
+  "feed_photo_ouch_item_them": [
+   "📸 {name} from {company} receiving a gift of {what} from {by}. No need to say thank you. #Generosity",
+   "📸 {by} delivered {what} to {name} from {company}. Signed for in person. 📦",
+   "📸 {name} from {company} learning what {what} feels like. {by} is a natural mentor. #Mentorship",
+   "📸 Customer journey, final step: {name} from {company} meets {what}. Beautifully executed, {by}."
+  ],
+  "feed_photo_ouch_move_us": [
+   "📸 {name} catching the full {what} from {by}. Character-building. #Resilience",
+   "📸 {by}'s {what} landed on {name}. We're filing it under \"lessons learned\". #Retrospective",
+   "📸 {name} now has first-hand experience of {what}. Adding it to the CV. #Upskilling"
+  ],
+  "feed_photo_ouch_move_them": [
+   "📸 {name} from {company} experiencing {by}'s {what} first-hand. Reviews are in: ouch. #CustomerExperience",
+   "📸 {what}, as delivered by {by} to {name} from {company}. 10/10, would deploy again. #Execution",
+   "📸 Proud to see {by} roll out {what} in production. {name} from {company} was our first user. #ShipIt"
+  ],
+  "crash_out": [
+   "{b} the {bJob} has been shown the door by {a}!",
+   "Gatecrasher down! {a} sends {b} back where they came from.",
+   "{a} files {b} under 'uninvited'. KO!",
+   "And {b} the {bJob} is OUT. Nobody will be inviting them back.",
+   "{a} politely escorts {b} off the premises. Horizontally."
+  ],
+  "crash_ko": [
+   "{a} the {aJob} takes out {b}! Nobody even invited them!",
+   "{b} is OUT, floored by a gatecrasher! {a} doesn't even work here!",
+   "KO! {a} the {aJob} came for one thing, and it was {b}.",
+   "{b} has been knocked out by someone who isn't even in this fight. {a} the {aJob}, everybody."
+  ],
+  "feed_crashed": [
+   "Today's fight at the {arena} was interrupted by {leader}, {title}. Nobody invited them. Everybody fought them. #Disruption #Agile",
+   "Plot twist at the {arena}: {leader} ({title}) and friends burst in halfway through. Still processing. #Resilience",
+   "Not how I expected my day to go: halfway through the fight, {leader} the {title} turned up. I have questions. #WorkplaceSurprises",
+   "Shoutout to {leader}, {title}, for gatecrashing our fight at the {arena}. We floored {floored} of them. Unsolicited feedback, received. #Feedback",
+   "Gatecrashers at the {arena} today. I've added 'survived {leader}' to my skills section. #Growth"
+  ],
+  "feed_c_crash": [
+   "Who invited you though?",
+   "Is this… allowed?",
+   "Reported. Then liked.",
+   "Absolute scenes 😂",
+   "This is the content I'm here for.",
+   "{first}, this is a professional networking site.",
+   "Respect the hustle. Not the punching.",
+   "Did anyone get this on video?",
+   "HR would like to know your location.",
+   "Same thing happened at our place last week. They took the kettle."
+  ],
+  "feed_c_crash_me": [
+   "You weren't even ON a team, {first}.",
+   "Next time, ring the bell.",
+   "I've still got your shoe print on my back, {first}.",
+   "See you at the rematch. Uninvited, presumably.",
+   "You owe our team a meal deal."
+  ],
+  "feed_c_crash_about": [
+   "Hold on, who were the people in the hi-vis?",
+   "This is why I work from home.",
+   "Honestly the gatecrashers were the best bit.",
+   "Did they at least sign in at reception?",
+   "I'd pay to watch that again.",
+   "Was that part of the onboarding?"
+  ]
+ }
+}

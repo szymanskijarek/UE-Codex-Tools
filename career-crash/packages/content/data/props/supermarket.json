@@ -1,0 +1,14 @@
+[
+  {"id": "prop.shopping-trolley", "tags": ["material:metal", "conductive", "rideable"], "radiusMm": 450, "weightG": 25000, "hp": 120, "solid": true, "push": true, "ride": {"speedBonusBp": 5000, "durationTicks": 120}, "onBreak": {"spawn": ["prop.scrap-metal"]}, "art": {"color": "#9ca3af", "shape": "square"}},
+  {"id": "prop.cardboard-display", "tags": ["material:paper", "flammable"], "radiusMm": 500, "weightG": 8000, "hp": 30, "solid": true, "onBreak": {"spawn": ["prop.cereal-box", "prop.cereal-box"]}, "art": {"color": "#e4a15a", "shape": "square"}},
+  {"id": "prop.cereal-box", "tags": ["material:paper", "flammable", "food"], "radiusMm": 220, "weightG": 600, "hp": 10, "carry": true, "throwDamage": 6, "art": {"color": "#fbbf24", "shape": "square"}},
+  {"id": "prop.watermelon", "tags": ["food"], "radiusMm": 300, "weightG": 5000, "hp": 8, "carry": true, "throwDamage": 12, "onBreak": {"spawn": ["prop.soda-spill"]}, "art": {"color": "#16a34a", "shape": "circle"}},
+  {"id": "prop.wine-bottle", "tags": ["material:glass"], "radiusMm": 150, "weightG": 1200, "hp": 4, "carry": true, "throwDamage": 10, "onBreak": {"spawn": ["prop.broken-glass"]}, "art": {"color": "#7f1d1d", "shape": "circle"}},
+  {"id": "prop.olive-oil", "tags": ["material:glass", "oil"], "radiusMm": 150, "weightG": 1000, "hp": 4, "carry": true, "throwDamage": 7, "onBreak": {"spawn": ["prop.oil-spill"]}, "art": {"color": "#a3a23a", "shape": "circle"}},
+  {"id": "prop.frozen-turkey", "tags": ["frozen", "food"], "radiusMm": 300, "weightG": 7000, "carry": true, "throwDamage": 16, "art": {"color": "#e0f2fe", "shape": "circle"}},
+  {"id": "prop.soda-can", "tags": ["material:metal", "conductive", "drink"], "radiusMm": 150, "weightG": 400, "hp": 3, "carry": true, "throwDamage": 5, "onBreak": {"spawn": ["prop.soda-spill"]}, "art": {"color": "#dc2626", "shape": "circle"}},
+  {"id": "prop.vending-machine", "tags": ["material:metal", "conductive"], "radiusMm": 600, "weightG": 250000, "hp": 150, "solid": true, "anchored": true, "use": {"effects": [], "consumed": false, "spawn": "prop.soda-can", "uses": 6}, "onBreak": {"spawn": ["prop.soda-can", "prop.soda-can", "prop.sparks"]}, "art": {"color": "#1d4ed8", "shape": "square"}},
+  {"id": "prop.freezer", "tags": ["cold", "frozen", "material:metal", "conductive"], "radiusMm": 700, "weightG": 300000, "hp": 200, "solid": true, "anchored": true, "art": {"color": "#bae6fd", "shape": "square"}},
+  {"id": "prop.mop-bucket", "tags": ["material:plastic"], "radiusMm": 350, "weightG": 12000, "hp": 20, "solid": true, "push": true, "leak": {"spill": "prop.puddle-water", "everyTicks": 1, "max": 2}, "onBreak": {"spawn": ["prop.flood"]}, "art": {"color": "#facc15", "shape": "circle"}},
+  {"id": "prop.wet-floor-sign", "tags": ["material:plastic"], "radiusMm": 250, "weightG": 1500, "carry": true, "throwDamage": 5, "art": {"color": "#fde047", "shape": "circle"}}
+]

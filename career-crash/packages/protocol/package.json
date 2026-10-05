@@ -1,0 +1,8 @@
+{
+  "name": "@cc/protocol",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": { ".": "./src/index.ts" },
+  "dependencies": { "@cc/content-schema": "workspace:*", "@cc/sim": "workspace:*", "@cc/game-rules": "workspace:*", "@cc/commentary": "workspace:*" }
+}

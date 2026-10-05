@@ -1,0 +1,634 @@
+{
+ "id": "arena.station",
+ "sizeMm": [
+  24000,
+  14000
+ ],
+ "navCellMm": 500,
+ "walls": [],
+ "spawns": {
+  "a": [
+   [
+    2000,
+    7000
+   ],
+   [
+    2000,
+    4500
+   ],
+   [
+    2000,
+    9500
+   ],
+   [
+    3200,
+    3000
+   ],
+   [
+    3200,
+    11000
+   ]
+  ],
+  "b": [
+   [
+    22000,
+    7000
+   ],
+   [
+    22000,
+    4500
+   ],
+   [
+    22000,
+    9500
+   ],
+   [
+    20800,
+    3000
+   ],
+   [
+    20800,
+    11000
+   ]
+  ],
+  "ffa": [
+   [
+    2500,
+    2000
+   ],
+   [
+    21500,
+    2000
+   ],
+   [
+    2500,
+    12000
+   ],
+   [
+    21500,
+    12000
+   ],
+   [
+    8500,
+    7000
+   ],
+   [
+    15500,
+    7000
+   ],
+   [
+    12000,
+    1600
+   ],
+   [
+    12000,
+    12400
+   ]
+  ]
+ },
+ "refereeSpawn": [
+  12000,
+  5200
+ ],
+ "props": [
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    4200,
+    3200
+   ]
+  },
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    19800,
+    3200
+   ]
+  },
+  {
+   "prop": "prop.cardboard-box",
+   "at": [
+    5200,
+    11200
+   ]
+  },
+  {
+   "prop": "prop.cardboard-box",
+   "at": [
+    18800,
+    11200
+   ]
+  },
+  {
+   "prop": "prop.soda-can",
+   "at": [
+    6400,
+    2600
+   ]
+  },
+  {
+   "prop": "prop.soda-can",
+   "at": [
+    17600,
+    2600
+   ]
+  },
+  {
+   "prop": "prop.vending-machine",
+   "at": [
+    900,
+    12900
+   ]
+  },
+  {
+   "prop": "prop.vending-machine",
+   "at": [
+    23100,
+    12900
+   ]
+  },
+  {
+   "prop": "prop.fire-extinguisher",
+   "at": [
+    8000,
+    13300
+   ]
+  },
+  {
+   "prop": "prop.fire-extinguisher",
+   "at": [
+    16000,
+    13300
+   ]
+  },
+  {
+   "prop": "prop.wet-floor-sign",
+   "at": [
+    8600,
+    5600
+   ]
+  },
+  {
+   "prop": "prop.wet-floor-sign",
+   "at": [
+    15400,
+    5600
+   ]
+  },
+  {
+   "prop": "prop.snack",
+   "at": [
+    9500,
+    9800
+   ]
+  },
+  {
+   "prop": "prop.snack",
+   "at": [
+    14500,
+    9800
+   ]
+  },
+  {
+   "prop": "prop.paper-stack",
+   "at": [
+    10000,
+    3000
+   ]
+  },
+  {
+   "prop": "prop.paper-stack",
+   "at": [
+    14000,
+    3000
+   ]
+  },
+  {
+   "prop": "prop.shopping-trolley",
+   "at": [
+    4600,
+    8400
+   ]
+  },
+  {
+   "prop": "prop.shopping-trolley",
+   "at": [
+    19400,
+    8400
+   ]
+  },
+  {
+   "prop": "prop.rubber-chicken",
+   "at": [
+    10400,
+    7000
+   ]
+  },
+  {
+   "prop": "prop.rubber-chicken",
+   "at": [
+    13600,
+    7000
+   ]
+  },
+  {
+   "prop": "prop.wine-bottle",
+   "at": [
+    7200,
+    10200
+   ]
+  },
+  {
+   "prop": "prop.wine-bottle",
+   "at": [
+    16800,
+    10200
+   ]
+  },
+  {
+   "prop": "prop.coffee-machine",
+   "at": [
+    12000,
+    800
+   ]
+  },
+  {
+   "prop": "prop.gas-canister",
+   "at": [
+    12000,
+    13200
+   ]
+  },
+  {
+   "prop": "prop.cake",
+   "at": [
+    12000,
+    7000
+   ]
+  },
+  {
+   "prop": "prop.mop-bucket",
+   "at": [
+    12000,
+    11600
+   ]
+  },
+  {
+   "prop": "prop.suitcase",
+   "at": [
+    3000,
+    5200
+   ]
+  },
+  {
+   "prop": "prop.suitcase",
+   "at": [
+    21000,
+    5200
+   ]
+  },
+  {
+   "prop": "prop.suitcase",
+   "at": [
+    9600,
+    12400
+   ]
+  },
+  {
+   "prop": "prop.umbrella",
+   "at": [
+    6200,
+    8200
+   ]
+  },
+  {
+   "prop": "prop.umbrella",
+   "at": [
+    17800,
+    8200
+   ]
+  },
+  {
+   "prop": "prop.luggage-trolley",
+   "at": [
+    8200,
+    1800
+   ]
+  },
+  {
+   "prop": "prop.luggage-trolley",
+   "at": [
+    15800,
+    1800
+   ]
+  },
+  {
+   "prop": "prop.platform-bench",
+   "at": [
+    7200,
+    4200
+   ]
+  },
+  {
+   "prop": "prop.platform-bench",
+   "at": [
+    16800,
+    9800
+   ]
+  },
+  {
+   "prop": "prop.platform-sign",
+   "at": [
+    7200,
+    9800
+   ]
+  },
+  {
+   "prop": "prop.platform-sign",
+   "at": [
+    16800,
+    4200
+   ]
+  }
+ ],
+ "hazards": [
+  {
+   "id": "hazard.rush-hour",
+   "startTick": 350,
+   "everyTicks": 500,
+   "telegraphTicks": 40,
+   "region": [
+    4000,
+    9500,
+    16000,
+    3500
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.coffee-cup",
+     "count": 3
+    }
+   }
+  },
+  {
+   "id": "hazard.platform-announcement",
+   "startTick": 700,
+   "everyTicks": 650,
+   "telegraphTicks": 40,
+   "region": [
+    0,
+    0,
+    24000,
+    14000
+   ],
+   "action": {
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.distracted",
+      "durationTicks": 60
+     }
+    ]
+   }
+  },
+  {
+   "id": "hazard.lost-luggage",
+   "startTick": 1000,
+   "everyTicks": 600,
+   "telegraphTicks": 30,
+   "region": [
+    6000,
+    2000,
+    12000,
+    10000
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.cardboard-box",
+     "count": 2,
+     "dropFromMm": 2500
+    }
+   }
+  }
+ ],
+ "suddenDeath": {
+  "everyTicks": 200,
+  "region": [
+   0,
+   0,
+   24000,
+   14000
+  ],
+  "action": {
+   "spawn": {
+    "prop": "prop.coffee-cup",
+    "count": 2,
+    "dropFromMm": 3000
+   },
+   "effects": [
+    {
+     "type": "applyStatus",
+     "status": "status.distracted",
+     "durationTicks": 80
+    }
+   ]
+  }
+ },
+ "stations": [
+  {
+   "id": "platform",
+   "name": "Platform 9",
+   "at": [
+    4800,
+    2800
+   ]
+  },
+  {
+   "id": "stairs",
+   "name": "the Stairs",
+   "at": [
+    12000,
+    2600
+   ]
+  },
+  {
+   "id": "departures",
+   "name": "Departures",
+   "at": [
+    19200,
+    2800
+   ]
+  },
+  {
+   "id": "gates-w",
+   "name": "the West Gates",
+   "at": [
+    5200,
+    11300
+   ]
+  },
+  {
+   "id": "gates-e",
+   "name": "the East Gates",
+   "at": [
+    18800,
+    11300
+   ]
+  }
+ ],
+ "movers": [
+  {
+   "id": "hazard.floor-scrubber",
+   "prop": "prop.floor-scrubber",
+   "path": [
+    [
+     500,
+     6100
+    ],
+    [
+     23500,
+     6100
+    ],
+    [
+     23500,
+     8000
+    ],
+    [
+     500,
+     8000
+    ]
+   ],
+   "startTick": 600,
+   "telegraphTicks": 60,
+   "speedMm": 100,
+   "loop": false
+  }
+ ],
+ "theme": {
+  "floor": "#d8cfbd",
+  "wall": "#6b5b45",
+  "accent": "#2f6b5a"
+ },
+ "unlock": {
+  "league": "intern"
+ },
+ "obstacles": [
+  {
+   "at": [
+    6500,
+    3500,
+    900,
+    900
+   ],
+   "art": [
+    "news-kiosk",
+    "coffee-kiosk"
+   ]
+  },
+  {
+   "at": [
+    16600,
+    3500,
+    900,
+    900
+   ],
+   "art": [
+    "coffee-kiosk",
+    "ticket-booth"
+   ]
+  },
+  {
+   "at": [
+    6500,
+    9600,
+    900,
+    900
+   ],
+   "art": [
+    "ticket-booth",
+    "news-kiosk"
+   ]
+  },
+  {
+   "at": [
+    16600,
+    9600,
+    900,
+    900
+   ],
+   "art": [
+    "ticket-booth",
+    "news-kiosk"
+   ]
+  },
+  {
+   "at": [
+    10500,
+    4300,
+    3000,
+    700
+   ],
+   "art": [
+    "timetable-board"
+   ]
+  },
+  {
+   "at": [
+    9000,
+    12600,
+    2400,
+    700
+   ],
+   "art": [
+    "ticket-gates"
+   ],
+   "chanceBp": 8000
+  },
+  {
+   "at": [
+    12600,
+    12600,
+    2400,
+    700
+   ],
+   "art": [
+    "ticket-gates"
+   ],
+   "chanceBp": 8000
+  },
+  {
+   "at": [
+    3800,
+    1100,
+    2600,
+    700
+   ],
+   "art": [
+    "station-bench"
+   ],
+   "chanceBp": 6000
+  },
+  {
+   "at": [
+    17600,
+    1100,
+    2600,
+    700
+   ],
+   "art": [
+    "station-bench"
+   ],
+   "chanceBp": 6000
+  }
+ ],
+ "debris": [
+  "prop.suitcase",
+  "prop.umbrella",
+  "prop.paper-stack",
+  "prop.coffee-cup"
+ ],
+ "boss": {
+  "career": "career.stationmaster",
+  "name": "Arthur Punctual"
+ }
+}

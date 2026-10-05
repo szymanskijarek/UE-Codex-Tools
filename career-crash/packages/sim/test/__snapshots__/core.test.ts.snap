@@ -1,0 +1,9 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`sfc32 PRNG > produces a known sequence (guards against accidental algorithm changes) 1`] = `
+[
+  2395991372,
+  1241390374,
+  2484895914,
+]
+`;

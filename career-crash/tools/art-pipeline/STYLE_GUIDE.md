@@ -1,0 +1,101 @@
+# Career Crash — Art Style Guide (v0.1)
+
+Source of truth for AI-generated art (docs/career-crash/00 Art Direction, 04 Phase 7).
+Every asset is a **part** on a shared rig, never a one-off illustration.
+
+## Look
+
+- Stylised 2D, big heads (head : body ≈ 1 : 1.4), expressive faces.
+- Thick dark outline `#1b1f2a`, 3 px at 128 px part height; flat fills, one soft shadow tone.
+- Bright, readable palette. Career colour comes from `careers/*.json → art.color` (outfit) and `art.hat` (headwear).
+- Lighting from top-left. No gradients except the single shadow tone. Transparent background.
+- 3/4 "stage" view, facing right. The engine mirrors for left.
+
+## Paper-doll parts
+
+| Slot | Canvas | Pivot | Notes |
+|---|---|---|---|
+| body | 128×160 | feet centre | neutral torso + legs, skin-tone mask layer |
+| head | 128×128 | neck | face-less, skin-tone mask |
+| face | 128×128 | neck | eyes/mouth only; 6 expressions (neutral, angry, scared, ko, smug, panic) |
+| hair | 128×128 | neck | 6 styles, tinted at runtime |
+| hat | 128×96 | head top | one per career |
+| upper | 128×128 | shoulders | career top (uses career colour) |
+| lower | 128×96 | hips | trousers/skirt |
+| shoes | 128×48 | feet | |
+| accessory | 64×64 | chest | per accessory item |
+| held item | 96×96 | hand | per equipment item |
+
+Eight shared poses (idle, walk×2, windup, strike, throw, hit, down) — every part is drawn for every pose.
+
+## Props
+
+Drawn at 1 px = 10 mm scale (a 450 mm-radius trolley ≈ 90 px wide), same outline and palette rules.
+Area props (spills, fire, sparks) are top-down tiling blobs with 40 % opacity.
+
+## Rules for generation
+
+1. Generate from `tools/art-pipeline/out/prompts.json` (run `pnpm --filter @cc/art-pipeline prompts`).
+2. Reject outputs that fail: silhouette readable at 48 px, palette ≤ 12 colours after quantisation, outline present on ≥ 90 % of the edge.
+3. Assets are referenced **only** by art ids in content, never by filenames in code, so any asset can be regenerated.
+
+## Character sheets → ragdoll puppets (v0.5)
+
+Career art ships as **character sheets**: `art/sheets/<career-slug>.png`, transparent
+background, the posed character on the left and the same character cut into
+separated parts on the right — head, torso, pelvis, 2 upper arms, 2 forearms
+(with hands), 2 thighs, 2 shins, 2 feet (feet optional: shins may include shoes;
+separate hands are optional too — the chef and teacher have them).
+Leave a clear gap between parts; extra items (props, back views) are ignored.
+
+```bash
+pnpm --filter @cc/art-pipeline puppets            # all sheets
+pnpm --filter @cc/art-pipeline puppets mime       # one sheet
+```
+
+The slicer finds each part, measures its joint anchors, downsizes it (figure
+≈ 300 px) and packs `apps/client/src/replay/puppets/<career>.webp` plus
+`puppets.json`. Labelled previews land in `tools/art-pipeline/out/puppets/`;
+when a sheet uses an unusual layout, map part names to the numbers shown there
+in `art/sheets/manifest.json` (see barista, hairdresser, plumber, mime, chef, teacher); `flip` lists parts
+drawn upside down (the teacher's wrist-down hands).
+
+In game the parts hang on the same 11-point skeleton as the ragdoll: a
+procedural pose while standing (walk, wind-up, strike, throw, carry, panic)
+and Verlet physics when thrown or knocked down. Careers without a sheet keep
+the drawn paper doll.
+
+## Item and obstacle sheets (v0.6)
+
+`art/items/*.png` (2 rows × 4 small items) and `art/obstacles/*.png` (2 rows ×
+3 large pieces) on transparent backgrounds; item names in reading order go in
+each folder's `manifest.json`. `pnpm --filter @cc/art-pipeline items` and
+`… items obstacles` pack them into `apps/client/src/replay/{items,obstacles}/`.
+`client/replay/items.ts` maps equipment, props, machines and each arena's
+obstacles to atlas names; anything unmapped keeps its drawn fallback.
+
+## Heavy weapons (two-handed)
+
+Twelve two-handed weapons (list and atlas names in 02 §5.2c), on two sheets of
+2 × 3 (`art/items/heavy-1.png`, `heavy-2.png`; manifest entries use
+`{ "cols": 3, "px": 160, "names": [...] }` so they're sliced three per row and
+kept larger in the atlas). They can be painted at any angle: each one's grip
+point and head point on its art live in `HEAVY_GRIP` (client/replay/items.ts),
+and the sprite is anchored on the grip and turned so the head points away from
+the fists. Overlapping bounding boxes are fine — the slicer drops pixels that
+belong to a neighbouring item. Check them in the pose lab (`#/lab`). Signs are
+mirrored back across their own axis when a fighter faces left, so text stays
+readable.
+
+## Faces (four emotions)
+
+`art/faces/{neutral,angry,surprised,hurt}.png`: 6 × 6 grids of heads on a
+transparent background, careers in alphabetical order (accountant … tv-host,
+36 careers). `pnpm --filter @cc/art-pipeline faces` slices them into
+`client/replay/faces/`. In battle the puppet's head is replaced by the face for
+its expression (happy/neutral → neutral, angry → angry, scared/stunned →
+surprised, hurt/KO → hurt); UI portraits use them too. The slicer also
+derives `blink` (eye whites painted over with lids) and `talk` (the surprised
+face's open mouth pasted into the neutral face) frames where it can find the
+eyes/mouth — faces hidden behind visors or sunglasses just don't blink. Paint heads frontal,
+chin at the bottom of the cell, including hats/headgear, like the puppet head.

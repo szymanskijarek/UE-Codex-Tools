@@ -1,0 +1,20 @@
+{
+  "name": "@cc/art-pipeline",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "prompts": "tsx src/prompts.ts",
+    "puppets": "tsx src/puppets.ts",
+    "items": "tsx src/items.ts",
+    "faces": "tsx src/faces.ts",
+    "puppets-grid": "tsx src/puppets-grid.ts",
+    "arenas": "tsx src/arenas.ts",
+    "critters": "tsx src/critters.ts"
+  },
+  "dependencies": {
+    "@cc/content": "workspace:*",
+    "@cc/content-schema": "workspace:*",
+    "sharp": "0.35.4"
+  }
+}

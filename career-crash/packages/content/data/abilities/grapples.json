@@ -1,0 +1,283 @@
+[
+ {
+  "id": "ability.bouncer-toss",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 200,
+  "castTicks": 10,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 1600
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "toss",
+    "distanceMm": 4500,
+    "heightMm": 1600,
+    "direction": "away",
+    "landDamage": 11
+   }
+  ],
+  "commentaryTag": "grapple"
+ },
+ {
+  "id": "ability.firemans-carry",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 12,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 1600
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "toss",
+    "distanceMm": 3500,
+    "heightMm": 2200,
+    "direction": "behind",
+    "landDamage": 14
+   }
+  ],
+  "commentaryTag": "grapple"
+ },
+ {
+  "id": "ability.judo-takedown",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 200,
+  "castTicks": 6,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 1500
+  },
+  "aiHints": {
+   "goal": "control"
+  },
+  "effects": [
+   {
+    "type": "toss",
+    "distanceMm": 1600,
+    "heightMm": 900,
+    "direction": "behind",
+    "landDamage": 9
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.stunned",
+    "durationTicks": 20
+   }
+  ],
+  "commentaryTag": "grapple"
+ },
+ {
+  "id": "ability.body-slam",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 240,
+  "castTicks": 14,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 1500
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "toss",
+    "distanceMm": 0,
+    "heightMm": 2600,
+    "direction": "up",
+    "landDamage": 17
+   }
+  ],
+  "commentaryTag": "grapple"
+ },
+ {
+  "id": "ability.deadlift-suplex",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 240,
+  "castTicks": 14,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 1500
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "toss",
+    "distanceMm": 2800,
+    "heightMm": 2600,
+    "direction": "behind",
+    "landDamage": 16
+   }
+  ],
+  "commentaryTag": "grapple"
+ },
+ {
+  "id": "ability.pitchfork-toss",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 340,
+  "castTicks": 10,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 2000
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "toss",
+    "distanceMm": 3800,
+    "heightMm": 1500,
+    "direction": "away",
+    "landDamage": 4
+   }
+  ],
+  "commentaryTag": "grapple"
+ },
+ {
+  "id": "ability.return-to-sender",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 200,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 6000
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "dash",
+    "distanceMm": 5500
+   },
+   {
+    "type": "toss",
+    "distanceMm": 4000,
+    "heightMm": 1400,
+    "direction": "away",
+    "landDamage": 10
+   }
+  ],
+  "commentaryTag": "grapple"
+ },
+ {
+  "id": "ability.belly-flop",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 320,
+  "castTicks": 10,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 5000
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "dash",
+    "distanceMm": 4500
+   },
+   {
+    "type": "damage",
+    "amount": 9,
+    "damageType": "blunt"
+   },
+   {
+    "type": "knockdown"
+   },
+   {
+    "type": "knockdown",
+    "toSelf": true
+   }
+  ],
+  "commentaryTag": "grapple"
+ },
+ {
+  "id": "ability.giant-swing",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 240,
+  "castTicks": 16,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 1500
+  },
+  "aiHints": {
+   "goal": "chaos"
+  },
+  "effects": [
+   {
+    "type": "toss",
+    "distanceMm": 5500,
+    "heightMm": 1800,
+    "direction": "away",
+    "landDamage": 12
+   }
+  ],
+  "commentaryTag": "grapple"
+ },
+ {
+  "id": "ability.crowd-surf",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 260,
+  "castTicks": 10,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 2500,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "chaos",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "toss",
+    "distanceMm": 2000,
+    "heightMm": 1400,
+    "direction": "up",
+    "landDamage": 6
+   }
+  ],
+  "commentaryTag": "grapple"
+ }
+]

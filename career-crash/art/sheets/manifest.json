@@ -1,0 +1,380 @@
+{
+ "barista": {
+  "parts": {
+   "head": 1,
+   "torso": 2,
+   "upperArmL": 3,
+   "upperArmR": 4,
+   "pelvis": 5,
+   "foreArmL": 6,
+   "foreArmR": 7,
+   "thighL": 8,
+   "thighR": 9,
+   "shinL": 10,
+   "shinR": 11,
+   "footL": 12,
+   "footR": 13
+  }
+ },
+ "hairdresser": {
+  "parts": {
+   "head": 0,
+   "torso": 2,
+   "pelvis": 3,
+   "upperArmL": 4,
+   "upperArmR": 5,
+   "foreArmL": 6,
+   "foreArmR": 7,
+   "thighL": 8,
+   "thighR": 9,
+   "shinL": 10,
+   "shinR": 11,
+   "footL": 12,
+   "footR": 13
+  }
+ },
+ "mime": {
+  "parts": {
+   "head": 0,
+   "torso": 3,
+   "pelvis": 7,
+   "upperArmL": 2,
+   "upperArmR": 4,
+   "foreArmL": 5,
+   "foreArmR": 6,
+   "thighL": 8,
+   "thighR": 9,
+   "shinL": 10,
+   "shinR": 11
+  }
+ },
+ "plumber": {
+  "noFeet": true,
+  "parts": {
+   "head": 1,
+   "torso": 4,
+   "pelvis": 9,
+   "upperArmL": 3,
+   "upperArmR": 5,
+   "foreArmL": 7,
+   "foreArmR": 8,
+   "thighL": 10,
+   "thighR": 11,
+   "shinL": 12,
+   "shinR": 13
+  }
+ },
+ "chef": {
+  "parts": {
+   "head": 0,
+   "upperArmL": 2,
+   "upperArmR": 3,
+   "torso": 4,
+   "foreArmL": 5,
+   "foreArmR": 6,
+   "pelvis": 7,
+   "handL": 8,
+   "handR": 9,
+   "thighL": 10,
+   "thighR": 11,
+   "shinL": 12,
+   "shinR": 13,
+   "footL": 14,
+   "footR": 15
+  }
+ },
+ "teacher": {
+  "flip": [
+   "handL",
+   "handR"
+  ],
+  "parts": {
+   "head": 1,
+   "upperArmL": 2,
+   "upperArmR": 3,
+   "torso": 4,
+   "foreArmL": 5,
+   "foreArmR": 6,
+   "handL": 9,
+   "handR": 10,
+   "pelvis": 12,
+   "thighL": 13,
+   "thighR": 14,
+   "shinL": 15,
+   "shinR": 16,
+   "footL": 17,
+   "footR": 18
+  }
+ },
+ "baker": {
+  "splitPelvis": [
+   3,
+   0.64
+  ]
+ },
+ "painter": {
+  "splitPelvis": [
+   3,
+   0.66
+  ]
+ },
+ "chief-surgeon": {
+  "split": [
+   [
+    9,
+    0.57
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "upperArmL": 2,
+   "torso": 3,
+   "upperArmR": 4,
+   "foreArmL": 5,
+   "foreArmR": 6,
+   "pelvis": 7,
+   "thighL": 8,
+   "thighR": 9,
+   "shinL": 10,
+   "shinR": 101,
+   "footL": 11,
+   "footR": 12
+  }
+ },
+ "referee": {
+  "split": [
+   [
+    0,
+    0.464
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "torso": 101,
+   "upperArmL": 2,
+   "upperArmR": 3,
+   "foreArmL": 4,
+   "foreArmR": 5,
+   "pelvis": 6,
+   "thighL": 7,
+   "thighR": 8,
+   "shinL": 9,
+   "shinR": 10,
+   "footL": 11,
+   "footR": 12
+  }
+ },
+ "npc-customs-officer": {
+  "split": [
+   [
+    0,
+    0.55
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "torso": 101,
+   "pelvis": 6,
+   "upperArmL": 2,
+   "upperArmR": 3,
+   "foreArmL": 4,
+   "foreArmR": 5,
+   "thighL": 7,
+   "thighR": 8,
+   "shinL": 9,
+   "shinR": 10,
+   "footL": 11,
+   "footR": 12
+  }
+ },
+ "npc-food-truck-boss": {
+  "split": [
+   [
+    0,
+    0.53
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "torso": 101,
+   "pelvis": 5,
+   "upperArmL": 2,
+   "upperArmR": 3,
+   "foreArmL": 4,
+   "foreArmR": 6,
+   "thighL": 7,
+   "thighR": 8,
+   "shinL": 9,
+   "shinR": 10,
+   "footL": 11,
+   "footR": 12
+  }
+ },
+ "npc-surveyor-b": {
+  "split": [
+   [
+    0,
+    0.47
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "torso": 101,
+   "pelvis": 5,
+   "upperArmL": 2,
+   "upperArmR": 3,
+   "foreArmL": 4,
+   "foreArmR": 6,
+   "thighL": 7,
+   "thighR": 8,
+   "shinL": 9,
+   "shinR": 10,
+   "footL": 11,
+   "footR": 12
+  }
+ },
+ "npc-dog-handler-b": {
+  "split": [
+   [
+    3,
+    0.68
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "torso": 3,
+   "pelvis": 101,
+   "upperArmL": 2,
+   "upperArmR": 4,
+   "foreArmL": 5,
+   "foreArmR": 6,
+   "thighL": 7,
+   "thighR": 8,
+   "shinL": 9,
+   "shinR": 10,
+   "footL": 11,
+   "footR": 12
+  }
+ },
+ "npc-free-pen-intern-b": {
+  "split": [
+   [
+    3,
+    0.72
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "torso": 3,
+   "pelvis": 101,
+   "upperArmL": 2,
+   "upperArmR": 4,
+   "foreArmL": 5,
+   "foreArmR": 6,
+   "thighL": 7,
+   "thighR": 8,
+   "shinL": 9,
+   "shinR": 10,
+   "footL": 11,
+   "footR": 12
+  }
+ },
+ "npc-hi-vis-marshal-b": {
+  "split": [
+   [
+    2,
+    0.72
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "torso": 2,
+   "pelvis": 101,
+   "upperArmL": 3,
+   "upperArmR": 4,
+   "foreArmL": 5,
+   "foreArmR": 6,
+   "thighL": 7,
+   "thighR": 8,
+   "shinL": 9,
+   "shinR": 10,
+   "footL": 11,
+   "footR": 12
+  }
+ },
+ "npc-parent-helper": {
+  "split": [
+   [
+    3,
+    0.69
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "torso": 3,
+   "pelvis": 101,
+   "upperArmL": 2,
+   "upperArmR": 4,
+   "foreArmL": 5,
+   "foreArmR": 6,
+   "thighL": 7,
+   "thighR": 8,
+   "shinL": 9,
+   "shinR": 10,
+   "footL": 11,
+   "footR": 12
+  }
+ },
+ "npc-understudy-b": {
+  "split": [
+   [
+    3,
+    0.72
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "torso": 3,
+   "pelvis": 101,
+   "upperArmL": 2,
+   "upperArmR": 4,
+   "foreArmL": 5,
+   "foreArmR": 6,
+   "thighL": 8,
+   "thighR": 9,
+   "shinL": 11,
+   "shinR": 12,
+   "footL": 13,
+   "footR": 14,
+   "handL": 7,
+   "handR": 10
+  }
+ },
+ "npc-junior-associate-b": {
+  "split": [
+   [
+    8,
+    0.5
+   ],
+   [
+    9,
+    0.5
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "torso": 3,
+   "pelvis": 7,
+   "upperArmL": 2,
+   "upperArmR": 4,
+   "foreArmL": 5,
+   "foreArmR": 6,
+   "thighL": 8,
+   "thighR": 9,
+   "shinL": 101,
+   "shinR": 102,
+   "footL": 10,
+   "footR": 11
+  }
+ }
+}

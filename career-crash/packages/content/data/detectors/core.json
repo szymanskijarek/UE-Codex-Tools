@@ -1,0 +1,23 @@
+[
+  {"id": "detector.ironic-ko", "kind": "ironicKo", "score": 90, "templates": ["commentary.ironic-ko.1", "commentary.ironic-ko.2", "commentary.ironic-ko.3"]},
+  {"id": "detector.referee-down", "kind": "refereeDown", "score": 85, "templates": ["commentary.referee-down.1", "commentary.referee-down.2", "commentary.referee-down.3"]},
+  {"id": "detector.friendly-fire-ko", "kind": "friendlyFireKo", "score": 75, "templates": ["commentary.friendly-fire-ko.1", "commentary.friendly-fire-ko.2", "commentary.friendly-fire-ko.3"]},
+  {"id": "detector.rival-defeated", "kind": "rivalDefeated", "score": 80, "templates": ["commentary.rival-defeated.1", "commentary.rival-defeated.2"]},
+  {"id": "detector.clutch", "kind": "clutch", "score": 70, "templates": ["commentary.clutch.1", "commentary.clutch.2", "commentary.clutch.3"], "params": {"hpBelowBp": 1500}},
+  {"id": "detector.career-cleanup", "kind": "careerCleanup", "score": 60, "templates": ["commentary.career-cleanup.1", "commentary.career-cleanup.2"]},
+  {"id": "detector.chain-reaction", "kind": "chainReaction", "score": 65, "templates": ["commentary.chain-reaction.1", "commentary.chain-reaction.2", "commentary.chain-reaction.3"]},
+  {"id": "detector.upset", "kind": "upset", "score": 60, "templates": ["commentary.upset.1", "commentary.upset.2"], "params": {"ratingGap": 150}},
+  {"id": "detector.first-blood", "kind": "firstBlood", "score": 35, "templates": ["commentary.first-blood.1", "commentary.first-blood.2", "commentary.first-blood.3"]},
+  {"id": "detector.prop-ko", "kind": "propKo", "score": 55, "templates": ["commentary.prop-ko.1", "commentary.prop-ko.2", "commentary.prop-ko.3"]},
+  {"id": "detector.mass-status", "kind": "massStatus", "score": 50, "templates": ["commentary.mass-status.1", "commentary.mass-status.2", "commentary.mass-status.3"], "params": {"min": 3}},
+  {"id": "detector.coward-survivor", "kind": "cowardSurvivor", "score": 58, "templates": ["commentary.coward-survivor.1", "commentary.coward-survivor.2"]},
+  {"id": "detector.flawless", "kind": "flawless", "score": 40, "templates": ["commentary.flawless.1", "commentary.flawless.2"]},
+  {"id": "detector.long-battle", "kind": "longBattle", "score": 30, "templates": ["commentary.long-battle.1", "commentary.long-battle.2"]},
+  {"id": "detector.panic", "kind": "panic", "score": 58, "templates": ["commentary.panic.1", "commentary.panic.2", "commentary.panic.3"]},
+  {"id": "detector.yellow-card", "kind": "card", "score": 62, "templates": ["commentary.yellow-card.1", "commentary.yellow-card.2", "commentary.yellow-card.3"]},
+  {"id": "detector.explosion", "kind": "explosion", "score": 60, "templates": ["commentary.explosion.1", "commentary.explosion.2", "commentary.explosion.3"]},
+  {"id": "detector.ride-hit", "kind": "rideHit", "score": 70, "templates": ["commentary.ride-hit.1", "commentary.ride-hit.2", "commentary.ride-hit.3"]},
+  {"id": "detector.healed-enemy", "kind": "healedEnemy", "score": 64, "templates": ["commentary.healed-enemy.1", "commentary.healed-enemy.2"]},
+  {"id": "detector.machine-hit", "kind": "machineHit", "score": 66, "templates": ["commentary.machine-hit.1", "commentary.machine-hit.2"]},
+  {"id": "detector.rake-hit", "kind": "rakeHit", "score": 64, "templates": ["commentary.rake-hit.1", "commentary.rake-hit.2"]}
+]

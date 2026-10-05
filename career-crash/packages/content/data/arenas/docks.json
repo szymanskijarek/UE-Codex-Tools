@@ -1,0 +1,576 @@
+{
+ "id": "arena.docks",
+ "sizeMm": [
+  24000,
+  13000
+ ],
+ "navCellMm": 500,
+ "walls": [],
+ "spawns": {
+  "a": [
+   [
+    2000,
+    6500
+   ],
+   [
+    2000,
+    4200
+   ],
+   [
+    2000,
+    8800
+   ],
+   [
+    3200,
+    2800
+   ],
+   [
+    3200,
+    10200
+   ]
+  ],
+  "b": [
+   [
+    22000,
+    6500
+   ],
+   [
+    22000,
+    4200
+   ],
+   [
+    22000,
+    8800
+   ],
+   [
+    20800,
+    2800
+   ],
+   [
+    20800,
+    10200
+   ]
+  ],
+  "ffa": [
+   [
+    2500,
+    1900
+   ],
+   [
+    21500,
+    1900
+   ],
+   [
+    2500,
+    11100
+   ],
+   [
+    21500,
+    11100
+   ],
+   [
+    8500,
+    6500
+   ],
+   [
+    15500,
+    6500
+   ],
+   [
+    12000,
+    1600
+   ],
+   [
+    12000,
+    11400
+   ]
+  ]
+ },
+ "refereeSpawn": [
+  12000,
+  5200
+ ],
+ "props": [
+  {
+   "prop": "prop.rope-coil",
+   "at": [
+    3000,
+    2200
+   ]
+  },
+  {
+   "prop": "prop.rope-coil",
+   "at": [
+    21000,
+    2200
+   ]
+  },
+  {
+   "prop": "prop.life-ring",
+   "at": [
+    4200,
+    11200
+   ]
+  },
+  {
+   "prop": "prop.life-ring",
+   "at": [
+    19800,
+    11200
+   ]
+  },
+  {
+   "prop": "prop.buoy",
+   "at": [
+    7400,
+    6600
+   ]
+  },
+  {
+   "prop": "prop.buoy",
+   "at": [
+    16600,
+    6600
+   ]
+  },
+  {
+   "prop": "prop.fish-crate",
+   "at": [
+    5200,
+    6400
+   ]
+  },
+  {
+   "prop": "prop.fish-crate",
+   "at": [
+    18800,
+    6400
+   ]
+  },
+  {
+   "prop": "prop.tackle-box",
+   "at": [
+    3200,
+    8200
+   ]
+  },
+  {
+   "prop": "prop.tackle-box",
+   "at": [
+    20800,
+    8200
+   ]
+  },
+  {
+   "prop": "prop.grappling-hook",
+   "at": [
+    8800,
+    2200
+   ]
+  },
+  {
+   "prop": "prop.grappling-hook",
+   "at": [
+    15200,
+    2200
+   ]
+  },
+  {
+   "prop": "prop.gas-canister",
+   "at": [
+    2000,
+    12000
+   ]
+  },
+  {
+   "prop": "prop.gas-canister",
+   "at": [
+    22000,
+    12000
+   ]
+  },
+  {
+   "prop": "prop.fire-extinguisher",
+   "at": [
+    9800,
+    11600
+   ]
+  },
+  {
+   "prop": "prop.fire-extinguisher",
+   "at": [
+    14200,
+    11600
+   ]
+  },
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    6200,
+    1500
+   ]
+  },
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    17800,
+    1500
+   ]
+  },
+  {
+   "prop": "prop.crate",
+   "at": [
+    9400,
+    8600
+   ]
+  },
+  {
+   "prop": "prop.crate",
+   "at": [
+    14600,
+    8600
+   ]
+  },
+  {
+   "prop": "prop.power-strip",
+   "at": [
+    6800,
+    11400
+   ]
+  },
+  {
+   "prop": "prop.power-strip",
+   "at": [
+    17200,
+    11400
+   ]
+  },
+  {
+   "prop": "prop.power-strip",
+   "at": [
+    9200,
+    5000
+   ]
+  },
+  {
+   "prop": "prop.power-strip",
+   "at": [
+    14800,
+    5000
+   ]
+  },
+  {
+   "prop": "prop.fish-crate",
+   "at": [
+    12000,
+    2600
+   ]
+  },
+  {
+   "prop": "prop.life-ring",
+   "at": [
+    12000,
+    10800
+   ]
+  },
+  {
+   "prop": "prop.frozen-salmon",
+   "at": [
+    12000,
+    7600
+   ]
+  }
+ ],
+ "hazards": [
+  {
+   "id": "hazard.wave-splash",
+   "startTick": 400,
+   "everyTicks": 520,
+   "telegraphTicks": 35,
+   "region": [
+    2000,
+    10400,
+    20000,
+    2200
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.puddle-water",
+     "count": 2
+    },
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.wet",
+      "durationTicks": 140
+     }
+    ]
+   }
+  },
+  {
+   "id": "hazard.seagulls",
+   "startTick": 800,
+   "everyTicks": 700,
+   "telegraphTicks": 30,
+   "region": [
+    3000,
+    2000,
+    18000,
+    9000
+   ],
+   "action": {
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.distracted",
+      "durationTicks": 60
+     }
+    ]
+   }
+  },
+  {
+   "id": "hazard.catch-of-the-day",
+   "startTick": 1100,
+   "everyTicks": 800,
+   "telegraphTicks": 40,
+   "region": [
+    6000,
+    1000,
+    12000,
+    2400
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.fish-crate",
+     "count": 2,
+     "dropFromMm": 4500
+    }
+   }
+  }
+ ],
+ "suddenDeath": {
+  "everyTicks": 200,
+  "region": [
+   0,
+   0,
+   24000,
+   13000
+  ],
+  "action": {
+   "spawn": {
+    "prop": "prop.flood",
+    "count": 1
+   },
+   "effects": [
+    {
+     "type": "applyStatus",
+     "status": "status.wet",
+     "durationTicks": 100
+    }
+   ]
+  }
+ },
+ "stations": [
+  {
+   "id": "centre",
+   "name": "Berth 9",
+   "at": [
+    12000,
+    3000
+   ]
+  },
+  {
+   "id": "nw",
+   "name": "the Crane",
+   "at": [
+    3800,
+    2800
+   ]
+  },
+  {
+   "id": "ne",
+   "name": "the Warehouse Door",
+   "at": [
+    20200,
+    2800
+   ]
+  },
+  {
+   "id": "sw",
+   "name": "the Bollards",
+   "at": [
+    4800,
+    10600
+   ]
+  },
+  {
+   "id": "se",
+   "name": "the Ladder",
+   "at": [
+    19200,
+    10600
+   ]
+  }
+ ],
+ "obstacles": [
+  {
+   "at": [
+    6200,
+    3600,
+    2400,
+    900
+   ],
+   "art": [
+    "shipping-container",
+    "bollards"
+   ]
+  },
+  {
+   "at": [
+    15400,
+    3600,
+    2400,
+    900
+   ],
+   "art": [
+    "bollards",
+    "shipping-container"
+   ]
+  },
+  {
+   "at": [
+    6200,
+    9000,
+    2400,
+    900
+   ],
+   "art": [
+    "bollards",
+    "dock-crane"
+   ]
+  },
+  {
+   "at": [
+    15400,
+    9000,
+    2400,
+    900
+   ],
+   "art": [
+    "dock-crane",
+    "shipping-container"
+   ]
+  },
+  {
+   "at": [
+    1000,
+    500,
+    1800,
+    900
+   ],
+   "art": [
+    "winch"
+   ],
+   "chanceBp": 6000
+  },
+  {
+   "at": [
+    21200,
+    500,
+    1800,
+    900
+   ],
+   "art": [
+    "winch"
+   ],
+   "chanceBp": 6000
+  },
+  {
+   "at": [
+    10800,
+    5600,
+    2400,
+    900
+   ],
+   "art": [
+    "dock-crane",
+    "shipping-container"
+   ],
+   "chanceBp": 6000
+  }
+ ],
+ "debris": [
+  "prop.crate",
+  "prop.rope-coil",
+  "prop.scrap-metal",
+  "prop.tin-cans"
+ ],
+ "theme": {
+  "floor": "#8b5a2b",
+  "wall": "#1e3a5f",
+  "accent": "#f59e0b"
+ },
+ "unlock": {
+  "league": "intern"
+ },
+ "movers": [
+  {
+   "id": "hazard.forklift",
+   "prop": "prop.forklift",
+   "path": [
+    [
+     500,
+     4200
+    ],
+    [
+     23500,
+     4200
+    ]
+   ],
+   "startTick": 600,
+   "telegraphTicks": 60,
+   "speedMm": 120,
+   "loop": false
+  },
+  {
+   "id": "hazard.forklift",
+   "prop": "prop.forklift",
+   "path": [
+    [
+     23500,
+     8800
+    ],
+    [
+     500,
+     8800
+    ]
+   ],
+   "startTick": 1600,
+   "telegraphTicks": 60,
+   "speedMm": 120,
+   "loop": false
+  },
+  {
+   "id": "hazard.crane-hook",
+   "prop": "prop.crane-hook",
+   "path": [
+    [
+     23500,
+     4200
+    ],
+    [
+     500,
+     4200
+    ]
+   ],
+   "startTick": 1050,
+   "telegraphTicks": 60,
+   "speedMm": 150,
+   "loop": false
+  }
+ ],
+ "boss": {
+  "career": "career.harbour-master",
+  "name": "Captain Ned Barnacle"
+ }
+}

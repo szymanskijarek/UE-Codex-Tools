@@ -1,0 +1,494 @@
+{
+ "id": "arena.museum",
+ "sizeMm": [
+  24000,
+  13000
+ ],
+ "navCellMm": 500,
+ "walls": [],
+ "spawns": {
+  "a": [
+   [
+    2000,
+    6500
+   ],
+   [
+    2000,
+    4200
+   ],
+   [
+    2000,
+    8800
+   ],
+   [
+    3200,
+    2800
+   ],
+   [
+    3200,
+    10200
+   ]
+  ],
+  "b": [
+   [
+    22000,
+    6500
+   ],
+   [
+    22000,
+    4200
+   ],
+   [
+    22000,
+    8800
+   ],
+   [
+    20800,
+    2800
+   ],
+   [
+    20800,
+    10200
+   ]
+  ],
+  "ffa": [
+   [
+    2500,
+    1900
+   ],
+   [
+    21500,
+    1900
+   ],
+   [
+    2500,
+    11100
+   ],
+   [
+    21500,
+    11100
+   ],
+   [
+    8500,
+    6500
+   ],
+   [
+    15500,
+    6500
+   ],
+   [
+    12000,
+    2700
+   ],
+   [
+    12000,
+    11400
+   ]
+  ]
+ },
+ "refereeSpawn": [
+  12000,
+  5200
+ ],
+ "props": [
+  {
+   "prop": "prop.marble-bust",
+   "at": [
+    3000,
+    7400
+   ]
+  },
+  {
+   "prop": "prop.marble-bust",
+   "at": [
+    21000,
+    7400
+   ]
+  },
+  {
+   "prop": "prop.scroll",
+   "at": [
+    8800,
+    2600
+   ]
+  },
+  {
+   "prop": "prop.scroll",
+   "at": [
+    15200,
+    2600
+   ]
+  },
+  {
+   "prop": "prop.rope-barrier",
+   "at": [
+    7400,
+    6600
+   ]
+  },
+  {
+   "prop": "prop.rope-barrier",
+   "at": [
+    16600,
+    6600
+   ]
+  },
+  {
+   "prop": "prop.amphora",
+   "at": [
+    3200,
+    11400
+   ]
+  },
+  {
+   "prop": "prop.amphora",
+   "at": [
+    20800,
+    11400
+   ]
+  },
+  {
+   "prop": "prop.placard",
+   "at": [
+    5600,
+    6000
+   ]
+  },
+  {
+   "prop": "prop.placard",
+   "at": [
+    18400,
+    6000
+   ]
+  },
+  {
+   "prop": "prop.dust-brush",
+   "at": [
+    9400,
+    10600
+   ]
+  },
+  {
+   "prop": "prop.dust-brush",
+   "at": [
+    14600,
+    10600
+   ]
+  },
+  {
+   "prop": "prop.fire-extinguisher",
+   "at": [
+    2000,
+    4600
+   ]
+  },
+  {
+   "prop": "prop.fire-extinguisher",
+   "at": [
+    22000,
+    4600
+   ]
+  },
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    6400,
+    11800
+   ]
+  },
+  {
+   "prop": "prop.coffee-cup",
+   "at": [
+    17600,
+    11800
+   ]
+  },
+  {
+   "prop": "prop.potted-plant",
+   "at": [
+    2200,
+    2000
+   ]
+  },
+  {
+   "prop": "prop.potted-plant",
+   "at": [
+    21800,
+    2000
+   ]
+  },
+  {
+   "prop": "prop.amphora",
+   "at": [
+    12000,
+    9400
+   ]
+  },
+  {
+   "prop": "prop.marble-bust",
+   "at": [
+    12000,
+    11600
+   ]
+  },
+  {
+   "prop": "prop.scroll",
+   "at": [
+    12000,
+    4200
+   ]
+  }
+ ],
+ "hazards": [
+  {
+   "id": "hazard.new-exhibit",
+   "startTick": 400,
+   "everyTicks": 550,
+   "telegraphTicks": 30,
+   "region": [
+    3000,
+    2000,
+    18000,
+    9000
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.amphora",
+     "count": 2
+    }
+   }
+  },
+  {
+   "id": "hazard.alarm",
+   "startTick": 700,
+   "everyTicks": 700,
+   "telegraphTicks": 30,
+   "region": [
+    2000,
+    1500,
+    20000,
+    10000
+   ],
+   "action": {
+    "effects": [
+     {
+      "type": "applyStatus",
+      "status": "status.distracted",
+      "durationTicks": 50
+     }
+    ]
+   }
+  },
+  {
+   "id": "hazard.falling-frame",
+   "startTick": 1000,
+   "everyTicks": 700,
+   "telegraphTicks": 35,
+   "region": [
+    3000,
+    1200,
+    18000,
+    3000
+   ],
+   "action": {
+    "spawn": {
+     "prop": "prop.placard",
+     "count": 1,
+     "dropFromMm": 4000
+    }
+   }
+  }
+ ],
+ "suddenDeath": {
+  "everyTicks": 200,
+  "region": [
+   0,
+   0,
+   24000,
+   13000
+  ],
+  "action": {
+   "spawn": {
+    "prop": "prop.marble-bust",
+    "count": 2,
+    "dropFromMm": 5000
+   },
+   "effects": [
+    {
+     "type": "applyStatus",
+     "status": "status.stunned",
+     "durationTicks": 20
+    }
+   ]
+  }
+ },
+ "stations": [
+  {
+   "id": "centre",
+   "name": "the T. Rex",
+   "at": [
+    12000,
+    3000
+   ]
+  },
+  {
+   "id": "nw",
+   "name": "Antiquities",
+   "at": [
+    3800,
+    2800
+   ]
+  },
+  {
+   "id": "ne",
+   "name": "the Armour Hall",
+   "at": [
+    20200,
+    2800
+   ]
+  },
+  {
+   "id": "sw",
+   "name": "the Gift Shop",
+   "at": [
+    4800,
+    10600
+   ]
+  },
+  {
+   "id": "se",
+   "name": "the Café",
+   "at": [
+    19200,
+    10600
+   ]
+  }
+ ],
+ "obstacles": [
+  {
+   "at": [
+    4000,
+    4200,
+    1400,
+    900
+   ],
+   "art": [
+    "marble-statue",
+    "info-kiosk"
+   ]
+  },
+  {
+   "at": [
+    18600,
+    4200,
+    1400,
+    900
+   ],
+   "art": [
+    "info-kiosk",
+    "marble-statue"
+   ]
+  },
+  {
+   "at": [
+    5800,
+    8800,
+    2400,
+    900
+   ],
+   "art": [
+    "display-case"
+   ]
+  },
+  {
+   "at": [
+    15800,
+    8800,
+    2400,
+    900
+   ],
+   "art": [
+    "display-case"
+   ]
+  },
+  {
+   "at": [
+    10000,
+    700,
+    4000,
+    1100
+   ],
+   "art": [
+    "t-rex"
+   ]
+  },
+  {
+   "at": [
+    11300,
+    6000,
+    1400,
+    800
+   ],
+   "art": [
+    "info-kiosk"
+   ],
+   "chanceBp": 6000
+  }
+ ],
+ "debris": [
+  "prop.amphora",
+  "prop.scroll",
+  "prop.placard",
+  "prop.brick"
+ ],
+ "theme": {
+  "floor": "#e7c9a0",
+  "wall": "#7f1d1d",
+  "accent": "#b8860b"
+ },
+ "unlock": {
+  "league": "intern"
+ },
+ "movers": [
+  {
+   "id": "hazard.floor-scrubber",
+   "prop": "prop.floor-scrubber",
+   "path": [
+    [
+     500,
+     7600
+    ],
+    [
+     23500,
+     7600
+    ]
+   ],
+   "startTick": 700,
+   "telegraphTicks": 60,
+   "speedMm": 85,
+   "loop": false
+  },
+  {
+   "id": "hazard.boulder",
+   "prop": "prop.boulder",
+   "path": [
+    [
+     23500,
+     7600
+    ],
+    [
+     500,
+     7600
+    ]
+   ],
+   "startTick": 1250,
+   "telegraphTicks": 70,
+   "speedMm": 105,
+   "loop": false
+  }
+ ],
+ "boss": {
+  "career": "career.museum-director",
+  "name": "Sir Percival Relic"
+ }
+}
