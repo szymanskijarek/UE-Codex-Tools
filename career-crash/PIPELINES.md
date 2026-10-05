@@ -520,10 +520,10 @@ runs on its sample snapshot and says so in the footer.
    by hand). It skips itself until steps 1–2 are done, then tests, deploys, and
    checks that feed.careercrash.org serves a snapshot (the first request fills
    an empty store straight away).
-4. **Optional:** a free CoinGecko Demo key as the secret `COINGECKO_KEY`
-   (dashboard → `career-crash-markets` → Settings → Variables and Secrets).
-   Without it the keyless public API is used, which is plenty for two
-   requests an hour.
+4. **CoinGecko key (needed in practice: keyless calls from Workers get HTTP 429):** a free Demo key as the GitHub repo secret `COINGECKO_KEY`; the deploy copies it into the Worker. Or set it on the Worker directly
+   (dashboard → Compute → Workers & Pages → `career-crash-markets` →
+   Settings → Variables and Secrets). Without a key the Worker tries the
+   keyless API and then CoinPaprika, and `latest.json` says why if both refuse.
 
 **Locally:** `pnpm --filter @cc/markets dev` runs the Worker on
 http://localhost:8788 with a local KV; trigger the hourly job with

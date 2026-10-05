@@ -26,6 +26,8 @@ jobs:
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+      # Optional: a free CoinGecko Demo key, copied into the Worker as its secret.
+      COINGECKO_KEY: ${{ secrets.COINGECKO_KEY }}
     steps:
       - uses: actions/checkout@v4
       - name: Ready to deploy?
@@ -58,6 +60,10 @@ jobs:
       - name: Deploy
         if: steps.ready.outputs.go
         run: pnpm deploy:markets
+      - name: CoinGecko key
+        if: steps.ready.outputs.go && env.COINGECKO_KEY != ''
+        working-directory: career-crash/apps/markets
+        run: printf '%s' "$COINGECKO_KEY" | pnpm exec wrangler secret put COINGECKO_KEY -c wrangler.toml
       - name: Smoke test
         if: steps.ready.outputs.go
         run: |
