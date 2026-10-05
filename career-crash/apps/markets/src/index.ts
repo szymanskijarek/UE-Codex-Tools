@@ -22,16 +22,56 @@ const KEEP_S = 49 * 3600;
 const HOUR_RE = /^\d{4}-\d{2}-\d{2}T\d{2}$/;
 const API = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=40&page=1&price_change_percentage=1h,24h&sparkline=true';
 
+/** CoinPaprika's tickers (keyless): the fallback when CoinGecko turns the Worker away. */
+const PAPRIKA = 'https://api.coinpaprika.com/v1/tickers?quotes=USD&limit=60';
+interface PaprikaTicker {
+  symbol: string;
+  rank: number;
+  quotes?: { USD?: { price?: number; percent_change_1h?: number; percent_change_24h?: number } };
+}
+
+/** CoinPaprika rows in CoinGecko's shape (no sparkline: the ticker draws without it). */
+export function fromPaprika(rows: PaprikaTicker[]): CoinGeckoMarket[] {
+  return rows
+    .filter((r) => r.rank > 0 && r.quotes?.USD?.price)
+    .map((r) => ({
+      id: r.symbol.toLowerCase(),
+      symbol: r.symbol.toLowerCase(),
+      current_price: r.quotes!.USD!.price!,
+      market_cap_rank: r.rank,
+      price_change_percentage_1h_in_currency: r.quotes!.USD!.percent_change_1h ?? 0,
+      price_change_percentage_24h_in_currency: r.quotes!.USD!.percent_change_24h ?? 0,
+    }));
+}
+
+async function getRows(env: Env, fetchImpl: typeof fetch): Promise<CoinGeckoMarket[]> {
+  const ua = { accept: 'application/json', 'user-agent': 'careercrash.org market feed' };
+  const errors: string[] = [];
+  try {
+    const r = await fetchImpl(API, { headers: { ...ua, ...(env.COINGECKO_KEY ? { 'x-cg-demo-api-key': env.COINGECKO_KEY } : {}) } });
+    if (r.ok) return (await r.json()) as CoinGeckoMarket[];
+    errors.push(`CoinGecko: HTTP ${r.status}`);
+  } catch (e) {
+    errors.push(`CoinGecko: ${(e as Error).message}`);
+  }
+  try {
+    const r = await fetchImpl(PAPRIKA, { headers: ua });
+    if (r.ok) return fromPaprika((await r.json()) as PaprikaTicker[]);
+    errors.push(`CoinPaprika: HTTP ${r.status}`);
+  } catch (e) {
+    errors.push(`CoinPaprika: ${(e as Error).message}`);
+  }
+  throw new Error(errors.join('; '));
+}
+
 export async function refresh(env: Env, now: number, fetchImpl: typeof fetch = fetch): Promise<MarketSnapshot | null> {
   const hour = hourOf(now);
   // The second cron of the hour only runs if the first one didn't store anything.
   if (await env.FEED.get(`crypto/${hour}`)) return null;
-  const r = await fetchImpl(API, { headers: { accept: 'application/json', 'user-agent': 'careercrash.org market feed', ...(env.COINGECKO_KEY ? { 'x-cg-demo-api-key': env.COINGECKO_KEY } : {}) } });
-  if (!r.ok) throw new Error(`CoinGecko: HTTP ${r.status}`);
-  const rows = (await r.json()) as CoinGeckoMarket[];
+  const rows = await getRows(env, fetchImpl);
   const def = bundle.markets.find((m) => m.id === MARKET)!;
   const snap = snapshotFromCoinGecko(rows, hour, def.id);
-  if (snap.coins.length < def.field) throw new Error(`CoinGecko: only ${snap.coins.length} coins`);
+  if (snap.coins.length < def.field) throw new Error(`only ${snap.coins.length} coins`);
   const body = JSON.stringify(snap);
   await env.FEED.put(`crypto/${hour}`, body, { expirationTtl: KEEP_S });
   await env.FEED.put('crypto/latest', body);
@@ -57,9 +97,14 @@ export async function handle(req: Request, env: Env): Promise<Response> {
   const name = m[1]!;
   if (name === 'latest') {
     let body = await env.FEED.get('crypto/latest');
+    let why = '';
     // A brand-new deploy has nothing on file yet: fill it now rather than at the top of the hour.
-    if (!body) body = await refresh(env, Date.now()).then((s) => (s ? JSON.stringify(s) : null), () => null);
-    return body ? json(body, req, env, 60) : new Response('No snapshot yet', { status: 404, headers: cors(req, env) });
+    if (!body)
+      body = await refresh(env, Date.now()).then(
+        (s) => (s ? JSON.stringify(s) : null),
+        (e: Error) => ((why = e.message), console.error('feed refresh failed:', why), null),
+      );
+    return body ? json(body, req, env, 60) : new Response(`No snapshot yet${why ? ` (${why})` : ''}`, { status: 404, headers: cors(req, env) });
   }
   if (name === 'hours') {
     const list = await env.FEED.list({ prefix: 'crypto/2' });
@@ -75,6 +120,6 @@ export async function handle(req: Request, env: Env): Promise<Response> {
 export default {
   fetch: (req: Request, env: Env) => handle(req, env),
   scheduled(event: ScheduledController, env: Env, ctx: ExecutionContext) {
-    ctx.waitUntil(refresh(env, event.scheduledTime).then(() => undefined));
+    ctx.waitUntil(refresh(env, event.scheduledTime).then(() => undefined, (e: Error) => console.error('feed refresh failed:', e.message)));
   },
 } satisfies ExportedHandler<Env>;

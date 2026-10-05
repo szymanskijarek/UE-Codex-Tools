@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { CoinGeckoMarket } from '@cc/game-rules';
-import { handle, refresh, type Env } from '../src/index';
+import { fromPaprika, handle, refresh, type Env } from '../src/index';
 
 /** In-memory stand-in for the KV namespace. */
 function fakeKv() {
@@ -50,6 +50,30 @@ describe('market feed worker (08 §10)', () => {
     const down = (async () => new Response('busy', { status: 429 })) as unknown as typeof fetch;
     await expect(refresh(e, AT, down)).rejects.toThrow('429');
     expect(e.store.size).toBe(0);
+  });
+
+  it('falls back to CoinPaprika when CoinGecko turns the Worker away', async () => {
+    const e = env();
+    const paprika = ROWS.map((r) => ({ symbol: r.symbol.toUpperCase(), rank: r.market_cap_rank, quotes: { USD: { price: r.current_price, percent_change_1h: r.price_change_percentage_1h_in_currency, percent_change_24h: -1 } } }));
+    const mixed = (async (url: string) =>
+      String(url).includes('coingecko') ? new Response('Forbidden', { status: 403 }) : new Response(JSON.stringify(paprika), { status: 200 })) as unknown as typeof fetch;
+    const snap = await refresh(e, AT, mixed);
+    expect(snap?.coins[0]).toMatchObject({ symbol: 'BTC', capRank: 1, changeBp: -225, change24Bp: -100 });
+    expect(e.store.has('crypto/latest')).toBe(true);
+    expect(fromPaprika([{ symbol: 'X', rank: 0 }])).toEqual([]);
+  });
+
+  it('says why when there is no snapshot', async () => {
+    const e = env();
+    const realFetch = globalThis.fetch;
+    globalThis.fetch = (async () => new Response('no', { status: 403 })) as unknown as typeof fetch;
+    try {
+      const r = await handle(new Request('https://feed.careercrash.org/crypto/latest.json'), e);
+      expect(r.status).toBe(404);
+      expect(await r.text()).toContain('CoinGecko: HTTP 403; CoinPaprika: HTTP 403');
+    } finally {
+      globalThis.fetch = realFetch;
+    }
   });
 
   it('fills an empty store on the first request instead of waiting for the hour', async () => {
