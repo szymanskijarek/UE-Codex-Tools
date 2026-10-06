@@ -346,16 +346,131 @@ that already exist in the sim.
 | **Motorcade** | Black Swan | Rare. A black car noses through and goes for the Chair of the Session. |
 | **Red Tape** | Gas Spike | A taped-off zone: abilities cost double inside it. |
 
-### 7.2 Gatecrashers (07's system)
+### 7.2 Gatecrashers: the Institutions (design exploration, owner's direction 6 Oct)
 
-One session in about six:
+The summit's gatecrashers aren't venue staff (07) but **the institutions**:
+international bodies and global industries who barge into the brawl,
+**react to what's on the floor**, and leave having changed very little. The
+joke is always on the institution's reputation, never on a country or a
+people, and never about a real event, war or real person.
 
-- **Summit Security**: a head of security with two earpiece agents. They
-  tackle anyone who's been in a fight lately.
-- **The Press Pool**: a reporter and two camera operators. Flashes `spooked`
-  everyone, and their KOs become "exclusive" feed posts.
-- **The Tour Group**: a guide with an umbrella and two lost tourists. Nobody
-  knows why they're here.
+#### How they differ from 07's gatecrashers
+
+| | 07 (career fights) | Institutions (here) |
+|---|---|---|
+| When | 10% of fights, at a random tick | **When the floor matches their trigger** (§7.2.3), at most one visit a session, ~2 an hour |
+| How they fight | Fight everyone, stay down | One of four **stances** (§7.2.2): most don't really fight |
+| How they leave | Knocked out | Most **leave on their own** (they walk or ride out), having changed nothing |
+| Score | None | None, but the visit is a feed event and a 📸 moment |
+
+#### 7.2.1 The cast
+
+Each is a leader plus up to two henchmen, as in 07, with personas
+(`npc.inst-*`), no emblems or logos (colours and costume only), and their own
+lines and posts.
+
+| Institution | Trigger (context) | Stance | What happens | Exit line |
+|---|---|---|---|---|
+| **The UN Peacekeeping Mission**: a Special Envoy in a sky-blue suit and two peacekeepers in sky-blue helmets with clipboards | The floor gets busy: 3+ knockouts in 20 s | **Skirmish** | Step between fighters and draw aggro (taunt), take a beating, deal no damage, hand out "deep concern" (`lectured` on everyone nearby). At half health they leave by the fire exit. | "We call on all parties to show restraint." *(leaves)* |
+| **NATO, the Alliance**: an immaculate official riding a white **Moral High Horse**, with two aides on foot | **No NATO member standing on the floor** | **Aloof** | Rides a lap of the hall on the horse (a rideable prop), keeps out of reach of everyone, never lands a blow, gives a speech about values. If a NATO member walks on mid-visit, they leave at once ("Not our jurisdiction, actually it is, but…"). | "We stand ready to stand ready." *(rides off)* |
+| **The ICC**: two **gendarmes** in post-war Belgian/French uniform (kepi, short cape, white gloves, a whistle), with a magistrate in robes | One country knocks out 3 in 30 s | **Fight (weak)** | March straight at the most violent delegate and try to arrest them (a grapple that roots, `sticky` + `stunned`). They're two levels under the floor, so they get beaten, and they're carried out on the Chair's orders. | "You are all under arr— ow." |
+| **Big Oil**: a slick executive in a hard hat over a suit, two roughnecks | Random, more often in a Coffee Break | **Meddle** | Spills oil slicks (`prop.oil-spill`) and a gas canister or two everywhere, sells fuel (energy) to whoever leads the standings, and leaves as things catch fire. | "We'll help with the clean-up. For a fee." |
+| **Big Tech**: a hoodie-and-gilet founder (generic, no look-alike) and two growth hackers | **A SURGE** just happened (§5.4) | **Meddle** | An aura that harvests everyone's energy ("data"), hands out phones (`distracted`), and **boosts whoever already has the most likes** (`pumped`): the algorithm amplifies the popular. | "Move fast and break things. Like your jaw." |
+| **The Health Authority** (WHO): an inspector in a white coat with a clipboard, two in bright hazmat suits | After Big Oil, or 4+ fighters burning, wet or sticky at once | **Meddle** | Hoses down the floor with sanitiser (`foamed`, `wet`, removes `burning`), cordons off a "quarantine" zone (`sticky`), insists on handwashing. Leaves when the floor is spotless. Strictly handwashing jokes. | "Please maintain a safe punching distance." |
+| **The Lenders** (IMF / World Bank): two bankers in pinstripes with a briefcase of cash | The lowest-ranked country on the floor has lost 3 times this session | **Meddle** | Give that delegate a loan (big heal + `armoured`), then 40 s later come back for repayment with interest (energy drained, `embarrassed`). | "Structural adjustment. Mostly to your face." |
+| **The Federation** (sports governing body): an official in a gold-buttoned blazer and two "ambassadors" | **Derby hours** only | **Meddle** | Hands a trophy to a random delegate (`pumped`, a 📸 photo op), takes a commission (energy from everyone), and leaves before anyone asks questions. | "Congratulations to the winner. Invoice to follow." |
+| **Brussels** (the EU's regulators): two officials with rulebooks and a measuring tape | 5+ EU members on the floor | **Meddle** | **Harmonise**: everyone on the floor is slowed to the same speed and given a pop-up "consent banner" (`distracted`, short). Leave when everyone complies. *(This page has no cookies, which is the joke.)* | "This brawl is now fully compliant." |
+| **The Raters** (credit-rating agency): a man in a grey suit with a big rubber stamp | The hour's leader takes the lead by 50+ | **Skirmish** | **Downgrades** the leader (`embarrassed` + a small stat drop for 30 s), flees when anyone hits back. | "Outlook: negative." |
+
+More later in the same mould: the Eurovision jury (gives *nul points*), the
+Press Pool (already in §7.2's first draft), the Lobbyists, the Space Agency.
+
+#### 7.2.2 Stances (engine: one general concept, four uses)
+
+A new crasher field, `stance`, with an exit rule:
+
+| Stance | AI | Leaves when |
+|---|---|---|
+| `fight` | As 07: fights everyone | Knocked out (carried off) |
+| `skirmish` | Fights, prefers to draw attention (taunts), never chases far | HP below `leaveAtBp` (e.g. 50%) → walks to the nearest door and is removed |
+| `aloof` | Never attacks; keeps away from fighters (the flee goal, permanently); rides a prop if one is given | After `leaveAfterTicks`, or at once if `leaveIf` becomes true |
+| `meddle` | Doesn't fight; walks to its aura spot and uses its abilities (auras, spills, buffs) | After `leaveAfterTicks`, or when its job is done |
+
+**Exit:** a new `crashExit` event; the crasher walks to the nearest door
+(arena `exits`, two per arena) and is removed when there. The renderer plays a
+"swoosh" and the feed reads the set's exit line. Nobody scores for it.
+
+#### 7.2.3 Triggers (engine: evaluated in the sim, so it stays deterministic)
+
+The floor's make-up changes every few seconds (walk-ons), so the trigger is
+checked **inside the sim**, every second, against the floor as it is. The
+session input carries a short list of candidates (from game-rules, seeded
+per session) with their conditions; the first one whose condition holds
+comes in, and only one per session.
+
+| Condition | Example |
+|---|---|
+| `noneTagged: tag` (among those standing) | NATO: no `nato` member standing |
+| `atLeastTagged: [tag, n]` | Brussels: 5+ `eu` |
+| `koStreak: [kos, withinTicks]` (one side, or anyone) | ICC: 3 KOs by one country in 30 s; UN: 3 KOs in 20 s by anyone |
+| `statusCount: [statuses, n]` | Health Authority: 4+ burning, wet or sticky |
+| `afterEvent: surge \| derby \| crashExit:<set>` | Big Tech after a SURGE; Health Authority after Big Oil left |
+| `leadBy: points` | The Raters |
+
+Countries get **membership tags** in `countries.json` (facts, checked when a
+country is added): `nato` (England, Scotland, Wales via the UK; France,
+Germany, Italy, Spain, Portugal, Netherlands, Belgium, Poland, Sweden,
+Norway, Denmark, Greece, United States, Canada), `eu` (Ireland, France,
+Germany, Italy, Spain, Portugal, Netherlands, Belgium, Austria, Poland,
+Sweden, Denmark, Greece), `commonwealth`, `g7`, `g20`.
+
+How often NATO comes (measured over 12 simulated sessions, 40 countries, 17
+of them NATO members): "no NATO member standing" (knocked-out members count
+as not standing) happens about **once an hour**, for a few seconds; "nobody
+from NATO even on the floor" never happened. The trigger fires the moment
+the condition holds, so NATO turns up roughly once an hour, **just after its
+members have all been knocked down**, which is the joke. If that's too rare,
+loosen it to "at most one NATO member standing".
+
+#### 7.2.4 Feed and posts
+
+Each institution posts in its own voice after a visit, as 07's sets do:
+
+- **UN:** "Today we visited the Summit Hall to call for calm. We were thrown into the buffet. We remain deeply concerned. #Peace"
+- **NATO:** "Proud to have ridden through the Summit Hall today and to have upheld our values from a safe height. 🐴"
+- **ICC:** "Arrests made today: 0. Gendarmes hospitalised: 2. Proceedings continue."
+- **Big Tech:** "We're humbled to have connected 10 delegates today. Their energy is now ours. Terms apply."
+- **Big Oil:** "Proud sponsors of today's fire."
+- Comments from delegates: "Who invited them?" · "Did they just… leave?" · "Classic." · "Sending thoughts and prayers. And a bill."
+
+#### 7.2.5 Rules for this satire
+
+- **Punch up, never down:** the joke is on institutions' reputations
+  (talking instead of acting, fees, red tape, PR), never on a country, a
+  people, or the people those institutions serve.
+- **No real events:** no wars, conflicts, pandemics, scandals or real
+  operations, in text or art. The Health Authority jokes are about
+  handwashing and clipboards, nothing else.
+- **No real people, no emblems:** no look-alikes of any official or founder;
+  no UN, NATO, EU, ICC, WHO or company logos, emblems or flags in the art.
+  Names in feed text are allowed (it's commentary), costumes and colours do
+  the rest.
+- **Kill switch per institution** (`countries.json` → `institutions[].off`),
+  so one can be pulled at once if a real-world event makes it unfunny.
+
+#### 7.2.6 Build plan
+
+1. **Engine** (one change, AGENTS rule 5): `stance` + exit rule + `crashExit`;
+   endless `raids` (candidate list with conditions, one per session);
+   membership tags on delegates. Unit tests per stance and per condition.
+2. **First four**, one per stance: **UN** (skirmish), **NATO** (aloof, with
+   the Moral High Horse as a rideable prop), **ICC** (weak fight + arrest),
+   **Big Tech** (meddle, triggered by SURGE). Their abilities from existing
+   effects; borrowed career bodies until art.
+3. **The rest** (Big Oil, Health Authority, Lenders, Federation, Brussels,
+   Raters) as content only.
+4. **Art:** `career-crash/art/incident/12-INSTITUTIONS_A.md` (the first four
+   plus the horse) and `13-INSTITUTIONS_B.md`.
 
 ### 7.3 Punching Above Its Weight
 
@@ -551,7 +666,8 @@ with `statBonus` so no culture is simply better (§11).
 - **No real people:** no leaders, politicians, royals, athletes or
   celebrities, and no look-alikes or names that point at them.
 - **No politics, wars, borders, religion or disasters** in any text, art,
-  move or event. No sacred dress or ceremonies (no haka), no military
+  move or event. The one exception is satire of international institutions'
+  reputations in the gatecrashers, under the rules in §7.2.5. No sacred dress or ceremonies (no haka), no military
   uniforms, no weapons beyond folk-sports props (a caber, a hurley, a
   ciupaga drawn blunt).
 - **No user-written text anywhere.** No chat, no names, no messages. There is
