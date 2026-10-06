@@ -1,8 +1,11 @@
 # Diplomatic Incident: art briefs for the image agent
 
-> **Status:** nothing delivered yet (6 October 2026). Until art arrives the
-> floor uses stand-ins: each delegate borrows a career's body, and the hall
-> borrows the Office painting.
+> **Status (6 October 2026):** bodies for batches A, B and D are in the game
+> (30 delegates). Still to come: batch C bodies (Mexico, Brazil, Argentina,
+> Colombia, Chile, Jamaica, Japan, South Korea, India, Indonesia), all heads,
+> and everything from brief 09 on. Until then the floor uses stand-ins: a
+> borrowed career's body, the head from the delegate's own body sheet, and
+> the Office painting for the hall.
 
 Art for **careercrash.org/incident** (design: `docs/career-crash/09-diplomatic-incident.md`):
 an endless brawl between 40 countries at a summit, each country played by

@@ -55,6 +55,15 @@ interface SheetOverride {
   splitPelvis?: [number, number];
   /** Cut component [n] horizontally at this fraction of its height (e.g. a thigh touching its shin); the lower piece becomes component 101, 102, … in order. */
   split?: [number, number][];
+  /**
+   * Like `split`, for a part fused to a pair (a kilt touching both thighs, a head
+   * on the torso): cut component [n] at this fraction of its height, then every
+   * separate blob below the cut becomes its own component, numbered 201, 202, …
+   * left to right, cut by cut.
+   */
+  cut?: [number, number][];
+  /** Cut component [n] vertically at this fraction of its width (two thighs touching); the right piece becomes 301, 302, …, after any `cut`. */
+  cutX?: [number, number][];
 }
 
 interface PartOut {
@@ -283,6 +292,76 @@ async function sliceSheet(name: string, override: SheetOverride): Promise<[strin
   };
   if (override.splitPelvis) cutComp(override.splitPelvis[0], override.splitPelvis[1], 100);
   (override.split ?? []).forEach(([n, at], i) => cutComp(n, at, 101 + i));
+  // Cut, then separate the blobs below the cut (each its own component).
+  let nextCut = 201;
+  for (const [n, at] of override.cut ?? []) {
+    cutComp(n, at, -1);
+    const lower = comps.find((k) => k.n === -1)!;
+    comps.splice(comps.indexOf(lower), 1);
+    const seen = new Uint8Array(W * H);
+    const blobs: Comp[] = [];
+    let label = Math.max(...comps.map((k) => k.label), lower.label) + 1;
+    for (let y = lower.y0; y <= lower.y1; y++) {
+      for (let x = lower.x0; x <= lower.x1; x++) {
+        const p0 = y * W + x;
+        if (labels[p0] !== lower.label || seen[p0]) continue;
+        const b: Comp = { n: 0, label: label++, x0: W, y0: H, x1: 0, y1: 0, area: 0, cx: 0, cy: 0 };
+        const stack = [p0];
+        seen[p0] = 1;
+        while (stack.length) {
+          const p = stack.pop()!;
+          const px = p % W;
+          const py = (p - px) / W;
+          labels[p] = b.label;
+          b.area++;
+          b.cx += px;
+          b.cy += py;
+          b.x0 = Math.min(b.x0, px);
+          b.x1 = Math.max(b.x1, px);
+          b.y0 = Math.min(b.y0, py);
+          b.y1 = Math.max(b.y1, py);
+          for (const q of [p - 1, p + 1, p - W, p + W]) {
+            if (q < 0 || q >= W * H || seen[q] || labels[q] !== lower.label) continue;
+            if (Math.abs((q % W) - px) > 1) continue;
+            seen[q] = 1;
+            stack.push(q);
+          }
+        }
+        b.cx /= b.area;
+        b.cy /= b.area;
+        blobs.push(b);
+      }
+    }
+    // Specks left by the cut join nothing; the real pieces get numbers.
+    const big = blobs.filter((b) => b.area >= lower.area * 0.08).sort((a, b) => a.cx - b.cx);
+    for (const b of big) {
+      b.n = nextCut++;
+      comps.push(b);
+    }
+  }
+  (override.cutX ?? []).forEach(([n, at], i) => {
+    const c = comps.find((k) => k.n === n)!;
+    const cut = c.x0 + Math.round((c.x1 - c.x0) * at);
+    const right: Comp = { n: 301 + i, label: Math.max(...comps.map((k) => k.label)) + 1, x0: cut, y0: H, x1: c.x1, y1: 0, area: 0, cx: 0, cy: 0 };
+    for (let y = c.y0; y <= c.y1; y++) {
+      for (let x = cut; x <= c.x1; x++) {
+        if (labels[y * W + x] !== c.label) continue;
+        labels[y * W + x] = right.label;
+        right.y0 = Math.min(right.y0, y);
+        right.y1 = Math.max(right.y1, y);
+        right.area++;
+        right.cx += x;
+        right.cy += y;
+      }
+    }
+    right.cx /= right.area;
+    right.cy /= right.area;
+    c.x1 = cut - 1;
+    c.cx = (c.x0 + c.x1) / 2;
+    c.area -= right.area;
+    comps.push(right);
+  });
+  if (process.env.PUPPETS_DEBUG) for (const c of [...comps].sort((a, b) => a.n - b.n)) console.log(`  ${name} #${c.n}: x ${c.x0}–${c.x1}, y ${c.y0}–${c.y1}, area ${c.area}`);
   const auto = classify(comps);
   const parts: Partial<Record<Part, Comp>> = { ...auto };
   for (const [k, n] of Object.entries(override.parts ?? {})) parts[k as Part] = comps.find((c) => c.n === n);

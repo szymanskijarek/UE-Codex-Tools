@@ -136,6 +136,15 @@ Visual rules for new art (palette, outlines, proportions, poses) are in
   When two parts touch and come out as one blob (a thigh and its shin), add
   `"split": [[n, fraction]]` to cut component `n` at that fraction of its
   height; the lower piece is numbered 101, 102, … (the chief surgeon uses this).
+  When a part is fused to a pair (a kilt touching both thighs, a head on its
+  torso), use `"cut": [[n, fraction]]` instead: everything below the cut that
+  falls apart into separate blobs becomes its own component, numbered 201,
+  202, … left to right (cuts can chain: `[201, 0.4]` cuts the first piece
+  again). Two parts touching side by side (thighs under a skirt):
+  `"cutX": [[n, fraction]]` cuts vertically, and the right piece is 301, 302, ….
+  `PUPPETS_DEBUG=1` prints every component's box, to place cuts exactly.
+  Name every part in `parts` when cuts move the numbering (the Diplomatic
+  Incident delegates, `npc-del-*`, use all three).
 - **Portraits:** careers without face-sheet heads (the bosses) use the puppet's
   head sprite as their portrait and keep one expression in fights.
 - **Gatecrashers (07):** `art/sheets/npc-<persona>.png` (and `-b` for a

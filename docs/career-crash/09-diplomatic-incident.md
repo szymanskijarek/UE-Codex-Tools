@@ -828,4 +828,5 @@ cross-promos.
 | Flags | `flag-icons` 7.5.0 (MIT), the 40 SVGs copied to `apps/client/src/incident/flags/`; drawn in the page and beside each delegate's name tag (`BattleRenderer.setBadges`). |
 | Balance | `pnpm balance --incident` and `--incident-flat` (§11). |
 | Code shape | No `floors.ts` split: `incident.ts` reuses `markets.ts` (clock, scene events, fighters) directly, and the market schema gained `source: 'likes'`, `likes`, `derbies`, `candle.seats`/`walkOnTicks` and per-delegate `flag`/`tzMin`/`popM`. |
+| Art | Bodies for 30 delegates (batches A, B, D: `art/sheets/npc-del-*.png`); batch C and all heads still to come (`career-crash/art/incident/`). |
 | Not yet | The vote service (phase 2), sharing beyond the share button (phase 3), the art (briefs ready), music of its own (it plays the Office song), gatecrasher sets, Punching Above Its Weight board, Rewind picker. |

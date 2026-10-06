@@ -1,6 +1,6 @@
 # Diplomatic Incident 07: delegate bodies, batch D
 
-> **Status:** not delivered yet.
+> **Status:** delivered and in the game (6 October 2026): all ten bodies.
 
 > Part of the Diplomatic Incident art set (`art/incident/README.md`, read its
 > *How we portray countries* first). Design: `docs/career-crash/09-diplomatic-incident.md`.

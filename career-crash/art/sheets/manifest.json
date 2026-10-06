@@ -378,7 +378,311 @@
   }
  },
  "npc-bro-pepe": {
-  "split": [[10, 0.5], [11, 0.5]],
-  "parts": {"footL": 101, "footR": 102}
+  "split": [
+   [
+    10,
+    0.5
+   ],
+   [
+    11,
+    0.5
+   ]
+  ],
+  "parts": {
+   "footL": 101,
+   "footR": 102
+  }
+ },
+ "npc-del-sco": {
+  "cut": [
+   [
+    0,
+    0.52
+   ],
+   [
+    6,
+    0.66
+   ]
+  ]
+ },
+ "npc-del-pl": {
+  "cut": [
+   [
+    7,
+    0.5
+   ]
+  ]
+ },
+ "npc-del-au": {
+  "cut": [
+   [
+    3,
+    0.38
+   ],
+   [
+    201,
+    0.57
+   ]
+  ]
+ },
+ "npc-del-be": {
+  "cut": [
+   [
+    3,
+    0.705
+   ],
+   [
+    7,
+    0.51
+   ],
+   [
+    8,
+    0.51
+   ]
+  ]
+ },
+ "npc-del-dk": {
+  "cut": [
+   [
+    3,
+    0.65
+   ]
+  ]
+ },
+ "npc-del-gr": {
+  "cut": [
+   [
+    3,
+    0.655
+   ]
+  ]
+ },
+ "npc-del-ie": {
+  "cut": [
+   [
+    8,
+    0.32
+   ],
+   [
+    201,
+    0.42
+   ],
+   [
+    9,
+    0.32
+   ],
+   [
+    203,
+    0.42
+   ]
+  ]
+ },
+ "npc-del-ma": {
+  "cut": [
+   [
+    7,
+    0.565
+   ]
+  ]
+ },
+ "npc-del-nl": {
+  "cut": [
+   [
+    7,
+    0.55
+   ]
+  ]
+ },
+ "npc-del-nz": {
+  "cut": [
+   [
+    3,
+    0.64
+   ]
+  ]
+ },
+ "npc-del-us": {
+  "cut": [
+   [
+    0,
+    0.56
+   ],
+   [
+    2,
+    0.43
+   ],
+   [
+    3,
+    0.43
+   ]
+  ]
+ },
+ "npc-del-vn": {
+  "cut": [
+   [
+    3,
+    0.63
+   ]
+  ]
+ },
+ "npc-del-at": {
+  "cut": [
+   [
+    0,
+    0.53
+   ],
+   [
+    5,
+    0.58
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "torso": 201,
+   "pelvis": 5,
+   "upperArmL": 2,
+   "upperArmR": 3,
+   "foreArmL": 4,
+   "foreArmR": 6,
+   "thighL": 7,
+   "thighR": 202,
+   "shinL": 8,
+   "shinR": 9,
+   "footL": 10,
+   "footR": 11
+  }
+ },
+ "npc-del-ch": {
+  "cut": [
+   [
+    0,
+    0.4
+   ],
+   [
+    201,
+    0.59
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "torso": 201,
+   "pelvis": 202,
+   "upperArmL": 2,
+   "upperArmR": 3,
+   "foreArmL": 4,
+   "foreArmR": 5,
+   "thighL": 6,
+   "thighR": 7,
+   "shinL": 8,
+   "shinR": 9,
+   "footL": 10,
+   "footR": 11
+  }
+ },
+ "npc-del-ng": {
+  "cut": [
+   [
+    7,
+    0.54
+   ],
+   [
+    10,
+    0.53
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "torso": 3,
+   "pelvis": 7,
+   "upperArmL": 2,
+   "upperArmR": 4,
+   "foreArmL": 5,
+   "foreArmR": 6,
+   "thighL": 201,
+   "thighR": 8,
+   "shinL": 9,
+   "shinR": 10,
+   "footL": 11,
+   "footR": 202
+  }
+ },
+ "npc-del-ph": {
+  "cut": [
+   [
+    7,
+    0.52
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "torso": 3,
+   "pelvis": 7,
+   "upperArmL": 2,
+   "upperArmR": 4,
+   "foreArmL": 5,
+   "foreArmR": 6,
+   "thighL": 201,
+   "thighR": 301,
+   "shinL": 8,
+   "shinR": 9,
+   "footL": 10,
+   "footR": 11
+  },
+  "cutX": [
+   [
+    201,
+    0.5
+   ]
+  ]
+ },
+ "npc-del-th": {
+  "cut": [
+   [
+    8,
+    0.49
+   ],
+   [
+    9,
+    0.49
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "torso": 3,
+   "pelvis": 6,
+   "upperArmL": 2,
+   "upperArmR": 4,
+   "foreArmL": 5,
+   "foreArmR": 7,
+   "thighL": 8,
+   "thighR": 9,
+   "shinL": 201,
+   "shinR": 202,
+   "footL": 10,
+   "footR": 11
+  }
+ },
+ "npc-del-wal": {
+  "cut": [
+   [
+    7,
+    0.52
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "torso": 3,
+   "pelvis": 7,
+   "upperArmL": 2,
+   "upperArmR": 4,
+   "foreArmL": 5,
+   "foreArmR": 6,
+   "thighL": 201,
+   "thighR": 202,
+   "shinL": 8,
+   "shinR": 9,
+   "footL": 10,
+   "footR": 11
+  }
  }
 }
