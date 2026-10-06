@@ -314,6 +314,10 @@ careercrash.org/cryptobro
 
 ## 12. Next: Countries
 
+> **Superseded by [09 Diplomatic Incident](09-diplomatic-incident.md):** the
+> countries floor is powered by viewers' likes, not market data. The notes
+> below are kept for the record.
+
 Built on the same feed → score → snapshot → floor pipeline: a second adapter
 and a second mapping file, no new engine work.
 
