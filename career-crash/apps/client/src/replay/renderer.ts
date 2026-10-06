@@ -1225,7 +1225,10 @@ export class BattleRenderer {
     if (!force && this.now - s.lastBubbleAt < 1400) return;
     let open = 0;
     for (const o of this.chars.values()) if (o.bubble && o !== s) open++;
-    if (open >= (this.compact ? 2 : 4) && !force) return;
+    // Phones show fewer at once; while following a fighter, mostly theirs.
+    const limit = this.compact ? (this.replayFocus ? 1 : 2) : 4;
+    if (open >= limit && !force) return;
+    if (this.compact && this.replayFocus && !this.replayFocus.includes(s.id) && !force && Math.random() < 0.6) return;
     const list = bundle.live[kind];
     if (!list?.length) return;
     const text = rand(list).replace(/\{(\w+)\}/g, (_, k: string) => slots[k] ?? k).replace(/\b([Aa]) ([aeiouAEIOU])/g, '$1n $2');
@@ -1243,17 +1246,18 @@ export class BattleRenderer {
   /** Show a speech bubble with exactly this text. */
   private say(s: CharSprite, text: string, ms: number): void {
     s.bubble?.destroy({ children: true });
+    // Phones: a narrower, tighter bubble, so a line covers less of the fight.
     const size = this.compact ? 10 : Math.max(10, Math.min(15, s.r * 0.95));
-    const t = new Text({ text, style: { fontFamily: FONT, fontSize: size, fontWeight: '800', fill: OUTLINE, wordWrap: true, wordWrapWidth: 130 }, resolution: 3 });
-    const padX = 6;
-    const padY = 4;
+    const t = new Text({ text, style: { fontFamily: FONT, fontSize: size, fontWeight: '800', fill: OUTLINE, wordWrap: true, wordWrapWidth: this.compact ? 105 : 130 }, resolution: 4 });
+    const padX = this.compact ? 4 : 6;
+    const padY = this.compact ? 2 : 4;
     const w = t.width + padX * 2;
     const h = t.height + padY * 2;
     const c = new Container();
     const bg = new Graphics()
-      .roundRect(-w / 2, -h - 7, w, h, 8)
+      .roundRect(-w / 2, -h - 7, w, h, this.compact ? 6 : 8)
       .fill(0xffffff)
-      .stroke({ width: 2, color: OUTLINE })
+      .stroke({ width: this.compact ? 1.5 : 2, color: OUTLINE })
       .poly([-5, -8, 5, -8, 0, 0])
       .fill(0xffffff);
     bg.moveTo(-5, -7).lineTo(0, 0).lineTo(5, -7).stroke({ width: 2, color: OUTLINE });
@@ -1478,7 +1482,14 @@ export class BattleRenderer {
         if (this.now > s.bubbleUntil || !s.root.visible) {
           s.bubble.destroy({ children: true });
           s.bubble = null;
-        } else s.bubble.position.set(s.x, s.y - s.r * (s.puppet ? 5.5 : 4.6));
+        } else {
+          s.bubble.position.set(s.x, s.y - s.r * (s.puppet ? 5.5 : 4.6));
+          // Bubbles keep their size on screen as the camera zooms in (fully on phones, partly on desktop),
+          // fade out at the end, and step back while the camera follows someone else.
+          s.bubble.scale.set(this.uiScale());
+          const others = this.replayFocus && !this.replayFocus.includes(s.id);
+          s.bubble.alpha = Math.min(1, (s.bubbleUntil - this.now) / 250) * (this.compact ? 0.92 : 1) * (others ? 0.5 : 1);
+        }
       }
     }
     for (const [id, s] of this.props) {
@@ -2192,9 +2203,17 @@ export class BattleRenderer {
     return this.px(e.x, e.y, e.z);
   }
 
+  /**
+   * Scale for text over the fight (bubbles, floats, ability pills) so it doesn't
+   * grow with the camera: held at its on-screen size on phones, half-way on desktop.
+   */
+  private uiScale(): number {
+    return this.compact ? 1 / this.cam.z : 1 / Math.sqrt(this.cam.z);
+  }
+
   private float(text: string, at: [number, number] | null, color: number, size = 14, rise = 1): void {
     if (!at || this.fx.length > 90) return;
-    const tx = new Text({ text, style: { fontFamily: FONT, fontSize: size, fontWeight: '900', fill: color, stroke: { color: OUTLINE, width: 4 } }, resolution: 3 });
+    const tx = new Text({ text, style: { fontFamily: FONT, fontSize: this.compact ? Math.round(size * 0.85) : size, fontWeight: '900', fill: color, stroke: { color: OUTLINE, width: this.compact ? 3 : 4 } }, resolution: 4 });
     tx.anchor.set(0.5, 1);
     const head = this.scale * 350 * 4.8;
     tx.position.set(at[0] + (Math.random() - 0.5) * 12, at[1] - head);
@@ -2205,8 +2224,9 @@ export class BattleRenderer {
       life: 1000,
       max: 1000,
       update: (k) => {
-        tx.y = y0 - (1 - k) * 30 * rise;
+        tx.y = y0 - (1 - k) * 30 * rise * this.uiScale();
         tx.alpha = Math.min(1, k * 2.5);
+        tx.scale.set(this.uiScale());
       },
     });
   }
@@ -2286,8 +2306,8 @@ export class BattleRenderer {
 
   /** Big coloured name badge above the caster. */
   private pill(text: string, at: [number, number], color: number): void {
-    const size = this.compact ? 13 : 16;
-    const tx = new Text({ text, style: { fontFamily: FONT, fontSize: size, fontWeight: '900', fill: OUTLINE }, resolution: 3 });
+    const size = this.compact ? 11 : 16;
+    const tx = new Text({ text, style: { fontFamily: FONT, fontSize: size, fontWeight: '900', fill: OUTLINE }, resolution: 4 });
     const w = tx.width + 16;
     const h = tx.height + 6;
     const c = new Container();
@@ -2304,8 +2324,8 @@ export class BattleRenderer {
       max: 1300,
       update: (k) => {
         const p = 1 - k;
-        c.scale.set(p < 0.12 ? 0.6 + (p / 0.12) * 0.5 : 1.1 - Math.min(0.1, (p - 0.12) * 0.5));
-        c.y = y0 - p * 14;
+        c.scale.set((p < 0.12 ? 0.6 + (p / 0.12) * 0.5 : 1.1 - Math.min(0.1, (p - 0.12) * 0.5)) * this.uiScale());
+        c.y = y0 - p * 14 * this.uiScale();
         c.alpha = Math.min(1, k * 3);
       },
     });
