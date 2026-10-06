@@ -299,6 +299,33 @@ export class BattleRenderer {
   private ysq = Y_SQUASH;
   private persp = 1;
   private art: ArenaArt | null = null;
+  /** Small images drawn beside a side's name tag (09: each country's flag), by playerId. */
+  private badgeTex = new Map<string, Texture>();
+
+  /**
+   * Badges beside the name tags, by playerId → image URL (09: flags). Call
+   * before `mount`; images are rasterised once at 48×36.
+   */
+  async setBadges(urls: Map<string, string>): Promise<void> {
+    await Promise.all(
+      [...urls].map(
+        ([id, url]) =>
+          new Promise<void>((done) => {
+            const img = new Image();
+            img.onload = () => {
+              const c = document.createElement('canvas');
+              c.width = 48;
+              c.height = 36;
+              c.getContext('2d')!.drawImage(img, 0, 0, 48, 36);
+              this.badgeTex.set(id, Texture.from(c));
+              done();
+            };
+            img.onerror = () => done();
+            img.src = url;
+          }),
+      ),
+    );
+  }
   private artTex: Texture | null = null;
   /** Screen-space extent of the world (painted backdrop or arena + wall band), for the camera. */
   private bounds = { x0: 0, y0: 0, x1: 1, y1: 1 };
@@ -1028,6 +1055,16 @@ export class BattleRenderer {
       emote.anchor.set(0.5, 1);
       emote.position.set(-r * 1.4, -r * 4.2);
       root.addChild(emote);
+    }
+    const badge = isRef ? undefined : this.badgeTex.get(this.input.teams[e.team]?.playerId ?? '');
+    if (badge) {
+      const flag = new Sprite(badge);
+      const h = Math.max(9, r * 0.75);
+      flag.height = h;
+      flag.width = (h * 4) / 3;
+      flag.anchor.set(1, 1);
+      flag.position.set(-label.width / 2 - 3, label.y - 1);
+      root.addChild(flag);
     }
     // No body art but a painted face: put the face on the paper doll's head.
     const ft = !puppet && !isRef && career ? faceTexture(career.id, 'neutral') : null;

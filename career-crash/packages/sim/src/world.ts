@@ -585,6 +585,7 @@ export function createWorld(input: BattleInput, bundle: ContentBundle): World {
     teamCount: input.teams.length,
     crashTeam: input.teams.length,
     crashed: false,
+    lobby: [],
     refereeId: -1,
     suddenDeathTick: input.endless ? Number.MAX_SAFE_INTEGER : SUDDEN_DEATH_TICK,
     hazardNext: arena.hazards.map((h) => h.startTick),
@@ -604,7 +605,13 @@ export function createWorld(input: BattleInput, bundle: ContentBundle): World {
     // Endless floors (08) bring their own spots, enough for the whole field, and a referee.
     const spots = input.endless?.spawns.length ? input.endless.spawns : arena.spawns.ffa;
     let k = 0;
+    // A lobby (09 §4): only the first `seats` teams start on the floor, the rest queue in order.
+    const seats = input.endless?.seats ?? input.teams.length;
     input.teams.forEach((team, ti) => {
+      if (ti >= seats) {
+        w.lobby.push(ti);
+        return;
+      }
       for (const snap of team.characters) {
         const [x, y] = spots[k % spots.length]!;
         spawnCharacter(w, snap, ti, x, y);

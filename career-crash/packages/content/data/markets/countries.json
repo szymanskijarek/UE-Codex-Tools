@@ -1,0 +1,1326 @@
+{
+ "id": "market.countries",
+ "source": "likes",
+ "arena": "arena.summit-hall",
+ "field": 10,
+ "spawns": [
+  [
+   2500,
+   2500
+  ],
+  [
+   19500,
+   2500
+  ],
+  [
+   2500,
+   11500
+  ],
+  [
+   19500,
+   11500
+  ],
+  [
+   8000,
+   7000
+  ],
+  [
+   14000,
+   7000
+  ],
+  [
+   11000,
+   2500
+  ],
+  [
+   11000,
+   11500
+  ],
+  [
+   2500,
+   7000
+  ],
+  [
+   19500,
+   7000
+  ]
+ ],
+ "exclude": [],
+ "score": {
+  "spreadFloor": 100,
+  "max": 300
+ },
+ "power": {
+  "baseLevel": 20,
+  "levelSwing": 20,
+  "statSwing": 300,
+  "rank": 4,
+  "pumpAt": 150,
+  "dumpAt": -150,
+  "leverageAt": -100000,
+  "moodTicks": 1200
+ },
+ "candle": {
+  "ticks": 5920,
+  "breakerTicks": 80,
+  "openingTicks": 240,
+  "closingTicks": 900,
+  "relistTicks": 300,
+  "liquidatedTicks": 300,
+  "shieldTicks": 40,
+  "seats": 10,
+  "walkOnTicks": 80
+ },
+ "likes": {
+  "lobbyBoostS": 15,
+  "wildcardEvery": 3,
+  "surgeAt": 50,
+  "abstainScore": -200,
+  "sampleBase": 4000
+ },
+ "points": {
+  "ko": 3,
+  "liquidation": 0,
+  "candle": 5,
+  "damagePer": 100,
+  "koed": -1,
+  "liquidated": 0,
+  "secondsPer": 20
+ },
+ "derbies": [
+  {
+   "id": "derby.auld-enemies",
+   "a": "ENG",
+   "b": "SCO",
+   "hours": [
+    0,
+    3,
+    6,
+    9,
+    12,
+    15,
+    18,
+    21
+   ]
+  }
+ ],
+ "cast": {
+  "ENG": {
+   "persona": "npc.del-eng",
+   "name": "Sir Nigel Queueworth",
+   "career": "career.train-conductor",
+   "moves": [
+    "ability.orderly-queue",
+    "ability.tea-break"
+   ],
+   "personality": "personality.confident",
+   "lines": [
+    "Mind the queue.",
+    "Terribly sorry. Not sorry.",
+    "Shall we say... outside?",
+    "I'll put the kettle on after this."
+   ],
+   "art": {
+    "color": "#cf142b",
+    "icon": "🎩"
+   },
+   "flag": "gb-eng",
+   "tzMin": 0,
+   "popM": 57,
+   "voice": {
+    "type": "mid",
+    "pitch": 0.95
+   },
+   "statBonus": 14
+  },
+  "SCO": {
+   "persona": "npc.del-sco",
+   "name": "Hamish McTavish",
+   "career": "career.builder",
+   "moves": [
+    "ability.caber-toss",
+    "ability.bagpipe-lament"
+   ],
+   "personality": "personality.aggressive",
+   "lines": [
+    "Och, come here!",
+    "Ye'll have had yer punch, then.",
+    "Freedom... of movement!",
+    "It's no' a skirt!"
+   ],
+   "art": {
+    "color": "#005eb8",
+    "icon": "🏴"
+   },
+   "flag": "gb-sct",
+   "tzMin": 0,
+   "popM": 5.5,
+   "voice": {
+    "type": "gravel"
+   },
+   "statBonus": -16
+  },
+  "WAL": {
+   "persona": "npc.del-wal",
+   "name": "Dai Llewellyn",
+   "career": "career.personal-trainer",
+   "moves": [
+    "ability.scrum-down",
+    "ability.male-voice-choir"
+   ],
+   "personality": "personality.competitive",
+   "lines": [
+    "Come on, Wales!",
+    "Scrum down, butt!",
+    "We sing better than we fight. And we fight well.",
+    "Tidy."
+   ],
+   "art": {
+    "color": "#00b140",
+    "icon": "🐉"
+   },
+   "flag": "gb-wls",
+   "tzMin": 0,
+   "popM": 3.1,
+   "voice": {
+    "type": "deep",
+    "pitch": 1.05
+   },
+   "statBonus": 18
+  },
+  "IE": {
+   "persona": "npc.del-ie",
+   "name": "Siobhán O'Leary",
+   "career": "career.farmer",
+   "moves": [
+    "ability.hurley-swing",
+    "ability.luck-of-the-draw"
+   ],
+   "personality": "personality.chaotic",
+   "lines": [
+    "Ah, go way outta that!",
+    "Grand. It's all grand.",
+    "Sure look, it'll be fine.",
+    "Who's for a puck around?"
+   ],
+   "art": {
+    "color": "#169b62",
+    "icon": "☘️"
+   },
+   "flag": "ie",
+   "tzMin": 0,
+   "popM": 5.3,
+   "voice": {
+    "type": "bright"
+   },
+   "statBonus": -16
+  },
+  "FR": {
+   "persona": "npc.del-fr",
+   "name": "Amélie Baguette",
+   "career": "career.baker",
+   "moves": [
+    "ability.baguette-riposte",
+    "ability.general-strike"
+   ],
+   "personality": "personality.confident",
+   "lines": [
+    "Non, non, non.",
+    "Touché!",
+    "This is not a fight. It is a philosophy.",
+    "Ooh là là."
+   ],
+   "art": {
+    "color": "#0055a4",
+    "icon": "🥖"
+   },
+   "flag": "fr",
+   "tzMin": 60,
+   "popM": 68,
+   "voice": {
+    "type": "mid",
+    "pitch": 1.1
+   },
+   "statBonus": -2
+  },
+  "DE": {
+   "persona": "npc.del-de",
+   "name": "Klaus Pünktlich",
+   "career": "career.engineer",
+   "moves": [
+    "ability.schuhplattler",
+    "ability.punctuality"
+   ],
+   "personality": "personality.competitive",
+   "lines": [
+    "Ja. Exactly on time.",
+    "This is not in the schedule.",
+    "Efficiency!",
+    "Ordnung muss sein."
+   ],
+   "art": {
+    "color": "#dd0000",
+    "icon": "🥨"
+   },
+   "flag": "de",
+   "tzMin": 60,
+   "popM": 84,
+   "voice": {
+    "type": "deep"
+   },
+   "statBonus": 25
+  },
+  "IT": {
+   "persona": "npc.del-it",
+   "name": "Gianni Gesto",
+   "career": "career.chef",
+   "moves": [
+    "ability.the-gesture",
+    "ability.espresso-shot"
+   ],
+   "personality": "personality.chaotic",
+   "lines": [
+    "Ma che fai?!",
+    "Mamma mia!",
+    "Is not a punch. Is a gesture.",
+    "Al dente. Like your defence."
+   ],
+   "art": {
+    "color": "#009246",
+    "icon": "🤌"
+   },
+   "flag": "it",
+   "tzMin": 60,
+   "popM": 59,
+   "voice": {
+    "type": "bright",
+    "speed": 1.2
+   },
+   "statBonus": -26
+  },
+  "ES": {
+   "persona": "npc.del-es",
+   "name": "Lola Taconazo",
+   "career": "career.dj",
+   "moves": [
+    "ability.zapateado",
+    "ability.siesta"
+   ],
+   "personality": "personality.aggressive",
+   "lines": [
+    "¡Olé!",
+    "¡Vamos!",
+    "Dinner's at ten. You're done by nine.",
+    "Feel the rhythm!"
+   ],
+   "art": {
+    "color": "#c60b1e",
+    "icon": "💃"
+   },
+   "flag": "es",
+   "tzMin": 60,
+   "popM": 48,
+   "voice": {
+    "type": "bright",
+    "speed": 1.15
+   },
+   "statBonus": -19
+  },
+  "PT": {
+   "persona": "npc.del-pt",
+   "name": "Tiago Navegador",
+   "career": "career.sailor",
+   "moves": [
+    "ability.fado-lament",
+    "ability.pastel-de-nata"
+   ],
+   "personality": "personality.helpful",
+   "lines": [
+    "Tudo bem?",
+    "We discovered this room first.",
+    "Saudade... for your health bar.",
+    "Obrigado. For nothing."
+   ],
+   "art": {
+    "color": "#006600",
+    "icon": "⛵"
+   },
+   "flag": "pt",
+   "tzMin": 0,
+   "popM": 10.6,
+   "voice": {
+    "type": "mid"
+   },
+   "statBonus": -4
+  },
+  "NL": {
+   "persona": "npc.del-nl",
+   "name": "Joost van Fiets",
+   "career": "career.delivery-driver",
+   "moves": [
+    "ability.bike-lane",
+    "ability.clog-stomp"
+   ],
+   "personality": "personality.confident",
+   "lines": [
+    "Out of the bike lane!",
+    "Very direct: you're losing.",
+    "Gezellig.",
+    "Ring ring!"
+   ],
+   "art": {
+    "color": "#ff7f00",
+    "icon": "🚲"
+   },
+   "flag": "nl",
+   "tzMin": 60,
+   "popM": 17.9,
+   "voice": {
+    "type": "mid",
+    "pitch": 0.95
+   },
+   "statBonus": -23
+  },
+  "BE": {
+   "persona": "npc.del-be",
+   "name": "Lotte Wafelaar",
+   "career": "career.baker",
+   "moves": [
+    "ability.waffle-iron",
+    "ability.coalition-talks"
+   ],
+   "personality": "personality.helpful",
+   "lines": [
+    "Compromise? Fine. You lose.",
+    "Fries are Belgian. Write that down.",
+    "Allez!",
+    "Waffles for everyone. Except you."
+   ],
+   "art": {
+    "color": "#fdda24",
+    "icon": "🧇"
+   },
+   "flag": "be",
+   "tzMin": 60,
+   "popM": 11.8,
+   "voice": {
+    "type": "mid"
+   },
+   "statBonus": -14
+  },
+  "CH": {
+   "persona": "npc.del-ch",
+   "name": "Ueli Neutral",
+   "career": "career.beekeeper",
+   "moves": [
+    "ability.strict-neutrality",
+    "ability.yodel"
+   ],
+   "personality": "personality.lazy",
+   "lines": [
+    "I am not involved.",
+    "Yodel-ay-ee-hoo!",
+    "Strictly neutral. Strictly.",
+    "Precisely."
+   ],
+   "art": {
+    "color": "#da291c",
+    "icon": "🧀"
+   },
+   "flag": "ch",
+   "tzMin": 60,
+   "popM": 8.9,
+   "voice": {
+    "type": "bright",
+    "pitch": 1.1
+   },
+   "statBonus": -40
+  },
+  "AT": {
+   "persona": "npc.del-at",
+   "name": "Franzi Walzer",
+   "career": "career.florist",
+   "moves": [
+    "ability.viennese-waltz",
+    "ability.coffee-house"
+   ],
+   "personality": "personality.confident",
+   "lines": [
+    "Servus!",
+    "May I have this dance?",
+    "One, two, three. One, two, three. Down.",
+    "Not Australia. AUSTRIA."
+   ],
+   "art": {
+    "color": "#ed2939",
+    "icon": "🎻"
+   },
+   "flag": "at",
+   "tzMin": 60,
+   "popM": 9.1,
+   "voice": {
+    "type": "bright"
+   },
+   "statBonus": 7
+  },
+  "PL": {
+   "persona": "npc.del-pl",
+   "name": "Zbigniew Góral",
+   "career": "career.carpenter",
+   "moves": [
+    "ability.ciupaga-swing",
+    "ability.pierogi-power"
+   ],
+   "personality": "personality.competitive",
+   "lines": [
+    "Kurczę!",
+    "Na zdrowie!",
+    "From the mountains, with love. And an axe-stick.",
+    "Pierogi first, then we fight."
+   ],
+   "art": {
+    "color": "#dc143c",
+    "icon": "🏔️"
+   },
+   "flag": "pl",
+   "tzMin": 60,
+   "popM": 36.6,
+   "voice": {
+    "type": "gravel"
+   },
+   "statBonus": -11
+  },
+  "SE": {
+   "persona": "npc.del-se",
+   "name": "Astrid Fika",
+   "career": "career.teacher",
+   "moves": [
+    "ability.some-assembly-required",
+    "ability.fika"
+   ],
+   "personality": "personality.helpful",
+   "lines": [
+    "Lagom.",
+    "Time for fika.",
+    "Some assembly required.",
+    "Hej hej!"
+   ],
+   "art": {
+    "color": "#006aa7",
+    "icon": "🧁"
+   },
+   "flag": "se",
+   "tzMin": 60,
+   "popM": 10.6,
+   "voice": {
+    "type": "bright"
+   },
+   "statBonus": -27
+  },
+  "NO": {
+   "persona": "npc.del-no",
+   "name": "Ola Fjellstad",
+   "career": "career.lifeguard",
+   "moves": [
+    "ability.cross-country-ski",
+    "ability.polar-plunge"
+   ],
+   "personality": "personality.competitive",
+   "lines": [
+    "Uff da.",
+    "There is no bad weather. Only bad delegates.",
+    "On skis, I'm unbeatable.",
+    "Ha det!"
+   ],
+   "art": {
+    "color": "#ba0c2f",
+    "icon": "⛷️"
+   },
+   "flag": "no",
+   "tzMin": 60,
+   "popM": 5.5,
+   "voice": {
+    "type": "deep"
+   },
+   "statBonus": 4
+  },
+  "DK": {
+   "persona": "npc.del-dk",
+   "name": "Mette Hygge",
+   "career": "career.florist",
+   "moves": [
+    "ability.hygge",
+    "ability.stray-brick"
+   ],
+   "personality": "personality.lazy",
+   "lines": [
+    "Hygge time.",
+    "Candles on, gloves off.",
+    "Step on this. I dare you.",
+    "Skål!"
+   ],
+   "art": {
+    "color": "#c8102e",
+    "icon": "🕯️"
+   },
+   "flag": "dk",
+   "tzMin": 60,
+   "popM": 5.9,
+   "voice": {
+    "type": "mid"
+   },
+   "statBonus": -14
+  },
+  "GR": {
+   "persona": "npc.del-gr",
+   "name": "Yiannis Olympiou",
+   "career": "career.archaeologist",
+   "moves": [
+    "ability.plate-smash",
+    "ability.olympic-discus"
+   ],
+   "personality": "personality.confident",
+   "lines": [
+    "Opa!",
+    "We invented this. And democracy.",
+    "Back to the classics!",
+    "Philosophy first. Then punches."
+   ],
+   "art": {
+    "color": "#0d5eaf",
+    "icon": "🏛️"
+   },
+   "flag": "gr",
+   "tzMin": 120,
+   "popM": 10.4,
+   "voice": {
+    "type": "gravel"
+   },
+   "statBonus": -18
+  },
+  "US": {
+   "persona": "npc.del-us",
+   "name": "Hank Tailgate",
+   "career": "career.police-officer",
+   "moves": [
+    "ability.touchdown-tackle",
+    "ability.supersize"
+   ],
+   "personality": "personality.aggressive",
+   "lines": [
+    "Touchdown!",
+    "Biggest punch you've ever seen.",
+    "Supersize it!",
+    "Let's get this tailgate started!"
+   ],
+   "art": {
+    "color": "#3c3b6e",
+    "icon": "🏈"
+   },
+   "flag": "us",
+   "tzMin": -300,
+   "popM": 335,
+   "voice": {
+    "type": "deep",
+    "pitch": 0.95
+   },
+   "statBonus": 19
+  },
+  "CA": {
+   "persona": "npc.del-ca",
+   "name": "Constable Doug Maple",
+   "career": "career.security-guard",
+   "moves": [
+    "ability.sorry",
+    "ability.goose-patrol"
+   ],
+   "personality": "personality.helpful",
+   "lines": [
+    "Sorry!",
+    "Oh, sorry. Sorry about that.",
+    "Take off, eh?",
+    "Sorry, not sorry. No, actually, sorry."
+   ],
+   "art": {
+    "color": "#d80621",
+    "icon": "🍁"
+   },
+   "flag": "ca",
+   "tzMin": -300,
+   "popM": 40,
+   "voice": {
+    "type": "mid"
+   },
+   "statBonus": 15
+  },
+  "MX": {
+   "persona": "npc.del-mx",
+   "name": "Don Lucho Mariachi",
+   "career": "career.magician",
+   "moves": [
+    "ability.luchador-plancha",
+    "ability.mariachi-serenade"
+   ],
+   "personality": "personality.chaotic",
+   "lines": [
+    "¡Ándale!",
+    "¡Ay, ay, ay!",
+    "Lucha time!",
+    "One more song, then you go down."
+   ],
+   "art": {
+    "color": "#006847",
+    "icon": "🎺"
+   },
+   "flag": "mx",
+   "tzMin": -360,
+   "popM": 129,
+   "voice": {
+    "type": "deep",
+    "pitch": 1.05
+   },
+   "statBonus": 8
+  },
+  "BR": {
+   "persona": "npc.del-br",
+   "name": "Samba Silva",
+   "career": "career.dj",
+   "moves": [
+    "ability.bicycle-kick",
+    "ability.carnival"
+   ],
+   "personality": "personality.chaotic",
+   "lines": [
+    "Jogo bonito!",
+    "Gooooool!",
+    "Let's dance!",
+    "Tudo bem, tudo bom!"
+   ],
+   "art": {
+    "color": "#009c3b",
+    "icon": "⚽"
+   },
+   "flag": "br",
+   "tzMin": -180,
+   "popM": 216,
+   "voice": {
+    "type": "bright",
+    "speed": 1.15
+   },
+   "statBonus": -37
+  },
+  "AR": {
+   "persona": "npc.del-ar",
+   "name": "Martín Gaucho",
+   "career": "career.farmer",
+   "moves": [
+    "ability.boleadoras",
+    "ability.tango"
+   ],
+   "personality": "personality.competitive",
+   "lines": [
+    "¡Che!",
+    "Vamos, vamos!",
+    "Pass the mate.",
+    "This is my tango now."
+   ],
+   "art": {
+    "color": "#74acdf",
+    "icon": "🧉"
+   },
+   "flag": "ar",
+   "tzMin": -180,
+   "popM": 46,
+   "voice": {
+    "type": "mid"
+   },
+   "statBonus": -12
+  },
+  "CO": {
+   "persona": "npc.del-co",
+   "name": "Valentina Cafetera",
+   "career": "career.barista",
+   "moves": [
+    "ability.tinto",
+    "ability.cumbia-spin"
+   ],
+   "personality": "personality.helpful",
+   "lines": [
+    "¡Qué chévere!",
+    "A tinto first.",
+    "Best coffee in the hall, mi amor.",
+    "¡Dale!"
+   ],
+   "art": {
+    "color": "#fcd116",
+    "icon": "☕"
+   },
+   "flag": "co",
+   "tzMin": -300,
+   "popM": 52,
+   "voice": {
+    "type": "bright"
+   },
+   "statBonus": 20
+  },
+  "CL": {
+   "persona": "npc.del-cl",
+   "name": "Pancho Huaso",
+   "career": "career.firefighter",
+   "moves": [
+    "ability.earthquake-drill",
+    "ability.cueca-handkerchief"
+   ],
+   "personality": "personality.confident",
+   "lines": [
+    "¡Ya po!",
+    "Earthquake drill! Duck, cover, punch.",
+    "Cachai?",
+    "Calm down. This is nothing."
+   ],
+   "art": {
+    "color": "#d52b1e",
+    "icon": "🌶️"
+   },
+   "flag": "cl",
+   "tzMin": -240,
+   "popM": 19.6,
+   "voice": {
+    "type": "mid"
+   },
+   "statBonus": -38
+  },
+  "JM": {
+   "persona": "npc.del-jm",
+   "name": "Desmond Sprint",
+   "career": "career.personal-trainer",
+   "moves": [
+    "ability.hundred-metres",
+    "ability.bobsleigh"
+   ],
+   "personality": "personality.confident",
+   "lines": [
+    "Wah gwaan!",
+    "Too fast for you, man.",
+    "Feel the riddim.",
+    "Bobsleigh time!"
+   ],
+   "art": {
+    "color": "#009b3a",
+    "icon": "🏃"
+   },
+   "flag": "jm",
+   "tzMin": -300,
+   "popM": 2.8,
+   "voice": {
+    "type": "deep",
+    "pitch": 1.05
+   }
+  },
+  "JP": {
+   "persona": "npc.del-jp",
+   "name": "Kenji Ojigi",
+   "career": "career.programmer",
+   "moves": [
+    "ability.deep-bow",
+    "ability.karaoke-encore"
+   ],
+   "personality": "personality.competitive",
+   "lines": [
+    "Yoroshiku onegaishimasu.",
+    "Sumimasen!",
+    "Very sorry for this.",
+    "Karaoke later. Fighting now."
+   ],
+   "art": {
+    "color": "#bc002d",
+    "icon": "🙇"
+   },
+   "flag": "jp",
+   "tzMin": 540,
+   "popM": 124,
+   "voice": {
+    "type": "mid",
+    "pitch": 1.05
+   },
+   "statBonus": -14
+  },
+  "KR": {
+   "persona": "npc.del-kr",
+   "name": "Min-jun Idol",
+   "career": "career.influencer",
+   "moves": [
+    "ability.idol-choreography",
+    "ability.fan-chant"
+   ],
+   "personality": "personality.confident",
+   "lines": [
+    "Saranghae!",
+    "Fighting!",
+    "From the top, five, six, seven, eight!",
+    "Daebak!"
+   ],
+   "art": {
+    "color": "#003478",
+    "icon": "🎤"
+   },
+   "flag": "kr",
+   "tzMin": 540,
+   "popM": 51.7,
+   "voice": {
+    "type": "bright",
+    "pitch": 1.1
+   },
+   "statBonus": 33
+  },
+  "IN": {
+   "persona": "npc.del-in",
+   "name": "Raj Googly",
+   "career": "career.teacher",
+   "moves": [
+    "ability.googly",
+    "ability.bollywood-number"
+   ],
+   "personality": "personality.competitive",
+   "lines": [
+    "Howzat!",
+    "Ekdum first class!",
+    "Arre yaar!",
+    "Sixer!"
+   ],
+   "art": {
+    "color": "#ff9933",
+    "icon": "🏏"
+   },
+   "flag": "in",
+   "tzMin": 330,
+   "popM": 1430,
+   "voice": {
+    "type": "mid",
+    "speed": 1.1
+   },
+   "statBonus": 16
+  },
+  "ID": {
+   "persona": "npc.del-id",
+   "name": "Budi Batik",
+   "career": "career.tailor",
+   "moves": [
+    "ability.pencak-silat",
+    "ability.sambal"
+   ],
+   "personality": "personality.helpful",
+   "lines": [
+    "Ayo!",
+    "Santai, santai.",
+    "Too spicy? Good.",
+    "Selamat!"
+   ],
+   "art": {
+    "color": "#ce1126",
+    "icon": "🌶️"
+   },
+   "flag": "id",
+   "tzMin": 420,
+   "popM": 278,
+   "voice": {
+    "type": "mid"
+   },
+   "statBonus": 9
+  },
+  "PH": {
+   "persona": "npc.del-ph",
+   "name": "Maria Videoke",
+   "career": "career.tv-host",
+   "moves": [
+    "ability.videoke-night",
+    "ability.jeepney-ride"
+   ],
+   "personality": "personality.chaotic",
+   "lines": [
+    "Mabuhay!",
+    "Kain tayo!",
+    "One more song!",
+    "Ay, naku!"
+   ],
+   "art": {
+    "color": "#0038a8",
+    "icon": "🎙️"
+   },
+   "flag": "ph",
+   "tzMin": 480,
+   "popM": 117,
+   "voice": {
+    "type": "bright"
+   },
+   "statBonus": 7
+  },
+  "VN": {
+   "persona": "npc.del-vn",
+   "name": "Linh Nón Lá",
+   "career": "career.gardener",
+   "moves": [
+    "ability.conical-hat-throw",
+    "ability.pho-break"
+   ],
+   "personality": "personality.helpful",
+   "lines": [
+    "Xin chào!",
+    "Phở first.",
+    "Hat incoming!",
+    "Một, hai, ba, dô!"
+   ],
+   "art": {
+    "color": "#da251d",
+    "icon": "👒"
+   },
+   "flag": "vn",
+   "tzMin": 420,
+   "popM": 99,
+   "voice": {
+    "type": "bright"
+   },
+   "statBonus": -40
+  },
+  "TH": {
+   "persona": "npc.del-th",
+   "name": "Somchai Muay",
+   "career": "career.personal-trainer",
+   "moves": [
+    "ability.muay-elbow",
+    "ability.tuk-tuk"
+   ],
+   "personality": "personality.aggressive",
+   "lines": [
+    "Sawasdee krub!",
+    "Mai pen rai.",
+    "Elbows first, questions later.",
+    "Same same. But different."
+   ],
+   "art": {
+    "color": "#2d2a4a",
+    "icon": "🥊"
+   },
+   "flag": "th",
+   "tzMin": 420,
+   "popM": 71.8,
+   "voice": {
+    "type": "mid"
+   },
+   "statBonus": 16
+  },
+  "AU": {
+   "persona": "npc.del-au",
+   "name": "Bazza Barbie",
+   "career": "career.zookeeper",
+   "moves": [
+    "ability.barbie",
+    "ability.boomerang"
+   ],
+   "personality": "personality.confident",
+   "lines": [
+    "G'day!",
+    "No worries, mate.",
+    "Throw another one on the barbie.",
+    "Yeah, nah."
+   ],
+   "art": {
+    "color": "#00843d",
+    "icon": "🦘"
+   },
+   "flag": "au",
+   "tzMin": 600,
+   "popM": 26.6,
+   "voice": {
+    "type": "gravel"
+   },
+   "statBonus": -1
+  },
+  "NZ": {
+   "persona": "npc.del-nz",
+   "name": "Kiri Jandal",
+   "career": "career.lifeguard",
+   "moves": [
+    "ability.rugby-tackle",
+    "ability.jandal-slap"
+   ],
+   "personality": "personality.helpful",
+   "lines": [
+    "Kia ora!",
+    "Sweet as.",
+    "She'll be right.",
+    "Chur, bro."
+   ],
+   "art": {
+    "color": "#00247d",
+    "icon": "🥝"
+   },
+   "flag": "nz",
+   "tzMin": 720,
+   "popM": 5.2,
+   "voice": {
+    "type": "mid"
+   },
+   "statBonus": -3
+  },
+  "NG": {
+   "persona": "npc.del-ng",
+   "name": "Chidi Agbada",
+   "career": "career.dj",
+   "moves": [
+    "ability.jollof-wars",
+    "ability.afrobeats-groove"
+   ],
+   "personality": "personality.confident",
+   "lines": [
+    "Ehen!",
+    "No wahala.",
+    "Our jollof is the best. Next question.",
+    "Oya, come!"
+   ],
+   "art": {
+    "color": "#008751",
+    "icon": "🍲"
+   },
+   "flag": "ng",
+   "tzMin": 60,
+   "popM": 224,
+   "voice": {
+    "type": "deep"
+   },
+   "statBonus": -23
+  },
+  "ZA": {
+   "persona": "npc.del-za",
+   "name": "Thabo Vuvuzela",
+   "career": "career.dj",
+   "moves": [
+    "ability.vuvuzela-blast",
+    "ability.braai"
+   ],
+   "personality": "personality.chaotic",
+   "lines": [
+    "Sharp sharp!",
+    "Ayoba!",
+    "Is it? Is it?",
+    "Braai's on!"
+   ],
+   "art": {
+    "color": "#007749",
+    "icon": "📯"
+   },
+   "flag": "za",
+   "tzMin": 120,
+   "popM": 60,
+   "voice": {
+    "type": "deep",
+    "pitch": 1.05
+   },
+   "statBonus": -31
+  },
+  "KE": {
+   "persona": "npc.del-ke",
+   "name": "Wanjiru Marathon",
+   "career": "career.postal-worker",
+   "moves": [
+    "ability.marathon-pace",
+    "ability.final-kick"
+   ],
+   "personality": "personality.competitive",
+   "lines": [
+    "Hakuna matata.",
+    "Pole pole. Then fast.",
+    "Just one more lap.",
+    "Sawa sawa!"
+   ],
+   "art": {
+    "color": "#006600",
+    "icon": "🏅"
+   },
+   "flag": "ke",
+   "tzMin": 180,
+   "popM": 55,
+   "voice": {
+    "type": "mid"
+   },
+   "statBonus": -10
+  },
+  "EG": {
+   "persona": "npc.del-eg",
+   "name": "Nour Nile",
+   "career": "career.museum-curator",
+   "moves": [
+    "ability.sandstorm",
+    "ability.sacred-scarabs"
+   ],
+   "personality": "personality.confident",
+   "lines": [
+    "Yalla!",
+    "Seven thousand years of practice.",
+    "Ya salam!",
+    "Mafeesh moshkela."
+   ],
+   "art": {
+    "color": "#ce1126",
+    "icon": "🐫"
+   },
+   "flag": "eg",
+   "tzMin": 120,
+   "popM": 113,
+   "voice": {
+    "type": "mid"
+   },
+   "statBonus": 23
+  },
+  "MA": {
+   "persona": "npc.del-ma",
+   "name": "Youssef Babouche",
+   "career": "career.hotel-concierge",
+   "moves": [
+    "ability.mint-tea-pour",
+    "ability.souk-haggle"
+   ],
+   "personality": "personality.greedy",
+   "lines": [
+    "Marhaba!",
+    "Mint tea? It's very hot.",
+    "Best price for you, my friend.",
+    "Shukran. For nothing."
+   ],
+   "art": {
+    "color": "#c1272d",
+    "icon": "🫖"
+   },
+   "flag": "ma",
+   "tzMin": 60,
+   "popM": 37,
+   "voice": {
+    "type": "mid"
+   },
+   "statBonus": 19
+  }
+ },
+ "anon": {
+  "persona": "npc.del-observer",
+  "name": "The Observer",
+  "career": "career.journalist",
+  "personality": "personality.paranoid",
+  "lines": [
+   "I'm only observing.",
+   "Noted.",
+   "No comment.",
+   "Off the record..."
+  ],
+  "art": {
+   "color": "#6b7280",
+   "icon": "🗒️"
+  }
+ },
+ "referee": {
+  "persona": "npc.madam-chair",
+  "name": "Madam Chair"
+ },
+ "events": {
+  "gapTicks": [
+   600,
+   1100
+  ],
+  "firstTick": 400,
+  "list": [
+   {
+    "id": "hazard.coffee-break",
+    "weight": 3,
+    "telegraphTicks": 60,
+    "zoneMm": [
+     7000,
+     4500
+    ],
+    "action": {
+     "spawn": {
+      "prop": "prop.coffee-cup",
+      "count": 3,
+      "dropFromMm": 5000
+     }
+    },
+    "art": {
+     "fx": "airdrop",
+     "activeTicks": 50
+    }
+   },
+   {
+    "id": "hazard.red-tape",
+    "weight": 3,
+    "telegraphTicks": 50,
+    "zoneMm": [
+     6500,
+     4500
+    ],
+    "action": {
+     "effects": [
+      {
+       "type": "energy",
+       "amount": -30
+      },
+      {
+       "type": "applyStatus",
+       "status": "status.slowed",
+       "durationTicks": 50
+      }
+     ]
+    },
+    "art": {
+     "fx": "gas",
+     "activeTicks": 80
+    }
+   },
+   {
+    "id": "hazard.interpreters-strike",
+    "weight": 3,
+    "telegraphTicks": 50,
+    "zoneMm": [
+     5500,
+     4000
+    ],
+    "action": {
+     "effects": [
+      {
+       "type": "applyStatus",
+       "status": "status.spooked",
+       "durationTicks": 70
+      },
+      {
+       "type": "applyStatus",
+       "status": "status.distracted",
+       "durationTicks": 40
+      }
+     ]
+    },
+    "art": {
+     "fx": "fud",
+     "activeTicks": 80
+    }
+   },
+   {
+    "id": "hazard.seating-plan",
+    "weight": 1,
+    "maxPerCandle": 1,
+    "telegraphTicks": 60,
+    "zoneMm": [
+     6000,
+     3500
+    ],
+    "action": {
+     "spin": {
+      "distanceMm": 3500,
+      "heightMm": 1800,
+      "landDamage": 8
+     }
+    },
+    "art": {
+     "fx": "rug",
+     "activeTicks": 40
+    }
+   }
+  ]
+ }
+}

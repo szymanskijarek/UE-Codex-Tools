@@ -28,6 +28,8 @@ const DEFS: Record<string, Omit<ArenaArt, 'url'> & { file: string }> = {
   'arena.hospital': { file: 'hospital', w: 1672, h: 941, floor: { top: 0.28, topHalf: 0.36, bottom: 0.86, bottomHalf: 0.38 } },
   'arena.museum': { file: 'museum', w: 1672, h: 940, floor: { top: 0.27, topHalf: 0.38, bottom: 0.82, bottomHalf: 0.4 } },
   'arena.airport': { file: 'airport', w: 1672, h: 941, floor: { top: 0.33, topHalf: 0.36, bottom: 0.84, bottomHalf: 0.4 } },
+  // The Summit Hall (09) borrows the office until its own painting arrives (art/incident/01-summit-hall.md).
+  'arena.summit-hall': { file: 'office', w: 1774, h: 887, floor: { top: 0.24, topHalf: 0.34, bottom: 0.8, bottomHalf: 0.47 } },
   'arena.trading-floor': { file: 'trading-floor', w: 1774, h: 887, floor: { top: 0.34, topHalf: 0.32, bottom: 0.84, bottomHalf: 0.42 } },
 };
 

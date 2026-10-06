@@ -219,7 +219,8 @@ export function validateBundle(b: ContentBundle): string[] {
     else if (!boss.boss) errors.push(`${a.id}: boss ${a.boss.career} is not marked boss: true`);
   }
   for (const p of b.personalities) if (p.ability) needAbility(p.id, p.ability, 'active');
-  for (const sy of b.synergies) for (const c of [sy.attacker, sy.victim]) if (!careers.has(c)) errors.push(`${sy.id}: unknown career ${c}`);
+  const marketPersonas = new Set(b.markets.flatMap((m) => [...Object.values(m.cast), m.anon].map((x) => x.persona)));
+  for (const sy of b.synergies) for (const c of [sy.attacker, sy.victim]) if (!careers.has(c) && !marketPersonas.has(c)) errors.push(`${sy.id}: unknown career or floor persona ${c}`);
   for (const m of b.masteries) {
     needAbility(m.id, m.passive, 'passive');
     for (const a of m.grantsAbilities) needAbility(m.id, a, 'active');

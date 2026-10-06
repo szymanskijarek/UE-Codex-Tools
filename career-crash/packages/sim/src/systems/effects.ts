@@ -346,8 +346,9 @@ export function push(w: World, e: Entity, ox: number, oy: number, forceMm: numbe
 // Career banter (02 §8.5): specific career pairings trigger lines and reactions
 // ---------------------------------------------------------------------------
 function banter(w: World, src: Entity, target: Entity, cause: number): void {
-  const aCareers = src.snap?.careers ?? [];
-  const vCareers = target.snap?.careers ?? [];
+  // Careers, and a persona (09: a country's delegate) for synergies of their own, like derbies.
+  const aCareers = src.snap?.persona ? [...src.snap.careers, src.snap.persona] : (src.snap?.careers ?? []);
+  const vCareers = target.snap?.persona ? [...target.snap.careers, target.snap.persona] : (target.snap?.careers ?? []);
   for (const ac of aCareers) {
     for (const sy of w.content.synergiesByAttacker.get(ac) ?? []) {
       if (!vCareers.includes(sy.victim)) continue;

@@ -530,8 +530,9 @@ export const liveSchema = z.object({ templates: z.record(z.string(), z.array(z.s
 /** Career-pair banter (and behaviour) triggered when one career hits another. */
 export const synergySchema = z.object({
   id: ref('synergy'),
-  attacker: ref('career'),
-  victim: ref('career'),
+  /** A career, or a persona (`npc.*`, 09: a country's delegate) for a pairing of their own such as a derby. */
+  attacker: z.union([ref('career'), ref('npc')]),
+  victim: z.union([ref('career'), ref('npc')]),
   speaker: z.enum(['attacker', 'victim']),
   lines: z.array(z.string()).min(1),
   chanceBp: bp,
@@ -708,6 +709,10 @@ const marketMemberSchema = z.object({
   /** Shouted as they walk on at the Opening Bell. */
   lines: z.array(z.string()).min(2),
   art: z.object({ color: z.string().regex(/^#[0-9a-f]{6}$/), icon: z.string().max(8) }),
+  /** Countries (09): the flag file (`flag-icons` name, e.g. `pl`, `gb-sct`), local time (minutes from UTC, for the Host seat) and population in millions (Punching Above Its Weight). */
+  flag: z.string().regex(/^[a-z]{2}(-[a-z]{3})?$/).optional(),
+  tzMin: int.min(-720).max(840).optional(),
+  popM: z.number().min(0).optional(),
   /** Evens out the borrowed careers (08 §5.3): stat points added or taken, tuned with `pnpm balance --markets-flat`. */
   statBonus: int.min(-40).max(40).optional(),
   /** How they sound (client only): a voice type, pitch and pace on top of their career's, and an effect (a barking dog, a croaking frog, a voice changer, auto-tune). */
@@ -722,6 +727,8 @@ const marketMemberSchema = z.object({
 });
 export const marketSchema = z.object({
   id: ref('market'),
+  /** Where the power comes from: hourly price changes (08, the default) or viewers' likes (09). */
+  source: z.enum(['prices', 'likes']).optional(),
   arena: ref('arena'),
   /** How many contenders fight at once. */
   field: int.min(2).max(12),
@@ -766,9 +773,41 @@ export const marketSchema = z.object({
     liquidatedTicks: int.min(20),
     /** Respawn shield. */
     shieldTicks: int.min(0),
+    /** A lobby (09 §4): how many fight at once, and how long a floored one stays down before the next walks on. */
+    seats: int.min(2).max(12).optional(),
+    walkOnTicks: int.min(1).optional(),
   }),
+  /**
+   * Likes → power and the lobby order (09 §4.2, §5). `spreadFloor` and `max` in
+   * `score` are then in hundredths of a log2 step (100 = twice the likes).
+   */
+  likes: z
+    .object({
+      /** Seconds of waiting one doubling of likes is worth in the lobby. */
+      lobbyBoostS: int.min(0),
+      /** Every n-th place in the lobby goes to a Wildcard: a country with fewer likes than the median. */
+      wildcardEvery: int.min(2),
+      /** A country whose score rose by at least this since the last session gets a SURGE. */
+      surgeAt: int.min(1),
+      /** Score given to a country nobody has liked yet. */
+      abstainScore: int,
+      /** Sample likes for the prototype page: a country's typical likes per hour is about `sampleBase` ÷ its rank. */
+      sampleBase: int.min(1),
+    })
+    .optional(),
+  /** Friendly rivalries (09 §8.6): in the listed UTC hours both have seats from the start, and their own banter (persona synergies). */
+  derbies: z
+    .array(
+      z.object({
+        id: z.string().regex(/^derby\.[a-z0-9-]+$/),
+        a: z.string(),
+        b: z.string(),
+        hours: z.array(int.min(0).max(23)).min(1),
+      }),
+    )
+    .optional(),
   /** Standings points (08 §5.3). */
-  points: z.object({ ko: int, liquidation: int, candle: int, damagePer: int.min(1), koed: int, liquidated: int }),
+  points: z.object({ ko: int, liquidation: int, candle: int, damagePer: int.min(1), koed: int, liquidated: int, secondsPer: int.min(1).optional() }),
   /** One persona per symbol, and one for any symbol without one. */
   cast: z.record(z.string(), marketMemberSchema),
   /** Renamed tickers that keep their persona (a coin's new symbol → the cast symbol). */

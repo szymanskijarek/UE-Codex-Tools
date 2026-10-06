@@ -3651,5 +3651,62 @@
   "hazard_start_rug-pull": [
    "RUG PULL! The carpet's gone, and so is everyone who stood on it.",
    "Somebody pulled the rug. The devs are already on a beach."
+  ],
+  "incident_opening": [
+   "🔨 The session is now in order. {first} has the floor.",
+   "🔨 Order! Order! The {hour} session of the Diplomatic Incident is open. {first} walks in first."
+  ],
+  "incident_open": [
+   "🔨 Session {v} is in order. {first} has the floor.",
+   "🔨 Back from recess. Session {v}. {first}, you have the floor.",
+   "🔨 Session {v}: the Chair calls the hall to order. Nobody listens."
+  ],
+  "incident_walkon": [
+   "{flag} {country} has entered the chamber.",
+   "{flag} {name} ({country}) takes the empty seat and immediately sits on someone's lanyard.",
+   "{flag} The doors open: {country} is on the floor.",
+   "{flag} {country} walks on to polite, nervous applause."
+  ],
+  "incident_out": [
+   "{flag} {country} has been escorted out by Summit Security.",
+   "{flag} {country}'s flag is lowered. They'll be back after a sandwich.",
+   "{flag} {country} has left the chamber, against their will."
+  ],
+  "incident_recess": [
+   "🔨 Recess! {country} takes the session.",
+   "🔨 The Chair calls a short recess. Session to {country}.",
+   "🔨 Recess. The minutes record a session win for {country}."
+  ],
+  "incident_closing": [
+   "🏛️ RESOLUTION PASSED: {country} wins the hour. {last} will carry the minutes.",
+   "🏛️ The hour goes to {country}. {last} has been asked to tidy the chairs."
+  ],
+  "incident_surge": [
+   "📈 SURGE: {country}'s likes have shot up. {name} has removed their jacket.",
+   "📈 {country} is surging! The lobby can feel it."
+  ],
+  "incident_derby": [
+   "⚔️ DERBY HOUR: {a} and {b} are both in the chamber. Somebody fetch the Chair.",
+   "⚔️ It's a derby! {a} vs {b}, old friends, old rivals, same tea urn."
+  ],
+  "incident_liked": [
+   "👍 You liked {country}. It counts from the next session.",
+   "👍 Noted in the minutes: you back {country}."
+  ],
+  "hazard_start_coffee-break": [
+   "COFFEE BREAK! The catering trolleys roll in.",
+   "Coffee break! Pastries are being thrown. Some of them on purpose."
+  ],
+  "hazard_start_red-tape": [
+   "RED TAPE! A corner of the hall is cordoned off. Everything there takes twice as long.",
+   "Red tape everywhere. Please fill in a form before moving."
+  ],
+  "hazard_start_interpreters-strike": [
+   "The interpreters have walked out. Nobody understands anybody.",
+   "INTERPRETERS' STRIKE! Everyone in that corner is suddenly very confused."
+  ],
+  "hazard_start_seating-plan": [
+   "SEATING PLAN RESHUFFLE! Protocol has moved everybody. Forcefully.",
+   "The seating plan has changed. Everyone on the carpet gets a new seat, mid-air."
   ]
 }

@@ -1,6 +1,8 @@
 # 09 — Diplomatic Incident (design v0.1)
 
-Status: **design only, nothing built.** A second endless floor, after Crypto
+Status: **phase 1 built** (offline prototype, §14): 40 countries, the lobby,
+likes (sample plus your own, in your browser), England–Scotland derby hours,
+the page at `/incident/`. Owner decisions are in §13. A second endless floor, after Crypto
 Bros (08), at **careercrash.org/incident**: a brawl between countries that
 never stops. Each country sends a delegate. Ten of them are on the floor at a
 time, and when one is knocked out the next country in the lobby takes their
@@ -23,8 +25,8 @@ crowd something to do.
 
 ### Name
 
-**Diplomatic Incident** (short form *the Incident*, `#DiplomaticIncident`). It
-is satire of summits and protocol, not of peoples, and every knockout *is* one.
+**Diplomatic Incident** (decided; short form *the Incident*,
+`#DiplomaticIncident`). Every knockout *is* one.
 Other names considered: *Summit Smash*, *Flag Fight*, *Border Brawl*, *United
 Nations of Punch*, *Countryball Royale*. The URL is `/incident`, and each
 country gets its own: `/incident/pl`.
@@ -35,7 +37,7 @@ country gets its own: `/incident/pl`.
   liked is stronger on screen, and you can see the like arriving (§5.4). That
   feedback loop is what makes people come back.
 - **Every country gets screen time, every hour.** About 270 delegates walk on
-  in an hour (§4.3), so all ~195 countries get onto the floor at least once.
+  in an hour (§4.3), so every country (40 to start, ~195 eventually) gets onto the floor at least once.
   Likes decide **how long they last**, not whether they appear. "Your country
   is on in 3 minutes" is a reason to share.
 - **Popular usually wins, small can win.** The most-liked country wins the
@@ -47,9 +49,11 @@ country gets its own: `/incident/pl`.
 - **Everyone sees the same fight.** Deterministic from the session input and
   the clock, as in 08. Likes only change the fight at the 5-minute seams, so
   determinism holds.
-- **Satire of institutions, never of peoples.** Delegates are bureaucrats in
-  mascot heads. The jokes are about summits, catering and protocol. No
-  stereotypes, no real politics, no real people (§9).
+- **Pride in difference.** Each delegate wears a loving version of their
+  country's national dress and fights with a signature move from its
+  culture: a caber toss, a flamenco zapateado, a Muay Thai elbow. Celebrated,
+  never mocked: everyone is the hero of their own fans. No real politics, no
+  real people (§9).
 - **The house privacy promise holds.** No cookies, accounts, tracking or
   third-party scripts. A like needs a random token and a one-off proof of
   work (§6).
@@ -130,7 +134,7 @@ silent country still shows up, it just doesn't last.
 ### 4.3 How much screen time that gives
 
 Crypto Bros measures about 23 knockouts per 5-minute candle with ten fighters.
-That's ~270 walk-ons an hour against ~195 countries, so every country gets on
+That's ~270 walk-ons an hour (measured: ~26 a session, ~310 an hour) against 40 countries now and ~195 eventually, so every country gets on
 at least once an hour with room to spare, and well-liked ones stay on longer
 and come back sooner. Phase 1 (§12) measures it, and the balance run checks
 it (§11): **every country on the floor at least once per hour in ≥ 99% of
@@ -178,7 +182,7 @@ likes: the underdog wins the tie.
 
 - **One like per country, per viewer, per hour.** A viewer can like as many
   countries as they want, each once. Likes reset at :00.
-- **Likes are not exclusive.** Liking all 195 countries changes nothing,
+- **Likes are not exclusive.** Liking every country changes nothing,
   because power is relative to the field (§5.2). That's what makes a like a
   choice without forcing anyone to pick only one.
 - **No dislikes.** A "boo" or "sanction" vote turns countries into targets of
@@ -383,10 +387,10 @@ the moment:
 - Low on likes: "Poland has 12 likes this hour. Twelve. 👉 …"
 
 It uses the Web Share API on phones and copy-to-clipboard elsewhere. Each
-country page has its own **preview card** (Open Graph image): the flagball
+country page has its own **preview card** (Open Graph image): the country's
 delegate mid-punch, the country's name and the line "Your country needs you."
 In phase 3 these are pre-rendered at build time into
-`dist-web/incident/<cc>/` (195 static HTML pages plus 195 images, a few MB).
+`dist-web/incident/<cc>/` (one static HTML page and image per country, a few MB).
 In phase 5, a Worker draws a live card ("#3 this hour") at the edge.
 
 ### 8.2 Moment links: "Did you see that?"
@@ -420,7 +424,7 @@ easiest shareable in the game, and different every time.
 ### 8.5 The Passport
 
 Every like stamps a page in your **Diplomatic Passport** (local storage only):
-195 stamps, with gold stamps for liking a country in an hour it won, and
+one stamp per country, with gold stamps for liking a country in an hour it won, and
 visa-style badges ("Liked all of the Pacific Islands", "Liked a Wildcard that
 went on to win", "Present at 24 Closing Ceremonies"). The passport is a
 shareable image too. It rewards spreading likes around, which keeps the board
@@ -428,11 +432,17 @@ friendly rather than tribal.
 
 ### 8.6 Rivalry hours and tournaments
 
-- **Derby hours:** scheduled hours where two neighbours or old sporting rivals
-  have reserved seats and a "derby" banner (a curated, opt-in list of
-  friendly rivalries: Australia–New Zealand, Argentina–Brazil,
-  Spain–Portugal, England–Scotland-style football derbies). Never pairs with
-  a live conflict (§9.3).
+- **Derby hours, a synergy special event** (decided; built for
+  England–Scotland, §14): in the derby's hours (`derbies` in
+  `countries.json`, England–Scotland every third hour), both sides start on
+  the floor and **keep their seats all hour** (floored, they come straight
+  back instead of queueing), they're each other's rivals (the AI goes for
+  them first), and hits between them fire their **own banter**: a persona
+  synergy (`synergies/derbies.json`) that shouts a derby line and leaves the
+  one who got hit `pumped`. A ⚔️ DERBY banner opens each session. Next
+  derbies to add, all friendly sporting rivalries: Australia–New Zealand,
+  Argentina–Brazil, Spain–Portugal, USA–Canada, Norway–Sweden,
+  Netherlands–Belgium, England–Wales. Never a pair with a live conflict (§9.3).
 - **Weekly Summit (Sunday 18:00 UTC):** a 64-country knockout bracket over 6
   hours, seeded by the week's influence, each round a 5-minute floor of 8.
   The bracket fills a page, and the final is an event worth announcing.
@@ -466,70 +476,90 @@ chip. The Incident's footer links both.
 
 ## 9. The cast and content rules
 
-### 9.1 Delegates: flagball mascots in suits
+### 9.1 Who's in: 40 countries to start (decided)
 
-Each country's delegate is a **mascot**: a round ball head painted in the
-country's flag with cartoon eyes and brows (the countryballs meme is the
-shorthand, in Career Crash's own style), on a delegate body: a suit, a
-lanyard, and a sash in the flag's colours.
+The biggest and most-followed countries, avoiding controversy for now. The
+UK plays as its nations, because that's how its fans support it and it
+makes the derbies:
 
-This choice carries the whole mode:
+| Region | Countries |
+|---|---|
+| UK and Ireland | England, Scotland, Wales, Ireland |
+| Europe | France, Germany, Italy, Spain, Portugal, Netherlands, Belgium, Switzerland, Austria, Poland, Sweden, Norway, Denmark, Greece |
+| Americas | United States, Canada, Mexico, Brazil, Argentina, Colombia, Chile, Jamaica |
+| Asia–Pacific | Japan, South Korea, India, Indonesia, Philippines, Vietnam, Thailand, Australia, New Zealand |
+| Africa | Nigeria, South Africa, Kenya, Egypt, Morocco |
 
-- **No skin tones, faces or costumes standing in for a people.** A flag is a
-  symbol each country chose for itself.
-- **Art scales to ~195 countries for the price of one.** One body sheet in a
-  neutral grey suit, plus one **eyes sheet** with the four emotions
-  (neutral, angry, surprised, hurt). At runtime the client draws the flag
-  (from an SVG set) into a circle, lays the eyes over it, and tints the sash
-  and tie from the flag's two main colours. Nothing per country to paint, and
-  it costs ~0 KB per country in the atlas.
-- **Flags:** the MIT-licensed `flag-icons` SVG set (bundled, ~1 MB total,
-  loaded per country on demand). Emoji flags don't render on Windows, so
-  they're only used in share texts.
-- **Body types:** 3 body sheets (tall, average, round), assigned by a hash of
-  the country code, so the floor doesn't look cloned.
+**Held back for now** (owner's call to add later): Israel, Palestine, Russia,
+Ukraine, China, Taiwan, Iran, North Korea, Pakistan, Turkey. **Northern
+Ireland** is held until its flag is settled: it has no official flag, and the
+Ulster Banner that flag sets use is contested.
 
-### 9.2 Moves: postings, not national traits
+Keys are ISO codes (`PL`), with `ENG`, `SCO` and `WAL` for the UK nations.
+Names come from `Intl.DisplayNames` in the viewer's language (fixed English
+names for the three nations).
 
-No country gets moves based on what it's "like". Each delegate is given a
-**posting** for the day: one of eight summit jobs, assigned by a hash of
-(country, date), so everyone rotates through them. Each posting is an existing
-career's moveset (as the bros borrow careers) plus one signature summit move:
+### 9.2 Delegates: national dress, with pride (decided)
 
-| Posting | Fights as | Signature move |
-|---|---|---|
-| Interpreter | Teacher | **Lost in Translation**: target `lectured`, its next ability fizzles |
-| Minute-Taker | Accountant | **Strongly Worded Letter**: a paper projectile, knockback |
-| Protocol Officer | Security Guard | **Red Carpet**: a carpet yank, everyone on it trips |
-| Press Attaché | Journalist | **No Comment**: blocks the next hit and taunts |
-| Catering Liaison | Chef | **Canapé Barrage**: thrown food props |
-| Head of Security | Police Officer | **Escort Out**: a grapple, thrown towards the doors |
-| Intern | Delivery Driver | **Wrong Room**: a dash that ends somewhere random |
-| Envoy | Life Coach | **Photo Op**: pulls everyone near into a handshake stun |
+Each country's delegate is its own character, with its own body and heads,
+dressed in a recognisable, affectionate version of the country's
+traditional or iconic dress, with a summit lanyard on top: a góral
+highlander for Poland, lederhosen for Germany, a mariachi charro with a
+poncho for Mexico, a kilt and tam o' shanter for Scotland, a bowler hat and
+umbrella for England, a flamenco dress for Spain, an áo dài and nón lá for
+Vietnam, an agbada for Nigeria. Bodies and faces look like someone from that
+country, with natural skin tones and hair, in the same friendly cartoon
+proportions for everyone. The full art rules (celebrate, don't mock; no
+caricatured features; no sacred dress; no military uniforms) are in
+`career-crash/art/incident/README.md`, and every delegate's costume is
+written out in the batch briefs there.
 
-Plus three shared moves every delegate can use: **Veto** (interrupts an
-ability being channelled), **Sanctions** (`slowed` + energy drain) and
-**Walkout** (a dash away at low health). All of these are built from
-existing effects, with no ★ engine work (balance check in §11).
+Until a delegate's art arrives they borrow a career's body that fits
+(England a train conductor, Scotland a builder, Poland a carpenter…), as the
+Crypto Bros did.
 
-### 9.3 Content rules (hard)
+### 9.3 Country moves (decided)
 
-- **Countries:** the ISO 3166-1 list of sovereign states plus the two UN
-  observer states (**owner decision on disputed entries**, §13). Names come
-  from `Intl.DisplayNames`, so the browser's own naming is used.
-- **No real people:** no leaders, politicians or celebrities, and no
-  look-alikes or names that point at them.
-- **No politics, wars, history, religion, ethnicity, borders, disasters or
-  national stereotypes** in any text, art, move or event. Jokes are about
-  summits: catering, protocol, seating plans, translation, minutes, photos,
-  lanyards.
+Every delegate has **two signature moves from their culture**, on top of the
+borrowed career's moveset, all built from existing effects (80 abilities in
+`abilities/incident.json`). A sample:
+
+| Country | Moves |
+|---|---|
+| England | **Orderly Queue** (everyone nearby slowed and embarrassed) · **Tea Break** (heal + caffeinated) |
+| Scotland | **Caber Toss** (a long throw) · **Bagpipe Lament** (spooks everyone nearby) |
+| Poland | **Ciupaga Swing** (the highlander's axe-stick, flat side) · **Pierogi Power** (heal + armour) |
+| Germany | **Schuhplattler** (slap-dance stun) · **Punctuality** (armour + caffeine) |
+| Mexico | **Luchador Plancha** (off a conference table) · **Mariachi Serenade** |
+| Spain | **Zapateado** (flamenco footwork stun) · **Siesta** (heal at low health) |
+| Canada | **Sorry!** (the target forgets to hit back) · **Goose Patrol** (two geese) |
+| Japan | **Deep Bow** (into someone's chin) · **Karaoke Encore** |
+| South Korea | **Idol Choreography** · **Fan Chant** (three superfans) |
+| Thailand | **Muay Elbow** · **Tuk-Tuk** |
+| Nigeria | **Jollof Wars** · **Afrobeats Groove** |
+| Egypt | **Sandstorm** · **Sacred Scarabs** (two scarabs) |
+
+Each also has four catchphrases shouted on walk-on ("Mind the queue.",
+"Och, come here!", "Pierogi first, then we fight."). Bodies were evened out
+with `statBonus` so no culture is simply better (§11).
+
+### 9.4 Content rules (hard)
+
+- **Celebrate, don't mock.** National dress, sports, food and music are
+  shown with affection; the slapstick is in the fight, never in who someone
+  is. No caricatured features.
+- **No real people:** no leaders, politicians, royals, athletes or
+  celebrities, and no look-alikes or names that point at them.
+- **No politics, wars, borders, religion or disasters** in any text, art,
+  move or event. No sacred dress or ceremonies (no haka), no military
+  uniforms, no weapons beyond folk-sports props (a caber, a hurley, a
+  ciupaga drawn blunt).
 - **No user-written text anywhere.** No chat, no names, no messages. There is
   nothing to moderate except the numbers.
-- **Sensitive pairs:** `countries.json` → `quietPairs`, a list of country
-  pairs (active conflicts, recent disputes) between which rivalry posts,
-  derby hours and "X knocked out Y" headlines are **never** generated. The
-  fight still happens (removing them would itself be a statement), but the
-  feed stays generic ("A delegate has been escorted out."). Reviewed monthly.
+- **Sensitive pairs:** `quietPairs` (phase 2), a list of country pairs between
+  which rivalry posts, derby hours and "X knocked out Y" headlines are
+  **never** generated. Reviewed monthly, and checked whenever a country is
+  added.
 - **Kill switches** (§6.3) for rivalry text, likes and the whole page.
 
 ## 10. Text and posts
@@ -560,16 +590,23 @@ distributions: flat, power-law (a few giants), one brigade, two rivals,
 
 | Target | Value |
 |---|---|
-| Most-liked country wins the hour | **55–70%** |
-| Most-liked country in the top 3 | ≥ 85% |
-| A Wildcard wins at least one session | in ~1 hour of 3 |
-| Every country on the floor at least once | ≥ 99% of hours |
-| Every posting within ±20% of an even share (flat likes) | `pnpm balance --incident-flat` |
-| Knockouts per session | 18–30 |
-| 10× likes vs another country | wins their 1v1 ~70% of the time, not 99% |
+| Target | Value | Measured (phase 1) |
+|---|---|---|
+| Most-liked country wins the hour | 40–60% with 40 countries (was 55–70% for a smaller field) | **43%** (40 hours) |
+| Most-liked country in the top 3 | ≥ 85% | **90%** |
+| The hour's winner is one of the 5 most-liked | ≥ 90% | **100%** |
+| Every country on the floor at least once | ≥ 99% of hours | **100%** |
+| Every delegate within ±25% of an even share (flat likes) | `pnpm balance --incident-flat` | **0.84–1.17** (96 sessions) |
+| Knockouts per session | 18–30 | **~25** |
 
-The score is log-scaled with `lobbyBoost` and the power swing in
-`countries.json`. Tune the swing before the curve.
+Why the first target moved: with 1/rank likes, the top two or three
+countries are all strong, and in a 40-country field one of them nearly
+always wins. The country with the most likes winning outright 4 hours in 10,
+and the top five winning every hour, keeps "your like matters" true while
+leaving room for upsets. Power: ±20 levels and ±300 stat points at score ±3
+(`countries.json` → `power`, `score.max`). The lobby churns completely
+every session (about 26 walk-ons against 30 waiting), so likes act through
+power, not queue position.
 
 ## 12. Implementation plan
 
@@ -577,13 +614,14 @@ Each phase ends with `pnpm check`, screenshots of the page (Playwright,
 `pnpm dev:client`), and a short report. Nothing goes to prod without the
 owner's yes.
 
-### Phase 0: decisions (this document)
+### Phase 0: decisions ✅
 
-Settle §13: the name, the country list, the Turnstile stance and the derby
-list. Write the art brief (`career-crash/art/incident/INCIDENT_BRIEF.md`, in
-the style of `FX_BRIEF.md`) so the art arrives while phase 1 runs.
+Settled (§13). The art briefs are in `career-crash/art/incident/`, in small
+batches of ten so the image agent isn't overwhelmed.
 
-### Phase 1: offline prototype (no votes)
+### Phase 1: offline prototype (no votes) ✅ (as built: §14)
+
+The plan as written, kept for the record; §14 says where the build differs.
 
 | Work | Where |
 |---|---|
@@ -618,8 +656,8 @@ to a GIF-like image strip).
 
 ### Phase 4: art, sound and life
 
-Summit Hall backdrop and obstacles (intact/damaged/destroyed), 3 delegate body
-sheets, eyes sheet, the Chair, the gatecrasher sets, critter/mover art for the
+Summit Hall backdrop and obstacles (intact/damaged/destroyed), 40 delegate body
+sheets and heads (in batches of ten: `career-crash/art/incident/`), the Chair, the gatecrasher sets, critter/mover art for the
 events (trolley, motorcade), FX (gavel, flag lowering, stamp, SURGE). Two Summit
 songs (`music.ts`, a calm one and a "landslide" one when one country holds
 > 30% of likes). Delegate voices from `voices.ts`, pitch and pace hashed per
@@ -643,20 +681,35 @@ cross-promos.
 | 4 | 2 + art | Art turnaround |
 | 5 | 3 | Tournament scheduling |
 
-## 13. Open questions (owner decisions)
+## 13. Owner decisions (6 October 2026)
 
-1. **The name.** *Diplomatic Incident* proposed; alternatives in the intro.
-2. **Which countries.** ISO 3166-1 sovereign states plus UN observers is the
-   proposal. Disputed and partially recognised entries (e.g. Taiwan, Kosovo,
-   Western Sahara) need a deliberate yes or no. Whatever is chosen, say it on
-   the page ("the list follows ISO 3166-1").
-3. **Turnstile.** Off by default with PoW, on as an emergency switch
-   (proposed), or always on (stronger, but breaks "no third-party scripts").
-4. **Likes per viewer.** One per country per hour as briefed. Alternatives:
-   one *total* per hour (a stronger choice, less to stand on for small
-   countries), or a budget of 3.
-5. **The derby list** (§8.6): which friendly rivalries, if any.
-6. **Late joins.** Should a country be able to "skip the queue" if its likes
-   jump? (Proposed: no, only the gentle lobby boost.)
-7. **Monetisation:** none proposed. If ever, cosmetic only (03 §6), never
-   likes or power.
+1. **Name:** *Diplomatic Incident*.
+2. **Countries:** 40 to start (§9.1), the biggest and most popular, avoiding
+   controversy (no Israel for now, and the others held back in §9.1). The UK
+   plays as its nations; England and Scotland are the MVP.
+3. **Character design:** national dress and visible national traits,
+   portrayed with respect and pride, plus country-specific moves (§9.2–9.3).
+   The flagball-mascot idea is dropped.
+4. **Derbies:** yes, as a synergy special event (§8.6), England–Scotland first.
+5. **Likes per viewer:** one per country per hour, as proposed.
+6. **Turnstile:** off. Proof of work and soft caps only (§6.3).
+7. Still open: whether a country can skip the queue on a like surge
+   (proposed no), the list of further derbies, and when to add held-back
+   countries.
+
+## 14. As built (phase 1)
+
+| Piece | State |
+|---|---|
+| Page `/incident/` | `apps/client/incident/index.html` → `dist-web/incident/`, entry `src/incident/`. Like bar (your country, likes this hour, likes arriving at the next seam, 👍 Like, 📣 Send help with a ready-made message, 🎥 follow with the camera, search in your language), the chamber strip (ten on the floor with health), the floor, the lobby (next 12, ETA, 🃏 Wildcards), this hour's standings by influence, session clock, communiqués feed, Opening and Closing Ceremony, Recess, SURGE and DERBY banners. Your country is guessed from your browser language (`en-GB` → England), never from location. `?c=pl` follows a country; `?t=` pins the clock as on Crypto Bros. |
+| Lobby (sim) | `EndlessInput.seats`, `walkOnTicks` and `resident`: the first ten teams start, the rest queue; a floored delegate is escorted out after 4 s and the next walks on with a shield and their Mandate; residents (derby sides) re-list in place. `walkon` event. `SIM_VERSION` 0.18.0; ordinary fights and crypto floors unchanged (all goldens matched). |
+| Persona synergies (sim) | Synergies can name a persona (`npc.*`) as well as a career, so two delegates can have banter of their own (the derby). |
+| Likes → power | `game-rules/src/incident.ts`: integer log2 (identical in every browser), score against the median of liked countries, clamped ±3; Mandate at +1.5, Abstained (no likes) at −2; host seat (local time nearest 20:00), Wildcard every third lobby place, derby pair first. |
+| Likes (prototype) | Other viewers' likes are a seeded sample that grows through the hour (`sampleTally`); yours are kept in this browser only, one per country per hour, and count from the next session, exactly as the real service will. Phase 2 replaces the sample with the vote service. |
+| Sessions | Each session is lined up from the likes frozen at its start (a fresh seeded lobby order each session), not carried over from the previous session's end: a joining viewer only simulates the current session (0.5–0.75 s in headless Chromium). Carrying the floor across seams waits for the vote service, which will publish each session's input (§5.3). |
+| Cast | 40 delegates (`markets/countries.json`, `npc.del-<key>`), each with a borrowed career, two moves (`abilities/incident.json`), four catchphrases, colour, flag, time zone and population. The Observer stands in for countries without a delegate; Madam Chair referees. |
+| Arena | `arena.summit-hall`, `marketOnly`, the Office's layout and backdrop until the Summit Hall art arrives. Scene events: Coffee Break, Red Tape, Interpreters' Strike, Seating Plan Reshuffle. |
+| Flags | `flag-icons` 7.5.0 (MIT), the 40 SVGs copied to `apps/client/src/incident/flags/`; drawn in the page and beside each delegate's name tag (`BattleRenderer.setBadges`). |
+| Balance | `pnpm balance --incident` and `--incident-flat` (§11). |
+| Code shape | No `floors.ts` split: `incident.ts` reuses `markets.ts` (clock, scene events, fighters) directly, and the market schema gained `source: 'likes'`, `likes`, `derbies`, `candle.seats`/`walkOnTicks` and per-delegate `flag`/`tzMin`/`popM`. |
+| Not yet | The vote service (phase 2), sharing beyond the share button (phase 3), the art (briefs ready), music of its own (it plays the Office song), gatecrasher sets, Punching Above Its Weight board, Rewind picker. |

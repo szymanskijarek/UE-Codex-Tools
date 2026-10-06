@@ -3,7 +3,7 @@ import type { ContentIndex } from './content';
 import type { Rng } from './core/rng';
 import type { NavGrid } from './systems/nav';
 
-export const SIM_VERSION = '0.17.0';
+export const SIM_VERSION = '0.18.0';
 export const TICKS_PER_SECOND = 20;
 export const MAX_TICKS = 2400;
 export const ENTITY_CAP = 256;
@@ -96,6 +96,16 @@ export interface EndlessInput {
   referee?: { name: string; persona: string };
   /** Scene events (08 §6), rolled for the candle from the market's mood. */
   events?: EndlessEvent[];
+  /**
+   * The lobby (09 §4): only the first `seats` teams start on the floor; the
+   * rest wait in order. A knocked-out fighter is escorted out after
+   * `walkOnTicks`, the next team in the lobby walks on at their spot, and the
+   * one who left goes to the back. Without `seats` everyone re-lists in place.
+   */
+  seats?: number;
+  walkOnTicks?: number;
+  /** Teams that keep their seat (09 §8.6, a derby's two sides): floored, they re-list in place instead of leaving. */
+  resident?: number[];
 }
 
 /** A scene event on an endless floor: a hazard action over a region and/or a creature crossing the floor. */
@@ -188,6 +198,8 @@ export type EventType =
   | 'relist'
   /** Endless floors: a leveraged fighter was knocked out (a = who did it, b = them). */
   | 'liquidated'
+  /** Endless floors with a lobby (09 §4): a = who walked on, b = who was escorted out, v = their team. */
+  | 'walkon'
   | 'battleEnd';
 
 export interface BattleEvent {
@@ -397,6 +409,8 @@ export interface World {
   /** Gatecrashers: their side (one past the last real team), and whether they've come in. */
   crashTeam: number;
   crashed: boolean;
+  /** Endless floors with a lobby (09 §4): teams waiting to walk on, in order. */
+  lobby: number[];
   refereeId: number;
   suddenDeathTick: number;
   hazardNext: number[];

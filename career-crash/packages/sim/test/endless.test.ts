@@ -83,4 +83,59 @@ describe('endless floors (08)', () => {
     expect(b.resultHash).toBe(a.resultHash);
     expect(c.resultHash).not.toBe(a.resultHash);
   });
+
+  it('with a lobby, the floored are escorted out and the next team in line walks on (09 §4)', () => {
+    const rng = Rng.fromSeed('lobby-1');
+    const teams = Array.from({ length: 12 }, (_, i) => randomTeam(bundle, rng, 1, `d${i}-`));
+    const base = floor('lobby-1');
+    const input: BattleInput = { ...battleInput(bundle, 'lobby-1', teams, 'arena.office', 'ffa'), endless: { ...base.endless!, ticks: 2400, seats: 6, walkOnTicks: 60 } };
+    const b = createBattle(input, bundle);
+    const onFloor = () => b.world.entities.filter((e) => !e.removed && e.kind === 'char' && e.summonOf < 0 && e.team >= 0 && e.team < teams.length);
+    expect(new Set(onFloor().map((e) => e.team))).toEqual(new Set([0, 1, 2, 3, 4, 5]));
+    const order: number[] = [];
+    let walkOns = 0;
+    while (!b.done()) {
+      const before = b.world.events.length;
+      b.step();
+      for (const e of b.world.events.slice(before)) {
+        if (e.type === 'relist') throw new Error('nobody re-lists in place while the lobby has someone waiting');
+        if (e.type !== 'walkon') continue;
+        walkOns++;
+        order.push(e.v);
+        const gone = b.world.byId.get(e.b)!;
+        expect(gone.removed).toBe(true);
+        const ent = b.world.byId.get(e.a)!;
+        expect(ent.team).toBe(e.v);
+        expect(ent.hp).toBe(ent.maxHp);
+      }
+      // Never more on the floor than there are seats, and never two of one team.
+      const fl = onFloor();
+      expect(fl.length).toBeLessThanOrEqual(6);
+      expect(new Set(fl.map((e) => e.team)).size).toBe(fl.length);
+    }
+    expect(walkOns).toBeGreaterThanOrEqual(6);
+    // The lobby is first come, first served: teams 6..11 walk on first, in order.
+    expect(order.slice(0, 6)).toEqual([6, 7, 8, 9, 10, 11]);
+  });
+
+  it('residents keep their seat: floored, they re-list in place', () => {
+    const rng = Rng.fromSeed('lobby-3');
+    const teams = Array.from({ length: 10 }, (_, i) => randomTeam(bundle, rng, 1, `f${i}-`));
+    // The two residents are the frailest on the floor, so they go down.
+    for (const t of teams.slice(0, 2)) t.characters[0]!.stats = { ...t.characters[0]!.stats, health: 1, strength: 1 };
+    const input: BattleInput = { ...battleInput(bundle, 'lobby-3', teams, 'arena.office', 'ffa'), endless: { ...floor('lobby-3').endless!, ticks: 2400, seats: 5, walkOnTicks: 60, resident: [0, 1] } };
+    const out = simulate(input, bundle);
+    const residents = new Set(out.events.filter((e) => e.type === 'spawn' && (e.v === 0 || e.v === 1)).map((e) => e.a));
+    expect(out.events.some((e) => e.type === 'relist' && residents.has(e.a))).toBe(true);
+    expect(out.events.some((e) => e.type === 'walkon' && residents.has(e.b))).toBe(false);
+  });
+
+  it('a lobby floor is deterministic', () => {
+    const make = () => {
+      const rng = Rng.fromSeed('lobby-2');
+      const teams = Array.from({ length: 10 }, (_, i) => randomTeam(bundle, rng, 1, `e${i}-`));
+      return { ...battleInput(bundle, 'lobby-2', teams, 'arena.office', 'ffa'), endless: { ...floor('lobby-2').endless!, ticks: 1200, seats: 5, walkOnTicks: 60 } } as BattleInput;
+    };
+    expect(simulate(make(), bundle).resultHash).toBe(simulate(make(), bundle).resultHash);
+  });
 });

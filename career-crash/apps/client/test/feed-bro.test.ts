@@ -41,7 +41,7 @@ describe('crypto bro posts in the career feed (08)', () => {
       const bro = posts[at]!;
       expect(bro.link?.href).toBe('/cryptobro/');
       expect(bro.text).not.toMatch(/\{\w+\}/);
-      expect(bundle.markets[0]!.cast[bro.bro!]?.name).toBe(bro.author);
+      expect(bundle.markets.find((m) => m.id === 'market.crypto')!.cast[bro.bro!]?.name).toBe(bro.author);
     }
   });
 

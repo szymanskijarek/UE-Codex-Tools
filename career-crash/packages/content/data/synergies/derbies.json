@@ -1,0 +1,42 @@
+[
+ {
+  "id": "synergy.derby-eng-sco",
+  "attacker": "npc.del-eng",
+  "victim": "npc.del-sco",
+  "speaker": "victim",
+  "lines": [
+   "Is that all ye've got, Nigel?!",
+   "Ye've no' won anything since 1966!",
+   "I'll see ye at Hampden!",
+   "That's it. I'm telling Edinburgh."
+  ],
+  "chanceBp": 6000,
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.pumped",
+    "durationTicks": 120
+   }
+  ]
+ },
+ {
+  "id": "synergy.derby-sco-eng",
+  "attacker": "npc.del-sco",
+  "victim": "npc.del-eng",
+  "speaker": "victim",
+  "lines": [
+   "I say! That was hardly cricket!",
+   "It's coming home! Eventually!",
+   "I shall be writing to the Times.",
+   "Steady on, Hamish!"
+  ],
+  "chanceBp": 6000,
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.pumped",
+    "durationTicks": 120
+   }
+  ]
+ }
+]

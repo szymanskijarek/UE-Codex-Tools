@@ -8,6 +8,7 @@ import { summonReport } from './summons';
 import { runBalance, toMarkdown } from './run';
 import { recordMarkets } from './record-markets';
 import { flatReport, marketReport } from './markets';
+import { incidentFlatReport, incidentReport } from './incident';
 
 const args = new Map<string, string>();
 for (const a of process.argv.slice(2)) {
@@ -42,6 +43,16 @@ if (args.get('markets-flat') === 'true') {
 if (args.get('markets') === 'true') {
   // pnpm balance --markets [--hours=24] [--candles=6]: how often the hour's best coin wins it (08 §5.3).
   console.log(marketReport(bundle, { hours: Number(args.get('hours') ?? 24), candles: Number(args.get('candles') ?? 6) }));
+  process.exit(0);
+}
+if (args.get('incident-flat') === 'true') {
+  // pnpm balance --incident-flat [--sessions=96]: each country's strength with everyone liked the same (09 §11).
+  console.log(incidentFlatReport(bundle, Number(args.get('sessions') ?? 96)));
+  process.exit(0);
+}
+if (args.get('incident') === 'true') {
+  // pnpm balance --incident [--hours=12] [--sessions=6]: how often the most-liked country wins the hour (09 §11).
+  console.log(incidentReport(bundle, Number(args.get('hours') ?? 12), Number(args.get('sessions') ?? 6)));
   process.exit(0);
 }
 const mode = (args.get('mode') ?? 'duel_3v3') as BattleMode;

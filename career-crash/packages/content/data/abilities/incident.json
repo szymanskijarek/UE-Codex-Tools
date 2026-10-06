@@ -1,0 +1,2462 @@
+[
+ {
+  "id": "ability.orderly-queue",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 3200,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.slowed",
+    "durationTicks": 90
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.embarrassed",
+    "durationTicks": 40
+   },
+   {
+    "type": "damage",
+    "amount": 4,
+    "damageType": "social"
+   }
+  ]
+ },
+ {
+  "id": "ability.tea-break",
+  "kind": "active",
+  "cost": {
+   "energy": 20
+  },
+  "cooldownTicks": 360,
+  "castTicks": 10,
+  "targeting": {
+   "type": "self",
+   "rangeMm": 0
+  },
+  "aiHints": {
+   "goal": "support",
+   "aimAt": "self"
+  },
+  "effects": [
+   {
+    "type": "heal",
+    "amount": 22,
+    "toSelf": true
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.caffeinated",
+    "durationTicks": 120,
+    "toSelf": true
+   }
+  ]
+ },
+ {
+  "id": "ability.caber-toss",
+  "kind": "active",
+  "cost": {
+   "energy": 30
+  },
+  "cooldownTicks": 260,
+  "castTicks": 12,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 2200
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "toss",
+    "distanceMm": 4200,
+    "heightMm": 2200,
+    "direction": "away",
+    "landDamage": 13
+   }
+  ],
+  "commentaryTag": "grapple"
+ },
+ {
+  "id": "ability.bagpipe-lament",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 3400,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.spooked",
+    "durationTicks": 80
+   },
+   {
+    "type": "morale",
+    "amount": -12
+   }
+  ]
+ },
+ {
+  "id": "ability.scrum-down",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 6000
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "dash",
+    "distanceMm": 5000
+   },
+   {
+    "type": "damage",
+    "amount": 8,
+    "damageType": "blunt"
+   },
+   {
+    "type": "knockback",
+    "forceMm": 3000
+   },
+   {
+    "type": "knockdown",
+    "chanceBp": 4000
+   }
+  ]
+ },
+ {
+  "id": "ability.male-voice-choir",
+  "kind": "active",
+  "cost": {
+   "energy": 20
+  },
+  "cooldownTicks": 360,
+  "castTicks": 8,
+  "targeting": {
+   "type": "self",
+   "rangeMm": 0
+  },
+  "aiHints": {
+   "goal": "support",
+   "aimAt": "self"
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.inspired",
+    "durationTicks": 160,
+    "toSelf": true
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.armoured",
+    "durationTicks": 80,
+    "toSelf": true
+   }
+  ]
+ },
+ {
+  "id": "ability.hurley-swing",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 3000
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 11,
+    "damageType": "blunt"
+   },
+   {
+    "type": "knockback",
+    "forceMm": 2400
+   },
+   {
+    "type": "knockdown",
+    "chanceBp": 3000
+   }
+  ]
+ },
+ {
+  "id": "ability.luck-of-the-draw",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 6500
+  },
+  "aiHints": {
+   "goal": "control"
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.jinxed",
+    "durationTicks": 120
+   },
+   {
+    "type": "damage",
+    "amount": 3,
+    "damageType": "social"
+   }
+  ]
+ },
+ {
+  "id": "ability.baguette-riposte",
+  "kind": "active",
+  "cost": {
+   "energy": 20
+  },
+  "cooldownTicks": 160,
+  "castTicks": 4,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 5500
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "dash",
+    "distanceMm": 3500
+   },
+   {
+    "type": "damage",
+    "amount": 10,
+    "damageType": "sharp"
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.stunned",
+    "durationTicks": 10
+   }
+  ]
+ },
+ {
+  "id": "ability.general-strike",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 3600,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.slowed",
+    "durationTicks": 100
+   },
+   {
+    "type": "energy",
+    "amount": -25
+   }
+  ]
+ },
+ {
+  "id": "ability.schuhplattler",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 2800,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 8,
+    "damageType": "blunt"
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.stunned",
+    "durationTicks": 12
+   },
+   {
+    "type": "knockback",
+    "forceMm": 1800
+   }
+  ]
+ },
+ {
+  "id": "ability.punctuality",
+  "kind": "active",
+  "cost": {
+   "energy": 20
+  },
+  "cooldownTicks": 360,
+  "castTicks": 8,
+  "targeting": {
+   "type": "self",
+   "rangeMm": 0
+  },
+  "aiHints": {
+   "goal": "support",
+   "aimAt": "self"
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.armoured",
+    "durationTicks": 140,
+    "toSelf": true
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.caffeinated",
+    "durationTicks": 140,
+    "toSelf": true
+   }
+  ]
+ },
+ {
+  "id": "ability.the-gesture",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 6500
+  },
+  "aiHints": {
+   "goal": "control"
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.lectured",
+    "durationTicks": 80
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.embarrassed",
+    "durationTicks": 60
+   },
+   {
+    "type": "damage",
+    "amount": 5,
+    "damageType": "social"
+   }
+  ]
+ },
+ {
+  "id": "ability.espresso-shot",
+  "kind": "active",
+  "cost": {
+   "energy": 10
+  },
+  "cooldownTicks": 300,
+  "castTicks": 4,
+  "targeting": {
+   "type": "self",
+   "rangeMm": 0
+  },
+  "aiHints": {
+   "goal": "support",
+   "aimAt": "self"
+  },
+  "effects": [
+   {
+    "type": "energy",
+    "amount": 40,
+    "toSelf": true
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.caffeinated",
+    "durationTicks": 180,
+    "toSelf": true
+   }
+  ]
+ },
+ {
+  "id": "ability.zapateado",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 2800,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 7,
+    "damageType": "blunt"
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.stunned",
+    "durationTicks": 14
+   },
+   {
+    "type": "knockdown",
+    "chanceBp": 2500
+   }
+  ]
+ },
+ {
+  "id": "ability.siesta",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 400,
+  "castTicks": 12,
+  "targeting": {
+   "type": "self",
+   "rangeMm": 0
+  },
+  "aiHints": {
+   "goal": "support",
+   "aimAt": "self",
+   "selfHpBelowBp": 5000
+  },
+  "effects": [
+   {
+    "type": "heal",
+    "amount": 25,
+    "toSelf": true
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.regen",
+    "durationTicks": 120,
+    "toSelf": true
+   }
+  ]
+ },
+ {
+  "id": "ability.fado-lament",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 3400,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.distracted",
+    "durationTicks": 80
+   },
+   {
+    "type": "morale",
+    "amount": -15
+   }
+  ]
+ },
+ {
+  "id": "ability.pastel-de-nata",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 320,
+  "castTicks": 6,
+  "targeting": {
+   "type": "self",
+   "rangeMm": 0
+  },
+  "aiHints": {
+   "goal": "support",
+   "aimAt": "self"
+  },
+  "effects": [
+   {
+    "type": "heal",
+    "amount": 20,
+    "toSelf": true
+   },
+   {
+    "type": "morale",
+    "amount": 10
+   }
+  ]
+ },
+ {
+  "id": "ability.bike-lane",
+  "kind": "active",
+  "cost": {
+   "energy": 20
+  },
+  "cooldownTicks": 180,
+  "castTicks": 4,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 7500
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "dash",
+    "distanceMm": 7000
+   },
+   {
+    "type": "damage",
+    "amount": 9,
+    "damageType": "blunt"
+   },
+   {
+    "type": "knockdown",
+    "chanceBp": 5000
+   }
+  ]
+ },
+ {
+  "id": "ability.clog-stomp",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 140,
+  "castTicks": 6,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 2400
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 10,
+    "damageType": "blunt"
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.slowed",
+    "durationTicks": 60
+   }
+  ]
+ },
+ {
+  "id": "ability.waffle-iron",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 2600
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 10,
+    "damageType": "fire"
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.burning",
+    "durationTicks": 40,
+    "chanceBp": 4000
+   }
+  ]
+ },
+ {
+  "id": "ability.coalition-talks",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 260,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 6500
+  },
+  "aiHints": {
+   "goal": "control"
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.distracted",
+    "durationTicks": 120
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.slowed",
+    "durationTicks": 60
+   }
+  ]
+ },
+ {
+  "id": "ability.strict-neutrality",
+  "kind": "active",
+  "cost": {
+   "energy": 20
+  },
+  "cooldownTicks": 380,
+  "castTicks": 6,
+  "targeting": {
+   "type": "self",
+   "rangeMm": 0
+  },
+  "aiHints": {
+   "goal": "support",
+   "aimAt": "self"
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.armoured",
+    "durationTicks": 160,
+    "toSelf": true
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.regen",
+    "durationTicks": 120,
+    "toSelf": true
+   }
+  ]
+ },
+ {
+  "id": "ability.yodel",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 3600,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.spooked",
+    "durationTicks": 70
+   },
+   {
+    "type": "damage",
+    "amount": 4,
+    "damageType": "social"
+   }
+  ]
+ },
+ {
+  "id": "ability.viennese-waltz",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 3200,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "pull",
+    "forceMm": 2400
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.stunned",
+    "durationTicks": 14
+   },
+   {
+    "type": "damage",
+    "amount": 5,
+    "damageType": "blunt"
+   }
+  ]
+ },
+ {
+  "id": "ability.coffee-house",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 360,
+  "castTicks": 8,
+  "targeting": {
+   "type": "self",
+   "rangeMm": 0
+  },
+  "aiHints": {
+   "goal": "support",
+   "aimAt": "self"
+  },
+  "effects": [
+   {
+    "type": "heal",
+    "amount": 18,
+    "toSelf": true
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.caffeinated",
+    "durationTicks": 140,
+    "toSelf": true
+   }
+  ]
+ },
+ {
+  "id": "ability.ciupaga-swing",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 3000
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 12,
+    "damageType": "blunt"
+   },
+   {
+    "type": "knockback",
+    "forceMm": 2600
+   },
+   {
+    "type": "knockdown",
+    "chanceBp": 3500
+   }
+  ]
+ },
+ {
+  "id": "ability.pierogi-power",
+  "kind": "active",
+  "cost": {
+   "energy": 20
+  },
+  "cooldownTicks": 360,
+  "castTicks": 10,
+  "targeting": {
+   "type": "self",
+   "rangeMm": 0
+  },
+  "aiHints": {
+   "goal": "support",
+   "aimAt": "self"
+  },
+  "effects": [
+   {
+    "type": "heal",
+    "amount": 20,
+    "toSelf": true
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.armoured",
+    "durationTicks": 120,
+    "toSelf": true
+   }
+  ]
+ },
+ {
+  "id": "ability.some-assembly-required",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 6500
+  },
+  "aiHints": {
+   "goal": "control"
+  },
+  "effects": [
+   {
+    "type": "spawnProp",
+    "prop": "prop.cardboard-box",
+    "at": "target"
+   },
+   {
+    "type": "damage",
+    "amount": 7,
+    "damageType": "blunt"
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.distracted",
+    "durationTicks": 80
+   }
+  ]
+ },
+ {
+  "id": "ability.fika",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 340,
+  "castTicks": 8,
+  "targeting": {
+   "type": "self",
+   "rangeMm": 0
+  },
+  "aiHints": {
+   "goal": "support",
+   "aimAt": "self"
+  },
+  "effects": [
+   {
+    "type": "heal",
+    "amount": 18,
+    "toSelf": true
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.caffeinated",
+    "durationTicks": 160,
+    "toSelf": true
+   }
+  ]
+ },
+ {
+  "id": "ability.cross-country-ski",
+  "kind": "active",
+  "cost": {
+   "energy": 20
+  },
+  "cooldownTicks": 180,
+  "castTicks": 4,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 7500
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "dash",
+    "distanceMm": 6500
+   },
+   {
+    "type": "damage",
+    "amount": 8,
+    "damageType": "blunt"
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.cold",
+    "durationTicks": 90
+   }
+  ]
+ },
+ {
+  "id": "ability.polar-plunge",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 3000,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.wet",
+    "durationTicks": 120
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.cold",
+    "durationTicks": 90
+   }
+  ]
+ },
+ {
+  "id": "ability.hygge",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 3400,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.distracted",
+    "durationTicks": 90
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.slowed",
+    "durationTicks": 60
+   }
+  ]
+ },
+ {
+  "id": "ability.stray-brick",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 6000
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 9,
+    "damageType": "blunt"
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.stunned",
+    "durationTicks": 16
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.embarrassed",
+    "durationTicks": 40
+   }
+  ]
+ },
+ {
+  "id": "ability.plate-smash",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 3000,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "damage",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 8,
+    "damageType": "sharp"
+   },
+   {
+    "type": "knockback",
+    "forceMm": 2200
+   }
+  ]
+ },
+ {
+  "id": "ability.olympic-discus",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 10,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 8000
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 11,
+    "damageType": "blunt"
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.stunned",
+    "durationTicks": 12
+   },
+   {
+    "type": "knockback",
+    "forceMm": 1500
+   }
+  ]
+ },
+ {
+  "id": "ability.touchdown-tackle",
+  "kind": "active",
+  "cost": {
+   "energy": 30
+  },
+  "cooldownTicks": 260,
+  "castTicks": 6,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 6500
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "dash",
+    "distanceMm": 5500
+   },
+   {
+    "type": "toss",
+    "distanceMm": 1800,
+    "heightMm": 900,
+    "direction": "behind",
+    "landDamage": 10
+   }
+  ],
+  "commentaryTag": "grapple"
+ },
+ {
+  "id": "ability.supersize",
+  "kind": "active",
+  "cost": {
+   "energy": 20
+  },
+  "cooldownTicks": 380,
+  "castTicks": 8,
+  "targeting": {
+   "type": "self",
+   "rangeMm": 0
+  },
+  "aiHints": {
+   "goal": "support",
+   "aimAt": "self"
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.pumped",
+    "durationTicks": 120,
+    "toSelf": true
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.armoured",
+    "durationTicks": 80,
+    "toSelf": true
+   }
+  ]
+ },
+ {
+  "id": "ability.sorry",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 180,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 6000
+  },
+  "aiHints": {
+   "goal": "control"
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.distracted",
+    "durationTicks": 70
+   },
+   {
+    "type": "taunt",
+    "ticks": 40
+   },
+   {
+    "type": "damage",
+    "amount": 4,
+    "damageType": "social"
+   }
+  ]
+ },
+ {
+  "id": "ability.goose-patrol",
+  "kind": "active",
+  "cost": {
+   "energy": 30
+  },
+  "cooldownTicks": 340,
+  "castTicks": 10,
+  "targeting": {
+   "type": "self",
+   "rangeMm": 0
+  },
+  "aiHints": {
+   "goal": "chaos",
+   "aimAt": "self"
+  },
+  "effects": [
+   {
+    "type": "summon",
+    "summon": "summon.goose",
+    "count": 2
+   }
+  ]
+ },
+ {
+  "id": "ability.luchador-plancha",
+  "kind": "active",
+  "cost": {
+   "energy": 30
+  },
+  "cooldownTicks": 260,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 5000
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "dash",
+    "distanceMm": 4500
+   },
+   {
+    "type": "toss",
+    "distanceMm": 600,
+    "heightMm": 2200,
+    "direction": "up",
+    "landDamage": 12
+   }
+  ],
+  "commentaryTag": "grapple"
+ },
+ {
+  "id": "ability.mariachi-serenade",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 3400,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.distracted",
+    "durationTicks": 80
+   },
+   {
+    "type": "morale",
+    "amount": -10
+   },
+   {
+    "type": "knockback",
+    "forceMm": 1200
+   }
+  ]
+ },
+ {
+  "id": "ability.bicycle-kick",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 6,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 3200
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 12,
+    "damageType": "blunt"
+   },
+   {
+    "type": "knockback",
+    "forceMm": 3200
+   },
+   {
+    "type": "knockdown",
+    "chanceBp": 4000
+   }
+  ]
+ },
+ {
+  "id": "ability.carnival",
+  "kind": "active",
+  "cost": {
+   "energy": 20
+  },
+  "cooldownTicks": 380,
+  "castTicks": 8,
+  "targeting": {
+   "type": "self",
+   "rangeMm": 0
+  },
+  "aiHints": {
+   "goal": "support",
+   "aimAt": "self"
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.caffeinated",
+    "durationTicks": 180,
+    "toSelf": true
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.inspired",
+    "durationTicks": 140,
+    "toSelf": true
+   }
+  ]
+ },
+ {
+  "id": "ability.boleadoras",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 7000
+  },
+  "aiHints": {
+   "goal": "control"
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.sticky",
+    "durationTicks": 80
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.slowed",
+    "durationTicks": 80
+   },
+   {
+    "type": "knockdown",
+    "chanceBp": 5000
+   },
+   {
+    "type": "damage",
+    "amount": 5,
+    "damageType": "blunt"
+   }
+  ]
+ },
+ {
+  "id": "ability.tango",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 3000
+  },
+  "aiHints": {
+   "goal": "control"
+  },
+  "effects": [
+   {
+    "type": "pull",
+    "forceMm": 2000
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.stunned",
+    "durationTicks": 16
+   },
+   {
+    "type": "damage",
+    "amount": 7,
+    "damageType": "blunt"
+   }
+  ]
+ },
+ {
+  "id": "ability.tinto",
+  "kind": "active",
+  "cost": {
+   "energy": 10
+  },
+  "cooldownTicks": 300,
+  "castTicks": 4,
+  "targeting": {
+   "type": "self",
+   "rangeMm": 0
+  },
+  "aiHints": {
+   "goal": "support",
+   "aimAt": "self"
+  },
+  "effects": [
+   {
+    "type": "energy",
+    "amount": 40,
+    "toSelf": true
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.caffeinated",
+    "durationTicks": 200,
+    "toSelf": true
+   }
+  ]
+ },
+ {
+  "id": "ability.cumbia-spin",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 3000,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "damage",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 7,
+    "damageType": "blunt"
+   },
+   {
+    "type": "knockback",
+    "forceMm": 2600
+   }
+  ]
+ },
+ {
+  "id": "ability.earthquake-drill",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 260,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 3400,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "knockdown",
+    "chanceBp": 6000
+   },
+   {
+    "type": "damage",
+    "amount": 6,
+    "damageType": "blunt"
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.spooked",
+    "durationTicks": 40
+   }
+  ]
+ },
+ {
+  "id": "ability.cueca-handkerchief",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 180,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 4000
+  },
+  "aiHints": {
+   "goal": "control"
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.distracted",
+    "durationTicks": 70
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.stunned",
+    "durationTicks": 8
+   }
+  ]
+ },
+ {
+  "id": "ability.hundred-metres",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 150,
+  "castTicks": 3,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 8500
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "dash",
+    "distanceMm": 8000
+   },
+   {
+    "type": "damage",
+    "amount": 9,
+    "damageType": "blunt"
+   },
+   {
+    "type": "knockback",
+    "forceMm": 2400
+   }
+  ]
+ },
+ {
+  "id": "ability.bobsleigh",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 240,
+  "castTicks": 6,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 6500
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "dash",
+    "distanceMm": 6000
+   },
+   {
+    "type": "damage",
+    "amount": 7,
+    "damageType": "blunt"
+   },
+   {
+    "type": "knockdown",
+    "chanceBp": 6000
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.cold",
+    "durationTicks": 40
+   }
+  ]
+ },
+ {
+  "id": "ability.deep-bow",
+  "kind": "active",
+  "cost": {
+   "energy": 20
+  },
+  "cooldownTicks": 180,
+  "castTicks": 6,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 2400
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 11,
+    "damageType": "blunt"
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.stunned",
+    "durationTicks": 16
+   }
+  ]
+ },
+ {
+  "id": "ability.karaoke-encore",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 3400,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.spooked",
+    "durationTicks": 60
+   },
+   {
+    "type": "morale",
+    "amount": -12
+   },
+   {
+    "type": "damage",
+    "amount": 3,
+    "damageType": "social"
+   }
+  ]
+ },
+ {
+  "id": "ability.idol-choreography",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 2800,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "damage",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 8,
+    "damageType": "blunt"
+   },
+   {
+    "type": "knockback",
+    "forceMm": 2000
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.stunned",
+    "durationTicks": 10
+   }
+  ]
+ },
+ {
+  "id": "ability.fan-chant",
+  "kind": "active",
+  "cost": {
+   "energy": 30
+  },
+  "cooldownTicks": 360,
+  "castTicks": 10,
+  "targeting": {
+   "type": "self",
+   "rangeMm": 0
+  },
+  "aiHints": {
+   "goal": "chaos",
+   "aimAt": "self"
+  },
+  "effects": [
+   {
+    "type": "summon",
+    "summon": "summon.fan",
+    "count": 3
+   }
+  ]
+ },
+ {
+  "id": "ability.googly",
+  "kind": "active",
+  "cost": {
+   "energy": 20
+  },
+  "cooldownTicks": 180,
+  "castTicks": 6,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 8500
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 9,
+    "damageType": "blunt"
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.distracted",
+    "durationTicks": 80
+   }
+  ]
+ },
+ {
+  "id": "ability.bollywood-number",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 260,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 3600,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.distracted",
+    "durationTicks": 90
+   },
+   {
+    "type": "pull",
+    "forceMm": 1500
+   }
+  ]
+ },
+ {
+  "id": "ability.pencak-silat",
+  "kind": "active",
+  "cost": {
+   "energy": 20
+  },
+  "cooldownTicks": 180,
+  "castTicks": 4,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 2600
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 9,
+    "damageType": "blunt"
+   },
+   {
+    "type": "knockdown",
+    "chanceBp": 6000
+   }
+  ]
+ },
+ {
+  "id": "ability.sambal",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 4000
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 6,
+    "damageType": "fire"
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.burning",
+    "durationTicks": 60
+   }
+  ]
+ },
+ {
+  "id": "ability.videoke-night",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 3600,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.spooked",
+    "durationTicks": 70
+   },
+   {
+    "type": "morale",
+    "amount": -12
+   }
+  ]
+ },
+ {
+  "id": "ability.jeepney-ride",
+  "kind": "active",
+  "cost": {
+   "energy": 20
+  },
+  "cooldownTicks": 200,
+  "castTicks": 4,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 7500
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "dash",
+    "distanceMm": 7000
+   },
+   {
+    "type": "damage",
+    "amount": 8,
+    "damageType": "blunt"
+   },
+   {
+    "type": "knockback",
+    "forceMm": 2600
+   }
+  ]
+ },
+ {
+  "id": "ability.conical-hat-throw",
+  "kind": "active",
+  "cost": {
+   "energy": 20
+  },
+  "cooldownTicks": 180,
+  "castTicks": 6,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 8000
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 9,
+    "damageType": "blunt"
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.stunned",
+    "durationTicks": 12
+   }
+  ]
+ },
+ {
+  "id": "ability.pho-break",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 340,
+  "castTicks": 10,
+  "targeting": {
+   "type": "self",
+   "rangeMm": 0
+  },
+  "aiHints": {
+   "goal": "support",
+   "aimAt": "self"
+  },
+  "effects": [
+   {
+    "type": "heal",
+    "amount": 22,
+    "toSelf": true
+   }
+  ]
+ },
+ {
+  "id": "ability.muay-elbow",
+  "kind": "active",
+  "cost": {
+   "energy": 20
+  },
+  "cooldownTicks": 180,
+  "castTicks": 4,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 2200
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 13,
+    "damageType": "blunt"
+   },
+   {
+    "type": "knockdown",
+    "chanceBp": 4000
+   }
+  ]
+ },
+ {
+  "id": "ability.tuk-tuk",
+  "kind": "active",
+  "cost": {
+   "energy": 20
+  },
+  "cooldownTicks": 200,
+  "castTicks": 4,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 7500
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "dash",
+    "distanceMm": 7000
+   },
+   {
+    "type": "damage",
+    "amount": 7,
+    "damageType": "blunt"
+   },
+   {
+    "type": "knockback",
+    "forceMm": 2000
+   }
+  ]
+ },
+ {
+  "id": "ability.barbie",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 3000
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 8,
+    "damageType": "fire"
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.burning",
+    "durationTicks": 60
+   }
+  ]
+ },
+ {
+  "id": "ability.boomerang",
+  "kind": "active",
+  "cost": {
+   "energy": 20
+  },
+  "cooldownTicks": 200,
+  "castTicks": 6,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 8000
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 8,
+    "damageType": "blunt"
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.stunned",
+    "durationTicks": 8
+   },
+   {
+    "type": "damage",
+    "amount": 5,
+    "damageType": "blunt"
+   }
+  ]
+ },
+ {
+  "id": "ability.rugby-tackle",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 4,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 5500
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "dash",
+    "distanceMm": 5000
+   },
+   {
+    "type": "damage",
+    "amount": 9,
+    "damageType": "blunt"
+   },
+   {
+    "type": "knockdown",
+    "chanceBp": 6000
+   }
+  ]
+ },
+ {
+  "id": "ability.jandal-slap",
+  "kind": "active",
+  "cost": {
+   "energy": 10
+  },
+  "cooldownTicks": 120,
+  "castTicks": 3,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 2400
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 6,
+    "damageType": "blunt"
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.embarrassed",
+    "durationTicks": 60
+   }
+  ]
+ },
+ {
+  "id": "ability.jollof-wars",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 5000
+  },
+  "aiHints": {
+   "goal": "control"
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 6,
+    "damageType": "fire"
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.burning",
+    "durationTicks": 40
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.lectured",
+    "durationTicks": 60
+   }
+  ]
+ },
+ {
+  "id": "ability.afrobeats-groove",
+  "kind": "active",
+  "cost": {
+   "energy": 20
+  },
+  "cooldownTicks": 360,
+  "castTicks": 8,
+  "targeting": {
+   "type": "self",
+   "rangeMm": 0
+  },
+  "aiHints": {
+   "goal": "support",
+   "aimAt": "self"
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.inspired",
+    "durationTicks": 160,
+    "toSelf": true
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.caffeinated",
+    "durationTicks": 120,
+    "toSelf": true
+   }
+  ]
+ },
+ {
+  "id": "ability.vuvuzela-blast",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "cone",
+   "rangeMm": 4500,
+   "coneCosBp": 6000,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.spooked",
+    "durationTicks": 70
+   },
+   {
+    "type": "knockback",
+    "forceMm": 2600
+   },
+   {
+    "type": "damage",
+    "amount": 5,
+    "damageType": "social"
+   }
+  ]
+ },
+ {
+  "id": "ability.braai",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 3000
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 8,
+    "damageType": "fire"
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.burning",
+    "durationTicks": 60
+   }
+  ]
+ },
+ {
+  "id": "ability.marathon-pace",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 360,
+  "castTicks": 8,
+  "targeting": {
+   "type": "self",
+   "rangeMm": 0
+  },
+  "aiHints": {
+   "goal": "support",
+   "aimAt": "self"
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.regen",
+    "durationTicks": 200,
+    "toSelf": true
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.caffeinated",
+    "durationTicks": 160,
+    "toSelf": true
+   }
+  ]
+ },
+ {
+  "id": "ability.final-kick",
+  "kind": "active",
+  "cost": {
+   "energy": 20
+  },
+  "cooldownTicks": 200,
+  "castTicks": 4,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 7500
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "dash",
+    "distanceMm": 7000
+   },
+   {
+    "type": "damage",
+    "amount": 10,
+    "damageType": "blunt"
+   },
+   {
+    "type": "knockback",
+    "forceMm": 2600
+   }
+  ]
+ },
+ {
+  "id": "ability.sandstorm",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 3400,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.distracted",
+    "durationTicks": 80
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.slowed",
+    "durationTicks": 60
+   },
+   {
+    "type": "damage",
+    "amount": 4,
+    "damageType": "blunt"
+   }
+  ]
+ },
+ {
+  "id": "ability.sacred-scarabs",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 320,
+  "castTicks": 8,
+  "targeting": {
+   "type": "self",
+   "rangeMm": 0
+  },
+  "aiHints": {
+   "goal": "chaos",
+   "aimAt": "self"
+  },
+  "effects": [
+   {
+    "type": "summon",
+    "summon": "summon.scarab",
+    "count": 2
+   }
+  ]
+ },
+ {
+  "id": "ability.mint-tea-pour",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 4000
+  },
+  "aiHints": {
+   "goal": "damage"
+  },
+  "effects": [
+   {
+    "type": "damage",
+    "amount": 7,
+    "damageType": "fire"
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.burning",
+    "durationTicks": 30
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.wet",
+    "durationTicks": 60
+   }
+  ]
+ },
+ {
+  "id": "ability.souk-haggle",
+  "kind": "active",
+  "cost": {
+   "energy": 25
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 6000
+  },
+  "aiHints": {
+   "goal": "control"
+  },
+  "effects": [
+   {
+    "type": "energy",
+    "amount": -30
+   },
+   {
+    "type": "energy",
+    "amount": 15,
+    "toSelf": true
+   },
+   {
+    "type": "damage",
+    "amount": 4,
+    "damageType": "social"
+   }
+  ]
+ }
+]

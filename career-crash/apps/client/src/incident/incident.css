@@ -1,0 +1,308 @@
+/* Diplomatic Incident (09): the Crypto Bros page layout, in summit navy and gold. */
+body.cb.di {
+  --cb-bg: #0f1a33;
+  --cb-panel: #17264a;
+  --cb-panel-2: #213462;
+  --cb-text: #f5f1e6;
+  --cb-muted: #a9b4cf;
+  --cb-up: #e0b441;
+  --cb-down: #ef4444;
+  --cb-line: #2c4277;
+  --di-gold: #e0b441;
+  background-image:
+    radial-gradient(circle at 50% -10%, #2b3f73 0, transparent 55%),
+    linear-gradient(#ffffff06 1px, transparent 1px),
+    linear-gradient(90deg, #ffffff06 1px, transparent 1px);
+  background-size:
+    100% 100%,
+    28px 28px,
+    28px 28px;
+}
+
+.di-logo {
+  font-size: 30px;
+  line-height: 40px;
+  width: 40px;
+  text-align: center;
+}
+
+.di-flag {
+  display: inline-block;
+  vertical-align: middle;
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px #0006;
+  object-fit: cover;
+}
+
+.di-derby-tag {
+  color: var(--di-gold);
+  font-weight: 700;
+}
+
+/* The like bar: always within thumb reach (09 §2). */
+.di-likebar {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  grid-template-areas:
+    'you count actions'
+    'search search search';
+  gap: 8px 14px;
+  align-items: center;
+  background: var(--cb-panel);
+  border: 2px solid var(--c, var(--cb-line));
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+
+@media (min-width: 900px) {
+  .di-likebar {
+    grid-template-columns: 1fr auto auto 260px;
+    grid-template-areas: 'you count actions search';
+  }
+}
+
+.di-you {
+  grid-area: you;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.di-you b {
+  display: block;
+  font-size: 20px;
+}
+
+.di-you small,
+.di-count small {
+  color: var(--cb-muted);
+  font-size: 12px;
+}
+
+.di-count {
+  grid-area: count;
+  display: grid;
+  text-align: right;
+}
+
+.di-count b {
+  font-size: 22px;
+  color: var(--di-gold);
+}
+
+.di-count .di-pending {
+  color: var(--cb-up);
+  font-weight: 700;
+}
+
+.di-actions {
+  grid-area: actions;
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.di-actions .on {
+  outline: 2px solid var(--di-gold);
+}
+
+.di-like {
+  font-size: 18px;
+  font-weight: 800;
+  padding: 10px 18px;
+  border-radius: 999px;
+  border: 3px solid #111;
+  background: var(--di-gold);
+  color: #111;
+  cursor: pointer;
+  box-shadow: 0 3px 0 #111;
+}
+
+.di-like:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 #111;
+}
+
+.di-like.done {
+  background: var(--cb-panel-2);
+  color: var(--cb-text);
+  cursor: default;
+}
+
+.di-search {
+  grid-area: search;
+  position: relative;
+}
+
+.di-search input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--cb-line);
+  background: var(--cb-bg);
+  color: var(--cb-text);
+}
+
+.di-found {
+  position: absolute;
+  z-index: 5;
+  left: 0;
+  right: 0;
+  top: 100%;
+  margin: 4px 0 0;
+  padding: 4px;
+  list-style: none;
+  background: var(--cb-panel-2);
+  border-radius: 8px;
+  box-shadow: 0 6px 18px #0008;
+}
+
+.di-found button,
+.di-queue button {
+  all: unset;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 5px 6px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.di-found button:hover,
+.di-queue button:hover {
+  background: #ffffff12;
+}
+
+.di-seat .cb-coin-top b {
+  font-size: 13px;
+}
+
+.di-queue {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 2px;
+}
+
+.di-queue li {
+  border-left: 3px solid var(--c);
+  border-radius: 4px;
+}
+
+.di-queue li.on {
+  background: #e0b44122;
+}
+
+.di-queue li.wild {
+  background: #ffffff0a;
+}
+
+.di-queue span {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.di-table li.on {
+  outline: 1px solid var(--di-gold);
+}
+
+.di-surge {
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  transform: translateX(-50%);
+  background: var(--di-gold);
+  color: #111;
+  font-weight: 800;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 3px solid #111;
+  white-space: nowrap;
+  animation: di-pop 0.4s ease-out;
+}
+
+.di-surge.di-derby {
+  top: 54px;
+  background: #fff;
+}
+
+.di-ceremony .cb-placard .di-flag {
+  margin-right: 2px;
+}
+
+.di-recess {
+  background: #0f1a33cc;
+}
+
+.cb-feed .k-surge,
+.cb-feed .k-derby {
+  color: var(--di-gold);
+  font-weight: 700;
+}
+
+.cb-feed .k-walkon {
+  color: var(--cb-muted);
+}
+
+.di-toast {
+  position: fixed;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  background: #111;
+  color: #fff;
+  padding: 10px 16px;
+  border-radius: 999px;
+  z-index: 20;
+  font-weight: 700;
+}
+
+@keyframes di-pop {
+  from {
+    transform: translateX(-50%) scale(0.6);
+  }
+  to {
+    transform: translateX(-50%) scale(1);
+  }
+}
+
+@media (max-width: 700px) {
+  .di-likebar {
+    grid-template-columns: 1fr auto;
+    grid-template-areas:
+      'you count'
+      'actions actions'
+      'search search';
+  }
+  .di-like {
+    flex: 1;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .di-surge {
+    animation: none;
+  }
+}
+
+.di-table b {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.di-table li {
+  grid-template-columns: 22px minmax(0, 1fr) 40px auto;
+}

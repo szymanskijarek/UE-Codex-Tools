@@ -371,6 +371,27 @@ client on http://localhost:5173, and `pnpm dev` also runs the API worker.
 - **Content:** `packages/content/data/markets/crypto.json` (cast, scoring,
   candle timings, points), text in `live.json` (`market_*`).
 
+**Third page: Diplomatic Incident** (`docs/career-crash/09-diplomatic-incident.md`).
+- **Where:** `apps/client/incident/index.html` (entry `src/incident/main.tsx`)
+  builds to `dist-web/incident/index.html`, served at careercrash.org/incident.
+  Another Vite input (`vite.config.ts`); the single-file build leaves it out.
+- **Locally:** http://localhost:5173/incident/. `?c=pl` follows a country,
+  `?t=2026-10-06T18:07:30Z` pins the clock (UTC hours divisible by 3 are
+  England–Scotland derby hours).
+- **Likes:** a seeded sample plus your own (localStorage, one per country per
+  hour) until the vote service exists (09 §6).
+- **Content:** `packages/content/data/markets/countries.json` (40 delegates,
+  power, lobby, derbies), moves in `abilities/incident.json`, derby banter in
+  `synergies/derbies.json`, text in `live.json` (`incident_*`). Flags are SVGs
+  in `apps/client/src/incident/flags/` (flag-icons, MIT): add the country's
+  file there when adding a country.
+- **Balance:** `pnpm balance --incident-flat [--sessions=96]` (every delegate
+  with the same likes: tune `statBonus` until all are within ±25%) and
+  `pnpm balance --incident [--hours=12] [--sessions=6]` (long-tail likes: how
+  often the most-liked country wins the hour).
+- **Art:** briefs in `art/incident/` (ten pictures per brief). Delegates import
+  as `npc-del-<key>` with the usual `puppets` and `faces` commands.
+
 ### 6.2 Single-file build
 
 `pnpm --filter @cc/client build:standalone` builds the offline game (career
