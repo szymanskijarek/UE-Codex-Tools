@@ -29,10 +29,12 @@ export interface FeedPost {
   /** What the post is about — drives who comments and how people react. */
   mood?: Mood;
   /** Who wrote it. */
-  by?: 'me' | 'staff' | 'temp' | 'company' | 'stranger' | 'crasher' | 'bro';
+  by?: 'me' | 'staff' | 'temp' | 'company' | 'stranger' | 'crasher' | 'bro' | 'delegate';
   /** Crypto Bros (08): the ticker of the bro who wrote it. */
   bro?: string;
-  /** A link preview under the post (the Crypto Bros page). */
+  /** Diplomatic Incident (09): the country of the delegate who wrote it. */
+  del?: string;
+  /** A link preview under the post (the Crypto Bros or Diplomatic Incident page). */
   link?: { href: string; title: string; blurb: string };
   /** Gatecrashers (07): the set that crashed the fight, and its members (they turn up in the comments). */
   crash?: string;
@@ -46,7 +48,7 @@ export interface FeedPost {
   mine?: { react?: ReactionKind; said?: string[] };
 }
 
-export type Mood = 'win' | 'loss' | 'draw' | 'news' | 'beaten' | 'gloat' | 'network' | 'company' | 'temp' | 'perk' | 'crash' | 'bro';
+export type Mood = 'win' | 'loss' | 'draw' | 'news' | 'beaten' | 'gloat' | 'network' | 'company' | 'temp' | 'perk' | 'crash' | 'bro' | 'delegate';
 export type ReactionKind = 'like' | 'celebrate' | 'love' | 'insightful' | 'funny' | 'support';
 export const REACTIONS: [ReactionKind, string, string][] = [
   ['like', '👍', 'Like'],
@@ -150,6 +152,7 @@ const TAGS: Record<string, string[]> = {
   news: ['#NewRole', '#CareerGrowth', '#Promotion #Grateful', '#LevelUp'],
   company: ['#Culture #Hiring', '#WeAreFamily', '#Values', '#Accountability'],
   bro: ['#NFA #DYOR', '#WAGMI #Grindset', '#ToTheMoon #Blessed', '#HODL #Leadership', '#FewUnderstand', '#DiamondHands #Mindset'],
+  delegate: ['#Diplomacy #Leadership', '#PointOfOrder', '#Summit #Grateful', '#DiplomaticIncident', '#InternationalRelations #Buffet', '#Resolution #Teamwork'],
 };
 
 /** Crypto Bros (08): the market floor's cast, and where the floor lives. */
@@ -157,6 +160,29 @@ const CRYPTO = bundle.markets.find((m) => m.id === 'market.crypto');
 const BRO_SYMBOLS = CRYPTO ? Object.keys(CRYPTO.cast).sort() : [];
 /** The single-file build has no second page: send players to the site. */
 export const CRYPTO_URL = import.meta.env?.VITE_INLINE === '1' ? 'https://careercrash.org/cryptobro/' : '/cryptobro/';
+
+/** Diplomatic Incident (09): the countries floor's delegates, and where it lives. */
+const COUNTRIES = bundle.markets.find((m) => m.source === 'likes');
+const DEL_KEYS = COUNTRIES ? Object.keys(COUNTRIES.cast).sort() : [];
+export const INCIDENT_URL = import.meta.env?.VITE_INLINE === '1' ? 'https://careercrash.org/incident/' : '/incident/';
+const UK_NATIONS: Record<string, string> = { ENG: 'England', SCO: 'Scotland', WAL: 'Wales' };
+/** A country's name (English: the feed is in English). */
+function countryName(key: string): string {
+  if (UK_NATIONS[key]) return UK_NATIONS[key]!;
+  try {
+    return new Intl.DisplayNames(['en'], { type: 'region' }).of(key) ?? key;
+  } catch {
+    return key;
+  }
+}
+
+/** A delegate as a feed author: name, job line and their own portrait. */
+function delegateSpeaker(key: string): Pick<FeedPost, 'author' | 'sub' | 'who'> | null {
+  const m = COUNTRIES?.cast[key];
+  if (!COUNTRIES || !m) return null;
+  const f = marketFighter(bundle, COUNTRIES, { symbol: key, changeBp: 0, capRank: 1, score: 0, pumping: false, dumping: false, leveraged: false });
+  return { author: m.name, sub: `${nameOf(m.persona)} · Diplomatic Incident`, who: { careers: [m.career], appearance: f.appearance, persona: m.persona } };
+}
 
 /** A bro as a feed author: name, job line and portrait (their own art once it's painted). */
 function broSpeaker(sym: string): Pick<FeedPost, 'author' | 'sub' | 'who'> | null {
@@ -376,6 +402,35 @@ export function fightPosts(s: CareerSave, r: FightSummary): FeedPost[] {
       });
     }
   }
+
+  // 8. A country's delegate (09) posts from the Summit Hall: always the first time, then about every other fight.
+  const firstTime = !(s.feed ?? []).some((p) => p.by === 'delegate');
+  const key = DEL_KEYS.length && (firstTime || chance(0.5)) ? pick(DEL_KEYS) : '';
+  const del = key ? delegateSpeaker(key) : null;
+  if (del) {
+    const about = r.outcome === 'win' ? 'incident_post_about_win' : r.outcome === 'loss' ? 'incident_post_about_loss' : '';
+    const kinds = firstTime ? ['incident_post_invite'] : ['incident_post_invite', 'incident_post_invite', 'incident_post_flex', 'incident_post_flex', ...(about ? [about] : [])];
+    const list = lines(pick(kinds));
+    if (list.length) {
+      const blurbs = lines('incident_link');
+      const bro = posts.findIndex((p) => p.by === 'bro');
+      posts.splice(Math.min(posts.length, (bro >= 0 ? bro + 1 : 1) + (firstTime ? 0 : rng.int(2))), 0, {
+        id: `${fightNo}-del`,
+        fight: fightNo,
+        ...del,
+        by: 'delegate',
+        del: key,
+        mood: 'delegate',
+        text: fill(pick(list), { ...slots, country: countryName(key), name: del.author }),
+        tags: pick(TAGS.delegate!),
+        reacts: 300 + rng.int(5000),
+        comments: 12 + rng.int(150),
+        cast,
+        company: info.company,
+        link: { href: `${INCIDENT_URL}?c=${key.toLowerCase()}`, title: `Diplomatic Incident · ${countryName(key)} needs you`, blurb: blurbs.length ? pick(blurbs) : 'Forty countries brawl live' },
+      });
+    }
+  }
   return posts;
 }
 
@@ -456,6 +511,7 @@ const REACT_WEIGHTS: Record<Mood, Partial<Record<ReactionKind, number>>> = {
   perk: { celebrate: 6, love: 3, funny: 3, insightful: 1 },
   crash: { funny: 7, like: 2, insightful: 1, support: 1 },
   bro: { insightful: 5, funny: 6, like: 2, celebrate: 1 },
+  delegate: { funny: 6, like: 4, celebrate: 2, insightful: 1 },
 };
 
 type Speaker = Pick<FeedComment, 'author' | 'sub' | 'who' | 'icon'>;
@@ -513,7 +569,13 @@ export function discussion(p: FeedPost, s: CareerSave): Discussion {
   // Crypto Bros (08): the other bros pile in under each other's posts.
   const bros: Speaker[] = p.bro ? BRO_SYMBOLS.filter((x) => x !== p.bro).flatMap((x) => broSpeaker(x) ?? []) : [];
   const fromBros = () => (bros.length ? pick(bros) : null);
+  // Diplomatic Incident (09): other delegates object under each other's posts.
+  const dels: Speaker[] = p.del ? DEL_KEYS.filter((x) => x !== p.del).flatMap((x) => delegateSpeaker(x) ?? []) : [];
+  const fromDels = () => (dels.length ? pick(dels) : null);
   switch (mood) {
+    case 'delegate':
+      opts.push([fromDels, 'feed_c_del_rival'], [fromDels, 'feed_c_del_rival'], [meIfNotAuthor, 'feed_c_del_me'], [fromStaff, 'feed_c_del'], [stranger, 'feed_c_del'], [stranger, 'feed_c_del'], [stranger, 'feed_c_del']);
+      break;
     case 'bro':
       opts.push([fromBros, 'feed_c_bro_rival'], [fromBros, 'feed_c_bro_rival'], [meIfNotAuthor, 'feed_c_bro_me'], [fromStaff, 'feed_c_bro'], [stranger, 'feed_c_bro'], [stranger, 'feed_c_bro'], [stranger, 'feed_c_bro']);
       break;
@@ -562,7 +624,7 @@ export function discussion(p: FeedPost, s: CareerSave): Discussion {
     if (!who || seen.has(who.author)) continue;
     seen.add(who.author);
     comments.push({ ...who, text: say(key), likes: rng.int(40) });
-    if (rng.int(10) < 4) comments.push({ ...author, text: say(mood === 'bro' ? 'feed_c_bro_reply' : 'feed_c_reply', { commenter: shortName(bundle, who.author) }), likes: rng.int(12), reply: true });
+    if (rng.int(10) < 4) comments.push({ ...author, text: say(mood === 'bro' ? 'feed_c_bro_reply' : mood === 'delegate' ? 'feed_c_del_reply' : 'feed_c_reply', { commenter: shortName(bundle, who.author) }), likes: rng.int(12), reply: true });
   }
   // The player's own comments, each answered by the author (or a passer-by on your own posts).
   (p.mine?.said ?? []).forEach((text, i) => {

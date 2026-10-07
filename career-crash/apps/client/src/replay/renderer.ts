@@ -99,6 +99,10 @@ interface CharSprite {
   team: number;
   kind: 'char' | 'npc';
   personality: string;
+  /** Persona (09: a country's delegate): its own lines for each bark, and lines for particular opponents. */
+  persona: string;
+  /** Said their low-health line already (once per walk-on). */
+  lowSaid: boolean;
   /** Director interest: rises with events around this character, decays over time. */
   heat: number;
   /** Floppy ragdoll while thrown / knocked down / KO'd (cosmetic). */
@@ -1119,6 +1123,8 @@ export class BattleRenderer {
       team: e.team,
       kind: isRef ? 'npc' : 'char',
       personality: snap?.personality ?? '',
+      persona: isRef ? '' : (snap?.persona ?? ''),
+      lowSaid: false,
       heat: 0,
       rag: null,
       ragG: null,
@@ -1264,10 +1270,23 @@ export class BattleRenderer {
     let open = 0;
     for (const o of this.chars.values()) if (o.bubble && o !== s) open++;
     if (open >= (this.compact ? 2 : 4) && !force) return;
-    const list = bundle.live[kind];
+    // A persona's own version of this bark (09: each country's), most of the time.
+    const ctx = kind.startsWith('jobhurt_') ? 'bark_hurt' : kind.startsWith('job_') ? 'bark_attack' : kind;
+    const own = s.persona ? bundle.live[`${s.persona}:${ctx}`] : undefined;
+    const list = own?.length && Math.random() < 0.8 ? own : bundle.live[kind];
     if (!list?.length) return;
     const text = rand(list).replace(/\{(\w+)\}/g, (_, k: string) => slots[k] ?? k).replace(/\b([Aa]) ([aeiouAEIOU])/g, '$1n $2');
     this.say(s, text, 1500);
+  }
+
+  /** A line for this particular opponent (09: country vs country), if the two personas have one. */
+  private clash(a: CharSprite | undefined, b: CharSprite | undefined, chance: number, force = false): boolean {
+    if (!a?.persona || !b?.persona || a.team === b.team || Math.random() > chance) return false;
+    if (!force && this.now - a.lastBubbleAt < 1400) return false;
+    const list = bundle.live[`${a.persona}>${b.persona}`];
+    if (!list?.length) return false;
+    this.say(a, rand(list), 1800);
+    return true;
   }
 
   /** A wordless yell/scream/"oof" in the character's voice. */
@@ -2735,6 +2754,12 @@ export class BattleRenderer {
           this.setExpr(A, 'happy', 700);
           this.bark(A, 'bark_crit', 0.45);
         }
+        // Old rivals trade lines when they clash; a delegate on their last legs says so, once.
+        this.clash(A, B, 0.3);
+        if (B?.persona && eb && eb.hp > 0 && eb.hp * 4 < eb.maxHp && !B.lowSaid) {
+          B.lowSaid = true;
+          this.bark(B, 'bark_low_hp', 0.9, {}, true);
+        }
         if (A && B && A.team === B.team && A.kind === 'char' && A.id !== B.id) this.bark(A, 'bark_friendly', 0.5);
         this.float(crit ? `CRIT -${ev.v}` : `-${ev.v}`, this.posOf(ev.b, byId), crit ? 0xffd000 : 0xff5a5a, crit ? 18 : 13);
         {
@@ -3154,6 +3179,12 @@ export class BattleRenderer {
           setTimeout(() => this.ready && this.bark(victim, 'bark_downed_crawl', 0.6), 1400);
         }
         break;
+      case 'walkon': {
+        // A delegate walks on from the lobby (09): an entrance line once their sprite exists.
+        const id = ev.a;
+        setTimeout(() => this.bark(this.ready ? this.chars.get(id) : undefined, 'bark_walkon', 0.9, {}, true), 450);
+        break;
+      }
       case 'liquidated': {
         // Market floors (08 §7): klaxon, the stamp, out through the ceiling, coins everywhere.
         const at = this.posOf(ev.b, byId);
@@ -3175,7 +3206,7 @@ export class BattleRenderer {
         this.shake = Math.max(this.shake, 9);
         if (A && A.kind === 'char' && B && A.team !== B.team) {
           this.setExpr(A, 'happy', 1200);
-          this.bark(A, 'bark_ko_win', 0.8, {}, true);
+          if (!this.clash(A, B, 0.6, true)) this.bark(A, 'bark_ko_win', 0.8, {}, true);
           this.vox(A, 'cheer', 0.7);
         }
         this.vox(B, 'wail', 1, true);

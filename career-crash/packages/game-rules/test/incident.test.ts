@@ -109,4 +109,20 @@ describe('Diplomatic Incident (09)', () => {
     while (!x.done()) x.step();
     expect(x.world.tick).toBe(400);
   });
+
+  it('every delegate has its own lines for each context, and clash lines name real delegates', () => {
+    const contexts = ['bark_walkon', 'bark_attack', 'bark_ko_win', 'bark_hurt', 'bark_thrown', 'bark_downed_crawl', 'bark_low_hp', 'bark_revenge'];
+    const personas = new Set(countryKeys(def).map((k) => def.cast[k]!.persona));
+    for (const p of personas) for (const c of contexts) expect(bundle.live[`${p}:${c}`]?.length, `${p}:${c}`).toBeGreaterThan(0);
+    const pairs = Object.keys(bundle.live).filter((k) => k.includes('>'));
+    expect(pairs.length).toBeGreaterThan(60);
+    for (const k of pairs) {
+      const [a, b] = k.split('>');
+      expect(personas.has(a!), k).toBe(true);
+      expect(personas.has(b!), k).toBe(true);
+    }
+    // The derby has lines both ways.
+    expect(bundle.live['npc.del-eng>npc.del-sco']?.length).toBeGreaterThan(0);
+    expect(bundle.live['npc.del-sco>npc.del-eng']?.length).toBeGreaterThan(0);
+  });
 });

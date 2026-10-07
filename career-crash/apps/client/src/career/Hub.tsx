@@ -105,7 +105,7 @@ function PostCard({ p, fights, s }: { p: FeedPost; fights: number; s: CareerSave
       {p.link && (
         <a class="li-linkcard" href={p.link.href} {...(p.link.href.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {})}>
           <span class="li-linkcard-art" aria-hidden="true">
-            📈🥊
+            {p.by === 'delegate' ? '🔨🌍' : '📈🥊'}
           </span>
           <span>
             <b>{p.link.blurb}</b>

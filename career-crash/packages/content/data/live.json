@@ -3618,8 +3618,7 @@
   ],
   "market_delayed": [
    "📡 Market data delayed. Last hour's bros are still fighting."
-  ]
- },
+  ],
   "hazard_start_bull-run": [
    "BULL RUN! A bull is charging across the floor. Green candles, horns first.",
    "The bull is loose! Pumpers, hold on to something. Everyone else, run."
@@ -3708,5 +3707,1802 @@
   "hazard_start_seating-plan": [
    "SEATING PLAN RESHUFFLE! Protocol has moved everybody. Forcefully.",
    "The seating plan has changed. Everyone on the carpet gets a new seat, mid-air."
+  ],
+  "npc.del-eng:bark_walkon": [
+   "Right then. Who's first?",
+   "Queue here for a thrashing."
+  ],
+  "npc.del-eng:bark_attack": [
+   "Terribly sorry about this!",
+   "I say!",
+   "Have at you, old bean!"
+  ],
+  "npc.del-eng:bark_ko_win": [
+   "Not cricket, but effective.",
+   "Do take a seat. On the floor.",
+   "Jolly good. Next!",
+   "Put the kettle on, we're done here."
+  ],
+  "npc.del-eng:bark_hurt": [
+   "Oh, bother.",
+   "Steady on!",
+   "That was quite uncalled for."
+  ],
+  "npc.del-eng:bark_thrown": [
+   "This is most irregular!",
+   "My HAT!"
+  ],
+  "npc.del-eng:bark_downed_crawl": [
+   "I'll just... lie here. Briefly.",
+   "Somebody fetch a biscuit."
+  ],
+  "npc.del-eng:bark_low_hp": [
+   "Mustn't grumble. Mustn't grumble.",
+   "Merely a flesh wound. Mostly."
+  ],
+  "npc.del-eng:bark_revenge": [
+   "You jumped the queue. Unforgivable."
+  ],
+  "npc.del-sco:bark_walkon": [
+   "Right, who's first for a skelping?",
+   "Ah'm here. Panic."
+  ],
+  "npc.del-sco:bark_attack": [
+   "Haud on tae yer sporran!",
+   "Come 'ere you!",
+   "Away an' bile yer heid!"
+  ],
+  "npc.del-sco:bark_ko_win": [
+   "That's you telt.",
+   "Pure dead brilliant!",
+   "Och, ye went doon like a wet haggis.",
+   "Next! Anyone? Bring yer pals."
+  ],
+  "npc.del-sco:bark_hurt": [
+   "Ya wee...!",
+   "That's nippin'!",
+   "Ach, it's only a scratch."
+  ],
+  "npc.del-sco:bark_thrown": [
+   "Ah'm no' a caber!",
+   "Mind the KILT!"
+  ],
+  "npc.del-sco:bark_downed_crawl": [
+   "Ah'm just restin' ma eyes.",
+   "Somebody pass the Irn-Bru..."
+  ],
+  "npc.del-sco:bark_low_hp": [
+   "It's no' over till the pipes stop!",
+   "Ah've had worse at a ceilidh."
+  ],
+  "npc.del-sco:bark_revenge": [
+   "Ah never forget a face. Or a slap."
+  ],
+  "npc.del-wal:bark_walkon": [
+   "Come on then, butt!",
+   "Tidy. Let's have it."
+  ],
+  "npc.del-wal:bark_attack": [
+   "Scrum down!",
+   "Ruck 'em!",
+   "Get in there, boyo!"
+  ],
+  "npc.del-wal:bark_ko_win": [
+   "Lush. Next one.",
+   "And he's down! Cymru am byth!",
+   "That's a try, that is.",
+   "Who's next for a tackle?"
+  ],
+  "npc.del-wal:bark_hurt": [
+   "Duw, duw!",
+   "Ach y fi!",
+   "That's a yellow card, that!"
+  ],
+  "npc.del-wal:bark_thrown": [
+   "I'm not the ball, mun!",
+   "Put me down, I'm a prop!"
+  ],
+  "npc.del-wal:bark_downed_crawl": [
+   "Just... need a cwtch...",
+   "Somebody sing me back up."
+  ],
+  "npc.del-wal:bark_low_hp": [
+   "Still standing. Like the choir.",
+   "I'll sing through the pain."
+  ],
+  "npc.del-wal:bark_revenge": [
+   "Payback, butt. Tidy payback."
+  ],
+  "npc.del-ie:bark_walkon": [
+   "Ah sure look, let's go.",
+   "Grand. Who's for a puck around?"
+  ],
+  "npc.del-ie:bark_attack": [
+   "Have a go of that!",
+   "Go on, go on, go on!",
+   "Up ya boya!"
+  ],
+  "npc.del-ie:bark_ko_win": [
+   "Ah stop, ye'll be grand.",
+   "That's the craic!",
+   "Mind yourself there, pet.",
+   "Sure look. It happens."
+  ],
+  "npc.del-ie:bark_hurt": [
+   "Ah, would ye stop!",
+   "That's not on!",
+   "Ye eejit!"
+  ],
+  "npc.del-ie:bark_thrown": [
+   "Ah lads, LADS!",
+   "I'm flyin' like a sliotar!"
+  ],
+  "npc.del-ie:bark_downed_crawl": [
+   "I'll be grand in a minute.",
+   "Put the kettle on..."
+  ],
+  "npc.del-ie:bark_low_hp": [
+   "Not beat yet, not by a long shot.",
+   "I've had worse at a wedding."
+  ],
+  "npc.del-ie:bark_revenge": [
+   "Ye thought I'd forgotten? Ye thought wrong."
+  ],
+  "npc.del-fr:bark_walkon": [
+   "Bonjour. Unfortunately for you.",
+   "I am here. You may applaud."
+  ],
+  "npc.del-fr:bark_attack": [
+   "En garde!",
+   "Touché!",
+   "Voilà!"
+  ],
+  "npc.del-fr:bark_ko_win": [
+   "Au revoir!",
+   "C'est la vie. Yours, specifically.",
+   "Formidable. For me.",
+   "Next. And faster, s'il vous plaît."
+  ],
+  "npc.del-fr:bark_hurt": [
+   "Aïe!",
+   "Mon dieu, my coat!",
+   "Sacrebleu!"
+  ],
+  "npc.del-fr:bark_thrown": [
+   "Not ze baguette!",
+   "Zut alors!"
+  ],
+  "npc.del-fr:bark_downed_crawl": [
+   "I am on strike. Officially.",
+   "Bring me a croissant. Slowly."
+  ],
+  "npc.del-fr:bark_low_hp": [
+   "I refuse to lose. On principle.",
+   "This is merely an intermission."
+  ],
+  "npc.del-fr:bark_revenge": [
+   "Revenge is a dish best served with butter."
+  ],
+  "npc.del-de:bark_walkon": [
+   "Exactly on time. As planned.",
+   "Guten Tag. Let us begin."
+  ],
+  "npc.del-de:bark_attack": [
+   "Precisely!",
+   "Achtung!",
+   "Efficient!"
+  ],
+  "npc.del-de:bark_ko_win": [
+   "As scheduled.",
+   "Ordnung muss sein.",
+   "Wunderbar. Next item.",
+   "Your defeat is now filed."
+  ],
+  "npc.del-de:bark_hurt": [
+   "Autsch!",
+   "This is not in the plan!",
+   "Unacceptable!"
+  ],
+  "npc.del-de:bark_thrown": [
+   "This was not on the timetable!",
+   "Mein Hut!"
+  ],
+  "npc.del-de:bark_downed_crawl": [
+   "Taking my scheduled break.",
+   "I will file a complaint. In triplicate."
+  ],
+  "npc.del-de:bark_low_hp": [
+   "A small delay. Nothing more.",
+   "German engineering. Still running."
+  ],
+  "npc.del-de:bark_revenge": [
+   "I have noted this. And now I return it."
+  ],
+  "npc.del-it:bark_walkon": [
+   "Ciao, bella. Let's fight.",
+   "Eccomi! The show begins."
+  ],
+  "npc.del-it:bark_attack": [
+   "Mamma mia!",
+   "Andiamo!",
+   "Ecco!"
+  ],
+  "npc.del-it:bark_ko_win": [
+   "Perfetto. Like my pasta.",
+   "Ciao ciao!",
+   "Bellissimo!",
+   "Arrivederci, amico."
+  ],
+  "npc.del-it:bark_hurt": [
+   "Ma che fai?!",
+   "My SUIT!",
+   "Porca miseria!"
+  ],
+  "npc.del-it:bark_thrown": [
+   "Not the hair!",
+   "I fly like a Vespa!"
+  ],
+  "npc.del-it:bark_downed_crawl": [
+   "Just one espresso and I return.",
+   "Call my mamma..."
+  ],
+  "npc.del-it:bark_low_hp": [
+   "Pazienza. It is not over.",
+   "Still more stylish than you."
+  ],
+  "npc.del-it:bark_revenge": [
+   "You touched the suit. Now you pay."
+  ],
+  "npc.del-es:bark_walkon": [
+   "¡Vamos! Dinner's at ten, this'll be quick.",
+   "¡Hola! Olé!"
+  ],
+  "npc.del-es:bark_attack": [
+   "¡Olé!",
+   "¡Toma!",
+   "¡Venga!"
+  ],
+  "npc.del-es:bark_ko_win": [
+   "¡Adiós!",
+   "¡Olé, olé, olé!",
+   "Siesta time. For you.",
+   "¡Qué bueno!"
+  ],
+  "npc.del-es:bark_hurt": [
+   "¡Ay!",
+   "¡Madre mía!",
+   "¡Oye!"
+  ],
+  "npc.del-es:bark_thrown": [
+   "¡Mi flor!",
+   "¡Ay, ay, ay!"
+  ],
+  "npc.del-es:bark_downed_crawl": [
+   "Just a little siesta...",
+   "Wake me for tapas."
+  ],
+  "npc.del-es:bark_low_hp": [
+   "I dance better when I'm angry.",
+   "The night is young!"
+  ],
+  "npc.del-es:bark_revenge": [
+   "The rhythm remembers you!"
+  ],
+  "npc.del-pt:bark_walkon": [
+   "Olá! Saudade starts now.",
+   "Tudo bem? Not for long."
+  ],
+  "npc.del-pt:bark_attack": [
+   "Força!",
+   "Vai!",
+   "Toma lá!"
+  ],
+  "npc.del-pt:bark_ko_win": [
+   "Adeus, amigo.",
+   "Saudade... for your health bar.",
+   "Navigated. Conquered. Next.",
+   "Obrigado. For nothing."
+  ],
+  "npc.del-pt:bark_hurt": [
+   "Ai!",
+   "Que dor!",
+   "Caramba!"
+  ],
+  "npc.del-pt:bark_thrown": [
+   "I am a sailor, not a sail!",
+   "Man overboard!"
+  ],
+  "npc.del-pt:bark_downed_crawl": [
+   "Sing me a fado...",
+   "Bring a pastel de nata..."
+  ],
+  "npc.del-pt:bark_low_hp": [
+   "The sea is rough. I am rougher.",
+   "Still afloat!"
+  ],
+  "npc.del-pt:bark_revenge": [
+   "The tide always comes back."
+  ],
+  "npc.del-nl:bark_walkon": [
+   "Hoi. I'll be direct: you're losing.",
+   "Out of the bike lane, please."
+  ],
+  "npc.del-nl:bark_attack": [
+   "Ring ring!",
+   "Hup!",
+   "Very direct!"
+  ],
+  "npc.del-nl:bark_ko_win": [
+   "Lekker!",
+   "Gezellig, ja?",
+   "That was efficient. Next.",
+   "Doei!"
+  ],
+  "npc.del-nl:bark_hurt": [
+   "Au!",
+   "Verdorie!",
+   "Not the clogs!"
+  ],
+  "npc.del-nl:bark_thrown": [
+   "I'm not a bicycle!",
+   "Watch the canal!"
+  ],
+  "npc.del-nl:bark_downed_crawl": [
+   "Just parking my bike here.",
+   "Need a stroopwafel..."
+  ],
+  "npc.del-nl:bark_low_hp": [
+   "It's flat. Like home. I'll manage.",
+   "Still pedalling!"
+  ],
+  "npc.del-nl:bark_revenge": [
+   "Honestly? You had that coming."
+  ],
+  "npc.del-be:bark_walkon": [
+   "Allez! Let's compromise. You lose.",
+   "Bonjour, hallo, hello, hi."
+  ],
+  "npc.del-be:bark_attack": [
+   "Allez!",
+   "Une gaufre!",
+   "Hop!"
+  ],
+  "npc.del-be:bark_ko_win": [
+   "Compromise reached.",
+   "Fries are Belgian. So is this win.",
+   "With chocolate on top!",
+   "Next, alstublieft."
+  ],
+  "npc.del-be:bark_hurt": [
+   "Aïe!",
+   "Oei!",
+   "My waffles!"
+  ],
+  "npc.del-be:bark_thrown": [
+   "This needs a coalition!",
+   "Not in three languages!"
+  ],
+  "npc.del-be:bark_downed_crawl": [
+   "Forming a government... down here.",
+   "Pass the frites..."
+  ],
+  "npc.del-be:bark_low_hp": [
+   "Still negotiating. Still standing.",
+   "Belgium never quits. It just takes ages."
+  ],
+  "npc.del-be:bark_revenge": [
+   "We discussed this. Now we act."
+  ],
+  "npc.del-ch:bark_walkon": [
+   "I am not involved. Mostly.",
+   "Grüezi. Neutrally."
+  ],
+  "npc.del-ch:bark_attack": [
+   "Precision!",
+   "Hopp!",
+   "On the dot!"
+  ],
+  "npc.del-ch:bark_ko_win": [
+   "Neutral? Not anymore.",
+   "Like clockwork.",
+   "Banked.",
+   "Yodel-ay-hee-hoo!"
+  ],
+  "npc.del-ch:bark_hurt": [
+   "Ouch. Officially noted.",
+   "Hoppla!",
+   "My cheese!"
+  ],
+  "npc.del-ch:bark_thrown": [
+   "I demand neutrality!",
+   "Not the cowbell!"
+  ],
+  "npc.del-ch:bark_downed_crawl": [
+   "I'll just observe from here.",
+   "Wake me at exactly two."
+  ],
+  "npc.del-ch:bark_low_hp": [
+   "Still perfectly balanced.",
+   "A Swiss watch keeps ticking."
+  ],
+  "npc.del-ch:bark_revenge": [
+   "I stayed out of it. Until now."
+  ],
+  "npc.del-at:bark_walkon": [
+   "Servus! Shall we dance?",
+   "Not Australia. Austria. Remember it."
+  ],
+  "npc.del-at:bark_attack": [
+   "One, two, three!",
+   "Servus!",
+   "Hoppala!"
+  ],
+  "npc.del-at:bark_ko_win": [
+   "And... dip.",
+   "A perfect waltz.",
+   "Schön!",
+   "Next partner, bitte!"
+  ],
+  "npc.del-at:bark_hurt": [
+   "Au weh!",
+   "Ojeh!",
+   "My braids!"
+  ],
+  "npc.del-at:bark_thrown": [
+   "This is not a waltz!",
+   "Too much spin!"
+  ],
+  "npc.del-at:bark_downed_crawl": [
+   "Just a coffee-house break...",
+   "Bring me a Sachertorte..."
+  ],
+  "npc.del-at:bark_low_hp": [
+   "Still in three-four time.",
+   "The dance isn't over!"
+  ],
+  "npc.del-at:bark_revenge": [
+   "You stepped on my toes. Now I step on yours."
+  ],
+  "npc.del-pl:bark_walkon": [
+   "Dzień dobry! Who's first?",
+   "From the mountains, with love."
+  ],
+  "npc.del-pl:bark_attack": [
+   "Masz!",
+   "Hej, hop!",
+   "Kurczę, take this!"
+  ],
+  "npc.del-pl:bark_ko_win": [
+   "Na zdrowie!",
+   "Pierogi break, I've earned it.",
+   "Następny! Next!",
+   "Like a mountain avalanche."
+  ],
+  "npc.del-pl:bark_hurt": [
+   "Ała!",
+   "Kurczę!",
+   "Ojej!"
+  ],
+  "npc.del-pl:bark_thrown": [
+   "Not the hat with the shells!",
+   "I'm a highlander, not a bird!"
+  ],
+  "npc.del-pl:bark_downed_crawl": [
+   "Grandma will hear about this...",
+   "Bring me żurek..."
+  ],
+  "npc.del-pl:bark_low_hp": [
+   "Polish stubbornness: activated.",
+   "Still standing. Like the Tatras."
+  ],
+  "npc.del-pl:bark_revenge": [
+   "I never forget. Neither does my babcia."
+  ],
+  "npc.del-se:bark_walkon": [
+   "Hej hej! Fika after this.",
+   "Lagom violence. Perfect amount."
+  ],
+  "npc.del-se:bark_attack": [
+   "Heja!",
+   "Assembled!",
+   "Tack!"
+  ],
+  "npc.del-se:bark_ko_win": [
+   "Flat-packed.",
+   "Fika time!",
+   "Some assembly required. For you.",
+   "Lagom. Just right."
+  ],
+  "npc.del-se:bark_hurt": [
+   "Aj!",
+   "Oj oj oj!",
+   "That's not lagom!"
+  ],
+  "npc.del-se:bark_thrown": [
+   "Missing a screw!",
+   "The instructions didn't mention this!"
+  ],
+  "npc.del-se:bark_downed_crawl": [
+   "Just one cinnamon bun...",
+   "Assemble me later."
+  ],
+  "npc.del-se:bark_low_hp": [
+   "Calm. Very calm. Very angry.",
+   "Still in one piece. Mostly."
+  ],
+  "npc.del-se:bark_revenge": [
+   "You forgot an Allen key. I didn't."
+  ],
+  "npc.del-no:bark_walkon": [
+   "Uff da. Let's ski through this.",
+   "Ha det, comfort zone."
+  ],
+  "npc.del-no:bark_attack": [
+   "Heia!",
+   "Full speed!",
+   "Brrr!"
+  ],
+  "npc.del-no:bark_ko_win": [
+   "Like a fjord. Deep and final.",
+   "Ha det bra!",
+   "Gold medal.",
+   "Too cold for you?"
+  ],
+  "npc.del-no:bark_hurt": [
+   "Au!",
+   "Uff!",
+   "Not the sweater!"
+  ],
+  "npc.del-no:bark_thrown": [
+   "I'm a skier, not a ski jumper!",
+   "Wheee... no!"
+  ],
+  "npc.del-no:bark_downed_crawl": [
+   "Just making a snow angel.",
+   "Brown cheese... please..."
+  ],
+  "npc.del-no:bark_low_hp": [
+   "There's no bad weather. Only bad delegates.",
+   "I've skied through worse."
+  ],
+  "npc.del-no:bark_revenge": [
+   "Winter always comes back."
+  ],
+  "npc.del-dk:bark_walkon": [
+   "Hej! Candles on, gloves off.",
+   "Hygge, but violent."
+  ],
+  "npc.del-dk:bark_attack": [
+   "Skål!",
+   "Hop!",
+   "Brick!"
+  ],
+  "npc.del-dk:bark_ko_win": [
+   "Hyggeligt.",
+   "Stepped on a brick, did you?",
+   "Cosy and victorious.",
+   "Next, tak."
+  ],
+  "npc.del-dk:bark_hurt": [
+   "Av!",
+   "Øv!",
+   "Mind the candles!"
+  ],
+  "npc.del-dk:bark_thrown": [
+   "Not cosy! NOT COSY!",
+   "My scarf!"
+  ],
+  "npc.del-dk:bark_downed_crawl": [
+   "I'm under a blanket now.",
+   "Bring a cinnamon swirl..."
+  ],
+  "npc.del-dk:bark_low_hp": [
+   "Still warm inside.",
+   "Danish pastries, Danish resolve."
+  ],
+  "npc.del-dk:bark_revenge": [
+   "That wasn't hygge. This is."
+  ],
+  "npc.del-gr:bark_walkon": [
+   "Opa! We invented this.",
+   "Yia sas! Prepare yourselves."
+  ],
+  "npc.del-gr:bark_attack": [
+   "Opa!",
+   "Éla!",
+   "For the gods of the buffet!"
+  ],
+  "npc.del-gr:bark_ko_win": [
+   "Opa! Smash!",
+   "Like a plate at a wedding.",
+   "Olympic!",
+   "A classic. Literally."
+  ],
+  "npc.del-gr:bark_hurt": [
+   "Po po po!",
+   "Ouch, by Zeus!",
+   "My moustache!"
+  ],
+  "npc.del-gr:bark_thrown": [
+   "I'm a discus now?!",
+   "Not my tassel!"
+  ],
+  "npc.del-gr:bark_downed_crawl": [
+   "Bring me a frappé...",
+   "A short philosophy break."
+  ],
+  "npc.del-gr:bark_low_hp": [
+   "Like Odysseus: I'll get there eventually.",
+   "Still standing, like a column."
+  ],
+  "npc.del-gr:bark_revenge": [
+   "The Greeks always come back for an encore."
+  ],
+  "npc.del-us:bark_walkon": [
+   "Let's GO! Biggest fight ever!",
+   "Howdy, y'all. Touchdown time."
+  ],
+  "npc.del-us:bark_attack": [
+   "Hut, hut, HIKE!",
+   "Yeehaw!",
+   "Here comes the blitz!"
+  ],
+  "npc.del-us:bark_ko_win": [
+   "TOUCHDOWN!",
+   "That's how we do it!",
+   "Supersize that defeat!",
+   "U-S-A! U-S-A!"
+  ],
+  "npc.del-us:bark_hurt": [
+   "Ow, dude!",
+   "Flag on the play!",
+   "Not cool, man!"
+  ],
+  "npc.del-us:bark_thrown": [
+   "I'm not the football!",
+   "WHOA, Nelly!"
+  ],
+  "npc.del-us:bark_downed_crawl": [
+   "Taking a timeout.",
+   "Call my lawyer..."
+  ],
+  "npc.del-us:bark_low_hp": [
+   "It ain't over till the fourth quarter!",
+   "Comeback season, baby!"
+  ],
+  "npc.del-us:bark_revenge": [
+   "Payback. Super-sized."
+  ],
+  "npc.del-ca:bark_walkon": [
+   "Hello! Sorry in advance.",
+   "Sorry, is this seat taken? Too bad, eh."
+  ],
+  "npc.del-ca:bark_attack": [
+   "Sorry!",
+   "Sorry about this!",
+   "Oh, sorry!"
+  ],
+  "npc.del-ca:bark_ko_win": [
+   "Sorry. Not sorry. Okay, a bit sorry.",
+   "Take off, eh!",
+   "Beauty!",
+   "Sorry, eh. You're done."
+  ],
+  "npc.del-ca:bark_hurt": [
+   "Oh, sorry!",
+   "Sorry, that's my fault.",
+   "Ow, sorry!"
+  ],
+  "npc.del-ca:bark_thrown": [
+   "Sorry, I'm flying!",
+   "Not into the snowbank!"
+  ],
+  "npc.del-ca:bark_downed_crawl": [
+   "Sorry, I'll just lie here.",
+   "Double-double... please..."
+  ],
+  "npc.del-ca:bark_low_hp": [
+   "Sorry, but I'm not done.",
+   "Still polite. Still fighting."
+  ],
+  "npc.del-ca:bark_revenge": [
+   "I'm sorry, but you deserve this."
+  ],
+  "npc.del-mx:bark_walkon": [
+   "¡Ándale! Let's party.",
+   "¡Órale! Who's first?"
+  ],
+  "npc.del-mx:bark_attack": [
+   "¡Ay, ay, ay!",
+   "¡Ándale!",
+   "¡Lucha!"
+  ],
+  "npc.del-mx:bark_ko_win": [
+   "¡Órale! Down you go, amigo.",
+   "Three count! ¡Uno, dos, tres!",
+   "¡Ya está!",
+   "Another song for the winner!"
+  ],
+  "npc.del-mx:bark_hurt": [
+   "¡Ay, caramba!",
+   "¡No manches!",
+   "My sombrero!"
+  ],
+  "npc.del-mx:bark_thrown": [
+   "¡Volando!",
+   "Off the top rope!"
+  ],
+  "npc.del-mx:bark_downed_crawl": [
+   "Just a short siesta, compadre.",
+   "Bring me tacos..."
+  ],
+  "npc.del-mx:bark_low_hp": [
+   "The mariachi never stops!",
+   "Second round, compadre!"
+  ],
+  "npc.del-mx:bark_revenge": [
+   "Rematch! Like in the lucha!"
+  ],
+  "npc.del-br:bark_walkon": [
+   "Olá! Bora!",
+   "Samba time!"
+  ],
+  "npc.del-br:bark_attack": [
+   "Golaço!",
+   "Bora, bora!",
+   "Jogo bonito!"
+  ],
+  "npc.del-br:bark_ko_win": [
+   "GOOOOOOL!",
+   "Tchau, querido!",
+   "Samba!",
+   "Beautiful game. Beautiful win."
+  ],
+  "npc.del-br:bark_hurt": [
+   "Ai, caramba!",
+   "Nossa!",
+   "Foul! FOUL!"
+  ],
+  "npc.del-br:bark_thrown": [
+   "Bicycle kick... reversed!",
+   "I'm a feather!"
+  ],
+  "npc.del-br:bark_downed_crawl": [
+   "Just a little carnival nap...",
+   "Bring a caipirinha..."
+  ],
+  "npc.del-br:bark_low_hp": [
+   "Brazil always scores in extra time.",
+   "Still dancing!"
+  ],
+  "npc.del-br:bark_revenge": [
+   "The comeback is the best part!"
+  ],
+  "npc.del-ar:bark_walkon": [
+   "¡Che! Vamos.",
+   "Pass the mate, then the beating."
+  ],
+  "npc.del-ar:bark_attack": [
+   "¡Dale!",
+   "¡Vamos!",
+   "¡Aguante!"
+  ],
+  "npc.del-ar:bark_ko_win": [
+   "¡Golazo!",
+   "Tango finale.",
+   "¡Chau, che!",
+   "Maté break. Earned it."
+  ],
+  "npc.del-ar:bark_hurt": [
+   "¡Uy!",
+   "¡La pucha!",
+   "¡Ay, che!"
+  ],
+  "npc.del-ar:bark_thrown": [
+   "I'm not a boleadora!",
+   "¡Che, bajame!"
+  ],
+  "npc.del-ar:bark_downed_crawl": [
+   "Just let me finish my mate...",
+   "Wake me for the asado."
+  ],
+  "npc.del-ar:bark_low_hp": [
+   "Argentines never give up. We argue.",
+   "Still dancing the tango."
+  ],
+  "npc.del-ar:bark_revenge": [
+   "Me la vas a pagar, che."
+  ],
+  "npc.del-co:bark_walkon": [
+   "¡Hola, mi amor! Let's dance.",
+   "Fresh coffee, fresh fight."
+  ],
+  "npc.del-co:bark_attack": [
+   "¡Dale!",
+   "¡Qué chévere!",
+   "¡Toma!"
+  ],
+  "npc.del-co:bark_ko_win": [
+   "Like a strong tinto.",
+   "¡Chao, pues!",
+   "Cumbia for the winner!",
+   "¡Bacano!"
+  ],
+  "npc.del-co:bark_hurt": [
+   "¡Ay!",
+   "¡Juemadre!",
+   "¡Uy, no!"
+  ],
+  "npc.del-co:bark_thrown": [
+   "My basket!",
+   "¡Ay, mi sombrero!"
+  ],
+  "npc.del-co:bark_downed_crawl": [
+   "Just one more coffee...",
+   "Wake me with an arepa..."
+  ],
+  "npc.del-co:bark_low_hp": [
+   "Colombian coffee: very strong. Me too.",
+   "Still dancing!"
+  ],
+  "npc.del-co:bark_revenge": [
+   "The beat always comes back!"
+  ],
+  "npc.del-cl:bark_walkon": [
+   "¡Ya po! Let's go.",
+   "Calm down. It's only an earthquake. Me."
+  ],
+  "npc.del-cl:bark_attack": [
+   "¡Ya po!",
+   "¡Vamos!",
+   "¡Toma, po!"
+  ],
+  "npc.del-cl:bark_ko_win": [
+   "Magnitude ten.",
+   "¡Chao no más!",
+   "Cueca for the winner!",
+   "Cachai? You lost."
+  ],
+  "npc.del-cl:bark_hurt": [
+   "¡Ay!",
+   "¡Puchacai!",
+   "My spurs!"
+  ],
+  "npc.del-cl:bark_thrown": [
+   "This isn't a quake drill!",
+   "¡Bájame, po!"
+  ],
+  "npc.del-cl:bark_downed_crawl": [
+   "Just a little tremor...",
+   "Bring me an empanada..."
+  ],
+  "npc.del-cl:bark_low_hp": [
+   "We've felt worse. Much worse.",
+   "Still on my feet. Earthquake-proof."
+  ],
+  "npc.del-cl:bark_revenge": [
+   "Aftershock!"
+  ],
+  "npc.del-jm:bark_walkon": [
+   "Wah gwaan! Feel di riddim.",
+   "Too fast for you, man."
+  ],
+  "npc.del-jm:bark_attack": [
+   "Big up!",
+   "Run it!",
+   "Mi soon come!"
+  ],
+  "npc.del-jm:bark_ko_win": [
+   "Gone like lightning.",
+   "Irie!",
+   "Easy, man. Easy.",
+   "Respect. You tried."
+  ],
+  "npc.del-jm:bark_hurt": [
+   "Wha di... OUCH!",
+   "Oi!",
+   "Wha dat?!"
+  ],
+  "npc.del-jm:bark_thrown": [
+   "I'm a sprinter, not a bobsled!",
+   "Fly high!"
+  ],
+  "npc.del-jm:bark_downed_crawl": [
+   "Just cool and deadly here...",
+   "Pass the jerk chicken..."
+  ],
+  "npc.del-jm:bark_low_hp": [
+   "Still have the best finish in the world.",
+   "Respect the comeback."
+  ],
+  "npc.del-jm:bark_revenge": [
+   "Run it back, mon!"
+  ],
+  "npc.del-jp:bark_walkon": [
+   "Yoroshiku onegaishimasu.",
+   "Sumimasen. I apologise for what follows."
+  ],
+  "npc.del-jp:bark_attack": [
+   "Hai!",
+   "Yosh!",
+   "Ganbare!"
+  ],
+  "npc.del-jp:bark_ko_win": [
+   "Otsukaresama deshita.",
+   "Very sorry. Very effective.",
+   "Arigatou. Next.",
+   "Bow received."
+  ],
+  "npc.del-jp:bark_hurt": [
+   "Itai!",
+   "Sumimasen!",
+   "Ehh?!"
+  ],
+  "npc.del-jp:bark_thrown": [
+   "This is not on the agenda!",
+   "Yabai!"
+  ],
+  "npc.del-jp:bark_downed_crawl": [
+   "Taking a short inemuri...",
+   "Karaoke later... please..."
+  ],
+  "npc.del-jp:bark_low_hp": [
+   "Ganbarimasu! I will persevere!",
+   "Still punctual. Still standing."
+  ],
+  "npc.del-jp:bark_revenge": [
+   "I bow. Then I return the favour."
+  ],
+  "npc.del-kr:bark_walkon": [
+   "Annyeong! Fighting!",
+   "From the top! Five, six, seven, eight!"
+  ],
+  "npc.del-kr:bark_attack": [
+   "Fighting!",
+   "Aja!",
+   "Daebak!"
+  ],
+  "npc.del-kr:bark_ko_win": [
+   "Daebak!",
+   "Perfect choreography.",
+   "Annyeong, bye!",
+   "Encore!"
+  ],
+  "npc.del-kr:bark_hurt": [
+   "Aigoo!",
+   "Ah-yah!",
+   "My hair!"
+  ],
+  "npc.del-kr:bark_thrown": [
+   "This isn't in the routine!",
+   "Too much spin!"
+  ],
+  "npc.del-kr:bark_downed_crawl": [
+   "Just a short break between sets...",
+   "Bring me tteokbokki..."
+  ],
+  "npc.del-kr:bark_low_hp": [
+   "The fans are watching. I can't fall!",
+   "Comeback stage!"
+  ],
+  "npc.del-kr:bark_revenge": [
+   "Second verse. Harder."
+  ],
+  "npc.del-in:bark_walkon": [
+   "Namaste! Let's play.",
+   "Arre, what a match this will be!"
+  ],
+  "npc.del-in:bark_attack": [
+   "Howzat!",
+   "Chalo!",
+   "Sixer!"
+  ],
+  "npc.del-in:bark_ko_win": [
+   "Clean bowled!",
+   "Out! OUT!",
+   "Ekdum first class!",
+   "Shabash!"
+  ],
+  "npc.del-in:bark_hurt": [
+   "Arre yaar!",
+   "Arre baba!",
+   "No-ball! That was a no-ball!"
+  ],
+  "npc.del-in:bark_thrown": [
+   "I'm not the ball!",
+   "Arre, put me down!"
+  ],
+  "npc.del-in:bark_downed_crawl": [
+   "Just a tea break, chai please...",
+   "Rain delay."
+  ],
+  "npc.del-in:bark_low_hp": [
+   "Still batting. Still not out.",
+   "Second innings starts now!"
+  ],
+  "npc.del-in:bark_revenge": [
+   "Comeback innings!"
+  ],
+  "npc.del-id:bark_walkon": [
+   "Ayo! Let's go.",
+   "Santai... then fight."
+  ],
+  "npc.del-id:bark_attack": [
+   "Ayo!",
+   "Hiyah!",
+   "Sambal time!"
+  ],
+  "npc.del-id:bark_ko_win": [
+   "Mantap!",
+   "Too spicy for you.",
+   "Selamat jalan!",
+   "Beres. Done."
+  ],
+  "npc.del-id:bark_hurt": [
+   "Aduh!",
+   "Waduh!",
+   "Aiyo!"
+  ],
+  "npc.del-id:bark_thrown": [
+   "My batik!",
+   "Not like this!"
+  ],
+  "npc.del-id:bark_downed_crawl": [
+   "Just a little rest, santai...",
+   "Bring nasi goreng..."
+  ],
+  "npc.del-id:bark_low_hp": [
+   "Still standing, pelan-pelan.",
+   "Not finished yet!"
+  ],
+  "npc.del-id:bark_revenge": [
+   "Balas dendam! Payback!"
+  ],
+  "npc.del-ph:bark_walkon": [
+   "Mabuhay! Let's go!",
+   "Kumain ka na? Fight first."
+  ],
+  "npc.del-ph:bark_attack": [
+   "Ayan!",
+   "Laban!",
+   "Sige!"
+  ],
+  "npc.del-ph:bark_ko_win": [
+   "Ayos!",
+   "Encore! One more song!",
+   "Paalam!",
+   "Galing!"
+  ],
+  "npc.del-ph:bark_hurt": [
+   "Aray!",
+   "Ay, naku!",
+   "Ay, grabe!"
+  ],
+  "npc.del-ph:bark_thrown": [
+   "Not my sleeves!",
+   "I'm flying like a jeepney!"
+  ],
+  "npc.del-ph:bark_downed_crawl": [
+   "Just one more videoke song...",
+   "Pass the adobo..."
+  ],
+  "npc.del-ph:bark_low_hp": [
+   "Laban lang! Keep fighting!",
+   "Still on key!"
+  ],
+  "npc.del-ph:bark_revenge": [
+   "Rematch! And karaoke after!"
+  ],
+  "npc.del-vn:bark_walkon": [
+   "Xin chào! Let's begin.",
+   "Phở first. Then fight."
+  ],
+  "npc.del-vn:bark_attack": [
+   "Dô!",
+   "Đây!",
+   "Hat incoming!"
+  ],
+  "npc.del-vn:bark_ko_win": [
+   "Tạm biệt!",
+   "Like a hot bowl of phở.",
+   "Xong rồi. Done.",
+   "Next, please."
+  ],
+  "npc.del-vn:bark_hurt": [
+   "Ối!",
+   "Trời ơi!",
+   "My hat!"
+  ],
+  "npc.del-vn:bark_thrown": [
+   "My nón lá!",
+   "Too high!"
+  ],
+  "npc.del-vn:bark_downed_crawl": [
+   "Just one bowl of phở...",
+   "A short nap..."
+  ],
+  "npc.del-vn:bark_low_hp": [
+   "Still standing. Patient. Very patient.",
+   "Like bamboo: I bend, I don't break."
+  ],
+  "npc.del-vn:bark_revenge": [
+   "I waited. Now it's my turn."
+  ],
+  "npc.del-th:bark_walkon": [
+   "Sawasdee krub. Mai pen rai.",
+   "Elbows ready."
+  ],
+  "npc.del-th:bark_attack": [
+   "Hai!",
+   "Elbow!",
+   "Knee!"
+  ],
+  "npc.del-th:bark_ko_win": [
+   "Mai pen rai. Never mind.",
+   "Eight limbs. One result.",
+   "Chok dee!",
+   "Next round!"
+  ],
+  "npc.del-th:bark_hurt": [
+   "Oi!",
+   "Ai-ya!",
+   "Not the knee!"
+  ],
+  "npc.del-th:bark_thrown": [
+   "Not in the rules!",
+   "Too high, krub!"
+  ],
+  "npc.del-th:bark_downed_crawl": [
+   "Just a short Thai massage...",
+   "Bring som tam..."
+  ],
+  "npc.del-th:bark_low_hp": [
+   "Still in the ring!",
+   "Round five. My round."
+  ],
+  "npc.del-th:bark_revenge": [
+   "The ring remembers!"
+  ],
+  "npc.del-au:bark_walkon": [
+   "G'day! Let's have a go.",
+   "No worries. For me."
+  ],
+  "npc.del-au:bark_attack": [
+   "Have a go!",
+   "Crikey!",
+   "Fair dinkum!"
+  ],
+  "npc.del-au:bark_ko_win": [
+   "Too easy, mate.",
+   "She'll be right. You won't.",
+   "Barbie's ready!",
+   "Ripper!"
+  ],
+  "npc.del-au:bark_hurt": [
+   "Strewth!",
+   "Fair crack of the whip!",
+   "Yeah, nah!"
+  ],
+  "npc.del-au:bark_thrown": [
+   "Boomerang me back!",
+   "Crikey, that's high!"
+  ],
+  "npc.del-au:bark_downed_crawl": [
+   "Just a quick arvo nap.",
+   "Chuck me a snag..."
+  ],
+  "npc.del-au:bark_low_hp": [
+   "She'll be right. She'll be right.",
+   "Still kicking, mate."
+  ],
+  "npc.del-au:bark_revenge": [
+   "Like a boomerang. I come back."
+  ],
+  "npc.del-nz:bark_walkon": [
+   "Kia ora! Sweet as.",
+   "Chur. Let's go."
+  ],
+  "npc.del-nz:bark_attack": [
+   "Sweet as!",
+   "Tackle!",
+   "Chur!"
+  ],
+  "npc.del-nz:bark_ko_win": [
+   "Sweet as, bro.",
+   "Try scored!",
+   "She'll be right. You won't.",
+   "Choice!"
+  ],
+  "npc.del-nz:bark_hurt": [
+   "Ow, bro!",
+   "Yeah, nah!",
+   "Not the jandals!"
+  ],
+  "npc.del-nz:bark_thrown": [
+   "I'm not the rugby ball!",
+   "Whoa, chur!"
+  ],
+  "npc.del-nz:bark_downed_crawl": [
+   "Just having a lie down, bro.",
+   "Pass the pavlova..."
+  ],
+  "npc.del-nz:bark_low_hp": [
+   "Not beaten. Just resting.",
+   "Still got a few phases left."
+  ],
+  "npc.del-nz:bark_revenge": [
+   "Rematch, bro. Sweet as."
+  ],
+  "npc.del-ng:bark_walkon": [
+   "Oya, come! Let's begin.",
+   "Our jollof is better. So is my punch."
+  ],
+  "npc.del-ng:bark_attack": [
+   "Oya!",
+   "Ehen!",
+   "Gbam!"
+  ],
+  "npc.del-ng:bark_ko_win": [
+   "No wahala.",
+   "Jollof for the winner!",
+   "E don finish.",
+   "Next! Oya, come!"
+  ],
+  "npc.del-ng:bark_hurt": [
+   "Chai!",
+   "Haba!",
+   "Ehn ehn!"
+  ],
+  "npc.del-ng:bark_thrown": [
+   "My agbada!",
+   "Put me down! I'm a dignitary!"
+  ],
+  "npc.del-ng:bark_downed_crawl": [
+   "Just a small rest...",
+   "Bring me puff-puff..."
+  ],
+  "npc.del-ng:bark_low_hp": [
+   "Naija no dey carry last!",
+   "We move!"
+  ],
+  "npc.del-ng:bark_revenge": [
+   "You go see. Payback!"
+  ],
+  "npc.del-za:bark_walkon": [
+   "Howzit! Let's go.",
+   "Ayoba! The braai's on."
+  ],
+  "npc.del-za:bark_attack": [
+   "Sharp sharp!",
+   "Ayoba!",
+   "Eish!"
+  ],
+  "npc.del-za:bark_ko_win": [
+   "Lekker!",
+   "Sharp!",
+   "Braai's ready!",
+   "Done and dusted, bru."
+  ],
+  "npc.del-za:bark_hurt": [
+   "Eina!",
+   "Eish!",
+   "Yoh!"
+  ],
+  "npc.del-za:bark_thrown": [
+   "Not the vuvuzela!",
+   "Yoh, high!"
+  ],
+  "npc.del-za:bark_downed_crawl": [
+   "Just now. I'll get up just now.",
+   "Pass the boerewors..."
+  ],
+  "npc.del-za:bark_low_hp": [
+   "Still blowing!",
+   "Not finished, bru."
+  ],
+  "npc.del-za:bark_revenge": [
+   "Now now. I'll get you now now."
+  ],
+  "npc.del-ke:bark_walkon": [
+   "Jambo! Pole pole. Then fast.",
+   "Hakuna matata."
+  ],
+  "npc.del-ke:bark_attack": [
+   "Twende!",
+   "Haraka!",
+   "Sasa!"
+  ],
+  "npc.del-ke:bark_ko_win": [
+   "Personal best!",
+   "Kwaheri!",
+   "Gold medal!",
+   "Sawa sawa. Done."
+  ],
+  "npc.del-ke:bark_hurt": [
+   "Aki!",
+   "Wueh!",
+   "Ai!"
+  ],
+  "npc.del-ke:bark_thrown": [
+   "I'm a runner, not a javelin!",
+   "Aki, put me down!"
+  ],
+  "npc.del-ke:bark_downed_crawl": [
+   "Just catching my breath...",
+   "Bring chai..."
+  ],
+  "npc.del-ke:bark_low_hp": [
+   "Marathon, not a sprint.",
+   "Last lap. My lap."
+  ],
+  "npc.del-ke:bark_revenge": [
+   "I always catch up."
+  ],
+  "npc.del-eg:bark_walkon": [
+   "Yalla! Seven thousand years of practice.",
+   "Ahlan! Let's go."
+  ],
+  "npc.del-eg:bark_attack": [
+   "Yalla!",
+   "Khalas!",
+   "Hah!"
+  ],
+  "npc.del-eg:bark_ko_win": [
+   "Khalas. Done.",
+   "Mummified!",
+   "Ya salam!",
+   "Next, yalla!"
+  ],
+  "npc.del-eg:bark_hurt": [
+   "Ah!",
+   "Ya lahwi!",
+   "My headcloth!"
+  ],
+  "npc.del-eg:bark_thrown": [
+   "Not the scarabs!",
+   "I'm not a pyramid stone!"
+  ],
+  "npc.del-eg:bark_downed_crawl": [
+   "Just a short nap by the Nile...",
+   "Bring koshari..."
+  ],
+  "npc.del-eg:bark_low_hp": [
+   "Pyramids last. So do I.",
+   "Still standing, like a sphinx."
+  ],
+  "npc.del-eg:bark_revenge": [
+   "The sands always return."
+  ],
+  "npc.del-ma:bark_walkon": [
+   "Marhaba! Best price for you, my friend.",
+   "Mint tea? Very hot."
+  ],
+  "npc.del-ma:bark_attack": [
+   "Yallah!",
+   "Hot tea!",
+   "Special price!"
+  ],
+  "npc.del-ma:bark_ko_win": [
+   "Deal done.",
+   "Bslama!",
+   "Best price: free knockout.",
+   "Next customer!"
+  ],
+  "npc.del-ma:bark_hurt": [
+   "Aïe!",
+   "Ouch, my fez!",
+   "Wili!"
+  ],
+  "npc.del-ma:bark_thrown": [
+   "Not the teapot!",
+   "My babouches!"
+  ],
+  "npc.del-ma:bark_downed_crawl": [
+   "Just one glass of tea...",
+   "Bring tagine..."
+  ],
+  "npc.del-ma:bark_low_hp": [
+   "Still bargaining.",
+   "The deal isn't closed yet!"
+  ],
+  "npc.del-ma:bark_revenge": [
+   "Now we haggle. Properly."
+  ],
+  "npc.del-eng>npc.del-sco": [
+   "It's coming home! Eventually!",
+   "Steady on, Hamish!",
+   "Back to Hadrian's... buffet!"
+  ],
+  "npc.del-sco>npc.del-eng": [
+   "Ye've no' won anythin' since 1966!",
+   "Flower o' Scotland, pal!",
+   "That's for every World Cup!"
+  ],
+  "npc.del-eng>npc.del-wal": [
+   "Nothing personal, Dai.",
+   "Rugby rules, old chap!"
+  ],
+  "npc.del-wal>npc.del-eng": [
+   "Six Nations, butt! SIX!",
+   "Sing THIS, Nigel!"
+  ],
+  "npc.del-eng>npc.del-ie": [
+   "Terribly sorry, Siobhán!",
+   "Rugby rematch, is it?"
+  ],
+  "npc.del-ie>npc.del-eng": [
+   "Ah, here we go again!",
+   "Six Nations, lads!"
+  ],
+  "npc.del-eng>npc.del-fr": [
+   "Pardon my French. Actually, don't.",
+   "Crumpets beat croissants!"
+  ],
+  "npc.del-fr>npc.del-eng": [
+   "Your food needs butter. And flavour.",
+   "Rosbif!"
+  ],
+  "npc.del-eng>npc.del-au": [
+   "For the Ashes!",
+   "Is that a sledge? How rude."
+  ],
+  "npc.del-au>npc.del-eng": [
+   "Ashes, mate! Ashes!",
+   "Go back to your drizzle, mate!"
+  ],
+  "npc.del-eng>npc.del-de": [
+   "Penalties? Please, anything but penalties.",
+   "Not penalties. Anything but penalties."
+  ],
+  "npc.del-de>npc.del-eng": [
+   "Penalties. We always win on penalties.",
+   "Exactly as predicted."
+  ],
+  "npc.del-eng>npc.del-us": [
+   "It's called FOOTBALL.",
+   "Tea's brewing, chaps."
+  ],
+  "npc.del-us>npc.del-eng": [
+   "It's SOCCER, dude!",
+   "Hey, nice accent!"
+  ],
+  "npc.del-eng>npc.del-in": [
+   "Cricket's coming home!",
+   "Rain stopped play? I wish."
+  ],
+  "npc.del-in>npc.del-eng": [
+   "Howzat, Sir Nigel?!",
+   "We invented the IPL, you invented rain delays!"
+  ],
+  "npc.del-sco>npc.del-wal": [
+   "Celtic cousins, eh?",
+   "Sorry, pal, it's a brawl."
+  ],
+  "npc.del-sco>npc.del-ie": [
+   "Celtic cousins! Still hittin' ye!",
+   "Sláinte! *punch*"
+  ],
+  "npc.del-ie>npc.del-sco": [
+   "Ah, the cousin! Have this!",
+   "Celtic love, pal!"
+  ],
+  "npc.del-fr>npc.del-de": [
+   "Croissant versus pretzel!",
+   "Our cars are prettier."
+  ],
+  "npc.del-de>npc.del-fr": [
+   "Your trains are late!",
+   "Our bread is better. Fact."
+  ],
+  "npc.del-fr>npc.del-it": [
+   "Our cheese, mon ami!",
+   "French fashion wins!"
+  ],
+  "npc.del-it>npc.del-fr": [
+   "Pasta beats croissant!",
+   "Italian style, bella!"
+  ],
+  "npc.del-fr>npc.del-be": [
+   "Your fries are... fine.",
+   "French is a language, not a suggestion."
+  ],
+  "npc.del-be>npc.del-fr": [
+   "Belgian fries! BELGIAN!",
+   "Our chocolate is better!"
+  ],
+  "npc.del-es>npc.del-pt": [
+   "¡Vecino! Neighbour!",
+   "Paella beats bacalhau!"
+  ],
+  "npc.del-pt>npc.del-es": [
+   "Bacalhau beats paella!",
+   "Better custard tarts!"
+  ],
+  "npc.del-es>npc.del-it": [
+   "Paella over pasta!",
+   "¡Olé!"
+  ],
+  "npc.del-it>npc.del-es": [
+   "Pasta over paella!",
+   "Mamma mia, the flamenco!"
+  ],
+  "npc.del-es>npc.del-mx": [
+   "¡Hola, primo!",
+   "Tapas versus tacos!"
+  ],
+  "npc.del-mx>npc.del-es": [
+   "Tacos beat tapas, primo!",
+   "¡Órale, primo!"
+  ],
+  "npc.del-es>npc.del-ar": [
+   "Football cousin!",
+   "¡Vamos!"
+  ],
+  "npc.del-ar>npc.del-es": [
+   "We've got the better football!",
+   "¡Vamos, che!"
+  ],
+  "npc.del-nl>npc.del-de": [
+   "Give us our bikes back!",
+   "Orange beats everything!"
+  ],
+  "npc.del-de>npc.del-nl": [
+   "Your football is orange. Mine works.",
+   "Too many bikes!"
+  ],
+  "npc.del-nl>npc.del-be": [
+   "Direct, Belgian! Direct!",
+   "Our fries are fine too."
+  ],
+  "npc.del-be>npc.del-nl": [
+   "Finally, someone more annoying!",
+   "Stroopwafel? Psh."
+  ],
+  "npc.del-de>npc.del-at": [
+   "Same language, different accent!",
+   "Servus, cousin!"
+  ],
+  "npc.del-at>npc.del-de": [
+   "We are NOT Germany!",
+   "Waltz, not schlager!"
+  ],
+  "npc.del-ch>npc.del-at": [
+   "Better mountains!",
+   "Better chocolate!"
+  ],
+  "npc.del-at>npc.del-ch": [
+   "Better mountains!",
+   "Better schnitzel!"
+  ],
+  "npc.del-se>npc.del-no": [
+   "Brother! Ha!",
+   "We have more IKEAs."
+  ],
+  "npc.del-no>npc.del-se": [
+   "Better skiing, brother!",
+   "We have more oil... and snow!"
+  ],
+  "npc.del-se>npc.del-dk": [
+   "Bridge rivals!",
+   "Lagom beats hygge!"
+  ],
+  "npc.del-dk>npc.del-se": [
+   "Hygge beats lagom!",
+   "Over the bridge you go!"
+  ],
+  "npc.del-no>npc.del-dk": [
+   "Cousin! Ski at me!"
+  ],
+  "npc.del-dk>npc.del-no": [
+   "Your cheese is BROWN!"
+  ],
+  "npc.del-pl>npc.del-de": [
+   "Neighbourly pierogi punch!",
+   "Our sausages are better!"
+  ],
+  "npc.del-de>npc.del-pl": [
+   "Precise punch for the neighbour!",
+   "Our beer is better!"
+  ],
+  "npc.del-gr>npc.del-it": [
+   "We did philosophy first!",
+   "Feta beats mozzarella!"
+  ],
+  "npc.del-it>npc.del-gr": [
+   "Mozzarella beats feta!",
+   "Romans did it better!"
+  ],
+  "npc.del-us>npc.del-ca": [
+   "Hey, neighbour!",
+   "Bigger, louder, better!"
+  ],
+  "npc.del-ca>npc.del-us": [
+   "Sorry, neighbour!",
+   "Hockey beats football, eh!"
+  ],
+  "npc.del-us>npc.del-mx": [
+   "Taco Tuesday, amigo!"
+  ],
+  "npc.del-mx>npc.del-us": [
+   "Our tacos are REAL, amigo!",
+   "¡Órale, vecino!"
+  ],
+  "npc.del-br>npc.del-ar": [
+   "Our number 10 was better!",
+   "Samba beats tango!"
+  ],
+  "npc.del-ar>npc.del-br": [
+   "Our number 10 was better, che!",
+   "Tango beats samba, che!"
+  ],
+  "npc.del-ar>npc.del-cl": [
+   "Andes rivals, che!",
+   "Better wine, che!"
+  ],
+  "npc.del-cl>npc.del-ar": [
+   "Better wine, po!",
+   "Our empanadas are better!"
+  ],
+  "npc.del-co>npc.del-br": [
+   "Better coffee!",
+   "Cumbia over samba!"
+  ],
+  "npc.del-br>npc.del-co": [
+   "Better football!",
+   "Samba over cumbia!"
+  ],
+  "npc.del-co>npc.del-mx": [
+   "Better coffee, primo!"
+  ],
+  "npc.del-mx>npc.del-co": [
+   "Better tacos, primo!"
+  ],
+  "npc.del-jp>npc.del-kr": [
+   "Sushi beats kimchi!",
+   "Gomen, neighbour!"
+  ],
+  "npc.del-kr>npc.del-jp": [
+   "Kimchi beats sushi!",
+   "Better pop music!"
+  ],
+  "npc.del-in>npc.del-au": [
+   "Howzat, mate?!",
+   "Cricket rivalry!"
+  ],
+  "npc.del-au>npc.del-in": [
+   "Sledging time!",
+   "Howzat yourself, mate!"
+  ],
+  "npc.del-au>npc.del-nz": [
+   "Pavlova's ours, mate!",
+   "Trans-Tasman beatdown!"
+  ],
+  "npc.del-nz>npc.del-au": [
+   "Pavlova's OURS, bro!",
+   "Rugby beats cricket!"
+  ],
+  "npc.del-id>npc.del-ph": [
+   "Better spice!"
+  ],
+  "npc.del-ph>npc.del-id": [
+   "Better karaoke!"
+  ],
+  "npc.del-vn>npc.del-th": [
+   "Phở beats pad thai!"
+  ],
+  "npc.del-th>npc.del-vn": [
+   "Pad thai beats phở!"
+  ],
+  "npc.del-th>npc.del-id": [
+   "Neighbourly elbow!"
+  ],
+  "npc.del-ng>npc.del-za": [
+   "Jollof wins!",
+   "Afrobeats beats amapiano!"
+  ],
+  "npc.del-za>npc.del-ng": [
+   "Amapiano beats Afrobeats!",
+   "Braai beats jollof!"
+  ],
+  "npc.del-ng>npc.del-ke": [
+   "Super Eagles!"
+  ],
+  "npc.del-ke>npc.del-ng": [
+   "We run faster!"
+  ],
+  "npc.del-eg>npc.del-ma": [
+   "North African derby!",
+   "Koshari beats couscous!"
+  ],
+  "npc.del-ma>npc.del-eg": [
+   "Couscous beats koshari!",
+   "North African derby!"
+  ],
+  "npc.del-jm>npc.del-us": [
+   "Too fast for you, man!"
+  ],
+  "npc.del-jm>npc.del-ca": [
+   "Too cold for me, man!"
+  ],
+  "npc.del-ie>npc.del-us": [
+   "You're one-sixteenth Irish? Ha!"
+  ],
+  "npc.del-us>npc.del-ie": [
+   "I'm Irish too! Kind of!"
+  ],
+  "npc.del-in>npc.del-ph": [
+   "Bollywood beats videoke!"
+  ],
+  "bark_walkon": [
+   "Delegation arriving!",
+   "I have the floor!",
+   "Point of order: I'm here.",
+   "Make way!"
+  ],
+  "bark_low_hp": [
+   "Not... done... yet!",
+   "Medic! Or catering!",
+   "I'm fine. Totally fine.",
+   "Mere flesh wound."
+  ],
+  "incident_post_invite": [
+   "📢 Emergency session at the Summit Hall. Forty countries, ten on the floor, one buffet. {country} needs your like. Agree?",
+   "Humbled to announce I'm representing {country} at the Diplomatic Incident. It's going exactly as diplomatically as you'd expect.",
+   "Day 1 of the summit: the seating plan has failed. So have the seats. {country} is holding the floor. Come and watch.",
+   "Quick reminder that every like makes {country}'s delegate stronger from the next session. I'm not saying you have to. I'm saying {country} remembers.",
+   "Excited to share that I have been escorted out of the Summit Hall three times today. Back in five minutes. #Diplomacy",
+   "They said 'resolve it at the summit'. We resolved it with chairs. Live now: the Diplomatic Incident."
+  ],
+  "incident_post_flex": [
+   "{country} just passed a resolution. The resolution was a flying tackle. Thank you to everyone who liked us this hour. 🙏",
+   "Proud to report {country} has been on the floor for 4 straight minutes. My lanyard is still on. Barely.",
+   "Some delegates bring speeches. I brought my nation's finest. And a catering trolley.",
+   "Lessons from the Summit Hall: 1) Network. 2) Duck. 3) Never stand near the buffet during a derby.",
+   "Grateful to the interpreters, the cleaning crew, and the 3,000 people who liked {country} this hour. Not grateful to whoever threw the water cooler."
+  ],
+  "incident_post_about_win": [
+   "Watched {me} win today. Honestly? Delegate material. The summit is always hiring.",
+   "Saw {me}'s fight. That's the kind of energy we need on the floor. {country} would like to recruit you. Diplomatically."
+  ],
+  "incident_post_about_loss": [
+   "Rough fight, {me}. Come to the Summit Hall, where losing is a team sport. Forty teams, actually.",
+   "{me}, I've been escorted out of better rooms than that. It builds character. Come and like {country}."
+  ],
+  "incident_link": [
+   "Forty countries. One summit. Your like is power.",
+   "Ten on the floor, thirty in the lobby. Pick your country.",
+   "Like your country once an hour. Watch it fight harder.",
+   "The diplomatic summit that went wrong. Live."
+  ],
+  "feed_c_del_rival": [
+   "With respect, {first}: no.",
+   "Point of order: we won that one.",
+   "See you on the floor, {first}. Bring a helmet.",
+   "Noted. Filed. Ignored.",
+   "Our buffet is better and you know it.",
+   "Strongly worded letter incoming."
+  ],
+  "feed_c_del_me": [
+   "Liked. For diplomacy reasons.",
+   "Which country do I pick? Asking for a friend.",
+   "I'll watch, but I'm not standing near the buffet.",
+   "Is there a dress code? Asking because of the kilts."
+  ],
+  "feed_c_del": [
+   "Liked my country. Twice. Wait, it only lets me once.",
+   "This is the only summit I've ever watched to the end.",
+   "Which way to the lobby?",
+   "Why is everyone fighting near the canapés?",
+   "The Chair has seen things.",
+   "Our delegate is a legend. Agree.",
+   "Peak international relations.",
+   "I came for the diplomacy, stayed for the chairs."
+  ],
+  "feed_c_del_reply": [
+   "Thank you, {commenter}. The lobby awaits.",
+   "Appreciated, {commenter}. One like, once an hour. Make it count.",
+   "Diplomatically: no comment, {commenter}.",
+   "Seconded, {commenter}."
   ]
+ }
 }

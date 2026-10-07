@@ -53,3 +53,34 @@ describe('crypto bro posts in the career feed (08)', () => {
     for (const c of t.comments) expect(c.text).not.toMatch(/\{\w+\}/);
   });
 });
+
+describe('delegate posts in the career feed (09)', () => {
+  it('the first fight always brings a delegate post linking to the Diplomatic Incident, right after the bro', () => {
+    for (let i = 0; i < 30; i++) {
+      const s = save(`del-${i}`);
+      const posts = fightPosts(s, fight((['win', 'loss', 'draw'] as const)[i % 3]!));
+      const at = posts.findIndex((p) => p.by === 'delegate');
+      expect(at).toBe(posts.findIndex((p) => p.by === 'bro') + 1);
+      const d = posts[at]!;
+      expect(d.link?.href).toMatch(/^\/incident\/\?c=[a-z-]+$/);
+      expect(d.text).not.toMatch(/\{\w+\}/);
+      expect(d.author).toBe(bundle.markets.find((m) => m.source === 'likes')!.cast[d.del!]!.name);
+    }
+  });
+
+  it('after that, about every other fight; other delegates object underneath', () => {
+    let seen = 0;
+    for (let i = 0; i < 40; i++) {
+      const s = save(`del-again-${i}`);
+      s.feed = [{ id: 'x', fight: 1, by: 'delegate', author: 'A', sub: '', text: '', reacts: 0, comments: 0 }];
+      const d = fightPosts(s, fight('win')).find((p) => p.by === 'delegate');
+      if (!d) continue;
+      seen++;
+      const talk = discussion({ ...d, comments: 40 }, s);
+      expect(talk.comments.length).toBeGreaterThan(0);
+      for (const c of talk.comments) expect(c.text).not.toMatch(/\{\w+\}/);
+    }
+    expect(seen).toBeGreaterThan(10);
+    expect(seen).toBeLessThan(32);
+  });
+});
