@@ -4,8 +4,8 @@
 > for batches A, B and D (30 delegates) are in the game. Still to come: batch C
 > bodies (Mexico, Brazil, Argentina, Colombia, Chile, Jamaica, Japan, South
 > Korea, India, Indonesia), which until then wear their own heads on a
-> borrowed career body, and everything from brief 09 on (hall, Chair and
-> Observer, FX and page art, institutions).
+> borrowed career body, and the hall (09), FX and page art (11) and the
+> institutions (12–13). Madam Chair and The Observer (10) are in.
 
 Art for **careercrash.org/incident** (design: `docs/career-crash/09-diplomatic-incident.md`):
 an endless brawl between 40 countries at a summit, each country played by

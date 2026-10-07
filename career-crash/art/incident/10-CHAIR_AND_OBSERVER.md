@@ -1,6 +1,6 @@
 # Diplomatic Incident 10: Madam Chair and The Observer
 
-> **Status:** not delivered yet.
+> **Status:** delivered and in the game (7 October 2026): both bodies and all eight heads.
 
 > Part of the Diplomatic Incident art set (`art/incident/README.md`).
 
