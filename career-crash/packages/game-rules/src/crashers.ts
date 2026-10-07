@@ -52,7 +52,7 @@ export function rollCrashers(bundle: ContentBundle, seed: string, arenaId: strin
     f.c.personality = m.personality;
     f.c.traits = [];
     // The second henchman has a look of their own (`<persona>-b`) once that art exists.
-    return { ...careerSnapshot(bundle, f), loadout: [], persona: m.persona, ...(i === 2 ? { personaArt: `${m.persona}-b` } : {}) };
+    return { ...careerSnapshot(bundle, f), loadout: [], persona: m.persona, ...(i === 2 ? { personaArt: `${m.persona}-b` } : {}), ...(m.moves?.length ? { granted: [...m.moves] } : {}) };
   });
   const tick = e.earliestTick + rng.int(Math.max(1, e.latestTick - e.earliestTick - 200));
   return { set: set.id, tick, until: e.latestTick, minActiveBp: e.minActiveBp, characters };

@@ -672,6 +672,8 @@ const crasherMemberSchema = z.object({
   /** Catchphrases, shouted as they burst in. */
   lines: z.array(z.string()).min(2),
   art: z.object({ color: z.string().regex(/^#[0-9a-f]{6}$/), icon: z.string().max(8) }),
+  /** Moves of their own on top of the career's (09: the institutions). */
+  moves: z.array(ref('ability')).max(3).optional(),
 });
 export const crasherSchema = z.object({
   id: ref('crasher'),
@@ -687,6 +689,8 @@ export const crasherSchema = z.object({
   posts: z.array(z.string()).min(2),
   /** The henchmen in the comments under it. */
   comments: z.array(z.string()).min(2),
+  /** Said as they leave of their own accord (09: the institutions). */
+  exits: z.array(z.string()).min(1).optional(),
 });
 export type CrasherDef = z.infer<typeof crasherSchema>;
 
@@ -713,6 +717,8 @@ const marketMemberSchema = z.object({
   flag: z.string().regex(/^[a-z]{2}(-[a-z]{3})?$/).optional(),
   tzMin: int.min(-720).max(840).optional(),
   popM: z.number().min(0).optional(),
+  /** Memberships the institutions react to (09 §7.2.3): `nato`, `eu`, `commonwealth`. */
+  tags: z.array(z.string().regex(/^[a-z-]+$/)).optional(),
   /** Evens out the borrowed careers (08 §5.3): stat points added or taken, tuned with `pnpm balance --markets-flat`. */
   statBonus: int.min(-40).max(40).optional(),
   /** How they sound (client only): a voice type, pitch and pace on top of their career's, and an effect (a barking dog, a croaking frog, a voice changer, auto-tune). */
@@ -793,6 +799,37 @@ export const marketSchema = z.object({
       abstainScore: int,
       /** Sample likes for the prototype page: a country's typical likes per hour is about `sampleBase` ÷ its rank. */
       sampleBase: int.min(1),
+    })
+    .optional(),
+  /**
+   * The institutions (09 §7.2): one may be offered per session (`chanceBp`),
+   * picked by weight from those that apply; it comes in only when its
+   * trigger holds on the floor.
+   */
+  institutions: z
+    .object({
+      chanceBp: bp,
+      list: z.array(
+        z.object({
+          set: ref('crasher'),
+          weight: int.min(1),
+          size: int.min(1).max(3),
+          stance: z.enum(['fight', 'skirmish', 'aloof', 'meddle']),
+          /** Levels under the floor's base. */
+          levelOffset: int.max(0),
+          leaveAtBp: bp.optional(),
+          leaveAfterTicks: int.min(1).optional(),
+          /** Come when nobody with this membership tag is standing, and leave as soon as one is. */
+          absentTag: z.string().optional(),
+          /** With `absentTag`: how many of them may be standing and it still counts as absent. */
+          absentFew: int.min(0).optional(),
+          koStreak: z.object({ kos: int.min(1), withinTicks: int.min(1), oneSide: z.boolean().optional() }).optional(),
+          /** Only comes to a session that opened with a SURGE, and always does. */
+          needsSurge: z.boolean().optional(),
+          mount: ref('prop').optional(),
+          earliestTick: int.min(0),
+        }),
+      ),
     })
     .optional(),
   /** Friendly rivalries (09 §8.6): in the listed UTC hours both have seats from the start, and their own banter (persona synergies). */

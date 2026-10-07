@@ -1,5 +1,6 @@
 import type { ContentBundle, MarketDef } from '@cc/content-schema';
-import { Rng, SIM_VERSION, type BattleEvent, type BattleInput, type CharacterSnapshot } from '@cc/sim';
+import { Rng, SIM_VERSION, type BattleEvent, type BattleInput, type CharacterSnapshot, type CrasherInput } from '@cc/sim';
+import { rollCrashers } from './crashers';
 import { candleEvents, candleFightTicks, castMember, marketFighter, type ScoredCoin } from './markets';
 
 /**
@@ -187,9 +188,58 @@ export function delegateId(def: MarketDef, key: string): string {
   return `${def.id.replace('market.', '')}-${key.toLowerCase()}`;
 }
 
-/** The battle for one session of an hour (09 §5.3). */
-export function sessionInput(bundle: ContentBundle, def: MarketDef, hour: string, session: number, tally: LikeTally): { input: BattleInput; lineup: Lineup; scored: ScoredCountry[] } {
+/** Countries whose score jumped by at least `surgeAt` since the last session (09 §5.4). */
+export function surgesOf(def: MarketDef, scored: ScoredCountry[], prevTally?: LikeTally): string[] {
+  if (!prevTally) return [];
+  const prev = new Map(scoreLikes(def, prevTally).map((c) => [c.key, c.score]));
+  return scored.filter((c) => c.score - (prev.get(c.key) ?? c.score) >= def.likes!.surgeAt).map((c) => c.key);
+}
+
+/**
+ * The institution that may raid a session (09 §7.2): a seeded draw per
+ * session, by weight; a session that opens with a SURGE always gets the
+ * institution that chases them (Big Tech).
+ * Whether it actually comes in is up to its trigger on the floor: NATO only
+ * when no member is standing, the UN and the ICC after a run of knockouts.
+ */
+export function sessionRaid(bundle: ContentBundle, def: MarketDef, hour: string, session: number, order: string[], ticks: number, surge: boolean): CrasherInput | undefined {
+  const cfg = def.institutions;
+  if (!cfg?.list.length) return undefined;
+  const rng = Rng.fromSeed(`raid:${def.id}:${hour}#${session}`);
+  const roll = rng.int(10000);
+  // A SURGE always brings whoever follows the trends (Big Tech); otherwise a draw.
+  const chasers = surge ? cfg.list.filter((i) => i.needsSurge) : [];
+  if (!chasers.length && roll >= cfg.chanceBp) return undefined;
+  const pool = chasers.length ? chasers : cfg.list.filter((i) => !i.needsSurge);
+  if (!pool.length) return undefined;
+  let r = rng.int(pool.reduce((n, i) => n + i.weight, 0));
+  const pick = pool.find((i) => (r -= i.weight) < 0) ?? pool[0]!;
+  const crash = rollCrashers(bundle, `${def.id}:${hour}#${session}`, def.arena, Math.max(1, def.power.baseLevel + pick.levelOffset), def.power.rank, { set: pick.set, size: pick.size });
+  if (!crash) return undefined;
+  const members = pick.absentTag ? order.map((k, i) => (def.cast[k]?.tags?.includes(pick.absentTag!) ? i : -1)).filter((i) => i >= 0) : [];
+  if (pick.absentTag && (!members.length || members.length === order.length)) return undefined;
+  const when = { ...(members.length ? { noneStanding: members, ...(pick.absentFew ? { few: pick.absentFew } : {}) } : {}), ...(pick.koStreak ? { koStreak: { ...pick.koStreak } } : {}) };
+  return {
+    ...crash,
+    tick: pick.earliestTick,
+    until: Math.max(pick.earliestTick + 1, ticks - 600),
+    minActiveBp: 0,
+    stance: pick.stance,
+    ...(pick.leaveAtBp !== undefined ? { leaveAtBp: pick.leaveAtBp } : {}),
+    ...(pick.leaveAfterTicks !== undefined ? { leaveAfterTicks: pick.leaveAfterTicks } : {}),
+    ...(members.length ? { leaveIfStanding: members } : {}),
+    ...(Object.keys(when).length ? { when } : {}),
+    ...(pick.mount ? { mount: pick.mount } : {}),
+  };
+}
+
+/**
+ * The battle for one session of an hour (09 §5.3). `prevTally` is the last
+ * session's frozen likes, for SURGEs (and so Big Tech).
+ */
+export function sessionInput(bundle: ContentBundle, def: MarketDef, hour: string, session: number, tally: LikeTally, prevTally?: LikeTally): { input: BattleInput; lineup: Lineup; scored: ScoredCountry[]; surges: string[] } {
   const scored = scoreLikes(def, tally);
+  const surges = surgesOf(def, scored, prevTally);
   const lineup = sessionLineup(def, hour, session, tally);
   const byKey = new Map(scored.map((c) => [c.key, c]));
   const d = lineup.derby;
@@ -221,7 +271,9 @@ export function sessionInput(bundle: ContentBundle, def: MarketDef, hour: string
       ...(def.events ? { events: candleEvents(def, { market: def.id, hour, coins: [] }, session, ticks) } : {}),
     },
   };
-  return { input, lineup, scored };
+  const raid = sessionRaid(bundle, def, hour, session, lineup.order, ticks, surges.length > 0);
+  if (raid) input.crashers = raid;
+  return { input, lineup, scored, surges };
 }
 
 /** One country's line in the standings (09 §4.5). */
@@ -322,10 +374,14 @@ export function sampleTally(def: MarketDef, hour: string, session: number): Like
   }
   const out: LikeTally = {};
   const base = def.likes!.sampleBase;
+  // Two countries go viral at some point in the hour: from then on their likes come in four times as fast (a SURGE).
+  const viral = new Map([0, 1].map(() => [order[4 + rng.int(keys.length - 8)]!, 1 + rng.int(11)]));
   order.forEach((k, i) => {
     const hourly = Math.floor(base / (i + 1)) + rng.int(40);
+    const from = viral.get(k);
+    const extra = from !== undefined && session >= from ? 3 * hourly * (session - from + 1) : 0;
     // Nobody likes the bottom few yet.
-    out[k] = i >= keys.length - 4 ? 0 : Math.floor((hourly * (session + 1)) / 12);
+    out[k] = i >= keys.length - 4 ? 0 : Math.floor((hourly * (session + 1) + extra) / 12);
   });
   return out;
 }

@@ -104,6 +104,59 @@
    ]
   }
  ],
+ "institutions": {
+  "chanceBp": 4500,
+  "list": [
+   {
+    "set": "crasher.un",
+    "weight": 2,
+    "size": 3,
+    "stance": "skirmish",
+    "levelOffset": -3,
+    "leaveAtBp": 5000,
+    "koStreak": {
+     "kos": 3,
+     "withinTicks": 400
+    },
+    "earliestTick": 900
+   },
+   {
+    "set": "crasher.nato",
+    "weight": 3,
+    "size": 2,
+    "stance": "aloof",
+    "levelOffset": 0,
+    "absentTag": "nato",
+    "absentFew": 1,
+    "leaveAfterTicks": 900,
+    "mount": "prop.high-horse",
+    "earliestTick": 600
+   },
+   {
+    "set": "crasher.icc",
+    "weight": 2,
+    "size": 3,
+    "stance": "fight",
+    "levelOffset": -2,
+    "koStreak": {
+     "kos": 3,
+     "withinTicks": 600,
+     "oneSide": true
+    },
+    "earliestTick": 900
+   },
+   {
+    "set": "crasher.big-tech",
+    "weight": 3,
+    "size": 2,
+    "stance": "meddle",
+    "levelOffset": -1,
+    "needsSurge": true,
+    "leaveAfterTicks": 1000,
+    "earliestTick": 600
+   }
+  ]
+ },
  "cast": {
   "ENG": {
    "persona": "npc.del-eng",
@@ -127,6 +180,10 @@
    "flag": "gb-eng",
    "tzMin": 0,
    "popM": 57,
+   "tags": [
+    "nato",
+    "commonwealth"
+   ],
    "voice": {
     "type": "mid",
     "pitch": 0.95
@@ -155,6 +212,10 @@
    "flag": "gb-sct",
    "tzMin": 0,
    "popM": 5.5,
+   "tags": [
+    "nato",
+    "commonwealth"
+   ],
    "voice": {
     "type": "gravel"
    },
@@ -182,6 +243,10 @@
    "flag": "gb-wls",
    "tzMin": 0,
    "popM": 3.1,
+   "tags": [
+    "nato",
+    "commonwealth"
+   ],
    "voice": {
     "type": "deep",
     "pitch": 1.05
@@ -210,6 +275,9 @@
    "flag": "ie",
    "tzMin": 0,
    "popM": 5.3,
+   "tags": [
+    "eu"
+   ],
    "voice": {
     "type": "bright"
    },
@@ -237,6 +305,10 @@
    "flag": "fr",
    "tzMin": 60,
    "popM": 68,
+   "tags": [
+    "nato",
+    "eu"
+   ],
    "voice": {
     "type": "mid",
     "pitch": 1.1
@@ -265,6 +337,10 @@
    "flag": "de",
    "tzMin": 60,
    "popM": 84,
+   "tags": [
+    "nato",
+    "eu"
+   ],
    "voice": {
     "type": "deep"
    },
@@ -292,6 +368,10 @@
    "flag": "it",
    "tzMin": 60,
    "popM": 59,
+   "tags": [
+    "nato",
+    "eu"
+   ],
    "voice": {
     "type": "bright",
     "speed": 1.2
@@ -320,6 +400,10 @@
    "flag": "es",
    "tzMin": 60,
    "popM": 48,
+   "tags": [
+    "nato",
+    "eu"
+   ],
    "voice": {
     "type": "bright",
     "speed": 1.15
@@ -348,6 +432,10 @@
    "flag": "pt",
    "tzMin": 0,
    "popM": 10.6,
+   "tags": [
+    "nato",
+    "eu"
+   ],
    "voice": {
     "type": "mid"
    },
@@ -375,6 +463,10 @@
    "flag": "nl",
    "tzMin": 60,
    "popM": 17.9,
+   "tags": [
+    "nato",
+    "eu"
+   ],
    "voice": {
     "type": "mid",
     "pitch": 0.95
@@ -403,6 +495,10 @@
    "flag": "be",
    "tzMin": 60,
    "popM": 11.8,
+   "tags": [
+    "nato",
+    "eu"
+   ],
    "voice": {
     "type": "mid"
    },
@@ -458,6 +554,9 @@
    "flag": "at",
    "tzMin": 60,
    "popM": 9.1,
+   "tags": [
+    "eu"
+   ],
    "voice": {
     "type": "bright"
    },
@@ -485,6 +584,10 @@
    "flag": "pl",
    "tzMin": 60,
    "popM": 36.6,
+   "tags": [
+    "nato",
+    "eu"
+   ],
    "voice": {
     "type": "gravel"
    },
@@ -512,6 +615,10 @@
    "flag": "se",
    "tzMin": 60,
    "popM": 10.6,
+   "tags": [
+    "nato",
+    "eu"
+   ],
    "voice": {
     "type": "bright"
    },
@@ -539,6 +646,9 @@
    "flag": "no",
    "tzMin": 60,
    "popM": 5.5,
+   "tags": [
+    "nato"
+   ],
    "voice": {
     "type": "deep"
    },
@@ -566,6 +676,10 @@
    "flag": "dk",
    "tzMin": 60,
    "popM": 5.9,
+   "tags": [
+    "nato",
+    "eu"
+   ],
    "voice": {
     "type": "mid"
    },
@@ -593,6 +707,10 @@
    "flag": "gr",
    "tzMin": 120,
    "popM": 10.4,
+   "tags": [
+    "nato",
+    "eu"
+   ],
    "voice": {
     "type": "gravel"
    },
@@ -620,6 +738,9 @@
    "flag": "us",
    "tzMin": -300,
    "popM": 335,
+   "tags": [
+    "nato"
+   ],
    "voice": {
     "type": "deep",
     "pitch": 0.95
@@ -648,6 +769,10 @@
    "flag": "ca",
    "tzMin": -300,
    "popM": 40,
+   "tags": [
+    "nato",
+    "commonwealth"
+   ],
    "voice": {
     "type": "mid"
    },
@@ -812,6 +937,9 @@
    "flag": "jm",
    "tzMin": -300,
    "popM": 2.8,
+   "tags": [
+    "commonwealth"
+   ],
    "voice": {
     "type": "deep",
     "pitch": 1.05
@@ -895,6 +1023,9 @@
    "flag": "in",
    "tzMin": 330,
    "popM": 1430,
+   "tags": [
+    "commonwealth"
+   ],
    "voice": {
     "type": "mid",
     "speed": 1.1
@@ -1031,6 +1162,9 @@
    "flag": "au",
    "tzMin": 600,
    "popM": 26.6,
+   "tags": [
+    "commonwealth"
+   ],
    "voice": {
     "type": "gravel"
    },
@@ -1058,6 +1192,9 @@
    "flag": "nz",
    "tzMin": 720,
    "popM": 5.2,
+   "tags": [
+    "commonwealth"
+   ],
    "voice": {
     "type": "mid"
    },
@@ -1085,6 +1222,9 @@
    "flag": "ng",
    "tzMin": 60,
    "popM": 224,
+   "tags": [
+    "commonwealth"
+   ],
    "voice": {
     "type": "deep"
    },
@@ -1112,6 +1252,9 @@
    "flag": "za",
    "tzMin": 120,
    "popM": 60,
+   "tags": [
+    "commonwealth"
+   ],
    "voice": {
     "type": "deep",
     "pitch": 1.05
@@ -1140,6 +1283,9 @@
    "flag": "ke",
    "tzMin": 180,
    "popM": 55,
+   "tags": [
+    "commonwealth"
+   ],
    "voice": {
     "type": "mid"
    },

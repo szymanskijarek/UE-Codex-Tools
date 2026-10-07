@@ -1,7 +1,7 @@
 import { bundle } from '@cc/content';
 import { createBattle, simulate } from '@cc/sim';
 import { describe, expect, it } from 'vitest';
-import { addInfluence, countriesDef, countryKeys, derbyOf, emptyInfluence, hostOf, log2x100, sampleTally, scoreLikes, sessionInput, sessionLineup, tallySession } from '../src/incident';
+import { addInfluence, countriesDef, countryKeys, derbyOf, emptyInfluence, hostOf, log2x100, sampleTally, scoreLikes, sessionInput, sessionLineup, sessionRaid, tallySession } from '../src/incident';
 
 const def = countriesDef(bundle);
 const HOUR = '2026-10-06T14';
@@ -124,5 +124,46 @@ describe('Diplomatic Incident (09)', () => {
     // The derby has lines both ways.
     expect(bundle.live['npc.del-eng>npc.del-sco']?.length).toBeGreaterThan(0);
     expect(bundle.live['npc.del-sco>npc.del-eng']?.length).toBeGreaterThan(0);
+  });
+  it('institutions raid some sessions, each on its own terms', () => {
+    const seen = new Map<string, NonNullable<ReturnType<typeof sessionRaid>>>();
+    for (let h = 0; h < 24 && seen.size < 3; h++) {
+      const hour = `2026-10-06T${String(h).padStart(2, '0')}`;
+      for (let s = 0; s < 12; s++) {
+        const { input } = sessionInput(bundle, def, hour, s, sampleTally(def, hour, s));
+        if (input.crashers && !seen.has(input.crashers.set)) seen.set(input.crashers.set, input.crashers);
+      }
+    }
+    expect([...seen.keys()].sort()).toEqual(['crasher.icc', 'crasher.nato', 'crasher.un']);
+    const nato = seen.get('crasher.nato')!;
+    expect(nato.stance).toBe('aloof');
+    expect(nato.mount).toBe('prop.high-horse');
+    // It waits for the members to be off their feet, and leaves when they're back.
+    expect(nato.when?.noneStanding?.length).toBe(17);
+    expect(nato.leaveIfStanding).toEqual(nato.when?.noneStanding);
+    expect(seen.get('crasher.un')!.when?.koStreak?.kos).toBe(3);
+    expect(seen.get('crasher.icc')!.when?.koStreak?.oneSide).toBe(true);
+    // Big Tech only turns up after a SURGE, and then always does.
+    const order = countryKeys(def);
+    expect(sessionRaid(bundle, def, HOUR, 4, order, 5920, true)?.set).toBe('crasher.big-tech');
+    for (let s = 0; s < 12; s++) expect(sessionRaid(bundle, def, HOUR, s, order, 5920, false)?.set).not.toBe('crasher.big-tech');
+  });
+
+  it('a raided session plays out: the UN comes after a run of knockouts and leaves by the door', () => {
+    let found: { hour: string; s: number } | undefined;
+    for (let h = 0; h < 24 && !found; h++) {
+      const hour = `2026-10-06T${String(h).padStart(2, '0')}`;
+      for (let s = 0; s < 12 && !found; s++) if (sessionInput(bundle, def, hour, s, sampleTally(def, hour, s)).input.crashers?.set === 'crasher.un') found = { hour, s };
+    }
+    const { input } = sessionInput(bundle, def, found!.hour, found!.s, sampleTally(def, found!.hour, found!.s));
+    const out = simulate({ ...input, endless: { ...input.endless!, ticks: 3000 } }, bundle);
+    const crash = out.events.find((e) => e.type === 'crash')!;
+    expect(crash.s).toBe('crasher.un');
+    const leave = out.events.find((e) => e.type === 'crashLeave')!;
+    expect(leave.t).toBeGreaterThan(crash.t);
+    expect(out.events.filter((e) => e.type === 'crashExit').length).toBe(3);
+    // They aren't in the standings: only delegates walk on.
+    const rows = tallySession(def, input.teams.map((t) => t.playerId), out.events, 3000);
+    expect(rows.reduce((n, r) => n + r.walkOns, 0)).toBe(10 + out.events.filter((e) => e.type === 'walkon').length);
   });
 });

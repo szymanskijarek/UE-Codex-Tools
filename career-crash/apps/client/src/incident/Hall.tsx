@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useRef, useState } from 'preact/hooks';
 import { LiveCommentator, type LiveLine } from '@cc/commentary';
 import { bundle } from '@cc/content';
-import { addInfluence, emptyInfluence, floorClock, scoreLikes, sessionInput, tallySession, type FloorClock, type Influence, type ScoredCountry } from '@cc/game-rules';
+import { addInfluence, emptyInfluence, floorClock, sessionInput, tallySession, type FloorClock, type Influence, type ScoredCountry } from '@cc/game-rules';
 import { TICKS_PER_SECOND, type BattleEvent } from '@cc/sim';
 import { ReplayPlayer } from '../replay/player';
 import { BattleRenderer } from '../replay/renderer';
@@ -111,9 +111,9 @@ export function Hall() {
   // The session's input: likes frozen at its start (09 §5.3).
   const session = useMemo(() => {
     const tally = frozenTally(clock.hour, clock.candle);
-    const { input, lineup, scored } = sessionInput(bundle, DEF, clock.hour, clock.candle, tally);
-    const prev = clock.candle > 0 ? scoreLikes(DEF, frozenTally(clock.hour, clock.candle - 1)) : null;
-    return { input, lineup, scored, tally, prev };
+    const prevTally = clock.candle > 0 ? frozenTally(clock.hour, clock.candle - 1) : undefined;
+    const { input, lineup, scored, surges } = sessionInput(bundle, DEF, clock.hour, clock.candle, tally, prevTally);
+    return { input, lineup, scored, tally, surges };
   }, [clock.hour, clock.candle]);
 
   // Earlier sessions of this hour, worked out in the background.
@@ -126,7 +126,7 @@ export function Hall() {
   // The current session: catch up to the wall clock, then play along with it.
   useEffect(() => {
     if (!host.current) return;
-    const { input, lineup, scored, prev } = session;
+    const { input, lineup, surges: jumped } = session;
     const t0 = performance.now();
     const player = new ReplayPlayer(input, { probe: false });
     const startAt = Math.min(floorClock(DEF, now()).tick, input.endless!.ticks);
@@ -142,12 +142,9 @@ export function Hall() {
     const keyOf = (entityId: number) => input.teams[player.world.byId.get(entityId)?.team ?? -1]?.playerId ?? '';
     const vars = (k: string) => ({ country: countryName(k), name: info(k).name, flag: '' });
     // Surges at the seam (09 §5.4): scores that jumped since the last session.
-    if (prev) {
-      const jumped = scored.filter((c) => c.score - (prev.find((p) => p.key === c.key)?.score ?? c.score) >= DEF.likes!.surgeAt).map((c) => c.key);
-      if (jumped.length && startAt < 140) {
-        setSurges({ keys: jumped, until: Date.now() + SURGE_MS });
-        for (const k of jumped.slice(0, 2)) push(fill('incident_surge', vars(k)), 'surge');
-      }
+    if (jumped.length && startAt < 140) {
+      setSurges({ keys: jumped, until: Date.now() + SURGE_MS });
+      for (const k of jumped.slice(0, 2)) push(fill('incident_surge', vars(k)), 'surge');
     }
     if (startAt < 40) {
       const first = lineup.order[0]!;
@@ -183,6 +180,8 @@ export function Hall() {
           if (events.length) {
             for (const l of commentator.consume(events, player.world.events, false) as LiveLine[]) if (l.importance >= 2 && !l.kind.startsWith('end_')) push(l.text, l.kind);
             for (const e of events) {
+              // An institution bursts in (09 §7.2).
+              if (e.type === 'crash' && !mutedRef.current) music.sting('crash');
               if (e.type !== 'walkon') continue;
               const inK = input.teams[e.v]?.playerId ?? '';
               const outK = keyOf(e.b);

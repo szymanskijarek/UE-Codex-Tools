@@ -346,7 +346,7 @@ that already exist in the sim.
 | **Motorcade** | Black Swan | Rare. A black car noses through and goes for the Chair of the Session. |
 | **Red Tape** | Gas Spike | A taped-off zone: abilities cost double inside it. |
 
-### 7.2 Gatecrashers: the Institutions (design exploration, owner's direction 6 Oct)
+### 7.2 Gatecrashers: the Institutions (owner's direction 6 Oct; first four built 7 Oct, §14)
 
 The summit's gatecrashers aren't venue staff (07) but **the institutions**:
 international bodies and global industries who barge into the brawl,
@@ -358,7 +358,7 @@ people, and never about a real event, war or real person.
 
 | | 07 (career fights) | Institutions (here) |
 |---|---|---|
-| When | 10% of fights, at a random tick | **When the floor matches their trigger** (§7.2.3), at most one visit a session, ~2 an hour |
+| When | 10% of fights, at a random tick | **When the floor matches their trigger** (§7.2.3), at most one visit a session, ~5 an hour as built |
 | How they fight | Fight everyone, stay down | One of four **stances** (§7.2.2): most don't really fight |
 | How they leave | Knocked out | Most **leave on their own** (they walk or ride out), having changed nothing |
 | Score | None | None, but the visit is a feed event and a 📸 moment |
@@ -431,6 +431,13 @@ from NATO even on the floor" never happened. The trigger fires the moment
 the condition holds, so NATO turns up roughly once an hour, **just after its
 members have all been knocked down**, which is the joke. If that's too rare,
 loosen it to "at most one NATO member standing".
+
+**As built (7 Oct):** with the sample likes, the strict rule brought NATO in
+about once every three hours, so it is loosened: NATO comes when **at most one
+member is standing** (`absentFew: 1`) and leaves when a second one is (after
+a ten-second minimum stay, so the horse gets its moment). Measured over six
+sample hours (72 sessions): UN 1.7, ICC 1.3, NATO 1.2 and Big Tech 0.8 visits
+an hour, about five in all.
 
 #### 7.2.4 Feed and posts
 
@@ -831,4 +838,5 @@ cross-promos.
 | Career feed | After a career fight a delegate posts in the main game's feed (`career/feed.ts`, `incident_post_*`), with a link card to `/incident/?c=<their country>`: always after the first fight that has none yet, then about every other fight. Other delegates object in the comments (`feed_c_del_*`). |
 | Code shape | No `floors.ts` split: `incident.ts` reuses `markets.ts` (clock, scene events, fighters) directly, and the market schema gained `source: 'likes'`, `likes`, `derbies`, `candle.seats`/`walkOnTicks` and per-delegate `flag`/`tzMin`/`popM`. |
 | Art | All 40 delegates complete (body sheet plus neutral, angry, surprised and hurt heads), and Madam Chair and The Observer. 21 of the 42 sheets needed slicer overrides (`cut`, `cutX` in `art/sheets/manifest.json`). A puppet can also wear a persona's faces on a borrowed body (`Puppet(career, r, faces)`), for any persona whose body hasn't arrived. Still to come: Summit Hall, FX and page art, institutions. |
-| Not yet | The vote service (phase 2), sharing beyond the share button (phase 3), the art (briefs ready), music of its own (it plays the Office song), gatecrasher sets, Punching Above Its Weight board, Rewind picker. |
+| Institutions | The first four (§7.2), one per stance: **UN** (`skirmish`, three, three levels under the floor; comes after 3 knockouts in 20 s, leaves by a side door once one is at half health; Deep Concern = `lectured` on everyone near, Ceasefire Appeal = taunt + `distracted`), **NATO** (`aloof`, two; comes when at most one of the 17 members is standing, rides in on the **Moral High Horse** (`prop.high-horse`, a rideable prop that only nudges), laps the hall well away from everyone, never lands a blow; leaves after 45 s or when a second member stands), **ICC** (`fight`, three, two levels under; comes after one country scores 3 knockouts in 30 s; Arrest Warrant = `sticky` + `stunned`, Gendarme Whistle = `spooked`; floored, they're carried out), **Big Tech** (`meddle`, two; comes to every session that opens with a SURGE, uses only its own moves: Harvest Data drains energy, Free Phones = `distracted`, Go Viral pumps a delegate; leaves after 50 s). Content: `crashers/institutions.json` (lines, entrance, posts, comments, exit lines), `abilities/institutions.json`, `props/incident.json`, `countries.json` → `institutions` (chance 45% a session, weights, triggers, `absentTag`, `koStreak`, `needsSurge`, `mount`) and membership `tags` (`nato`, `eu`, `commonwealth`) on each delegate. Sim (`SIM_VERSION` 0.19.0): `CrasherInput.stance`, `leaveAtBp`, `leaveAfterTicks`, `leaveIfStanding`, `when` (`noneStanding` + `few`, `koStreak`), `mount`; `crashLeave` and `crashExit` events; the floored ones of any stance are escorted out. Game-rules: `sessionRaid` (seeded per session) and `surgesOf`; `sessionInput` takes the previous session's likes for SURGEs. Client: exit line as a speech bubble and in the communiqués, a sting on arrival. Sample likes now include two countries a session that go viral (likes four times as fast from a seeded session on), so SURGEs and Big Tech happen in the prototype. Borrowed career bodies until the art (`12-INSTITUTIONS_A.md`); the horse is a placeholder disc. |
+| Not yet | The vote service (phase 2), sharing beyond the share button (phase 3), the art (briefs ready), music of its own (it plays the Office song), the other six institutions (§7.2.1, content only), their kill switch, Punching Above Its Weight board, Rewind picker. |

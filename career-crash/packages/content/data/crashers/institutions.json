@@ -1,0 +1,253 @@
+[
+ {
+  "id": "crasher.un",
+  "home": "arena.summit-hall",
+  "visits": [],
+  "leader": {
+   "persona": "npc.inst-un-envoy",
+   "career": "career.politician",
+   "personality": "personality.helpful",
+   "lines": [
+    "We call on all parties to show restraint!",
+    "I am deeply, deeply concerned.",
+    "Can we all just sit down?",
+    "Let's form a working group about this."
+   ],
+   "art": {
+    "color": "#5b92e5",
+    "icon": "🕊️"
+   },
+   "moves": [
+    "ability.deep-concern",
+    "ability.ceasefire-appeal"
+   ],
+   "name": "Dr Hilde Concern"
+  },
+  "henchmen": {
+   "persona": "npc.inst-un-peacekeeper",
+   "career": "career.security-guard",
+   "personality": "personality.coward",
+   "lines": [
+    "Please calm down!",
+    "I'm only here to observe!",
+    "Nobody told me there'd be punching.",
+    "Can I hand you a leaflet?"
+   ],
+   "art": {
+    "color": "#7fb2f0",
+    "icon": "🪖"
+   },
+   "moves": [
+    "ability.ceasefire-appeal"
+   ],
+   "names": [
+    "Lars Patience",
+    "Amina Restraint"
+   ]
+  },
+  "entrance": [
+   "The UN Peacekeeping Mission has entered the chamber, waving leaflets. Dr Hilde Concern is concerned.",
+   "Sky-blue helmets in the hall! The UN is here to keep the peace. The peace has not been informed."
+  ],
+  "posts": [
+   "Visited the {arena} today to call for calm. We were thrown into the buffet. We remain deeply concerned. #Peace #Dialogue",
+   "Productive mission to the {arena}. Leaflets distributed: 400. Leaflets read: 0. Bruises: several. #Peacekeeping"
+  ],
+  "comments": [
+   "I lost my helmet in the canapés.",
+   "They took the leaflets. Then they hit us with the leaflets."
+  ],
+  "exits": [
+   "We call on all parties to show restraint. Goodbye!",
+   "This mission is concluded. Nothing has changed. As planned.",
+   "We'll be issuing a statement. From outside."
+  ]
+ },
+ {
+  "id": "crasher.nato",
+  "home": "arena.summit-hall",
+  "visits": [],
+  "leader": {
+   "persona": "npc.inst-nato-official",
+   "career": "career.politician",
+   "personality": "personality.confident",
+   "lines": [
+    "We stand ready to stand ready.",
+    "Our values are very high up. Like me.",
+    "I am observing from a position of strength.",
+    "Let me be absolutely clear: no."
+   ],
+   "art": {
+    "color": "#003c78",
+    "icon": "🐴"
+   },
+   "name": "Sir Rupert Highground"
+  },
+  "henchmen": {
+   "persona": "npc.inst-nato-aide",
+   "career": "career.journalist",
+   "personality": "personality.coward",
+   "lines": [
+    "Sir, the members are all on the floor!",
+    "Shall I draft a statement, sir?",
+    "Sir, the horse is eating the canapés.",
+    "Press release going out now!"
+   ],
+   "art": {
+    "color": "#4a6fa5",
+    "icon": "📋"
+   },
+   "names": [
+    "Petra Briefing",
+    "Tom Memo"
+   ]
+  },
+  "entrance": [
+   "Hooves on the carpet! The Alliance rides in on its Moral High Horse, now that every member is safely face-down.",
+   "NATO has arrived on a very tall horse, to express solidarity from a great height."
+  ],
+  "posts": [
+   "Proud to have ridden through the {arena} today and upheld our values from a safe height. 🐴 #Solidarity",
+   "Strong message delivered at the {arena}. Mostly to the horse. #Values #Unity"
+  ],
+  "comments": [
+   "Sir, the horse would like a word.",
+   "Statement drafted. It says 'We stand ready.'"
+  ],
+  "exits": [
+   "We stand ready to stand ready. Elsewhere.",
+   "Not our jurisdiction. Actually it is. Anyway, goodbye!",
+   "Onwards, horse! To the high ground!"
+  ]
+ },
+ {
+  "id": "crasher.icc",
+  "home": "arena.summit-hall",
+  "visits": [],
+  "leader": {
+   "persona": "npc.inst-icc-magistrate",
+   "career": "career.lawyer",
+   "personality": "personality.competitive",
+   "lines": [
+    "You are all under arrest!",
+    "Order! ORDER!",
+    "I have a warrant. It is very long.",
+    "The court will now hear the case of... ow."
+   ],
+   "art": {
+    "color": "#1f1f1f",
+    "icon": "⚖️"
+   },
+   "moves": [
+    "ability.arrest-warrant",
+    "ability.gendarme-whistle"
+   ],
+   "name": "Judge Augustin Proceedings"
+  },
+  "henchmen": {
+   "persona": "npc.inst-icc-gendarme",
+   "career": "career.police-officer",
+   "personality": "personality.aggressive",
+   "lines": [
+    "Halte! Nobody move!",
+    "Papers, please!",
+    "You are under arr— ow.",
+    "*whistle*"
+   ],
+   "art": {
+    "color": "#24305e",
+    "icon": "👮"
+   },
+   "moves": [
+    "ability.arrest-warrant",
+    "ability.gendarme-whistle"
+   ],
+   "names": [
+    "Gendarme Dupont",
+    "Gendarme Dupond"
+   ]
+  },
+  "entrance": [
+   "Whistles! The Court has arrived with two gendarmes and a warrant for everyone. Everyone is unimpressed.",
+   "The ICC bursts in, kepis first. Judge Proceedings has a warrant. The delegates have chairs."
+  ],
+  "posts": [
+   "Arrests made today at the {arena}: 0. Gendarmes hospitalised: 2. Proceedings continue. #Justice",
+   "Visited the {arena} with a warrant. Was handed a chair. Proceedings adjourned. #Law"
+  ],
+  "comments": [
+   "They confiscated my whistle. Then my kepi.",
+   "I arrested a buffet table. It was the only one that stood still."
+  ],
+  "exits": [
+   "The court is adjourned! Indefinitely!",
+   "We will be back. With a longer warrant."
+  ]
+ },
+ {
+  "id": "crasher.big-tech",
+  "home": "arena.summit-hall",
+  "visits": [],
+  "leader": {
+   "persona": "npc.inst-tech-founder",
+   "career": "career.influencer",
+   "personality": "personality.chaotic",
+   "lines": [
+    "Move fast and break things. Like your jaw.",
+    "We're disrupting diplomacy.",
+    "Have you accepted the new terms?",
+    "This summit is now a platform."
+   ],
+   "art": {
+    "color": "#14b8a6",
+    "icon": "📱"
+   },
+   "moves": [
+    "ability.harvest-data",
+    "ability.go-viral",
+    "ability.free-phones"
+   ],
+   "name": "Chase Founderson"
+  },
+  "henchmen": {
+   "persona": "npc.inst-tech-hacker",
+   "career": "career.programmer",
+   "personality": "personality.chaotic",
+   "lines": [
+    "Growth! GROWTH!",
+    "Can I get your email?",
+    "We're A/B testing this punch.",
+    "Scale it!"
+   ],
+   "art": {
+    "color": "#0f766e",
+    "icon": "💻"
+   },
+   "moves": [
+    "ability.harvest-data",
+    "ability.free-phones"
+   ],
+   "names": [
+    "Kai Funnel",
+    "Dana Metrics"
+   ]
+  },
+  "entrance": [
+   "Big Tech has entered the chamber, handing out free phones and collecting everybody's energy. Terms apply.",
+   "A hoodie and two growth hackers burst in: Big Tech wants to 'connect' the delegates. And their data."
+  ],
+  "posts": [
+   "Humbled to have connected 10 delegates at the {arena} today. Their energy is now ours. 🙏 #Community",
+   "Shipped a new feature at the {arena}: chaos. Engagement is up 400%. #Growth"
+  ],
+  "comments": [
+   "Dana harvested a whole delegation. They didn't notice.",
+   "The free phones were a huge success. Nobody looked up for an hour."
+  ],
+  "exits": [
+   "Thanks for your data! Byeee.",
+   "We're pivoting. Out of the door.",
+   "Moving fast. Away from here."
+  ]
+ }
+]

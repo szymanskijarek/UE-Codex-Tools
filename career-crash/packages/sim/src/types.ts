@@ -3,7 +3,7 @@ import type { ContentIndex } from './content';
 import type { Rng } from './core/rng';
 import type { NavGrid } from './systems/nav';
 
-export const SIM_VERSION = '0.18.0';
+export const SIM_VERSION = '0.19.0';
 export const TICKS_PER_SECOND = 20;
 export const MAX_TICKS = 2400;
 export const ENTITY_CAP = 256;
@@ -75,6 +75,31 @@ export interface CrasherInput {
   minActiveBp: number;
   /** The leader first. */
   characters: CharacterSnapshot[];
+  /**
+   * Institutions (09 §7.2): how they behave. `fight` (07, the default) fights
+   * everyone; `skirmish` fights but leaves once hurt; `aloof` never fights and
+   * laps the floor; `meddle` only uses its own abilities. All but `fight`
+   * leave by a door of their own accord (a `crashExit` event each).
+   */
+  stance?: 'fight' | 'skirmish' | 'aloof' | 'meddle';
+  /** Skirmish: leave once any of them is below this share of their health. */
+  leaveAtBp?: number;
+  /** Leave this long after arriving. */
+  leaveAfterTicks?: number;
+  /** Leave when more of these teams have someone standing than `when.few` allows (NATO: a member walks on). */
+  leaveIfStanding?: number[];
+  /** Come in only when this holds (checked every second), on top of the tick window. */
+  when?: CrashTrigger;
+  /** A prop the leader arrives riding, all visit long (NATO's high horse). */
+  mount?: string;
+}
+
+export interface CrashTrigger {
+  /** Nobody from these teams is standing (on the floor and not knocked down), or no more than `few` of them. */
+  noneStanding?: number[];
+  few?: number;
+  /** At least `kos` knockouts within the last `withinTicks`, by anyone, or all by one side (`oneSide`). */
+  koStreak?: { kos: number; withinTicks: number; oneSide?: boolean };
 }
 
 /**
@@ -190,6 +215,9 @@ export type EventType =
   | 'rivalry'
   /** Gatecrashers burst in (07): a = the leader, v = how many, s = the set id. */
   | 'crash'
+  /** Institutions (09 §7.2): they decide to leave (a = the leader, s = the set), and each one gone through the door (a = them; v = 1 when carried out floored). */
+  | 'crashLeave'
+  | 'crashExit'
   | 'revenge'
   | 'consume'
   | 'disarm'
@@ -409,6 +437,9 @@ export interface World {
   /** Gatecrashers: their side (one past the last real team), and whether they've come in. */
   crashTeam: number;
   crashed: boolean;
+  /** Institutions (09 §7.2): when they arrived, and whether they're on their way out. */
+  crashArrived: number;
+  crashLeaving: boolean;
   /** Endless floors with a lobby (09 §4): teams waiting to walk on, in order. */
   lobby: number[];
   refereeId: number;

@@ -6,6 +6,7 @@ import { summonDecide, summonRoom } from './summons';
 import { matchTags } from './effects';
 import { isBlockedAt } from './nav';
 import { DROPPED_WEAPON } from './weapons';
+import { crasherPlan, doorFor, lapPoint } from './crashers';
 
 /**
  * Utility AI (02 §6). Every decision enumerates a bounded set of candidate
@@ -449,12 +450,26 @@ export function decide(w: World): void {
       crawlAway(w, e);
       continue;
     }
+    // Institutions (09 §7.2): on their way out, on a lap, or meddling with their own abilities only.
+    const plan = crasherPlan(w, e);
+    if (plan === 'leave' || plan === 'lap') {
+      const [tx, ty] = plan === 'leave' ? doorFor(w, e) : lapPoint(w, e);
+      e.action = { kind: 'wander', targetId: -1, tx, ty, abilityId: '', phase: 'approach', timer: 0, goal: 'survive', expires: w.tick + 40 };
+      continue;
+    }
     const taunter = e.tauntUntil > w.tick ? get(w, e.tauntedBy) : undefined;
     if (taunter && isAlive(taunter) && taunter.state === 'active') {
       e.action = { kind: 'attack', targetId: taunter.id, tx: taunter.x, ty: taunter.y, abilityId: '', phase: 'approach', timer: 0, goal: 'damage', expires: w.tick + 40 };
       continue;
     }
-    const cands = candidates(w, e);
+    const cands = plan === 'meddle' ? candidates(w, e).filter((c) => c.kind === 'ability') : candidates(w, e);
+    if (plan === 'meddle' && !cands.length) {
+      // Nothing to cast yet: drift about the middle of the floor, looking busy.
+      const [W, H] = w.arena.sizeMm;
+      const [dx, dy] = DIRS8[w.aiRng.int(8)]!;
+      e.action = { kind: 'wander', targetId: -1, tx: clamp(idiv(W, 2) + dx * 4, 1500, W - 1500), ty: clamp(idiv(H, 2) + dy * 4, 1500, H - 1500), abilityId: '', phase: 'approach', timer: 0, goal: 'survive', expires: w.tick + 30 };
+      continue;
+    }
     let best: Candidate | null = null;
     let bestScore = -1_000_000;
     for (const c of cands) {

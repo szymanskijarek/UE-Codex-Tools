@@ -21,7 +21,7 @@ export function tallyPastSessions(hour: string, upTo: number, onSession: (sessio
   const slice = () => {
     if (cancelled || session >= upTo) return;
     if (!battle) {
-      const { input } = sessionInput(bundle, DEF, hour, session, frozenTally(hour, session));
+      const { input } = sessionInput(bundle, DEF, hour, session, frozenTally(hour, session), session > 0 ? frozenTally(hour, session - 1) : undefined);
       keys = input.teams.map((t) => t.playerId);
       ticks = input.endless!.ticks;
       battle = createBattle(input, bundle);

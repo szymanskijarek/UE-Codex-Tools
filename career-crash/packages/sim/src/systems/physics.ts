@@ -270,6 +270,11 @@ function impact(w: World, prop: Entity, victim: Entity): void {
     const rider = w.byId.get(prop.riddenBy)!;
     const sp = isqrt(rider.mx * rider.mx + rider.my * rider.my);
     if (sp < 150) return;
+    // An aloof institution's mount (09: the high horse) only nudges people aside: it never lands a blow.
+    if (rider.team === w.crashTeam && w.input.crashers?.stance === 'aloof') {
+      push(w, victim, rider.x, rider.y, 600);
+      return;
+    }
     const cause = prop.moveCause;
     applyDamage(w, victim, clamp(idiv(prop.weightG * sp, 150000), 4, 25), 'blunt', rider.id, cause);
     applyEffect(w, { type: 'knockdown' }, victim, { sourceId: rider.id, cause, powerBp: 10000, scale: 'none' });

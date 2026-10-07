@@ -585,6 +585,8 @@ export function createWorld(input: BattleInput, bundle: ContentBundle): World {
     teamCount: input.teams.length,
     crashTeam: input.teams.length,
     crashed: false,
+    crashArrived: -1,
+    crashLeaving: false,
     lobby: [],
     refereeId: -1,
     suddenDeathTick: input.endless ? Number.MAX_SAFE_INTEGER : SUDDEN_DEATH_TICK,

@@ -1,0 +1,20 @@
+[
+ {
+  "id": "prop.high-horse",
+  "tags": [
+   "rideable",
+   "animal"
+  ],
+  "radiusMm": 600,
+  "weightG": 450000,
+  "solid": true,
+  "ride": {
+   "speedBonusBp": 6000,
+   "durationTicks": 120
+  },
+  "art": {
+   "color": "#f5f5f4",
+   "shape": "circle"
+  }
+ }
+]

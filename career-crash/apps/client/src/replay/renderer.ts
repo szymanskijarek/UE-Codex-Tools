@@ -3179,6 +3179,13 @@ export class BattleRenderer {
           setTimeout(() => this.ready && this.bark(victim, 'bark_downed_crawl', 0.6), 1400);
         }
         break;
+      case 'crashLeave': {
+        // Institutions leave of their own accord (09 §7.2): the leader's parting line on the way to the door.
+        const set = bundle.crashers.find((c) => c.id === ev.s);
+        const lead = this.ready ? this.chars.get(ev.a) : undefined;
+        if (set?.exits?.length && lead) this.say(lead, rand(set.exits), 2400);
+        break;
+      }
       case 'walkon': {
         // A delegate walks on from the lobby (09): an entrance line once their sprite exists.
         const id = ev.a;

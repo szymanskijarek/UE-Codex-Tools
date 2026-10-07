@@ -1,0 +1,202 @@
+[
+ {
+  "id": "ability.deep-concern",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 160,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 3800,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.lectured",
+    "durationTicks": 70
+   },
+   {
+    "type": "morale",
+    "amount": -8
+   }
+  ]
+ },
+ {
+  "id": "ability.ceasefire-appeal",
+  "kind": "active",
+  "cost": {
+   "energy": 10
+  },
+  "cooldownTicks": 140,
+  "castTicks": 6,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 5000
+  },
+  "aiHints": {
+   "goal": "control"
+  },
+  "effects": [
+   {
+    "type": "taunt",
+    "ticks": 80
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.distracted",
+    "durationTicks": 30
+   }
+  ]
+ },
+ {
+  "id": "ability.arrest-warrant",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 140,
+  "castTicks": 6,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 2600
+  },
+  "aiHints": {
+   "goal": "control"
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.sticky",
+    "durationTicks": 70
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.stunned",
+    "durationTicks": 24
+   },
+   {
+    "type": "damage",
+    "amount": 3,
+    "damageType": "social"
+   }
+  ]
+ },
+ {
+  "id": "ability.gendarme-whistle",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 200,
+  "castTicks": 6,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 3200,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.spooked",
+    "durationTicks": 50
+   }
+  ]
+ },
+ {
+  "id": "ability.harvest-data",
+  "kind": "active",
+  "cost": {
+   "energy": 10
+  },
+  "cooldownTicks": 180,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 4500,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "energy",
+    "amount": -30
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.distracted",
+    "durationTicks": 30
+   }
+  ]
+ },
+ {
+  "id": "ability.free-phones",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 220,
+  "castTicks": 10,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 4000,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.distracted",
+    "durationTicks": 80
+   }
+  ]
+ },
+ {
+  "id": "ability.go-viral",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 200,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 6000
+  },
+  "aiHints": {
+   "goal": "chaos"
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.pumped",
+    "durationTicks": 120
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.distracted",
+    "durationTicks": 50
+   }
+  ]
+ }
+]

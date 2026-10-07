@@ -160,6 +160,11 @@ export class LiveCommentator {
         const set = this.bundle.crashers.find((c) => c.id === e.s);
         return set ? this.make(e.t, 'crash', 3, base, [e.a], set.entrance) : null;
       }
+      case 'crashLeave': {
+        // Institutions leave of their own accord (09 §7.2), with a parting line.
+        const set = this.bundle.crashers.find((c) => c.id === e.s);
+        return set?.exits?.length ? this.make(e.t, 'crash_leave', 3, base, [e.a], set.exits.map((x) => `{a}: "${x}"`)) : null;
+      }
       case 'propSpawned':
         this.info.set(e.b, { name: e.s, job: '', careers: [], team: -1, kind: 'prop', def: e.s });
         return null;
