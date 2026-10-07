@@ -294,7 +294,8 @@ export async function loadHour(hour: string, session: number, tries = 12): Promi
         if (!had || res.data.session >= had.data.session) hours.set(hour, { data: res.data, mineThen });
         return true;
       }
-      if (res.status !== 425) return false;
+      // Not started yet on the service's clock (425), or a passing server error: try again. Anything else won't change.
+      if (res.status !== 425 && res.status < 500) return false;
     } catch {
       // offline or the service is down
     }

@@ -59,11 +59,17 @@ jobs:
       - name: Smoke test
         if: steps.ready.outputs.go
         run: |
-          sleep 10
-          code=$(curl -s -o config.json -w '%{http_code}' https://vote.careercrash.org/config)
-          echo "vote.careercrash.org/config answered $code"; cat config.json; echo
-          [ "$code" = 200 ] && grep -q '"bits"' config.json
+          # A fresh deploy can throw for a few seconds while its Durable Objects come up: retry for a minute.
           hour=$(date -u +%Y-%m-%dT%H)
-          code=$(curl -s -o hour.json -w '%{http_code}' "https://vote.careercrash.org/hour/$hour?s=0")
-          echo "/hour/$hour answered $code"; head -c 300 hour.json; echo
-          [ "$code" = 200 ] && grep -q '"frozen"' hour.json
+          for i in $(seq 1 12); do
+            sleep 5
+            c1=$(curl -s -o config.json -w '%{http_code}' https://vote.careercrash.org/config)
+            c2=$(curl -s -o hour.json -w '%{http_code}' "https://vote.careercrash.org/hour/$hour?s=0")
+            echo "try $i: /config $c1, /hour/$hour $c2"
+            if [ "$c1" = 200 ] && [ "$c2" = 200 ] && grep -q '"bits"' config.json && grep -q '"frozen"' hour.json; then
+              cat config.json; echo; head -c 300 hour.json; echo
+              exit 0
+            fi
+          done
+          cat config.json hour.json
+          exit 1
