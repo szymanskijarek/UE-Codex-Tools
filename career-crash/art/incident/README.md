@@ -1,11 +1,9 @@
 # Diplomatic Incident: art briefs for the image agent
 
-> **Status (7 October 2026):** all 160 heads (40 delegates × 4) and bodies
-> for batches A, B and D (30 delegates) are in the game. Still to come: batch C
-> bodies (Mexico, Brazil, Argentina, Colombia, Chile, Jamaica, Japan, South
-> Korea, India, Indonesia), which until then wear their own heads on a
-> borrowed career body, and the hall (09), FX and page art (11) and the
-> institutions (12–13). Madam Chair and The Observer (10) are in.
+> **Status (7 October 2026):** all 40 delegates are complete in the game
+> (bodies and four heads each), and so are Madam Chair and The Observer
+> (10). Still to come: the Summit Hall (09), FX and page art (11) and the
+> institutions (12–13).
 
 Art for **careercrash.org/incident** (design: `docs/career-crash/09-diplomatic-incident.md`):
 an endless brawl between 40 countries at a summit, each country played by
