@@ -35,7 +35,7 @@ export interface FeedPost {
   /** Diplomatic Incident (09): the country of the delegate who wrote it. */
   del?: string;
   /** A link preview under the post (the Crypto Bros or Diplomatic Incident page). */
-  link?: { href: string; title: string; blurb: string };
+  link?: { href: string; title: string; blurb: string; art?: string };
   /** Gatecrashers (07): the set that crashed the fight, and its members (they turn up in the comments). */
   crash?: string;
   crew?: { name: string; career: string; persona: string; art?: string; appearance: { skin: string; hair: string; hairStyle: number } }[];
@@ -48,7 +48,7 @@ export interface FeedPost {
   mine?: { react?: ReactionKind; said?: string[] };
 }
 
-export type Mood = 'win' | 'loss' | 'draw' | 'news' | 'beaten' | 'gloat' | 'network' | 'company' | 'temp' | 'perk' | 'crash' | 'bro' | 'delegate';
+export type Mood = 'win' | 'loss' | 'draw' | 'news' | 'beaten' | 'gloat' | 'network' | 'company' | 'temp' | 'perk' | 'crash' | 'bro' | 'delegate' | 'institution';
 export type ReactionKind = 'like' | 'celebrate' | 'love' | 'insightful' | 'funny' | 'support';
 export const REACTIONS: [ReactionKind, string, string][] = [
   ['like', '👍', 'Like'],
@@ -153,6 +153,7 @@ const TAGS: Record<string, string[]> = {
   company: ['#Culture #Hiring', '#WeAreFamily', '#Values', '#Accountability'],
   bro: ['#NFA #DYOR', '#WAGMI #Grindset', '#ToTheMoon #Blessed', '#HODL #Leadership', '#FewUnderstand', '#DiamondHands #Mindset'],
   delegate: ['#Diplomacy #Leadership', '#PointOfOrder', '#Summit #Grateful', '#DiplomaticIncident', '#InternationalRelations #Buffet', '#Resolution #Teamwork'],
+  institution: ['#Statement', '#DeeplyConcerned', '#Stakeholders #Process', '#PressRelease', '#Governance #Impact', '#DiplomaticIncident'],
 };
 
 /** Crypto Bros (08): the market floor's cast, and where the floor lives. */
@@ -174,6 +175,27 @@ function countryName(key: string): string {
   } catch {
     return key;
   }
+}
+
+/** Diplomatic Incident (09 §7.2): the institutions that barge into the Summit Hall, and the fights that bring each to mind. */
+const INSTITUTIONS = COUNTRIES?.institutions?.list.filter((i) => !i.off).flatMap((i) => bundle.crashers.find((c) => c.id === i.set) ?? []) ?? [];
+const INST_LEAN: Record<string, { win?: number; loss?: number; draw?: number; kos?: number; flawless?: number }> = {
+  'crasher.un': { kos: 3, draw: 2 },
+  'crasher.icc': { kos: 4 },
+  'crasher.nato': { win: 1, draw: 1 },
+  'crasher.big-tech': { win: 2 },
+  'crasher.raters': { win: 2, flawless: 3 },
+  'crasher.federation': { win: 2 },
+  'crasher.lenders': { loss: 3 },
+  'crasher.health': { loss: 2, kos: 1 },
+  'crasher.big-oil': { kos: 1 },
+  'crasher.brussels': { draw: 2 },
+};
+
+/** A made-up but stable look for an institution member until their art exists. */
+function instWho(name: string, career: string, persona: string): NonNullable<FeedPost['who']> {
+  const r = Rng.fromSeed(`inst-look:${name}`);
+  return { careers: [career], appearance: { skin: SKINS[r.int(SKINS.length)]!, hair: HAIRS[r.int(HAIRS.length)]!, hairStyle: r.int(6) }, persona };
 }
 
 /** A delegate as a feed author: name, job line and their own portrait. */
@@ -431,6 +453,49 @@ export function fightPosts(s: CareerSave, r: FightSummary): FeedPost[] {
       });
     }
   }
+
+  // 9. An institution (09 §7.2) has a statement about your fight: the first time from the second fight on, then about one fight in three.
+  // Which one depends on the fight: the ICC and the UN after a lot of knockouts, the Lenders after a loss, the Raters after a flawless win.
+  const firstInst = !(s.feed ?? []).some((p) => p.mood === 'institution');
+  if (INSTITUTIONS.length && fightNo >= 2 && (firstInst || chance(0.3))) {
+    const many = Number(slots.kos) >= 3;
+    const weights = INSTITUTIONS.map((c) => {
+      const l = INST_LEAN[c.id] ?? {};
+      return 1 + (l[r.outcome] ?? 0) + (many ? (l.kos ?? 0) : 0) + (flawless ? (l.flawless ?? 0) : 0);
+    });
+    let roll = rng.int(weights.reduce((a, b) => a + b, 0));
+    const set = INSTITUTIONS[weights.findIndex((w) => (roll -= w) < 0)] ?? INSTITUTIONS[0]!;
+    const own = lines(`feed_inst_${set.id.replace('crasher.', '')}`);
+    const list = [...own, ...own, ...set.posts];
+    if (list.length) {
+      const lead = set.leader;
+      const crew = [lead.name, ...set.henchmen.names].map((name, i) => {
+        const mm = i === 0 ? lead : set.henchmen;
+        const who = instWho(name, mm.career, mm.persona);
+        return { name, career: mm.career, persona: mm.persona, appearance: who.appearance };
+      });
+      const blurbs = lines('incident_inst_link');
+      const del = posts.findIndex((p) => p.by === 'delegate');
+      posts.splice(Math.min(posts.length, (del >= 0 ? del + 1 : 1) + rng.int(2)), 0, {
+        id: `${fightNo}-inst`,
+        fight: fightNo,
+        by: 'crasher',
+        author: lead.name,
+        sub: `${nameOf(lead.persona)} · ${nameOf(set.id)}`,
+        who: instWho(lead.name, lead.career, lead.persona),
+        crash: set.id,
+        crew,
+        mood: 'institution',
+        text: fill(pick(list), { ...slots, arena: 'Summit Hall' }),
+        tags: pick(TAGS.institution!),
+        reacts: 500 + rng.int(8000),
+        comments: 20 + rng.int(300),
+        cast,
+        company: info.company,
+        link: { href: INCIDENT_URL, title: `Diplomatic Incident · ${nameOf(set.id)} dropped by`, blurb: blurbs.length ? pick(blurbs) : 'Watch the institutions barge in', art: `${lead.art.icon}🏛️` },
+      });
+    }
+  }
   return posts;
 }
 
@@ -512,6 +577,7 @@ const REACT_WEIGHTS: Record<Mood, Partial<Record<ReactionKind, number>>> = {
   crash: { funny: 7, like: 2, insightful: 1, support: 1 },
   bro: { insightful: 5, funny: 6, like: 2, celebrate: 1 },
   delegate: { funny: 6, like: 4, celebrate: 2, insightful: 1 },
+  institution: { funny: 7, insightful: 3, like: 2, support: 1 },
 };
 
 type Speaker = Pick<FeedComment, 'author' | 'sub' | 'who' | 'icon'>;
@@ -573,6 +639,12 @@ export function discussion(p: FeedPost, s: CareerSave): Discussion {
   const dels: Speaker[] = p.del ? DEL_KEYS.filter((x) => x !== p.del).flatMap((x) => delegateSpeaker(x) ?? []) : [];
   const fromDels = () => (dels.length ? pick(dels) : null);
   switch (mood) {
+    case 'institution': {
+      // Their own people defend them, delegates object, everyone else has seen this before.
+      const delegates = () => (DEL_KEYS.length ? delegateSpeaker(DEL_KEYS[rng.int(DEL_KEYS.length)]!) : null);
+      opts.push([fromCrew, 'crash_crew'], [fromCrew, 'crash_crew'], [delegates, 'feed_c_inst_del'], [delegates, 'feed_c_inst_del'], [meIfNotAuthor, 'feed_c_inst_me'], [stranger, 'feed_c_inst'], [stranger, 'feed_c_inst'], [stranger, 'feed_c_inst']);
+      break;
+    }
     case 'delegate':
       opts.push([fromDels, 'feed_c_del_rival'], [fromDels, 'feed_c_del_rival'], [meIfNotAuthor, 'feed_c_del_me'], [fromStaff, 'feed_c_del'], [stranger, 'feed_c_del'], [stranger, 'feed_c_del'], [stranger, 'feed_c_del']);
       break;
@@ -624,7 +696,7 @@ export function discussion(p: FeedPost, s: CareerSave): Discussion {
     if (!who || seen.has(who.author)) continue;
     seen.add(who.author);
     comments.push({ ...who, text: say(key), likes: rng.int(40) });
-    if (rng.int(10) < 4) comments.push({ ...author, text: say(mood === 'bro' ? 'feed_c_bro_reply' : mood === 'delegate' ? 'feed_c_del_reply' : 'feed_c_reply', { commenter: shortName(bundle, who.author) }), likes: rng.int(12), reply: true });
+    if (rng.int(10) < 4) comments.push({ ...author, text: say(mood === 'bro' ? 'feed_c_bro_reply' : mood === 'delegate' ? 'feed_c_del_reply' : mood === 'institution' ? 'feed_c_inst_reply' : 'feed_c_reply', { commenter: shortName(bundle, who.author) }), likes: rng.int(12), reply: true });
   }
   // The player's own comments, each answered by the author (or a passer-by on your own posts).
   (p.mine?.said ?? []).forEach((text, i) => {

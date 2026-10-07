@@ -5503,6 +5503,116 @@
    "Appreciated, {commenter}. One like, once an hour. Make it count.",
    "Diplomatically: no comment, {commenter}.",
    "Seconded, {commenter}."
+  ],
+  "feed_inst_un": [
+   "We are deeply concerned by {me}'s fight at {company}. We call on all parties to show restraint. Especially the one with the stapler.",
+   "Our observers were present at {company} today. They observed {kos} knockouts. They observed them very closely. #Peace",
+   "The UN welcomes the end of hostilities at {company}. We had nothing to do with it, but we welcome it. #Dialogue",
+   "Today we formed a working group on {me}. It will report back in 2031. #Process",
+   "Fresh from the Summit Hall, where we were thrown into the buffet, we turn our concern to {company}. Same buffet energy. #Peacekeeping"
+  ],
+  "feed_inst_nato": [
+   "We have been closely monitoring {me}'s fight at {company}, from a great height. Our values remain intact. Our horse is fine. 🐴",
+   "Proud to express solidarity with {company} today. Not on the floor, obviously. From the horse. #Values",
+   "{me} is not a member, so this is not an Article 5 situation. We'd like to stress that it was a very good fight though. #Partnership",
+   "Our horse has a better view of {company} than anyone. It saw {kos} knockouts. It remains morally high. #HighGround",
+   "Spent the afternoon riding a lap of the Summit Hall. Nobody hit us. Nobody could reach. #Leadership #Strategy"
+  ],
+  "feed_inst_icc": [
+   "Following {me}'s fight at {company}, warrants have been issued for: everyone. Arrests made so far: 0. Gendarmes in hospital: 2.",
+   "The Court has opened proceedings into the events at {company}. {kos} counts of knockout. Hearings begin in nine years. #Justice",
+   "Gendarme Dupont would like it known he was not beaten up at the Summit Hall. He fell. Repeatedly. Onto fists.",
+   "We will not rest until {me} is brought to justice. We will, however, sit down. Our feet hurt.",
+   "A reminder that the whistle is a legal instrument. Please stop hitting the gendarmes. #RuleOfLaw"
+  ],
+  "feed_inst_big-tech": [
+   "Humbled to have connected {me} with {kos} knockouts today. We've collected the data. You've agreed to the terms. You did, scroll up.",
+   "We're disrupting how {company} fights. Every punch is now a subscription. #Innovation",
+   "{me}'s fight at {company} drove record engagement. We've sold it to advertisers. You're welcome. #Growth",
+   "Big news: free phones for every delegate at the Summit Hall! They haven't looked up since. Mission accomplished. #Community",
+   "Move fast and break things. {me} broke {kos} things today. Hiring! #WeAreHiring"
+  ],
+  "feed_inst_big-oil": [
+   "Proud sponsors of {me}'s fight at {company}! Every knockout today was brought to you by fossil energy. #Partnership",
+   "Some say we spilled oil at the Summit Hall. We say we provided a fast, low-friction floor. #Innovation",
+   "We've reviewed {company}'s energy needs after today's fight. They need more. We sell more. #Synergy",
+   "Our sustainability report for the Summit Hall: the fire went out eventually. #Green",
+   "Congratulations {me}! Your fight burned {kos} calories per knockout. We'd like to buy the rights. #Energy"
+  ],
+  "feed_inst_health": [
+   "After {me}'s fight at {company}, a reminder: wash your hands. Especially if you've just punched someone. Twenty seconds, with soap.",
+   "Our inspectors visited {company} today. Hygiene rating: one star. Knockouts: {kos}. Soap dispensers: empty. #PublicHealth",
+   "We foamed the entire Summit Hall today. Twice. The delegates are clean. Furious, but clean. #Hygiene",
+   "Please maintain a safe punching distance. That's one arm's length, {me}. Not zero. #Guidance",
+   "Somebody licked the gavel at the Summit Hall. We are not angry. We are disappointed. And we brought sanitiser."
+  ],
+  "feed_inst_lenders": [
+   "Saw {me}'s fight at {company}. Looks like someone needs a loan. Terms attached. All 400 pages. #Development",
+   "Pleased to announce a recovery package for {company}: a big heal now, the repayments later. With interest. #Stability",
+   "Structural adjustment complete at the Summit Hall. Mostly to a delegate's face. #Reform",
+   "Dear {me}: congratulations on the fight. Your first instalment is due tomorrow. #Finance",
+   "We lent a struggling delegate some health today. We'll be back for it in forty seconds. #Partnership"
+  ],
+  "feed_inst_federation": [
+   "What a match at {company}! The Federation congratulates {me} and would like 30% of it. #ForTheGame",
+   "Awarded a trophy at the Summit Hall derby today. It's on loan. The invoice isn't. #Football",
+   "{kos} knockouts at {company}? The broadcast rights are available. Call us. #Sport",
+   "The Federation is proud to grow the game in {company}. And our commission. Mostly our commission. #Legacy",
+   "Our ambassadors took 400 selfies at the Summit Hall today. Most delegates were mid-punch. #Engagement"
+  ],
+  "feed_inst_brussels": [
+   "After review, {me}'s fight at {company} is not compliant. Punches must be of standard size. Please resubmit in triplicate.",
+   "The Summit Hall is now fully harmonised. All delegates move at the same speed. Slowly. #Regulation",
+   "Reminder: this feed uses no cookies. We checked. Twice. With a measuring tape. #Compliance",
+   "We have opened a consultation on {company}'s fight. Responses accepted in all 24 languages until 2029. #Process",
+   "Congratulations to {me} on {kos} knockouts, which we are now required to label. #Transparency"
+  ],
+  "feed_inst_raters": [
+   "After {me}'s fight at {company}, we are revising our outlook. Outlook: negative. Reasons: none given. #Ratings",
+   "We have downgraded {company} from triple A to triple ouch. #Markets",
+   "The most-liked delegate at the Summit Hall has been placed on our watch list. They hit us. Outlook: still negative.",
+   "{me}: B-minus. Could do better. Could also not hit the analysts. #Ratings",
+   "We rated the Summit Hall today, from a very safe distance. It's overvalued. Everything is. #Analysis"
+  ],
+  "incident_inst_link": [
+   "The institutions dropped by the Summit Hall. Nothing changed.",
+   "Forty countries, ten institutions, zero progress. Live.",
+   "They came, they saw, they issued a statement.",
+   "Watch the institutions barge in. And leave."
+  ],
+  "feed_c_inst": [
+   "Did they just… leave?",
+   "Classic.",
+   "Who invited them?",
+   "Thoughts and prayers. And a bill.",
+   "They'll be issuing a statement. From outside.",
+   "Same time next summit?",
+   "This is the most productive they've ever been.",
+   "I've seen this one before. Nothing happens.",
+   "Liked, reluctantly."
+  ],
+  "feed_c_inst_del": [
+   "With respect: nobody asked you.",
+   "Point of order: you're not a country.",
+   "We'd like our buffet back.",
+   "You were in the hall for forty seconds.",
+   "Our delegation has filed a complaint. With you. About you.",
+   "Kindly use the door you came in through.",
+   "Noted. Ignored. Filed.",
+   "We were winning before you came."
+  ],
+  "feed_c_inst_me": [
+   "Thanks for… whatever that was.",
+   "I didn't ask for this. Liked anyway.",
+   "Can I opt out?",
+   "Is there a form for that?",
+   "Please don't come to my next fight."
+  ],
+  "feed_c_inst_reply": [
+   "We have noted your feedback, {commenter}. It changes nothing.",
+   "Thank you, {commenter}. A statement will follow.",
+   "Your concern is our concern, {commenter}. Deeply.",
+   "We'll get back to you, {commenter}. Eventually."
   ]
  }
 }

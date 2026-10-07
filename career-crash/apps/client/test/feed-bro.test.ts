@@ -84,3 +84,43 @@ describe('delegate posts in the career feed (09)', () => {
     expect(seen).toBeLessThan(32);
   });
 });
+
+describe('institution posts in the career feed (09 §7.2)', () => {
+  const after = (seed: string, mine = false) => {
+    const s = save(seed);
+    s.feed = [{ id: 'x', fight: 1, by: 'me', author: 'A', sub: '', text: '', reacts: 0, comments: 0, ...(mine ? { mood: 'institution' as const } : {}) }];
+    return s;
+  };
+
+  it('from the second fight, an institution has a statement, with a link to the Summit Hall', () => {
+    const sets = new Set<string>();
+    for (let i = 0; i < 40; i++) {
+      const s = after(`inst-${i}`);
+      const posts = fightPosts(s, fight((['win', 'loss', 'draw'] as const)[i % 3]!));
+      const p = posts.find((x) => x.mood === 'institution');
+      expect(p, `inst-${i}`).toBeDefined();
+      expect(p!.link?.href).toBe('/incident/');
+      expect(p!.text).not.toMatch(/\{\w+\}/);
+      expect(bundle.crashers.find((c) => c.id === p!.crash)?.leader.name).toBe(p!.author);
+      sets.add(p!.crash!);
+    }
+    expect(sets.size).toBeGreaterThanOrEqual(6);
+    // Not on the very first fight.
+    expect(fightPosts(save('inst-first'), fight('win')).some((p) => p.mood === 'institution')).toBe(false);
+  });
+
+  it('after that, about one fight in three; their crew and the delegates answer underneath', () => {
+    let seen = 0;
+    for (let i = 0; i < 60; i++) {
+      const s = after(`inst-again-${i}`, true);
+      const p = fightPosts(s, fight('loss')).find((x) => x.mood === 'institution');
+      if (!p) continue;
+      seen++;
+      const talk = discussion({ ...p, comments: 80 }, s);
+      expect(talk.comments.length).toBeGreaterThan(0);
+      for (const c of talk.comments) expect(c.text).not.toMatch(/\{\w+\}/);
+    }
+    expect(seen).toBeGreaterThan(8);
+    expect(seen).toBeLessThan(35);
+  });
+});
