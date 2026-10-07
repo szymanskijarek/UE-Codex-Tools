@@ -117,7 +117,32 @@ function triggered(w: World, t: CrashTrigger): boolean {
     const best = t.koStreak.oneSide ? Math.max(0, ...bySide.values()) : all;
     if (best < t.koStreak.kos) return false;
   }
+  if (t.someStanding) {
+    const up = standingTeams(w);
+    if (t.someStanding.teams.filter((team) => up.has(team)).length < t.someStanding.atLeast) return false;
+  }
+  if (t.statusCount) {
+    const want = t.statusCount.statuses;
+    let n = 0;
+    for (const e of w.entities) if (!e.removed && isFighter(e) && e.state === 'active' && e.team < w.teamCount && e.statuses.some((s) => want.includes(s.id))) n++;
+    if (n < t.statusCount.n) return false;
+  }
+  if (t.koedTimes !== undefined && Math.max(0, ...koedBySide(w).values()) < t.koedTimes) return false;
   return true;
+}
+
+/** Knockouts taken by each real side so far, counted as the log grows. */
+const koed = new WeakMap<World, { at: number; bySide: Map<number, number> }>();
+function koedBySide(w: World): Map<number, number> {
+  let k = koed.get(w);
+  if (!k) koed.set(w, (k = { at: 0, bySide: new Map() }));
+  for (; k.at < w.events.length; k.at++) {
+    const ev = w.events[k.at]!;
+    if (ev.type !== 'ko') continue;
+    const victim = w.byId.get(ev.b);
+    if (victim && isFighter(victim) && victim.team < w.teamCount) k.bySide.set(victim.team, (k.bySide.get(victim.team) ?? 0) + 1);
+  }
+  return k.bySide;
 }
 
 function crew(w: World): Entity[] {

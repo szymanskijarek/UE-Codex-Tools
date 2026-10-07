@@ -198,5 +198,461 @@
     "durationTicks": 50
    }
   ]
+ },
+ {
+  "id": "ability.drill-baby",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 160,
+  "castTicks": 10,
+  "targeting": {
+   "type": "circleTarget",
+   "rangeMm": 6000,
+   "radiusMm": 1800,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "chaos",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "spawnProp",
+    "prop": "prop.oil-spill",
+    "at": "target"
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.slipping",
+    "durationTicks": 40
+   }
+  ]
+ },
+ {
+  "id": "ability.gas-giveaway",
+  "kind": "active",
+  "cost": {
+   "energy": 20
+  },
+  "cooldownTicks": 260,
+  "castTicks": 10,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 4000
+  },
+  "aiHints": {
+   "goal": "chaos"
+  },
+  "effects": [
+   {
+    "type": "spawnProp",
+    "prop": "prop.gas-canister",
+    "at": "target"
+   }
+  ]
+ },
+ {
+  "id": "ability.fuel-sale",
+  "kind": "active",
+  "cost": {
+   "energy": 10
+  },
+  "cooldownTicks": 200,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 5000
+  },
+  "aiHints": {
+   "goal": "chaos"
+  },
+  "effects": [
+   {
+    "type": "energy",
+    "amount": 40
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.caffeinated",
+    "durationTicks": 120
+   }
+  ]
+ },
+ {
+  "id": "ability.sanitise",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 180,
+  "castTicks": 10,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 3800,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "removeStatus",
+    "status": "status.burning"
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.foamed",
+    "durationTicks": 60
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.wet",
+    "durationTicks": 120
+   }
+  ]
+ },
+ {
+  "id": "ability.quarantine",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleTarget",
+   "rangeMm": 5000,
+   "radiusMm": 2000,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.sticky",
+    "durationTicks": 90
+   }
+  ]
+ },
+ {
+  "id": "ability.wash-your-hands",
+  "kind": "active",
+  "cost": {
+   "energy": 10
+  },
+  "cooldownTicks": 160,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 3000
+  },
+  "aiHints": {
+   "goal": "control"
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.lectured",
+    "durationTicks": 40
+   }
+  ]
+ },
+ {
+  "id": "ability.emergency-loan",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 5000
+  },
+  "aiHints": {
+   "goal": "chaos"
+  },
+  "effects": [
+   {
+    "type": "heal",
+    "amount": 40
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.armoured",
+    "durationTicks": 160
+   }
+  ]
+ },
+ {
+  "id": "ability.repayment-due",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 200,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 5000
+  },
+  "aiHints": {
+   "goal": "control"
+  },
+  "effects": [
+   {
+    "type": "energy",
+    "amount": -40
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.embarrassed",
+    "durationTicks": 120
+   }
+  ]
+ },
+ {
+  "id": "ability.small-print",
+  "kind": "active",
+  "cost": {
+   "energy": 10
+  },
+  "cooldownTicks": 180,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 3500,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.slowed",
+    "durationTicks": 60
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.distracted",
+    "durationTicks": 40
+   }
+  ]
+ },
+ {
+  "id": "ability.award-trophy",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 240,
+  "castTicks": 10,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 6000
+  },
+  "aiHints": {
+   "goal": "chaos"
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.pumped",
+    "durationTicks": 160
+   },
+   {
+    "type": "morale",
+    "amount": 20
+   }
+  ]
+ },
+ {
+  "id": "ability.commission",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 200,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 4000,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "energy",
+    "amount": -25
+   }
+  ]
+ },
+ {
+  "id": "ability.photo-opportunity",
+  "kind": "active",
+  "cost": {
+   "energy": 10
+  },
+  "cooldownTicks": 200,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 3500,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.distracted",
+    "durationTicks": 50
+   }
+  ]
+ },
+ {
+  "id": "ability.harmonise",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 200,
+  "castTicks": 10,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 4500,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.slowed",
+    "durationTicks": 80
+   }
+  ]
+ },
+ {
+  "id": "ability.consent-banner",
+  "kind": "active",
+  "cost": {
+   "energy": 10
+  },
+  "cooldownTicks": 160,
+  "castTicks": 6,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 4000,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.distracted",
+    "durationTicks": 40
+   }
+  ]
+ },
+ {
+  "id": "ability.tape-measure",
+  "kind": "active",
+  "cost": {
+   "energy": 10
+  },
+  "cooldownTicks": 180,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 3000
+  },
+  "aiHints": {
+   "goal": "control"
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.lectured",
+    "durationTicks": 30
+   }
+  ]
+ },
+ {
+  "id": "ability.downgrade",
+  "kind": "active",
+  "cost": {
+   "energy": 15
+  },
+  "cooldownTicks": 180,
+  "castTicks": 8,
+  "targeting": {
+   "type": "enemy",
+   "rangeMm": 6000
+  },
+  "aiHints": {
+   "goal": "control"
+  },
+  "effects": [
+   {
+    "type": "applyStatus",
+    "status": "status.embarrassed",
+    "durationTicks": 160
+   },
+   {
+    "type": "applyStatus",
+    "status": "status.jinxed",
+    "durationTicks": 160
+   }
+  ]
+ },
+ {
+  "id": "ability.outlook-negative",
+  "kind": "active",
+  "cost": {
+   "energy": 10
+  },
+  "cooldownTicks": 220,
+  "castTicks": 8,
+  "targeting": {
+   "type": "circleSelf",
+   "rangeMm": 0,
+   "radiusMm": 3500,
+   "affects": "enemies"
+  },
+  "aiHints": {
+   "goal": "control",
+   "minTargets": 1
+  },
+  "effects": [
+   {
+    "type": "morale",
+    "amount": -20
+   }
+  ]
  }
 ]

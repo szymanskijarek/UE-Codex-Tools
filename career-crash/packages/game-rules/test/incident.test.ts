@@ -127,14 +127,14 @@ describe('Diplomatic Incident (09)', () => {
   });
   it('institutions raid some sessions, each on its own terms', () => {
     const seen = new Map<string, NonNullable<ReturnType<typeof sessionRaid>>>();
-    for (let h = 0; h < 24 && seen.size < 3; h++) {
+    for (let h = 0; h < 24; h++) {
       const hour = `2026-10-06T${String(h).padStart(2, '0')}`;
       for (let s = 0; s < 12; s++) {
         const { input } = sessionInput(bundle, def, hour, s, sampleTally(def, hour, s));
         if (input.crashers && !seen.has(input.crashers.set)) seen.set(input.crashers.set, input.crashers);
       }
     }
-    expect([...seen.keys()].sort()).toEqual(['crasher.icc', 'crasher.nato', 'crasher.un']);
+    for (const id of ['crasher.icc', 'crasher.nato', 'crasher.un']) expect(seen.has(id), id).toBe(true);
     const nato = seen.get('crasher.nato')!;
     expect(nato.stance).toBe('aloof');
     expect(nato.mount).toBe('prop.high-horse');
@@ -165,5 +165,23 @@ describe('Diplomatic Incident (09)', () => {
     // They aren't in the standings: only delegates walk on.
     const rows = tallySession(def, input.teams.map((t) => t.playerId), out.events, 3000);
     expect(rows.reduce((n, r) => n + r.walkOns, 0)).toBe(10 + out.events.filter((e) => e.type === 'walkon').length);
+  });
+  it('the other six: the Federation only in derby hours, the Raters only with a Mandate, and a kill switch', () => {
+    const order = countryKeys(def);
+    const sets = (hour: string, mandates: string[]) => new Set(Array.from({ length: 200 }, (_, s) => sessionRaid(bundle, def, hour, s, order, 5920, false, mandates)?.set).filter(Boolean));
+    const derby = sets('2026-10-06T18', ['PL']);
+    const plain = sets('2026-10-06T13', []);
+    expect(derby.has('crasher.federation')).toBe(true);
+    expect(plain.has('crasher.federation')).toBe(false);
+    expect(plain.has('crasher.raters')).toBe(false);
+    expect(derby.has('crasher.raters')).toBe(true);
+    for (const id of ['crasher.big-oil', 'crasher.health', 'crasher.lenders', 'crasher.brussels']) expect(plain.has(id), id).toBe(true);
+    // Brussels waits for EU members, the Raters for the Mandate's side.
+    const r = Array.from({ length: 200 }, (_, s) => sessionRaid(bundle, def, '2026-10-06T18', s, order, 5920, false, ['PL'])).filter((x) => x?.set === 'crasher.raters')[0]!;
+    expect(r.when?.someStanding).toEqual({ teams: [order.indexOf('PL')], atLeast: 1 });
+    const b = Array.from({ length: 200 }, (_, s) => sessionRaid(bundle, def, HOUR, s, order, 5920, false)).filter((x) => x?.set === 'crasher.brussels')[0]!;
+    expect(b.when?.someStanding?.teams.length).toBe(13);
+    const off = { ...def, institutions: { ...def.institutions!, list: def.institutions!.list.map((i) => ({ ...i, off: true })) } };
+    expect(Array.from({ length: 50 }, (_, s) => sessionRaid(bundle, off, HOUR, s, order, 5920, true)).every((x) => !x)).toBe(true);
   });
 });

@@ -100,6 +100,12 @@ export interface CrashTrigger {
   few?: number;
   /** At least `kos` knockouts within the last `withinTicks`, by anyone, or all by one side (`oneSide`). */
   koStreak?: { kos: number; withinTicks: number; oneSide?: boolean };
+  /** At least `atLeast` of these teams have someone standing (Brussels: 4+ EU members; the Raters: a Mandate). */
+  someStanding?: { teams: number[]; atLeast: number };
+  /** At least `n` standing fighters have one of these statuses (the Health Authority: burning, wet, sticky…). */
+  statusCount?: { statuses: string[]; n: number };
+  /** Some side has been knocked out at least this many times this session (the Lenders). */
+  koedTimes?: number;
 }
 
 /**

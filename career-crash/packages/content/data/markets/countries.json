@@ -154,6 +154,79 @@
     "needsSurge": true,
     "leaveAfterTicks": 1000,
     "earliestTick": 600
+   },
+   {
+    "set": "crasher.big-oil",
+    "weight": 2,
+    "size": 3,
+    "stance": "meddle",
+    "levelOffset": -1,
+    "leaveAfterTicks": 900,
+    "spreadTicks": 3000,
+    "earliestTick": 600
+   },
+   {
+    "set": "crasher.health",
+    "weight": 2,
+    "size": 3,
+    "stance": "meddle",
+    "levelOffset": -1,
+    "leaveAfterTicks": 900,
+    "statusCount": {
+     "statuses": [
+      "status.burning",
+      "status.wet",
+      "status.sticky",
+      "status.foamed",
+      "status.slipping"
+     ],
+     "n": 3
+    },
+    "earliestTick": 600
+   },
+   {
+    "set": "crasher.lenders",
+    "weight": 4,
+    "size": 2,
+    "stance": "meddle",
+    "levelOffset": -1,
+    "leaveAfterTicks": 1000,
+    "koedTimes": 2,
+    "earliestTick": 900
+   },
+   {
+    "set": "crasher.federation",
+    "weight": 6,
+    "size": 3,
+    "stance": "meddle",
+    "levelOffset": -1,
+    "leaveAfterTicks": 900,
+    "derbyOnly": true,
+    "spreadTicks": 2400,
+    "earliestTick": 600
+   },
+   {
+    "set": "crasher.brussels",
+    "weight": 2,
+    "size": 3,
+    "stance": "meddle",
+    "levelOffset": -1,
+    "leaveAfterTicks": 900,
+    "presentTag": {
+     "tag": "eu",
+     "atLeast": 4
+    },
+    "earliestTick": 600
+   },
+   {
+    "set": "crasher.raters",
+    "weight": 2,
+    "size": 2,
+    "stance": "skirmish",
+    "levelOffset": -3,
+    "leaveAtBp": 8500,
+    "mandate": true,
+    "earliestTick": 600
    }
   ]
  },

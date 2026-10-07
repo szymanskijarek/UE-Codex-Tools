@@ -3,7 +3,7 @@
 > **Status (7 October 2026):** all 40 delegates are complete in the game
 > (bodies and four heads each), and so are Madam Chair and The Observer
 > (10). Still to come: the Summit Hall (09), FX and page art (11) and the
-> institutions (12–13).
+> institutions (12–13; all ten are built and in the game on borrowed bodies).
 
 Art for **careercrash.org/incident** (design: `docs/career-crash/09-diplomatic-incident.md`):
 an endless brawl between 40 countries at a summit, each country played by
@@ -27,7 +27,7 @@ file is self-contained: it repeats the house style and the layout rules it needs
 | 10 | [`10-CHAIR_AND_OBSERVER.md`](10-CHAIR_AND_OBSERVER.md) | Madam Chair (the referee) and The Observer (any country without a delegate yet): bodies + heads | 2 + 8 | 3 |
 | 11 | [`11-FX_AND_PAGE.md`](11-FX_AND_PAGE.md) | Gavel bang, SURGE burst, derby clash; page logo, share image, icon | 6 | 4 |
 | 12 | [`12-INSTITUTIONS_A.md`](12-INSTITUTIONS_A.md) | Gatecrashers: UN, NATO (+ the Moral High Horse), ICC, Big Tech; bodies, then heads | 9 + 32 | 3 |
-| 13 | [`13-INSTITUTIONS_B.md`](13-INSTITUTIONS_B.md) | Gatecrashers: Big Oil, Health Authority, Lenders, Federation, Brussels, the Rater | 10 + 40 | 5 |
+| 13 | [`13-INSTITUTIONS_B.md`](13-INSTITUTIONS_B.md) | Gatecrashers: Big Oil, Health Authority, Lenders, Federation, Brussels, the Raters | 12 + 48 | 5 |
 
 The order above is the biggest visible gain first: England and Scotland are
 the MVP derby, so their bodies and heads come before anything else.

@@ -1,8 +1,8 @@
 # Diplomatic Incident 12: the Institutions, batch A (UN, NATO, ICC, Big Tech)
 
-> **Status:** not delivered yet. Design exploration: these gatecrashers aren't
-> built yet (`docs/career-crash/09-diplomatic-incident.md` §7.2); the art can
-> come first.
+> **Status:** not delivered yet. The four are built and live (7 October 2026,
+> `docs/career-crash/09-diplomatic-incident.md` §7.2, §14), wearing borrowed
+> career bodies until this art arrives.
 
 > Part of the Diplomatic Incident art set (`art/incident/README.md`).
 

@@ -1,12 +1,15 @@
 # Diplomatic Incident 13: the Institutions, batch B (Big Oil, Health Authority, Lenders, Federation, Brussels)
 
-> **Status:** not delivered yet. Design exploration (`docs/career-crash/09-diplomatic-incident.md` §7.2).
+> **Status:** not delivered yet. All six are built and in the game (7 October
+> 2026, `docs/career-crash/09-diplomatic-incident.md` §7.2, §14), wearing
+> borrowed career bodies until this art arrives. Twelve bodies: the ten below
+> plus two sidekicks added when they were built (11 and 12).
 
 > Part of the Diplomatic Incident art set (`art/incident/README.md`). Same
 > rules as `12-INSTITUTIONS_A.md`: no emblems, logos or flags of any real
 > organisation or company, no likeness of any real person, no weapons.
 
-Ten body sheets. **Heads come after** (table at the end; send them in two
+Twelve body sheets (send them in two halves of six). **Heads come after** (table at the end; send them in two
 halves of 20).
 
 **Reference to attach:** `art/heads/_reference/body-sheet-example.webp`.
@@ -72,6 +75,17 @@ Layout and style preamble as in `01-DELEGATES_A.md`.
 > showing a red downward arrow (no numbers) on his belt, grey hair, a grey
 > face, utterly unimpressed by anyone.
 
+**11. Compliance Officer** (`inst-brussels-clerk`, blue #2f4fa8 with gold)
+> The Brussels Regulator's eager assistant in his thirties: a blue suit a
+> size too big, a clipboard of forms, a retractable measuring tape on a
+> lanyard, a stack of rubber stamps (no letters) on the belt, neat side
+> parting, glasses, an expression of delighted thoroughness.
+
+**12. Junior Analyst** (`inst-rater-analyst`, light grey #9ca3af)
+> The Rater's junior analyst in her twenties: a light-grey suit, a laptop
+> under one arm showing a red downward arrow (no numbers), a small rubber
+> stamp in hand, a lanyard, a tidy ponytail, an anxious, eager look.
+
 ## Heads (four each, 256 × 256)
 
 Files: `art/heads/<expression>/npc-inst-<id>.png`. Same prompt as
@@ -89,10 +103,12 @@ Files: `art/heads/<expression>/npc-inst-<id>.png`. Same prompt as
 | Federation Ambassador (`inst-fed-ambassador`) | camera-ready grin | competitive shout | sweatband slipped over the eyes | eyes shut, medal on the face |
 | Brussels Regulator (`inst-brussels`) | procedural calm | stern "non-compliant" glare | glasses jumping off the chain | wincing, hair escaping |
 | The Rater (`inst-rater`) | utterly unimpressed | cold frown | one eyebrow up (his maximum) | wince, tie crooked |
+| Compliance Officer (`inst-brussels-clerk`) | delighted thoroughness | "form B-twelve!", waving the clipboard | glasses jumping, forms flying | wincing, side parting ruined |
+| Junior Analyst (`inst-rater-analyst`) | anxious, eager | trying a stern frown | eyes wide, ponytail up | eyes shut, laptop on the head |
 
 ## Importing
 
 ```
-pnpm --filter @cc/art-pipeline puppets npc-inst-oil-exec npc-inst-oil-roughneck npc-inst-health-inspector npc-inst-health-hazmat npc-inst-lender npc-inst-lender-officer npc-inst-fed-official npc-inst-fed-ambassador npc-inst-brussels npc-inst-rater
+pnpm --filter @cc/art-pipeline puppets npc-inst-oil-exec npc-inst-oil-roughneck npc-inst-health-inspector npc-inst-health-hazmat npc-inst-lender npc-inst-lender-officer npc-inst-fed-official npc-inst-fed-ambassador npc-inst-brussels npc-inst-rater npc-inst-brussels-clerk npc-inst-rater-analyst
 pnpm --filter @cc/art-pipeline faces
 ```

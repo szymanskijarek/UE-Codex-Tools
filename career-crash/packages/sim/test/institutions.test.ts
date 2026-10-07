@@ -94,6 +94,28 @@ describe('institutions (09 §7.2)', () => {
     expect(kos.length).toBeGreaterThanOrEqual(2);
   });
 
+  it('someStanding: comes only once enough of the given teams are up', () => {
+    const all = simulate(floor('inst-some', { stance: 'meddle', leaveAfterTicks: 300, when: { someStanding: { teams: [0, 1, 2, 3, 4, 5, 6, 7], atLeast: 8 } } }, 2000), bundle);
+    const few = simulate(floor('inst-some', { stance: 'meddle', leaveAfterTicks: 300, when: { someStanding: { teams: [0, 1], atLeast: 1 } } }, 2000), bundle);
+    const at = (o: typeof all) => o.events.find((e) => e.type === 'crash')?.t ?? Infinity;
+    expect(at(few)).toBe(200);
+    expect(at(all)).toBeGreaterThanOrEqual(at(few));
+  });
+
+  it('statusCount and koedTimes wait for the floor to earn them', () => {
+    const wet = simulate(floor('inst-status', { stance: 'meddle', leaveAfterTicks: 300, when: { statusCount: { statuses: ['status.wet'], n: 50 } } }, 1500), bundle);
+    expect(wet.events.some((e) => e.type === 'crash')).toBe(false);
+    const input = floor('inst-koed', { stance: 'meddle', leaveAfterTicks: 300, when: { koedTimes: 2 } }, 4000);
+    const out = simulate(input, bundle);
+    const crash = out.events.find((e) => e.type === 'crash')!;
+    expect(crash).toBeDefined();
+    // By then one side had been floored twice.
+    const koed = new Map<number, number>();
+    const team = new Map(out.events.filter((e) => e.type === 'spawn').map((e) => [e.a, e.v]));
+    for (const e of out.events) if (e.type === 'ko' && e.t <= crash.t && (team.get(e.b) ?? 99) < 8) koed.set(team.get(e.b)!, (koed.get(team.get(e.b)!) ?? 0) + 1);
+    expect(Math.max(...koed.values())).toBeGreaterThanOrEqual(2);
+  });
+
   it('is deterministic', () => {
     const a = simulate(floor('inst-det', { stance: 'aloof', leaveAfterTicks: 400, mount: 'prop.office-chair' }, 1500), bundle);
     const b = simulate(floor('inst-det', { stance: 'aloof', leaveAfterTicks: 400, mount: 'prop.office-chair' }, 1500), bundle);

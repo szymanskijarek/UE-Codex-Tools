@@ -1,5 +1,5 @@
 import type { ContentBundle, MarketDef } from '@cc/content-schema';
-import { Rng, SIM_VERSION, type BattleEvent, type BattleInput, type CharacterSnapshot, type CrasherInput } from '@cc/sim';
+import { Rng, SIM_VERSION, type BattleEvent, type BattleInput, type CharacterSnapshot, type CrasherInput, type CrashTrigger } from '@cc/sim';
 import { rollCrashers } from './crashers';
 import { candleEvents, candleFightTicks, castMember, marketFighter, type ScoredCoin } from './markets';
 
@@ -202,27 +202,40 @@ export function surgesOf(def: MarketDef, scored: ScoredCountry[], prevTally?: Li
  * Whether it actually comes in is up to its trigger on the floor: NATO only
  * when no member is standing, the UN and the ICC after a run of knockouts.
  */
-export function sessionRaid(bundle: ContentBundle, def: MarketDef, hour: string, session: number, order: string[], ticks: number, surge: boolean): CrasherInput | undefined {
+export function sessionRaid(bundle: ContentBundle, def: MarketDef, hour: string, session: number, order: string[], ticks: number, surge: boolean, mandates: string[] = []): CrasherInput | undefined {
   const cfg = def.institutions;
-  if (!cfg?.list.length) return undefined;
+  const list = cfg?.list.filter((i) => !i.off) ?? [];
+  if (!cfg || !list.length) return undefined;
   const rng = Rng.fromSeed(`raid:${def.id}:${hour}#${session}`);
   const roll = rng.int(10000);
   // A SURGE always brings whoever follows the trends (Big Tech); otherwise a draw.
-  const chasers = surge ? cfg.list.filter((i) => i.needsSurge) : [];
+  const chasers = surge ? list.filter((i) => i.needsSurge) : [];
   if (!chasers.length && roll >= cfg.chanceBp) return undefined;
-  const pool = chasers.length ? chasers : cfg.list.filter((i) => !i.needsSurge);
+  const derby = !!derbyOf(def, hour);
+  const pool = chasers.length ? chasers : list.filter((i) => !i.needsSurge && (!i.derbyOnly || derby) && (!i.mandate || mandates.length));
   if (!pool.length) return undefined;
   let r = rng.int(pool.reduce((n, i) => n + i.weight, 0));
   const pick = pool.find((i) => (r -= i.weight) < 0) ?? pool[0]!;
   const crash = rollCrashers(bundle, `${def.id}:${hour}#${session}`, def.arena, Math.max(1, def.power.baseLevel + pick.levelOffset), def.power.rank, { set: pick.set, size: pick.size });
   if (!crash) return undefined;
-  const members = pick.absentTag ? order.map((k, i) => (def.cast[k]?.tags?.includes(pick.absentTag!) ? i : -1)).filter((i) => i >= 0) : [];
+  const teamsOf = (keep: (k: string) => boolean) => order.map((k, i) => (keep(k) ? i : -1)).filter((i) => i >= 0);
+  const members = pick.absentTag ? teamsOf((k) => !!def.cast[k]?.tags?.includes(pick.absentTag!)) : [];
   if (pick.absentTag && (!members.length || members.length === order.length)) return undefined;
-  const when = { ...(members.length ? { noneStanding: members, ...(pick.absentFew ? { few: pick.absentFew } : {}) } : {}), ...(pick.koStreak ? { koStreak: { ...pick.koStreak } } : {}) };
+  const present = pick.presentTag ? teamsOf((k) => !!def.cast[k]?.tags?.includes(pick.presentTag!.tag)) : [];
+  const liked = pick.mandate ? teamsOf((k) => mandates.includes(k)) : [];
+  const when: CrashTrigger = {
+    ...(members.length ? { noneStanding: members, ...(pick.absentFew ? { few: pick.absentFew } : {}) } : {}),
+    ...(pick.koStreak ? { koStreak: { ...pick.koStreak } } : {}),
+    ...(pick.presentTag ? { someStanding: { teams: present, atLeast: pick.presentTag.atLeast } } : liked.length ? { someStanding: { teams: liked, atLeast: 1 } } : {}),
+    ...(pick.statusCount ? { statusCount: { statuses: [...pick.statusCount.statuses], n: pick.statusCount.n } } : {}),
+    ...(pick.koedTimes ? { koedTimes: pick.koedTimes } : {}),
+  };
+  // No trigger: they just turn up, at a seeded moment (Big Oil).
+  const tick = pick.earliestTick + (pick.spreadTicks ? rng.int(pick.spreadTicks + 1) : 0);
   return {
     ...crash,
-    tick: pick.earliestTick,
-    until: Math.max(pick.earliestTick + 1, ticks - 600),
+    tick,
+    until: Math.max(tick + 1, ticks - 600),
     minActiveBp: 0,
     stance: pick.stance,
     ...(pick.leaveAtBp !== undefined ? { leaveAtBp: pick.leaveAtBp } : {}),
@@ -271,7 +284,7 @@ export function sessionInput(bundle: ContentBundle, def: MarketDef, hour: string
       ...(def.events ? { events: candleEvents(def, { market: def.id, hour, coins: [] }, session, ticks) } : {}),
     },
   };
-  const raid = sessionRaid(bundle, def, hour, session, lineup.order, ticks, surges.length > 0);
+  const raid = sessionRaid(bundle, def, hour, session, lineup.order, ticks, surges.length > 0, scored.filter((c) => c.mandate).map((c) => c.key));
   if (raid) input.crashers = raid;
   return { input, lineup, scored, surges };
 }

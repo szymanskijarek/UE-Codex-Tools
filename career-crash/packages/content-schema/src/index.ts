@@ -824,6 +824,20 @@ export const marketSchema = z.object({
           /** With `absentTag`: how many of them may be standing and it still counts as absent. */
           absentFew: int.min(0).optional(),
           koStreak: z.object({ kos: int.min(1), withinTicks: int.min(1), oneSide: z.boolean().optional() }).optional(),
+          /** Come when at least `atLeast` delegates with this membership tag are standing (Brussels). */
+          presentTag: z.object({ tag: z.string(), atLeast: int.min(1) }).optional(),
+          /** Come when a delegate with a Mandate is standing (the Raters). */
+          mandate: z.boolean().optional(),
+          /** Come when at least `n` standing delegates have one of these statuses (the Health Authority). */
+          statusCount: z.object({ statuses: z.array(ref('status')).min(1), n: int.min(1) }).optional(),
+          /** Come when one country has been floored this many times this session (the Lenders). */
+          koedTimes: int.min(1).optional(),
+          /** Only offered in a derby hour (the Federation). */
+          derbyOnly: z.boolean().optional(),
+          /** With no trigger: come at a seeded tick up to this long after `earliestTick` (Big Oil). */
+          spreadTicks: int.min(0).optional(),
+          /** Kill switch (09 §7.2.5): never offered while set. */
+          off: z.boolean().optional(),
           /** Only comes to a session that opened with a SURGE, and always does. */
           needsSurge: z.boolean().optional(),
           mount: ref('prop').optional(),

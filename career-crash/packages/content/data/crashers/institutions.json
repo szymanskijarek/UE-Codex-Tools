@@ -249,5 +249,398 @@
    "We're pivoting. Out of the door.",
    "Moving fast. Away from here."
   ]
+ },
+ {
+  "id": "crasher.big-oil",
+  "home": "arena.summit-hall",
+  "visits": [],
+  "leader": {
+   "persona": "npc.inst-oil-exec",
+   "career": "career.politician",
+   "personality": "personality.greedy",
+   "lines": [
+    "Proud sponsors of this summit!",
+    "Drill, baby, drill!",
+    "Energy for everyone! At a price.",
+    "Don't mind the spill, it's basically water."
+   ],
+   "art": {
+    "color": "#1f1f1f",
+    "icon": "🛢️"
+   },
+   "moves": [
+    "ability.drill-baby",
+    "ability.fuel-sale",
+    "ability.gas-giveaway"
+   ],
+   "name": "Rex Barrelton"
+  },
+  "henchmen": {
+   "persona": "npc.inst-oil-roughneck",
+   "career": "career.welder",
+   "personality": "personality.clumsy",
+   "lines": [
+    "Where d'you want the barrel, boss?",
+    "Mind the floor, it's slick!",
+    "Oops. That's another spill.",
+    "Pipeline coming through!"
+   ],
+   "art": {
+    "color": "#ea580c",
+    "icon": "🔧"
+   },
+   "moves": [
+    "ability.drill-baby"
+   ],
+   "names": [
+    "Dusty Wells",
+    "Randy Derrick"
+   ]
+  },
+  "entrance": [
+   "Big Oil rolls in with a barrel and a smile: Rex Barrelton is here to 'help with the energy situation'.",
+   "A spotless hard hat enters the chamber, followed by two roughnecks and a puddle. It's Big Oil."
+  ],
+  "posts": [
+   "Proud sponsors of today's fire at the {arena}. 🔥 #Energy #Partnership",
+   "Delivered record energy to the {arena} today. Also some oil. On the floor. #Growth"
+  ],
+  "comments": [
+   "We left the canisters by the buffet. For safety.",
+   "Boss says the spill is a feature."
+  ],
+  "exits": [
+   "We'll help with the clean-up. For a fee.",
+   "Don't worry, we'll send a sustainability report.",
+   "That's a wrap. Mind the puddle!"
+  ]
+ },
+ {
+  "id": "crasher.health",
+  "home": "arena.summit-hall",
+  "visits": [],
+  "leader": {
+   "persona": "npc.inst-health-inspector",
+   "career": "career.nurse",
+   "personality": "personality.helpful",
+   "lines": [
+    "WASH YOUR HANDS!",
+    "This floor is a disgrace.",
+    "Please maintain a safe punching distance.",
+    "Twenty seconds, with soap. Everyone."
+   ],
+   "art": {
+    "color": "#34d399",
+    "icon": "🧴"
+   },
+   "moves": [
+    "ability.sanitise",
+    "ability.wash-your-hands",
+    "ability.quarantine"
+   ],
+   "name": "Dr Ingrid Swab"
+  },
+  "henchmen": {
+   "persona": "npc.inst-health-hazmat",
+   "career": "career.janitor",
+   "personality": "personality.helpful",
+   "lines": [
+    "Foam incoming!",
+    "Please stand still, you're being sanitised.",
+    "Hands where I can see them. And clean.",
+    "Cordoning off this delegate."
+   ],
+   "art": {
+    "color": "#facc15",
+    "icon": "🦺"
+   },
+   "moves": [
+    "ability.sanitise",
+    "ability.quarantine"
+   ],
+   "names": [
+    "Sam Sterile",
+    "Pat Lather"
+   ]
+  },
+  "entrance": [
+   "The Health Authority bursts in with clipboards and foam: Dr Ingrid Swab has seen the state of this floor.",
+   "Hazmat suits in the Summit Hall! Somebody reported a lack of handwashing."
+  ],
+  "posts": [
+   "Inspected the {arena} today. Hygiene rating: 1 star. Sanitiser deployed: all of it. #WashYourHands",
+   "Proud to have foamed every delegate at the {arena}. Twice. #PublicHealth"
+  ],
+  "comments": [
+   "We ran out of foam. We used the coffee.",
+   "Somebody licked the gavel. We have questions."
+  ],
+  "exits": [
+   "Please maintain a safe punching distance.",
+   "The floor is now spotless. Please don't touch it.",
+   "Remember: twenty seconds. With soap. Goodbye!"
+  ]
+ },
+ {
+  "id": "crasher.lenders",
+  "home": "arena.summit-hall",
+  "visits": [],
+  "leader": {
+   "persona": "npc.inst-lender",
+   "career": "career.accountant",
+   "personality": "personality.greedy",
+   "lines": [
+    "Looks like you need a loan.",
+    "Sign here, here and here.",
+    "Interest? Just a little.",
+    "Structural adjustment. Mostly to your face."
+   ],
+   "art": {
+    "color": "#166534",
+    "icon": "💼"
+   },
+   "moves": [
+    "ability.emergency-loan",
+    "ability.repayment-due",
+    "ability.small-print"
+   ],
+   "name": "Cornelius Interest"
+  },
+  "henchmen": {
+   "persona": "npc.inst-lender-officer",
+   "career": "career.lawyer",
+   "personality": "personality.paranoid",
+   "lines": [
+    "Repayment is due. Now.",
+    "Did you read clause forty?",
+    "Stamped and approved.",
+    "No refunds."
+   ],
+   "art": {
+    "color": "#4b5563",
+    "icon": "🖋️"
+   },
+   "moves": [
+    "ability.repayment-due",
+    "ability.small-print"
+   ],
+   "names": [
+    "Penny Clause",
+    "Morgan Default"
+   ]
+  },
+  "entrance": [
+   "The Lenders arrive with a briefcase full of cash and a smile full of small print: someone on this floor needs a loan.",
+   "Pinstripes in the chamber! Cornelius Interest has spotted a delegate in difficulty. And an opportunity."
+  ],
+  "posts": [
+   "Pleased to support a struggling delegate at the {arena} today with a generous loan. Repayment starts now. #Development",
+   "Today at the {arena} we restructured a delegation. Mostly their jaw. #Stability"
+  ],
+  "comments": [
+   "Clause forty did a lot of work today.",
+   "They paid back with interest. Mostly bruises."
+  ],
+  "exits": [
+   "Structural adjustment complete.",
+   "We'll be in touch. About the interest.",
+   "Pleasure doing business. Mostly ours."
+  ]
+ },
+ {
+  "id": "crasher.federation",
+  "home": "arena.summit-hall",
+  "visits": [],
+  "leader": {
+   "persona": "npc.inst-fed-official",
+   "career": "career.tv-host",
+   "personality": "personality.confident",
+   "lines": [
+    "What a derby! What a commercial opportunity!",
+    "A trophy for you! The invoice for you.",
+    "The beautiful game. The beautiful margins.",
+    "Congratulations to the winner. Whoever that is."
+   ],
+   "art": {
+    "color": "#1e3a8a",
+    "icon": "🏆"
+   },
+   "moves": [
+    "ability.award-trophy",
+    "ability.commission",
+    "ability.photo-opportunity"
+   ],
+   "name": "Lord Gideon Goldbutton"
+  },
+  "henchmen": {
+   "persona": "npc.inst-fed-ambassador",
+   "career": "career.personal-trainer",
+   "personality": "personality.competitive",
+   "lines": [
+    "Smile for the camera!",
+    "Ambassador of the game, baby!",
+    "Selfie! Selfie!",
+    "I was a legend once. Ask anyone."
+   ],
+   "art": {
+    "color": "#e0b441",
+    "icon": "🥇"
+   },
+   "moves": [
+    "ability.photo-opportunity",
+    "ability.commission"
+   ],
+   "names": [
+    "Champ McMedal",
+    "Goldie Podium"
+   ]
+  },
+  "entrance": [
+   "The Federation has entered the derby: Lord Gideon Goldbutton has a trophy, two ambassadors and an invoice.",
+   "Gold buttons in the chamber! The Federation wants a photo with the derby. And a commission."
+  ],
+  "posts": [
+   "Proud to hand out a trophy at the {arena} derby today. The commission was the real winner. 🏆 #ForTheGame",
+   "Another historic derby at the {arena}! Broadcast rights available. #Football"
+  ],
+  "comments": [
+   "I got a selfie with every delegate. Most were mid-punch.",
+   "The trophy is on loan. We'll want it back."
+  ],
+  "exits": [
+   "Congratulations to the winner. Invoice to follow.",
+   "The Federation thanks you for your passion. And your fees.",
+   "Leaving before anybody asks questions."
+  ]
+ },
+ {
+  "id": "crasher.brussels",
+  "home": "arena.summit-hall",
+  "visits": [],
+  "leader": {
+   "persona": "npc.inst-brussels",
+   "career": "career.librarian",
+   "personality": "personality.paranoid",
+   "lines": [
+    "This brawl is not compliant.",
+    "Please accept the cookies. There are no cookies.",
+    "Punches must not exceed the standard size.",
+    "I have a directive for this."
+   ],
+   "art": {
+    "color": "#1e3a8a",
+    "icon": "📏"
+   },
+   "moves": [
+    "ability.harmonise",
+    "ability.consent-banner",
+    "ability.tape-measure"
+   ],
+   "name": "Annette Directive"
+  },
+  "henchmen": {
+   "persona": "npc.inst-brussels-clerk",
+   "career": "career.lawyer",
+   "personality": "personality.paranoid",
+   "lines": [
+    "Annex seven applies here.",
+    "Please fill in form B-twelve.",
+    "That punch was eleven millimetres too long.",
+    "Harmonising!"
+   ],
+   "art": {
+    "color": "#2f4fa8",
+    "icon": "📋"
+   },
+   "moves": [
+    "ability.harmonise",
+    "ability.tape-measure"
+   ],
+   "names": [
+    "Klaus Annex",
+    "Ana Subsidiarity"
+   ]
+  },
+  "entrance": [
+   "Brussels has entered the chamber with rulebooks and a measuring tape: too many EU members are brawling without a framework.",
+   "The regulators are here! Every delegate on the floor must now accept the terms and conditions."
+  ],
+  "posts": [
+   "Successfully harmonised the {arena} today. All punches are now the same size. #Regulation",
+   "The {arena} is now fully compliant. This page uses no cookies. We checked. #Brussels"
+  ],
+  "comments": [
+   "Klaus measured every punch. Most were non-standard.",
+   "We issued 400 forms. 3 came back. 0 in the right language."
+  ],
+  "exits": [
+   "This brawl is now fully compliant.",
+   "Please allow six to eight years for a response.",
+   "Directive issued. Goodbye, in all 24 languages."
+  ]
+ },
+ {
+  "id": "crasher.raters",
+  "home": "arena.summit-hall",
+  "visits": [],
+  "leader": {
+   "persona": "npc.inst-rater",
+   "career": "career.accountant",
+   "personality": "personality.coward",
+   "lines": [
+    "Outlook: negative.",
+    "I'm going to have to downgrade you.",
+    "Triple A? Triple ow.",
+    "Under review. Everything is under review."
+   ],
+   "art": {
+    "color": "#6b7280",
+    "icon": "📉"
+   },
+   "moves": [
+    "ability.downgrade",
+    "ability.outlook-negative"
+   ],
+   "name": "Grey Outlook"
+  },
+  "henchmen": {
+   "persona": "npc.inst-rater-analyst",
+   "career": "career.accountant",
+   "personality": "personality.coward",
+   "lines": [
+    "Also negative.",
+    "Downgraded!",
+    "Watch list. You're on it.",
+    "We stand by our rating. From over here."
+   ],
+   "art": {
+    "color": "#9ca3af",
+    "icon": "📉"
+   },
+   "moves": [
+    "ability.downgrade"
+   ],
+   "names": [
+    "Ashley Spreadsheet",
+    "Hugo Basispoint"
+   ]
+  },
+  "entrance": [
+   "A grey man with a giant rubber stamp slips into the chamber: the Raters have noticed someone is doing too well.",
+   "The Raters are here! The most popular delegate on the floor is under review."
+  ],
+  "posts": [
+   "Visited the {arena} today and downgraded the favourite. Outlook: negative. #Ratings",
+   "Our analysts at the {arena} confirm: everyone is overvalued. #Markets"
+  ],
+  "comments": [
+   "The favourite hit back. We have downgraded our own outlook.",
+   "We stood very far away and rated from there."
+  ],
+  "exits": [
+   "Outlook: negative.",
+   "Rating withdrawn. So are we.",
+   "We'll publish our findings. From a safe distance."
+  ]
  }
 ]
