@@ -3434,6 +3434,53 @@ export class BattleRenderer {
     }
   }
 
+  /**
+   * Support (09): a beam of light down onto a fighter when someone likes their
+   * country, following them for under a second. `strong` for your own like
+   * (wider, brighter, with a chime); the crowd's are quieter. Client-only, so
+   * replays are unaffected.
+   */
+  supportBeam(entityId: number, color: string, strong = false): void {
+    const s = this.ready ? this.chars.get(entityId) : undefined;
+    if (!s || this.fx.length > 90) return;
+    const life = strong ? 1000 : 750;
+    const tint = hex(color);
+    const r = s.r;
+    const g = new Graphics();
+    g.blendMode = 'add';
+    this.fxLayer.addChild(g);
+    // A few motes rising inside the beam, fixed per beam.
+    const motes = Array.from({ length: strong ? 9 : 5 }, () => [Math.random() * 2 - 1, Math.random(), 0.5 + Math.random() * 0.8] as const);
+    if (strong) this.sfx.play('heal', 0.6);
+    this.fx.push({
+      g,
+      life,
+      max: life,
+      update: (f) => {
+        // f runs 1 → 0: snap on, hold, fade out.
+        const t = 1 - f;
+        const a = (t < 0.15 ? t / 0.15 : f < 0.4 ? f / 0.4 : 1) * (strong ? 1 : 0.7);
+        const x = s.root.x;
+        const y = s.root.y;
+        const w = r * (strong ? 2.4 : 1.5) * (0.85 + 0.15 * Math.min(1, t / 0.15));
+        const top = y - this.app.screen.height * 1.2;
+        g.clear();
+        // Soft edges: wide and faint outside, narrow and white in the middle.
+        g.rect(x - w, top, w * 2, y - top).fill({ color: tint, alpha: 0.2 * a });
+        g.rect(x - w * 0.6, top, w * 1.2, y - top).fill({ color: tint, alpha: 0.35 * a });
+        g.rect(x - w * 0.3, top, w * 0.6, y - top).fill({ color: 0xffffff, alpha: 0.55 * a });
+        g.rect(x - w * 0.1, top, w * 0.2, y - top).fill({ color: 0xffffff, alpha: 0.8 * a });
+        // A pool of light at their feet.
+        g.ellipse(x, y, w * 1.5, w * 0.5).fill({ color: tint, alpha: 0.3 * a });
+        g.ellipse(x, y, w * 0.8, w * 0.27).fill({ color: 0xffffff, alpha: 0.35 * a });
+        for (const [dx, phase, size] of motes) {
+          const k = (phase + t * 1.4) % 1;
+          g.circle(x + dx * w * 0.7, y - k * r * 7, r * 0.09 * size).fill({ color: 0xffffff, alpha: a * (1 - k) });
+        }
+      },
+    });
+  }
+
   setReplay(ids: number[] | null, label = '● ACTION REPLAY', sub = '½× SLOW-MO', soundRate = 0.5): void {
     this.replayLabel = label;
     this.replaySub = sub;

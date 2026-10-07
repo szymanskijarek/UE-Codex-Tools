@@ -8,7 +8,7 @@ import { BattleRenderer } from '../replay/renderer';
 import { music } from '../replay/music';
 import { keepAwake } from '../wake-lock';
 import { countryName, DEF, flagUrl, guessHome, info, KEYS, search } from './countries';
-import { frozenTally, like, myLikes, pendingLikes } from './likes';
+import { castLike, crowdStream, frozenTally, myLikes, onLikes, type LikeEvent } from './likes';
 import { tallyPastSessions } from './past';
 
 const FEED_MAX = 30;
@@ -78,6 +78,12 @@ export function Hall() {
   const mutedRef = useRef(muted);
   mutedRef.current = muted;
   const closingRef = useRef<() => Influence[]>(() => []);
+  /** Likes that have come in this session so far, by country (the crowd's as they land, and yours). */
+  const arrivedRef = useRef<Map<string, number>>(new Map());
+  /** Lobby rows lit up by a like, until when (ms). */
+  const glowRef = useRef<Map<string, number>>(new Map());
+  /** A like for a country this frame: a beam if they're on the floor, a glow in the lobby (09: support you can see). */
+  const supportRef = useRef<(key: string, n: number, mine: boolean) => void>(() => {});
 
   const push = (text: string, kind: string) => {
     if (!text) return;
@@ -116,6 +122,19 @@ export function Hall() {
     return { input, lineup, scored, tally, surges };
   }, [clock.hour, clock.candle]);
 
+  // Likes from anywhere on the site (this page, the career feed, another tab), as they're cast.
+  useEffect(
+    () =>
+      onLikes((e: LikeEvent) => {
+        if (e.hour !== floorClock(DEF, now()).hour) return;
+        setLikesV((v) => v + 1);
+        supportRef.current(e.key, e.n, e.mine);
+        if (e.source === 'careercrash') push(fill('incident_liked_away', { country: countryName(e.key) }), 'liked');
+        else if (e.mine) push(fill('incident_liked', { country: countryName(e.key) }), 'liked');
+      }),
+    [],
+  );
+
   // Earlier sessions of this hour, worked out in the background.
   useEffect(() => {
     setPast(new Map());
@@ -141,6 +160,25 @@ export function Hall() {
     renderer.sfx.setMuted(mutedRef.current);
     const keyOf = (entityId: number) => input.teams[player.world.byId.get(entityId)?.team ?? -1]?.playerId ?? '';
     const vars = (k: string) => ({ country: countryName(k), name: info(k).name, flag: '' });
+    // Support (09): every like shows. The crowd's land through the session in seeded bunches; yours (from any page) at once.
+    const crowd = crowdStream(clock.hour, clock.candle, input.endless!.ticks);
+    let crowdAt = 0;
+    const arrived = new Map<string, number>();
+    for (; crowdAt < crowd.length && crowd[crowdAt]!.tick <= startAt; crowdAt++) arrived.set(crowd[crowdAt]!.key, (arrived.get(crowd[crowdAt]!.key) ?? 0) + crowd[crowdAt]!.n);
+    for (const l of myLikes(clock.hour)) if (l.session === clock.candle) arrived.set(l.key, (arrived.get(l.key) ?? 0) + 1);
+    arrivedRef.current = arrived;
+    const lastBeam = new Map<string, number>();
+    supportRef.current = (key, n, mine) => {
+      arrived.set(key, (arrived.get(key) ?? 0) + n);
+      const t = performance.now();
+      // The crowd's beams no more than one per country every 1.5 s, so a popular country glows rather than strobes.
+      if (!mine && t - (lastBeam.get(key) ?? 0) < 1500) return;
+      lastBeam.set(key, t);
+      const team = input.teams.findIndex((x) => x.playerId === key);
+      const ent = player.world.entities.find((x) => !x.removed && x.kind === 'char' && x.summonOf < 0 && x.team === team);
+      if (ent) renderer.supportBeam(ent.id, info(key).color, mine);
+      else glowRef.current.set(key, Date.now() + (mine ? 1600 : 900));
+    };
     // Surges at the seam (09 §5.4): scores that jumped since the last session.
     if (jumped.length && startAt < 140) {
       setSurges({ keys: jumped, until: Date.now() + SURGE_MS });
@@ -177,6 +215,7 @@ export function Hall() {
           player.advance(dt * flow);
           const events: BattleEvent[] = player.drainEvents();
           renderer.render(player, flow ? dt : dt * 0.1, events);
+          for (; crowdAt < crowd.length && crowd[crowdAt]!.tick <= player.tick; crowdAt++) supportRef.current(crowd[crowdAt]!.key, crowd[crowdAt]!.n, false);
           if (events.length) {
             for (const l of commentator.consume(events, player.world.events, false) as LiveLine[]) if (l.importance >= 2 && !l.kind.startsWith('end_')) push(l.text, l.kind);
             for (const e of events) {
@@ -260,7 +299,8 @@ export function Hall() {
   const liked = myLikes(clock.hour).some((l) => l.key === follow);
   void likesV;
   const tallyNow = session.tally[follow] ?? 0;
-  const pending = pendingLikes(clock.hour, clock.candle, follow);
+  // Counts up as the session's likes land, rather than all at once.
+  const pending = arrivedRef.current.get(follow) ?? 0;
   const seamAt = `${clock.hour.slice(11, 13)}:${String(((clock.candle + 1) * 5) % 60).padStart(2, '0')}`;
   const secsLeft = clock.breaker || clock.closing ? 0 : Math.max(0, Math.ceil((clock.fightTicks - clock.tick) / TICKS_PER_SECOND));
   const rewinding = CLOCK_OFFSET !== 0;
@@ -273,9 +313,7 @@ export function Hall() {
   const found = search(query);
 
   const doLike = () => {
-    if (like(clock.hour, follow, clock.candle)) {
-      setLikesV((v) => v + 1);
-      push(fill('incident_liked', { country: countryName(follow) }), 'liked');
+    if (castLike(follow, 'hall', now())) {
       setToast(`👍 +1 for ${countryName(follow)} · counts from ${seamAt}`);
       setTimeout(() => setToast(''), 2600);
     }
@@ -462,7 +500,7 @@ export function Hall() {
             </h2>
             <ol class="di-queue">
               {lobby.slice(0, 12).map((k, i) => (
-                <li class={`${k === follow ? 'on' : ''}${lineup.wildcards.includes(k) ? ' wild' : ''}`} style={{ '--c': info(k).color }}>
+                <li class={`${k === follow ? 'on' : ''}${lineup.wildcards.includes(k) ? ' wild' : ''}${(glowRef.current.get(k) ?? 0) > Date.now() ? ' glow' : ''}`} style={{ '--c': info(k).color }}>
                   <button onClick={() => setFollow(k)} title={info(k).name}>
                     <Flag k={k} size={16} />
                     <span>{countryName(k)}</span>

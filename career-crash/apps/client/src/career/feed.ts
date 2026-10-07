@@ -168,7 +168,7 @@ const DEL_KEYS = COUNTRIES ? Object.keys(COUNTRIES.cast).sort() : [];
 export const INCIDENT_URL = import.meta.env?.VITE_INLINE === '1' ? 'https://careercrash.org/incident/' : '/incident/';
 const UK_NATIONS: Record<string, string> = { ENG: 'England', SCO: 'Scotland', WAL: 'Wales' };
 /** A country's name (English: the feed is in English). */
-function countryName(key: string): string {
+export function countryName(key: string): string {
   if (UK_NATIONS[key]) return UK_NATIONS[key]!;
   try {
     return new Intl.DisplayNames(['en'], { type: 'region' }).of(key) ?? key;

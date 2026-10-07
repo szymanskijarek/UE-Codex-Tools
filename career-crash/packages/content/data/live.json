@@ -5613,6 +5613,10 @@
    "Thank you, {commenter}. A statement will follow.",
    "Your concern is our concern, {commenter}. Deeply.",
    "We'll get back to you, {commenter}. Eventually."
+  ],
+  "incident_liked_away": [
+   "👍 A like for {country} just came in from the Career Crash feed. It counts from the next session.",
+   "👍 Word from the career floor: you back {country}. Noted in the minutes."
   ]
  }
 }

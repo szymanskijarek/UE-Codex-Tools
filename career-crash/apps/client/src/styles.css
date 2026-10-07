@@ -1760,6 +1760,27 @@ body:has(.shell.li) {
 }
 
 /* Crypto Bros (08): the link preview under a bro's post. */
+/* Diplomatic Incident (09): like a delegate's country straight from the feed. */
+.li-del-like {
+  display: block;
+  margin: 6px 0 0;
+  padding: 6px 12px;
+  border: 1px solid #0a66c2;
+  border-radius: 16px;
+  background: #fff;
+  color: #0a66c2;
+  font-weight: 600;
+  cursor: pointer;
+}
+.li-del-like:hover:not(:disabled) {
+  background: #e8f1fb;
+}
+.li-del-like.done {
+  border-color: #057642;
+  color: #057642;
+  cursor: default;
+}
+
 .li-linkcard {
   display: flex;
   align-items: center;

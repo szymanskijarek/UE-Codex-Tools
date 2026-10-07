@@ -14,7 +14,8 @@ import { GearIcons } from './Loot';
 import { abandon, applicants, companyName, renameCharacter, renameCompany, setPostMine, currentCareer, lineup, lineupHr, mainChar, nextOpponents, save, squadUnlocked, type CareerSave } from './model';
 import { developing, fightPhoto } from './photo';
 import { PuppetView } from './PuppetView';
-import { discussion, promotedPosts, REACTIONS, starterPosts, type FeedPost, type ReactionKind } from './feed';
+import { castLike, hasLiked } from '../incident/likes';
+import { countryName, discussion, promotedPosts, REACTIONS, starterPosts, type FeedPost, type ReactionKind } from './feed';
 
 /**
  * The career home, styled after a professional networking site: a profile card
@@ -73,6 +74,8 @@ function PostCard({ p, fights, s }: { p: FeedPost; fights: number; s: CareerSave
   const [mine, setMine] = useState(p.mine ?? {});
   const [open, setOpen] = useState(false);
   const [draft, setDraft] = useState('');
+  // Diplomatic Incident (09): like the delegate's country from here; it travels to the Summit Hall (incident/likes.ts).
+  const [, setLikedV] = useState(0);
   const post = { ...p, mine };
   const talk = discussion(post, s);
   const update = (next: NonNullable<FeedPost['mine']>) => {
@@ -112,6 +115,17 @@ function PostCard({ p, fights, s }: { p: FeedPost; fights: number; s: CareerSave
             <small>{p.link.title}</small>
           </span>
         </a>
+      )}
+      {p.del && (
+        <button
+          class={`li-del-like${hasLiked(p.del) ? ' done' : ''}`}
+          disabled={hasLiked(p.del)}
+          onClick={() => {
+            if (castLike(p.del!, 'careercrash')) setLikedV((v) => v + 1);
+          }}
+        >
+          {hasLiked(p.del) ? `✅ You back ${countryName(p.del)} this hour` : `👍 Like ${countryName(p.del)} in the Summit Hall`}
+        </button>
       )}
       {p.tags && <p class="li-tags">{p.tags}</p>}
       <div class="li-counts muted small">
