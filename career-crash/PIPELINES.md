@@ -524,7 +524,9 @@ command, not ours.
    `SESSION_SECRET`, value a long random string (e.g. from a password manager).
    Until it exists, sign-in fails.
 6. **Abuse protection (recommended):** Security → WAF → Rate limiting rules:
-   limit `POST` to `/api/v1/auth/device` to about 10 per minute per IP.
+   limit `POST` to `/api/v1/auth/device` to about 10 per minute per IP. On the
+   Free plan there is only one rate limiting rule (10 s period): add this path
+   to the vote service's rule from §7.3 step 3 instead.
    Optionally add Turnstile and the `TURNSTILE_SECRET` secret.
 7. **Switch the site online:** change the root `build:web` script to run
    `build:web:online` (client built with
@@ -603,9 +605,16 @@ hour), and serves each hour's tallies to careercrash.org/incident. Shapes:
 2. **First deploy:** push to `prod` (or run the `career-crash-votes` workflow
    by hand). It tests, deploys, and checks that vote.careercrash.org answers
    `/config` and the current hour.
-3. **Rate limiting (recommended):** Security → WAF → Rate limiting rules →
-   *URI Path* equals `/token` or `/like` on host `vote.careercrash.org`, 30
-   requests per 10 seconds per IP → Block for 1 minute.
+3. **Rate limiting (recommended):** careercrash.org → Security → Security rules
+   (older dashboards: Security → WAF → Rate limiting rules) → Create rule →
+   Rate limiting rule, named `Vote service: tokens and likes`, expression
+   `(http.request.uri.path in {"/token" "/like"})`, characteristics IP, **20
+   requests per 10 seconds → Block for 10 seconds** (the Free plan allows one
+   rule, a 10 s period and a 10 s block, and may not offer the hostname field;
+   only the vote service uses these paths). A person needs one token a week and
+   at most one like per country per hour, so this only stops bursts. When the
+   API launches (§7.1 step 6), add its paths to this same rule on the Free
+   plan, e.g. `or http.request.uri.path eq "/api/v1/auth/device"`.
 4. **Billing:** Durable Objects count rows written (about two per like). The
    Workers Free plan includes 100,000 a day, so about 50,000 likes a day; past
    that the Workers Paid plan ($5/month) is needed.

@@ -256,7 +256,7 @@ One-time settings that live in dashboards, not in the repo.
 - www → careercrash.org is done by the site Worker (`apps/client/src/site-worker.ts`), so no Redirect Rule is needed.
 - [ ] Workers & Pages → `career-crash` → Settings → Build: production branch `prod`;
       non-production builds on (these make the `dev` previews).
-- [ ] After the API launch: the rate-limiting rule from `PIPELINES.md` §7.1 step 6.
+- [ ] Rate limiting rule for the vote service (`PIPELINES.md` §7.3 step 3); after the API launch, extend it (§7.1 step 6).
 
 **GitHub** (repo → Settings):
 - [ ] General → Default branch: **`dev`** (new PRs and Claude sessions start from the game, not `main`).
