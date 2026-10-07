@@ -1,0 +1,5 @@
+# careercrash.org: everything may be crawled.
+User-agent: *
+Allow: /
+
+Sitemap: https://careercrash.org/sitemap.xml

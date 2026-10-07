@@ -4,4 +4,7 @@ import '../styles.css';
 import '../cryptobro/cryptobro.css';
 import './incident.css';
 
-render(<Hall />, document.getElementById('app')!);
+const app = document.getElementById('app')!;
+// Clear the page's no-JavaScript text first: Preact renders next to it rather than replacing it.
+app.replaceChildren();
+render(<Hall />, app);

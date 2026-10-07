@@ -9,7 +9,7 @@ a Claude Code session. Exact commands for every build step are in
 
 | What | Where |
 |---|---|
-| Live game | https://careercrash.org (and www.careercrash.org) |
+| Live game | https://careercrash.org (www.careercrash.org redirects there) |
 | Hosting | Cloudflare Worker `career-crash`, deployed by Workers Builds from the `prod` branch |
 | Online API | Cloudflare Worker `career-crash-api` + D1 `career-crash` on api.careercrash.org, deployed by GitHub Actions from `prod` (launch steps: `PIPELINES.md` §7.1) |
 | Code | GitHub `szymanskijarek/UE-Codex-Tools`, folder `career-crash/` |
@@ -149,6 +149,24 @@ compresses them (WebP, palette-quantised).
 **Current scale:** 66 careers plus 12 ladder bosses, 12 arenas (48-stage ladder), 101
 props, 344 abilities (every career has a Senior Move), 28 summoned critters, 132 HR notes (two per career).
 
+## Search and link previews
+
+| What | Where |
+|---|---|
+| `robots.txt`, `sitemap.xml` (the three real pages) | `apps/client/public/` |
+| Title, description, canonical, Open Graph / Twitter tags | each page's `index.html` (`apps/client/index.html`, `cryptobro/`, `incident/`) |
+| Structured data (`WebSite`, `VideoGame`) | `apps/client/index.html` |
+| Share images (1200 × 630) | `public/share.jpg`, `public/cryptobro/share.jpg`, `public/incident/share.jpg` |
+| Text for crawlers and no-JavaScript visitors | inside `<div id="app">` in each `index.html`; each `main.tsx` clears it before rendering |
+| www → careercrash.org (301) | `apps/client/src/site-worker.ts` |
+
+`share.jpg` and `incident/share.jpg` are Sandbox / Summit screenshots with a title
+plate; the painted Summit share image (`art/incident/11-FX_AND_PAGE.md` #5) replaces
+the Incident one when it arrives. In-game screens (`#/career` …) sit behind a hash
+and are never indexed; add a page to `sitemap.xml` only when it has its own path.
+After changing tags, check a preview with the platforms' debuggers (Facebook Sharing
+Debugger, LinkedIn Post Inspector) to refresh their cache.
+
 ## Tools
 
 | Tool | Used for | Notes |
@@ -234,7 +252,7 @@ One-time settings that live in dashboards, not in the repo.
 - [ ] SSL/TLS → Overview → encryption mode **Full (strict)**.
 - [ ] Workers & Pages → `career-crash` → Settings → Domains & Routes: `careercrash.org`
       and `www.careercrash.org` both listed as **Custom domain**; delete any *Route* entry for www.
-- [ ] Optional: Rules → Redirect Rules → *Redirect from WWW to root* template, so there's one canonical address.
+- www → careercrash.org is done by the site Worker (`apps/client/src/site-worker.ts`), so no Redirect Rule is needed.
 - [ ] Workers & Pages → `career-crash` → Settings → Build: production branch `prod`;
       non-production builds on (these make the `dev` previews).
 - [ ] After the API launch: the rate-limiting rule from `PIPELINES.md` §7.1 step 6.
@@ -245,6 +263,11 @@ One-time settings that live in dashboards, not in the repo.
       pushes. Optionally also require a pull request with the `check` status check; then
       releases go by PR from `dev` (not `git push origin dev:prod`), and so do rollbacks.
 - [ ] Secrets and variables → Actions: `CLOUDFLARE_API_TOKEN`, `CLOUDFLARE_ACCOUNT_ID` (API launch).
+
+**Search engines** (one-time, needs the owner's Google/Microsoft account):
+- [ ] Google Search Console: add the **Domain** property `careercrash.org`, verify with the TXT record it gives
+      (Cloudflare → DNS → Records → Add), then Sitemaps → submit `https://careercrash.org/sitemap.xml`.
+- [ ] Bing Webmaster Tools: *Import from Google Search Console* (or the same TXT route).
 
 **Claude Code:** commit the `.claude/settings.json` from *Claude Code setup* so every
 session gets the Cloudflare plugin.

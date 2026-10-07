@@ -4,14 +4,56 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0a66c2" />
-    <title>Career Crash</title>
+    <title>Career Crash: the free browser brawler where ordinary jobs fight it out</title>
+    <meta name="description" content="A free browser auto-brawler. Hire chefs, plumbers, lawyers and 60+ other careers, send them into supermarket and office brawls, and read the LinkedIn-style fallout. No download, no sign-up." />
+    <link rel="canonical" href="https://careercrash.org/" />
+    <meta property="og:site_name" content="Career Crash" />
+    <meta property="og:title" content="Career Crash" />
+    <meta property="og:description" content="Ordinary jobs. Extraordinary brawls. A free browser auto-brawler where chefs, plumbers and lawyers fight it out in supermarkets and offices." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://careercrash.org/" />
+    <meta property="og:image" content="https://careercrash.org/share.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Pixel-art brawl in a supermarket: a chef shouting that fire is an ingredient, a taxi driver, a paramedic and a referee among toppled shelves." />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          { "@type": "WebSite", "name": "Career Crash", "url": "https://careercrash.org/" },
+          {
+            "@type": "VideoGame",
+            "name": "Career Crash",
+            "url": "https://careercrash.org/",
+            "image": "https://careercrash.org/share.jpg",
+            "description": "A free browser auto-brawler where ordinary people with extraordinary careers fight it out in supermarkets, offices and train stations.",
+            "genre": ["Auto battler", "Brawler", "Comedy"],
+            "gamePlatform": "Web browser",
+            "applicationCategory": "Game",
+            "operatingSystem": "Any",
+            "playMode": "SinglePlayer",
+            "isAccessibleForFree": true,
+            "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" }
+          }
+        ]
+      }
+    </script>
     <!-- The cc mark, inlined so the single-file build keeps it too (source: public/favicon.svg). -->
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%3Crect width=%2264%22 height=%2264%22 rx=%2210%22 fill=%22#0a66c2%22/%3E%3Cpath d=%22M29.5 34.6a9.6 9.6 0 1 0 0 12.8M51.5 34.6a9.6 9.6 0 1 0 0 12.8%22 fill=%22none%22 stroke=%22#fff%22 stroke-width=%226.4%22 stroke-linecap=%22round%22/%3E%3C/svg%3E" />
     <link rel="apple-touch-icon" href="/icon-180.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
   </head>
   <body>
-    <div id="app"></div>
+    <!-- Shown until the game starts (Preact replaces it), and all that crawlers and link previews without JavaScript see. -->
+    <div id="app">
+      <main style="max-width: 640px; margin: 0 auto; padding: 48px 16px; line-height: 1.5">
+        <h1 style="margin: 0 0 8px">Career Crash</h1>
+        <p style="margin: 0 0 16px"><strong>Ordinary jobs. Extraordinary brawls.</strong> A free browser auto-brawler: hire a chef, a plumber, a lawyer or any of 60+ careers, send them into supermarket, office and train-station brawls, and read the LinkedIn-style fallout. No download, no sign-up.</p>
+        <p style="margin: 0 0 16px">Also on careercrash.org: <a href="/cryptobro/">Crypto Bros</a>, the crypto market as an endless brawl, and <a href="/incident/">Diplomatic Incident</a>, where countries brawl and your likes are power.</p>
+        <noscript><p>Career Crash needs JavaScript to play.</p></noscript>
+      </main>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

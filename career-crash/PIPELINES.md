@@ -457,6 +457,12 @@ the single file, as normal files, so images download only when needed.
 | Deploy command | `npx wrangler deploy` |
 | Non-production branch deploy command | `npx wrangler versions upload` |
 
+**The Worker script** (`main` in `wrangler.jsonc` → `apps/client/src/site-worker.ts`) only
+redirects www.careercrash.org to careercrash.org (301, path and query kept). `run_worker_first`
+sends it pages and public files; the hashed bundle under `/assets/` is served straight from
+the asset store without invoking it, so it costs about one Worker request per page view. Only
+handlers may be exported from it (the runtime rejects other named exports).
+
 Previews can be kept private with Cloudflare Access ("Previews only"). The
 custom domains in `wrangler.jsonc` attach careercrash.org and
 www.careercrash.org on the first production deploy.

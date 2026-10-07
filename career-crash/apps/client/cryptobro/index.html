@@ -6,6 +6,8 @@
     <meta name="theme-color" content="#120d24" />
     <title>Crypto Bros · Career Crash</title>
     <meta name="description" content="The top 10 cryptocurrencies as crypto bros, brawling nonstop. Every hour they're rebuilt from how their coin did. Not financial advice." />
+    <link rel="canonical" href="https://careercrash.org/cryptobro/" />
+    <meta property="og:site_name" content="Career Crash" />
     <meta property="og:title" content="Crypto Bros · Career Crash" />
     <meta property="og:description" content="The crypto market as an endless brawl. Who's pumping is who's winning." />
     <meta property="og:type" content="website" />
@@ -19,7 +21,15 @@
     <link rel="apple-touch-icon" href="/cryptobro/icon-180.png" />
   </head>
   <body class="cb">
-    <div id="app"></div>
+    <!-- Shown until the page starts (Preact replaces it), and all that crawlers and link previews without JavaScript see. -->
+    <div id="app">
+      <main style="max-width: 640px; margin: 0 auto; padding: 48px 16px; line-height: 1.5">
+        <h1 style="margin: 0 0 8px">Crypto Bros</h1>
+        <p style="margin: 0 0 16px">The top 10 cryptocurrencies as crypto bros, brawling nonstop on a trading floor. Every hour each bro is rebuilt from how their coin did in the last hour, so who's pumping is who's winning, and a coin that tanks gets liquidated. Not financial advice.</p>
+        <p style="margin: 0 0 16px">Part of <a href="/">Career Crash</a>, the free browser brawler where ordinary jobs fight it out.</p>
+        <noscript><p>Crypto Bros needs JavaScript to run.</p></noscript>
+      </main>
+    </div>
     <script type="module" src="/src/cryptobro/main.tsx"></script>
   </body>
 </html>

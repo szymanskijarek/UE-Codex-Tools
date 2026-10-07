@@ -6,15 +6,29 @@
     <meta name="theme-color" content="#0f1a33" />
     <title>Diplomatic Incident · Career Crash</title>
     <meta name="description" content="Countries brawl nonstop at the summit, ten at a time. Like your country to make its delegate stronger: one like per country, per hour." />
+    <link rel="canonical" href="https://careercrash.org/incident/" />
+    <meta property="og:site_name" content="Career Crash" />
     <meta property="og:title" content="Diplomatic Incident · Career Crash" />
     <meta property="og:description" content="Your country needs you. An endless summit brawl where likes are power." />
     <meta property="og:type" content="website" />
     <meta property="og:url" content="https://careercrash.org/incident/" />
+    <meta property="og:image" content="https://careercrash.org/incident/share.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Pixel-art brawl between country delegates in an office: a choke hold, an orderly queue, filing cabinets and a burst of light from a like." />
     <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" href="/favicon.svg" />
   </head>
   <body class="cb di">
-    <div id="app"></div>
+    <!-- Shown until the page starts (Preact replaces it), and all that crawlers and link previews without JavaScript see. -->
+    <div id="app">
+      <main style="max-width: 640px; margin: 0 auto; padding: 48px 16px; line-height: 1.5">
+        <h1 style="margin: 0 0 8px">Diplomatic Incident</h1>
+        <p style="margin: 0 0 16px">Forty countries brawl nonstop at the summit, ten on the floor at a time. Like your country (once an hour) to make its delegate stronger.</p>
+        <p style="margin: 0 0 16px">Part of <a href="/">Career Crash</a>, the free browser brawler where ordinary jobs fight it out.</p>
+        <noscript><p>Diplomatic Incident needs JavaScript to run.</p></noscript>
+      </main>
+    </div>
     <script type="module" src="/src/incident/main.tsx"></script>
   </body>
 </html>
