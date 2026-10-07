@@ -8,7 +8,7 @@ import { BattleRenderer } from '../replay/renderer';
 import { music } from '../replay/music';
 import { keepAwake } from '../wake-lock';
 import { countryName, DEF, flagUrl, guessHome, info, KEYS, search } from './countries';
-import { castLike, crowdStream, frozenTally, myLikes, onLikes, type LikeEvent } from './likes';
+import { castLike, crowdStream, fallbackTally, flush, frozenTally, loadHour, myLikes, onLikes, othersPending, VOTE_URL, voteToken, type LikeEvent } from './likes';
 import { tallyPastSessions } from './past';
 
 const FEED_MAX = 30;
@@ -17,6 +17,10 @@ const DRIFT_SOFT = 10;
 const DRIFT_HARD = 120;
 /** How long a SURGE placard stays up at the start of a session (ms). */
 const SURGE_MS = 7000;
+/** How long a session waits for its tally from the vote service before running on the last one it has (ms). */
+const TALLY_WAIT_MS = 6000;
+/** How often the likes still arriving are fetched (ms; the service caches them for 5 s). */
+const POLL_MS = 10_000;
 
 /** Viewer's clock; `?t=2026-10-06T14:37:00Z` pins the floor to another moment (screenshots, Rewind). */
 const CLOCK_OFFSET = (() => {
@@ -69,6 +73,11 @@ export function Hall() {
   const [toast, setToast] = useState('');
   const [likesV, setLikesV] = useState(0);
   const [surges, setSurges] = useState<{ keys: string[]; until: number }>({ keys: [], until: 0 });
+  /** Bumped when the vote service answers. */
+  const [votesV, setVotesV] = useState(0);
+  /** The session (`hour#n`) running on a fallback tally because the service didn't answer in time. */
+  const [delayed, setDelayed] = useState('');
+  const sessionRef = useRef<{ key: string; input: ReturnType<typeof sessionInput>['input']; lineup: ReturnType<typeof sessionInput>['lineup']; scored: ScoredCountry[]; tally: Record<string, number>; surges: string[]; delayed: boolean } | null>(null);
   const [, setFrame] = useState(0);
   const playerRef = useRef<ReplayPlayer | null>(null);
   const rendererRef = useRef<BattleRenderer | null>(null);
@@ -84,6 +93,8 @@ export function Hall() {
   const glowRef = useRef<Map<string, number>>(new Map());
   /** A like for a country this frame: a beam if they're on the floor, a glow in the lobby (09: support you can see). */
   const supportRef = useRef<(key: string, n: number, mine: boolean) => void>(() => {});
+  /** Other viewers' likes this session already shown, by country (vote service). */
+  const othersSeenRef = useRef<Record<string, number>>({});
 
   const push = (text: string, kind: string) => {
     if (!text) return;
@@ -114,13 +125,42 @@ export function Hall() {
     };
   }, []);
 
-  // The session's input: likes frozen at its start (09 §5.3).
-  const session = useMemo(() => {
-    const tally = frozenTally(clock.hour, clock.candle);
-    const prevTally = clock.candle > 0 ? frozenTally(clock.hour, clock.candle - 1) : undefined;
-    const { input, lineup, scored, surges } = sessionInput(bundle, DEF, clock.hour, clock.candle, tally, prevTally);
-    return { input, lineup, scored, tally, surges };
+  // The vote service: earn a token and send any likes still waiting, in the background.
+  useEffect(() => {
+    if (!VOTE_URL) return;
+    const id = setTimeout(() => void voteToken().then(() => flush()), 1500);
+    return () => clearTimeout(id);
+  }, []);
+
+  // This session's tally from the vote service (09 §5.3), then the likes still arriving, every few seconds.
+  useEffect(() => {
+    if (!VOTE_URL) return;
+    let alive = true;
+    const key = `${clock.hour}#${clock.candle}`;
+    const late = setTimeout(() => alive && !frozenTally(clock.hour, clock.candle) && setDelayed(key), TALLY_WAIT_MS);
+    void loadHour(clock.hour, clock.candle).then(() => alive && setVotesV((v) => v + 1));
+    const poll = setInterval(() => void loadHour(clock.hour, clock.candle, 1).then(() => alive && setVotesV((v) => v + 1)), POLL_MS);
+    return () => {
+      alive = false;
+      clearTimeout(late);
+      clearInterval(poll);
+    };
   }, [clock.hour, clock.candle]);
+
+  // The session's input: likes frozen at its start (09 §5.3). Until the service has answered, the last session stays up.
+  const sessionKey = `${clock.hour}#${clock.candle}`;
+  const frozen = frozenTally(clock.hour, clock.candle);
+  const ready = !!frozen || delayed === sessionKey;
+  const session = useMemo(() => {
+    if (!ready) return sessionRef.current;
+    const tally = frozen ?? fallbackTally(clock.hour, clock.candle);
+    const prev = clock.candle > 0 ? (frozenTally(clock.hour, clock.candle - 1) ?? fallbackTally(clock.hour, clock.candle - 1)) : undefined;
+    const { input, lineup, scored, surges } = sessionInput(bundle, DEF, clock.hour, clock.candle, tally, prev);
+    return (sessionRef.current = { key: sessionKey, input, lineup, scored, tally, surges, delayed: !frozen && !!VOTE_URL });
+    // `frozen` is looked up again on every answer from the service (votesV), but a session that has started keeps its tally.
+  }, [sessionKey, ready]);
+  const counting = session?.key === sessionKey && session.delayed;
+  void votesV;
 
   // Likes from anywhere on the site (this page, the career feed, another tab), as they're cast.
   useEffect(
@@ -138,13 +178,32 @@ export function Hall() {
   // Earlier sessions of this hour, worked out in the background.
   useEffect(() => {
     setPast(new Map());
-    if (clock.candle === 0) return;
+    if (clock.candle === 0 || !ready) return;
     return tallyPastSessions(clock.hour, clock.candle, (s, rows) => setPast((m) => new Map(m).set(s, rows)));
-  }, [clock.hour, clock.candle]);
+  }, [clock.hour, clock.candle, ready]);
+
+  // Other viewers' likes as the service reports them: spread over the next poll as beams (09 §5.4).
+  useEffect(() => {
+    if (!VOTE_URL || !session) return;
+    const now = othersPending(clock.hour, clock.candle);
+    const seen = othersSeenRef.current;
+    const timers: ReturnType<typeof setTimeout>[] = [];
+    for (const [k, n] of Object.entries(now)) {
+      const fresh = n - (seen[k] ?? 0);
+      if (fresh <= 0) continue;
+      seen[k] = n;
+      const bunches = Math.min(4, fresh);
+      for (let i = 0; i < bunches; i++) {
+        const share = Math.floor(fresh / bunches) + (i < fresh % bunches ? 1 : 0);
+        timers.push(setTimeout(() => supportRef.current(k, share, false), Math.random() * (POLL_MS - 1000)));
+      }
+    }
+    return () => timers.forEach(clearTimeout);
+  }, [votesV, session]);
 
   // The current session: catch up to the wall clock, then play along with it.
   useEffect(() => {
-    if (!host.current) return;
+    if (!host.current || !session) return;
     const { input, lineup, surges: jumped } = session;
     const t0 = performance.now();
     const player = new ReplayPlayer(input, { probe: false });
@@ -160,11 +219,13 @@ export function Hall() {
     renderer.sfx.setMuted(mutedRef.current);
     const keyOf = (entityId: number) => input.teams[player.world.byId.get(entityId)?.team ?? -1]?.playerId ?? '';
     const vars = (k: string) => ({ country: countryName(k), name: info(k).name, flag: '' });
-    // Support (09): every like shows. The crowd's land through the session in seeded bunches; yours (from any page) at once.
-    const crowd = crowdStream(clock.hour, clock.candle, input.endless!.ticks);
+    // Support (09): every like shows. Other viewers' land as the service reports them (the prototype's sample crowd in seeded bunches); yours (from any page) at once.
+    const crowd = VOTE_URL ? [] : crowdStream(clock.hour, clock.candle, input.endless!.ticks);
     let crowdAt = 0;
     const arrived = new Map<string, number>();
     for (; crowdAt < crowd.length && crowd[crowdAt]!.tick <= startAt; crowdAt++) arrived.set(crowd[crowdAt]!.key, (arrived.get(crowd[crowdAt]!.key) ?? 0) + crowd[crowdAt]!.n);
+    if (VOTE_URL) for (const [k, n] of Object.entries(othersPending(clock.hour, clock.candle))) arrived.set(k, n);
+    othersSeenRef.current = VOTE_URL ? othersPending(clock.hour, clock.candle) : {};
     for (const l of myLikes(clock.hour)) if (l.session === clock.candle) arrived.set(l.key, (arrived.get(l.key) ?? 0) + 1);
     arrivedRef.current = arrived;
     const lastBeam = new Map<string, number>();
@@ -266,6 +327,12 @@ export function Hall() {
     };
   }, [session]);
 
+  if (!session)
+    return (
+      <main class="cb-page di-page">
+        <p class="di-counting">🗳️ Counting the votes…</p>
+      </main>
+    );
   const { input, lineup, scored } = session;
   const player = playerRef.current;
   const teamKeys = input.teams.map((t) => t.playerId);
@@ -275,7 +342,7 @@ export function Hall() {
     const rows = past.get(c);
     if (rows) hour = addInfluence(DEF, hour, rows);
   }
-  const counting = clock.candle > 0 && past.size < clock.candle;
+  const countingPast = clock.candle > 0 && past.size < clock.candle;
   const table = hour.map((h) => {
     const l = live.find((r) => r.key === h.key);
     return l ? { ...h, points: h.points + l.points, kos: h.kos + l.kos, floorS: h.floorS + l.floorS } : h;
@@ -455,6 +522,11 @@ export function Hall() {
               </small>
             </div>
           )}
+          {counting && (
+            <div class="di-surge di-delayed" role="status">
+              🗳️ Counting delayed: this session runs on the last likes we had
+            </div>
+          )}
           {surges.until > Date.now() && !clock.opening && (
             <div class="di-surge" role="status">
               📈 SURGE: {surges.keys.slice(0, 3).map((k) => countryName(k)).join(', ')}
@@ -513,7 +585,7 @@ export function Hall() {
           </section>
           <section class="cb-card">
             <h2>
-              This hour <small class="muted">{counting ? 'counting earlier sessions…' : 'influence'}</small>
+              This hour <small class="muted">{countingPast ? 'counting earlier sessions…' : 'influence'}</small>
             </h2>
             <ol class="cb-table di-table">
               {table.slice(0, 15).map((r, i) => (
@@ -552,8 +624,16 @@ export function Hall() {
       {toast && <div class="di-toast">{toast}</div>}
 
       <footer class="cb-foot">
-        <b>Not diplomacy. Not advice of any kind.</b> Fictional delegates; no real people, and no politics. Prototype: other viewers' likes are a sample; yours stay in this
-        browser. No cookies, no tracking. Flags: flag-icons (MIT). <a href="/">Play Career Crash →</a>
+        <b>Not diplomacy. Not advice of any kind.</b> Fictional delegates; no real people, and no politics.{' '}
+        {VOTE_URL ? (
+          <>
+            Likes are real: one per country per hour from each device. A like stores a random token in your browser and, on our server, a one-way hash of it
+            next to the countries it liked, deleted two hours after the hour; totals per country are kept. No accounts, no location.
+          </>
+        ) : (
+          <>Prototype: other viewers' likes are a sample; yours stay in this browser.</>
+        )}{' '}
+        No cookies, no tracking. Flags: flag-icons (MIT). <a href="/">Play Career Crash →</a>
       </footer>
     </main>
   );

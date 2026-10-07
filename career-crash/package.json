@@ -23,7 +23,9 @@
     "deploy:web": "wrangler deploy",
     "build:web:online": "pnpm content:build && pnpm --filter @cc/client build:web:online",
     "deploy:api": "pnpm --filter @cc/worker run deploy",
-    "deploy:markets": "pnpm --filter @cc/markets run deploy"
+    "deploy:markets": "pnpm --filter @cc/markets run deploy",
+    "dev:votes": "pnpm --filter @cc/votes dev",
+    "deploy:votes": "pnpm --filter @cc/votes run deploy"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20260702.1",

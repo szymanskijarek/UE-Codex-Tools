@@ -17,6 +17,8 @@ docs disagree, fix one of them in the same change.
 | `packages/protocol` | API request/response types | the above (types only) |
 | `apps/worker` | Cloudflare Worker API (Hono + D1) | everything above |
 | `apps/client` | Vite + Preact UI, PixiJS replay viewer | everything above |
+| `apps/markets` | Crypto Bros market feed Worker (08) | content, game-rules |
+| `apps/votes` | Diplomatic Incident vote service Worker (09 §6) | content, game-rules, protocol |
 | `tools/balance` | Mass simulation reports | sim, game-rules, commentary |
 | `tools/replay-cli` | Run/inspect battles, golden replays | sim, commentary |
 | `tools/art-pipeline` | Style guide + generation prompts | content |

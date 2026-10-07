@@ -2,14 +2,14 @@ import { bundle } from '@cc/content';
 import { sessionInput, tallySession, type Influence } from '@cc/game-rules';
 import { createBattle } from '@cc/sim';
 import { DEF } from './countries';
-import { frozenTally } from './likes';
+import { fallbackTally, frozenTally } from './likes';
 
 /** Ticks simulated per slice, so working out earlier sessions never blocks the page for long. */
 const SLICE_TICKS = 500;
 
 /**
  * The hour's finished sessions (09 §5.3), simulated headless in the
- * background, oldest first, until the vote service publishes them. Returns a
+ * background, oldest first, on the likes each was frozen with. Returns a
  * cancel function.
  */
 export function tallyPastSessions(hour: string, upTo: number, onSession: (session: number, rows: Influence[]) => void): () => void {
@@ -21,7 +21,8 @@ export function tallyPastSessions(hour: string, upTo: number, onSession: (sessio
   const slice = () => {
     if (cancelled || session >= upTo) return;
     if (!battle) {
-      const { input } = sessionInput(bundle, DEF, hour, session, frozenTally(hour, session), session > 0 ? frozenTally(hour, session - 1) : undefined);
+      const tally = (s: number) => frozenTally(hour, s) ?? fallbackTally(hour, s);
+      const { input } = sessionInput(bundle, DEF, hour, session, tally(session), session > 0 ? tally(session - 1) : undefined);
       keys = input.teams.map((t) => t.playerId);
       ticks = input.endless!.ticks;
       battle = createBattle(input, bundle);

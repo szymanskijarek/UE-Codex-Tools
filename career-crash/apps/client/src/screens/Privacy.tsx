@@ -69,6 +69,16 @@ export function Privacy() {
       </Card>
 
       <Card>
+        <h2>Diplomatic Incident likes</h2>
+        <p>
+          Liking a country at <a href="/incident/">/incident</a> (or from the career feed) stores, in this browser, a random vote token and the countries you liked
+          this hour (incident:token, incident:likes:…). Our vote server keeps a one-way hash of the token next to the countries it liked, and deletes it two hours
+          after the hour; only the totals per country are kept. Your network address is hashed with a salt that's never stored, held in memory to stop floods, and
+          dropped within the hour. No accounts, no location: the country you like is the one you chose.
+        </p>
+      </Card>
+
+      <Card>
         <h2>Delete it</h2>
         <p>Clear this site's data in your browser settings, or press the button: your career save, settings and sign-in are deleted from this browser straight away.</p>
         <button class="danger" onClick={wipe}>

@@ -234,6 +234,22 @@ body.cb.di {
   background: #fff;
 }
 
+/* The vote service didn't answer in time: this session runs on the last likes we had (09 §6.1). */
+.di-surge.di-delayed {
+  top: auto;
+  bottom: 10px;
+  background: #fff;
+  font-size: 13px;
+  animation: none;
+}
+
+.di-counting {
+  margin: 30vh auto 0;
+  text-align: center;
+  font-size: 20px;
+  font-weight: 700;
+}
+
 .di-ceremony .cb-placard .di-flag {
   margin-right: 2px;
 }

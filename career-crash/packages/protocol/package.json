@@ -3,6 +3,6 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "exports": { ".": "./src/index.ts" },
+  "exports": { ".": "./src/index.ts", "./votes": "./src/votes.ts" },
   "dependencies": { "@cc/content-schema": "workspace:*", "@cc/sim": "workspace:*", "@cc/game-rules": "workspace:*", "@cc/commentary": "workspace:*" }
 }

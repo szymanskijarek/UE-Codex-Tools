@@ -32,6 +32,7 @@ art/** ──art-pipeline──▶ apps/client/src/replay/{puppets,faces,items,o
 | [Client (single file)](#62-single-file-build) | `pnpm --filter @cc/client build:standalone` | same | `apps/client/dist-standalone/` |
 | [Publish to Claude](#63-publishing-the-single-file-as-a-claude-artifact) | Artifact tool | `career-crash.artifact.html` | the Career Crash artifact link |
 | [careercrash.org](#64-careercrashorg-cloudflare-workers) | push to `prod` (Workers Builds) | `pnpm build:web` → `apps/client/dist-web/` | the live site |
+| [Vote service](#73-the-diplomatic-incident-vote-service-one-time) | push to `prod` (GitHub Actions), `pnpm dev:votes` | `apps/votes/` | Worker `career-crash-votes` + Durable Objects |
 | [API worker](#7-api-worker) | `pnpm dev:worker`, `pnpm --filter @cc/worker deploy` | `apps/worker/` | Cloudflare Worker + D1 |
 | [CI](#8-ci) | on push / PR | `career-crash/**` | balance report artifact |
 
@@ -572,6 +573,51 @@ records recent real hours from CoinGecko into `tools/balance/data/crypto-hours.j
 often the hour's best coin wins it (target 60–75%); `pnpm balance --markets-flat`
 measures each bro's strength in a flat market, which `statBonus` in
 `markets/crypto.json` evens out.
+
+### 7.3 The Diplomatic Incident vote service (one-time)
+
+`apps/votes` (Worker `career-crash-votes` on **vote.careercrash.org**, design:
+`docs/career-crash/09-diplomatic-incident.md` §6). It hands out device tokens
+(after a short proof of work), takes likes (one per device per country per
+hour), and serves each hour's tallies to careercrash.org/incident. Shapes:
+`packages/protocol/src/votes.ts`.
+
+- **Storage:** one SQLite Durable Object per hour (`HourTally`, named by the
+  hour) and one that makes and keeps the token-signing key (`VoteKeys`). No KV,
+  no secrets to set: the key is created on first use.
+- **Correct counts:** a like lands in the session that's running on the hour
+  object's own clock and counts from the next one, so `frozen[s]` is final the
+  moment session `s` starts and every viewer runs the same session. The page
+  asks for session `s` only once it has started (`425` until then).
+- **Privacy:** voters are a hash of token and hour; they're deleted two hours
+  after the hour (an alarm), and the counts are kept.
+- **Limits:** `NETWORK_CAP` likes per network per country per hour (the rest
+  are turned away, `429`), `POW_BITS` for a token. Both in `packages/protocol/src/votes.ts`.
+- **Kill switch:** set `LIKES_OPEN = "0"` in `apps/votes/wrangler.toml` (or as a
+  variable on the Worker in the dashboard): likes are refused, tallies stay
+  readable, and the floor keeps the powers it has.
+
+1. **GitHub secrets:** the same `CLOUDFLARE_API_TOKEN` and
+   `CLOUDFLARE_ACCOUNT_ID` as the market feed (§7.2 step 2). The *Edit Cloudflare
+   Workers* token template covers Durable Objects too.
+2. **First deploy:** push to `prod` (or run the `career-crash-votes` workflow
+   by hand). It tests, deploys, and checks that vote.careercrash.org answers
+   `/config` and the current hour.
+3. **Rate limiting (recommended):** Security → WAF → Rate limiting rules →
+   *URI Path* equals `/token` or `/like` on host `vote.careercrash.org`, 30
+   requests per 10 seconds per IP → Block for 1 minute.
+4. **Billing:** Durable Objects count rows written (about two per like). The
+   Workers Free plan includes 100,000 a day, so about 50,000 likes a day; past
+   that the Workers Paid plan ($5/month) is needed.
+
+Until the service answers, the page waits up to 6 s for a session's tally and
+then runs it on the last one it had, with a "Counting delayed" banner.
+
+**Locally:** `pnpm dev:votes` runs the Worker on http://localhost:8789 with
+local Durable Objects; point the page at it with
+`VITE_VOTE_URL=http://localhost:8789 pnpm dev:client`. Without `VITE_VOTE_URL`, a dev
+build runs the prototype's sample crowd; the hosted build (`build:web`) always
+uses vote.careercrash.org, and the single-file build has no service.
 
 ## 8. CI
 

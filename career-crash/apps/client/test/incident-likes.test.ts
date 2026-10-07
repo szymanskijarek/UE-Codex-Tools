@@ -15,11 +15,14 @@ Object.assign(globalThis, {
   window: { addEventListener: () => {}, removeEventListener: () => {} },
 });
 
-const { castLike, crowdStream, frozenTally, hasLiked, likeClock, onLikes } = await import('../src/incident/likes');
+const likes = await import('../src/incident/likes');
+const { castLike, crowdStream, hasLiked, likeClock, onLikes } = likes;
+/** The prototype (no vote service in tests) always has a tally. */
+const frozenTally = (hour: string, session: number) => likes.frozenTally(hour, session)!;
 
 const AT = Date.parse('2026-10-06T14:12:00Z');
 
-describe('the like pipe (09)', () => {
+describe('the like pipe (09), prototype mode', () => {
   beforeEach(() => store.clear());
 
   it('a like cast from the career feed lands in the Summit Hall: once per country per hour, counting from the next session', () => {

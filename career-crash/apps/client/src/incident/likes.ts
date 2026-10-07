@@ -1,25 +1,35 @@
 import { bundle } from '@cc/content';
 import { countriesDef, floorClock, sampleTally, type LikeTally } from '@cc/game-rules';
+import type { HourTallies, LikeResponse, TokenResponse, VoteConfig } from '@cc/protocol/votes';
 import { Rng } from '@cc/sim';
+import { solve } from './pow';
 
 /**
- * Likes for the prototype (09 §12 phase 1), and the pipe they travel down.
+ * Likes, and the pipe they travel down (09 §5–6).
  *
- * Until the vote service exists, everyone else's likes are a seeded sample
- * that grows through the hour (the "crowd"), and yours live in this browser
- * only: one per country per hour, counting from the next session, exactly as
- * they will once likes are real.
+ * On careercrash.org likes are real: each one goes to the vote service
+ * (vote.careercrash.org, apps/votes), which counts one per device per country
+ * per hour, and every session runs on the service's frozen tally for it, so
+ * every viewer sees the same fight. A device earns its token with a second or
+ * so of proof of work, done in the background.
+ *
+ * Without a service (local dev, the single-file build) it's the phase 1
+ * prototype: everyone else's likes are a seeded sample that grows through the
+ * hour (the "crowd"), and yours live in this browser only.
  *
  * A like can be cast from anywhere on careercrash.org (the Summit Hall itself,
  * or the career feed on the main site) with `castLike`. Every page shares the
  * same origin, so the like is stored once and an open Summit Hall hears about
  * it at once (`onLikes`: a BroadcastChannel, with the storage event as a
- * fallback). Phase 2's vote service plugs in as one more source on the same
- * pipe (`source: 'service'`).
+ * fallback). A like that can't reach the service yet waits in this browser
+ * and is sent as soon as it can be, within the hour.
  *
  * This module is imported by the main site too: keep it free of the page's
  * assets (flags, styles).
  */
+
+/** The vote service, or '' for the prototype's sample crowd. `VITE_VOTE_URL` points a dev build at a local one (`pnpm dev:votes`). */
+export const VOTE_URL: string = ((import.meta.env?.VITE_VOTE_URL as string | undefined) ?? (import.meta.env?.PROD && import.meta.env?.VITE_INLINE !== '1' ? 'https://vote.careercrash.org' : '')).replace(/\/$/, '');
 
 /** Where a like came from. */
 export type LikeSource = 'hall' | 'careercrash' | 'crowd' | 'service';
@@ -37,9 +47,11 @@ export interface LikeEvent {
 
 interface MyLike {
   key: string;
-  /** The session it was cast in: it counts from the next one. */
+  /** The session it was cast in (the service's, once it has answered): it counts from the next one. */
   session: number;
   source?: LikeSource;
+  /** The vote service has it (or there is no service). */
+  sent?: boolean;
 }
 
 const DEF = countriesDef(bundle);
@@ -78,7 +90,7 @@ export function castLike(key: string, source: Exclude<LikeSource, 'crowd'>, nowM
   const { hour, session } = likeClock(nowMs);
   const mine = myLikes(hour);
   if (mine.some((l) => l.key === key)) return false;
-  mine.push({ key, session, source });
+  mine.push({ key, session, source, sent: !VOTE_URL });
   try {
     localStorage.setItem(storeKey(hour), JSON.stringify(mine));
     // Keep only this hour: likes reset every hour.
@@ -98,6 +110,7 @@ export function castLike(key: string, source: Exclude<LikeSource, 'crowd'>, nowM
   } catch {
     // No BroadcastChannel: other tabs still see the storage event.
   }
+  void flush();
   return true;
 }
 
@@ -139,11 +152,192 @@ export function onLikes(cb: (e: LikeEvent) => void): () => void {
   };
 }
 
-/** The likes a session runs on: everyone's, frozen at its start, plus yours from earlier sessions. */
-export function frozenTally(hour: string, session: number): LikeTally {
+function saveMine(hour: string, mine: MyLike[]): void {
+  try {
+    localStorage.setItem(storeKey(hour), JSON.stringify(mine));
+  } catch {
+    // no storage
+  }
+}
+
+// ---- The vote service -------------------------------------------------------
+
+const TOKEN_KEY = 'incident:token';
+let tokenJob: Promise<string | null> | null = null;
+
+async function call<T>(path: string, body?: unknown): Promise<{ status: number; data: T | null }> {
+  const res = await fetch(`${VOTE_URL}${path}`, body === undefined ? undefined : { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify(body) });
+  let data: T | null = null;
+  try {
+    data = (await res.json()) as T;
+  } catch {
+    // no body
+  }
+  return { status: res.status, data };
+}
+
+/** This device's vote token: kept for a week, earned with a short proof of work when there isn't one. */
+export function voteToken(): Promise<string | null> {
+  if (!VOTE_URL) return Promise.resolve(null);
+  try {
+    const saved = JSON.parse(localStorage.getItem(TOKEN_KEY) ?? 'null') as TokenResponse | null;
+    if (saved && saved.expires > Date.now() + 3_600_000) return Promise.resolve(saved.token);
+  } catch {
+    // none saved
+  }
+  tokenJob ??= (async () => {
+    try {
+      const cfg = await call<VoteConfig>('/config');
+      if (!cfg.data) return null;
+      const proof = await solve(new Date(cfg.data.now).toISOString().slice(0, 10), cfg.data.bits);
+      const res = await call<TokenResponse>('/token', proof);
+      if (res.status !== 200 || !res.data) return null;
+      try {
+        localStorage.setItem(TOKEN_KEY, JSON.stringify(res.data));
+      } catch {
+        // kept for this page view only
+      }
+      return res.data.token;
+    } catch {
+      return null;
+    } finally {
+      tokenJob = null;
+    }
+  })();
+  return tokenJob;
+}
+
+function forgetToken(): void {
+  try {
+    localStorage.removeItem(TOKEN_KEY);
+  } catch {
+    // no storage
+  }
+}
+
+let flushing: Promise<void> | null = null;
+let retry: ReturnType<typeof setTimeout> | null = null;
+
+/** Sends this hour's likes the service hasn't got yet. Safe to call any time; retries on its own while any are left. */
+export function flush(): Promise<void> {
+  if (!VOTE_URL) return Promise.resolve();
+  flushing ??= (async () => {
+    const { hour } = likeClock();
+    let left = false;
+    const tried = new Set<string>();
+    // Re-read each time: a like cast while this runs is picked up too.
+    for (let l = myLikes(hour).find((x) => !x.sent); l; l = myLikes(hour).find((x) => !x.sent && !tried.has(x.key))) {
+      tried.add(l.key);
+      let token = await voteToken();
+      if (!token) {
+        left = true;
+        break;
+      }
+      let res: Awaited<ReturnType<typeof call<LikeResponse>>>;
+      try {
+        res = await call<LikeResponse>('/like', { token, country: l.key, hour });
+        if (res.status === 401) {
+          forgetToken();
+          token = await voteToken();
+          if (token) res = await call<LikeResponse>('/like', { token, country: l.key, hour });
+        }
+      } catch {
+        left = true;
+        break;
+      }
+      const mine = myLikes(hour);
+      const rec = mine.find((x) => x.key === l.key);
+      if (!rec) continue;
+      if (res.status === 200 || res.status === 409) {
+        rec.sent = true;
+        if (res.data && res.data.hour === hour) rec.session = res.data.session;
+      } else if (res.status === 410 || res.status === 400) {
+        // The hour is over (or the country is unknown): it can't count any more.
+        mine.splice(mine.indexOf(rec), 1);
+      } else {
+        // Paused, capped or the service is down: try again later.
+        left = true;
+        continue;
+      }
+      saveMine(hour, mine);
+    }
+    if (left && !retry) retry = setTimeout(() => ((retry = null), void flush()), 15_000);
+  })().finally(() => {
+    flushing = null;
+    // A like cast just as this run finished: send it now (failed ones wait for the retry).
+    if (!retry && myLikes(likeClock().hour).some((x) => !x.sent)) void flush();
+  });
+  return flushing;
+}
+
+interface HourEntry {
+  data: HourTallies;
+  /** Your confirmed likes in the current session when it was asked for (the service's pending count includes them). */
+  mineThen: Set<string>;
+}
+const hours = new Map<string, HourEntry>();
+
+/**
+ * Fetches the hour's tallies up to `session` (and the likes still arriving).
+ * Retries while the service says the session hasn't started on its clock yet.
+ * True once they're in.
+ */
+export async function loadHour(hour: string, session: number, tries = 12): Promise<boolean> {
+  if (!VOTE_URL) return true;
+  for (let i = 0; i < tries; i++) {
+    const mineThen = new Set(myLikes(hour).filter((l) => l.sent && l.session === session).map((l) => l.key));
+    try {
+      const res = await call<HourTallies>(`/hour/${hour}?s=${session}`);
+      if (res.status === 200 && res.data) {
+        const had = hours.get(hour);
+        // Keep the newest answer (an edge cache can hand back one a few seconds old).
+        if (!had || res.data.session >= had.data.session) hours.set(hour, { data: res.data, mineThen });
+        return true;
+      }
+      if (res.status !== 425) return false;
+    } catch {
+      // offline or the service is down
+    }
+    await new Promise((r) => setTimeout(r, 1500));
+  }
+  return false;
+}
+
+/**
+ * The likes session `session` runs on: everyone's, frozen at its start.
+ * Null while the service hasn't said (see `loadHour`).
+ */
+export function frozenTally(hour: string, session: number): LikeTally | null {
+  if (VOTE_URL) return hours.get(hour)?.data.frozen[session] ?? null;
   const t = { ...sampleTally(DEF, hour, session) };
   for (const l of myLikes(hour)) if (l.session < session) t[l.key] = (t[l.key] ?? 0) + 1;
   return t;
+}
+
+/**
+ * The best tally on hand for a session the service couldn't answer for
+ * ("counting delayed", 09 §6.1): the latest earlier session's, else none.
+ */
+export function fallbackTally(hour: string, session: number): LikeTally {
+  for (let s = session; s >= 0; s--) {
+    const t = frozenTally(hour, s);
+    if (t) return t;
+  }
+  return {};
+}
+
+/** Everyone else's likes cast during this session so far, by country (arriving at the next seam). */
+export function othersPending(hour: string, session: number): LikeTally {
+  if (!VOTE_URL) {
+    const out: LikeTally = {};
+    for (const key of Object.keys(DEF.cast)) out[key] = crowdPending(hour, session, key);
+    return out;
+  }
+  const e = hours.get(hour);
+  if (!e || e.data.session !== session) return {};
+  const out: LikeTally = {};
+  for (const [k, n] of Object.entries(e.data.pending)) out[k] = Math.max(0, n - (e.mineThen.has(k) ? 1 : 0));
+  return out;
 }
 
 /** The crowd's likes for `key` cast during this session (arriving at the next seam). */
@@ -153,14 +347,8 @@ function crowdPending(hour: string, session: number, key: string): number {
   return Math.max(0, next - now);
 }
 
-/** Likes cast during this session for `key` (the crowd's and yours), arriving at the next seam. */
-export function pendingLikes(hour: string, session: number, key: string): number {
-  const mine = myLikes(hour).some((l) => l.key === key && l.session === session) ? 1 : 0;
-  return crowdPending(hour, session, key) + mine;
-}
-
 /**
- * When the crowd's likes land during a session, so the floor can show them
+ * Prototype only: when the sample crowd's likes land during a session, so the floor can show them
  * (09: a beam of light per bunch). The same for every viewer: seeded per
  * session. Each country's pending likes come in a few bunches (more for more
  * likes, at most 16), at seeded ticks; sorted by tick.

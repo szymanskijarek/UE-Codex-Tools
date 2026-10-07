@@ -1,0 +1,28 @@
+# The Diplomatic Incident vote service (docs/career-crash/09-diplomatic-incident.md §6):
+# device tokens, likes, and each hour's tallies for careercrash.org/incident.
+# Deployed by .github/workflows/career-crash-votes.yml from prod (PIPELINES.md §7.3).
+name = "career-crash-votes"
+main = "src/index.ts"
+compatibility_date = "2025-09-01"
+
+# Its own subdomain: the write path stays away from the site and the crypto feed.
+routes = [{ pattern = "vote.careercrash.org", custom_domain = true }]
+
+# One HourTally per hour (named by the hour) holds that hour's likes; VoteKeys keeps the token-signing key.
+[[durable_objects.bindings]]
+name = "HOURS"
+class_name = "HourTally"
+
+[[durable_objects.bindings]]
+name = "KEYS"
+class_name = "VoteKeys"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["HourTally", "VoteKeys"]
+
+[vars]
+# Pages that may call the service from the browser.
+ALLOWED_ORIGIN = "https://careercrash.org,https://www.careercrash.org,http://localhost:5173"
+# The kill switch (09 §6.3): "0" pauses likes; the floor keeps the powers it has.
+LIKES_OPEN = "1"
