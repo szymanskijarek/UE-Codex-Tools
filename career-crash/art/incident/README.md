@@ -2,8 +2,10 @@
 
 > **Status (7 October 2026):** all 40 delegates are complete in the game
 > (bodies and four heads each), and so are Madam Chair and The Observer
-> (10). Still to come: the Summit Hall (09), FX and page art (11) and the
-> institutions (12–13; all ten are built and in the game on borrowed bodies).
+> (10). Institutions (12–13): 18 of 20 members complete (body and four
+> heads) plus the Moral High Horse. Still to come: the Compliance Officer
+> (`inst-brussels-clerk`) and the Junior Analyst (`inst-rater-analyst`),
+> body and heads (13, #11–12); the Summit Hall (09); FX and page art (11).
 
 Art for **careercrash.org/incident** (design: `docs/career-crash/09-diplomatic-incident.md`):
 an endless brawl between 40 countries at a summit, each country played by
