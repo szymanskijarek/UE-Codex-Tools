@@ -133,6 +133,8 @@ export class Puppet {
   /** Talking until this time (ms); the mouth flaps while it's in the future. */
   talkUntil = 0;
   private career: string;
+  /** Whose painted faces this puppet wears: its own, or a persona's on a borrowed body (09: a delegate whose body isn't painted yet). */
+  private faceKey: string;
   /** Global bounds of the body pieces only (not the item in hand), for framing fight photos. */
   bodyBounds(): Rectangle | null {
     let x0 = Infinity;
@@ -163,9 +165,11 @@ export class Puppet {
     career: string,
     /** Character radius in screen px; the puppet is PUPPET_HEIGHT radii tall. */
     readonly r: number,
+    faces?: string,
   ) {
     this.def = DEFS[career]!;
     this.career = career;
+    this.faceKey = faces && faceTexture(faces, 'neutral') ? faces : career;
     const P = this.def.parts;
     const tex = TEXTURES.get(career)!;
     const avg = (a: string, b: string) => (len(P[a]) + len(P[b])) / 2;
@@ -195,7 +199,7 @@ export class Puppet {
       this.sprites.set(slot, s);
       this.root.addChild(s);
       if (slot === 'head') {
-        const ft = faceTexture(career, 'neutral');
+        const ft = faceTexture(this.faceKey, 'neutral');
         if (ft) {
           // The painted face replaces the sliced head, in the head's place in the draw order.
           this.face = new Sprite(ft);
@@ -224,7 +228,7 @@ export class Puppet {
 
   /** Switch the painted face (no-op without face art). */
   setEmotion(e: Emotion): void {
-    if (!this.face || e === this.emotion || !faceTexture(this.career, e)) return;
+    if (!this.face || e === this.emotion || !faceTexture(this.faceKey, e)) return;
     this.emotion = e;
     const looks = this.facesFor(e);
     this.look = looks[Math.floor(Math.random() * looks.length)] ?? e;
@@ -232,7 +236,7 @@ export class Puppet {
 
   /** The painted heads this career has for an emotion (variants only when the art exists). */
   facesFor(e: Emotion): FaceFrame[] {
-    return EMOTION_FRAMES[e].filter((f) => faceTexture(this.career, f));
+    return EMOTION_FRAMES[e].filter((f) => faceTexture(this.faceKey, f));
   }
 
   /** The painted head currently worn for the emotion (never a blink or talk frame). */
@@ -243,7 +247,7 @@ export class Puppet {
   /** Hold one face still (fight photos), or let it animate again with null. Returns whether it is shown. */
   holdFace(f: FaceFrame | null): boolean {
     if (!this.face) return false;
-    const t = f && faceTexture(this.career, f);
+    const t = f && faceTexture(this.faceKey, f);
     this.held = t ? f : null;
     this.frame = '' as FaceFrame;
     this.animateFace(performance.now());
@@ -263,11 +267,11 @@ export class Puppet {
         // Now and then a quick double blink.
         this.nextBlink = now + (Math.random() < 0.15 ? 220 : 2200 + Math.random() * 3500);
       }
-      if (now < this.blinkUntil && faceTexture(this.career, 'blink')) f = 'blink';
-      else if (now < this.talkUntil && faceTexture(this.career, 'talk') && Math.floor(now / 95) % 3 !== 2) f = 'talk';
+      if (now < this.blinkUntil && faceTexture(this.faceKey, 'blink')) f = 'blink';
+      else if (now < this.talkUntil && faceTexture(this.faceKey, 'talk') && Math.floor(now / 95) % 3 !== 2) f = 'talk';
     }
     if (f === this.frame) return;
-    const t = faceTexture(this.career, f);
+    const t = faceTexture(this.faceKey, f);
     if (!t) return;
     this.frame = f;
     this.face.texture = t;
@@ -462,7 +466,7 @@ export class Puppet {
       this.animateFace(performance.now());
       // Chin on the neck point, standing along the neck → crown axis, as tall as the sliced head.
       const hp = this.def.parts.head!;
-      const k = ((hp.h * this.k * HEAD_SCALE) / this.face.texture.height) * faceScale(this.career, this.frame);
+      const k = ((hp.h * this.k * HEAD_SCALE) / this.face.texture.height) * faceScale(this.faceKey, this.frame);
       this.face.scale.set(k * f, k);
       this.face.position.set(X[1]!, Y[1]!);
       this.face.rotation = Math.atan2(hy, hx) + Math.PI / 2;

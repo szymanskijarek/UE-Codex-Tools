@@ -1043,7 +1043,8 @@ export class BattleRenderer {
     // Market floors bring their own referee (Pegged Peggy) once her puppet is in.
     const refArt = this.input.endless?.referee?.persona;
     const pupId = isRef ? (refArt && hasPuppet(refArt) ? refArt : 'career.referee') : (own ?? career?.id);
-    const puppet = pupId && hasPuppet(pupId) ? new Puppet(pupId, r) : null;
+    // A persona without a body of its own still wears its own painted faces on the borrowed one.
+    const puppet = pupId && hasPuppet(pupId) ? new Puppet(pupId, r, own ? undefined : snap?.persona) : null;
     let emote: Text | null = null;
     if (puppet) {
       doll.visible = false;

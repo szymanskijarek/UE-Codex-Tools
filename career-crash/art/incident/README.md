@@ -1,11 +1,11 @@
 # Diplomatic Incident: art briefs for the image agent
 
-> **Status (6 October 2026):** bodies for batches A, B and D are in the game
-> (30 delegates). Still to come: batch C bodies (Mexico, Brazil, Argentina,
-> Colombia, Chile, Jamaica, Japan, South Korea, India, Indonesia), all heads,
-> and everything from brief 09 on. Until then the floor uses stand-ins: a
-> borrowed career's body, the head from the delegate's own body sheet, and
-> the Office painting for the hall.
+> **Status (7 October 2026):** all 160 heads (40 delegates × 4) and bodies
+> for batches A, B and D (30 delegates) are in the game. Still to come: batch C
+> bodies (Mexico, Brazil, Argentina, Colombia, Chile, Jamaica, Japan, South
+> Korea, India, Indonesia), which until then wear their own heads on a
+> borrowed career body, and everything from brief 09 on (hall, Chair and
+> Observer, FX and page art, institutions).
 
 Art for **careercrash.org/incident** (design: `docs/career-crash/09-diplomatic-incident.md`):
 an endless brawl between 40 countries at a summit, each country played by

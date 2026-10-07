@@ -1,6 +1,6 @@
 # Diplomatic Incident 04: heads, batch B (four per delegate)
 
-> **Status:** not delivered yet.
+> **Status:** delivered and in the game (7 October 2026): all 40 heads.
 
 > Part of the Diplomatic Incident art set (`art/incident/README.md`).
 
