@@ -911,5 +911,32 @@
    "footL": 10,
    "footR": 11
   }
+ },
+ "npc-inst-fed-ambassador": {
+  "split": [
+   [
+    8,
+    0.5
+   ],
+   [
+    9,
+    0.5
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "upperArmL": 2,
+   "torso": 3,
+   "upperArmR": 4,
+   "foreArmL": 5,
+   "foreArmR": 6,
+   "pelvis": 7,
+   "thighL": 8,
+   "thighR": 9,
+   "shinL": 101,
+   "shinR": 102,
+   "footL": 10,
+   "footR": 11
+  }
  }
 }

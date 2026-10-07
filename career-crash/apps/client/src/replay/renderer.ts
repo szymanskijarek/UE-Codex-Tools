@@ -176,6 +176,17 @@ const CREATURE_ART: Record<string, [string, number]> = {
   'prop.black-swan': ['black-swan', 1500],
 };
 
+/**
+ * Rideable animals drawn with critter art (09 §7.2: NATO's Moral High Horse):
+ * sprite, height and saddle height (mm). The rider sits on its back, facing
+ * the same way; the sim still keeps the prop a step in front of the rider,
+ * which only the renderer hides.
+ */
+const MOUNT_ART: Record<string, [string, number, number]> = {
+  'prop.high-horse': ['high-horse', 2600, 1250],
+};
+const creatureArt = (def: string): [string, number] | undefined => CREATURE_ART[def] ?? (MOUNT_ART[def] ? [MOUNT_ART[def][0], MOUNT_ART[def][1]] : undefined);
+
 /** What each scene event shouts as it starts. */
 const EVENT_ICON: Record<string, string> = {
   'hazard.bull-run': '🐂',
@@ -1377,7 +1388,7 @@ export class BattleRenderer {
         this.bodies.addChild(root);
         return s;
       }
-      const creature = CREATURE_ART[e.def];
+      const creature = creatureArt(e.def);
       if (creature && hasCritterArt(creature[0])) {
         const probe = critterSprite(creature[0], 1)!;
         const k = this.mmToPx(creature[1]) / probe.sprite.texture.height;
@@ -1441,20 +1452,41 @@ export class BattleRenderer {
     // Who is carrying what: carried props ride above the carrier's head.
     const carrier = new Map<number, number>();
     for (const e of cur) if (e.kind !== 'prop' && e.held >= 0) carrier.set(e.held, e.id);
+    // Who is riding an animal (MOUNT_ART): the animal goes under them.
+    const rider = new Map<number, FrameEntity>();
+    for (const e of cur) if (e.kind !== 'prop' && e.riding >= 0 && MOUNT_ART[byId.get(e.riding)?.def ?? ''] && hasCritterArt(MOUNT_ART[byId.get(e.riding)!.def]![0])) rider.set(e.riding, e);
     for (const e of cur) {
       const p = prev.get(e.id) ?? e;
       const x = p.x + (e.x - p.x) * a;
       const y = p.y + (e.y - p.y) * a;
       const z = p.z + (e.z - p.z) * a;
-      const [sx, sy] = this.px(x, y, z);
+      const [sx, py] = this.px(x, y, z);
+      let sy = py;
       if (e.kind === 'prop') {
         seenP.add(e.id);
         let s = this.props.get(e.id);
         if (!s) this.props.set(e.id, (s = this.makeProp(e)));
         const cb = carrier.get(e.id);
         const cs = cb !== undefined ? this.chars.get(cb) : undefined;
+        const rd = rider.get(e.id);
         if (cs && !cs.rag) s.root.position.set(cs.x, cs.y - cs.r * (cs.puppet ? 5.4 : 4.4) * cs.depth);
-        else s.root.position.set(sx, sy);
+        else if (rd) {
+          // Under its rider, facing their way, just behind them in the draw order.
+          const rp = prev.get(rd.id) ?? rd;
+          const ry = rp.y + (rd.y - rp.y) * a;
+          const [rx, rsy] = this.px(rp.x + (rd.x - rp.x) * a, ry, 0);
+          s.root.position.set(rx, rsy);
+          s.root.zIndex = ry - 1;
+          const dk = this.depth(ry);
+          s.root.scale.set(rd.fx < 0 ? -dk : dk, dk);
+          if (s.poses) {
+            const step = Math.floor(t * 6 + s.seed) % 2 === 1 && s.poses[1].children.length > 0;
+            s.poses[0].visible = !step;
+            s.poses[1].visible = step;
+            s.poses[0].y = s.poses[1].y = -Math.abs(Math.sin(t * 12 + s.seed)) * 5;
+          }
+          continue;
+        } else s.root.position.set(sx, sy);
         s.root.visible = !(cs && HEAVY.has(e.def));
         if (s.isArea) {
           const dk = this.depth(y);
@@ -1500,6 +1532,9 @@ export class BattleRenderer {
       if (!s) this.chars.set(e.id, (s = this.makeChar(e)));
       s.moving = Math.abs(e.x - p.x) + Math.abs(e.y - p.y) > 4;
       s.alive = e.state !== 'ko' && e.kind === 'char';
+      // In the saddle (MOUNT_ART): drawn up on the animal's back.
+      const mount = e.riding >= 0 ? MOUNT_ART[byId.get(e.riding)?.def ?? ''] : undefined;
+      if (mount && hasCritterArt(mount[0])) sy -= this.mmToPx(mount[2]) * this.depth(y);
       s.x = sx;
       s.y = sy;
       s.root.position.set(sx, sy);
