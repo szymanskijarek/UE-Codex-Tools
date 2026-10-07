@@ -2283,6 +2283,28 @@ body:has(.shell.li) {
   border-width: 1px;
 }
 
+/* Nationality on the profile (economy.nationality): optional, with the Summit boost it brings. */
+.li-nation {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin: 4px 0 6px;
+}
+
+.li-nation button.ghost {
+  margin: 0;
+  padding: 0 6px;
+  box-shadow: none;
+}
+
+.li-nation select {
+  max-width: 100%;
+}
+
+.li-nation .li-btn.small {
+  align-self: flex-start;
+}
+
 .name-tools {
   display: flex;
   flex-wrap: wrap;

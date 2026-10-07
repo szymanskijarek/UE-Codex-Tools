@@ -4,6 +4,9 @@ import {
   activeHrNotes,
   agencyTemp,
   applyHrNotes,
+  applyNationalBoost,
+  canChangeNationality,
+  nationalBoost,
   applyBattleToCharacter,
   battleXp,
   careerOffers,
@@ -42,10 +45,12 @@ import {
   type DifficultyId,
   type FightPay,
   type GrowthReport,
+  type NationalBoost,
 } from '@cc/game-rules';
 import { Rng, SIM_VERSION, simulate, type BattleInput } from '@cc/sim';
 import { FEED_CAP, fightPosts, type FeedPost } from './feed';
 import { pickPhotoMoment, type PhotoMoment } from './photo-moment';
+import { lastSummit } from '../incident/likes';
 
 /**
  * Offline career mode (03 §8): one main character climbs a ladder of fights,
@@ -65,7 +70,7 @@ export interface CareerSave {
   cash: number;
   applicants: Character[];
   /** `hr`: the HR notes in effect for our fighters, recorded when the fight was set up. */
-  pending: { input: BattleInput; stage: number; hr?: FightSummary['hr'] } | null;
+  pending: { input: BattleInput; stage: number; hr?: FightSummary['hr']; nation?: FightSummary['nation'] } | null;
   last: FightSummary | null;
   wins: number;
   losses: number;
@@ -77,6 +82,10 @@ export interface CareerSave {
   company?: CompanyName;
   /** Loot won in fights and not being worn (worn items live on each fighter's `gear`). */
   bag?: LootItem[];
+  /** The main character's country (a Summit key such as "PL"), or none: optional. Lends a small boost when it did well at the Diplomatic Incident (economy.nationality). */
+  nationality?: string;
+  /** When it was last changed (ms), for the cooldown. */
+  nationalitySetAt?: number;
 }
 
 /** One line of the post-fight board. */
@@ -104,6 +113,8 @@ export interface FightSummary {
   growth: (GrowthReport & { name: string; newTraits: string[]; milestone: boolean; leave?: boolean })[];
   /** HR notes that were in effect for our fighters (06). */
   hr?: { id: string; name: string; note: string; by: string[] }[];
+  /** The nationality boost the main character fought with. */
+  nation?: { country: string; tier: string; rank: number; hour: string };
   unlockedSquad: boolean;
   /** The item a win dropped; `sold` is set when the bag was full and it was sold on the spot. */
   loot?: { item: LootItem; sold?: number };
@@ -197,7 +208,7 @@ export function draftCharacter(seed: string, careerId: string): Character {
   return c;
 }
 
-export function startCareer(main: Character, diff: DifficultyId, company: CompanyName): void {
+export function startCareer(main: Character, diff: DifficultyId, company: CompanyName, nationality = ''): void {
   const seed = Math.random().toString(16).slice(2, 10);
   const mc: CareerChar = { c: { ...main, id: `main-${seed}` }, careerXp: {}, nodes: [] };
   ensureRoots(bundle, mc);
@@ -217,6 +228,7 @@ export function startCareer(main: Character, diff: DifficultyId, company: Compan
     losses: 0,
     inventory: { 'item.meal-deal': 1 },
     company,
+    ...(nationality ? { nationality, nationalitySetAt: Date.now() } : {}),
   };
   save(s);
 }
@@ -247,6 +259,26 @@ export function lineupHr(s: CareerSave, team: CareerChar[] = lineup(s)): Map<str
   return out;
 }
 
+/** The main character's nationality boost for the next fight, from the last finished Summit hour (null if none). */
+export function nationBoost(s: CareerSave, now = Date.now()): NationalBoost | null {
+  return nationalBoost(bundle, s.nationality, lastSummit(now));
+}
+
+/** Whether the nationality can be changed now (once a day; the first pick is free). */
+export function nationalityChangeable(s: CareerSave, now = Date.now()): boolean {
+  return canChangeNationality(bundle, s.nationalitySetAt, now);
+}
+
+/** Pick, change or clear the nationality ('' = none). Refused during the cooldown. */
+export function setNationality(s: CareerSave, key: string, now = Date.now()): boolean {
+  if ((s.nationality ?? '') === key || !nationalityChangeable(s, now)) return false;
+  const next: CareerSave = { ...s, nationalitySetAt: now };
+  if (key) next.nationality = key;
+  else delete next.nationality;
+  save(next);
+  return true;
+}
+
 /** Open a personnel file: every note in it is now read. */
 export function openFile(s: CareerSave, id: string): void {
   const cc = s.chars[id];
@@ -265,6 +297,8 @@ export function prepareFight(s: CareerSave): BattleInput {
   const info = stageInfo(bundle, s.stage);
   const team = lineup(s);
   const hr = lineupHr(s, team);
+  // Nationality: the main character only, fixed now so the fight replays the same.
+  const nation = nationBoost(s);
   const input: BattleInput = {
     schemaVersion: 1,
     contentHash: bundle.hash,
@@ -273,7 +307,7 @@ export function prepareFight(s: CareerSave): BattleInput {
     arenaId: info.arenaId,
     mode: 'duel_3v3',
     teams: [
-      { playerId: 'you', playerName: companyName(s), rating: 1000, characters: team.map((c) => applyHrNotes(careerSnapshot(bundle, c), hr.get(c.c.id) ?? [])) },
+      { playerId: 'you', playerName: companyName(s), rating: 1000, characters: team.map((c, i) => applyNationalBoost(applyHrNotes(careerSnapshot(bundle, c), hr.get(c.c.id) ?? []), i === 0 ? nation : null)) },
       { playerId: 'opp', playerName: info.company, rating: 1000, characters: nextOpponents(s).map((c) => careerSnapshot(bundle, c)) },
     ],
     modifiers: [],
@@ -283,7 +317,8 @@ export function prepareFight(s: CareerSave): BattleInput {
   const crashers = info.boss || s.stage === 0 ? undefined : rollCrashers(bundle, input.seed, info.arenaId, m.c.level, careerRank(m, currentCareer(m)));
   if (crashers) input.crashers = crashers;
   const hrUsed = team.flatMap((c) => (hr.get(c.c.id) ?? []).map((a) => ({ id: c.c.id, name: c.c.name, note: a.note.id, by: a.by })));
-  save({ ...s, pending: { input, stage: s.stage, ...(hrUsed.length ? { hr: hrUsed } : {}) } });
+  const nationUsed = nation ? { country: nation.country, tier: nation.tier.id, rank: nation.rank, hour: nation.hour } : undefined;
+  save({ ...s, pending: { input, stage: s.stage, ...(hrUsed.length ? { hr: hrUsed } : {}), ...(nationUsed ? { nation: nationUsed } : {}) } });
   return input;
 }
 
@@ -396,7 +431,7 @@ export function collectResults(s: CareerSave): CareerSave {
   }
   // The previous fight's photo steers this one away from the same kind of shot and the same face.
   const photo = pickPhotoMoment(input, [s.mainId], s.last?.photo) ?? undefined;
-  next.last = { stage, outcome, cash, pay, board, growth, ...(s.pending.hr?.length ? { hr: s.pending.hr } : {}), unlockedSquad: !wasUnlocked && squadUnlocked(next), ...(loot ? { loot } : {}), ...(summons.mine.length || summons.theirs.length ? { summons } : {}), ...(photo ? { photo } : {}), ...(crash ? { crash } : {}) };
+  next.last = { stage, outcome, cash, pay, board, growth, ...(s.pending.hr?.length ? { hr: s.pending.hr } : {}), ...(s.pending.nation ? { nation: s.pending.nation } : {}), unlockedSquad: !wasUnlocked && squadUnlocked(next), ...(loot ? { loot } : {}), ...(summons.mine.length || summons.theirs.length ? { summons } : {}), ...(photo ? { photo } : {}), ...(crash ? { crash } : {}) };
   next.feed = [...fightPosts(next, next.last), ...(s.feed ?? [])].slice(0, FEED_CAP);
   if (photo && next.feed[0]?.photo) lastFight = { input, fight: next.feed[0].fight };
   save(next);

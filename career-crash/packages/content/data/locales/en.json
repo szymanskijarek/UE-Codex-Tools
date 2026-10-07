@@ -1905,5 +1905,11 @@
  "ability.photo-opportunity.name": "Photo Opportunity",
  "ability.photo-opportunity.desc": "Everybody smile! Everyone nearby stops to pose.",
  "npc.inst-brussels-clerk.name": "Compliance Officer",
- "npc.inst-rater-analyst.name": "Junior Analyst"
+ "npc.inst-rater-analyst.name": "Junior Analyst",
+ "nationality.head.name": "Head of Delegation",
+ "nationality.head.desc": "Your country topped the Summit Hall last hour. The whole nation is watching (and pumped).",
+ "nationality.podium.name": "On the Podium",
+ "nationality.podium.desc": "Your country made the Summit's top three last hour. A little extra swagger.",
+ "nationality.support.name": "Home Support",
+ "nationality.support.desc": "Your country made the Summit's top ten last hour. Someone back home is cheering."
 }

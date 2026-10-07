@@ -1,6 +1,6 @@
-import { useState } from 'preact/hooks';
+import { useEffect, useState } from 'preact/hooks';
 import { bundle } from '@cc/content';
-import { careerRank, DIFFICULTIES, isNameParts, partsFromName, difficulty, RANKS, SQUAD_UNLOCK_RANK, stageInfo, STAGES_PER_ARENA, hrMood, type ActiveHrNote, type CareerChar, type DifficultyId } from '@cc/game-rules';
+import { type NationalBoost, careerRank, DIFFICULTIES, isNameParts, partsFromName, difficulty, RANKS, SQUAD_UNLOCK_RANK, stageInfo, STAGES_PER_ARENA, hrMood, type ActiveHrNote, type CareerChar, type DifficultyId } from '@cc/game-rules';
 import { descOf, nameOf } from '../i18n';
 import { arenaArt } from '../replay/arena-art';
 import { navigate } from '../state';
@@ -11,10 +11,11 @@ import { NamePicker } from './NamePicker';
 import { HrChips } from './File';
 import { startNextFight } from './CoreActions';
 import { GearIcons } from './Loot';
-import { abandon, applicants, companyName, renameCharacter, renameCompany, setPostMine, currentCareer, lineup, lineupHr, mainChar, nextOpponents, save, squadUnlocked, type CareerSave } from './model';
+import { abandon, applicants, companyName, renameCharacter, renameCompany, setPostMine, currentCareer, lineup, lineupHr, mainChar, nationalityChangeable, nationBoost, nextOpponents, save, setNationality, squadUnlocked, type CareerSave } from './model';
 import { developing, fightPhoto } from './photo';
 import { PuppetView } from './PuppetView';
-import { castLike, hasLiked } from '../incident/likes';
+import { castLike, hasLiked, lastSummit, loadLastSummit, VOTE_URL } from '../incident/likes';
+import { boostText, flagEmoji, NATIONS, standingText } from './nation';
 import { countryName, discussion, promotedPosts, REACTIONS, starterPosts, type FeedPost, type ReactionKind } from './feed';
 
 /**
@@ -202,7 +203,7 @@ function PostCard({ p, fights, s }: { p: FeedPost; fights: number; s: CareerSave
   );
 }
 
-function Person({ cc, tag, hr }: { cc: CareerChar; tag?: string; hr?: ActiveHrNote[] }) {
+function Person({ cc, tag, hr, nation }: { cc: CareerChar; tag?: string; hr?: ActiveHrNote[]; nation?: NationalBoost | null }) {
   const cid = currentCareer(cc);
   // A Senior Move this fighter has unlocked (from stage 10 some opponents bring one): shown as a teaser.
   const seniorCareer = cc.c.careers.find((x) => cc.nodes.includes(`${x}:senior`));
@@ -216,6 +217,13 @@ function Person({ cc, tag, hr }: { cc: CareerChar; tag?: string; hr?: ActiveHrNo
           {RANKS[careerRank(cc, cid) - 1]} {nameOf(cid)} · Lv {cc.c.level}
         </div>
         {hr && <HrChips cc={cc} active={hr} />}
+        {nation && (
+          <div class="hr-chips">
+            <span class="hr-chip buff" title={`${standingText(nation)}: ${boostText(nation.tier)}`}>
+              🎖️ {flagEmoji(nation.country)} {nameOf(`nationality.${nation.tier.id}`)}: {boostText(nation.tier)}
+            </span>
+          </div>
+        )}
         {senior && (
           <div class="small li-senior" title="Senior Move: unlocked at the top rank of a career">
             ✨ Senior Move: <b>{nameOf(senior)}</b>
@@ -254,6 +262,74 @@ function BossCard({ career, name }: { career: string; name: string }) {
   );
 }
 
+/** The profile's nationality line: pick or change it (once a day), the boost it brings, and a way to back your country. */
+function Nationality({ s, boost }: { s: CareerSave; boost: NationalBoost | null }) {
+  const [, setV] = useState(0);
+  const [edit, setEdit] = useState(false);
+  const key = s.nationality ?? '';
+  const changeable = nationalityChangeable(s);
+  const waitH = s.nationalitySetAt ? Math.max(1, Math.ceil((s.nationalitySetAt + bundle.economy.nationality.changeCooldownH * 3_600_000 - Date.now()) / 3_600_000)) : 0;
+  const summit = lastSummit();
+  const picker = (
+    <select
+      value={key}
+      disabled={!changeable}
+      onChange={(e) => {
+        if (setNationality(s, (e.target as HTMLSelectElement).value)) setEdit(false);
+      }}
+    >
+      <option value="">Prefer not to say</option>
+      {NATIONS.map((n) => (
+        <option value={n.key}>
+          {flagEmoji(n.key)} {n.name}
+        </option>
+      ))}
+    </select>
+  );
+  if (!key)
+    return (
+      <div class="li-nation small">
+        🌍 {edit ? picker : <button class="ghost small" onClick={() => setEdit(true)}>Add nationality (optional)</button>}
+      </div>
+    );
+  return (
+    <div class="li-nation small">
+      <span>
+        {flagEmoji(key)} <b>{countryName(key)}</b>{' '}
+        <button class="ghost small" title={changeable ? 'Change nationality' : `You can change it again in ${waitH} h`} onClick={() => setEdit(!edit)}>
+          {edit ? 'Done' : '✏️'}
+        </button>
+      </span>
+      {edit && (
+        <div>
+          {picker}
+          {!changeable && <span class="muted"> You can change it again in {waitH} h.</span>}
+        </div>
+      )}
+      <div class="muted">
+        {boost ? (
+          <>
+            🎖️ <b>{nameOf(`nationality.${boost.tier.id}`)}</b>: {boostText(boost.tier)} · {standingText(boost)}
+          </>
+        ) : !VOTE_URL ? (
+          'Summit results come in on careercrash.org.'
+        ) : summit ? (
+          `${(summit.totals[key] ?? 0) > 0 ? `#${1 + Object.values(summit.totals).filter((n) => n > (summit.totals[key] ?? 0)).length} at the Summit last hour` : 'No likes at the Summit last hour'}: top ${bundle.economy.nationality.tiers.reduce((a, t) => Math.max(a, t.maxRank), 0)} get a boost.`
+        ) : (
+          'Checking last hour at the Summit…'
+        )}
+      </div>
+      {hasLiked(key) ? (
+        <div class="muted">✅ You back {countryName(key)} at the Summit this hour.</div>
+      ) : (
+        <button class="li-btn small" onClick={() => castLike(key, 'careercrash') && setV((v) => v + 1)}>
+          👍 Back {countryName(key)} in the Summit Hall
+        </button>
+      )}
+    </div>
+  );
+}
+
 export function Hub({ save: s }: { save: CareerSave }) {
   const m = mainChar(s);
   const cid = currentCareer(m);
@@ -266,6 +342,12 @@ export function Hub({ save: s }: { save: CareerSave }) {
   const opp = nextOpponents(s);
   const mine = lineup(s);
   const mineHr = lineupHr(s, mine);
+  // Nationality: the last finished Summit hour decides the boost (fetched once an hour).
+  const [, setSummitV] = useState(0);
+  useEffect(() => {
+    if (s.nationality && !lastSummit()) void loadLastSummit().then((x) => x && setSummitV((v) => v + 1));
+  }, [s.nationality]);
+  const nation = nationBoost(s);
   const unlocked = squadUnlocked(s);
   const art = arenaArt(info.arenaId);
   const chapter = Math.floor(s.stage / STAGES_PER_ARENA);
@@ -305,6 +387,7 @@ export function Hub({ save: s }: { save: CareerSave }) {
                 </button>
               </div>
               {editCompany && s.company && <CompanyPicker value={s.company} onChange={(c) => renameCompany(s, c)} />}
+              <Nationality s={s} boost={nation} />
               <div class="muted small">
                 {nameOf(info.arenaId)} area · Level {m.c.level} · <span class="li-link">
                   {s.wins + s.losses} fight{s.wins + s.losses === 1 ? '' : 's'}
@@ -380,7 +463,7 @@ export function Hub({ save: s }: { save: CareerSave }) {
               <div>
                 <h3>Your application</h3>
                 {mine.map((cc, i) => (
-                  <Person cc={cc} tag={i === 0 ? 'You' : cc.temp ? 'Agency temp' : undefined} hr={mineHr.get(cc.c.id)} />
+                  <Person cc={cc} tag={i === 0 ? 'You' : cc.temp ? 'Agency temp' : undefined} hr={mineHr.get(cc.c.id)} nation={i === 0 ? nation : null} />
                 ))}
               </div>
               <div>

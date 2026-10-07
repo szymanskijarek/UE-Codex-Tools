@@ -140,6 +140,10 @@ compresses them (WebP, palette-quantised).
   favours, name in the locale); rarity points, drop odds, ability chances, sell prices, bag size and opponent
   gear in `economy.json` → `loot`. Rules and the server-side validity check are in `packages/game-rules/src/loot.ts`.
   After changing odds or points, re-check boss difficulty with `pnpm balance --bosses`.
+- **Nationality** (career mode, optional): the main character's country lends a small boost when it did well at the
+  Diplomatic Incident in the last finished hour. Tiers by rank (stats, an optional kick-off status), the change cooldown
+  and their names: `economy.json` → `nationality` and `nationality.<tier>.name` in the locale. Rules:
+  `packages/game-rules/src/nationality.ts`; UI: `apps/client/src/career/nation.ts`, `Hub.tsx`.
 - **Character names and titles** (first and last names, titles before and after a name): `packages/content/data/names.json`.
   Add freely. If an entry is removed, characters keep their saved name; the rename picker starts from a fresh name for them.
   Only add words; renaming or removing one resets saves that used it to a random name.

@@ -18,6 +18,8 @@ import { ShopScreen } from './Shop';
 import { SkillsScreen } from './Skills';
 import { FileScreen } from './File';
 import { SquadScreen } from './Squad';
+import { flagEmoji, NATIONS } from './nation';
+import { countryName } from './feed';
 
 /** Career mode router: #/career, #/career/skills/:id, #/career/squad, #/career/shop, #/career/perks/:id, #/career/results. */
 export function CareerScreen({ sub, arg }: { sub?: string; arg?: string }) {
@@ -65,6 +67,7 @@ function CreateCharacter() {
   const [diff, setDiff] = useState<DifficultyId>('normal');
   const [hype, setHype] = useState(1);
   const [company, setCompany] = useState<CompanyName>(() => randomCompany(Rng.fromSeed(Math.random().toString(16))));
+  const [nationality, setNationality] = useState('');
   const draft = useMemo(() => (careerId ? draftCharacter(seed, careerId) : null), [seed, careerId]);
   // Picking (or changing) the job swaps the whole screen: start it at the top.
   useEffect(() => scrollToTop(), [careerId]);
@@ -97,7 +100,7 @@ function CreateCharacter() {
   const nameParts = parts ?? partsFromName(bundle, draft.name) ?? { pre: [], first: bundle.names.first[0]!, last: bundle.names.last[0]!, post: [] };
   const shown = { ...draft, name: formatName(nameParts), nameParts, personality: personality || draft.personality };
   const start = () => {
-    startCareer(shown, diff, company);
+    startCareer(shown, diff, company, nationality);
     notify(`Welcome aboard, ${shown.name}!`, 'good');
     navigate('/career');
   };
@@ -162,6 +165,18 @@ function CreateCharacter() {
             </select>
           </label>
           <p class="muted small">{descOf(shown.personality)}</p>
+          <label class="field">
+            Nationality <span class="muted small">(optional)</span>
+            <select value={nationality} onChange={(e) => setNationality((e.target as HTMLSelectElement).value)}>
+              <option value="">Prefer not to say</option>
+              {NATIONS.map((n) => (
+                <option value={n.key}>
+                  {flagEmoji(n.key)} {n.name}
+                </option>
+              ))}
+            </select>
+          </label>
+          <p class="muted small">When your country does well at the Diplomatic Incident, you get a small boost in your fights. You can change it once a day.</p>
           <StatBars stats={shown.stats} />
         </Card>
         <Card>
@@ -339,6 +354,16 @@ function Results({ save: s0 }: { save: CareerSave }) {
           <button class="primary" onClick={() => navigate('/career/squad')}>
             Build your squad
           </button>
+        </Card>
+      )}
+      {r.nation && (
+        <Card>
+          <h2>
+            🎖️ {flagEmoji(r.nation.country)} {nameOf(`nationality.${r.nation.tier}`)}
+          </h2>
+          <p class="muted small">
+            {mainChar(s).c.name} fought for {countryName(r.nation.country)}, #{r.nation.rank} at the Summit Hall ({r.nation.hour.slice(11, 13)}:00 UTC).
+          </p>
         </Card>
       )}
       {r.hr && r.hr.length > 0 && (

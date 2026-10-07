@@ -1,5 +1,5 @@
 import { bundle } from '@cc/content';
-import { countriesDef, floorClock, sampleTally, type LikeTally } from '@cc/game-rules';
+import { countriesDef, floorClock, sampleTally, summitTotals, type LikeTally, type SummitHour } from '@cc/game-rules';
 import type { HourTallies, LikeResponse, TokenResponse, VoteConfig } from '@cc/protocol/votes';
 import { Rng } from '@cc/sim';
 import { solve } from './pow';
@@ -364,4 +364,48 @@ export function crowdStream(hour: string, session: number, ticks: number): { tic
     for (let i = 0; i < bunches; i++) out.push({ tick: 20 + rng.int(Math.max(1, ticks - 40)), key, n: Math.floor(p / bunches) + (i < p % bunches ? 1 : 0) });
   }
   return out.sort((a, b) => a.tick - b.tick || (a.key < b.key ? -1 : 1));
+}
+
+// ---- The last finished hour (career mode's nationality boost) --------------
+
+const SUMMIT_KEY = 'incident:summit';
+let summitMem: SummitHour | null = null;
+
+/** The hour before the one `now` is in, e.g. "2026-10-07T13". */
+export function previousHour(now = Date.now()): string {
+  return new Date(Math.floor(now / 3_600_000) * 3_600_000 - 3_600_000).toISOString().slice(0, 13);
+}
+
+/** The last finished Summit hour's likes, if fetched already (null without a vote service). */
+export function lastSummit(now = Date.now()): SummitHour | null {
+  const hour = previousHour(now);
+  if (summitMem?.hour === hour) return summitMem;
+  try {
+    const saved = JSON.parse(localStorage.getItem(SUMMIT_KEY) ?? 'null') as SummitHour | null;
+    if (saved?.hour === hour) return (summitMem = saved);
+  } catch {
+    // none saved
+  }
+  return null;
+}
+
+/** Fetches the last finished hour's likes (once per hour; a finished hour never changes). */
+export async function loadLastSummit(now = Date.now()): Promise<SummitHour | null> {
+  if (!VOTE_URL) return null;
+  const have = lastSummit(now);
+  if (have) return have;
+  const hour = previousHour(now);
+  try {
+    const res = await call<HourTallies>(`/hour/${hour}?s=11`);
+    if (res.status !== 200 || !res.data) return null;
+    summitMem = { hour, totals: summitTotals(res.data.frozen, res.data.pending) };
+    try {
+      localStorage.setItem(SUMMIT_KEY, JSON.stringify(summitMem));
+    } catch {
+      // kept for this page view
+    }
+    return summitMem;
+  } catch {
+    return null;
+  }
 }

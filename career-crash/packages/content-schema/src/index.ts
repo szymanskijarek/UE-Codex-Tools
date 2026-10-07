@@ -482,6 +482,26 @@ export const economySchema = z.object({
     henchmanLevelOffset: int,
     spendBp: bp,
   }),
+  /**
+   * Nationality in career mode: the main character's country, if the player
+   * picked one, lends a small boost when it did well at the Diplomatic
+   * Incident (09) in the last finished hour. Tiers are checked in order; the
+   * first whose `maxRank` the country's rank by likes reaches applies.
+   */
+  nationality: z.object({
+    /** Hours before a nationality can be changed again (the first pick is free). */
+    changeCooldownH: int.min(0),
+    tiers: z
+      .array(
+        z.object({
+          id: z.string().regex(/^[a-z-]+$/),
+          maxRank: int.min(1),
+          stats: statModsSchema,
+          status: z.object({ status: ref('status'), durationTicks: int.min(20).max(600) }).optional(),
+        }),
+      )
+      .min(1),
+  }),
 });
 export type EconomyDef = z.infer<typeof economySchema>;
 
