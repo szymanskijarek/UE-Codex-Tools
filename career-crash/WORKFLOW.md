@@ -14,6 +14,7 @@ a Claude Code session. Exact commands for every build step are in
 | Online API | Cloudflare Worker `career-crash-api` + D1 `career-crash` on api.careercrash.org, deployed by GitHub Actions from `prod` (launch steps: `PIPELINES.md` §7.1) |
 | Code | GitHub `szymanskijarek/UE-Codex-Tools`, folder `career-crash/` |
 | Single-file copy | Claude artifact https://claude.ai/artifact/2xjKeMt4niQSx7P9jYzwg7 (private; opens in the Claude app) |
+| Unlisted CV page | https://careercrash.org/jarek/ (`apps/client/public/jarek/index.html`, plain HTML). `noindex`, kept out of `sitemap.xml` and not linked from the site: reachable by direct link only. |
 | Design docs | `docs/career-crash/` (GDD, tech spec, combat, economy, roadmap) |
 | Build and pipeline commands | `PIPELINES.md` |
 | CI | `.github/workflows/career-crash.yml`: content, lint, typecheck, tests, goldens, balance smoke, client build |
