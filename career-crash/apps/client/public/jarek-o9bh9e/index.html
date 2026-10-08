@@ -140,6 +140,8 @@
       .notes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
       .note { border: var(--outline); border-radius: 12px; padding: 12px 14px; background: #ecfdf5; box-shadow: 3px 3px 0 var(--ink); }
       .note.mixed { background: #fffbeb; }
+      .reshuffle { margin-left: auto; font-size: 0.85rem; padding: 3px 10px; cursor: pointer; font-family: inherit; }
+      .reshuffle[hidden] { display: none; }
       .note .tone { font-size: 0.72rem; font-weight: 900; letter-spacing: 1px; text-transform: uppercase; }
       .note.buff .tone { color: #15803d; }
       .note.mixed .tone { color: #b45309; }
@@ -210,37 +212,6 @@
           experience across Avalanche, Build A Rocket Boy, Cloud Imperium and Techland. Proven record of shipping large-scale
           content, mentoring teams, and integrating narrative with world systems.
         </p>
-      </section>
-
-      <!-- ===================== THE ARCADE ===================== -->
-      <section class="arcade">
-        <h2 class="section">🕹️ Side projects <small>three browser brawlers I designed and run · free, no sign-up</small></h2>
-        <div class="games">
-          <a class="game" href="/">
-            <img src="/share.jpg" alt="Pixel-art supermarket brawl between a chef, a taxi driver, a paramedic and a referee." loading="lazy" />
-            <div class="body">
-              <h3>Career Crash</h3>
-              <p>An auto-brawler where 66 ordinary careers fight it out in supermarkets, offices and train stations, followed by the LinkedIn-style fallout.</p>
-              <span class="go">Play Career Crash →</span>
-            </div>
-          </a>
-          <a class="game dark" href="/cryptobro/">
-            <img src="/cryptobro/share.jpg" alt="Crypto bros brawling on a trading floor while coins fly." loading="lazy" />
-            <div class="body">
-              <h3>Crypto Bros</h3>
-              <p>The top 10 cryptocurrencies as crypto bros, brawling nonstop. Every hour each bro is rebuilt from live market data. Not financial advice.</p>
-              <span class="go">Watch the floor →</span>
-            </div>
-          </a>
-          <a class="game navy" href="/incident/">
-            <img src="/incident/share.jpg" alt="Country delegates brawling at a summit." loading="lazy" />
-            <div class="body">
-              <h3>Diplomatic Incident</h3>
-              <p>The nations brawl: forty countries fight at an endless summit, ten at a time. Like your country to make its delegate stronger.</p>
-              <span class="go">Join the summit →</span>
-            </div>
-          </a>
-        </div>
       </section>
 
       <!-- ===================== THE FILE ===================== -->
@@ -327,8 +298,41 @@
         </aside>
       </div>
 
-      <h2 class="section">🗂️ HR notes <small>as found in his personnel file</small></h2>
-      <section class="notes">
+      <!-- ===================== THE ARCADE ===================== -->
+      <section class="arcade">
+        <h2 class="section">🕹️ Side projects <small>three browser brawlers I designed and run · free, no sign-up</small></h2>
+        <div class="games">
+          <a class="game" href="/">
+            <img src="/share.jpg" alt="Pixel-art supermarket brawl between a chef, a taxi driver, a paramedic and a referee." loading="lazy" />
+            <div class="body">
+              <h3>Career Crash</h3>
+              <p>An auto-brawler where 66 ordinary careers fight it out in supermarkets, offices and train stations, followed by the LinkedIn-style fallout.</p>
+              <span class="go">Play Career Crash →</span>
+            </div>
+          </a>
+          <a class="game dark" href="/cryptobro/">
+            <img src="/cryptobro/share.jpg" alt="Crypto bros brawling on a trading floor while coins fly." loading="lazy" />
+            <div class="body">
+              <h3>Crypto Bros</h3>
+              <p>The top 10 cryptocurrencies as crypto bros, brawling nonstop. Every hour each bro is rebuilt from live market data. Not financial advice.</p>
+              <span class="go">Watch the floor →</span>
+            </div>
+          </a>
+          <a class="game navy" href="/incident/">
+            <img src="/incident/share.jpg" alt="Country delegates brawling at a summit." loading="lazy" />
+            <div class="body">
+              <h3>Diplomatic Incident</h3>
+              <p>The nations brawl: forty countries fight at an endless summit, ten at a time. Like your country to make its delegate stronger.</p>
+              <span class="go">Join the summit →</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <h2 class="section">🗂️ HR notes <small>as found in his personnel file</small>
+        <button class="btn alt reshuffle no-print" type="button" hidden>🔀 Open another page</button>
+      </h2>
+      <section class="notes" id="notes">
         <div class="note buff">
           <span class="tone">Buff</span>
           <h3>Thinks in square kilometres</h3>
@@ -350,5 +354,45 @@
         Part of <a href="/">Career Crash</a> · No cookies, no tracking.
       </footer>
     </div>
+    <script>
+      // HR notes: three random ones from the file on every visit. The three in the HTML show without JavaScript.
+      const NOTES = [
+        ['buff', 'Thinks in square kilometres', 'Handed 24 months, delivered a reactive 50 km² world. Still asks where the next mission goes.'],
+        ['buff', 'Second-to-second guy', 'Will rebuild an encounter until the next three seconds are fun. Then the three after that.'],
+        ['mixed', 'Cannot stop making games', 'Asked to build a CV page, put three brawlers on it. HR has stopped asking.'],
+        ['buff', 'World vision holder', 'Ask him what goes on that empty hill and he has an answer, a reason and a sketch.'],
+        ['buff', 'Mission factory', 'Has written and maintained hundreds of missions. Calls this a warm-up.'],
+        ['buff', 'E3 survivor', 'Built E3 showcase material and lived. Stays calm when the demo is due on Friday.'],
+        ['mixed', 'BAFTA member', 'Will mention it once. Maybe twice. It is on this page three times.'],
+        ['buff', 'Extraction specialist', 'Builds maps people are desperate to get out of alive. Takes this as a compliment.'],
+        ['mixed', 'Industrial designer', 'MA in Industrial Design. Has opinions about door handles, in games and in real life.'],
+        ['mixed', 'Live ops veteran', 'Shipped limited-time events at Star Citizen scale. Knows "one more hotfix" is never one.'],
+        ['mixed', 'Living world enthusiast', 'Puts every NPC on a daily schedule. Is not on one himself.'],
+        ['buff', 'Tutorial whisperer', 'Built an MMO tutorial players actually finished. Some of them even read the tooltips.'],
+        ['buff', 'Narrative glue', 'Ties story into world systems so side quests stop looking stapled on.'],
+        ['buff', 'Speaks every department', 'Fluent in art, code, audio and production. Translates between them for free.'],
+        ['buff', 'Mentor', 'Juniors who sit next to him start blocking out levels in their sleep.'],
+        ['mixed', 'Greyboxer', 'Left alone in an empty office for an afternoon, will greybox it into three encounters.'],
+        ['buff', 'Replayability nerd', 'Tests every map until round fifty is still surprising. Round fifty-one is pending.'],
+        ['mixed', 'Seven studios, one desk plant', 'Has carried the same desk plant through seven studios. It has shipped more games than most.'],
+      ];
+      const box = document.getElementById('notes');
+      const btn = document.querySelector('.reshuffle');
+      const esc = (t) => t.replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c]);
+      let shown = [];
+      function deal() {
+        const pool = NOTES.map((_, i) => i).filter((i) => !shown.includes(i));
+        const pick = [];
+        while (pick.length < 3) pick.push(pool.splice(Math.floor(Math.random() * pool.length), 1)[0]);
+        shown = pick;
+        box.innerHTML = pick.map((i) => {
+          const [tone, title, text] = NOTES[i];
+          return `<div class="note ${tone}"><span class="tone">${tone}</span><h3>${esc(title)}</h3><p>${esc(text)}</p></div>`;
+        }).join('');
+      }
+      deal();
+      btn.hidden = false;
+      btn.addEventListener('click', deal);
+    </script>
   </body>
 </html>
