@@ -1,0 +1,97 @@
+{
+  "id": "2026-w41-dead-coin",
+  "week": "2026-10-05",
+  "bsn": "Buy Sell Nothing",
+  "headline": "EX-COIN",
+  "chyron": "DEAD CRYPTO RETURNED. EXCHANGE: \"IT'S RESTING\"",
+  "ticker": [
+    "CRYPTO BROS AT CAREERCRASH.ORG/CRYPTOBRO: LIQUIDATED HOURLY, FRESH EVERY HOUR",
+    "NORWEGIAN BLUE CHIP \"PINING FOR THE FJORDS\"",
+    "EXCHANGE LAUNCHES NO-QUESTIONS-ANSWERED POLICY",
+    "STABLECOIN SEEN WOBBLING"
+  ],
+  "guest": {
+    "name": "Such Wow Wes",
+    "role": "Crypto Correspondent · not financial advice",
+    "career": "career.dog-groomer",
+    "persona": "npc.bro-doge",
+    "enters": 4,
+    "bsn": "Bullish Since Never",
+    "color": "#c9a227"
+  },
+  "beats": [
+    {
+      "who": "us",
+      "heat": 0,
+      "text": "Tonight: a man has tried to return a cryptocurrency to the exchange that sold it to him."
+    },
+    {
+      "who": "uk",
+      "heat": 0,
+      "text": "He says the coin is dead. The exchange says it is, quote, \"just resting.\""
+    },
+    {
+      "who": "us",
+      "heat": 1,
+      "text": "Resting! Philippa, coins don't rest. They go to the moon.",
+      "pause": "beat"
+    },
+    {
+      "who": "uk",
+      "heat": 1,
+      "text": "This one went to the moon, Brock. And fell off."
+    },
+    {
+      "who": "guest",
+      "heat": 1,
+      "text": "Beautiful coin, the DOGE. Lovely fur. It's just pining for the moon."
+    },
+    {
+      "who": "uk",
+      "heat": 2,
+      "text": "It's not pining. It's passed on. This coin is no more. It has ceased to be."
+    },
+    {
+      "who": "guest",
+      "heat": 2,
+      "text": "It's stunned! Market went a bit funny, that's all."
+    },
+    {
+      "who": "uk",
+      "heat": 2,
+      "text": "It's an EX-COIN. Bereft of value. It's on the ticker at zero point zero zero.",
+      "pause": "long"
+    },
+    {
+      "who": "guest",
+      "heat": 2,
+      "text": "Would you like a different coin? Same coin. New logo.",
+      "pause": "awkward"
+    },
+    {
+      "who": "us",
+      "heat": 2,
+      "text": "Hang on. I bought forty of those. With my Emmy money.",
+      "mood": "surprised",
+      "pause": "beat"
+    },
+    {
+      "who": "uk",
+      "heat": 3,
+      "text": "Then congratulations, Brock. You are an ex-anchor."
+    }
+  ],
+  "brawl": {
+    "seconds": 6,
+    "arena": "arena.news-studio",
+    "shouts": {
+      "us": "MY EMMY MONEY!",
+      "uk": "IT'S AN EX-COIN!",
+      "guest": "TO THE MOON!"
+    }
+  },
+  "minigame": "test-card",
+  "realStory": {
+    "text": "Made up: no exchange has refused a return on these grounds, mostly because exchanges don't take returns. Crypto Bros, the hourly brawl of the top ten coins as crypto bros, is real and lives at careercrash.org/cryptobro. Not financial advice."
+  }
+}

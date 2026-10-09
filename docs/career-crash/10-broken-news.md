@@ -371,6 +371,16 @@ before the first hit lands, so it changes with the sim like any other fight.
 - Page art (brief 05): the BSN bug in the corner, the show logo on the page
   and start card, the painted ident, a share image and icons in the link
   preview (still `noindex`).
+- Episodes (all fictional, for testing the format; each riffs on a Monty
+  Python sketch): *Printers Unionise* (pilot), *Chairs Recalled*, *Clinics
+  Strike* (Argument Clinic), *Ex-Coin* (Dead Parrot; plugs Crypto Bros),
+  *Nobody Expects* (Spanish Inquisition; plugs Diplomatic Incident, Sir Nigel
+  guests), *Silly Careers* (Silly Walks; plugs Career Crash, Marcel the mime),
+  *100% Spam* (Spam), *Luxury* (Four Yorkshiremen).
+- Guests can be anyone with art: a career (its face), or a persona from the
+  other games (a crypto bro, a delegate), shown with their own painted head.
+  A line in parentheses is a silent stage direction (italic, no voice).
+  Chyrons are checked to fit the strap (48 characters).
 - Rogue chair (brief 01E): a script line with `"chair": "us" | "uk" | "guest"`
   has an office chair fly in from off screen and hit that seat; they wear
   `hurt` (a chair line holds at least 2.6 s so the hit reads). Test episode:

@@ -1,0 +1,90 @@
+{
+  "id": "2026-w41-commute",
+  "week": "2026-10-05",
+  "bsn": "Bragging Since Nineteen-something",
+  "headline": "LUXURY",
+  "chyron": "BOSSES ORDER STAFF IN TO \"FEEL THE CULTURE\"",
+  "ticker": [
+    "CEO EXPLAINS OFFICE CULTURE FROM HIS YACHT",
+    "HOT DESKS NOW HOT: NOBODY HAS FIXED THE AIR CON",
+    "COMMUTERS JOIN PRINTERS' UNION. TALKS JAMMED",
+    "BUS 47 SIGHTED. PASSENGERS ASK FOR A SELFIE"
+  ],
+  "guest": {
+    "name": "Terry from Transport",
+    "role": "Transport Desk · late, on purpose",
+    "career": "career.bus-driver",
+    "enters": 6,
+    "bsn": "Bus Stops Nowhere",
+    "color": "#ca8a04"
+  },
+  "beats": [
+    {
+      "who": "us",
+      "heat": 0,
+      "text": "Tonight: offices order staff back in, five days a week, to \"feel the culture.\""
+    },
+    {
+      "who": "uk",
+      "heat": 0,
+      "text": "Workers report a forty-minute commute to sit on video calls with people in the same building."
+    },
+    {
+      "who": "us",
+      "heat": 1,
+      "text": "Forty minutes? Luxury. I used to commute two hours. Uphill. Both ways.",
+      "pause": "beat"
+    },
+    {
+      "who": "uk",
+      "heat": 1,
+      "text": "Two hours? I commuted in a shoebox. On the motorway. In the fast lane."
+    },
+    {
+      "who": "us",
+      "heat": 1,
+      "text": "A shoebox! We used to DREAM of a shoebox. I commuted inside a printer."
+    },
+    {
+      "who": "uk",
+      "heat": 2,
+      "text": "A printer? You were lucky. I was faxed in. Every morning. In pieces.",
+      "pause": "long"
+    },
+    {
+      "who": "guest",
+      "heat": 2,
+      "text": "You were LUCKY. I drive the bus. I commute to my own commute."
+    },
+    {
+      "who": "us",
+      "heat": 2,
+      "text": "And you tell the young people that today, and they won't believe you.",
+      "pause": "awkward"
+    },
+    {
+      "who": "uk",
+      "heat": 2,
+      "text": "They won't, Brock. They work from home. They're watching this in pyjamas.",
+      "mood": "surprised"
+    },
+    {
+      "who": "us",
+      "heat": 3,
+      "text": "PYJAMAS?! In MY day we wore SUITS to the PUDDLE!"
+    }
+  ],
+  "brawl": {
+    "seconds": 6,
+    "arena": "arena.news-studio",
+    "shouts": {
+      "us": "LUXURY!",
+      "uk": "YOU WERE LUCKY!",
+      "guest": "NEXT STOP: DESK!"
+    }
+  },
+  "minigame": "test-card",
+  "realStory": {
+    "text": "Made up for the show, but drawn from life: many employers have pushed for more office days since 2022. The one-upmanship comes from the Four Yorkshiremen sketch (1967), later a Monty Python stage favourite."
+  }
+}

@@ -483,6 +483,11 @@ body.bn-page {
   box-shadow: 0.5cqw 0.5cqw 0 #0006;
   z-index: 3;
 }
+.bn-action {
+  font-style: italic;
+  font-weight: 600;
+  color: #4a5675;
+}
 .bn-bubble-us {
   left: 17%;
   top: 4.5%;

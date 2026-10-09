@@ -1,0 +1,96 @@
+{
+  "id": "2026-w41-argument",
+  "week": "2026-10-05",
+  "bsn": "Bickering Since Noon",
+  "headline": "CLINICS STRIKE",
+  "chyron": "ARGUMENT CLINICS STRIKE. UNION: \"NO WE AREN'T\"",
+  "ticker": [
+    "ABUSE DEPARTMENT REPORTS RECORD WALK-INS",
+    "COMPLAINTS DEPARTMENT COMPLAINS ABOUT COMPLAINTS",
+    "CAREERCRASH.ORG: LAWYERS NOW OBJECT IN PERSON, AT SPEED",
+    "HEADACHE CLINIC \"NOT TAKING ANY MORE QUESTIONS\""
+  ],
+  "guest": {
+    "name": "Gideon Rebuttal",
+    "role": "Legal Correspondent · billed in six-minute units",
+    "career": "career.lawyer",
+    "enters": 7,
+    "bsn": "Billable Since Noon",
+    "color": "#1e3a5f"
+  },
+  "beats": [
+    {
+      "who": "us",
+      "heat": 0,
+      "text": "Good evening, this is Broken News. Tonight: the nation's argument clinics have gone on strike."
+    },
+    {
+      "who": "uk",
+      "heat": 0,
+      "text": "Customers who paid for a full half-hour argument report being told, quote: \"No you didn't.\""
+    },
+    {
+      "who": "us",
+      "heat": 1,
+      "text": "That's not a strike, Philippa. That's just Tuesday.",
+      "pause": "beat"
+    },
+    {
+      "who": "uk",
+      "heat": 1,
+      "text": "It is a strike."
+    },
+    {
+      "who": "us",
+      "heat": 1,
+      "text": "No it isn't.",
+      "pause": "beat"
+    },
+    {
+      "who": "uk",
+      "heat": 1,
+      "text": "Brock, that's not an argument. That's just contradiction.",
+      "mood": "surprised"
+    },
+    {
+      "who": "us",
+      "heat": 2,
+      "text": "No it isn't!",
+      "pause": "cut"
+    },
+    {
+      "who": "guest",
+      "heat": 2,
+      "text": "Point of order! An argument is a connected series of statements. That'll be forty pounds."
+    },
+    {
+      "who": "uk",
+      "heat": 2,
+      "text": "Forty pounds? For that?"
+    },
+    {
+      "who": "guest",
+      "heat": 2,
+      "text": "That was another five minutes. Forty-five.",
+      "pause": "long"
+    },
+    {
+      "who": "us",
+      "heat": 3,
+      "text": "I came here for an argument. And I'm getting one. FOR FREE!"
+    }
+  ],
+  "brawl": {
+    "seconds": 6,
+    "arena": "arena.news-studio",
+    "shouts": {
+      "us": "YES IT IS!",
+      "uk": "NO IT ISN'T!",
+      "guest": "THAT'S EXTRA!"
+    }
+  },
+  "minigame": "test-card",
+  "realStory": {
+    "text": "Made up for the show: there are no argument clinics, and nobody is on strike. The sketch it borrows, Monty Python's Argument Clinic (1972), is still the best guide to the difference between an argument and plain contradiction."
+  }
+}

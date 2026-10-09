@@ -48,8 +48,10 @@ export interface Guest {
   bsn?: string;
   /** Their painted desk-shot pictures, once they exist (art brief 04). */
   art?: string;
-  /** Their own brawl puppet and faces (`npc.news-<x>`, art brief 04), render only. */
+  /** Their own brawl puppet and faces (`npc.news-<x>`, a crypto bro, a delegate…), render only. */
   persona?: string;
+  /** Lower-third strap colour (default weather teal). */
+  color?: string;
 }
 
 export interface Episode {
@@ -103,6 +105,8 @@ export const FORMAT = {
   handoffMs: 2600,
   /** The whole segment, ident to hand-off, must fit in this. */
   maxMs: 60_000,
+  /** The BREAKING strap fits this many characters at full width. */
+  chyronMax: 48,
   brawlMinS: 2,
   brawlMaxS: 8,
   /** Typing speed per character, by heat: they talk faster as it gets personal. */
@@ -132,6 +136,9 @@ export function spellsBsn(phrase: string): boolean {
     .join('');
   return initials === 'BSN';
 }
+
+/** A stage direction, "(mimes a box)": shown in italics, never voiced (a mime, a sigh, a long stare). */
+export const isAction = (b: Beat): boolean => /^\(.*\)$/.test(b.text.trim());
 
 /** How long the line types out for (a `cut` line stops partway). */
 export function typeMs(b: Beat): number {
@@ -222,6 +229,7 @@ export function checkEpisode(ep: Episode, minigames: readonly string[]): string[
   if (ep.brawl.seconds < FORMAT.brawlMinS || ep.brawl.seconds > FORMAT.brawlMaxS) out.push(`brawl must last ${FORMAT.brawlMinS}–${FORMAT.brawlMaxS} s`);
   if (!minigames.includes(ep.minigame)) out.push(`unknown minigame "${ep.minigame}"`);
   if (!ep.ticker.length) out.push('the ticker needs at least one line');
+  if (ep.chyron.length > FORMAT.chyronMax) out.push(`chyron is ${ep.chyron.length} characters; the strap fits ${FORMAT.chyronMax}`);
   if (!ep.realStory?.text) out.push('every episode ends with the real story');
   if (!ep.bsn || !spellsBsn(ep.bsn)) out.push(`"${ep.bsn ?? ''}" doesn't spell BSN`);
   else if (ep.bsn.toLowerCase() === BSN_OFFICIAL.toLowerCase()) out.push('the ticker never uses the official BSN name');

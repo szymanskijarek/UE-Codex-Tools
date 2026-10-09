@@ -1,0 +1,97 @@
+{
+  "id": "2026-w41-spam",
+  "week": "2026-10-05",
+  "bsn": "Bulk Spam Network",
+  "headline": "100% SPAM",
+  "chyron": "NATION'S INBOXES REACH 100% SPAM",
+  "ticker": [
+    "UNSUBSCRIBE BUTTON FOUND TO SUBSCRIBE YOU TWICE",
+    "PRINCE STILL WAITING TO SEND YOU MONEY",
+    "\"QUICK QUESTION\" EMAIL ENTERS ITS FOURTH YEAR",
+    "CAREERCRASH.ORG: STILL NO NEWSLETTER. YOU'RE WELCOME"
+  ],
+  "guest": {
+    "name": "Dusty Gale",
+    "role": "Weather · on a short-term contract",
+    "career": "career.photographer",
+    "enters": 4,
+    "bsn": "Blustery Showers Nationwide",
+    "art": "dusty",
+    "persona": "npc.news-dusty"
+  },
+  "beats": [
+    {
+      "who": "us",
+      "heat": 0,
+      "text": "Tonight: the nation's inboxes have reached one hundred percent spam."
+    },
+    {
+      "who": "uk",
+      "heat": 0,
+      "text": "Experts say the last genuine email was sent on Tuesday. It was also spam."
+    },
+    {
+      "who": "us",
+      "heat": 1,
+      "text": "What's in today's inbox, Philippa?"
+    },
+    {
+      "who": "uk",
+      "heat": 1,
+      "text": "Spam. Spam and eggs. Spam, spam and bacon. And a newsletter you never signed up for.",
+      "pause": "beat"
+    },
+    {
+      "who": "guest",
+      "heat": 1,
+      "text": "Weather! Spam moving in from the east, with scattered newsletters by lunchtime!"
+    },
+    {
+      "who": "us",
+      "heat": 2,
+      "text": "Is there anything without spam in it?"
+    },
+    {
+      "who": "uk",
+      "heat": 2,
+      "text": "There's the newsletter. Which has quite a lot of spam in it.",
+      "pause": "beat"
+    },
+    {
+      "who": "guest",
+      "heat": 2,
+      "text": "SPAM, SPAM, SPAM, SPAM! Lovely spam! Wonderful spam!",
+      "pause": "cut"
+    },
+    {
+      "who": "uk",
+      "heat": 2,
+      "text": "Dusty. Please. We are a news programme.",
+      "mood": "angry"
+    },
+    {
+      "who": "guest",
+      "heat": 2,
+      "text": "And you're subscribed! Click here to unsubscribe from unsubscribing.",
+      "pause": "long"
+    },
+    {
+      "who": "us",
+      "heat": 3,
+      "text": "That's it. I'm marking this whole studio as junk!"
+    }
+  ],
+  "brawl": {
+    "seconds": 6,
+    "arena": "arena.news-studio",
+    "shouts": {
+      "us": "JUNK!",
+      "uk": "UNSUBSCRIBE!",
+      "guest": "LOVELY SPAM!"
+    }
+  },
+  "minigame": "test-card",
+  "realStory": {
+    "text": "Made up, though only just: estimates of how much email is spam have hovered around half for years. Monty Python's Spam sketch (1970) is why unwanted email is called spam."
+  }
+}

@@ -9,7 +9,7 @@ import { BattleRenderer } from '../replay/renderer';
 import { voiceFor, withVoice, type Voice } from '../replay/voices';
 import { Portrait } from '../ui/components';
 import { ANCHORS, type Anchor } from './cast';
-import { BSN_OFFICIAL, checkEpisode, cueAt, deskFace, shownText, typeMs, type DeskFace, moodOf, timeline, type Cue, type Episode, type Seat } from './episode';
+import { BSN_OFFICIAL, checkEpisode, cueAt, deskFace, isAction, shownText, typeMs, type DeskFace, moodOf, timeline, type Cue, type Episode, type Seat } from './episode';
 import { EPISODES, pickEpisode } from './episodes';
 import { MINIGAMES, minigameById } from './minigames';
 import backdropUrl from './art/desk-backdrop.webp';
@@ -59,7 +59,7 @@ function cast(ep: Episode): Person[] {
   const anchor = (a: Anchor): Person => ({ ...a, voice: withVoice(voiceFor(a.career.replace('career.', ''), a.name, ''), { type: a.voice, pitch: a.pitch }) });
   const out = [anchor(ANCHORS.us), anchor(ANCHORS.uk)];
   const g = ep.guest;
-  if (g) out.push({ seat: 'guest', name: g.name, role: g.role, career: g.career, color: '#0e7c66', voice: voiceFor(g.career.replace('career.', ''), g.name, ''), bsn: g.bsn, art: g.art, persona: g.persona });
+  if (g) out.push({ seat: 'guest', name: g.name, role: g.role, career: g.career, color: g.color ?? '#0e7c66', voice: voiceFor(g.career.replace('career.', ''), g.name, ''), bsn: g.bsn, art: g.art, persona: g.persona });
   return out;
 }
 
@@ -147,7 +147,7 @@ export function Studio() {
       const b = ep.beats[cue.beat!]!;
       const p = people.find((x) => x.seat === b.who);
       // The voice talks exactly as long as the bubble types: word for word, the same length.
-      if (p) sfx.speak(shownText(b, typeMs(b)), p.voice, true, typeMs(b) / 1000);
+      if (p && !isAction(b)) sfx.speak(shownText(b, typeMs(b)), p.voice, true, typeMs(b) / 1000);
       if (b.heat === 3) sfx.play('ooh');
       if (b.chair) {
         sfx.play('whoosh');
@@ -346,7 +346,7 @@ export function Studio() {
                 return (
                   <div key={p.seat} class={`bn-person bn-seat-${p.seat}${p.seat === speaking ? ' bn-talking' : ''}`} style={{ '--c': p.color }}>
                     <div class="bn-head">
-                      <Portrait c={{ appearance: { skin: '#e0b48a', hair: '#3b2416', hairStyle: 0 }, careers: [p.career] }} size={160} mood={moodFor(p.seat)} />
+                      <Portrait c={{ appearance: { skin: '#e0b48a', hair: '#3b2416', hairStyle: 0 }, careers: [p.career], ...(p.persona ? { persona: p.persona } : {}) }} size={160} mood={moodFor(p.seat)} />
                     </div>
                     <div class="bn-suit">
                       <i class="bn-tie" />
@@ -362,7 +362,7 @@ export function Studio() {
               <div class={`bn-papers bn-papers-${heat}`} />
             </div>
             {beat && speaker && (
-              <div class={`bn-bubble bn-bubble-${speaker.seat}`}>
+              <div class={`bn-bubble bn-bubble-${speaker.seat}${isAction(beat) ? ' bn-action' : ''}`}>
                 {shownText(beat, ms - cue.at)}
               </div>
             )}

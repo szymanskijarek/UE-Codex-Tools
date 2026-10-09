@@ -1,0 +1,97 @@
+{
+  "id": "2026-w41-silly-careers",
+  "week": "2026-10-05",
+  "bsn": "Bureau of Silly Navigation",
+  "headline": "SILLY CAREERS",
+  "chyron": "GOVERNMENT LAUNCHES MINISTRY OF SILLY CAREERS",
+  "ticker": [
+    "CAREERCRASH.ORG: PLUMBERS 3, DENTISTS 0, MIME \"DECLINED TO COMMENT\"",
+    "MINISTRY HIRES CONSULTANT TO SILLY-PROOF ITS CONSULTANTS",
+    "LIFE COACH COACHES LIFE COACH. LOOP REPORTED",
+    "ACCOUNTANTS APPLY TO BE SILLY, ARE DECLINED"
+  ],
+  "guest": {
+    "name": "Marcel",
+    "role": "Mime Correspondent · no comment, literally",
+    "career": "career.mime",
+    "enters": 3,
+    "bsn": "Box Stuck Nowhere",
+    "color": "#111827"
+  },
+  "beats": [
+    {
+      "who": "us",
+      "heat": 0,
+      "text": "Tonight: the government opens a Ministry of Silly Careers."
+    },
+    {
+      "who": "uk",
+      "heat": 0,
+      "text": "It will fund any job silly enough. Applicants so far: a plumber, a dentist, and a man who fights them both."
+    },
+    {
+      "who": "us",
+      "heat": 1,
+      "text": "That's Career Crash, Philippa. careercrash.org. I've got a dentist on stage twelve.",
+      "pause": "beat"
+    },
+    {
+      "who": "guest",
+      "heat": 1,
+      "text": "(walks in. Is trapped in an invisible box.)"
+    },
+    {
+      "who": "uk",
+      "heat": 1,
+      "text": "Our mime correspondent, Marcel, has the details.",
+      "mood": "surprised"
+    },
+    {
+      "who": "guest",
+      "heat": 1,
+      "text": "(pulls an invisible rope. Leans on an invisible desk. Bows.)",
+      "pause": "awkward"
+    },
+    {
+      "who": "us",
+      "heat": 2,
+      "text": "Marcel, that's the third invisible desk this week. Who's paying for these?"
+    },
+    {
+      "who": "guest",
+      "heat": 2,
+      "text": "(points at Philippa)",
+      "pause": "beat"
+    },
+    {
+      "who": "uk",
+      "heat": 2,
+      "text": "I did not sign off on an invisible desk.",
+      "mood": "angry"
+    },
+    {
+      "who": "guest",
+      "heat": 2,
+      "text": "(mimes an invoice. A very long one.)",
+      "pause": "long"
+    },
+    {
+      "who": "us",
+      "heat": 3,
+      "text": "That's it. I'm getting out of this box!"
+    }
+  ],
+  "brawl": {
+    "seconds": 6,
+    "arena": "arena.news-studio",
+    "shouts": {
+      "us": "GET OUT OF THE BOX!",
+      "uk": "INVOICE THIS!",
+      "guest": "...!"
+    }
+  },
+  "minigame": "test-card",
+  "realStory": {
+    "text": "Made up: there is no Ministry of Silly Careers (the Ministry of Silly Walks first aired in 1970). Career Crash is real: hire a crew of ordinary jobs and watch them brawl at careercrash.org."
+  }
+}

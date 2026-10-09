@@ -1,0 +1,93 @@
+{
+  "id": "2026-w41-inquisition",
+  "week": "2026-10-05",
+  "bsn": "Bilateral Summit Nonsense",
+  "headline": "NOBODY EXPECTS",
+  "chyron": "SUMMIT ENDS IN UNANIMOUS DISAGREEMENT",
+  "ticker": [
+    "DIPLOMATIC INCIDENT AT CAREERCRASH.ORG/INCIDENT: LIKE YOUR COUNTRY, WATCH IT FIGHT",
+    "SUMMIT AGREES TO MEET AGAIN TO DISAGREE AGAIN",
+    "INTERPRETERS ASK FOR INTERPRETERS",
+    "BUFFET DECLARED NEUTRAL TERRITORY"
+  ],
+  "guest": {
+    "name": "Sir Nigel Queueworth",
+    "role": "Delegate for England · queueing since Tuesday",
+    "career": "career.train-conductor",
+    "persona": "npc.del-eng",
+    "enters": 3,
+    "bsn": "Biscuits Served Now",
+    "color": "#cf142b"
+  },
+  "beats": [
+    {
+      "who": "us",
+      "heat": 0,
+      "text": "Tonight: forty countries meet at the summit to agree on absolutely nothing."
+    },
+    {
+      "who": "uk",
+      "heat": 0,
+      "text": "Delegates say the talks are going well, apart from the shouting, the chairs, and the buffet."
+    },
+    {
+      "who": "us",
+      "heat": 1,
+      "text": "Well, I certainly didn't expect a Diplomatic Incident.",
+      "pause": "beat"
+    },
+    {
+      "who": "guest",
+      "heat": 1,
+      "text": "NOBODY expects the Diplomatic Incident!"
+    },
+    {
+      "who": "guest",
+      "heat": 1,
+      "text": "Our chief weapon is surprise. Surprise and queueing. Our TWO chief weapons are surprise, queueing, and a fanatical devotion to the orderly queue.",
+      "pause": "cut"
+    },
+    {
+      "who": "uk",
+      "heat": 1,
+      "text": "Sir Nigel, you are live on Broken News.",
+      "mood": "surprised"
+    },
+    {
+      "who": "guest",
+      "heat": 2,
+      "text": "Amongst our weapons are such diverse elements as surprise, queueing, a sincere apology and a nice cup of tea. I'll come in again.",
+      "pause": "long"
+    },
+    {
+      "who": "us",
+      "heat": 2,
+      "text": "(stares at the door)",
+      "pause": "awkward"
+    },
+    {
+      "who": "guest",
+      "heat": 2,
+      "text": "NOBODY expects the Diplomatic Incident! Fetch... THE COMFY CHAIR!",
+      "chair": "us"
+    },
+    {
+      "who": "us",
+      "heat": 3,
+      "text": "That is NOT. A COMFY. CHAIR."
+    }
+  ],
+  "brawl": {
+    "seconds": 6,
+    "arena": "arena.news-studio",
+    "shouts": {
+      "us": "COMFY?!",
+      "uk": "ORDER! ORDER!",
+      "guest": "SORRY! SORRY!"
+    }
+  },
+  "minigame": "test-card",
+  "realStory": {
+    "text": "Made up. Diplomatic Incident is real, though: forty countries brawl nonstop at careercrash.org/incident, and your likes make your country's delegate stronger. The sketch is Monty Python's Spanish Inquisition (1970). No cushions were harmed."
+  }
+}
