@@ -1,7 +1,9 @@
 # Broken News 02: the anchors as fighters (bodies and heads)
 
-> **Status:** not delivered yet. In the brawl Brock borrows the TV host's
-> puppet and Philippa the journalist's.
+> **Status (9 October 2026):** A (both body sheets) delivered and in the
+> game (`npc.news-brock`, `npc.news-philippa`; Brock's sheet needed six cuts
+> in the manifest, Philippa's one). Still to come: B, the four heads each:
+> until then each fights with the sheet's own head, one expression.
 
 > Part of the Broken News art set (`art/news/README.md`, read *The two
 > anchors* first). Design: `docs/career-crash/10-broken-news.md` §3.

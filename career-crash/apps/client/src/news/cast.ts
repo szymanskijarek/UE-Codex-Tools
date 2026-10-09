@@ -1,7 +1,7 @@
 /**
- * The Broken News desk (10 §3). Both anchors borrow an existing career's face
- * and puppet until their own art lands (art/news/); swap `career` for their
- * own puppet id then.
+ * The Broken News desk (10 §3). Each anchor fights with an existing career's
+ * moves (`career`) and wears their own painted body in the brawl (`persona`,
+ * art brief 02) and their own pictures at the desk (`art`, brief 01).
  */
 import type { VoiceType } from '../replay/voices';
 import type { Seat } from './episode';
@@ -11,8 +11,10 @@ export interface Anchor {
   name: string;
   /** What the lower third calls them. */
   role: string;
-  /** Stand-in career (face, brawl puppet). */
+  /** The career they fight with (moves, stats); its face stands in for any art they lack. */
   career: string;
+  /** Their own brawl puppet (`art/sheets/npc-news-<x>.png`), render only. */
+  persona: string;
   voice: VoiceType;
   pitch: number;
   /** Strap colour. */
@@ -29,6 +31,7 @@ export const ANCHORS: Record<'us' | 'uk', Anchor> = {
     name: 'Brock Stetson Jr.',
     role: 'Senior Anchor (self-appointed)',
     career: 'career.tv-host',
+    persona: 'npc.news-brock',
     voice: 'deep',
     pitch: 0.9,
     color: '#c8102e',
@@ -40,6 +43,7 @@ export const ANCHORS: Record<'us' | 'uk', Anchor> = {
     name: 'Philippa Featherstonehaugh',
     role: 'Co-Anchor · pronounced "Fanshaw"',
     career: 'career.journalist',
+    persona: 'npc.news-philippa',
     voice: 'bright',
     pitch: 1.05,
     color: '#1d3f8f',

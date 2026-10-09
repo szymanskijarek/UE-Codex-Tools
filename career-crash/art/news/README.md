@@ -1,11 +1,10 @@
 # Broken News: art briefs for the image agent
 
 > **Status (9 October 2026):** the desk shot is painted: backdrop, desk and
-> both anchors, six expressions each (01 A–C). Next: the lip-flap mouth
-> frames (01 D), then the anchors as fighters (02). Still on stand-ins: Dusty
-> Gale at the desk (the photographer's career face on a CSS suit, 04) and the
-> brawl (the TV host's, journalist's and photographer's puppets in the
-> Theatre arena).
+> both anchors, six expressions each (01 A–C), and both anchors fight in
+> their own bodies (02 A). Next: the lip-flap mouth frames (01 D) and the
+> anchors' four fight heads (02 B). Still on stand-ins: Dusty Gale (the
+> photographer's face and puppet, 04) and the brawl's arena (the Theatre, 03).
 
 Art for **careercrash.org/news** (design: `docs/career-crash/10-broken-news.md`):
 a cable-news studio where two anchors read the week's story, bicker, and

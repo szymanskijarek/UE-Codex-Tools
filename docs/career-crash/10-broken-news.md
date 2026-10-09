@@ -71,7 +71,7 @@ Every episode opens with the same segment, in this order:
 |---|---|---|---|
 | 1 | **Ident** | 2.4 s | Sting. The BROKEN NEWS logo slams in and cracks. |
 | 2 | **Desk** | ~25–40 s | Close-up of the anchors behind the desk. They read the story straight, then needle each other; it gets personal; the last line is the swing. A guest may walk on mid-argument. |
-| 3 | **Brawl** | 2–6 s (pilot: 4) | Cut to the studio floor: the anchors (and guest) brawl, a real Career Crash fight, shot as a **close-up**: the camera locks onto the two anchors at up to 2.6× zoom (the guest runs into shot), unlike the wide director's camera of the mass brawls elsewhere in Career Crash, and keeps the bottom 16% clear for the straps. Everyone gets one shouted line as the first punch lands (a 0.8 s freeze-frame so it reads). |
+| 3 | **Brawl** | 2–6 s (pilot: 4) | Cut to the studio floor: the anchors (and guest) brawl, a real Career Crash fight, shot as a **close-up**: the camera locks onto the two anchors at up to 3.4× zoom (the guest runs into shot), unlike the wide director's camera of the mass brawls elsewhere in Career Crash, and keeps the bottom 16% clear for the straps. Everyone gets one shouted line as the first punch lands (a 0.8 s freeze-frame so it reads). |
 | 4 | **Stand-by** | 1.6 s | Colour bars: *WE ARE EXPERIENCING TECHNICAL DIFFICULTIES*. |
 | 5 | **Hand-off** | 2.6 s | *THIS WEEK ON BROKEN NEWS:* the minigame's title and one line on what to do. |
 | 6 | **Minigame** | the game's own | The week's game, mounted into the same TV frame. |
@@ -337,7 +337,10 @@ before the first hit lands, so it changes with the sim like any other fight.
   mouth) every 0.13 s, once those frames exist (brief 01 D). Anyone without
   painted art falls back to their career face. Speech bubbles sit in the top
   strip; the clock sits above the strap, bottom right.
-- The brawl is a close-up (`BattleRenderer.closeUp`): framed on the anchors,
+- In the brawl the anchors wear their own puppets (`npc.news-brock`,
+  `npc.news-philippa`, art brief 02 A) and fight with the TV host's and
+  journalist's moves.
+- The brawl is a close-up (`BattleRenderer.closeUp`, up to 3.4×): framed on the anchors,
   cut straight to the framing, bottom strip kept clear.
 
 **Not yet:** the rest of the studio art (the anchors at the desk are 64 px career faces on CSS suits; brawl in the

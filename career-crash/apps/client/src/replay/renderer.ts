@@ -3630,7 +3630,7 @@ export class BattleRenderer {
     } else if (this.closeUpIds) {
       const ids = this.closeUpIds;
       const shot = [...this.chars.values()].filter((c) => ids.includes(c.id) && c.root.visible);
-      frame(shot, this.closeUpZoom, 1100 * this.scale);
+      frame(shot, this.closeUpZoom, 800 * this.scale);
       ty += (sh * this.closeUpClear) / 2 / tz;
       speed = 350;
     } else {

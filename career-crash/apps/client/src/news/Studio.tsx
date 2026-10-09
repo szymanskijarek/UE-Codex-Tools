@@ -28,7 +28,7 @@ const BRAWL_RUNUP_TICKS = TICKS_PER_SECOND;
 /** The cut to the brawl holds still this long so everyone's shout reads (no ability callouts over it). */
 const BRAWL_FREEZE_MS = 800;
 /** How far the brawl camera may zoom in (the director's wide shot is 1). */
-const BRAWL_ZOOM = 2.6;
+const BRAWL_ZOOM = 3.4;
 /** The chyron and ticker cover the bottom of the picture (news.css: 6.5% + 8%). */
 const BRAWL_STRAP_CLEAR = 0.16;
 
@@ -41,6 +41,7 @@ interface Person {
   voice: Voice;
   bsn?: string;
   art?: string;
+  persona?: string;
 }
 
 function cast(ep: Episode): Person[] {
@@ -56,7 +57,7 @@ function brawlInput(ep: Episode, people: Person[]): BattleInput {
   const teams: TeamSnapshot[] = people.map((p) => {
     const base = toSnapshot(generateRecruit(bundle, Rng.fromSeed(`news:${p.seat}`), `news-${p.seat}`));
     const held = bundle.careers.find((c) => c.id === p.career)?.art.heldItem ?? null;
-    const c: CharacterSnapshot = { ...base, name: p.name, careers: [p.career], masteries: [], held, level: 6 };
+    const c: CharacterSnapshot = { ...base, name: p.name, careers: [p.career], masteries: [], held, level: 6, ...(p.persona ? { persona: p.persona } : {}) };
     return { playerId: `news-${p.seat}`, playerName: p.name, rating: 1000, characters: [c] };
   });
   return { schemaVersion: 1, contentHash: bundle.hash, simVersion: SIM_VERSION, seed: ep.id, arenaId: ep.brawl.arena ?? 'arena.theatre', mode: 'ffa', teams, modifiers: [] };

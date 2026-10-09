@@ -938,5 +938,71 @@
    "footL": 10,
    "footR": 11
   }
+ },
+ "npc-news-brock": {
+  "cut": [
+   [
+    3,
+    0.343
+   ],
+   [
+    201,
+    0.274
+   ],
+   [
+    202,
+    0.367
+   ],
+   [
+    203,
+    0.367
+   ],
+   [
+    204,
+    0.588
+   ],
+   [
+    205,
+    0.588
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "torso": 3,
+   "pelvis": 201,
+   "upperArmL": 2,
+   "upperArmR": 4,
+   "foreArmL": 5,
+   "foreArmR": 6,
+   "thighL": 202,
+   "thighR": 203,
+   "shinL": 204,
+   "shinR": 205,
+   "footL": 206,
+   "footR": 207
+  }
+ },
+ "npc-news-philippa": {
+  "cut": [
+   [
+    9,
+    0.497
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "torso": 3,
+   "pelvis": 7,
+   "upperArmL": 2,
+   "upperArmR": 4,
+   "foreArmL": 5,
+   "foreArmR": 6,
+   "thighL": 8,
+   "thighR": 9,
+   "shinL": 10,
+   "shinR": 201,
+   "footL": 11,
+   "footR": 12
+  }
  }
 }
