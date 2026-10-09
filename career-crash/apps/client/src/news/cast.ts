@@ -51,3 +51,43 @@ export const ANCHORS: Record<'us' | 'uk', Anchor> = {
     art: 'philippa',
   },
 };
+
+/** A reporter in the field (10 §13). Stand-in career faces until art brief 06 lands. */
+export interface Reporter {
+  seat: 'field';
+  name: string;
+  role: string;
+  career: string;
+  persona?: string;
+  voice: VoiceType;
+  pitch: number;
+  color: string;
+  bsn: string;
+  /** Their painted pictures, `art/field-<art>-<face>.webp` (brief 06), once they exist. */
+  art: string;
+}
+
+export const FIELD: Record<'chase' | 'rupert', Reporter> = {
+  chase: {
+    seat: 'field',
+    name: 'Chase Hurley',
+    role: 'Field Reporter · in the eye of the storm',
+    career: 'career.firefighter',
+    voice: 'mid',
+    pitch: 1,
+    color: '#ea580c',
+    bsn: 'Batten Shutters Now',
+    art: 'chase',
+  },
+  rupert: {
+    seat: 'field',
+    name: 'Rupert Fennimore-Twistleton',
+    role: 'Foreign Correspondent · somewhere',
+    career: 'career.archaeologist',
+    voice: 'gravel',
+    pitch: 0.95,
+    color: '#7c6a3c',
+    bsn: 'Behind Shellfire, Nominally',
+    art: 'rupert',
+  },
+};

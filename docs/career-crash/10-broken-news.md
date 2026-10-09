@@ -425,7 +425,15 @@ with a link card to `/news/` (`news_ad_link` lines for the card). Code:
 `promotedPosts` in `apps/client/src/career/feed.ts`, placed by `timeline` in
 `Hub.tsx`. In the single-file build the link goes to careercrash.org.
 
-## 13. Field reports (plan, 9 October 2026)
+## 13. Field reports (block-out built, 9 October 2026)
+
+**Status:** phase 1 (block-out) and most of phase 3 are built: the three
+shots (`shotOf` in `episode.ts`, `FieldShot` in `Studio.tsx`), the field
+overlay, `pause: "delay"`, `glitch`, `photobomb` and `weather: "wind"`, with
+stand-in career faces (firefighter for Chase, archaeologist for Rupert) and a
+CSS microphone. Test reports: *Storm Gerald* (Chase at the docks) and *Frog
+Liquidated* (Rupert on the Trading Floor). Still to come: the reporters' art
+(brief 06), field brawls (§13.7).
 
 "Let's go live to our correspondent…": a reporter on location, cut in from
 the desk. It changes the scene and the overlay, so it's its own shot, not just

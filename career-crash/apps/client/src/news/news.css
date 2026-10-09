@@ -806,3 +806,280 @@ body.bn-page {
   z-index: 5;
   pointer-events: none;
 }
+
+/* ---- Field reports (10 §13): the double box and the reporter on location ---- */
+.bn-field,
+.bn-split {
+  position: absolute;
+  inset: 0;
+  background: #050811;
+}
+/* The location: an arena painting, softened so the reporter stands out. */
+.bn-location {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.bn-location-bg {
+  position: absolute;
+  inset: -3%;
+  width: 106%;
+  height: 106%;
+  object-fit: cover;
+  object-position: 50% 35%;
+  filter: blur(2px) saturate(0.9) brightness(0.85);
+}
+.bn-reporter {
+  position: absolute;
+  left: 36%;
+  bottom: 14.5%;
+  width: 34%;
+}
+/* A figure: the painted picture, or a stand-in face on a jacket. */
+.bn-figure {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.bn-figure.bn-painted img {
+  width: 100%;
+}
+.bn-figure .bn-head {
+  width: 62%;
+}
+.bn-figure .bn-suit {
+  height: 14cqw;
+  background: var(--c);
+}
+.bn-figure.bn-talking .bn-head,
+.bn-figure.bn-talking img {
+  animation: bn-talk 0.3s ease-in-out infinite alternate;
+  transform-origin: 50% 100%;
+}
+/* The handheld mic, held up at chin height, its flag printed BSN. */
+.bn-mic {
+  position: absolute;
+  left: 20%;
+  top: -18%;
+  width: 7%;
+  height: 46%;
+  background: #1b1f2a;
+  border-radius: 0.6cqw;
+  transform: rotate(-14deg);
+}
+.bn-mic::before {
+  content: '';
+  position: absolute;
+  left: -40%;
+  top: -18%;
+  width: 180%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #9aa3b5, #3b4252);
+  border: 0.25cqw solid #1b1f2a;
+}
+.bn-mic::after {
+  content: 'BSN';
+  position: absolute;
+  left: -90%;
+  top: 22%;
+  padding: 0.2cqw 0.5cqw;
+  background: #c8102e;
+  border: 0.2cqw solid #fff;
+  color: #fff;
+  font-weight: 900;
+  font-size: 1.1cqw;
+  font-style: normal;
+}
+/* Satellite delay: the reporter stuck mid-smile, the picture slightly stale. */
+.bn-frozen {
+  animation: none !important;
+  filter: saturate(0.75) contrast(1.05);
+}
+.bn-frozen * {
+  animation: none !important;
+}
+/* Signal break: the picture tears and jumps for a moment. */
+.bn-glitch {
+  animation: bn-glitch 0.65s steps(6) both;
+}
+@keyframes bn-glitch {
+  0% {
+    clip-path: inset(0 0 0 0);
+    transform: translateX(0);
+    filter: none;
+  }
+  20% {
+    clip-path: inset(18% 0 52% 0);
+    transform: translateX(-3%);
+    filter: hue-rotate(80deg) contrast(1.6);
+  }
+  40% {
+    clip-path: inset(62% 0 8% 0);
+    transform: translateX(4%);
+    filter: saturate(3);
+  }
+  60% {
+    clip-path: inset(0 0 0 0);
+    transform: translateX(-1%) scale(1.02);
+    filter: grayscale(1) contrast(2);
+  }
+  80% {
+    transform: translateX(2%);
+    filter: none;
+  }
+}
+/* Weather that isn't there: wind streaks over a perfectly calm backdrop. */
+.bn-wind {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(-8deg, transparent 0 3.2cqw, #ffffff38 3.2cqw 3.45cqw, transparent 3.45cqw 7cqw);
+  background-size: 200% 100%;
+  animation: bn-wind 0.45s linear infinite;
+}
+@keyframes bn-wind {
+  to {
+    background-position: -40cqw 0;
+  }
+}
+.bn-weather-wind .bn-reporter {
+  transform: rotate(-4deg);
+  transform-origin: 50% 100%;
+}
+.bn-weather-wind .bn-figure .bn-head {
+  animation: bn-gust 0.5s ease-in-out infinite alternate;
+}
+@keyframes bn-gust {
+  to {
+    transform: translateX(-4%) rotate(-3deg);
+  }
+}
+/* A local pops up behind the reporter's shoulder. */
+.bn-photobomb {
+  position: absolute;
+  left: 63%;
+  bottom: 38%;
+  width: 16%;
+  animation: bn-photobomb 1.6s ease-out both;
+}
+.bn-photobomb svg {
+  width: 100%;
+  height: auto;
+}
+@keyframes bn-photobomb {
+  0% {
+    transform: translateY(60%);
+    opacity: 0;
+  }
+  25% {
+    transform: translateY(0) rotate(-6deg);
+    opacity: 1;
+  }
+  50% {
+    transform: translateY(-4%) rotate(6deg);
+  }
+  75% {
+    transform: translateY(0) rotate(-6deg);
+  }
+}
+
+/* The double box: anchor in the studio | reporter on location. */
+.bn-split {
+  background: linear-gradient(135deg, #13204a, #0a1022);
+}
+.bn-box {
+  position: absolute;
+  top: 15.5%;
+  width: 45%;
+  aspect-ratio: 4 / 2.85;
+  overflow: hidden;
+  border: 0.35cqw solid #fff;
+  box-shadow: 0 0.8cqw 2cqw #0009;
+  container-type: inline-size;
+}
+.bn-box-studio {
+  left: 2.5%;
+}
+.bn-box-field {
+  right: 2.5%;
+}
+.bn-box-studio .bn-layer {
+  object-position: 30% 30%;
+  transform: scale(1.6);
+  transform-origin: 30% 20%;
+}
+.bn-box-studio .bn-figure {
+  position: absolute;
+  left: 10%;
+  bottom: -32%;
+  width: 82%;
+}
+.bn-box-field .bn-reporter {
+  left: 22%;
+  bottom: -2%;
+  width: 60%;
+}
+.bn-box-field .bn-photobomb {
+  left: 64%;
+  bottom: 44%;
+  width: 26%;
+}
+.bn-box .bn-figure .bn-suit {
+  height: 26cqw;
+}
+.bn-box .bn-mic::after {
+  font-size: 2.2cqw;
+}
+.bn-box-tag {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  background: #000c;
+  color: #fff;
+  font-weight: 900;
+  font-size: 3.4cqw;
+  letter-spacing: 0.08em;
+  padding: 0.8cqw 2cqw;
+}
+.bn-delay {
+  position: absolute;
+  right: 3%;
+  top: 4%;
+  background: #f5c542;
+  color: #10152a;
+  font-weight: 900;
+  font-size: 3.6cqw;
+  padding: 0.5cqw 1.6cqw;
+  animation: bn-blink 1s steps(2) infinite;
+}
+.bn-sat {
+  position: absolute;
+  top: 3%;
+  left: 13%;
+  background: #0009;
+  font-weight: 800;
+  font-size: 1.4cqw;
+  padding: 0.3cqw 1cqw;
+  border-radius: 0.4cqw;
+  z-index: 4;
+}
+.bn-breaking.bn-dateline {
+  animation: none;
+}
+/* Bubbles on field shots: over the reporter, or over whichever box is talking. */
+.bn-bubble-field {
+  right: 6%;
+  top: 6%;
+}
+.bn-bubble-left {
+  left: 3%;
+  top: 9.5%;
+  max-width: 44%;
+}
+.bn-bubble-right {
+  right: 3%;
+  top: 9.5%;
+  max-width: 44%;
+}

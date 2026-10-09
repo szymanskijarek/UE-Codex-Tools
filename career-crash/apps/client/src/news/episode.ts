@@ -7,8 +7,11 @@
  */
 import type { Emotion } from '../replay/face-art';
 
-/** Who is talking: the American anchor, the British anchor, or this week's guest. */
-export type Seat = 'us' | 'uk' | 'guest';
+/** Who is talking: the American anchor, the British anchor, this week's guest, or the field reporter (10 §13). */
+export type Seat = 'us' | 'uk' | 'guest' | 'field';
+
+/** The camera (10 §13.2): the desk, the double box (anchor | reporter), or the reporter full screen. */
+export type Shot = 'desk' | 'split' | 'field';
 
 /** How far the desk has spiralled: 0 professional, 1 bickering, 2 personal, 3 about to swing. */
 export type Heat = 0 | 1 | 2 | 3;
@@ -25,6 +28,28 @@ export interface Beat {
   chair?: Seat;
   /** Comic timing after the line (10 §4.4); without it the gap shrinks as the desk heats up. */
   pause?: Pause;
+  /** Force the camera for this line (otherwise it follows who's talking to whom, `shotOf`). */
+  shot?: Shot;
+  /** The satellite picture tears and stutters as the line starts (field shots). */
+  glitch?: boolean;
+  /** A local pops up behind the reporter's shoulder, waving: a persona (`npc.bro-pepe`) or a career. */
+  photobomb?: string;
+}
+
+/** A report from the field (10 §13): who, where, and when it can start. */
+export interface Field {
+  /** Reporter id (cast.ts `FIELD`). */
+  reporter: 'chase' | 'rupert';
+  /** The location: an arena whose painting is the backdrop. */
+  location: string;
+  /** The strap: where they are, in capitals. */
+  dateline: string;
+  /** Local time on the clock: always unreasonable. */
+  localTime: string;
+  /** Weather that isn't there. */
+  weather?: 'wind';
+  /** The throw: the first line index the reporter can speak at. */
+  enters: number;
 }
 
 /**
@@ -33,8 +58,9 @@ export interface Beat {
  * - `beat`: a short comic beat before the reply.
  * - `long`: a dramatic pause; the line hangs there.
  * - `awkward`: dead air. Everyone stares; nobody fills it.
+ * - `delay`: satellite delay, on a line to the field: the reporter stays frozen mid-smile before answering.
  */
-export type Pause = 'cut' | 'beat' | 'long' | 'awkward';
+export type Pause = 'cut' | 'beat' | 'long' | 'awkward' | 'delay';
 
 export interface Guest {
   name: string;
@@ -71,6 +97,8 @@ export interface Episode {
   /** Lines for the crawl along the bottom. */
   ticker: string[];
   guest?: Guest;
+  /** A reporter live on location (10 §13). */
+  field?: Field;
   beats: Beat[];
   brawl: {
     seconds: number;
@@ -116,7 +144,7 @@ export const FORMAT = {
   /** The gap after a line finishes, by heat: it shrinks so the argument keeps its momentum. */
   holdMs: [1100, 700, 380, 300],
   /** Extra time a named pause adds after the line (`cut` instead stops the line early). */
-  pauseMs: { cut: 0, beat: 650, long: 1400, awkward: 2300 },
+  pauseMs: { cut: 0, beat: 650, long: 1400, awkward: 2300, delay: 2000 },
   /** How much of a `cut` line gets said before the interruption. */
   cutAt: 0.6,
   /** A line with a rogue chair holds at least this long, so the hit and the hurt face both read. */
@@ -187,6 +215,31 @@ export function deskFace(b: Beat, seat: Seat): DeskFace {
   return b.heat >= 2 ? 'angry' : b.heat === 1 && seat !== 'guest' ? 'surprised' : 'neutral';
 }
 
+/**
+ * Which camera a line gets (10 §13.2): the reporter talking after an anchor, or an anchor
+ * talking to or after the reporter, is the double box; the reporter carrying on is full
+ * screen; everything else is the desk. A line's own `shot` wins.
+ */
+export function shotOf(ep: Episode, i: number): Shot {
+  const b = ep.beats[i]!;
+  if (b.shot) return b.shot;
+  if (!ep.field) return 'desk';
+  const prev = ep.beats[i - 1]?.who;
+  const next = ep.beats[i + 1]?.who;
+  if (b.who === 'field') return prev === 'field' ? 'field' : 'split';
+  if (b.who === 'guest') return 'desk';
+  return prev === 'field' || next === 'field' ? 'split' : 'desk';
+}
+
+/** The anchor in the left box of a split: the one talking, else the last one who did. */
+export function splitAnchor(ep: Episode, i: number): 'us' | 'uk' {
+  for (let k = i; k >= 0; k--) {
+    const w = ep.beats[k]!.who;
+    if (w === 'us' || w === 'uk') return w;
+  }
+  return 'us';
+}
+
 export function timeline(ep: Episode): { cues: Cue[]; totalMs: number } {
   const cues: Cue[] = [];
   let at = 0;
@@ -229,6 +282,13 @@ export function checkEpisode(ep: Episode, minigames: readonly string[]): string[
   if (ep.brawl.seconds < FORMAT.brawlMinS || ep.brawl.seconds > FORMAT.brawlMaxS) out.push(`brawl must last ${FORMAT.brawlMinS}–${FORMAT.brawlMaxS} s`);
   if (!minigames.includes(ep.minigame)) out.push(`unknown minigame "${ep.minigame}"`);
   if (!ep.ticker.length) out.push('the ticker needs at least one line');
+  ep.beats.forEach((b, i) => {
+    if (b.who === 'field' && !ep.field) out.push(`line ${i + 1}: a field line, but the episode has no field report`);
+    if (b.who === 'field' && ep.field && i < ep.field.enters) out.push(`line ${i + 1}: the reporter speaks before the throw`);
+    if (b.pause === 'delay' && ep.beats[i + 1]?.who !== 'field') out.push(`line ${i + 1}: a satellite delay needs the reporter to answer next`);
+    if (b.chair === 'field') out.push(`line ${i + 1}: the chair can't reach the field`);
+    if ((b.shot === 'split' || b.shot === 'field' || b.glitch || b.photobomb) && !ep.field) out.push(`line ${i + 1}: a field shot, but no field report`);
+  });
   if (ep.chyron.length > FORMAT.chyronMax) out.push(`chyron is ${ep.chyron.length} characters; the strap fits ${FORMAT.chyronMax}`);
   if (!ep.realStory?.text) out.push('every episode ends with the real story');
   if (!ep.bsn || !spellsBsn(ep.bsn)) out.push(`"${ep.bsn ?? ''}" doesn't spell BSN`);

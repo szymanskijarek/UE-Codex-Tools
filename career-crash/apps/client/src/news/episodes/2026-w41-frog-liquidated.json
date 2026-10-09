@@ -1,0 +1,100 @@
+{
+  "id": "2026-w41-frog-liquidated",
+  "week": "2026-10-05",
+  "bsn": "Bears Sold Nothing",
+  "headline": "FROG LIQUIDATED",
+  "chyron": "CRYPTO FROG LIQUIDATED AT 3 AM. BROS GRIEVE",
+  "ticker": [
+    "CRYPTO BROS AT CAREERCRASH.ORG/CRYPTOBRO: WATCH THE FROG GET LIQUIDATED, HOURLY",
+    "DOG COIN \"DEEPLY SORRY, ALSO BUYING\"",
+    "BROS HOLD CANDLELIGHT VIGIL, CANDLES ARE GREEN",
+    "CORRESPONDENT'S SCARF \"NOT A STORY\", SAYS PHILIPPA"
+  ],
+  "field": {
+    "reporter": "rupert",
+    "location": "arena.trading-floor",
+    "dateline": "THE TRADING FLOOR, CANARY WHARF",
+    "localTime": "3:12 AM",
+    "enters": 1
+  },
+  "beats": [
+    {
+      "who": "uk",
+      "heat": 0,
+      "text": "Chaos in the crypto markets tonight. Our foreign correspondent Rupert Fennimore-Twistleton is on the trading floor."
+    },
+    {
+      "who": "field",
+      "heat": 0,
+      "text": "Philippa. At three o'clock this morning, on this very floor, a coin shaped like a frog was liquidated."
+    },
+    {
+      "who": "field",
+      "heat": 0,
+      "text": "Behind me, the bros are processing what has happened. Some are weeping. Most are buying the dip.",
+      "photobomb": "npc.bro-pepe",
+      "pause": "beat"
+    },
+    {
+      "who": "us",
+      "heat": 1,
+      "text": "Rupert, Brock here. Big fan. Is that the frog? Waving at the camera?",
+      "pause": "delay"
+    },
+    {
+      "who": "field",
+      "heat": 1,
+      "text": "Philippa. It's lovely to hear your voice again.",
+      "pause": "awkward"
+    },
+    {
+      "who": "us",
+      "heat": 1,
+      "text": "Again?",
+      "shot": "desk",
+      "mood": "surprised"
+    },
+    {
+      "who": "uk",
+      "heat": 2,
+      "text": "We don't need to get into that, Brock.",
+      "shot": "desk"
+    },
+    {
+      "who": "field",
+      "heat": 2,
+      "text": "I still have the scarf, Philippa. I wear it in every war zone. Including this one.",
+      "glitch": true,
+      "pause": "long"
+    },
+    {
+      "who": "us",
+      "heat": 2,
+      "text": "Rupert, it's a trading floor. The war is between a dog and a frog."
+    },
+    {
+      "who": "field",
+      "heat": 2,
+      "text": "Back to you in the studio. Au revoir. Auf Wiedersehen. Bon... appétit.",
+      "pause": "beat"
+    },
+    {
+      "who": "us",
+      "heat": 3,
+      "text": "WHAT. SCARF. PHILIPPA?!",
+      "shot": "desk"
+    }
+  ],
+  "brawl": {
+    "seconds": 6,
+    "arena": "arena.news-studio",
+    "shouts": {
+      "us": "WHAT SCARF?!",
+      "uk": "IT WAS ONE DINNER!"
+    }
+  },
+  "minigame": "test-card",
+  "realStory": {
+    "text": "Made up: no frog coin was liquidated at 3 a.m. (that we know of). Crypto Bros is real, though: the top ten coins brawl as crypto bros at careercrash.org/cryptobro, and a coin that tanks gets liquidated every hour. Not financial advice."
+  }
+}

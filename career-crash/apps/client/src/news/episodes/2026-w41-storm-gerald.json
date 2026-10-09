@@ -1,0 +1,98 @@
+{
+  "id": "2026-w41-storm-gerald",
+  "week": "2026-10-05",
+  "bsn": "Blown Slightly Northwards",
+  "headline": "STORM GERALD",
+  "chyron": "STORM GERALD MAKES LANDFALL. MOSTLY PLEASANT",
+  "ticker": [
+    "MET OFFICE UPGRADES STORM GERALD TO \"A BIT BREEZY\"",
+    "LOCAL MAN LOSES SOME OF HIS HAT",
+    "PIER CRAFT FAIR \"GOING AHEAD REGARDLESS\"",
+    "CAREERCRASH.ORG: THE DOCKS ARENA REPORTS NO WEATHER, JUST SAILORS"
+  ],
+  "field": {
+    "reporter": "chase",
+    "location": "arena.docks",
+    "dateline": "PORT GRUMBLE QUAYSIDE",
+    "localTime": "4:51 AM",
+    "weather": "wind",
+    "enters": 1
+  },
+  "beats": [
+    {
+      "who": "us",
+      "heat": 0,
+      "text": "Good evening. Storm Gerald makes landfall tonight. We go live to my guy in the eye of the storm, Chase Hurley."
+    },
+    {
+      "who": "field",
+      "heat": 0,
+      "text": "Brock, I'm on the quayside at Port Grumble, and I can tell you: it is BIBLICAL out here."
+    },
+    {
+      "who": "field",
+      "heat": 1,
+      "text": "Winds of up to four miles an hour. A man has lost his hat. Not all of his hat. Some of his hat.",
+      "pause": "beat"
+    },
+    {
+      "who": "uk",
+      "heat": 1,
+      "text": "Chase, I'm looking at the weather map. It says \"pleasant\".",
+      "pause": "delay"
+    },
+    {
+      "who": "field",
+      "heat": 1,
+      "text": "Yes, Brock. It is BIBLICAL.",
+      "pause": "awkward"
+    },
+    {
+      "who": "uk",
+      "heat": 1,
+      "text": "That was your question, Brock. Two questions ago.",
+      "shot": "desk",
+      "mood": "surprised"
+    },
+    {
+      "who": "us",
+      "heat": 1,
+      "text": "He's my guy, Philippa. Chase, what are the locals saying?",
+      "pause": "delay"
+    },
+    {
+      "who": "field",
+      "heat": 2,
+      "text": "That's right, Philippa. Pleasant. DEADLY pleasant."
+    },
+    {
+      "who": "field",
+      "heat": 2,
+      "text": "The pier is... holding... a craft fair, Brock. A CRAFT FAIR. In THIS?",
+      "glitch": true,
+      "pause": "long"
+    },
+    {
+      "who": "uk",
+      "heat": 2,
+      "text": "Brock. Your guy is reporting on bunting."
+    },
+    {
+      "who": "us",
+      "heat": 3,
+      "text": "Gerald is a category five, Philippa, and SO AM I!"
+    }
+  ],
+  "brawl": {
+    "seconds": 6,
+    "arena": "arena.news-studio",
+    "shouts": {
+      "us": "CATEGORY FIVE!",
+      "uk": "IT'S DRIZZLE!"
+    }
+  },
+  "minigame": "test-card",
+  "realStory": {
+    "text": "Made up: Storm Gerald isn't real, and neither is Port Grumble. Real storms are named from a published list each season, and reporters really do stand in them, which is the joke."
+  }
+}

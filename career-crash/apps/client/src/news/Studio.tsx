@@ -7,9 +7,12 @@ import { music } from '../replay/music';
 import { ReplayPlayer } from '../replay/player';
 import { BattleRenderer } from '../replay/renderer';
 import { voiceFor, withVoice, type Voice } from '../replay/voices';
+import type { ComponentChildren } from 'preact';
+import type { Emotion } from '../replay/face-art';
 import { Portrait } from '../ui/components';
-import { ANCHORS, type Anchor } from './cast';
-import { BSN_OFFICIAL, checkEpisode, cueAt, deskFace, isAction, shownText, typeMs, type DeskFace, moodOf, timeline, type Cue, type Episode, type Seat } from './episode';
+import { ANCHORS, FIELD, type Anchor } from './cast';
+import { arenaArt } from '../replay/arena-art';
+import { BSN_OFFICIAL, checkEpisode, cueAt, deskFace, isAction, shotOf, shownText, splitAnchor, typeMs, type Beat, type Shot, type DeskFace, moodOf, timeline, type Cue, type Episode, type Seat } from './episode';
 import { EPISODES, pickEpisode } from './episodes';
 import { MINIGAMES, minigameById } from './minigames';
 import backdropUrl from './art/desk-backdrop.webp';
@@ -53,6 +56,13 @@ interface Person {
   bsn?: string;
   art?: string;
   persona?: string;
+}
+
+/** The reporter in the field, when the episode has a report (not in the studio brawl). */
+function reporterOf(ep: Episode): Person | null {
+  if (!ep.field) return null;
+  const r = FIELD[ep.field.reporter];
+  return { ...r, voice: withVoice(voiceFor(r.career.replace('career.', ''), r.name, ''), { type: r.voice, pitch: r.pitch }) };
 }
 
 function cast(ep: Episode): Person[] {
@@ -115,6 +125,9 @@ type Stage = 'cold' | 'segment' | 'game' | 'signoff';
 export function Studio() {
   const ep = useMemo(() => pickEpisode(), []);
   const people = useMemo(() => cast(ep), [ep]);
+  const reporter = useMemo(() => reporterOf(ep), [ep]);
+  /** Everyone who can speak: the desk, the guest and the reporter (the brawl is only the studio). */
+  const voices = useMemo(() => (reporter ? [...people, reporter] : people), [people, reporter]);
   const { cues, totalMs } = useMemo(() => timeline(ep), [ep]);
   const problems = useMemo(() => checkEpisode(ep, MINIGAMES.map((m) => m.id)), [ep]);
   const game = minigameById(ep.minigame);
@@ -145,7 +158,8 @@ export function Studio() {
     if (cue.phase === 'ident') sting('newsIdent');
     else if (cue.phase === 'desk') {
       const b = ep.beats[cue.beat!]!;
-      const p = people.find((x) => x.seat === b.who);
+      const p = voices.find((x) => x.seat === b.who);
+      if (b.glitch) sfx.play('zap');
       // The voice talks exactly as long as the bubble types: word for word, the same length.
       if (p && !isAction(b)) sfx.speak(shownText(b, typeMs(b)), p.voice, true, typeMs(b) / 1000);
       if (b.heat === 3) sfx.play('ooh');
@@ -260,7 +274,11 @@ export function Studio() {
   // The bed speeds up as the desk heats up (eased inside Music).
   if (song === 'news-bed') music.setTempo(BED_TEMPO[heat]!);
   const progress = cue.phase === 'desk' && beat ? Math.min(1, (ms - cue.at) / typeMs(beat)) : 1;
-  const speaker = speaking ? people.find((p) => p.seat === speaking) : undefined;
+  const speaker = speaking ? voices.find((p) => p.seat === speaking) : undefined;
+  const shot: Shot = cue.phase === 'desk' && cue.beat !== undefined ? shotOf(ep, cue.beat) : 'desk';
+  // Satellite delay: the line to the field is out, and the reporter hasn't heard it yet.
+  const delaying = cue.phase === 'desk' && beat?.pause === 'delay' && progress >= 1;
+  const glitching = cue.phase === 'desk' && !!beat?.glitch && ms - cue.at < 650;
   const guestIn = !!ep.guest && deskBeat >= ep.guest.enters;
   const moodFor = (seat: Seat) => {
     if (cue.phase !== 'desk') return 'neutral';
@@ -323,7 +341,24 @@ export function Studio() {
           </div>
         )}
 
-        {showDesk && cue.phase === 'desk' && (
+        {showDesk && cue.phase === 'desk' && shot !== 'desk' && ep.field && reporter && beat && (
+          <FieldShot
+            shot={shot}
+            ep={ep}
+            reporter={reporter}
+            anchor={people.find((p) => p.seat === splitAnchor(ep, cue.beat!))!}
+            beat={beat}
+            speaking={speaking}
+            heat={heat}
+            text={shownText(beat, ms - cue.at)}
+            delaying={delaying}
+            glitching={glitching}
+            ms={ms}
+            progress={progress}
+          />
+        )}
+
+        {showDesk && cue.phase === 'desk' && shot === 'desk' && (
           <div class={`bn-studio${chairHit ? ' bn-chair-hit' : ''}`}>
             {/* The painted studio (art/news brief 01); the game writes on its screens. */}
             <img class="bn-layer" src={backdropUrl} alt="" />
@@ -403,7 +438,7 @@ export function Studio() {
             </div>
             <div class="bn-bsn">
               <b>BSN</b> stands for {BSN_OFFICIAL}. Officially.
-              {people.map((p) => p.bsn && (
+              {voices.map((p) => p.bsn && (
                 <span key={p.seat}>
                   {' '}
                   {p.name.split(' ')[0]}: <i>{p.bsn}</i>.
@@ -423,7 +458,8 @@ export function Studio() {
           <>
             <div class="bn-live">● LIVE</div>
             <img class="bn-bug" src={bugUrl} alt="BSN" />
-            <div class="bn-clock">7:00 PM ET · MIDNIGHT GMT</div>
+            <div class="bn-clock">{shot !== 'desk' && ep.field ? `${ep.field.localTime} LOCAL` : '7:00 PM ET · MIDNIGHT GMT'}</div>
+            {shot !== 'desk' && <div class="bn-sat">📡 VIA SATELLITE{delaying ? ' · DELAY' : ''}</div>}
             {speaker && (
               <div class="bn-third" style={{ '--c': speaker.color }}>
                 <b>{speaker.name}</b>
@@ -434,8 +470,8 @@ export function Studio() {
               </div>
             )}
             <div class="bn-chyron">
-              <span class="bn-breaking">{cue.phase === 'brawl' ? 'LIVE' : 'BREAKING'}</span>
-              <span class="bn-chyron-text">{cue.phase === 'brawl' ? 'ANCHORS "IN DISCUSSION"' : ep.chyron}</span>
+              <span class={`bn-breaking${shot !== 'desk' ? ' bn-dateline' : ''}`}>{cue.phase === 'brawl' || shot !== 'desk' ? 'LIVE' : 'BREAKING'}</span>
+              <span class="bn-chyron-text">{cue.phase === 'brawl' ? 'ANCHORS "IN DISCUSSION"' : shot !== 'desk' && ep.field ? ep.field.dateline : ep.chyron}</span>
             </div>
             <div class="bn-ticker">
               <div class="bn-ticker-run">
@@ -475,6 +511,96 @@ export function Studio() {
       <p class="bn-foot">
         A <a href="/">Career Crash</a> prototype. Satire: no real anchors, printers or Emmys were harmed.
       </p>
+    </div>
+  );
+}
+
+/** The reporter's painted pictures (art brief 06), once they exist; the career face stands in until then. */
+const FIELD_ART = import.meta.glob('./art/field-*-*.webp', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+
+type FieldFace = 'neutral' | 'talk' | 'smug' | 'surprised' | 'angry' | 'frozen' | 'hurt';
+
+/** The reporter's face on a line: frozen through a satellite delay, talking on their own lines. */
+function fieldFace(b: Beat, delaying: boolean, speaking: boolean): FieldFace {
+  if (delaying) return 'frozen';
+  if (!speaking) return b.heat >= 2 ? 'surprised' : 'neutral';
+  if (b.mood === 'hurt') return 'hurt';
+  if (b.mood === 'surprised') return 'surprised';
+  if (b.mood === 'angry' || b.heat >= 2) return b.heat >= 3 ? 'angry' : 'talk';
+  return b.heat === 1 ? 'smug' : 'talk';
+}
+
+const STAND_IN_MOOD: Record<FieldFace, Emotion> = { neutral: 'neutral', talk: 'neutral', smug: 'neutral', surprised: 'surprised', angry: 'angry', frozen: 'neutral', hurt: 'hurt' };
+
+/** One person on location (or an anchor in their box): their painted picture, or a career face on a jacket. */
+function Figure({ p, face, painted, talking, frozen, mic }: { p: Person; face: Emotion; painted?: string; talking: boolean; frozen?: boolean; mic?: boolean }) {
+  if (painted)
+    return (
+      <div class={`bn-figure bn-painted${talking ? ' bn-talking' : ''}${frozen ? ' bn-frozen' : ''}`}>
+        <img src={painted} alt="" />
+      </div>
+    );
+  return (
+    <div class={`bn-figure${talking ? ' bn-talking' : ''}${frozen ? ' bn-frozen' : ''}`} style={{ '--c': p.color }}>
+      <div class="bn-head">
+        <Portrait c={{ appearance: { skin: '#e0b48a', hair: '#3b2416', hairStyle: 0 }, careers: [p.career], ...(p.persona ? { persona: p.persona } : {}) }} size={160} mood={face} />
+      </div>
+      <div class="bn-suit">{mic ? <i class="bn-mic" /> : <i class="bn-tie" />}</div>
+    </div>
+  );
+}
+
+/** The location: the arena painting, softened behind the reporter, with any weather and photobomb. */
+function Location({ ep, reporter, beat, speaking, delaying, children }: { ep: Episode; reporter: Person; beat: Beat; speaking: Seat | null; delaying: boolean; children?: ComponentChildren }) {
+  const f = ep.field!;
+  const bg = arenaArt(f.location)?.url;
+  const face = fieldFace(beat, delaying, speaking === 'field');
+  const painted = FIELD_ART[`./art/field-${reporter.art}-${face}.webp`];
+  return (
+    <div class={`bn-location${f.weather ? ` bn-weather-${f.weather}` : ''}`}>
+      {bg && <img class="bn-location-bg" src={bg} alt="" />}
+      {beat.photobomb && (
+        <div class="bn-photobomb" key={beat.text}>
+          <Portrait c={{ appearance: { skin: '#e0b48a', hair: '#3b2416', hairStyle: 0 }, careers: [beat.photobomb.startsWith('career.') ? beat.photobomb : 'career.clown'], ...(beat.photobomb.startsWith('npc.') ? { persona: beat.photobomb } : {}) }} size={120} mood="surprised" />
+        </div>
+      )}
+      <div class="bn-reporter">
+        <Figure p={reporter} face={STAND_IN_MOOD[face]} painted={painted} talking={speaking === 'field' && !delaying} frozen={face === 'frozen'} mic />
+      </div>
+      {f.weather === 'wind' && <div class="bn-wind" />}
+      {children}
+    </div>
+  );
+}
+
+/** Field report shots (10 §13.2): the double box (anchor | reporter) or the reporter full screen. */
+function FieldShot(props: { shot: Shot; ep: Episode; reporter: Person; anchor: Person; beat: Beat; speaking: Seat | null; heat: number; text: string; delaying: boolean; glitching: boolean; ms: number; progress: number }) {
+  const { shot, ep, reporter, anchor, beat, speaking, text, delaying, glitching } = props;
+  const action = isAction(beat);
+  const bubble = (side: string) => <div class={`bn-bubble bn-bubble-${side}${action ? ' bn-action' : ''}`}>{text}</div>;
+  if (shot === 'field')
+    return (
+      <div class={`bn-field${glitching ? ' bn-glitch' : ''}`}>
+        <Location ep={ep} reporter={reporter} beat={beat} speaking={speaking} delaying={delaying} />
+        {speaking === 'field' && bubble('field')}
+      </div>
+    );
+  // The double box: the anchor in the studio on the left, the reporter on location on the right.
+  const anchorFace = speaking === anchor.seat ? deskFace(beat, anchor.seat) : beat.heat >= 2 ? 'angry' : 'neutral';
+  const anchorArt = deskArt(anchor.art, anchorFace);
+  return (
+    <div class="bn-split">
+      <div class="bn-box bn-box-studio">
+        <img class="bn-layer" src={backdropUrl} alt="" />
+        <Figure p={anchor} face="neutral" painted={anchorArt} talking={speaking === anchor.seat} />
+        <span class="bn-box-tag">BSN STUDIO</span>
+      </div>
+      <div class={`bn-box bn-box-field${glitching ? ' bn-glitch' : ''}`}>
+        <Location ep={ep} reporter={reporter} beat={beat} speaking={speaking} delaying={delaying} />
+        <span class="bn-box-tag">{ep.field!.dateline.split(',')[0]}</span>
+        {delaying && <span class="bn-delay">SATELLITE DELAY</span>}
+      </div>
+      {speaking && speaking !== 'guest' && bubble(speaking === 'field' ? 'right' : 'left')}
     </div>
   );
 }

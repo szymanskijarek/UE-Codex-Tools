@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { ANCHORS } from '../src/news/cast';
+import { ANCHORS, FIELD } from '../src/news/cast';
 import type { Beat } from '../src/news/episode';
-import { beatMs, BSN_OFFICIAL, checkEpisode, cueAt, deskFace, shownText, typeMs, FORMAT, spellsBsn, timeline, type Episode } from '../src/news/episode';
+import { beatMs, shotOf, BSN_OFFICIAL, checkEpisode, cueAt, deskFace, shownText, typeMs, FORMAT, spellsBsn, timeline, type Episode } from '../src/news/episode';
 import { EPISODES } from '../src/news/episodes';
 import pilot from '../src/news/episodes/2026-w41-printers.json';
 
@@ -46,7 +46,7 @@ describe('Broken News episodes (10 §4)', () => {
   it('BSN never means the same thing twice (10 §3.4)', () => {
     for (const p of [BSN_OFFICIAL, ...Object.values(ANCHORS).map((a) => a.bsn), 'Bureau of Selective Narratives', 'Brawling Since Nineteen-something']) expect([p, spellsBsn(p)]).toEqual([p, true]);
     for (const p of ['British Broadcasting Corporation', 'Bad News', 'Big Shouty Network Now']) expect([p, spellsBsn(p)]).toEqual([p, false]);
-    const used = [BSN_OFFICIAL, ...Object.values(ANCHORS).map((a) => a.bsn), ...EPISODES.flatMap((e) => [e.bsn, e.guest?.bsn ?? []].flat())].map((x) => x.toLowerCase());
+    const used = [BSN_OFFICIAL, ...Object.values(ANCHORS).map((a) => a.bsn), ...Object.values(FIELD).map((r) => r.bsn), ...EPISODES.flatMap((e) => [e.bsn, e.guest?.bsn ?? []].flat())].map((x) => x.toLowerCase());
     expect(used.length).toBe(new Set(used).size);
   });
 
@@ -79,5 +79,17 @@ describe('Broken News episodes (10 §4)', () => {
     expect(beatMs(cut)).toBe(typeMs(cut));
     expect(shownText(cut, 99_999).endsWith('—')).toBe(true);
     expect(shownText(cut, 99_999).length).toBeLessThan(cut.text.length);
+  });
+
+  it('field reports: the camera follows who talks to whom, and the field rules hold (10 §13)', () => {
+    const storm = EPISODES.find((e) => e.id === '2026-w41-storm-gerald')!;
+    const shots = storm.beats.map((_, i) => shotOf(storm, i));
+    expect(shots.slice(0, 3)).toEqual(['split', 'split', 'field']);
+    expect(shots[shots.length - 1]).toBe('desk');
+    expect(shotOf(ep, 0)).toBe('desk');
+    const bad: Episode = { ...storm, beats: storm.beats.map((b, i) => (i === 0 ? { ...b, pause: 'delay' as const, who: 'us' as const } : i === 1 ? { ...b, who: 'uk' as const } : b)) };
+    expect(checkEpisode(bad, MINIGAMES).join('\n')).toContain('satellite delay needs the reporter');
+    const early: Episode = { ...storm, field: { ...storm.field!, enters: 5 } };
+    expect(checkEpisode(early, MINIGAMES).join('\n')).toContain('before the throw');
   });
 });
