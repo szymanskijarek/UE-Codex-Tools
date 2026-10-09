@@ -1,9 +1,8 @@
 # Broken News: art briefs for the image agent
 
-> **Status (9 October 2026):** everything up to brief 05 is in the game. Open:
-> 06 field reporters (ready-to-paste, first), 07 location plates, 08 the episode
-> guests' desk close-ups, and the later guests in 04 (Biff, Tamsin, Ainsley,
-> Kevin).
+> **Status (9 October 2026):** briefs 01–03 and 05–08 are in the game. Open:
+> the later guests in 04 (Biff, Tamsin, Ainsley, Kevin), and mouth twins for
+> the episode guests (08).
 
 Art for **careercrash.org/news** (design: `docs/career-crash/10-broken-news.md`):
 a cable-news studio where two anchors read the week's story, bicker, and

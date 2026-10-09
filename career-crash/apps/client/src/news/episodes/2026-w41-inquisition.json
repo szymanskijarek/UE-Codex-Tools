@@ -17,7 +17,8 @@
     "persona": "npc.del-eng",
     "enters": 3,
     "bsn": "Biscuits Served Now",
-    "color": "#cf142b"
+    "color": "#cf142b",
+    "art": "nigel"
   },
   "beats": [
     {

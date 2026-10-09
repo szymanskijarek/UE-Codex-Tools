@@ -17,7 +17,8 @@
     "persona": "npc.bro-doge",
     "enters": 4,
     "bsn": "Bullish Since Never",
-    "color": "#c9a227"
+    "color": "#c9a227",
+    "art": "wes"
   },
   "beats": [
     {

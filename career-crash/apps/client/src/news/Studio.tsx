@@ -298,10 +298,13 @@ export function Studio() {
     return deskFace(beat, seat);
   };
 
-  // Fetch every painted expression up front, so a face swap never flashes empty.
+  // Fetch this episode's painted expressions up front (its people and reporter only), so a face swap never flashes empty.
   useEffect(() => {
-    for (const url of Object.values(DESK_ART)) new Image().src = url;
-  }, []);
+    const desk = people.map((p) => p.art).filter(Boolean).map((a) => `./art/desk-${a}-`);
+    const field = reporter ? [`./art/field-${reporter.art}-`] : [];
+    for (const [key, url] of Object.entries(DESK_ART)) if (desk.some((d) => key.startsWith(d))) new Image().src = url;
+    for (const [key, url] of Object.entries(FIELD_ART)) if (field.some((d) => key.startsWith(d))) new Image().src = url;
+  }, [people, reporter]);
 
   return (
     <div class="bn">
@@ -552,12 +555,14 @@ function Figure({ p, face, painted, talking, frozen, mic }: { p: Person; face: E
 }
 
 /** The location: the arena painting, softened behind the reporter, with any weather and photobomb. */
-function Location({ ep, reporter, beat, speaking, delaying, children }: { ep: Episode; reporter: Person; beat: Beat; speaking: Seat | null; delaying: boolean; children?: ComponentChildren }) {
+function Location({ ep, reporter, beat, speaking, delaying, ms, progress, children }: { ep: Episode; reporter: Person; beat: Beat; speaking: Seat | null; delaying: boolean; ms: number; progress: number; children?: ComponentChildren }) {
   const f = ep.field!;
   // A location plate (art brief 07, `news:<name>`) or an arena's painting.
   const bg = f.location.startsWith('news:') ? LOCATION_ART[`./art/location-${f.location.slice(5)}.webp`] : arenaArt(f.location)?.url;
   const face = fieldFace(beat, delaying, speaking === 'field');
-  const painted = FIELD_ART[`./art/field-${reporter.art}-${face}.webp`];
+  // Lip flap while their line types out, when the mouth twin exists (brief 06 round 2).
+  const flap = speaking === 'field' && !delaying && progress < 1 && Math.floor(ms / FLAP_MS) % 2 === 1;
+  const painted = (flap && FIELD_ART[`./art/field-${reporter.art}-${face}-b.webp`]) || FIELD_ART[`./art/field-${reporter.art}-${face}.webp`];
   return (
     <div class={`bn-location${f.weather ? ` bn-weather-${f.weather}` : ''}`}>
       {bg && <img class="bn-location-bg" src={bg} alt="" />}
@@ -583,7 +588,7 @@ function FieldShot(props: { shot: Shot; ep: Episode; reporter: Person; anchor: P
   if (shot === 'field')
     return (
       <div class={`bn-field${glitching ? ' bn-glitch' : ''}`}>
-        <Location ep={ep} reporter={reporter} beat={beat} speaking={speaking} delaying={delaying} />
+        <Location ep={ep} reporter={reporter} beat={beat} speaking={speaking} delaying={delaying} ms={props.ms} progress={props.progress} />
         {speaking === 'field' && bubble('field')}
       </div>
     );
@@ -598,7 +603,7 @@ function FieldShot(props: { shot: Shot; ep: Episode; reporter: Person; anchor: P
         <span class="bn-box-tag">BSN STUDIO</span>
       </div>
       <div class={`bn-box bn-box-field${glitching ? ' bn-glitch' : ''}`}>
-        <Location ep={ep} reporter={reporter} beat={beat} speaking={speaking} delaying={delaying} />
+        <Location ep={ep} reporter={reporter} beat={beat} speaking={speaking} delaying={delaying} ms={props.ms} progress={props.progress} />
         <span class="bn-box-tag">{ep.field!.dateline.split(',')[0]}</span>
         {delaying && <span class="bn-delay">SATELLITE DELAY</span>}
       </div>

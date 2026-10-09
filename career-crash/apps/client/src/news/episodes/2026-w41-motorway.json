@@ -1,0 +1,103 @@
+{
+  "id": "2026-w41-motorway",
+  "week": "2026-10-05",
+  "bsn": "Bank-holiday Standstill Nationwide",
+  "headline": "TRAFFIC CHAOS",
+  "chyron": "MOTORWAY TRAFFIC APOCALYPSE: NO CARS",
+  "ticker": [
+    "MOTORWAY REPORTS ZERO CARS, ONE CONE",
+    "CONE RESCUED BY OFF-DUTY BUS DRIVER",
+    "TRAFFIC EXPERTS BLAME EVERYONE BEING AT HOME",
+    "CAREERCRASH.ORG: THE TAXI DRIVER HAS VIEWS ON THIS"
+  ],
+  "field": {
+    "reporter": "chase",
+    "location": "news:motorway",
+    "dateline": "THE MOTORWAY, JUNCTION 9",
+    "localTime": "5:40 AM",
+    "weather": "wind",
+    "enters": 1
+  },
+  "beats": [
+    {
+      "who": "us",
+      "heat": 0,
+      "text": "Travel chaos tonight. Chase Hurley is live on the motorway, where it is a traffic APOCALYPSE."
+    },
+    {
+      "who": "field",
+      "heat": 0,
+      "text": "Brock, I've been out here since four, and I have never seen anything like it."
+    },
+    {
+      "who": "field",
+      "heat": 0,
+      "text": "Not one car. Not ONE. The silence is DEAFENING. Somebody has knocked over a cone.",
+      "pause": "beat"
+    },
+    {
+      "who": "uk",
+      "heat": 1,
+      "text": "Chase, it's a bank holiday. Everyone is at home.",
+      "pause": "delay"
+    },
+    {
+      "who": "field",
+      "heat": 1,
+      "text": "Unbelievable scenes, Brock. Unbelievable.",
+      "pause": "awkward"
+    },
+    {
+      "who": "us",
+      "heat": 1,
+      "text": "He's doing great, Philippa.",
+      "shot": "desk",
+      "mood": "neutral"
+    },
+    {
+      "who": "field",
+      "heat": 2,
+      "text": "Wait. A vehicle. A BUS. It's... it's Terry from Transport. He's waving.",
+      "photobomb": "career.bus-driver",
+      "mood": "surprised"
+    },
+    {
+      "who": "uk",
+      "heat": 2,
+      "text": "Terry is supposed to be in the studio. He's on the rota.",
+      "shot": "desk",
+      "pause": "beat"
+    },
+    {
+      "who": "field",
+      "heat": 2,
+      "text": "Terry has stopped. He's picking up the cone. Brock, the cone is BACK UP, the cone is",
+      "glitch": true,
+      "pause": "cut"
+    },
+    {
+      "who": "us",
+      "heat": 2,
+      "text": "CHASE. This is the greatest report in the history of news.",
+      "pause": "long"
+    },
+    {
+      "who": "uk",
+      "heat": 3,
+      "text": "It's a cone, Brock. It is ONE. CONE.",
+      "shot": "desk"
+    }
+  ],
+  "brawl": {
+    "seconds": 6,
+    "arena": "arena.news-studio",
+    "shouts": {
+      "us": "THE CONE!",
+      "uk": "ONE. CONE."
+    }
+  },
+  "minigame": "test-card",
+  "realStory": {
+    "text": "Made up. Empty roads on a bank holiday are real enough; reporting them as an apocalypse is the joke. Terry has been reminded about the rota."
+  }
+}

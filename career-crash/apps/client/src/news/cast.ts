@@ -52,7 +52,7 @@ export const ANCHORS: Record<'us' | 'uk', Anchor> = {
   },
 };
 
-/** A reporter in the field (10 §13). Stand-in career faces until art brief 06 lands. */
+/** A reporter in the field (10 §13): painted close-ups (brief 06), their own fight body and heads (`persona`). */
 export interface Reporter {
   seat: 'field';
   name: string;
@@ -73,6 +73,7 @@ export const FIELD: Record<'chase' | 'rupert', Reporter> = {
     name: 'Chase Hurley',
     role: 'Field Reporter · in the eye of the storm',
     career: 'career.firefighter',
+    persona: 'npc.news-chase',
     voice: 'mid',
     pitch: 1,
     color: '#ea580c',
@@ -84,6 +85,7 @@ export const FIELD: Record<'chase' | 'rupert', Reporter> = {
     name: 'Rupert Fennimore-Twistleton',
     role: 'Foreign Correspondent · somewhere',
     career: 'career.archaeologist',
+    persona: 'npc.news-rupert',
     voice: 'gravel',
     pitch: 0.95,
     color: '#7c6a3c',

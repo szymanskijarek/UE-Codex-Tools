@@ -1,0 +1,102 @@
+{
+  "id": "2026-w41-sandwich",
+  "week": "2026-10-05",
+  "bsn": "Bread Shortage Nationwide",
+  "headline": "NO SANDWICHES",
+  "chyron": "SANDWICH SHOP RUNS OUT OF SANDWICHES",
+  "ticker": [
+    "SANDWICH SHOP \"OUT OF SANDWICHES, NOT OF SPIRIT\"",
+    "BAKERY ALSO OUT OF BREAD, \"ADMITTEDLY A WORRY\"",
+    "CAREERCRASH.ORG: THE CHEF WAS ASKED. DECLINED TO COMMENT. THREW A PAN",
+    "CRUST SPOTTED. EXPERTS URGE CALM"
+  ],
+  "field": {
+    "reporter": "rupert",
+    "location": "news:sandwich-shop",
+    "dateline": "A HIGH STREET, POSSIBLY KENT",
+    "localTime": "11:59 AM",
+    "enters": 1
+  },
+  "beats": [
+    {
+      "who": "uk",
+      "heat": 0,
+      "text": "Breaking tonight: a sandwich shop has run out of sandwiches. Our foreign correspondent Rupert Fennimore-Twistleton is there."
+    },
+    {
+      "who": "field",
+      "heat": 0,
+      "text": "Philippa. I am standing outside a sandwich shop which, as of eleven o'clock this morning, has no sandwiches."
+    },
+    {
+      "who": "field",
+      "heat": 0,
+      "text": "I asked the owner for a cheese and pickle. No. A BLT? No. Egg mayonnaise? Not as such.",
+      "photobomb": "career.chef",
+      "pause": "beat"
+    },
+    {
+      "who": "us",
+      "heat": 1,
+      "text": "Rupert, Brock here. Did you try the tuna?",
+      "pause": "delay"
+    },
+    {
+      "who": "field",
+      "heat": 1,
+      "text": "No, Brock. Not the tuna. Not even the tuna.",
+      "pause": "awkward"
+    },
+    {
+      "who": "field",
+      "heat": 1,
+      "text": "Coronation chicken? Ploughman's? The so-called Club? Nothing. The shop is, I'm afraid, completely uncontaminated by sandwiches.",
+      "pause": "long"
+    },
+    {
+      "who": "uk",
+      "heat": 2,
+      "text": "Then why is it still open?",
+      "shot": "desk"
+    },
+    {
+      "who": "us",
+      "heat": 2,
+      "text": "Philippa, a shop is a state of mind.",
+      "shot": "desk",
+      "pause": "beat"
+    },
+    {
+      "who": "uk",
+      "heat": 2,
+      "text": "Brock, that's the stupidest thing you've said since \"I sit on danger every night.\"",
+      "shot": "desk",
+      "mood": "angry"
+    },
+    {
+      "who": "field",
+      "heat": 2,
+      "text": "Breaking: the owner has found a single crust. Crowds are gathering. It may be the last crust in",
+      "glitch": true,
+      "pause": "cut"
+    },
+    {
+      "who": "us",
+      "heat": 3,
+      "text": "I'M GOING DOWN THERE. THAT CRUST IS MINE!",
+      "shot": "desk"
+    }
+  ],
+  "brawl": {
+    "seconds": 6,
+    "arena": "arena.news-studio",
+    "shouts": {
+      "us": "MY CRUST!",
+      "uk": "IT'S NOT A STATE OF MIND!"
+    }
+  },
+  "minigame": "test-card",
+  "realStory": {
+    "text": "Made up. It borrows from Monty Python's Cheese Shop sketch (1972), in which a cheese shop turns out to stock no cheese at all. Rupert has since been asked to stop calling sandwich shops \"the front\"."
+  }
+}

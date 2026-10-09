@@ -1,8 +1,9 @@
 # 10 — Broken News (design v0.1)
 
 Status: **block-out** (§10). The reusable studio open runs end to end at
-`careercrash.org/news/` (unlisted, `noindex`) with stand-in art, one pilot
-episode and a placeholder minigame. No real-news episode yet.
+`careercrash.org/news/` (unlisted, `noindex`) with painted art for the
+studio, anchors, guests and field reporters, twelve fictional test episodes
+and a placeholder minigame. No real-news episode yet.
 
 A weekly news show, as a game. Every week a new minigame covers one story from
 the world news, comically and sarcastically, and every minigame starts the
@@ -379,6 +380,9 @@ before the first hit lands, so it changes with the sim like any other fight.
   *100% Spam* (Spam), *Luxury* (Four Yorkshiremen).
 - Guests can be anyone with art: a career (its face), or a persona from the
   other games (a crypto bro, a delegate), shown with their own painted head.
+  A guest with `"art"` is painted at the desk like the anchors (brief 08:
+  `gideon`, `marcel`, `terry`, `nigel`, `wes`, six expressions each). Desk and
+  field pictures are preloaded per episode, not all at once.
   A line in parentheses is a silent stage direction (italic, no voice).
   Chyrons are checked to fit the strap (48 characters).
 - Rogue chair (brief 01E): a script line with `"chair": "us" | "uk" | "guest"`
@@ -396,9 +400,8 @@ before the first hit lands, so it changes with the sim like any other fight.
 - The brawl is a close-up (`BattleRenderer.closeUp`, up to 3.4×): framed on the anchors,
   cut straight to the framing, bottom strip kept clear.
 
-**Not yet:** the rest of the studio art (the anchors at the desk are 64 px career faces on CSS suits; brawl in the
-Theatre with stand-in careers, starting from the arena's spawns, so the guest
-starts out of shot), a real episode and minigame, lazy-loading minigames, per-anchor
+**Not yet:** a real episode and minigame, desk art for the later guests
+(brief 04: Biff, Tamsin, Ainsley, Kevin), mouth twins for the guests, lazy-loading minigames, per-anchor
 voices beyond pitch and type, links from the rest of the site, sitemap and
 share image (the page is `noindex` until launch).
 
@@ -427,13 +430,17 @@ with a link card to `/news/` (`news_ad_link` lines for the card). Code:
 
 ## 13. Field reports (block-out built, 9 October 2026)
 
-**Status:** phase 1 (block-out) and most of phase 3 are built: the three
-shots (`shotOf` in `episode.ts`, `FieldShot` in `Studio.tsx`), the field
-overlay, `pause: "delay"`, `glitch`, `photobomb` and `weather: "wind"`, with
-stand-in career faces (firefighter for Chase, archaeologist for Rupert) and a
-CSS microphone. Test reports: *Storm Gerald* (Chase at the docks) and *Frog
-Liquidated* (Rupert on the Trading Floor). Still to come: the reporters' art
-(brief 06), field brawls (§13.7).
+**Status:** phases 1–3 are built: the three shots (`shotOf` in
+`episode.ts`, `FieldShot` in `Studio.tsx`), the field overlay, `pause:
+"delay"`, `glitch`, `photobomb` and `weather: "wind"`. Both reporters are
+painted (brief 06, delivered 9 October): seven expressions each with lip flap
+on talk, smug and angry, plus brawl puppets and heads (`npc.news-chase`,
+`npc.news-rupert`). A report's `location` is an arena (`arena.docks`) or a
+location plate (`news:motorway`, brief 07: motorway, sheep field, ministry,
+glacier, car park, sandwich shop). Test reports: *Storm Gerald* (Chase at the
+docks), *Frog Liquidated* (Rupert, Trading Floor), *No Sandwiches* (Rupert,
+sandwich shop), *Traffic Chaos* (Chase, motorway, wind). Still to come: field
+brawls (§13.7).
 
 "Let's go live to our correspondent…": a reporter on location, cut in from
 the desk. It changes the scene and the overlay, so it's its own shot, not just

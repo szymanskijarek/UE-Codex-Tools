@@ -1,11 +1,9 @@
 # Broken News 08: desk close-ups for the episode guests
 
-> **Status (9 October 2026):** not delivered yet. The guests in the six new
-> episodes sit at the desk as a painted head on a plain CSS suit: their
-> career's face (Gideon, Marcel, Terry) or their own painted head from Crypto
-> Bros or Diplomatic Incident (Wes, Sir Nigel). These close-ups put them in the
-> same painted shot as the anchors and Dusty. They fight with their existing
-> bodies, so no body sheets are needed.
+> **Status (9 October 2026):** delivered and in the game: all five guests,
+> six expressions each, named by `"art"` in their episodes. Still open: their
+> mouth twins for lip flap (brief 01D's method); until then they hold still
+> while talking.
 
 > Part of the Broken News art set (`art/news/README.md`). Same rules as Dusty's
 > close-ups (brief 04): **use the session that drew the desk art** if you can,

@@ -1,9 +1,8 @@
 # Broken News 06: the field reporters (ready-to-paste prompts)
 
-> **Status (9 October 2026):** not delivered yet. The field block-out is live
-> (design `docs/career-crash/10-broken-news.md` §13): stand-in career faces on a
-> CSS jacket with a CSS microphone. The game picks these pictures up by file
-> name the moment they're in, so no code changes are needed when they arrive.
+> **Status (9 October 2026):** delivered and in the game: all 14 close-ups,
+> the 6 mouth twins, both body sheets (sliced as `npc.news-chase` and
+> `npc.news-rupert`, no manifest cuts needed) and the 8 fight heads.
 
 > Part of the Broken News art set (`art/news/README.md`).
 

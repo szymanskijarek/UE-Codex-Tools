@@ -1,9 +1,8 @@
 # Broken News 07: location plates for field reports
 
-> **Status (9 October 2026):** not delivered yet. Field reports use the arena
-> paintings already in the game (docks, trading floor, supermarket…) as their
-> backdrops. These plates add places no arena covers, chosen for recurring
-> field gags. Design: `docs/career-crash/10-broken-news.md` §13.4.
+> **Status (9 October 2026):** delivered and in the game. Field reports name
+> a plate as `"location": "news:<name>"`; *No Sandwiches* (sandwich shop) and
+> *Traffic Chaos* (motorway) use them. Design: `docs/career-crash/10-broken-news.md` §13.4.
 
 > Part of the Broken News art set (`art/news/README.md`).
 
