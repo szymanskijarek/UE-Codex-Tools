@@ -21,6 +21,8 @@ export interface Beat {
   heat: Heat;
   /** Hold the line this long instead of the reading-speed default. */
   ms?: number;
+  /** A rogue office chair flies in from off screen and hits this seat as the line starts (they wear `hurt`). */
+  chair?: Seat;
 }
 
 export interface Guest {
@@ -97,6 +99,8 @@ export const FORMAT = {
   beatPerCharMs: 42,
   beatMinMs: 1500,
   beatMaxMs: 6000,
+  /** A line with a rogue chair holds at least this long, so the hit and the hurt face both read. */
+  chairBeatMs: 2600,
 } as const;
 
 /** The channel's official name; everyone else has their own (10 §3.4). */
@@ -115,6 +119,7 @@ export function spellsBsn(phrase: string): boolean {
 
 export function beatMs(b: Beat): number {
   if (b.ms) return b.ms;
+  if (b.chair) return Math.max(FORMAT.chairBeatMs, Math.min(FORMAT.beatMaxMs, FORMAT.beatBaseMs + b.text.length * FORMAT.beatPerCharMs));
   return Math.max(FORMAT.beatMinMs, Math.min(FORMAT.beatMaxMs, FORMAT.beatBaseMs + b.text.length * FORMAT.beatPerCharMs));
 }
 
@@ -132,6 +137,7 @@ export type DeskFace = 'neutral' | 'talk' | 'smug' | 'surprised' | 'angry' | 'lu
  * taken aback, then angry.
  */
 export function deskFace(b: Beat, seat: Seat): DeskFace {
+  if (b.chair === seat) return 'hurt';
   if (seat === b.who) {
     if (b.heat === 3) return 'lunge';
     if (b.mood === 'angry') return 'angry';
@@ -179,6 +185,9 @@ export function checkEpisode(ep: Episode, minigames: readonly string[]): string[
   const guestLines = ep.beats.map((b, i) => (b.who === 'guest' ? i : -1)).filter((i) => i >= 0);
   if (guestLines.length && !ep.guest) out.push('a guest speaks but the episode has no guest');
   if (ep.guest && guestLines.some((i) => i < ep.guest!.enters)) out.push('the guest speaks before walking on');
+  ep.beats.forEach((b, i) => {
+    if (b.chair === 'guest' && (!ep.guest || i < ep.guest.enters)) out.push(`line ${i + 1}: the chair hits a guest who isn't there`);
+  });
   if (ep.brawl.seconds < FORMAT.brawlMinS || ep.brawl.seconds > FORMAT.brawlMaxS) out.push(`brawl must last ${FORMAT.brawlMinS}–${FORMAT.brawlMaxS} s`);
   if (!minigames.includes(ep.minigame)) out.push(`unknown minigame "${ep.minigame}"`);
   if (!ep.ticker.length) out.push('the ticker needs at least one line');

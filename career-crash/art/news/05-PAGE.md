@@ -1,8 +1,9 @@
 # Broken News 05: logo, ident and page art (show + channel)
 
-> **Status (9 October 2026):** a first round came back with the show name
-> only ("BROKEN NEWS", some letters garbled). This version adds the channel,
-> **BSN**, everywhere it belongs. Until it lands the logo and ident are CSS.
+> **Status (9 October 2026):** delivered and in the game (round 2, with BSN):
+> the bug is the corner logo, the logo heads the page and the start card, the
+> ident is the opening card, and the share image and icons are in the page's
+> link preview. Full-size icon and share sources are kept in `art/news/`.
 
 > Part of the Broken News art set (`art/news/README.md`). Design:
 > `docs/career-crash/10-broken-news.md` §2 and §3.4.

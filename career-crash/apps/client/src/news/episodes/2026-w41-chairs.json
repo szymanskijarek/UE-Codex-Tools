@@ -1,0 +1,28 @@
+{
+  "id": "2026-w41-chairs",
+  "week": "2026-10-05",
+  "bsn": "Bureau of Selective Narratives",
+  "headline": "CHAIRS RECALLED",
+  "chyron": "OFFICE CHAIRS RECALLED FOR \"SPINNING WITH INTENT\"",
+  "ticker": [
+    "RECALLED CHAIRS LAST SEEN HEADING FOR THE CAR PARK",
+    "STANDING DESKS \"NOT SURPRISED, FRANKLY\"",
+    "HR REMINDS STAFF THAT CHAIRS ARE NOT A GRIEVANCE PROCEDURE",
+    "BEANBAG SECTOR RALLIES ON THE NEWS"
+  ],
+  "beats": [
+    { "who": "us", "heat": 0, "text": "Good evening, this is Broken News. Tonight: forty thousand office chairs recalled for \"spinning with intent\"." },
+    { "who": "uk", "heat": 0, "text": "Regulators say the chairs have been leaving desks unattended. Several were seen in a car park." },
+    { "who": "us", "heat": 1, "text": "Ha! A chair can't hurt anyone, Philippa. I sit on danger every night." },
+    { "who": "us", "heat": 2, "chair": "us", "text": "OW! Who threw that?!" },
+    { "who": "uk", "heat": 2, "mood": "neutral", "text": "Nobody threw it, Brock. It's a self-starter. Like you, apparently." },
+    { "who": "us", "heat": 3, "text": "It came from YOUR side of the desk!" }
+  ],
+  "brawl": {
+    "seconds": 4,
+    "arena": "arena.news-studio",
+    "shouts": { "us": "THIS MEANS CHAIR!", "uk": "IT'S A RECALL, NOT A WEAPON!" }
+  },
+  "minigame": "test-card",
+  "realStory": { "text": "Nothing: this is a test episode for the rogue chair. No office chairs have been recalled for spinning with intent. Please continue sitting responsibly." }
+}

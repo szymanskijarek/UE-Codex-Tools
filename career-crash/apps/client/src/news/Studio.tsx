@@ -14,6 +14,14 @@ import { EPISODES, pickEpisode } from './episodes';
 import { MINIGAMES, minigameById } from './minigames';
 import backdropUrl from './art/desk-backdrop.webp';
 import deskUrl from './art/desk-front.webp';
+import logoUrl from './art/logo.webp';
+import bugUrl from './art/bsn-bug.webp';
+import identUrl from './art/ident.webp';
+import chairUrl from './art/rogue-chair.webp';
+
+/** The rogue chair's flight (news.css `bn-chair-fly`): it hits its target this far in. */
+const CHAIR_HIT_MS = 600;
+const CHAIR_FLY_MS = 1100;
 
 /** Painted desk-shot people, `art/desk-<who>-<face>.webp`; anyone without them falls back to their career face. */
 const DESK_ART = import.meta.glob('./art/desk-*-*.webp', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
@@ -134,6 +142,13 @@ export function Studio() {
       const p = people.find((x) => x.seat === b.who);
       if (p) sfx.speak(b.text, p.voice, true);
       if (b.heat === 3) sfx.play('ooh');
+      if (b.chair) {
+        sfx.play('whoosh');
+        setTimeout(() => {
+          sfx.play('crit');
+          sfx.play('boing');
+        }, CHAIR_HIT_MS);
+      }
     } else if (cue.phase === 'brawl') {
       sting('crash');
       brawlRef.current?.start();
@@ -234,7 +249,14 @@ export function Studio() {
     return heat >= 2 ? 'angry' : heat === 1 && seat !== 'guest' ? 'surprised' : 'neutral';
   };
   const showDesk = stage === 'segment' && (cue.phase === 'ident' || cue.phase === 'desk');
-  const faceFor = (seat: Seat): DeskFace => (cue.phase === 'desk' && beat ? deskFace(beat, seat) : 'neutral');
+  // The chair is in the air until it lands: its target only flinches then.
+  const chairT = cue.phase === 'desk' && beat?.chair ? ms - cue.at : -1;
+  const chairHit = chairT >= CHAIR_HIT_MS && chairT < CHAIR_HIT_MS + 350;
+  const faceFor = (seat: Seat): DeskFace => {
+    if (cue.phase !== 'desk' || !beat) return 'neutral';
+    if (beat.chair === seat && chairT < CHAIR_HIT_MS) return 'surprised';
+    return deskFace(beat, seat);
+  };
 
   // Fetch every painted expression up front, so a face swap never flashes empty.
   useEffect(() => {
@@ -245,8 +267,7 @@ export function Studio() {
     <div class="bn">
       <header class="bn-top">
         <div class="bn-brand">
-          <span class="bn-brand-mark">BROKEN</span>
-          <span class="bn-brand-sub">NEWS</span>
+          <img class="bn-brand-logo" src={logoUrl} alt="Broken News on BSN" />
         </div>
         <div class="bn-top-meta">
           {ep.week} · {ep.headline}
@@ -259,9 +280,7 @@ export function Studio() {
 
         {stage === 'cold' && (
           <div class="bn-card bn-cold">
-            <div class="bn-ident-logo">
-              BROKEN<span>NEWS</span>
-            </div>
+            <img class="bn-logo-img" src={logoUrl} alt="Broken News on BSN" />
             <p class="bn-tag">We break it. You fix it.</p>
             <button class="bn-go" onClick={roll}>
               ▶ Watch tonight's bulletin
@@ -278,15 +297,12 @@ export function Studio() {
 
         {stage === 'segment' && cue.phase === 'ident' && (
           <div class="bn-card bn-ident">
-            <div class="bn-presents">BSN presents</div>
-            <div class="bn-ident-logo bn-slam">
-              BROKEN<span>NEWS</span>
-            </div>
+            <img class="bn-ident-img bn-slam" src={identUrl} alt="Broken News, on BSN" />
           </div>
         )}
 
         {showDesk && cue.phase === 'desk' && (
-          <div class="bn-studio">
+          <div class={`bn-studio${chairHit ? ' bn-chair-hit' : ''}`}>
             {/* The painted studio (art/news brief 01); the game writes on its screens. */}
             <img class="bn-layer" src={backdropUrl} alt="" />
             <div class="bn-screen-l">BSN</div>
@@ -317,6 +333,7 @@ export function Studio() {
                 );
               })}
               <img class="bn-layer bn-desk" src={deskUrl} alt="" />
+              {beat?.chair && chairT < CHAIR_FLY_MS && <i key={cue.beat} class={`bn-chair bn-chair-to-${beat.chair}`} style={{ backgroundImage: `url(${chairUrl})` }} />}
               <div class="bn-desk-logo">
                 BROKEN NEWS <span>BSN</span>
               </div>
@@ -382,7 +399,8 @@ export function Studio() {
         {/* Broadcast furniture: on for the desk and the brawl. */}
         {stage === 'segment' && (cue.phase === 'desk' || cue.phase === 'brawl') && (
           <>
-            <div class="bn-live">● LIVE · BSN</div>
+            <div class="bn-live">● LIVE</div>
+            <img class="bn-bug" src={bugUrl} alt="BSN" />
             <div class="bn-clock">7:00 PM ET · MIDNIGHT GMT</div>
             {speaker && (
               <div class="bn-third" style={{ '--c': speaker.color }}>

@@ -59,4 +59,11 @@ describe('Broken News episodes (10 §4)', () => {
     expect(deskFace({ who: 'us', heat: 3, text: '' }, 'us')).toBe('lunge');
     expect(deskFace({ who: 'us', heat: 3, text: '' }, 'uk')).toBe('angry');
   });
+
+  it('a rogue chair hurts its target, and only a guest who is there', () => {
+    expect(deskFace({ who: 'us', heat: 2, chair: 'us', text: '' }, 'us')).toBe('hurt');
+    expect(deskFace({ who: 'us', heat: 2, chair: 'uk', text: '' }, 'uk')).toBe('hurt');
+    const bad: Episode = { ...ep, beats: ep.beats.map((b, i) => (i === 1 ? { ...b, chair: 'guest' as const } : b)) };
+    expect(checkEpisode(bad, MINIGAMES).join('\n')).toContain("the chair hits a guest who isn't there");
+  });
 });

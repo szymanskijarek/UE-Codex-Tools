@@ -1,10 +1,10 @@
 # Broken News: art briefs for the image agent
 
-> **Status (9 October 2026):** the desk shot is fully painted (backdrop, desk,
-> both anchors and Dusty Gale, six expressions each, lip flap for the
-> anchors), the anchors fight in their own bodies and faces (02), and the
-> brawl happens in the BSN Studio (03, `arena.news-studio`). Next: the seated
-> `hurt` pose and the rogue chair (01E), page art (05). Dusty is complete (04).
+> **Status (9 October 2026):** everything briefed so far is in the game: the
+> painted desk shot (three people, seven expressions each, lip flap for the
+> anchors), the rogue chair, all three fighting in their own bodies and faces,
+> the BSN Studio, and the page art (logo, BSN bug, ident, share image, icons).
+> Still open: the later guests in 04 (Biff, Tamsin, Ainsley, Kevin).
 
 Art for **careercrash.org/news** (design: `docs/career-crash/10-broken-news.md`):
 a cable-news studio where two anchors read the week's story, bicker, and

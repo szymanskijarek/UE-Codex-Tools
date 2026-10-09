@@ -1,5 +1,10 @@
 # Broken News 01 E: seated "hurt" pose and the rogue chair (same session as the desk art)
 
+> **Status (9 October 2026):** delivered and in the game: the three seated
+> `hurt` pictures and the rogue chair (`apps/client/src/news/art/rogue-chair.webp`,
+> played as a CSS sprite in the desk shot, not through the items atlas). A
+> script line takes `"chair": "us" | "uk" | "guest"`.
+
 > Ready-to-paste prompts. Use them **in the same image-agent session that drew
 > the desk expressions**, so it can refer back to its own pictures. Paste the
 > setup once, then one prompt per image.

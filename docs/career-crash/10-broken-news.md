@@ -188,7 +188,7 @@ An episode is one JSON file, `apps/client/src/news/episodes/<id>.json`
 | `chyron` | The BREAKING strap: one line, no "BREAKING:". |
 | `ticker` | 3–6 joke headlines for the crawl. |
 | `guest` | Optional: `name`, `role` (lower third), stand-in `career`, `enters` (line index), `bsn` (their own expansion). |
-| `beats` | The desk lines: `who` (`us`, `uk`, `guest`), `text`, `heat`, optional `mood` (`neutral`, `angry`, `surprised`, `hurt`) and `ms` (hold time; default from reading speed). |
+| `beats` | The desk lines: `who` (`us`, `uk`, `guest`), `text`, `heat`, optional `mood` (`neutral`, `angry`, `surprised`, `hurt`) `ms` (hold time; default from reading speed) and `chair` (a seat a rogue chair hits as the line starts). |
 | `brawl` | `seconds` (2–6), optional `arena`, `shouts` per seat. |
 | `minigame` | The week's minigame id (§5). |
 | `realStory` | `text` (2–3 plain sentences: what actually happened) and `source` (a link to a reputable report). |
@@ -337,6 +337,13 @@ before the first hit lands, so it changes with the sim like any other fight.
   mouth) every 0.13 s (brief 01 D: talk, smug and angry for both anchors). Anyone without
   painted art falls back to their career face. Speech bubbles sit in the top
   strip; the clock sits above the strap, bottom right.
+- Page art (brief 05): the BSN bug in the corner, the show logo on the page
+  and start card, the painted ident, a share image and icons in the link
+  preview (still `noindex`).
+- Rogue chair (brief 01E): a script line with `"chair": "us" | "uk" | "guest"`
+  has an office chair fly in from off screen and hit that seat; they wear
+  `hurt` (a chair line holds at least 2.6 s so the hit reads). Test episode:
+  `2026-w41-chairs`.
 - The brawl happens in the BSN Studio (`arena.news-studio`, art brief 03): a
   small arena with the news desk in the middle; `marketOnly` with
   `usedBy: "news"` keeps it out of the ladder and the Sandbox. Dusty is
