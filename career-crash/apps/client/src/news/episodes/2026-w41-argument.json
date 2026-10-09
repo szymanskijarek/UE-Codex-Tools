@@ -67,7 +67,7 @@
     {
       "who": "uk",
       "heat": 2,
-      "text": "Forty pounds? For that?"
+      "text": "Forty pounds. I'll need that itemised."
     },
     {
       "who": "guest",
@@ -93,5 +93,6 @@
   "minigame": "test-card",
   "realStory": {
     "text": "Made up for the show: there are no argument clinics, and nobody is on strike. The sketch it borrows, Monty Python's Argument Clinic (1972), is still the best guide to the difference between an argument and plain contradiction."
-  }
+  },
+  "signoff": "Gideon has waived tonight's fee. He'd like it noted, in writing, that he waived it."
 }

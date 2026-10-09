@@ -27,7 +27,7 @@
     {
       "who": "field",
       "heat": 0,
-      "text": "Brock, I'm on the quayside at Port Grumble, and I can tell you: it is BIBLICAL out here."
+      "text": "Stets, I'm on the quayside at Port Grumble, and I can tell you: it is BIBLICAL out here."
     },
     {
       "who": "field",
@@ -94,5 +94,6 @@
   "minigame": "test-card",
   "realStory": {
     "text": "Made up: Storm Gerald isn't real, and neither is Port Grumble. Real storms are named from a published list each season, and reporters really do stand in them, which is the joke."
-  }
+  },
+  "signoff": "Chase is safe. So is the bunting. Brock has framed a piece of it."
 }

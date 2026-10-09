@@ -27,7 +27,7 @@
     {
       "who": "field",
       "heat": 0,
-      "text": "Brock, I've been out here since four, and I have never seen anything like it."
+      "text": "Stets, I've been out here since four, and I have never seen anything like it."
     },
     {
       "who": "field",
@@ -50,7 +50,7 @@
     {
       "who": "us",
       "heat": 1,
-      "text": "He's doing great, Philippa.",
+      "text": "Chaser! That's my guy! Do the handshake!",
       "shot": "desk",
       "mood": "neutral"
     },
@@ -99,5 +99,6 @@
   "minigame": "test-card",
   "realStory": {
     "text": "Made up. Empty roads on a bank holiday are real enough; reporting them as an apocalypse is the joke. Terry has been reminded about the rota."
-  }
+  },
+  "signoff": "Chase and Brock did the handshake in the car park afterwards. It took eleven minutes."
 }

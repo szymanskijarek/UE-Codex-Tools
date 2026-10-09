@@ -78,21 +78,28 @@
     },
     {
       "who": "uk",
+      "heat": 2,
+      "text": "Then I'm very sorry for your loss, Brock. I've prepared a short eulogy. It's eleven pages.",
+      "pause": "long"
+    },
+    {
+      "who": "us",
       "heat": 3,
-      "text": "Then congratulations, Brock. You are an ex-anchor."
+      "text": "IT'S NOT DEAD! IT'S RESTING! Wes, HOLD MY MUG!"
     }
   ],
   "brawl": {
     "seconds": 6,
     "arena": "arena.news-studio",
     "shouts": {
-      "us": "MY EMMY MONEY!",
-      "uk": "IT'S AN EX-COIN!",
+      "us": "IT'S RESTING!",
+      "uk": "PAGE TWO!",
       "guest": "TO THE MOON!"
     }
   },
   "minigame": "test-card",
   "realStory": {
     "text": "Made up: no exchange has refused a return on these grounds, mostly because exchanges don't take returns. Crypto Bros, the hourly brawl of the top ten coins as crypto bros, is real and lives at careercrash.org/cryptobro. Not financial advice."
-  }
+  },
+  "signoff": "Brock still has all forty coins. Wes says he's never been prouder of anyone."
 }

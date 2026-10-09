@@ -44,7 +44,7 @@
     {
       "who": "guest",
       "heat": 1,
-      "text": "Weather! Spam moving in from the east, with scattered newsletters by lunchtime!"
+      "text": "Weather! Spam moving in from the east, scattered newsletters by lunchtime. I'm taking this one personally."
     },
     {
       "who": "us",
@@ -93,5 +93,6 @@
   "minigame": "test-card",
   "realStory": {
     "text": "Made up, though only just: estimates of how much email is spam have hovered around half for years. Monty Python's Spam sketch (1970) is why unwanted email is called spam."
-  }
+  },
+  "signoff": "Dusty has unsubscribed you from everything. You're welcome. He's very proud."
 }

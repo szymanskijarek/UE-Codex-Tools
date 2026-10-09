@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { ANCHORS, FIELD } from '../src/news/cast';
 import type { Beat } from '../src/news/episode';
-import { beatMs, shotOf, BSN_OFFICIAL, checkEpisode, cueAt, deskFace, shownText, typeMs, FORMAT, spellsBsn, timeline, type Episode } from '../src/news/episode';
+import { BLEEP, bleepsAt, beatMs, shotOf, BSN_OFFICIAL, checkEpisode, cueAt, deskFace, shownText, typeMs, FORMAT, spellsBsn, timeline, type Episode } from '../src/news/episode';
 import { EPISODES } from '../src/news/episodes';
 import pilot from '../src/news/episodes/2026-w41-printers.json';
 
@@ -91,5 +91,28 @@ describe('Broken News episodes (10 §4)', () => {
     expect(checkEpisode(bad, MINIGAMES).join('\n')).toContain('satellite delay needs the reporter');
     const early: Episode = { ...storm, field: { ...storm.field!, enters: 5 } };
     expect(checkEpisode(early, MINIGAMES).join('\n')).toContain('before the throw');
+  });
+
+  it('the cast bible\'s devices: Jeff off screen, his drops, bleeps (11 §3–4)', () => {
+    // Jeff's drop lands on Brock (only Brock), and holds the line long enough to read.
+    const drop: Beat = { who: 'us', heat: 1, text: 'Thirty years and never', drop: 'light' };
+    expect(deskFace(drop, 'us')).toBe('hurt');
+    expect(deskFace(drop, 'uk')).not.toBe('hurt');
+    expect(beatMs(drop)).toBeGreaterThanOrEqual(FORMAT.chairBeatMs);
+    // Jeff never moves the camera.
+    const toast = EPISODES.find((e) => e.id === '2026-w41-toasters')!;
+    const withJeff: Episode = { ...toast, beats: [...toast.beats.slice(0, 2), { who: 'jeff', heat: 0, text: 'Sorry!' }, ...toast.beats.slice(2)] };
+    expect(shotOf(withJeff, 2)).toBe(shotOf(withJeff, 1));
+    // A drop needs Brock in the shot; Jeff is never on screen.
+    const bad: Episode = { ...toast, beats: toast.beats.map((b, i) => (i === 1 ? { ...b, drop: 'light' as const } : i === 2 ? { ...b, photobomb: 'jeff' } : b)) };
+    const p = checkEpisode(bad, MINIGAMES).join('\n');
+    expect(p).toContain('a drop needs the desk shot');
+    expect(p).toContain('Jeff is never on screen');
+    // A bleep is a censor bar on screen, timed where the word falls.
+    const bev: Beat = { who: 'field', heat: 1, text: 'It has a {bleep}.' };
+    expect(shownText(bev, 99_999)).toBe(`It has a ${BLEEP}.`);
+    expect(bleepsAt(bev)).toHaveLength(1);
+    expect(bleepsAt(bev)[0]!).toBeGreaterThan(0.5);
+    expect(checkEpisode({ ...toast, beats: toast.beats.map((b, i) => (i === 2 ? { ...b, text: 'a {beep}' } : b)) }, MINIGAMES).join('\n')).toContain('unknown {…} tag');
   });
 });

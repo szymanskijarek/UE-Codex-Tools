@@ -10,9 +10,9 @@ import { voiceFor, withVoice, type Voice } from '../replay/voices';
 import type { ComponentChildren } from 'preact';
 import type { Emotion } from '../replay/face-art';
 import { Portrait } from '../ui/components';
-import { ANCHORS, FIELD, type Anchor } from './cast';
+import { ANCHORS, FIELD, JEFF, type Anchor } from './cast';
 import { arenaArt } from '../replay/arena-art';
-import { BSN_OFFICIAL, checkEpisode, cueAt, deskFace, isAction, shotOf, shownText, splitAnchor, typeMs, type Beat, type Shot, type DeskFace, moodOf, timeline, type Cue, type Episode, type Seat } from './episode';
+import { BLEEP, BSN_OFFICIAL, bleepsAt, checkEpisode, type Drop, cueAt, deskFace, isAction, shotOf, shownText, splitAnchor, typeMs, type Beat, type Shot, type DeskFace, moodOf, timeline, type Cue, type Episode, type Seat } from './episode';
 import { EPISODES, pickEpisode } from './episodes';
 import { MINIGAMES, minigameById } from './minigames';
 import backdropUrl from './art/desk-backdrop.webp';
@@ -27,6 +27,23 @@ const CHAIR_HIT_MS = 600;
 /** The desk bed's tempo by heat. */
 const BED_TEMPO = [1, 1.06, 1.14, 1.24];
 const CHAIR_FLY_MS = 1100;
+/** Jeff's drop (news.css `bn-drop-fall`): it lands on Brock this far in, and is gone after. */
+const DROP_HIT_MS = 520;
+const DROP_FALL_MS = 1200;
+/** Until the drop sprites arrive (art brief 11), a stand-in for each, and what it sounds like landing. */
+const DROP_ART = import.meta.glob('./art/drop-*.webp', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+const DROP_STAND_IN: Record<Drop, string> = { light: '💡', boom: '🎙️', sandbag: '💰', coffee: '☕', tile: '⬜' };
+const DROP_SOUND: Record<Drop, 'clang' | 'thud' | 'splash' | 'bonk'> = { light: 'clang', boom: 'bonk', sandbag: 'thud', coffee: 'splash', tile: 'bonk' };
+
+/** A line as shown: any bleeped word is a censor bar. */
+function Line({ text }: { text: string }) {
+  if (!text.includes(BLEEP[0]!)) return <>{text}</>;
+  return (
+    <>
+      {text.split(/(\u2588+)/).map((part, i) => (part.startsWith(BLEEP[0]!) ? <span key={i} class="bn-bleep">{part}</span> : part))}
+    </>
+  );
+}
 
 /** Painted desk-shot people, `art/desk-<who>-<face>.webp`; anyone without them falls back to their career face. */
 const DESK_ART = import.meta.glob('./art/desk-*-*.webp', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
@@ -56,6 +73,8 @@ interface Person {
   bsn?: string;
   art?: string;
   persona?: string;
+  /** Reporter height in the shot (cast.ts). */
+  height?: number;
 }
 
 /** The reporter in the field, when the episode has a report (not in the studio brawl). */
@@ -126,8 +145,11 @@ export function Studio() {
   const ep = useMemo(() => pickEpisode(), []);
   const people = useMemo(() => cast(ep), [ep]);
   const reporter = useMemo(() => reporterOf(ep), [ep]);
-  /** Everyone who can speak: the desk, the guest and the reporter (the brawl is only the studio). */
-  const voices = useMemo(() => (reporter ? [...people, reporter] : people), [people, reporter]);
+  /** Everyone who can speak: the desk, the guest, the reporter and Jeff off screen (the brawl is only the studio). */
+  const voices = useMemo(() => {
+    const jeff: Person = { ...JEFF, voice: withVoice(voiceFor('electrician', JEFF.name, ''), { type: JEFF.voice, pitch: JEFF.pitch }) };
+    return [...people, ...(reporter ? [reporter] : []), ...(ep.beats.some((b) => b.who === 'jeff') ? [jeff] : [])];
+  }, [people, reporter]);
   const { cues, totalMs } = useMemo(() => timeline(ep), [ep]);
   const problems = useMemo(() => checkEpisode(ep, MINIGAMES.map((m) => m.id)), [ep]);
   const game = minigameById(ep.minigame);
@@ -172,6 +194,15 @@ export function Studio() {
           sfx.play('boing');
         }, CHAIR_HIT_MS);
       }
+      if (b.drop) {
+        const drop = b.drop;
+        sfx.play('whoosh');
+        setTimeout(() => {
+          sfx.play(DROP_SOUND[drop]);
+          sfx.play('boing');
+        }, DROP_HIT_MS);
+      }
+      for (const f of bleepsAt(b)) setTimeout(() => sfx.play('bleep'), f * typeMs(b));
     } else if (cue.phase === 'brawl') {
       brawlRef.current?.start();
     } else if (cue.phase === 'standby') sting('testTone');
@@ -292,9 +323,13 @@ export function Studio() {
   // The chair is in the air until it lands: its target only flinches then.
   const chairT = cue.phase === 'desk' && beat?.chair ? ms - cue.at : -1;
   const chairHit = chairT >= CHAIR_HIT_MS && chairT < CHAIR_HIT_MS + 350;
+  // Jeff's drop falls on Brock, who doesn't see it coming.
+  const dropT = cue.phase === 'desk' && beat?.drop ? ms - cue.at : -1;
+  const dropHit = dropT >= DROP_HIT_MS && dropT < DROP_HIT_MS + 350;
   const faceFor = (seat: Seat): DeskFace => {
     if (cue.phase !== 'desk' || !beat) return 'neutral';
     if (beat.chair === seat && chairT < CHAIR_HIT_MS) return 'surprised';
+    if (beat.drop && seat === 'us' && dropT < DROP_HIT_MS) return deskFace({ ...beat, drop: undefined }, seat);
     // Dead air: once the line is out, everyone else just stares.
     if (beat.pause === 'awkward' && progress >= 1 && seat !== beat.who && beat.chair !== seat) return 'neutral';
     return deskFace(beat, seat);
@@ -364,7 +399,7 @@ export function Studio() {
         )}
 
         {showDesk && cue.phase === 'desk' && shot === 'desk' && (
-          <div class={`bn-studio${chairHit ? ' bn-chair-hit' : ''}`}>
+          <div class={`bn-studio${chairHit || dropHit ? ' bn-chair-hit' : ''}`}>
             {/* The painted studio (art/news brief 01); the game writes on its screens. */}
             <img class="bn-layer" src={backdropUrl} alt="" />
             <div class="bn-screen-l">BSN</div>
@@ -396,6 +431,11 @@ export function Studio() {
               })}
               <img class="bn-layer bn-desk" src={deskUrl} alt="" />
               {beat?.chair && chairT < CHAIR_FLY_MS && <i key={cue.beat} class={`bn-chair bn-chair-to-${beat.chair}`} style={{ backgroundImage: `url(${chairUrl})` }} />}
+              {beat?.drop && dropT < DROP_FALL_MS && (
+                <i key={`d${cue.beat}`} class={`bn-drop bn-drop-${beat.drop}`} style={DROP_ART[`./art/drop-${beat.drop}.webp`] ? { backgroundImage: `url(${DROP_ART[`./art/drop-${beat.drop}.webp`]})` } : undefined}>
+                  {DROP_ART[`./art/drop-${beat.drop}.webp`] ? null : DROP_STAND_IN[beat.drop]}
+                </i>
+              )}
               <div class="bn-desk-logo">
                 BROKEN NEWS <span>BSN</span>
               </div>
@@ -403,7 +443,8 @@ export function Studio() {
             </div>
             {beat && speaker && (
               <div class={`bn-bubble bn-bubble-${speaker.seat}${isAction(beat) ? ' bn-action' : ''}`}>
-                {shownText(beat, ms - cue.at)}
+                {speaker.seat === 'jeff' && <b class="bn-off">JEFF (OFF)</b>}
+                <Line text={shownText(beat, ms - cue.at)} />
               </div>
             )}
           </div>
@@ -451,7 +492,7 @@ export function Studio() {
               ))}{' '}
               Ticker: <i>{ep.bsn}</i>.
             </div>
-            <div class="bn-handoff-blurb">Brock and Philippa will be back next week, legal permitting.</div>
+            <div class="bn-handoff-blurb">{ep.signoff ?? 'Brock and Philippa will be back next week, legal permitting.'}</div>
             <button class="bn-go" onClick={roll}>
               ↺ Watch it again
             </button>
@@ -465,7 +506,7 @@ export function Studio() {
             <img class="bn-bug" src={bugUrl} alt="BSN" />
             <div class="bn-clock">{shot !== 'desk' && ep.field ? `${ep.field.localTime} LOCAL` : '7:00 PM ET · MIDNIGHT GMT'}</div>
             {shot !== 'desk' && <div class="bn-sat">📡 VIA SATELLITE{delaying ? ' · DELAY' : ''}</div>}
-            {speaker && (
+            {speaker && speaker.seat !== 'jeff' && (
               <div class="bn-third" style={{ '--c': speaker.color }}>
                 <b>{speaker.name}</b>
                 <span>
@@ -573,7 +614,7 @@ function Location({ ep, reporter, beat, speaking, delaying, ms, progress, childr
           <Portrait c={{ appearance: { skin: '#e0b48a', hair: '#3b2416', hairStyle: 0 }, careers: [beat.photobomb.startsWith('career.') ? beat.photobomb : 'career.clown'], ...(beat.photobomb.startsWith('npc.') ? { persona: beat.photobomb } : {}) }} size={120} mood="surprised" />
         </div>
       )}
-      <div class="bn-reporter">
+      <div class="bn-reporter" style={{ '--h': reporter.height ?? 1 }}>
         <Figure p={reporter} face={STAND_IN_MOOD[face]} painted={painted} talking={speaking === 'field' && !delaying} frozen={face === 'frozen'} mic />
       </div>
       {f.weather === 'wind' && <div class="bn-wind" />}
@@ -586,12 +627,18 @@ function Location({ ep, reporter, beat, speaking, delaying, ms, progress, childr
 function FieldShot(props: { shot: Shot; ep: Episode; reporter: Person; anchor: Person; beat: Beat; speaking: Seat | null; heat: number; text: string; delaying: boolean; glitching: boolean; ms: number; progress: number }) {
   const { shot, ep, reporter, anchor, beat, speaking, text, delaying, glitching } = props;
   const action = isAction(beat);
-  const bubble = (side: string) => <div class={`bn-bubble bn-bubble-${side}${action ? ' bn-action' : ''}`}>{text}</div>;
+  const bubble = (side: string) => (
+    <div class={`bn-bubble bn-bubble-${side}${action ? ' bn-action' : ''}`}>
+      {side === 'jeff' && <b class="bn-off">JEFF (OFF)</b>}
+      <Line text={text} />
+    </div>
+  );
   if (shot === 'field')
     return (
       <div class={`bn-field${glitching ? ' bn-glitch' : ''}`}>
         <Location ep={ep} reporter={reporter} beat={beat} speaking={speaking} delaying={delaying} ms={props.ms} progress={props.progress} />
         {speaking === 'field' && bubble('field')}
+        {speaking === 'jeff' && bubble('jeff')}
       </div>
     );
   // The double box: the anchor in the studio on the left, the reporter on location on the right.
@@ -609,7 +656,7 @@ function FieldShot(props: { shot: Shot; ep: Episode; reporter: Person; anchor: P
         <span class="bn-box-tag">{ep.field!.dateline.split(',')[0]}</span>
         {delaying && <span class="bn-delay">SATELLITE DELAY</span>}
       </div>
-      {speaking && speaking !== 'guest' && bubble(speaking === 'field' ? 'right' : 'left')}
+      {speaking && speaking !== 'guest' && bubble(speaking === 'field' ? 'right' : speaking === 'jeff' ? 'jeff' : 'left')}
     </div>
   );
 }

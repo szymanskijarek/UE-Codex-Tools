@@ -1,0 +1,99 @@
+{
+  "id": "2026-w41-launch",
+  "week": "2026-10-05",
+  "bsn": "Bring Snacks Now",
+  "headline": "THE LAUNCH",
+  "chyron": "TECH GIANT LAUNCHES PHONE WITH NO PHONE IN IT",
+  "ticker": [
+    "NEW PHONE: NO SCREEN, NO BUTTONS, NO PHONE",
+    "PRE-ORDERS SOLD OUT IN FOUR MINUTES",
+    "CANAPES DESCRIBED AS \"AMBITIOUSLY SMALL\"",
+    "CAREERCRASH.ORG: THE INFLUENCER WAS NOT INVITED EITHER"
+  ],
+  "field": {
+    "reporter": "bev",
+    "location": "arena.theatre",
+    "dateline": "THE LAUNCH PARTY, A ROOFTOP",
+    "localTime": "11:48 PM",
+    "enters": 1
+  },
+  "beats": [
+    {
+      "who": "uk",
+      "heat": 0,
+      "text": "Tonight: a tech giant has launched a phone with no screen, no buttons and no phone. Bev Fizzwilliam is at the launch."
+    },
+    {
+      "who": "field",
+      "heat": 0,
+      "text": "Darlings. I'm on the rooftop, the canapés are tiny, and the phone is... conceptual."
+    },
+    {
+      "who": "field",
+      "heat": 0,
+      "text": "The CEO let me hold it. Lovely weight. No idea where to put my hands.",
+      "pause": "beat"
+    },
+    {
+      "who": "us",
+      "heat": 1,
+      "text": "Bev! Brock here! What does it DO?"
+    },
+    {
+      "who": "field",
+      "heat": 1,
+      "text": "Nothing, darling. It respects your boundaries. Unlike the after-party, which I'm told has a {bleep}."
+    },
+    {
+      "who": "uk",
+      "heat": 1,
+      "text": "Bev, are you drinking on air?",
+      "mood": "surprised"
+    },
+    {
+      "who": "field",
+      "heat": 1,
+      "text": "Only the prosecco, darling. And a little of the other prosecco.",
+      "photobomb": "career.influencer",
+      "pause": "beat"
+    },
+    {
+      "who": "field",
+      "heat": 2,
+      "text": "Philippa, you look stunning tonight. Very stern. Very... {bleep}.",
+      "pause": "long"
+    },
+    {
+      "who": "uk",
+      "heat": 2,
+      "text": "Thank you, Bev. You also look. Present.",
+      "shot": "desk",
+      "pause": "awkward"
+    },
+    {
+      "who": "field",
+      "heat": 2,
+      "text": "Back to you, Brock. Back to you. Front to you also, if you're free.",
+      "pause": "beat"
+    },
+    {
+      "who": "us",
+      "heat": 3,
+      "text": "Philippa, she likes ME! And you're BLUSHING!",
+      "shot": "desk"
+    }
+  ],
+  "brawl": {
+    "seconds": 6,
+    "arena": "arena.news-studio",
+    "shouts": {
+      "us": "SHE LIKES ME!",
+      "uk": "THIS IS MY NORMAL COLOUR!"
+    }
+  },
+  "minigame": "test-card",
+  "realStory": {
+    "text": "Made up. Phones keep losing ports and buttons; this one has finally lost the phone. Bev went home at a reasonable hour (2 a.m.)."
+  },
+  "signoff": "Bev sends her love, and a canapé, to everyone. Especially Philippa."
+}

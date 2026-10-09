@@ -15,14 +15,17 @@
     { "who": "uk", "heat": 0, "text": "Regulators say the chairs have been leaving desks unattended. Several were seen in a car park." },
     { "who": "us", "heat": 1, "text": "Ha! A chair can't hurt anyone, Philippa. I sit on danger every night.", "pause": "awkward" },
     { "who": "us", "heat": 2, "chair": "us", "text": "OW! Who threw that?!" },
-    { "who": "uk", "heat": 2, "mood": "neutral", "text": "Nobody threw it, Brock. It's a self-starter. Like you, apparently.", "pause": "beat" },
-    { "who": "us", "heat": 3, "text": "It came from YOUR side of the desk!" }
+    { "who": "jeff", "heat": 2, "text": "Sorry, Brock! That was my chair! It's one of the recalled ones!" },
+    { "who": "us", "heat": 2, "text": "Don't worry, Jeff! Great throw, buddy. Real distance on that one.", "mood": "hurt", "pause": "beat" },
+    { "who": "uk", "heat": 2, "text": "(laughs. Once. Very quietly.)", "pause": "awkward" },
+    { "who": "us", "heat": 3, "text": "Did you just LAUGH? On MY show?!" }
   ],
   "brawl": {
     "seconds": 6,
     "arena": "arena.news-studio",
-    "shouts": { "us": "THIS MEANS CHAIR!", "uk": "IT'S A RECALL, NOT A WEAPON!" }
+    "shouts": { "us": "YOU LAUGHED!", "uk": "IT WAS A COUGH!" }
   },
   "minigame": "test-card",
-  "realStory": { "text": "Nothing: this is a test episode for the rogue chair. No office chairs have been recalled for spinning with intent. Please continue sitting responsibly." }
+  "realStory": { "text": "Nothing: this is a test episode for the rogue chair. No office chairs have been recalled for spinning with intent. Please continue sitting responsibly." },
+  "signoff": "Jeff would like to apologise. Brock would like Jeff to know he's the best in the business."
 }

@@ -166,6 +166,10 @@ Terry, Sir Nigel, Such Wow Wes.
   its people, and he's the only one who never complains about the delay. The
   wind (the town's real claim to fame) is constantly trying to take his
   notes, his hat and occasionally him (`weather: "wind"`).
+- **Short:** Hamish is short, never as the joke itself but so the world
+  around him looms: Brock: *"Man, those toasters are MASSIVE!"* Hamish:
+  *"They're regular toasters, Brock."* Nobody mocks his height; the props do
+  the work.
 - **Rules:** affectionate. The joke is BSN's ignorance and Hamish's
   enthusiasm, never the town's people or New Zealand accents; no real
   landmarks or people in the art.
@@ -297,15 +301,10 @@ will speak, and it will be the season finale.
 | Brody | 7 desk expressions + 4 twins, body sheet, 4 heads (replaces Biff in brief 10) |
 | Jeff's drops | sprites for things that fall from above: lighting rig, boom mic, sandbag, coffee tray, ceiling tile (Jeff himself: never drawn) |
 
-**Show mechanics:**
+**Show mechanics (built, 10 §10):** `jeff` as an off-screen speaker,
+`drop` on a beat, `{bleep}`, the `TOMORROW` clock, reporter `height`, and a
+kind `signoff` line per episode.
 
-- `jeff` as an off-screen speaker: a bubble from the top edge tagged
-  *JEFF (OFF)*, no face.
-- `drop` on a beat: something falls from above onto Brock (like `chair`,
-  which becomes Jeff's chair).
-- `{bleep}` in a line: a censor bar and a beep, for Bev.
-- A reporter's clock can read `TOMORROW` (Hamish).
-
-**Scripts:** a voice pass over the twelve test episodes to match this bible
-(Philippa's awkwardness, Brock's warmth, the boys, one kind beat at the
-sign-off), then one test episode each for Hamish, Bev, Brody and Jeff.
+**Scripts (done):** a voice pass over the twelve test episodes, and one test
+episode each for Hamish (*Toaster Festival*), Bev (*The Launch*), Brody
+(*Nine-Nil*) and Jeff (*Safety Award*).

@@ -7,8 +7,20 @@
  */
 import type { Emotion } from '../replay/face-art';
 
-/** Who is talking: the American anchor, the British anchor, this week's guest, or the field reporter (10 §13). */
-export type Seat = 'us' | 'uk' | 'guest' | 'field';
+/**
+ * Who is talking: the American anchor, the British anchor, this week's guest, the field reporter
+ * (10 §13), or Jeff the studio technician, who is never on screen (cast bible 11 §3).
+ */
+export type Seat = 'us' | 'uk' | 'guest' | 'field' | 'jeff';
+
+/** Things Jeff drops on Brock from the lighting grid (cast bible 11 §3). Only ever on Brock. */
+export type Drop = 'light' | 'boom' | 'sandbag' | 'coffee' | 'tile';
+export const DROPS: readonly Drop[] = ['light', 'boom', 'sandbag', 'coffee', 'tile'];
+
+/** `{bleep}` in a line (Bev): a censor bar on screen and a beep instead of the word. */
+export const BLEEP = '\u2588\u2588\u2588\u2588\u2588';
+/** The line as it's typed out, with any `{bleep}` turned into its censor bar. */
+export const said = (b: Beat): string => b.text.replaceAll('{bleep}', BLEEP);
 
 /** The camera (10 §13.2): the desk, the double box (anchor | reporter), or the reporter full screen. */
 export type Shot = 'desk' | 'split' | 'field';
@@ -26,6 +38,8 @@ export interface Beat {
   ms?: number;
   /** A rogue office chair flies in from off screen and hits this seat as the line starts (they wear `hurt`). */
   chair?: Seat;
+  /** Jeff drops something on Brock as the line starts (he wears `hurt` once it lands). Desk shot only. */
+  drop?: Drop;
   /** Comic timing after the line (10 §4.4); without it the gap shrinks as the desk heats up. */
   pause?: Pause;
   /** Force the camera for this line (otherwise it follows who's talking to whom, `shotOf`). */
@@ -39,12 +53,12 @@ export interface Beat {
 /** A report from the field (10 §13): who, where, and when it can start. */
 export interface Field {
   /** Reporter id (cast.ts `FIELD`). */
-  reporter: 'chase' | 'rupert';
+  reporter: 'chase' | 'rupert' | 'hamish' | 'bev';
   /** The location: an arena whose painting is the backdrop, or a location plate `news:<name>` (art brief 07). */
   location: string;
   /** The strap: where they are, in capitals. */
   dateline: string;
-  /** Local time on the clock: always unreasonable. */
+  /** Local time on the clock: always unreasonable (Hamish's reads `TOMORROW, …`). */
   localTime: string;
   /** Weather that isn't there. */
   weather?: 'wind';
@@ -114,6 +128,8 @@ export interface Episode {
    * sign-off card: the jokes are the vehicle, this is the information.
    */
   realStory: { text: string; source?: string };
+  /** The sign-off's last line: one small kind beat after the brawl (cast bible 11 §1). */
+  signoff?: string;
 }
 
 export type Phase = 'ident' | 'desk' | 'brawl' | 'standby' | 'handoff';
@@ -147,7 +163,7 @@ export const FORMAT = {
   pauseMs: { cut: 0, beat: 650, long: 1400, awkward: 2300, delay: 2000 },
   /** How much of a `cut` line gets said before the interruption. */
   cutAt: 0.6,
-  /** A line with a rogue chair holds at least this long, so the hit and the hurt face both read. */
+  /** A line with a rogue chair or a drop holds at least this long, so the hit and the hurt face both read. */
   chairBeatMs: 2600,
 } as const;
 
@@ -168,9 +184,17 @@ export function spellsBsn(phrase: string): boolean {
 /** A stage direction, "(mimes a box)": shown in italics, never voiced (a mime, a sigh, a long stare). */
 export const isAction = (b: Beat): boolean => /^\(.*\)$/.test(b.text.trim());
 
+/** Where each `{bleep}` falls in the typed line, as a fraction of it (when to beep). */
+export function bleepsAt(b: Beat): number[] {
+  const t = said(b);
+  const out: number[] = [];
+  for (let i = t.indexOf(BLEEP); i >= 0; i = t.indexOf(BLEEP, i + BLEEP.length)) out.push(i / t.length);
+  return out;
+}
+
 /** How long the line types out for (a `cut` line stops partway). */
 export function typeMs(b: Beat): number {
-  const full = Math.max(FORMAT.typeMinMs, Math.min(FORMAT.typeMaxMs, b.text.length * FORMAT.typePerCharMs[b.heat]));
+  const full = Math.max(FORMAT.typeMinMs, Math.min(FORMAT.typeMaxMs, said(b).length * FORMAT.typePerCharMs[b.heat]));
   return b.pause === 'cut' ? Math.round(full * FORMAT.cutAt) : full;
 }
 
@@ -179,14 +203,15 @@ export function beatMs(b: Beat): number {
   if (b.ms) return b.ms;
   const gap = b.pause === 'cut' ? 0 : FORMAT.holdMs[b.heat] + (b.pause ? FORMAT.pauseMs[b.pause] : 0);
   const ms = typeMs(b) + gap;
-  return b.chair ? Math.max(FORMAT.chairBeatMs, ms) : ms;
+  return b.chair || b.drop ? Math.max(FORMAT.chairBeatMs, ms) : ms;
 }
 
 /** What's on screen `t` ms into a line: the typed text (a `cut` line ends in a dash). */
 export function shownText(b: Beat, t: number): string {
-  const total = b.pause === 'cut' ? Math.ceil(b.text.length * FORMAT.cutAt) : b.text.length;
+  const text = said(b);
+  const total = b.pause === 'cut' ? Math.ceil(text.length * FORMAT.cutAt) : text.length;
   const n = Math.min(total, Math.ceil((total * Math.max(0, t)) / typeMs(b)));
-  return b.text.slice(0, n) + (b.pause === 'cut' && n >= total ? '—' : '');
+  return text.slice(0, n) + (b.pause === 'cut' && n >= total ? '—' : '');
 }
 
 export function moodOf(b: Beat): Emotion {
@@ -203,7 +228,9 @@ export type DeskFace = 'neutral' | 'talk' | 'smug' | 'surprised' | 'angry' | 'lu
  * taken aback, then angry.
  */
 export function deskFace(b: Beat, seat: Seat): DeskFace {
-  if (b.chair === seat) return 'hurt';
+  if (b.chair === seat || (b.drop && seat === 'us')) return 'hurt';
+  // Jeff shouts from the lighting grid: everyone looks up.
+  if (b.who === 'jeff') return 'surprised';
   if (seat === b.who) {
     if (b.heat === 3) return 'lunge';
     if (b.mood === 'angry') return 'angry';
@@ -224,6 +251,8 @@ export function shotOf(ep: Episode, i: number): Shot {
   const b = ep.beats[i]!;
   if (b.shot) return b.shot;
   if (!ep.field) return 'desk';
+  // Jeff is off screen: the camera stays where it was.
+  if (b.who === 'jeff') return i > 0 ? shotOf(ep, i - 1) : 'desk';
   const prev = ep.beats[i - 1]?.who;
   const next = ep.beats[i + 1]?.who;
   if (b.who === 'field') return prev === 'field' ? 'field' : 'split';
@@ -287,6 +316,11 @@ export function checkEpisode(ep: Episode, minigames: readonly string[]): string[
     if (b.who === 'field' && ep.field && i < ep.field.enters) out.push(`line ${i + 1}: the reporter speaks before the throw`);
     if (b.pause === 'delay' && ep.beats[i + 1]?.who !== 'field') out.push(`line ${i + 1}: a satellite delay needs the reporter to answer next`);
     if (b.chair === 'field') out.push(`line ${i + 1}: the chair can't reach the field`);
+    if (b.chair === 'jeff' || b.photobomb === 'jeff') out.push(`line ${i + 1}: Jeff is never on screen`);
+    if (b.drop && !DROPS.includes(b.drop)) out.push(`line ${i + 1}: Jeff can't drop "${b.drop}"`);
+    if (b.drop && b.chair) out.push(`line ${i + 1}: one thing hits at a time (a chair or a drop)`);
+    if (b.drop && shotOf(ep, i) !== 'desk') out.push(`line ${i + 1}: a drop needs the desk shot (Brock in it)`);
+    if (b.text.includes('{') && b.text.replaceAll('{bleep}', '').includes('{')) out.push(`line ${i + 1}: unknown {…} tag (only {bleep})`);
     if ((b.shot === 'split' || b.shot === 'field' || b.glitch || b.photobomb) && !ep.field) out.push(`line ${i + 1}: a field shot, but no field report`);
   });
   if (ep.chyron.length > FORMAT.chyronMax) out.push(`chyron is ${ep.chyron.length} characters; the strap fits ${FORMAT.chyronMax}`);

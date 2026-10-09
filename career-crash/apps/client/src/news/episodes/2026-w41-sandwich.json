@@ -69,7 +69,7 @@
     {
       "who": "uk",
       "heat": 2,
-      "text": "Brock, that's the stupidest thing you've said since \"I sit on danger every night.\"",
+      "text": "A shop is not a state of mind, Brock. I checked. It's a state of planning permission.",
       "shot": "desk",
       "mood": "angry"
     },
@@ -98,5 +98,6 @@
   "minigame": "test-card",
   "realStory": {
     "text": "Made up. It borrows from Monty Python's Cheese Shop sketch (1972), in which a cheese shop turns out to stock no cheese at all. Rupert has since been asked to stop calling sandwich shops \"the front\"."
-  }
+  },
+  "signoff": "Rupert bought the last crust and shared it with the owner. Half each."
 }

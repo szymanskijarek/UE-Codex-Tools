@@ -1,0 +1,100 @@
+{
+  "id": "2026-w41-nine-nil",
+  "week": "2026-10-05",
+  "bsn": "Big Shouty Network",
+  "headline": "NINE-NIL",
+  "chyron": "CLUB LOSES 9-0, BLAMES 'BAD VIBES'",
+  "ticker": [
+    "REAL GRUMBLE SACK MANAGER AFTER NINE-NIL DEFEAT",
+    "GOALKEEPER: \"I WAS HYDRATED, THOUGH\"",
+    "FANS DEMAND REFUND, RECEIVE SMOOTHIE",
+    "CAREERCRASH.ORG: THE PERSONAL TRAINER IS ON STAGE FOUR"
+  ],
+  "guest": {
+    "name": "Brody Kale",
+    "role": "Sports & Wellness · hydrated",
+    "career": "career.personal-trainer",
+    "enters": 3,
+    "bsn": "Breathe, Stretch, Nourish",
+    "color": "#b91c1c"
+  },
+  "beats": [
+    {
+      "who": "us",
+      "heat": 0,
+      "text": "Sport now, and a shock result: Real Grumble lost nine-nil on Saturday."
+    },
+    {
+      "who": "uk",
+      "heat": 0,
+      "text": "The club has sacked its manager, who blamed the defeat on, quote, bad vibes."
+    },
+    {
+      "who": "us",
+      "heat": 1,
+      "text": "Let's bring in our Sports and Wellness guy. Brody! What went wrong?"
+    },
+    {
+      "who": "guest",
+      "heat": 1,
+      "text": "Great question, Brock. Honestly? Nine is a LOT of reps. Those boys were working."
+    },
+    {
+      "who": "uk",
+      "heat": 1,
+      "text": "Brody, they lost. Nine goals went in."
+    },
+    {
+      "who": "guest",
+      "heat": 1,
+      "text": "Love that. Nine goals, nine intentions. But did they hydrate?",
+      "pause": "beat"
+    },
+    {
+      "who": "uk",
+      "heat": 2,
+      "text": "Brody, do you know what football is?",
+      "pause": "awkward"
+    },
+    {
+      "who": "guest",
+      "heat": 2,
+      "text": "Of course, Philippa. It's when twenty-two people agree to do cardio. Smoothie?"
+    },
+    {
+      "who": "us",
+      "heat": 2,
+      "text": "I'll take a smoothie, Brody! What's in it?"
+    },
+    {
+      "who": "guest",
+      "heat": 2,
+      "text": "Kale, Brock. It's always kale. Your posture's really improving, by the way.",
+      "pause": "long"
+    },
+    {
+      "who": "uk",
+      "heat": 2,
+      "text": "Brock is slouching. Brock has slouched since 2019."
+    },
+    {
+      "who": "us",
+      "heat": 3,
+      "text": "I am NOT slouching! I am LEANING INTO THE NEWS!"
+    }
+  ],
+  "brawl": {
+    "seconds": 6,
+    "arena": "arena.news-studio",
+    "shouts": {
+      "us": "LEANING!",
+      "uk": "SLOUCHING!",
+      "guest": "GREAT SESSION!"
+    }
+  },
+  "minigame": "test-card",
+  "realStory": {
+    "text": "Made up. Heavy defeats and sacked managers are real; 'bad vibes' as the official reason is, for now, ours. Brody would like you to drink some water."
+  },
+  "signoff": "Brody brought everyone a smoothie after the brawl. He called it a great session."
+}

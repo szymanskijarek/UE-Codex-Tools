@@ -1,0 +1,106 @@
+{
+  "id": "2026-w41-toasters",
+  "week": "2026-10-05",
+  "bsn": "Bravely Saying Nothing",
+  "headline": "TOASTER FESTIVAL",
+  "chyron": "WELLINGTON: MOST BORING TOWN IN THE WORLD?",
+  "ticker": [
+    "WELLINGTON DISPUTES 'MOST BORING' TITLE, POLITELY",
+    "TOASTER FESTIVAL ENTERS DAY THREE OF ONE",
+    "HAMISH TUCK: 'IT'S ALREADY THURSDAY HERE'",
+    "CAREERCRASH.ORG: THE BAKER HAS OPINIONS ON TOAST"
+  ],
+  "field": {
+    "reporter": "hamish",
+    "location": "arena.docks",
+    "dateline": "WELLINGTON, NEW ZEALAND",
+    "localTime": "TOMORROW, 7:02 AM",
+    "weather": "wind",
+    "enters": 1
+  },
+  "beats": [
+    {
+      "who": "us",
+      "heat": 0,
+      "text": "Tonight we go to the other side of the world, to our Asia-Pacific Bureau. Hamish, can you hear me?",
+      "pause": "delay"
+    },
+    {
+      "who": "field",
+      "heat": 0,
+      "text": "Loud and clear, Brock! Massive morning here in Wellington. Well. Tomorrow morning."
+    },
+    {
+      "who": "uk",
+      "heat": 0,
+      "text": "Hamish, what's the big story?"
+    },
+    {
+      "who": "us",
+      "heat": 1,
+      "text": "And Hamish, buddy, those toasters behind you. Man, those toasters are MASSIVE!",
+      "pause": "delay"
+    },
+    {
+      "who": "field",
+      "heat": 1,
+      "text": "The big story, Philippa, is the Wellington Toaster Festival. Forty toasters. Outdoors. In this wind."
+    },
+    {
+      "who": "uk",
+      "heat": 1,
+      "text": "Hamish, how tall are you?",
+      "pause": "delay"
+    },
+    {
+      "who": "field",
+      "heat": 1,
+      "text": "They're regular toasters, Brock. Regular size.",
+      "photobomb": "career.baker"
+    },
+    {
+      "who": "us",
+      "heat": 2,
+      "text": "Philippa! Why would you ASK him that?",
+      "shot": "desk"
+    },
+    {
+      "who": "uk",
+      "heat": 2,
+      "text": "It's journalism, Brock. Who, what, where, how tall.",
+      "shot": "desk",
+      "pause": "awkward"
+    },
+    {
+      "who": "field",
+      "heat": 2,
+      "text": "Five foot two, Philippa. Five foot four in a northerly.",
+      "glitch": true
+    },
+    {
+      "who": "field",
+      "heat": 2,
+      "text": "Can't say too much, but you're going to LOVE Thursday.",
+      "pause": "long"
+    },
+    {
+      "who": "us",
+      "heat": 3,
+      "text": "Hamish, what happens on THURSDAY?! TELL ME!",
+      "shot": "desk"
+    }
+  ],
+  "brawl": {
+    "seconds": 6,
+    "arena": "arena.news-studio",
+    "shouts": {
+      "us": "WHAT'S THURSDAY?!",
+      "uk": "NO SPOILERS!"
+    }
+  },
+  "minigame": "test-card",
+  "realStory": {
+    "text": "Made up. Wellington is a lively, famously windy harbour capital; BSN's newsroom has simply never been. There is no Toaster Festival. Yet."
+  },
+  "signoff": "Hamish says thanks for having him. We heard it about four seconds later."
+}

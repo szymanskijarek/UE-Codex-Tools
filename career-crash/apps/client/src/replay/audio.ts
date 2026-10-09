@@ -29,6 +29,8 @@ export type SfxName =
   | 'fanfare'
   | 'squeak'
   | 'slurp'
+  // Broken News: the censor beep over a bleeped word.
+  | 'bleep'
   // Impacts by what landed the blow.
   | 'slash'
   | 'clang'
@@ -286,6 +288,9 @@ export class Sfx {
       case 'whistle':
         this.tone('sine', 2900, 2950, t, 0.35, 0.18, 0.01);
         this.tone('sine', 3150, 3100, t, 0.35, 0.12, 0.01);
+        break;
+      case 'bleep':
+        this.tone('sine', 1000, 1000, t, 0.32, 0.18, 0.004);
         break;
       case 'bell':
         this.tone('triangle', 880, 870, t, 1.0, 0.35);

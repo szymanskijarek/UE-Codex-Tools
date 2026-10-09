@@ -191,10 +191,10 @@ the expansion never says the obvious one, and stays clean.
 
 Bank of unused ticker expansions (strike them off as they air):
 *Barely Sourced News*, *Bureau of Selective Narratives*, *Bold Speculation
-Nightly*, *Blame Someone Now*, *Big Shouty Network*, *Biased Since Noon*,
-*Bravely Saying Nothing*, *Buffering Signal Now*, *Bluffing Since Nineteen-something*,
+Nightly*, *Biased Since Noon*,
+*Buffering Signal Now*, *Bluffing Since Nineteen-something*,
 *Breaking Sofas Nightly*, *Broadly Similar News*, *Believe Some News*,
-*Bring Snacks Now*, *Best Seen Never*, *Bonus Shouting Network*, *Brawling
+*Best Seen Never*, *Bonus Shouting Network*, *Brawling
 Studio Nightly*, *Burying Stories Nightly*, *Both Sides, Nearly*,
 *Blatantly Spinning News*, *Background Shouting Network*.
 
@@ -214,15 +214,16 @@ An episode is one JSON file, `apps/client/src/news/episodes/<id>.json`
 | `chyron` | The BREAKING strap: one line, no "BREAKING:". |
 | `ticker` | 3–6 joke headlines for the crawl. |
 | `guest` | Optional: `name`, `role` (lower third), stand-in `career`, `enters` (line index), `bsn` (their own expansion). |
-| `beats` | The desk lines: `who` (`us`, `uk`, `guest`), `text`, `heat`, optional `mood` (`neutral`, `angry`, `surprised`, `hurt`) `ms` (hold time; default from reading speed) and `chair` (a seat a rogue chair hits as the line starts). |
+| `beats` | The desk lines: `who` (`us`, `uk`, `guest`, `field`, or `jeff`: the technician, off screen, a dashed bubble from the top and no lower third), `text` (`{bleep}` puts a censor bar and a beep in place of a word), `heat`, optional `mood` (`neutral`, `angry`, `surprised`, `hurt`), `ms` (hold time; default from reading speed), `chair` (a seat Jeff's runaway chair hits as the line starts) and `drop` (`light`, `boom`, `sandbag`, `coffee`, `tile`: Jeff drops it on Brock, desk shot only), plus the field and pause fields (§4.4, §13.6). |
 | `brawl` | `seconds` (2–8), optional `arena`, `shouts` per seat. |
 | `minigame` | The week's minigame id (§5). |
 | `realStory` | `text` (2–3 plain sentences: what actually happened) and `source` (a link to a reputable report). |
+| `signoff` | Optional: the sign-off card's last line, one small kind beat after the brawl (cast bible 11 §1). |
 
 Pacing: a line types out at 40 ms per character when calm, speeding up to
 26 ms as it heats up, then holds before the next line: 1.1 s at heat 0,
 0.7 s at 1, 0.38 s at 2, 0.3 s at 3. So the argument gains momentum as it
-spirals. A `chair` line holds at least 2.6 s.
+spirals. A `chair` or `drop` line holds at least 2.6 s.
 
 ### 4.2 Checks
 
@@ -395,9 +396,21 @@ before the first hit lands, so it changes with the sim like any other fight.
   A line in parentheses is a silent stage direction (italic, no voice).
   Chyrons are checked to fit the strap (48 characters).
 - Rogue chair (brief 01E): a script line with `"chair": "us" | "uk" | "guest"`
-  has an office chair fly in from off screen and hit that seat; they wear
-  `hurt` (a chair line holds at least 2.6 s so the hit reads). Test episode:
-  `2026-w41-chairs`.
+  has an office chair (Jeff's) fly in from off screen and hit that seat; they
+  wear `hurt` (a chair line holds at least 2.6 s so the hit reads). Test
+  episode: `2026-w41-chairs`.
+- The cast bible's devices (11): Jeff speaks from off screen (`who: "jeff"`:
+  a dashed bubble from the top, the desk looks up, the camera stays put) and
+  drops things on Brock (`drop`: a sprite falls on his head, he wears `hurt`;
+  stand-in glyphs until brief 11's sprites); `{bleep}` censors a word (bar
+  and beep, for Bev); a reporter's clock can read `TOMORROW` (Hamish); a
+  reporter can be short (`height` in `cast.ts`, Hamish 0.72, stand-in only);
+  every episode can end on a kind `signoff` line. Hamish and Bev are in
+  `FIELD` with stand-in faces (sailor, fashion designer); Brody is a guest
+  (personal trainer). Test episodes: *Toaster Festival* (Hamish, docks as
+  Wellington), *The Launch* (Bev, the Theatre as a rooftop party),
+  *Nine-Nil* (Brody), *Safety Award* (Jeff). The twelve earlier episodes had
+  a voice pass to match the bible.
 - The brawl happens in the BSN Studio (`arena.news-studio`, art brief 03): a
   small arena with the news desk in the middle; `marketOnly` with
   `usedBy: "news"` keeps it out of the ladder and the Sandbox. Dusty is

@@ -1,0 +1,97 @@
+{
+  "id": "2026-w41-safety",
+  "week": "2026-10-05",
+  "bsn": "Blame Someone Now",
+  "headline": "SAFETY AWARD",
+  "chyron": "STUDIO WINS AWARD FOR ZERO ACCIDENTS",
+  "ticker": [
+    "BSN STUDIO NAMED \"SAFEST IN THE REGION\"",
+    "JUDGES VISITED ON TUESDAY, WHILE JEFF WAS ON HOLIDAY",
+    "LIGHTING RIG \"MOSTLY\" ATTACHED",
+    "CAREERCRASH.ORG: THE ELECTRICIAN SAYS IT WASN'T HIM"
+  ],
+  "beats": [
+    {
+      "who": "us",
+      "heat": 0,
+      "text": "Good evening! Tonight, a proud moment: this studio has won a national award for zero accidents."
+    },
+    {
+      "who": "uk",
+      "heat": 0,
+      "text": "The judges visited on Tuesday. Jeff, our technician, was on holiday."
+    },
+    {
+      "who": "us",
+      "heat": 1,
+      "text": "Big shout-out to the crew. Jeff! Where are you, buddy?"
+    },
+    {
+      "who": "jeff",
+      "heat": 1,
+      "text": "Up here, Brock! On the lighting grid!"
+    },
+    {
+      "who": "us",
+      "heat": 1,
+      "text": "Jeff's the best in the business, Philippa. Thirty years and not once has he dropped a",
+      "drop": "light",
+      "pause": "cut"
+    },
+    {
+      "who": "jeff",
+      "heat": 2,
+      "text": "SORRY, BROCK!"
+    },
+    {
+      "who": "us",
+      "heat": 2,
+      "text": "Great drop, Jeff! Real height on that one!",
+      "mood": "hurt",
+      "pause": "beat"
+    },
+    {
+      "who": "uk",
+      "heat": 2,
+      "text": "Brock, we are holding a safety award.",
+      "mood": "surprised",
+      "pause": "awkward"
+    },
+    {
+      "who": "jeff",
+      "heat": 2,
+      "text": "Don't worry, I've got the sandbag!"
+    },
+    {
+      "who": "us",
+      "heat": 2,
+      "text": "See, Philippa? Total professional. Jeff is a",
+      "drop": "sandbag",
+      "pause": "cut"
+    },
+    {
+      "who": "jeff",
+      "heat": 2,
+      "text": "That was the sandbag.",
+      "pause": "long"
+    },
+    {
+      "who": "uk",
+      "heat": 3,
+      "text": "Right. I'm giving the award back. Hand it OVER, Brock."
+    }
+  ],
+  "brawl": {
+    "seconds": 6,
+    "arena": "arena.news-studio",
+    "shouts": {
+      "us": "IT'S OUR AWARD!",
+      "uk": "IT'S A HAZARD!"
+    }
+  },
+  "minigame": "test-card",
+  "realStory": {
+    "text": "Made up. Workplace safety awards are real and well earned; this studio would not win one. Jeff is fine. Brock is fine. The lighting rig has been rehung, mostly."
+  },
+  "signoff": "Brock would like to thank Jeff for thirty great years. Jeff would like to apologise for the next thirty."
+}

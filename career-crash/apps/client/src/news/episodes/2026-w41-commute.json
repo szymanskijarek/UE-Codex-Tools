@@ -49,7 +49,7 @@
     {
       "who": "uk",
       "heat": 2,
-      "text": "A printer? You were lucky. I was faxed in. Every morning. In pieces.",
+      "text": "A printer? You were lucky. I was faxed in. Every morning. In pieces. Some of me is still in Leeds.",
       "pause": "long"
     },
     {
@@ -87,5 +87,6 @@
   "minigame": "test-card",
   "realStory": {
     "text": "Made up for the show, but drawn from life: many employers have pushed for more office days since 2022. The one-upmanship comes from the Four Yorkshiremen sketch (1967), later a Monty Python stage favourite."
-  }
+  },
+  "signoff": "Terry gave everyone a lift home. He was late. On purpose. They had a lovely time."
 }

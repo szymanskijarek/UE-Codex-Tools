@@ -57,7 +57,7 @@
     {
       "who": "uk",
       "heat": 2,
-      "text": "We don't need to get into that, Brock.",
+      "text": "We don't need to get into that. It was one dinner. In Belgium. In 2009. I had the soup.",
       "shot": "desk"
     },
     {
@@ -96,5 +96,6 @@
   "minigame": "test-card",
   "realStory": {
     "text": "Made up: no frog coin was liquidated at 3 a.m. (that we know of). Crypto Bros is real, though: the top ten coins brawl as crypto bros at careercrash.org/cryptobro, and a coin that tanks gets liquidated every hour. Not financial advice."
-  }
+  },
+  "signoff": "Rupert has sent the scarf back. Philippa has sent it back again. Postage is now a budget line."
 }

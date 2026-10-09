@@ -65,9 +65,11 @@ export interface Reporter {
   bsn: string;
   /** Their painted pictures, `art/field-<art>-<face>.webp` (brief 06), once they exist. */
   art: string;
+  /** How tall they stand in the shot (1 = everyone else). Hamish is short, so the props loom (cast bible 11 §4). */
+  height?: number;
 }
 
-export const FIELD: Record<'chase' | 'rupert', Reporter> = {
+export const FIELD: Record<'chase' | 'rupert' | 'hamish' | 'bev', Reporter> = {
   chase: {
     seat: 'field',
     name: 'Chase Hurley',
@@ -92,4 +94,44 @@ export const FIELD: Record<'chase' | 'rupert', Reporter> = {
     bsn: 'Behind Shellfire, Nominally',
     art: 'rupert',
   },
+  // Cast bible 11 §4: always a line behind, already in tomorrow, and short.
+  hamish: {
+    seat: 'field',
+    name: 'Hamish Tuck',
+    role: 'Asia-Pacific Bureau (the bureau is him)',
+    career: 'career.sailor',
+    voice: 'mid',
+    pitch: 1.12,
+    color: '#0f766e',
+    bsn: 'Blown Sideways Nightly',
+    art: 'hamish',
+    height: 0.72,
+  },
+  // Cast bible 11 §4: live from the launch party, glass in hand.
+  bev: {
+    seat: 'field',
+    name: 'Bev Fizzwilliam',
+    role: 'Entertainment & Lifestyle · live from the launch',
+    career: 'career.fashion-designer',
+    voice: 'bright',
+    pitch: 0.92,
+    color: '#be185d',
+    bsn: 'Bubbles, Sequins, Nibbles',
+    art: 'bev',
+  },
+};
+
+/**
+ * Jeff, the studio technician (cast bible 11 §3): never on screen, not even a
+ * hand. He speaks from off (a bubble from the top, no lower third) and drops
+ * things on Brock (`drop` on a line).
+ */
+export const JEFF = {
+  seat: 'jeff' as const,
+  name: 'Jeff',
+  role: 'Studio Technician (off)',
+  career: 'career.electrician',
+  voice: 'gravel' as VoiceType,
+  pitch: 0.85,
+  color: '#475569',
 };
