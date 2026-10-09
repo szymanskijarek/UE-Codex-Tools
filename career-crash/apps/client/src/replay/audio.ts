@@ -197,13 +197,13 @@ export class Sfx {
     s.stop(t + attack + dur + 0.05);
   }
 
-  /** Babble a speech-bubble line in this voice (skipped if two others are already talking). */
-  speak(text: string, voice: Voice, force = false): void {
+  /** Babble a speech-bubble line in this voice (skipped if two others are already talking); `fitS` times it to that many seconds. */
+  speak(text: string, voice: Voice, force = false, fitS?: number): void {
     if (this.muted || !this.ctx || !this.master || !this.noise || this.ctx.state !== 'running') return;
     const now = this.ctx.currentTime;
     this.talking = this.talking.filter((t) => t > now);
     if (this.talking.length >= (force ? 3 : 2)) return;
-    const len = babble(this.ctx, this.master, this.noise, text, voice, now + 0.01, this.rate);
+    const len = babble(this.ctx, this.master, this.noise, text, voice, now + 0.01, this.rate, fitS);
     this.talking.push(now + len);
   }
 

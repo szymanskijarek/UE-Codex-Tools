@@ -25,7 +25,7 @@
     { "who": "us", "heat": 3, "text": "Take. That. BACK." }
   ],
   "brawl": {
-    "seconds": 4,
+    "seconds": 6,
     "arena": "arena.news-studio",
     "shouts": { "us": "BACK TO YOU, PHILIPPA!", "uk": "IT'S FANSHAW!", "guest": "HIGH PRESSURE SYSTEM!" }
   },

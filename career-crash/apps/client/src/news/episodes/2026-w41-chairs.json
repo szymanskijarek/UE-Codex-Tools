@@ -19,7 +19,7 @@
     { "who": "us", "heat": 3, "text": "It came from YOUR side of the desk!" }
   ],
   "brawl": {
-    "seconds": 4,
+    "seconds": 6,
     "arena": "arena.news-studio",
     "shouts": { "us": "THIS MEANS CHAIR!", "uk": "IT'S A RECALL, NOT A WEAPON!" }
   },

@@ -348,6 +348,8 @@ export class BattleRenderer {
   private shake = 0;
   private cam = { x: 0, y: 0, z: 1 };
   private compact = false;
+  /** Set by destroy(), so a mount still loading gives up instead of attaching a dead canvas. */
+  private destroyed = false;
   private refId = -1;
   private overlay = new Container();
   private replayFocus: number[] | null = null;
@@ -374,9 +376,18 @@ export class BattleRenderer {
     this.arena = layout.arena;
     this.obstacles = layout.obstacles;
     await this.app.init({ preference: 'webgl', resizeTo: el, background: hex(this.arena.theme.wall), antialias: true, autoDensity: true, resolution: Math.min(2, window.devicePixelRatio || 1) });
+    // Destroyed while still loading (a page skipped or restarted): drop the half-built app, attach nothing.
+    if (this.destroyed) {
+      this.app.destroy(true, { children: true });
+      return;
+    }
     el.appendChild(this.app.canvas);
     this.art = arenaArt(this.arena.id);
     await Promise.all([loadPuppets(), this.loadBackdrop(), loadItems()]);
+    if (this.destroyed) {
+      this.app.destroy(true, { children: true });
+      return;
+    }
     this.bodies.sortableChildren = true;
     this.world.addChild(this.floor, this.rubble, this.decalLayer, this.areas, this.bodies, this.fxLayer, this.uiLayer);
     this.app.stage.addChild(this.world);
@@ -395,7 +406,19 @@ export class BattleRenderer {
     this.ready = true;
   }
 
+  /**
+   * Stop (or restart) drawing. A renderer mounted ahead of time and kept out of
+   * sight (Broken News loads the brawl during the desk scene) shouldn't redraw
+   * a hidden canvas every frame.
+   */
+  hold(on: boolean): void {
+    if (!this.ready) return;
+    if (on) this.app.ticker.stop();
+    else this.app.ticker.start();
+  }
+
   destroy(): void {
+    this.destroyed = true;
     this.observer?.disconnect();
     this.sfx.close();
     if (this.ready) this.app.destroy(true, { children: true });

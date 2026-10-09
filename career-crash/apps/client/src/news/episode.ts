@@ -104,7 +104,7 @@ export const FORMAT = {
   /** The whole segment, ident to hand-off, must fit in this. */
   maxMs: 60_000,
   brawlMinS: 2,
-  brawlMaxS: 6,
+  brawlMaxS: 8,
   /** Typing speed per character, by heat: they talk faster as it gets personal. */
   typePerCharMs: [40, 36, 30, 26],
   typeMinMs: 500,

@@ -457,10 +457,15 @@ function utter(ctx: BaseAudioContext, dest: AudioNode, noise: AudioBuffer, voice
  * Schedule a babbled line on `ctx`, into `dest`. `noise` is a looping white
  * noise buffer. Returns the utterance length in seconds.
  */
-export function babble(ctx: BaseAudioContext, dest: AudioNode, noise: AudioBuffer, text: string, voice: Voice, at: number, rate = 1): number {
+/**
+ * `fitS`: talk for this many seconds (Broken News times the babble to its
+ * speech bubble): every syllable of the line is voiced, not just the first 16,
+ * and the syllables and pauses stretch or squeeze to fit, at the same pitch.
+ */
+export function babble(ctx: BaseAudioContext, dest: AudioNode, noise: AudioBuffer, text: string, voice: Voice, at: number, rate = 1, fitS?: number): number {
   const P = PARAMS[voice.type];
   const R = rng(text + voice.type);
-  const syl = syllables(text, 16);
+  const syl = syllables(text, fitS ? 120 : 16);
   if (syl.length === 0) return 0;
   const exclaim = /!/.test(text);
   if (voice.fx === 'bark' || voice.fx === 'yip' || voice.fx === 'croak') {
@@ -492,6 +497,15 @@ export function babble(ctx: BaseAudioContext, dest: AudioNode, noise: AudioBuffe
       pause: s.pause * (0.6 / voice.speed),
     };
   });
+  if (fitS) {
+    const natural = notes.reduce((t, n) => t + n.dur + n.pause, 0) / rate;
+    // utter() adds a little tail (the last syllable's release): aim that much short.
+    const k = Math.max(0.45, Math.min(2.2, (fitS * 0.97 - 0.15) / natural));
+    for (const n of notes) {
+      n.dur *= k;
+      n.pause *= k;
+    }
+  }
   return utter(ctx, dest, noise, voice, notes, at, rate, text + voice.type);
 }
 

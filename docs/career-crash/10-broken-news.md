@@ -71,7 +71,7 @@ Every episode opens with the same segment, in this order:
 |---|---|---|---|
 | 1 | **Ident** | 2.4 s | Sting. The BROKEN NEWS logo slams in and cracks. |
 | 2 | **Desk** | ~25–40 s | Close-up of the anchors behind the desk. They read the story straight, then needle each other; it gets personal; the last line is the swing. A guest may walk on mid-argument. |
-| 3 | **Brawl** | 2–6 s (pilot: 4) | Cut to the studio floor: the anchors (and guest) brawl, a real Career Crash fight, shot as a **close-up**: the camera locks onto the two anchors at up to 3.4× zoom (the guest runs into shot), unlike the wide director's camera of the mass brawls elsewhere in Career Crash, and keeps the bottom 16% clear for the straps. Everyone gets one shouted line as the first punch lands (a 0.8 s freeze-frame so it reads). |
+| 3 | **Brawl** | 2–8 s (pilots: 6) | Cut to the studio floor: the anchors (and guest) brawl, a real Career Crash fight, shot as a **close-up**: the camera locks onto the two anchors at up to 3.4× zoom (the guest runs into shot), unlike the wide director's camera of the mass brawls elsewhere in Career Crash, and keeps the bottom 16% clear for the straps. Everyone gets one shouted line as the first punch lands (a 0.8 s freeze-frame so it reads). |
 | 4 | **Stand-by** | 1.6 s | Colour bars: *WE ARE EXPERIENCING TECHNICAL DIFFICULTIES*. |
 | 5 | **Hand-off** | 2.6 s | *THIS WEEK ON BROKEN NEWS:* the minigame's title and one line on what to do. |
 | 6 | **Minigame** | the game's own | The week's game, mounted into the same TV frame. |
@@ -98,6 +98,22 @@ Every desk line carries a **heat** from 0 to 3, and the studio reacts:
 Rules: the first line is heat 0, heat never goes down, the last line is heat
 3. The story must be told (straight) in the first two or three lines, so the
 player has the context before it falls apart.
+
+### 2.2 The score
+
+All synthesised like the rest of Career Crash's music (`replay/music.ts`, NES-style chiptune):
+
+| When | Cue | What it is |
+|---|---|---|
+| Ident | sting `newsIdent` | the BSN jingle: a timpani roll, then "BAH-ba-ba BAAAAH" |
+| Desk | song `news-bed` | ticking, urgent D-minor news underscore; speeds up with the heat (×1.00 → ×1.24) |
+| Brawl | song `news-brawl` | the bed's theme, frantic, 172 bpm |
+| Stand-by | sting `testTone` | the colour bars' flat beep |
+| Hand-off | sting `newsHandoff` | "This week on…": rising arpeggio and a hit |
+| Game, sign-off | song `news-theme` | the BSN anthem: self-important cable-news brass in D major |
+
+Speech: each line's babble is timed to its bubble (`babble(…, fitS)`): every
+syllable is voiced and stretched or squeezed, same pitch, to end with the typing.
 
 ## 3. The studio and the cast
 
@@ -189,7 +205,7 @@ An episode is one JSON file, `apps/client/src/news/episodes/<id>.json`
 | `ticker` | 3–6 joke headlines for the crawl. |
 | `guest` | Optional: `name`, `role` (lower third), stand-in `career`, `enters` (line index), `bsn` (their own expansion). |
 | `beats` | The desk lines: `who` (`us`, `uk`, `guest`), `text`, `heat`, optional `mood` (`neutral`, `angry`, `surprised`, `hurt`) `ms` (hold time; default from reading speed) and `chair` (a seat a rogue chair hits as the line starts). |
-| `brawl` | `seconds` (2–6), optional `arena`, `shouts` per seat. |
+| `brawl` | `seconds` (2–8), optional `arena`, `shouts` per seat. |
 | `minigame` | The week's minigame id (§5). |
 | `realStory` | `text` (2–3 plain sentences: what actually happened) and `source` (a link to a reputable report). |
 
@@ -203,7 +219,7 @@ spirals. A `chair` line holds at least 2.6 s.
 `checkEpisode` enforces the format, and the page lists any problems on its
 start card; `apps/client/test/news-episode.test.ts` runs it on every episode
 file: at least 4 lines, both anchors speak, heat starts at 0, never drops and
-ends at 3, a guest only speaks after walking on, the brawl is 2–6 s, the
+ends at 3, a guest only speaks after walking on, the brawl is 2–8 s, the
 minigame exists, there is a ticker and a real story, and phases 1–5 fit in 60 s.
 
 ### 4.3 The real story

@@ -21,6 +21,8 @@ import chairUrl from './art/rogue-chair.webp';
 
 /** The rogue chair's flight (news.css `bn-chair-fly`): it hits its target this far in. */
 const CHAIR_HIT_MS = 600;
+/** The desk bed's tempo by heat. */
+const BED_TEMPO = [1, 1.06, 1.14, 1.24];
 const CHAIR_FLY_MS = 1100;
 
 /** Painted desk-shot people, `art/desk-<who>-<face>.webp`; anyone without them falls back to their career face. */
@@ -83,22 +85,26 @@ function firstHitTick(input: BattleInput): number {
   return 0;
 }
 
-/** Milliseconds since the segment started rolling (from `from`), per frame. */
+/**
+ * Milliseconds since the segment started rolling (from `from`), per frame.
+ * Keyed by take: a new take reads `from` from its very first render, never the
+ * last take's clock (which, past the end, would skip the replay straight on).
+ */
 function useNow(running: boolean, from: number, take: number): number {
-  const [ms, setMs] = useState(from);
+  const [now, setNow] = useState({ take, ms: from });
   useEffect(() => {
     if (!running) return;
     const t0 = performance.now() - from;
-    setMs(from);
+    setNow({ take, ms: from });
     let raf = 0;
     const loop = (t: number) => {
-      setMs(t - t0);
+      setNow({ take, ms: t - t0 });
       raf = requestAnimationFrame(loop);
     };
     raf = requestAnimationFrame(loop);
     return () => cancelAnimationFrame(raf);
   }, [running, take]);
-  return ms;
+  return now.take === take ? now.ms : from;
 }
 
 /** `?at=<ms>` starts the first take part-way in (checking a week's script, screenshots). */
@@ -136,11 +142,12 @@ export function Studio() {
   useEffect(() => {
     if (stage !== 'segment' || lastCue.current === cue) return;
     lastCue.current = cue;
-    if (cue.phase === 'ident') sting('start');
+    if (cue.phase === 'ident') sting('newsIdent');
     else if (cue.phase === 'desk') {
       const b = ep.beats[cue.beat!]!;
       const p = people.find((x) => x.seat === b.who);
-      if (p) sfx.speak(shownText(b, typeMs(b)), p.voice, true);
+      // The voice talks exactly as long as the bubble types: word for word, the same length.
+      if (p) sfx.speak(shownText(b, typeMs(b)), p.voice, true, typeMs(b) / 1000);
       if (b.heat === 3) sfx.play('ooh');
       if (b.chair) {
         sfx.play('whoosh');
@@ -150,11 +157,19 @@ export function Studio() {
         }, CHAIR_HIT_MS);
       }
     } else if (cue.phase === 'brawl') {
-      sting('crash');
       brawlRef.current?.start();
-    } else if (cue.phase === 'standby') sfx.play('whistle');
-    else if (cue.phase === 'handoff') sting('win');
+    } else if (cue.phase === 'standby') sting('testTone');
+    else if (cue.phase === 'handoff') sting('newsHandoff');
   }, [stage, cue]);
+
+  // The score (10 §2.2): the bed under the desk, the brawl track under the fight, the BSN anthem
+  // under the game and the sign-off. Stings cover the ident, the bars and the hand-off.
+  const song = stage === 'segment' ? (cue.phase === 'desk' ? 'news-bed' : cue.phase === 'brawl' ? 'news-brawl' : null) : stage === 'game' || stage === 'signoff' ? 'news-theme' : null;
+  useEffect(() => {
+    if (song && !muted) music.play(song);
+    else music.finish(song ? 200 : 350);
+  }, [song, muted]);
+  useEffect(() => () => music.finish(200), []);
 
   // The brawl renderer: mounted (hidden) when the segment starts so it's ready on the cut.
   useEffect(() => {
@@ -176,6 +191,7 @@ export function Studio() {
     brawlRef.current = {
       start() {
         running = true;
+        renderer.hold(false);
         last = performance.now();
         frozenUntil = last + BRAWL_FREEZE_MS;
         // Everyone gets their line in as the first punch lands.
@@ -192,6 +208,8 @@ export function Studio() {
     void renderer.mount(brawlHost.current).then(() => {
       if (!alive) return;
       renderer.render(player, 0, []);
+      // Ready for the cut, but drawn nothing more until it comes.
+      if (!running) renderer.hold(true);
       const loop = (t: number) => {
         if (!alive) return;
         const dt = Math.min(100, t - last);
@@ -239,6 +257,8 @@ export function Studio() {
   const beat = deskBeat >= 0 ? ep.beats[Math.min(deskBeat, ep.beats.length - 1)] : undefined;
   const heat = cue.phase === 'desk' ? beat!.heat : cue.phase === 'ident' ? 0 : 3;
   const speaking = cue.phase === 'desk' ? beat!.who : null;
+  // The bed speeds up as the desk heats up (eased inside Music).
+  if (song === 'news-bed') music.setTempo(BED_TEMPO[heat]!);
   const progress = cue.phase === 'desk' && beat ? Math.min(1, (ms - cue.at) / typeMs(beat)) : 1;
   const speaker = speaking ? people.find((p) => p.seat === speaking) : undefined;
   const guestIn = !!ep.guest && deskBeat >= ep.guest.enters;
