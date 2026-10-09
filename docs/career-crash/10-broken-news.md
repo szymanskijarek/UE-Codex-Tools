@@ -123,6 +123,9 @@ syllable is voiced and stretched or squeezed, same pitch, to end with the typing
 
 ## 3. The studio and the cast
 
+Who everyone is (flaws, why we love them, voices, relationships, which
+character leads which story): the cast bible, `11-broken-news-cast.md`.
+
 ### 3.1 The anchors
 
 | | **Brock Stetson Jr.** | **Philippa Featherstonehaugh** |
@@ -130,7 +133,7 @@ syllable is voiced and stretched or squeezed, same pitch, to end with the typing
 | From | America (*very*) | Britain (*very*) |
 | Title | Senior Anchor (self-appointed) | Co-Anchor; pronounced "Fanshaw" |
 | Look | glossy chestnut hair helmet, square jaw, red power tie, navy suit a size too small, flag pin | sharp dark bob, reading glasses, royal-blue blazer, pearls, fountain pen |
-| Voice | deep, loud, confident, wrong | bright, precise, dry, quietly furious |
+| Voice | deep, loud, confident, wrong; charming, never sarcastic | precise, flat, a beat too long; socially awkward, always right |
 | Running gags | mispronounces her name every week; his "Emmy" (regional, Best Hair); owns everything in the studio | corrects him; reads off "her" autocue; has a grudge and a pension |
 | Brawl line (pilot) | *"BACK TO YOU, PHILIPPA!"* | *"IT'S FANSHAW!"* |
 
@@ -142,10 +145,11 @@ Who throws the first punch alternates; neither is the straight man for long.
 Some weeks a third person barges in (`guest` in the script, walking on at a
 given line): they make it worse and join the brawl. Recurring guests (looks
 in `career-crash/art/news/04-GUESTS.md`): **Dusty Gale** (Weather, on a
-short-term contract; in the pilot), **Coach Biff Malone** (Sports, shouts),
-**Tamsin Quayle** (Traffic, live from the helicopter, even in the studio),
+short-term contract; in the pilot), **Brody Kale** (Sports & Wellness;
+replaces Coach Biff), **Tamsin Quayle** (Traffic, live from the helicopter, even in the studio),
 **Dr Ainsley Verity** (An Expert; agrees with whoever spoke last), **Kevin**
-(The Intern; has never been allowed to speak, and one day will).
+(The Intern; has never been allowed to speak, and one day will). Never on
+screen: **Jeff**, the studio technician, who drops things on Brock.
 
 ### 3.3 The studio
 
@@ -406,7 +410,7 @@ before the first hit lands, so it changes with the sim like any other fight.
   cut straight to the framing, bottom strip kept clear.
 
 **Not yet:** a real episode and minigame, art briefs 09 (the guests' mouth twins and `hurt`)
-and 10 (Biff, Tamsin, Ainsley, Kevin), lazy-loading minigames, per-anchor
+and 10 (Brody, Tamsin, Ainsley, Kevin), the cast bible's new art (11 §9), lazy-loading minigames, per-anchor
 voices beyond pitch and type, links from the rest of the site, sitemap and
 share image (the page is `noindex` until launch).
 
@@ -458,6 +462,10 @@ another seat at the desk.
 | Beat | Storm chaser and "live from the scene" man: hood up, leaning into wind that isn't there, shouting over silence | Foreign correspondent: safari jacket, war-zone gravitas for the most trivial story ("I'm standing outside a sandwich shop that has run out of sandwiches") |
 | Running gags | always on the wrong side of a barrier; mistakes a leaf blower for a hurricane | never quite sure which country he's in; signs off in a language he doesn't speak |
 | Anchor | Brock's favourite ("my guy") | Philippa's old flame, which nobody mentions |
+
+Two more are coming (cast bible §4): **Hamish Tuck** in Wellington (always a
+line behind, already in tomorrow) and **Bev Fizzwilliam** at a launch party
+(tipsy, risqué, bleeped).
 
 Guests from the other games come along as locals: crypto bros on the Trading
 Floor, a delegate outside the Summit, a career's worker at their job.

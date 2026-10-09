@@ -1,7 +1,8 @@
-# Broken News 10: the later guests, ready-to-paste (Biff, Tamsin, Ainsley, Kevin)
+# Broken News 10: the later guests, ready-to-paste (Brody, Tamsin, Ainsley, Kevin)
 
 > **Status (9 October 2026):** not delivered yet. Brief 04 introduced these
-> four; this file turns them into prompts. Each one is complete when it
+> four (Brody Kale replaces Coach Biff, cast bible
+> `docs/career-crash/11-broken-news-cast.md` §5); this file turns them into prompts. Each one is complete when it
 > arrives: desk close-ups, mouth twins, `hurt`, a body sheet and four fight
 > heads, 16 pictures per guest.
 
@@ -17,14 +18,14 @@ as the scale reference if it's a new session). Rounds 3 and 4 can be a
 fresh session: attach the guest's `neutral` desk picture from round 1 so the
 fighter matches.
 
-Order: **Biff, Tamsin, Ainsley, Kevin** (sports and traffic are the most
+Order: **Brody, Tamsin, Ainsley, Kevin** (sports and traffic are the most
 useful in episodes; Kevin's joke is that he never speaks, so he comes last).
 
 ## The four guests
 
 | Guest | Key | Look (paste after the setup) | Main colours |
 |---|---|---|---|
-| Coach Biff Malone, Sports | `biff` | *A former minor-league baseball coach in his fifties turned sports anchor: a red team windbreaker over a white polo shirt, a whistle on a lanyard, a red baseball cap, a stopwatch, a thick grey moustache, a clipboard. Shouts every sentence.* | red #b91c1c, white |
+| Brody Kale, Sports & Wellness | `brody` | *A sports-and-wellness presenter in his thirties, unreasonably fit and beaming: a sleeveless red sports-desk blazer over a white compression top, a white sweatband, a smart watch, a giant water bottle, a green smoothie, short neat hair, a huge encouraging smile. The most encouraging man alive.* | red #b91c1c, white, smoothie green |
 | Tamsin Quayle, Traffic | `tamsin` | *A British traffic reporter in her thirties, live from the helicopter: an orange flight jacket with patches, a headset with a boom mic, aviator sunglasses pushed up on windswept blonde hair that is always blowing, a clipboard of road maps. Shouts over rotor noise even in the studio.* | orange #ea580c, grey |
 | Dr Ainsley Verity, An Expert | `ainsley` | *A TV pundit in their forties: a mustard tweed jacket with brown elbow patches, a dark turtleneck, round tortoiseshell glasses, short neat hair, a stack of their own hardback book under one arm (blank covers). Agrees with whoever spoke last.* | mustard #ca8a04, brown |
 | Kevin, The Intern | `kevin` | *A studio intern in his twenties: a grey hoodie, a staff lanyard, a headset round his neck, scruffy hair, a cardboard tray of four coffees, a boom microphone pole. A nervous, hopeful smile. Has never been allowed to speak.* | grey #6b7280 |
@@ -49,7 +50,7 @@ Comic slapstick, no blood or wounds in `hurt`.
 
 | Guest | `neutral` | `talk` | `smug` | `surprised` | `angry` | `lunge` | `hurt` (chair from the left) |
 |---|---|---|---|---|---|---|---|
-| Biff | arms folded, clipboard under one arm, mouth shut, glaring | blowing the whistle, cheeks puffed, pointing | tapping the stopwatch, closed-mouth grin under the moustache | cap flying off, mouth an O | red-faced, yelling, clipboard raised | charging forward like a linebacker, mouth open roaring | knocked back, cap over his eyes, whistle flying off its lanyard, stars circling |
+| Brody | sipping the green smoothie through a straw, thumbs up, mouth shut | counting reps on his fingers, mouth open | flexing one arm, closed-mouth grin, a sparkle on the bicep | smoothie slopping out of the cup, mouth an O | disappointed-coach face, shaking the water bottle, mouth open | diving in mid-burpee, mouth open cheering | sweatband knocked over his eyes, water bottle squirting upwards, stars circling |
 | Tamsin | one hand pressed to the headset, listening, mouth shut | shouting into the boom mic, hair blowing sideways | sunglasses flicked down, closed-mouth smirk | sunglasses flying off, mouth an O | jabbing at a road map on the clipboard, mouth open | leaping in, clipboard raised like a shield, mouth open | headset knocked askew, hair blown flat, road maps fluttering, a tiny helicopter circling her head |
 | Ainsley | nodding sagely, finger on chin, mouth shut | holding up their own book to the camera, mouth open | eyes closed, smiling serenely, mouth shut, one finger raised | glasses slipping, book stack wobbling, mouth an O | slamming the book down, mouth open | swinging the book stack, mouth open | glasses hanging off one ear, books tumbling, birds circling, a bump rising |
 | Kevin | holding the coffee tray, nervous smile, mouth shut | leaning towards a microphone that isn't on, mouth open, finally about to speak | proud thumbs-up over the coffees, mouth shut | coffees sloshing, mouth an O | gripping the boom pole, mouth open | swinging the boom pole, mouth open | coffees flying in the air, hoodie half over his face, stars circling |
@@ -70,8 +71,8 @@ Comic slapstick, no blood or wounds in `hurt`.
 | `desk-<key>-angry-b.png` | if open: shut, teeth gritted; if shut: open, shouting |
 | `desk-<key>-lunge-b.png` | if open: shut, teeth gritted; if shut: open, a yell |
 
-(Biff's `talk` has the whistle in his mouth: for his twin, the whistle drops
-from his lips and dangles on the lanyard, mouth open shouting.)
+(Brody's `neutral` has a straw in his mouth; it has no twin, as `neutral`
+never flaps.)
 
 ## Round 3: body sheet (one picture)
 
@@ -97,7 +98,7 @@ Save as `art/sheets/npc-news-<key>.png`. Where the props go:
 
 | Guest | Props on the body |
 |---|---|
-| Biff | whistle on its lanyard round the neck, clipboard clipped to the belt, cap on the head piece |
+| Brody | water bottle clipped to the belt, sweatband on the head piece, smart watch on a forearm |
 | Tamsin | headset on the head piece, clipboard slung across the back on a strap |
 | Ainsley | one book in the jacket pocket, the rest left out |
 | Kevin | boom pole strapped across his back, lanyard round the neck, no coffees |
@@ -117,7 +118,7 @@ Save as `art/heads/<expression>/npc-news-<key>.png`.
 
 | Guest | `neutral` | `angry` | `surprised` | `hurt` |
 |---|---|---|---|---|
-| Biff | stern glare under the cap, moustache bristling | roaring, whistle flying out of his mouth | cap popping up off his head, mouth an O | eyes squeezed shut, cap crooked |
+| Brody | beaming, eyebrows up | intense workout grimace | mouth an O, sweatband slipping | eyes squeezed shut, sweatband askew |
 | Tamsin | headset on, sunglasses up, determined | shouting into the boom mic | sunglasses slipping down, mouth an O | wincing, hair blown flat, headset askew |
 | Ainsley | serene, slightly smug, over the glasses | frowning, glasses flashing | glasses slipping, mouth an O | eyes squeezed shut, glasses crooked |
 | Kevin | nervous hopeful smile | panicked yelling | eyes huge, mouth an O | wincing, hair everywhere |

@@ -53,7 +53,7 @@ wincing, hair flattened by a gust).
 
 ## Later guests (written now so the cast stays consistent)
 
-**2. Coach Biff Malone: Sports (`biff`)**, he/him, 50s, American. Red
+**2. Coach Biff Malone: Sports (`biff`), retired** (Brody Kale replaces him: brief 10, cast bible §5). He/him, 50s, American. Red
 #b91c1c with white. *A former minor-league baseball coach turned sports
 anchor: a red team windbreaker over a polo shirt, a whistle on a lanyard, a
 baseball cap, a stopwatch, a thick grey moustache, a clipboard tucked under

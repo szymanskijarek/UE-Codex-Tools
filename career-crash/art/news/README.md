@@ -2,7 +2,8 @@
 
 > **Status (9 October 2026):** briefs 01–03 and 05–08 are in the game. Open:
 > 09 (the guests' mouth twins and `hurt`, ready-to-paste) and 10 (the later
-> guests from 04: Biff, Tamsin, Ainsley, Kevin, ready-to-paste).
+> guests from 04: Brody, Tamsin, Ainsley, Kevin, ready-to-paste). Who
+> everyone is: the cast bible, `docs/career-crash/11-broken-news-cast.md`.
 
 Art for **careercrash.org/news** (design: `docs/career-crash/10-broken-news.md`):
 a cable-news studio where two anchors read the week's story, bicker, and
@@ -26,7 +27,7 @@ the house style and the layout rules it needs.
 | 7 | [`07-LOCATIONS.md`](07-LOCATIONS.md) | Six location plates for field reports (motorway, sheep field, ministry steps, glacier, car park, sandwich shop) | 6 | 2 |
 | 8 | [`08-EPISODE_GUESTS.md`](08-EPISODE_GUESTS.md) | Desk close-ups for the episode guests: Gideon, Marcel, Terry, Sir Nigel, Such Wow Wes (six each) | 30 | 3 |
 | 9 | [`09-GUEST_MOUTHS_AND_HURT.md`](09-GUEST_MOUTHS_AND_HURT.md) | Ready-to-paste: mouth twins for Dusty and four episode guests, `hurt` for the five episode guests | 20 + 5 | **1** |
-| 10 | [`10-LATER_GUESTS.md`](10-LATER_GUESTS.md) | Ready-to-paste: Biff, Tamsin, Ainsley and Kevin, complete (desk, twins, `hurt`, body sheet, heads) | 4 × 16 | 2 |
+| 10 | [`10-LATER_GUESTS.md`](10-LATER_GUESTS.md) | Ready-to-paste: Brody, Tamsin, Ainsley and Kevin, complete (desk, twins, `hurt`, body sheet, heads) | 4 × 16 | 2 |
 
 Order: the desk shot is what everyone sees first and for longest (about 30
 seconds of every episode), so it comes first; the fighters next, since the

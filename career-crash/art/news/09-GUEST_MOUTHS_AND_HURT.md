@@ -43,6 +43,10 @@ pictures. If that session is gone, attach the picture named in each prompt
 
 ### Dusty Gale (four)
 
+> **On hold:** Dusty is being redesigned (cast bible
+> `docs/career-crash/11-broken-news-cast.md` §5); his twins will come with
+> the new look. Skip 1–4 for now.
+
 **1. `desk-dusty-talk-b.png`**
 > Take your image of Dusty **talking** (pointing off to the side at an
 > invisible weather map, mouth wide open mid-forecast). Edit only the mouth:
