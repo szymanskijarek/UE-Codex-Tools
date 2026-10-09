@@ -13,9 +13,9 @@
   "beats": [
     { "who": "us", "heat": 0, "text": "Good evening, this is Broken News. Tonight: forty thousand office chairs recalled for \"spinning with intent\"." },
     { "who": "uk", "heat": 0, "text": "Regulators say the chairs have been leaving desks unattended. Several were seen in a car park." },
-    { "who": "us", "heat": 1, "text": "Ha! A chair can't hurt anyone, Philippa. I sit on danger every night." },
+    { "who": "us", "heat": 1, "text": "Ha! A chair can't hurt anyone, Philippa. I sit on danger every night.", "pause": "awkward" },
     { "who": "us", "heat": 2, "chair": "us", "text": "OW! Who threw that?!" },
-    { "who": "uk", "heat": 2, "mood": "neutral", "text": "Nobody threw it, Brock. It's a self-starter. Like you, apparently." },
+    { "who": "uk", "heat": 2, "mood": "neutral", "text": "Nobody threw it, Brock. It's a self-starter. Like you, apparently.", "pause": "beat" },
     { "who": "us", "heat": 3, "text": "It came from YOUR side of the desk!" }
   ],
   "brawl": {

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { ANCHORS } from '../src/news/cast';
-import { BSN_OFFICIAL, checkEpisode, cueAt, deskFace, FORMAT, spellsBsn, timeline, type Episode } from '../src/news/episode';
+import type { Beat } from '../src/news/episode';
+import { beatMs, BSN_OFFICIAL, checkEpisode, cueAt, deskFace, shownText, typeMs, FORMAT, spellsBsn, timeline, type Episode } from '../src/news/episode';
 import { EPISODES } from '../src/news/episodes';
 import pilot from '../src/news/episodes/2026-w41-printers.json';
 
@@ -65,5 +66,18 @@ describe('Broken News episodes (10 §4)', () => {
     expect(deskFace({ who: 'us', heat: 2, chair: 'uk', text: '' }, 'uk')).toBe('hurt');
     const bad: Episode = { ...ep, beats: ep.beats.map((b, i) => (i === 1 ? { ...b, chair: 'guest' as const } : b)) };
     expect(checkEpisode(bad, MINIGAMES).join('\n')).toContain("the chair hits a guest who isn't there");
+  });
+
+  it('the argument speeds up as it heats, and named pauses land the jokes (10 §4.4)', () => {
+    const line = (heat: 0 | 1 | 2 | 3, extra: Partial<Beat> = {}): Beat => ({ who: 'us', heat, text: 'x'.repeat(50), ...extra });
+    const gaps = ([0, 1, 2, 3] as const).map((h) => beatMs(line(h)) - typeMs(line(h)));
+    for (let i = 1; i < gaps.length; i++) expect(gaps[i]!).toBeLessThan(gaps[i - 1]!);
+    expect(beatMs(line(2, { pause: 'beat' }))).toBeGreaterThan(beatMs(line(2)));
+    expect(beatMs(line(2, { pause: 'long' }))).toBeGreaterThan(beatMs(line(2, { pause: 'beat' })));
+    expect(beatMs(line(2, { pause: 'awkward' }))).toBeGreaterThan(beatMs(line(2, { pause: 'long' })));
+    const cut = line(2, { pause: 'cut', text: 'Quick weather break! Paper jams moving in' });
+    expect(beatMs(cut)).toBe(typeMs(cut));
+    expect(shownText(cut, 99_999).endsWith('—')).toBe(true);
+    expect(shownText(cut, 99_999).length).toBeLessThan(cut.text.length);
   });
 });

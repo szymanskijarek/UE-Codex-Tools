@@ -193,8 +193,10 @@ An episode is one JSON file, `apps/client/src/news/episodes/<id>.json`
 | `minigame` | The week's minigame id (§5). |
 | `realStory` | `text` (2–3 plain sentences: what actually happened) and `source` (a link to a reputable report). |
 
-Reading speed is 1.0 s + 42 ms per character (1.5–6 s per line), so a
-50-character line holds about 3 s. Ten lines is a full desk.
+Pacing: a line types out at 40 ms per character when calm, speeding up to
+26 ms as it heats up, then holds before the next line: 1.1 s at heat 0,
+0.7 s at 1, 0.38 s at 2, 0.3 s at 3. So the argument gains momentum as it
+spirals. A `chair` line holds at least 2.6 s.
 
 ### 4.2 Checks
 
@@ -211,6 +213,19 @@ actually happened, in two or three neutral sentences, with a source link. It
 is required. The minigame should also be *about* the story's actual mechanics
 where it can (a game about a shipping jam is about routing ships), so playing
 it teaches something true.
+
+### 4.4 Comic timing: named pauses
+
+A line can set `pause` to land a joke (it replaces the heat's default gap):
+
+| `pause` | What happens | Use it for |
+|---|---|---|
+| `cut` | The line stops 60% in with a dash; the next line starts at once | interruptions, someone talking over the guest |
+| `beat` | +0.65 s before the reply | a mispronounced name, a small dig |
+| `long` | +1.4 s; the line hangs there | the punchline before the swing |
+| `awkward` | +2.3 s of dead air; everyone else drops to a blank stare | a claim that's about to be disproved (a chair can't hurt anyone…) |
+
+Use one or two per episode: if every line pauses, none of them land.
 
 ## 5. Minigames
 

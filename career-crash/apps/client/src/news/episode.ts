@@ -23,7 +23,18 @@ export interface Beat {
   ms?: number;
   /** A rogue office chair flies in from off screen and hits this seat as the line starts (they wear `hurt`). */
   chair?: Seat;
+  /** Comic timing after the line (10 §4.4); without it the gap shrinks as the desk heats up. */
+  pause?: Pause;
 }
+
+/**
+ * Named pauses for landing a joke (10 §4.4):
+ * - `cut`: interrupted. The line stops partway with a dash and the next one starts at once.
+ * - `beat`: a short comic beat before the reply.
+ * - `long`: a dramatic pause; the line hangs there.
+ * - `awkward`: dead air. Everyone stares; nobody fills it.
+ */
+export type Pause = 'cut' | 'beat' | 'long' | 'awkward';
 
 export interface Guest {
   name: string;
@@ -94,11 +105,16 @@ export const FORMAT = {
   maxMs: 60_000,
   brawlMinS: 2,
   brawlMaxS: 6,
-  /** Reading speed for a desk line: a base plus a little per character. */
-  beatBaseMs: 1000,
-  beatPerCharMs: 42,
-  beatMinMs: 1500,
-  beatMaxMs: 6000,
+  /** Typing speed per character, by heat: they talk faster as it gets personal. */
+  typePerCharMs: [40, 36, 30, 26],
+  typeMinMs: 500,
+  typeMaxMs: 4500,
+  /** The gap after a line finishes, by heat: it shrinks so the argument keeps its momentum. */
+  holdMs: [1100, 700, 380, 300],
+  /** Extra time a named pause adds after the line (`cut` instead stops the line early). */
+  pauseMs: { cut: 0, beat: 650, long: 1400, awkward: 2300 },
+  /** How much of a `cut` line gets said before the interruption. */
+  cutAt: 0.6,
   /** A line with a rogue chair holds at least this long, so the hit and the hurt face both read. */
   chairBeatMs: 2600,
 } as const;
@@ -117,10 +133,25 @@ export function spellsBsn(phrase: string): boolean {
   return initials === 'BSN';
 }
 
+/** How long the line types out for (a `cut` line stops partway). */
+export function typeMs(b: Beat): number {
+  const full = Math.max(FORMAT.typeMinMs, Math.min(FORMAT.typeMaxMs, b.text.length * FORMAT.typePerCharMs[b.heat]));
+  return b.pause === 'cut' ? Math.round(full * FORMAT.cutAt) : full;
+}
+
+/** The whole line: typing, then the gap after it (heat sets it; a named pause overrides). */
 export function beatMs(b: Beat): number {
   if (b.ms) return b.ms;
-  if (b.chair) return Math.max(FORMAT.chairBeatMs, Math.min(FORMAT.beatMaxMs, FORMAT.beatBaseMs + b.text.length * FORMAT.beatPerCharMs));
-  return Math.max(FORMAT.beatMinMs, Math.min(FORMAT.beatMaxMs, FORMAT.beatBaseMs + b.text.length * FORMAT.beatPerCharMs));
+  const gap = b.pause === 'cut' ? 0 : FORMAT.holdMs[b.heat] + (b.pause ? FORMAT.pauseMs[b.pause] : 0);
+  const ms = typeMs(b) + gap;
+  return b.chair ? Math.max(FORMAT.chairBeatMs, ms) : ms;
+}
+
+/** What's on screen `t` ms into a line: the typed text (a `cut` line ends in a dash). */
+export function shownText(b: Beat, t: number): string {
+  const total = b.pause === 'cut' ? Math.ceil(b.text.length * FORMAT.cutAt) : b.text.length;
+  const n = Math.min(total, Math.ceil((total * Math.max(0, t)) / typeMs(b)));
+  return b.text.slice(0, n) + (b.pause === 'cut' && n >= total ? '—' : '');
 }
 
 export function moodOf(b: Beat): Emotion {

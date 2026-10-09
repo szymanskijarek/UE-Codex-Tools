@@ -9,7 +9,7 @@ import { BattleRenderer } from '../replay/renderer';
 import { voiceFor, withVoice, type Voice } from '../replay/voices';
 import { Portrait } from '../ui/components';
 import { ANCHORS, type Anchor } from './cast';
-import { BSN_OFFICIAL, checkEpisode, cueAt, deskFace, type DeskFace, moodOf, timeline, type Cue, type Episode, type Seat } from './episode';
+import { BSN_OFFICIAL, checkEpisode, cueAt, deskFace, shownText, typeMs, type DeskFace, moodOf, timeline, type Cue, type Episode, type Seat } from './episode';
 import { EPISODES, pickEpisode } from './episodes';
 import { MINIGAMES, minigameById } from './minigames';
 import backdropUrl from './art/desk-backdrop.webp';
@@ -140,7 +140,7 @@ export function Studio() {
     else if (cue.phase === 'desk') {
       const b = ep.beats[cue.beat!]!;
       const p = people.find((x) => x.seat === b.who);
-      if (p) sfx.speak(b.text, p.voice, true);
+      if (p) sfx.speak(shownText(b, typeMs(b)), p.voice, true);
       if (b.heat === 3) sfx.play('ooh');
       if (b.chair) {
         sfx.play('whoosh');
@@ -239,7 +239,7 @@ export function Studio() {
   const beat = deskBeat >= 0 ? ep.beats[Math.min(deskBeat, ep.beats.length - 1)] : undefined;
   const heat = cue.phase === 'desk' ? beat!.heat : cue.phase === 'ident' ? 0 : 3;
   const speaking = cue.phase === 'desk' ? beat!.who : null;
-  const progress = cue.phase === 'desk' ? Math.min(1, (ms - cue.at) / (cue.ms * 0.7)) : 1;
+  const progress = cue.phase === 'desk' && beat ? Math.min(1, (ms - cue.at) / typeMs(beat)) : 1;
   const speaker = speaking ? people.find((p) => p.seat === speaking) : undefined;
   const guestIn = !!ep.guest && deskBeat >= ep.guest.enters;
   const moodFor = (seat: Seat) => {
@@ -255,6 +255,8 @@ export function Studio() {
   const faceFor = (seat: Seat): DeskFace => {
     if (cue.phase !== 'desk' || !beat) return 'neutral';
     if (beat.chair === seat && chairT < CHAIR_HIT_MS) return 'surprised';
+    // Dead air: once the line is out, everyone else just stares.
+    if (beat.pause === 'awkward' && progress >= 1 && seat !== beat.who && beat.chair !== seat) return 'neutral';
     return deskFace(beat, seat);
   };
 
@@ -341,7 +343,7 @@ export function Studio() {
             </div>
             {beat && speaker && (
               <div class={`bn-bubble bn-bubble-${speaker.seat}`}>
-                {beat.text.slice(0, Math.ceil(beat.text.length * progress))}
+                {shownText(beat, ms - cue.at)}
               </div>
             )}
           </div>

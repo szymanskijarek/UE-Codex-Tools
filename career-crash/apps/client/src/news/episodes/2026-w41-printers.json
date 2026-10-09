@@ -15,13 +15,13 @@
   "beats": [
     { "who": "us", "heat": 0, "text": "Good evening. I'm Brock Stetson Jr., and this is Broken News." },
     { "who": "uk", "heat": 0, "text": "And I'm Philippa Featherstonehaugh. Tonight: the nation's office printers have formed a union." },
-    { "who": "us", "heat": 1, "text": "Thank you, Philippa Feather-Stone-Hog. Their first demand: no more Mondays." },
+    { "who": "us", "heat": 1, "text": "Thank you, Philippa Feather-Stone-Hog. Their first demand: no more Mondays.", "pause": "beat" },
     { "who": "uk", "heat": 1, "mood": "surprised", "text": "It's Fanshaw, Brock. It has been Fanshaw for six years." },
     { "who": "us", "heat": 1, "text": "Sounds made up. Anyway, the printers say they've been at PC LOAD LETTER since 1998." },
-    { "who": "guest", "heat": 2, "mood": "surprised", "text": "Quick weather break! Paper jams moving in from the west, toner advisory until Friday!" },
+    { "who": "guest", "heat": 2, "mood": "surprised", "text": "Quick weather break! Paper jams moving in from the west, toner advisory until Friday!", "pause": "cut" },
     { "who": "uk", "heat": 2, "text": "Dusty, we are mid-story. And Brock, you've been reading off my autocue." },
     { "who": "us", "heat": 2, "text": "YOUR autocue? I bought that autocue. With my Emmy money." },
-    { "who": "uk", "heat": 2, "text": "You have a regional Emmy. For Best Hair." },
+    { "who": "uk", "heat": 2, "text": "You have a regional Emmy. For Best Hair.", "pause": "long" },
     { "who": "us", "heat": 3, "text": "Take. That. BACK." }
   ],
   "brawl": {
