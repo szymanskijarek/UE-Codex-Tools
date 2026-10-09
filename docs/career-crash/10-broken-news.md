@@ -34,6 +34,21 @@ Alternatives, by the joke they make:
 | the brawl | *The Six O'Clock Brawl*, *Headline Smash*, *Newsbrawl Tonight*, *Fight at Eleven* |
 | the news itself | *Breaking Noise*, *Hard News*, *Unbalanced Reporting*, *The Spin Cycle* |
 
+**The BSN idea** (owner, 9 October): a channel name whose initials spell
+*BS*, a cheeky nod to how much of the news is. It fits the cast too:
+**Brock Stetson's initials are B.S.** Candidates:
+
+| Name | The joke |
+|---|---|
+| **BSN: the Brock Stetson Network** | Brock named the channel after himself (he is the self-appointed senior anchor). Philippa insists it stands for *British Standards Network*; the ticker says *Breaking Stuff Network*. Nobody says the obvious. |
+| **BSNN: Breaking Stuff News Network** | The cable-giant parody: four letters, two of them "news". |
+| **BSN: Breaking Story Network** | The straight-faced version; the joke is in the initials only. |
+| **Breaking BS** | Show title on BSN; also *BS at Six*, *Full BS*, *The BS Report*, *Total BS Tonight*. |
+
+These combine with the show name: *Broken News, on BSN*. The channel name
+goes on the ident, the desk front, the lower thirds' corner bug and the
+feed ads' author line ("BSN · Broadcast media").
+
 URL: `/news` whatever the name, each episode `/news/?ep=<id>` (later `/news/<id>`).
 
 ## 1. Goals
@@ -55,7 +70,7 @@ Every episode opens with the same segment, in this order:
 |---|---|---|---|
 | 1 | **Ident** | 2.4 s | Sting. The BROKEN NEWS logo slams in and cracks. |
 | 2 | **Desk** | ~25–40 s | Close-up of the anchors behind the desk. They read the story straight, then needle each other; it gets personal; the last line is the swing. A guest may walk on mid-argument. |
-| 3 | **Brawl** | 2–6 s (pilot: 4) | Cut to the studio floor: the anchors (and guest) brawl, a real Career Crash fight. Everyone gets one shouted line as the first punch lands (a 0.8 s freeze-frame so it reads). |
+| 3 | **Brawl** | 2–6 s (pilot: 4) | Cut to the studio floor: the anchors (and guest) brawl, a real Career Crash fight, shot as a **close-up**: the camera locks onto the two anchors at up to 2.6× zoom (the guest runs into shot), unlike the wide director's camera of the mass brawls elsewhere in Career Crash, and keeps the bottom 16% clear for the straps. Everyone gets one shouted line as the first punch lands (a 0.8 s freeze-frame so it reads). |
 | 4 | **Stand-by** | 1.6 s | Colour bars: *WE ARE EXPERIENCING TECHNICAL DIFFICULTIES*. |
 | 5 | **Hand-off** | 2.6 s | *THIS WEEK ON BROKEN NEWS:* the minigame's title and one line on what to do. |
 | 6 | **Minigame** | the game's own | The week's game, mounted into the same TV frame. |
@@ -202,7 +217,9 @@ signal comes back), shows the contract.
    mechanics where they fit.
 4. **Art:** if it needs any, write a detailed brief for the image agent first
    (`career-crash/PIPELINES.md` §5), ship with stand-ins, import on delivery.
-5. `pnpm check`, play it, screenshot each phase (`?at=<ms>` starts the open
+5. **Release:** not before the first real episode (owner, 9 October): the
+   feed ads would otherwise advertise the pilot.
+6. `pnpm check`, play it, screenshot each phase (`?at=<ms>` starts the open
    part-way in), then release as usual (`WORKFLOW.md`) whenever it's ready:
    there is no fixed day (§11). The feed ads pick up the newest episode
    automatically.
@@ -275,17 +292,20 @@ before the first hit lands, so it changes with the sim like any other fight.
   picker; `?ep=<id>` and `?at=<ms>`.
 
 - Fake Broken News ads in the career feed link to the page (§12).
+- The brawl is a close-up (`BattleRenderer.closeUp`): framed on the anchors,
+  cut straight to the framing, bottom strip kept clear.
 
 **Not yet:** studio art (CSS block-out with 64 px career faces; brawl in the
-Theatre with stand-in careers, starting from the arena's spawns, so the camera
-is wide), a real episode and minigame, lazy-loading minigames, per-anchor
+Theatre with stand-in careers, starting from the arena's spawns, so the guest
+starts out of shot), a real episode and minigame, lazy-loading minigames, per-anchor
 voices beyond pitch and type, links from the rest of the site, sitemap and
 share image (the page is `noindex` until launch).
 
 ## 11. Owner decisions (9 October 2026)
 
 1. **Name:** Broken News is the working title and sounds good; the owner is
-   still weighing the alternatives (Name, above).
+   still weighing the alternatives, including a *BS* / *BSN* channel name
+   (Name, above).
 2. **Real people:** by role only (§7 rule 3). Never named, never drawn.
 3. **Cadence:** an episode goes live when it's ready. No schedule for now;
    `week` is just the week it's about, and the newest file is the default.

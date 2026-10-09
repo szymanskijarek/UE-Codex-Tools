@@ -17,6 +17,10 @@ import { MINIGAMES, minigameById } from './minigames';
 const BRAWL_RUNUP_TICKS = TICKS_PER_SECOND;
 /** The cut to the brawl holds still this long so everyone's shout reads (no ability callouts over it). */
 const BRAWL_FREEZE_MS = 800;
+/** How far the brawl camera may zoom in (the director's wide shot is 1). */
+const BRAWL_ZOOM = 2.6;
+/** The chyron and ticker cover the bottom of the picture (news.css: 6.5% + 8%). */
+const BRAWL_STRAP_CLEAR = 0.16;
 
 interface Person {
   seat: Seat;
@@ -146,6 +150,9 @@ export function Studio() {
         last = performance.now();
         frozenUntil = last + BRAWL_FREEZE_MS;
         // Everyone gets their line in as the first punch lands.
+        // A close-up on the anchors (the guest runs into shot), not the wide shot of a mass brawl.
+        const anchors = player.world.entities.filter((e) => e.kind === 'char' && e.summonOf < 0 && (people[e.team]?.seat === 'us' || people[e.team]?.seat === 'uk')).map((e) => e.id);
+        renderer.closeUp(anchors, BRAWL_ZOOM, true, BRAWL_STRAP_CLEAR);
         shouts = player.world.entities.flatMap((e) => {
           const seat = e.kind === 'char' && e.summonOf < 0 ? people[e.team]?.seat : undefined;
           const line = seat && ep.brawl.shouts?.[seat];

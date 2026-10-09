@@ -351,6 +351,12 @@ export class BattleRenderer {
   private refId = -1;
   private overlay = new Container();
   private replayFocus: number[] | null = null;
+  /** Close-up camera (Broken News, 10): frame these fighters tightly, no replay overlay. */
+  private closeUpIds: number[] | null = null;
+  private closeUpZoom = 2.4;
+  /** Fraction of the screen's height at the bottom kept clear (a news strap over the picture). */
+  private closeUpClear = 0;
+  private snapCamera = false;
   private replayBadge: Text | null = null;
   private replayLabel = '● ACTION REPLAY';
   private replaySub = '½× SLOW-MO';
@@ -3524,6 +3530,18 @@ export class BattleRenderer {
     this.drawOverlay();
   }
 
+  /**
+   * Keep the camera close on these fighters (Broken News' studio brawl, 10 §2)
+   * instead of the director's wide shot; `snap` cuts straight to the framing,
+   * `clear` keeps that fraction of the screen's bottom free (an overlay sits there).
+   */
+  closeUp(ids: number[] | null, zoom = 2.4, snap = true, clear = 0): void {
+    this.closeUpIds = ids;
+    this.closeUpZoom = zoom;
+    this.closeUpClear = clear;
+    this.snapCamera = snap;
+  }
+
   /** Put a speech bubble over a fighter (by entity id), e.g. a boss's entrance line. */
   speak(id: number, text: string, ms: number): boolean {
     const s = this.chars.get(id);
@@ -3609,6 +3627,12 @@ export class BattleRenderer {
       frame([...this.chars.values()].filter((c) => this.replayFocus!.includes(c.id) && c.root.visible), this.compact ? 2.4 : 2.6, 1800 * this.scale);
       speed = 250;
       if (this.replayBadge) this.replayBadge.alpha = Math.floor(this.now / 500) % 2 ? 1 : 0.55;
+    } else if (this.closeUpIds) {
+      const ids = this.closeUpIds;
+      const shot = [...this.chars.values()].filter((c) => ids.includes(c.id) && c.root.visible);
+      frame(shot, this.closeUpZoom, 1100 * this.scale);
+      ty += (sh * this.closeUpClear) / 2 / tz;
+      speed = 350;
     } else {
       const alive = [...this.chars.values()].filter((c) => c.alive && c.root.visible);
       const hottest = alive.reduce<CharSprite | null>((best, c) => (!best || c.heat > best.heat ? c : best), null);
@@ -3624,7 +3648,8 @@ export class BattleRenderer {
         ty = (top + bottom) / 2;
       }
     }
-    const k = Math.min(1, dt / speed);
+    const k = this.snapCamera ? 1 : Math.min(1, dt / speed);
+    this.snapCamera = false;
     this.cam.z += (tz - this.cam.z) * k;
     this.cam.x += (tx - this.cam.x) * k;
     this.cam.y += (ty - this.cam.y) * k;
