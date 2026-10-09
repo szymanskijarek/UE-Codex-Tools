@@ -105,8 +105,10 @@ is **the same picture with only the mouth changed**: open if the original is
 shut, shut if it's open. Same canvas (1254 × 1254), same pose, hands, hair,
 glasses and pen, to the pixel: anything else that moves will jitter.
 
-**How to ask:** attach the original expression and ask the agent to *edit*
-it, not draw it again:
+**Ready-to-paste prompts** for the same image-agent session that drew the
+anchors: [`01D-MOUTH_PROMPTS.md`](01D-MOUTH_PROMPTS.md). In a new session,
+attach the original expression and ask the agent to *edit* it, not draw it
+again:
 
 > Edit the attached image. Change ONLY the mouth: [MOUTH]. Keep every other
 > pixel identical: same pose, same hands, same hair, same clothes, same
