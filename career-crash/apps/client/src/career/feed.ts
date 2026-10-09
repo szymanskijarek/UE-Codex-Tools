@@ -3,6 +3,7 @@ import { careerRank, grantableAbilities, marketFighter, RANKS, shortName, stageI
 import { Rng } from '@cc/sim';
 import { nameOf } from '../i18n';
 import { lootName, lootStatsText, RARITY_NAMES } from './Loot';
+import { EPISODES } from '../news/episodes';
 import { companyName, currentCareer, mainChar, type CareerSave, type FightSummary } from './model';
 
 /**
@@ -83,6 +84,7 @@ const MOOD_OF: Record<string, Mood> = {
   feed_network_loss: 'network',
   feed_hiring: 'company',
   feed_shop: 'company',
+  news_ad: 'company',
   feed_perk_epic: 'perk',
   feed_perk_legendary: 'perk',
   feed_perk_ability: 'perk',
@@ -166,6 +168,8 @@ export const CRYPTO_URL = import.meta.env?.VITE_INLINE === '1' ? 'https://career
 const COUNTRIES = bundle.markets.find((m) => m.source === 'likes');
 const DEL_KEYS = COUNTRIES ? Object.keys(COUNTRIES.cast).sort() : [];
 export const INCIDENT_URL = import.meta.env?.VITE_INLINE === '1' ? 'https://careercrash.org/incident/' : '/incident/';
+/** Broken News (10): its own page; the feed carries its ads. */
+export const NEWS_URL = import.meta.env?.VITE_INLINE === '1' ? 'https://careercrash.org/news/' : '/news/';
 const UK_NATIONS: Record<string, string> = { ENG: 'England', SCO: 'Scotland', WAL: 'Wales' };
 /** A country's name (English: the feed is in English). */
 export function countryName(key: string): string {
@@ -524,7 +528,7 @@ export function starterPosts(s: CareerSave): FeedPost[] {
   return posts;
 }
 
-/** Sponsored posts slotted into the timeline live: the next company hiring, and the shop. */
+/** Sponsored posts slotted into the timeline live: the next company hiring, the shop, and sometimes Broken News. */
 export function promotedPosts(s: CareerSave): FeedPost[] {
   const rng = Rng.fromSeed(`feed-promo:${s.seed}:${s.stage}:${s.wins + s.losses}`);
   const info = stageInfo(bundle, s.stage);
@@ -535,6 +539,16 @@ export function promotedPosts(s: CareerSave): FeedPost[] {
   };
   const out: FeedPost[] = [{ id: `promo-hiring-${s.stage}`, fight: -1, mood: 'company', by: 'company', company: info.company, author: info.company, sub: `${nameOf(info.arenaId)} · ${200 + rng.int(9000)} followers`, icon: info.company[0], text: pick('feed_hiring'), promoted: true, reacts: 5 + rng.int(60), comments: rng.int(8) }];
   out.push({ id: `promo-shop-${s.stage}`, fight: -1, mood: 'company', by: 'company', author: 'Corner Shop', sub: 'Retail · Open till late', icon: '🛒', text: pick('feed_shop'), promoted: true, reacts: 3 + rng.int(30), comments: 0 });
+  // Broken News (10): an ad for the latest episode, on most fights.
+  const ep = EPISODES[0];
+  if (ep && rng.int(10) < 6) {
+    const vars = { headline: ep.headline.charAt(0) + ep.headline.slice(1).toLowerCase() };
+    const line = (key: string) => {
+      const l = bundle.live[key] ?? [''];
+      return fill(l[rng.int(l.length)]!, vars);
+    };
+    out.push({ id: `promo-news-${ep.id}-${s.wins + s.losses}`, fight: -1, mood: 'company', by: 'company', author: 'Broken News', sub: 'Broadcast media · Mostly live', icon: '📺', text: line('news_ad'), promoted: true, reacts: 40 + rng.int(4000), comments: 5 + rng.int(300), link: { href: NEWS_URL, title: 'Broken News · careercrash.org/news', blurb: line('news_ad_link'), art: '📺🥊' } });
+  }
   return out;
 }
 

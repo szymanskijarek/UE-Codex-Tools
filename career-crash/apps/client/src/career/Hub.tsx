@@ -37,9 +37,10 @@ function ago(n: number): string {
 /** Your saved posts (newest first) with the sponsored ones slotted in. */
 function timeline(s: CareerSave): FeedPost[] {
   const saved = s.feed?.length ? s.feed : starterPosts(s);
-  const [hiring, shop] = promotedPosts(s);
+  const [hiring, shop, news] = promotedPosts(s);
   const out = [...saved];
   out.splice(Math.min(2, out.length), 0, hiring!);
+  if (news) out.splice(Math.min(4, out.length), 0, news);
   if (!Object.values(s.inventory).some((n) => n > 0) && !(mainChar(s).loadout ?? []).length) out.splice(Math.min(5, out.length), 0, shop!);
   return out;
 }

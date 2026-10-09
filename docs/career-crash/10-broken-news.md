@@ -19,14 +19,22 @@ pipeline, and the content rules for satire about real news.
 
 ### Name
 
-**Broken News** (proposed; short form *BN*). It's *breaking news* after a
+**Broken News** (working title, owner likes it; still open to the
+alternatives below; short form *BN*). It's *breaking news* after a
 brawl, and it fits Career Crash: things get broken. Tagline: *"We break it.
 You fix it."* (the minigame is the fixing). The ident's logo cracks before
 every episode.
 
-Other names considered: *Crash Bulletin*, *Breaking & Entering*, *The Six
-O'Clock Brawl*, *Headline Smash*, *Breaking Noise*, *Newsbrawl Tonight*. URL:
-`/news`, each episode `/news/?ep=<id>` (later `/news/<id>`).
+Alternatives, by the joke they make:
+
+| Joke | Names |
+|---|---|
+| breaking → broken | *Broken News*, *Breaking Point*, *Breaking & Entering*, *Broken Record* |
+| crash (the house brand) | *Crash Bulletin*, *Crash Course*, *Newsflash Crash*, *Crash Report* |
+| the brawl | *The Six O'Clock Brawl*, *Headline Smash*, *Newsbrawl Tonight*, *Fight at Eleven* |
+| the news itself | *Breaking Noise*, *Hard News*, *Unbalanced Reporting*, *The Spin Cycle* |
+
+URL: `/news` whatever the name, each episode `/news/?ep=<id>` (later `/news/<id>`).
 
 ## 1. Goals
 
@@ -195,7 +203,9 @@ signal comes back), shows the contract.
 4. **Art:** if it needs any, write a detailed brief for the image agent first
    (`career-crash/PIPELINES.md` §5), ship with stand-ins, import on delivery.
 5. `pnpm check`, play it, screenshot each phase (`?at=<ms>` starts the open
-   part-way in), then release as usual (`WORKFLOW.md`).
+   part-way in), then release as usual (`WORKFLOW.md`) whenever it's ready:
+   there is no fixed day (§11). The feed ads pick up the newest episode
+   automatically.
 
 Past episodes stay playable (`?ep=<id>`, and a picker under the screen when
 there's more than one).
@@ -213,7 +223,7 @@ Satire about the real world needs firmer rules than satire about plumbers:
 3. **No real faces.** Real public figures appear only by role ("a tech
    billionaire", "the Chancellor"), never by likeness or name in art.
    Companies by role too ("a social network") unless the joke needs the name
-   and it's fair comment. *Owner decision pending* (§11).
+   and it's fair comment. (Owner decision, §11.)
 4. **Not partisan.** Both anchors are wrong in equal measure; no side of an
    election is the punchline.
 5. **True where it counts.** The real story card is accurate, neutral and
@@ -264,17 +274,32 @@ before the first hit lands, so it changes with the sim like any other fight.
 - Controls: *Skip to the game*, *Replay the open*, sound toggle, episode
   picker; `?ep=<id>` and `?at=<ms>`.
 
+- Fake Broken News ads in the career feed link to the page (§12).
+
 **Not yet:** studio art (CSS block-out with 64 px career faces; brawl in the
 Theatre with stand-in careers, starting from the arena's spawns, so the camera
 is wide), a real episode and minigame, lazy-loading minigames, per-anchor
 voices beyond pitch and type, links from the rest of the site, sitemap and
 share image (the page is `noindex` until launch).
 
-## 11. Open questions for the owner
+## 11. Owner decisions (9 October 2026)
 
-1. **The name:** Broken News, or one of the alternatives?
-2. **Real people:** by role only (proposed), or named caricatures of public
-   figures?
-3. **Cadence and day:** which day does a new episode go live?
-4. **Where it lives:** its own page (`/news`, proposed), or also a tab in the
-   main game (and does a minigame pay out career-mode cash)?
+1. **Name:** Broken News is the working title and sounds good; the owner is
+   still weighing the alternatives (Name, above).
+2. **Real people:** by role only (§7 rule 3). Never named, never drawn.
+3. **Cadence:** an episode goes live when it's ready. No schedule for now;
+   `week` is just the week it's about, and the newest file is the default.
+4. **Where it lives:** its own page on careercrash.org, `/news`. Career
+   Crash points to it with **fake ads in the career feed** (§12), not a tab
+   or a menu entry. Minigames don't pay career-mode cash.
+
+## 12. The feed ads
+
+The career-mode feed (the LinkedIn parody in the hub) carries a *Promoted*
+post from **Broken News** on about 6 fights in 10, slotted in as the fourth
+post, next to the other sponsored posts (the company hiring, the Corner
+Shop). The text is a fake TV ad for the newest episode (`news_ad` in
+`packages/content/data/live.json`, `{headline}` is the episode's headline),
+with a link card to `/news/` (`news_ad_link` lines for the card). Code:
+`promotedPosts` in `apps/client/src/career/feed.ts`, placed by `timeline` in
+`Hub.tsx`. In the single-file build the link goes to careercrash.org.

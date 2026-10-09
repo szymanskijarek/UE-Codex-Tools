@@ -5617,6 +5617,24 @@
   "incident_liked_away": [
    "👍 A like for {country} just came in from the Career Crash feed. It counts from the next session.",
    "👍 Word from the career floor: you back {country}. Noted in the minutes."
+  ],
+  "news_ad": [
+   "Tonight on BROKEN NEWS: {headline}. Brock Stetson Jr. and Philippa Featherstonehaugh bring you the facts. Then each other, to the floor.",
+   "Two anchors. One desk. Zero HR complaints resolved. BROKEN NEWS: new episode out now.",
+   "\"It's Fanshaw.\" (Philippa Featherstonehaugh, every single week.) Watch BROKEN NEWS.",
+   "BROKEN NEWS: the only news show with a 100% brawl rate. This week: {headline}.",
+   "Sick of the news? So are our anchors. Watch them settle it live on BROKEN NEWS.",
+   "BROKEN NEWS is hiring a weather presenter. The last one blew away. Meanwhile: {headline}.",
+   "Brock Stetson Jr. has a regional Emmy (Best Hair) and would like you to know. BROKEN NEWS, this week: {headline}.",
+   "We break it. You fix it. This week's story on BROKEN NEWS is a game.",
+   "Trusted by nobody. Watched by everybody. BROKEN NEWS: {headline}.",
+   "Our anchors have agreed to disagree. Physically. BROKEN NEWS, new episode now."
+  ],
+  "news_ad_link": [
+   "This week: {headline}",
+   "Watch the anchors lose it, then play the story",
+   "The news, read, argued, brawled and gamified",
+   "Two anchors, one desk, no professionalism"
   ]
  }
 }
