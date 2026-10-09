@@ -123,6 +123,20 @@ Every image is inlined as base64 into the single-file build, so each byte costs
 Visual rules for new art (palette, outlines, proportions, poses) are in
 [`tools/art-pipeline/STYLE_GUIDE.md`](tools/art-pipeline/STYLE_GUIDE.md).
 
+**Art that doesn't exist yet starts as a brief.** Whenever a change needs new
+visuals (a character, an arena, props, effects, page art), write a detailed
+brief for the image agent in the same change, ship stand-in art meanwhile, and
+say which stand-ins are in use in the brief's status line. Briefs live next to
+the art (`art/*.md`, or `art/<project>/` with a `README.md` index and one
+numbered file per delivery). Model new ones on the earlier briefs:
+[`art/FX_BRIEF.md`](art/FX_BRIEF.md) is the style template (what the art is
+for, a house-style preamble to paste before every prompt, the sheet rules the
+importer relies on, a table of file names and sizes, one ready-to-paste prompt
+per image, the import commands), and `art/cryptobro/` and `art/incident/` show
+a whole project's art split into small, self-contained deliveries. A brief is
+done when someone can hand it to the image agent with the reference images it
+names, and import the result with only this section's commands.
+
 ### 5.1 Character puppets
 
 `pnpm --filter @cc/art-pipeline puppets` (all sheets) or `… puppets mime chef` (only these).

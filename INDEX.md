@@ -17,12 +17,13 @@ Paths are from the repo root. Everything under `career-crash/` and
 | Career Crash | Async browser auto-brawler, career mode, Sandbox | `dev` / `prod` | `career-crash/` | `docs/career-crash/00`–`07` | careercrash.org |
 | Crypto Bros | Endless hourly brawl of the top-10 coins as crypto bros | same | `career-crash/apps/client/src/cryptobro/`, `apps/markets/` | `docs/career-crash/08-cryptobro.md` | /cryptobro/ |
 | Diplomatic Incident | Endless brawl of 40 countries, powered by viewers' likes | same | `career-crash/apps/client/src/incident/`, `apps/votes/` | `docs/career-crash/09-diplomatic-incident.md` | /incident/ |
+| Broken News | Weekly news-satire minigames, each opened by two anchors whose desk argument becomes a brawl (block-out, unlisted) | same | `career-crash/apps/client/src/news/` | `docs/career-crash/10-broken-news.md` | /news/ (`noindex`) |
 | CV page | Unlisted HTML CV linking the games | same | `career-crash/apps/client/public/jarek-o9bh9e/index.html` | `career-crash/WORKFLOW.md` (Where things live) | /jarek-o9bh9e/ |
 | Fine Print | Multiplayer parking-warden browser game (no deps) | `claude/parking-warden-game-3eucn3` only, **not merged** | `parking-warden/` | `parking-warden/README.md`, `docs/DESIGN.md` | — |
 | Unreal/Codex tooling | MCP servers and bridges for Unreal Engine | `main` | `Tools/`, `scripts/codex/`, `.mcp.json`, `.codex/` | `docs/codex-tooling/` | — |
 
-Crypto Bros and Diplomatic Incident are pages of the same client and share the
-sim, renderer, puppets, audio and content bundle with Career Crash.
+Crypto Bros, Diplomatic Incident and Broken News are pages of the same client
+and share the sim, renderer, puppets, audio and content bundle with Career Crash.
 
 ## Career Crash: process docs (`career-crash/`)
 
@@ -30,7 +31,7 @@ sim, renderer, puppets, audio and content bundle with Career Crash.
 |---|---|
 | `AGENTS.md` | Package map, the 7 standing rules (determinism, goldens, no numbers in TS…), common tasks (add a career / prop / arena / endpoint), commands |
 | `WORKFLOW.md` | Where things live (hosts, workers, artifact), Branches and releases, Everyday loop, Checking a release, Bringing in new art, Adding content, Search and link previews, Tools, Claude Code setup, Troubleshooting, Settings checklist, Next milestones |
-| `PIPELINES.md` | Pipeline table at the top; §1 content build, §2 checks, §3 goldens, §4 balance, §5 art (5.1 puppets, 5.3 faces, 5.4 items/obstacles, 5.4a impact FX, 5.4b hazards, 5.5 arenas, 5.5b critters, 5.6 prompts; adding an arena / boss / career art), §6 client builds (6.1 hosted, 6.2 single file, 6.3 Claude artifact, 6.4 careercrash.org), §7 API worker (7.1 API launch, 7.2 Crypto Bros feed, 7.3 vote service), §8 CI |
+| `PIPELINES.md` | Pipeline table at the top; §1 content build, §2 checks, §3 goldens, §4 balance, §5 art (intro: new art starts as a brief; 5.1 puppets, 5.3 faces, 5.4 items/obstacles, 5.4a impact FX, 5.4b hazards, 5.5 arenas, 5.5b critters, 5.6 prompts; adding an arena / boss / career art), §6 client builds (6.1 hosted, 6.2 single file, 6.3 Claude artifact, 6.4 careercrash.org), §7 API worker (7.1 API launch, 7.2 Crypto Bros feed, 7.3 vote service), §8 CI |
 | `README.md` | Feature summary with content counts, career mode, quick start |
 
 ## Career Crash: design docs (`docs/career-crash/`)
@@ -76,6 +77,15 @@ sim, renderer, puppets, audio and content bundle with Career Crash.
 | Balance | `tools/balance/src/incident.ts`; `pnpm balance --incident` / `--incident-flat` |
 | Art | `career-crash/art/incident/README.md` (status line, briefs 01–13, how to portray countries) |
 
+## Broken News
+
+| What | Where |
+|---|---|
+| Design | `docs/career-crash/10-broken-news.md`: §2 the segment (2.1 heat), §3 cast and studio, §4 episode script format and checks (4.3 the real story), §5 minigame contract, §6 weekly pipeline, **§7 content rules for real news**, §10 as built + "Not yet", §11 owner questions |
+| Page | entry `career-crash/apps/client/news/index.html`; code `apps/client/src/news/` (`Studio.tsx` segment player, `episode.ts` format/timeline/checks, `cast.ts`, `episodes/*.json`, `minigames/`) |
+| Test | `apps/client/test/news-episode.test.ts` |
+| Art | `career-crash/art/news/README.md` (briefs 01–05: desk shot, anchors, studio arena, guests, page) |
+
 ## Career Crash: code map (`career-crash/`)
 
 | Area | Where |
@@ -103,7 +113,7 @@ sim, renderer, puppets, audio and content bundle with Career Crash.
 | Sheet manifests (slicer overrides, `cut`, `cutX`) | `art/sheets/manifest.json`, `art/items/`, `art/obstacles/`, `art/critters/`, `art/sheets-grid/` `manifest.json` |
 | Source folders | `sheets/` (bodies), `heads/`, `faces/`, `faces-b/`, `items/`, `obstacles/`, `arenas/`, `critters/`, `ui/` |
 | Slicer previews | `tools/art-pipeline/out/` |
-| Briefs (style template: `FX_BRIEF.md`) | `ART_BRIEF.md` (open gaps), `CHARACTER_PROMPTS.md`, `FX_BRIEF.md`, `FX_GAPS_BRIEF.md`, `GATECRASHER_PROMPTS.md`, `PERSONNEL_FILE_PROMPTS.md`, `sheets/BODY_SHEET_PROMPTS.md`, `cryptobro/`, `incident/` |
+| Briefs (style template: `FX_BRIEF.md`; rule: new art starts as a brief, `PIPELINES.md` §5) | `ART_BRIEF.md` (open gaps), `CHARACTER_PROMPTS.md`, `FX_BRIEF.md`, `FX_GAPS_BRIEF.md`, `GATECRASHER_PROMPTS.md`, `PERSONNEL_FILE_PROMPTS.md`, `sheets/BODY_SHEET_PROMPTS.md`, `cryptobro/`, `incident/`, `news/` |
 
 ## Unreal/Codex tooling (`main`)
 

@@ -1,0 +1,33 @@
+{
+  "id": "2026-w41-printers",
+  "week": "2026-10-05",
+  "headline": "PRINTERS UNIONISE",
+  "chyron": "NATION'S OFFICE PRINTERS DOWN TOOLS",
+  "ticker": [
+    "PRINTERS DEMAND \"LESS TONER-RELATED STRESS\"",
+    "STAPLERS \"CONSIDERING THEIR POSITION\"",
+    "FAX MACHINE STILL NOT TAKEN SERIOUSLY BY ANYONE",
+    "MANAGEMENT RESPONDS WITH MANDATORY RESILIENCE WORKSHOP",
+    "SHREDDER DECLINES TO COMMENT, SHREDS COMMENT"
+  ],
+  "guest": { "name": "Dusty Gale", "role": "Weather · on a short-term contract", "career": "career.photographer", "enters": 5 },
+  "beats": [
+    { "who": "us", "heat": 0, "text": "Good evening. I'm Brock Stetson Jr., and this is Broken News." },
+    { "who": "uk", "heat": 0, "text": "And I'm Philippa Featherstonehaugh. Tonight: the nation's office printers have formed a union." },
+    { "who": "us", "heat": 1, "text": "Thank you, Philippa Feather-Stone-Hog. Their first demand: no more Mondays." },
+    { "who": "uk", "heat": 1, "mood": "surprised", "text": "It's Fanshaw, Brock. It has been Fanshaw for six years." },
+    { "who": "us", "heat": 1, "text": "Sounds made up. Anyway, the printers say they've been at PC LOAD LETTER since 1998." },
+    { "who": "guest", "heat": 2, "mood": "surprised", "text": "Quick weather break! Paper jams moving in from the west, toner advisory until Friday!" },
+    { "who": "uk", "heat": 2, "text": "Dusty, we are mid-story. And Brock, you've been reading off my autocue." },
+    { "who": "us", "heat": 2, "text": "YOUR autocue? I bought that autocue. With my Emmy money." },
+    { "who": "uk", "heat": 2, "text": "You have a regional Emmy. For Best Hair." },
+    { "who": "us", "heat": 3, "text": "Take. That. BACK." }
+  ],
+  "brawl": {
+    "seconds": 4,
+    "arena": "arena.theatre",
+    "shouts": { "us": "BACK TO YOU, PHILIPPA!", "uk": "IT'S FANSHAW!", "guest": "HIGH PRESSURE SYSTEM!" }
+  },
+  "minigame": "test-card",
+  "realStory": { "text": "Nothing, yet: this is the pilot, made up to test the studio. Office printers have not unionised. They are, however, still jammed." }
+}

@@ -1,0 +1,664 @@
+/* Broken News (10): a cable-news studio. Block-out: shapes and colours only until the studio art lands. */
+body.bn-page {
+  --bn-bg: #0a1022;
+  --bn-red: #c8102e;
+  --bn-navy: #13204a;
+  --bn-gold: #f5c542;
+  --bn-text: #f4f6fb;
+  --bn-muted: #9aa6c4;
+  margin: 0;
+  background: var(--bn-bg);
+  color: var(--bn-text);
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+.bn {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 12px 16px 24px;
+}
+
+.bn-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.bn-brand {
+  display: flex;
+  gap: 6px;
+  font-weight: 900;
+  letter-spacing: 1px;
+}
+.bn-brand-mark {
+  background: var(--bn-red);
+  padding: 2px 8px;
+  transform: skewX(-8deg) rotate(-2deg);
+}
+.bn-brand-sub {
+  background: var(--bn-text);
+  color: var(--bn-navy);
+  padding: 2px 8px;
+  transform: skewX(-8deg) rotate(1.5deg);
+}
+.bn-top-meta {
+  color: var(--bn-muted);
+  font-size: 13px;
+  text-align: right;
+}
+
+/* The TV picture: 16:9, everything inside positioned in % so it scales. */
+.bn-screen {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+  border-radius: 10px;
+  background: #050811;
+  box-shadow: 0 0 0 3px #1c2547, 0 20px 50px #0008;
+  container-type: inline-size;
+}
+.bn-brawl,
+.bn-game,
+.bn-studio,
+.bn-card {
+  position: absolute;
+  inset: 0;
+}
+.bn-brawl canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* ---- Cards: cold open, ident, standby, hand-off, sign-off ---- */
+.bn-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  gap: 1.4cqw;
+  background: radial-gradient(circle at 50% 40%, #22346f 0, var(--bn-navy) 45%, #070b18 100%);
+}
+.bn-ident-logo {
+  font-size: 9cqw;
+  font-weight: 900;
+  line-height: 0.95;
+  letter-spacing: 0.02em;
+  background: var(--bn-red);
+  padding: 0.6cqw 2.4cqw;
+  transform: skewX(-8deg) rotate(-3deg);
+  box-shadow: 0.8cqw 0.8cqw 0 #000a;
+}
+.bn-ident-logo span {
+  display: block;
+  font-size: 0.62em;
+  background: var(--bn-text);
+  color: var(--bn-navy);
+  margin: 0.4cqw -1cqw -1.6cqw 4cqw;
+  padding: 0 1.2cqw;
+  transform: rotate(5deg);
+}
+.bn-slam {
+  animation: bn-slam 0.5s cubic-bezier(0.2, 1.6, 0.4, 1) both, bn-crack 2.4s steps(1) both;
+}
+@keyframes bn-slam {
+  from {
+    transform: skewX(-8deg) rotate(-3deg) scale(3);
+    opacity: 0;
+  }
+}
+/* The logo cracks before the desk shot: it's broken news. */
+@keyframes bn-crack {
+  70% {
+    clip-path: polygon(0 0, 100% 0, 100% 100%, 0 100%);
+  }
+  80% {
+    clip-path: polygon(0 0, 55% 0, 45% 48%, 60% 52%, 48% 100%, 0 100%);
+    transform: skewX(-8deg) rotate(-6deg) translateY(1cqw);
+  }
+}
+.bn-tag {
+  margin: 1cqw 0 0;
+  color: var(--bn-gold);
+  font-weight: 800;
+  font-size: 2.2cqw;
+  font-style: italic;
+}
+.bn-go {
+  font: inherit;
+  font-weight: 800;
+  font-size: max(15px, 2cqw);
+  padding: 0.9em 1.6em;
+  border: 0;
+  border-radius: 999px;
+  background: var(--bn-red);
+  color: #fff;
+  cursor: pointer;
+  box-shadow: 0 6px 0 #6d0718;
+}
+.bn-go:active {
+  transform: translateY(3px);
+  box-shadow: 0 3px 0 #6d0718;
+}
+.bn-problems {
+  margin: 0;
+  padding: 8px 14px;
+  background: #3b0d14;
+  border-radius: 8px;
+  text-align: left;
+  font-size: 13px;
+  list-style: none;
+}
+
+.bn-bars {
+  background: #000;
+}
+.bn-bars-stripes {
+  position: absolute;
+  inset: 0 0 30% 0;
+  background: linear-gradient(90deg, #c0c0c0 0 14.28%, #c0c000 0 28.57%, #00c0c0 0 42.85%, #00c000 0 57.14%, #c000c0 0 71.42%, #c00000 0 85.71%, #0000c0 0);
+  animation: bn-jitter 0.18s steps(2) infinite;
+}
+.bn-bars-text {
+  position: absolute;
+  bottom: 9%;
+  left: 0;
+  right: 0;
+  font-weight: 900;
+  font-size: 3.2cqw;
+}
+@keyframes bn-jitter {
+  50% {
+    transform: translateX(-0.6cqw) skewX(2deg);
+  }
+}
+
+.bn-handoff-kicker {
+  color: var(--bn-gold);
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  font-size: 2cqw;
+}
+.bn-handoff-title {
+  font-weight: 900;
+  font-size: 6cqw;
+  max-width: 85%;
+  line-height: 1.05;
+}
+.bn-handoff .bn-handoff-title {
+  animation: bn-slam 0.45s cubic-bezier(0.2, 1.6, 0.4, 1) both;
+}
+.bn-handoff-blurb {
+  color: var(--bn-muted);
+  font-size: 2.2cqw;
+}
+
+/* ---- The desk shot ---- */
+.bn-studio {
+  background: linear-gradient(#0e1a3f 0, #1b2c66 55%, #0b1330 100%);
+}
+.bn-wall {
+  position: absolute;
+  left: 6%;
+  right: 6%;
+  top: 6%;
+  height: 34%;
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  gap: 1.2%;
+}
+.bn-wall > div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0.4cqw solid #2f4386;
+  background: linear-gradient(135deg, #24438f, #0f1f4d);
+  box-shadow: inset 0 0 3cqw #0009;
+  font-weight: 900;
+}
+.bn-wall-logo {
+  font-size: 4cqw;
+  color: #ffffff30;
+}
+.bn-wall-story {
+  font-size: 3.6cqw;
+  letter-spacing: 0.05em;
+  color: #fff;
+  background: linear-gradient(135deg, #b30e2a, #5c0716) !important;
+  text-shadow: 0 0.3cqw 0 #0007;
+}
+.bn-skyline {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 40%;
+  height: 10%;
+  background:
+    linear-gradient(90deg, transparent 0 4%, #0a1430 4% 9%, transparent 9% 12%, #0a1430 12% 15%, transparent 15% 22%, #0a1430 22% 30%, transparent 30% 34%, #0a1430 34% 37%, transparent 37% 60%, #0a1430 60% 66%, transparent 66% 70%, #0a1430 70% 78%, transparent 78% 84%, #0a1430 84% 90%, transparent 90%);
+  opacity: 0.8;
+}
+
+/* The camera: everything that shakes as the desk heats up. */
+.bn-cam {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 60%;
+}
+.bn-heat-1 .bn-cam {
+  animation: bn-drift 3s ease-in-out infinite;
+}
+.bn-heat-2 .bn-cam {
+  animation: bn-shake 0.35s linear infinite;
+  transform: scale(1.04);
+}
+.bn-heat-3 .bn-cam {
+  animation: bn-shake-hard 0.16s linear infinite;
+}
+.bn-heat-3 .bn-studio::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle, transparent 45%, #c8102e66 100%);
+  pointer-events: none;
+}
+@keyframes bn-drift {
+  50% {
+    transform: scale(1.02) translateX(-0.4%);
+  }
+}
+@keyframes bn-shake {
+  25% {
+    transform: scale(1.05) translate(0.3%, -0.2%) rotate(0.3deg);
+  }
+  75% {
+    transform: scale(1.05) translate(-0.3%, 0.2%) rotate(-0.3deg);
+  }
+}
+@keyframes bn-shake-hard {
+  25% {
+    transform: scale(1.12) translate(0.8%, -0.5%) rotate(0.8deg);
+  }
+  75% {
+    transform: scale(1.12) translate(-0.8%, 0.5%) rotate(-0.8deg);
+  }
+}
+
+.bn-person {
+  position: absolute;
+  bottom: 27%;
+  width: 22%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s;
+}
+.bn-seat-us {
+  left: 18%;
+}
+.bn-seat-uk {
+  left: 56%;
+}
+.bn-seat-guest {
+  left: 77%;
+  bottom: 25%;
+  width: 17%;
+  animation: bn-walk-on 0.5s ease-out both;
+}
+@keyframes bn-walk-on {
+  from {
+    transform: translateX(80%) rotate(8deg);
+    opacity: 0;
+  }
+}
+.bn-head {
+  width: 70%;
+  position: relative;
+  z-index: 1;
+  margin-bottom: -8%;
+}
+.bn-head svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  image-rendering: pixelated;
+}
+.bn-suit {
+  width: 100%;
+  height: 9cqw;
+  background: var(--c);
+  border-radius: 40% 40% 0 0;
+  border: 0.35cqw solid #1b1f2a;
+  position: relative;
+}
+.bn-tie {
+  position: absolute;
+  left: 44%;
+  top: 0;
+  width: 12%;
+  height: 80%;
+  background: var(--bn-gold);
+  clip-path: polygon(50% 0, 100% 15%, 70% 100%, 30% 100%, 0 15%);
+  transition: transform 0.4s;
+}
+.bn-talking .bn-head {
+  animation: bn-talk 0.22s ease-in-out infinite alternate;
+}
+@keyframes bn-talk {
+  to {
+    transform: translateY(-3%) rotate(-1.5deg);
+  }
+}
+/* They lean in as it gets personal. */
+.bn-heat-2 .bn-seat-us,
+.bn-heat-3 .bn-seat-us {
+  transform: translateX(10%) rotate(4deg);
+}
+.bn-heat-2 .bn-seat-uk,
+.bn-heat-3 .bn-seat-uk {
+  transform: translateX(-10%) rotate(-4deg);
+}
+.bn-heat-3 .bn-seat-us {
+  transform: translateX(28%) rotate(10deg);
+}
+.bn-heat-3 .bn-seat-uk {
+  transform: translateX(-24%) rotate(-9deg);
+}
+.bn-heat-2 .bn-tie,
+.bn-heat-3 .bn-tie {
+  transform: rotate(25deg);
+}
+
+.bn-desk {
+  position: absolute;
+  left: 12%;
+  right: 12%;
+  bottom: 12%;
+  height: 20%;
+  background: linear-gradient(#e9edf7, #aab4cf 12%, #23356f 12.5%, #13204a);
+  border-radius: 1.4cqw 1.4cqw 0.4cqw 0.4cqw;
+  border: 0.35cqw solid #1b1f2a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.bn-desk-logo {
+  font-weight: 900;
+  font-size: 3cqw;
+  letter-spacing: 0.15em;
+  color: #ffffffd0;
+  margin-top: 2%;
+}
+.bn-papers {
+  position: absolute;
+  left: 38%;
+  top: -5%;
+  width: 10%;
+  height: 14%;
+  background: #fff;
+  border: 0.2cqw solid #1b1f2a;
+  transform: rotate(-4deg);
+}
+.bn-papers-2 {
+  transform: rotate(-30deg) translate(-40%, -60%);
+}
+.bn-papers-3 {
+  animation: bn-flutter 0.6s ease-out infinite alternate;
+}
+@keyframes bn-flutter {
+  to {
+    transform: rotate(160deg) translate(80%, -260%);
+  }
+}
+
+.bn-bubble {
+  position: absolute;
+  top: 9%;
+  max-width: 44%;
+  padding: 1.2cqw 1.6cqw;
+  background: #fff;
+  color: #10152a;
+  border: 0.35cqw solid #1b1f2a;
+  border-radius: 1.6cqw;
+  font-weight: 700;
+  font-size: max(11px, 2.1cqw);
+  line-height: 1.25;
+  box-shadow: 0.5cqw 0.5cqw 0 #0006;
+  z-index: 3;
+}
+.bn-bubble-us {
+  left: 10%;
+}
+.bn-bubble-uk {
+  right: 12%;
+}
+.bn-bubble-guest {
+  right: 3%;
+}
+.bn-heat-3 .bn-bubble {
+  background: #fff1f1;
+  font-size: 3cqw;
+  font-weight: 900;
+}
+
+.bn-real {
+  max-width: 70%;
+  background: #ffffff12;
+  border-left: 0.6cqw solid var(--bn-gold);
+  padding: 1cqw 1.6cqw;
+  text-align: left;
+  font-size: max(12px, 1.8cqw);
+  line-height: 1.4;
+}
+.bn-real b {
+  color: var(--bn-gold);
+  margin-right: 0.4em;
+}
+.bn-real a {
+  color: var(--bn-gold);
+}
+
+/* ---- Broadcast furniture ---- */
+.bn-live {
+  position: absolute;
+  top: 3%;
+  left: 2.5%;
+  background: var(--bn-red);
+  font-weight: 900;
+  font-size: 1.6cqw;
+  padding: 0.3cqw 1cqw;
+  border-radius: 0.4cqw;
+  z-index: 4;
+}
+.bn-clock {
+  position: absolute;
+  top: 3%;
+  right: 2.5%;
+  font-weight: 800;
+  font-size: 1.4cqw;
+  background: #0009;
+  padding: 0.3cqw 1cqw;
+  border-radius: 0.4cqw;
+  z-index: 4;
+}
+.bn-third {
+  position: absolute;
+  left: 4%;
+  bottom: 16.5%;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  color: #10152a;
+  border-left: 1cqw solid var(--c);
+  padding: 0.5cqw 1.4cqw;
+  z-index: 4;
+  animation: bn-wipe 0.25s ease-out both;
+}
+.bn-third b {
+  font-size: 2cqw;
+}
+.bn-third span {
+  font-size: 1.3cqw;
+  color: #4a5675;
+}
+@keyframes bn-wipe {
+  from {
+    clip-path: inset(0 100% 0 0);
+  }
+  to {
+    clip-path: inset(0 0 0 0);
+  }
+}
+.bn-chyron {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 6.5%;
+  height: 8%;
+  display: flex;
+  align-items: stretch;
+  background: #fff;
+  color: #10152a;
+  z-index: 4;
+  font-weight: 900;
+}
+.bn-breaking {
+  background: var(--bn-red);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  padding: 0 1.4cqw;
+  font-size: 2cqw;
+  animation: bn-blink 1s steps(2) infinite;
+}
+@keyframes bn-blink {
+  50% {
+    background: #8c0b20;
+  }
+}
+.bn-chyron-text {
+  display: flex;
+  align-items: center;
+  padding: 0 1.4cqw;
+  font-size: 2.2cqw;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.bn-ticker {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 6.5%;
+  background: var(--bn-navy);
+  overflow: hidden;
+  z-index: 4;
+  display: flex;
+  align-items: center;
+}
+.bn-ticker-run {
+  display: flex;
+  white-space: nowrap;
+  animation: bn-crawl 40s linear infinite;
+  font-weight: 700;
+  font-size: 1.5cqw;
+}
+.bn-ticker-run span::after {
+  content: '◆';
+  color: var(--bn-gold);
+  margin: 0 2cqw;
+}
+@keyframes bn-crawl {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+/* ---- Test card minigame ---- */
+.bn-test {
+  position: absolute;
+  inset: 0;
+  background: #111;
+  cursor: pointer;
+  user-select: none;
+  touch-action: manipulation;
+}
+.bn-test-bars {
+  position: absolute;
+  inset: 0 0 35% 0;
+  display: flex;
+}
+.bn-test-bars i {
+  flex: 1;
+}
+.bn-test-hit .bn-test-bars {
+  animation: bn-jitter 0.18s steps(2) 2;
+}
+.bn-test-label {
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #000;
+  padding: 1cqw 2cqw;
+  font-weight: 900;
+  font-size: 2.6cqw;
+}
+.bn-test-meter {
+  position: absolute;
+  left: 20%;
+  right: 20%;
+  bottom: 20%;
+  height: 4%;
+  border: 0.3cqw solid #fff;
+}
+.bn-test-meter b {
+  display: block;
+  height: 100%;
+  width: 0;
+  background: var(--bn-gold);
+  transition: width 0.15s;
+}
+.bn-test-hint {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 8%;
+  text-align: center;
+  font-weight: 800;
+  font-size: 2.2cqw;
+}
+
+/* ---- Below the picture ---- */
+.bn-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+}
+.bn-controls button,
+.bn-controls select {
+  font: inherit;
+  font-size: 14px;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #2f4386;
+  background: #16224a;
+  color: var(--bn-text);
+  cursor: pointer;
+}
+.bn-runtime {
+  margin-left: auto;
+  color: var(--bn-muted);
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+}
+.bn-foot {
+  color: var(--bn-muted);
+  font-size: 13px;
+}
+.bn-foot a {
+  color: var(--bn-gold);
+}

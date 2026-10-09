@@ -18,6 +18,7 @@ can build the game incrementally without inventing architecture as it goes.
 | 07 | [Gatecrashers](07-gatecrashers.md) | The rare mid-fight interruption by people who belong to the venue: 24 sets, when they come, how strong they are, and the posts they leave. |
 | 08 | [Crypto Bros](08-cryptobro.md) | careercrash.org/cryptobro: an endless brawl between the top 10 cryptocurrencies as crypto bros, rebuilt every hour from the market; candles, liquidations, the hourly data feed, and the pipeline the Countries version reuses. |
 | 09 | [Diplomatic Incident](09-diplomatic-incident.md) | careercrash.org/incident: an endless brawl between 40 countries in national dress, 10 on the floor and the rest in the lobby, powered by viewers' likes (one per country per viewer per hour); derbies, country moves, the vote service, anti-abuse, sharing features, the implementation plan and what's built (phase 1). |
+| 10 | [Broken News](10-broken-news.md) | careercrash.org/news: a weekly news-satire minigame, each opened by the same studio segment (two anchors, one American, one British, whose desk argument spirals into a brawl); the episode script format and its checks, the minigame contract, the weekly pipeline and the content rules for real news. Block-out. |
 
 ## Precedence
 

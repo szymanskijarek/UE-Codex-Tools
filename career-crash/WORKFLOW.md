@@ -82,6 +82,11 @@ version after ~5 minutes, open the Cloudflare dashboard → Workers & Pages →
 
 ## Bringing in new art
 
+New art always starts as a detailed brief for the image agent, written in the
+same change that needs it (`PIPELINES.md` §5, "Art that doesn't exist yet
+starts as a brief"; examples in `art/FX_BRIEF.md`, `art/cryptobro/`,
+`art/incident/`).
+
 Send images as PNG with transparent backgrounds (backdrops are opaque). Put
 source files in `art/`; the art pipeline turns them into the game's atlases
 (`PIPELINES.md` §5 has the commands and flags).
