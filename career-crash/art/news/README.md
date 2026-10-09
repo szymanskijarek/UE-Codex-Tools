@@ -1,8 +1,9 @@
 # Broken News: art briefs for the image agent
 
 > **Status (9 October 2026):** briefs 01–03 and 05–08 are in the game. Open:
-> 09 (the guests' mouth twins and `hurt`, ready-to-paste) and 10 (the later
-> guests from 04: Brody, Tamsin, Ainsley, Kevin, ready-to-paste). Who
+> 09 (the guests' mouth twins and `hurt`), 10 (the later guests from 04:
+> Brody, Tamsin, Ainsley, Kevin) and 11 (the new cast: Dusty's redesign,
+> Hamish, Bev, Jeff's drops, two locations), all ready-to-paste. Who
 > everyone is: the cast bible, `docs/career-crash/11-broken-news-cast.md`.
 
 Art for **careercrash.org/news** (design: `docs/career-crash/10-broken-news.md`):
@@ -28,6 +29,7 @@ the house style and the layout rules it needs.
 | 8 | [`08-EPISODE_GUESTS.md`](08-EPISODE_GUESTS.md) | Desk close-ups for the episode guests: Gideon, Marcel, Terry, Sir Nigel, Such Wow Wes (six each) | 30 | 3 |
 | 9 | [`09-GUEST_MOUTHS_AND_HURT.md`](09-GUEST_MOUTHS_AND_HURT.md) | Ready-to-paste: mouth twins for Dusty and four episode guests, `hurt` for the five episode guests | 20 + 5 | **1** |
 | 10 | [`10-LATER_GUESTS.md`](10-LATER_GUESTS.md) | Ready-to-paste: Brody, Tamsin, Ainsley and Kevin, complete (desk, twins, `hurt`, body sheet, heads) | 4 × 16 | 2 |
+| 11 | [`11-NEW_CAST.md`](11-NEW_CAST.md) | Ready-to-paste: Dusty redesigned, Hamish (short) and Bev complete, Jeff's five drops, Wellington and launch-party plates | 54 | **1** |
 
 Order: the desk shot is what everyone sees first and for longest (about 30
 seconds of every episode), so it comes first; the fighters next, since the

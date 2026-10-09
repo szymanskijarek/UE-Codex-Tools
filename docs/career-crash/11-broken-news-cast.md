@@ -291,7 +291,8 @@ will speak, and it will be the season finale.
 
 ## 9. What this needs (next steps)
 
-**Art** (briefs to write, FX_BRIEF style, zips under 30 MB):
+**Art** (ready-to-paste in `career-crash/art/news/11-NEW_CAST.md`; Brody in
+brief 10; zips under 30 MB):
 
 | Who | Pictures |
 |---|---|

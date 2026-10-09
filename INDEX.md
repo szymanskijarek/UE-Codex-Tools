@@ -85,7 +85,7 @@ and share the sim, renderer, puppets, audio and content bundle with Career Crash
 | Page | entry `career-crash/apps/client/news/index.html`; code `apps/client/src/news/` (`Studio.tsx` segment player, `episode.ts` format/timeline/checks, `cast.ts`, `episodes/*.json`, `minigames/`) |
 | Feed ads | `promotedPosts` in `apps/client/src/career/feed.ts` (`news_ad`, `news_ad_link` in `live.json`), placed in `Hub.tsx` |
 | Test | `apps/client/test/news-episode.test.ts` |
-| Art | `career-crash/art/news/README.md` (briefs 01–10: desk shot, anchors, studio arena, guests, page, field reporters, locations, episode guests, guest mouths and hurt, later guests; zips under 30 MB) |
+| Art | `career-crash/art/news/README.md` (briefs 01–11: desk shot, anchors, studio arena, guests, page, field reporters, locations, episode guests, guest mouths and hurt, later guests, new cast; zips under 30 MB) |
 
 ## Career Crash: code map (`career-crash/`)
 

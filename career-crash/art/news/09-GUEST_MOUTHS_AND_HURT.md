@@ -43,9 +43,8 @@ pictures. If that session is gone, attach the picture named in each prompt
 
 ### Dusty Gale (four)
 
-> **On hold:** Dusty is being redesigned (cast bible
-> `docs/career-crash/11-broken-news-cast.md` §5); his twins will come with
-> the new look. Skip 1–4 for now.
+> **Skip 1–4:** Dusty is being redesigned, and his twins come with the new
+> look in brief 11 (A2).
 
 **1. `desk-dusty-talk-b.png`**
 > Take your image of Dusty **talking** (pointing off to the side at an
