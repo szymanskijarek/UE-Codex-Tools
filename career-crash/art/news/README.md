@@ -4,8 +4,7 @@
 > both anchors and Dusty Gale, six expressions each, lip flap for the
 > anchors), the anchors fight in their own bodies and faces (02), and the
 > brawl happens in the BSN Studio (03, `arena.news-studio`). Next: the seated
-> `hurt` pose and the rogue chair (01E), Dusty's fight body and heads (04),
-> page art (05).
+> `hurt` pose and the rogue chair (01E), page art (05). Dusty is complete (04).
 
 Art for **careercrash.org/news** (design: `docs/career-crash/10-broken-news.md`):
 a cable-news studio where two anchors read the week's story, bicker, and

@@ -2,8 +2,9 @@
 
 > **Status (9 October 2026):** Dusty's six desk close-ups delivered and in
 > the game (a seventh, presenting while facing the camera, is kept as
-> `desk-dusty-neutral-front.png`). Still to come for Dusty: body sheet and
-> fight heads; he fights as the photographer until then. The other guests are written but not in an episode yet.
+> `desk-dusty-neutral-front.png`). His body sheet
+> (`npc.news-dusty`, six manifest cuts) and four fight heads are in too, so
+> Dusty is complete. The other guests are written but not in an episode yet.
 
 > Part of the Broken News art set (`art/news/README.md`). Design:
 > `docs/career-crash/10-broken-news.md` §3.2.

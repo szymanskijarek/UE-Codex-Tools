@@ -49,7 +49,7 @@ function cast(ep: Episode): Person[] {
   const anchor = (a: Anchor): Person => ({ ...a, voice: withVoice(voiceFor(a.career.replace('career.', ''), a.name, ''), { type: a.voice, pitch: a.pitch }) });
   const out = [anchor(ANCHORS.us), anchor(ANCHORS.uk)];
   const g = ep.guest;
-  if (g) out.push({ seat: 'guest', name: g.name, role: g.role, career: g.career, color: '#0e7c66', voice: voiceFor(g.career.replace('career.', ''), g.name, ''), bsn: g.bsn, art: g.art });
+  if (g) out.push({ seat: 'guest', name: g.name, role: g.role, career: g.career, color: '#0e7c66', voice: voiceFor(g.career.replace('career.', ''), g.name, ''), bsn: g.bsn, art: g.art, persona: g.persona });
   return out;
 }
 

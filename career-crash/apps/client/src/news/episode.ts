@@ -35,6 +35,8 @@ export interface Guest {
   bsn?: string;
   /** Their painted desk-shot pictures, once they exist (art brief 04). */
   art?: string;
+  /** Their own brawl puppet and faces (`npc.news-<x>`, art brief 04), render only. */
+  persona?: string;
 }
 
 export interface Episode {
