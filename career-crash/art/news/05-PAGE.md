@@ -1,37 +1,48 @@
-# Broken News 05: logo, ident and page art
+# Broken News 05: logo, ident and page art (show + channel)
 
-> **Status:** not delivered yet. The logo and ident are CSS (two skewed
-> blocks, red and white) until then.
+> **Status (9 October 2026):** a first round came back with the show name
+> only ("BROKEN NEWS", some letters garbled). This version adds the channel,
+> **BSN**, everywhere it belongs. Until it lands the logo and ident are CSS.
 
 > Part of the Broken News art set (`art/news/README.md`). Design:
-> `docs/career-crash/10-broken-news.md` §2.
+> `docs/career-crash/10-broken-news.md` §2 and §3.4.
 
-Four images (a fifth for the channel bug is optional: a small "BSN"
-rounded box in red and white, 256 × 128, the only text BSN): the show's logo, the ident card it slams onto at the start of
-every episode, the share image and the page icon.
+## The naming (read first)
 
-**Reference to attach:** `apps/client/src/cryptobro/logo.webp` (how Crypto
-Bros' logo sits in the house style) and a screenshot of the block-out ident
-(the red BROKEN block over the white NEWS block, both skewed).
+- The **show** is **BROKEN NEWS**.
+- The **channel** it airs on is **BSN**: officially the *Breaking Story
+  Network*. Nobody agrees what BSN stands for (it's a running joke), so the
+  art only ever writes the three letters **BSN**, never the expansion.
+- Together: **"BROKEN NEWS · on BSN"**. The show logo is the big thing; BSN
+  is the channel's small bug next to it, like a TV channel's corner logo.
+- Image generators garble letters. Every prompt spells the text out and says
+  it is the ONLY text; check each letter before importing (the first round
+  had a broken "O" in BROKEN, which is on-joke as a crack, but not as a
+  missing letter).
 
 ## Style preamble (paste first)
 
 > Pixel-art graphic for "Career Crash", a comedic 2D brawler: chunky clean
 > pixel art, thick dark outline (#1b1f2a), flat colours with one shade tone,
 > bold cable-news energy in navy #13204a, red #c8102e, white and gold #f5c542.
-> No watermark.
+> All lettering is clean, bold and correctly spelled, every letter complete
+> and readable. No watermark, no other text than stated.
+
+**Reference to attach:** the previous logo you made (the red BROKEN slab over
+the white NEWS slab with the gold swoosh): keep that look.
 
 | # | File | Size | Prompt (after the preamble) |
 |---|---|---|---|
-| 1 | `art/news/logo.png` | 1024 × 512, transparent | A cable-news show logo reading exactly **BROKEN NEWS**: "BROKEN" in heavy white italic capitals on a red slab, "NEWS" in heavy navy italic capitals on a white slab below and to the right, both slabs slightly skewed. The red slab has a jagged crack running through it with a small chip falling off, like a dropped plate. A small gold swoosh underneath. The only text is BROKEN NEWS. |
-| 2 | `art/news/ident.png` | 1920 × 1080, opaque | The logo from image 1 centred on a dramatic navy background with radiating light beams, a spinning globe made of grid lines behind it with a crack across it, small sparks flying from the crack. The only text is BROKEN NEWS. |
-| 3 | `apps/client/public/news/share.jpg` | 1200 × 630, opaque | The two anchors from `art/news/README.md` (Brock in a navy suit and red tie, left; Philippa in a royal-blue blazer with glasses, right) half out of their chairs mid-brawl across a curved news desk, papers and a coffee mug flying, Brock's tie over his shoulder, Philippa brandishing a fountain pen. The BROKEN NEWS logo top left. A red BREAKING strap along the bottom with no words on it. |
-| 4 | `apps/client/public/news/icon.png` | 512 × 512, opaque | Just the cracked red BROKEN slab from the logo on a navy square, with a tiny gold swoosh. Readable at 32 px. The only text is BROKEN. |
+| 1 | `art/news/bsn-bug.png` | 512 × 256, transparent | A TV channel corner logo: the three letters **BSN** in heavy white italic capitals inside a rounded red (#c8102e) rectangle with a thick white border and a thin dark outline, a small gold lightning-crack running diagonally through the rectangle's corner. Flat, clean, readable at 48 px tall. The only text is BSN. |
+| 2 | `art/news/logo.png` | 1024 × 512, transparent | The show logo, matching the attached one: "BROKEN" in heavy white italic capitals on a red slab, "NEWS" in heavy navy italic capitals on a white slab below and to the right, both slabs slightly skewed, a jagged crack through the red slab with a small chip falling off (all six letters of BROKEN complete and readable), a gold swoosh underneath. In the top-right corner, overlapping the red slab slightly, the small **BSN** channel bug from image 1. The only text is BROKEN, NEWS and BSN. |
+| 3 | `art/news/ident.png` | 1920 × 1080, opaque | The logo from image 2 (with the BSN bug) centred on a dramatic navy background with radiating light beams, a gold wireframe globe behind it with a crack across it, small sparks flying from the crack. Below the logo, a thin gold line and the words **ON BSN** in small white capitals. The only text is BROKEN, NEWS, BSN and ON. |
+| 4 | `apps/client/public/news/share.jpg` | 1200 × 630, opaque | The two anchors (Brock in a navy suit and red tie, left; Philippa in a royal-blue blazer with glasses, right) half out of their chairs mid-brawl across a curved news desk, papers and a coffee mug flying, Brock's tie over his shoulder, Philippa brandishing a fountain pen, glasses flying. The BROKEN NEWS logo (image 2, with its BSN bug) fully visible in the top-left corner, not cropped. A red strap along the bottom reading **BREAKING** on its left end, nothing else on it. The only text is BROKEN, NEWS, BSN and BREAKING. |
+| 5 | `apps/client/public/news/icon.png` | 512 × 512, opaque | App icon: the BSN bug from image 1, large and centred on a navy square with a tiny gold swoosh beneath it. Readable at 32 px. The only text is BSN. |
 
 ## Importing
 
-The logo and ident go to `apps/client/src/news/` as WebP (lossless) and
-replace the CSS logo in `Studio.tsx` (`.bn-ident-logo`, `.bn-brand`). The share
-image and icon go in `apps/client/public/news/`; Claude adds `og:image`,
-`icon` and `apple-touch-icon` (180 px, resized) to `apps/client/news/index.html`
-when the page launches.
+The logo, bug and ident go to `apps/client/src/news/` as WebP (lossless) and
+replace the CSS logo in `Studio.tsx` (`.bn-ident-logo`, `.bn-brand`) and the
+"LIVE · BSN" bug. The share image and icon go in `apps/client/public/news/`;
+Claude adds `og:image`, `icon` and `apple-touch-icon` (180 px, resized) to
+`apps/client/news/index.html` when the page launches.
