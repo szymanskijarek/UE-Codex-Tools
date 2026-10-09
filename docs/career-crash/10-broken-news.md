@@ -424,3 +424,97 @@ Shop). The text is a fake TV ad for the newest episode (`news_ad` in
 with a link card to `/news/` (`news_ad_link` lines for the card). Code:
 `promotedPosts` in `apps/client/src/career/feed.ts`, placed by `timeline` in
 `Hub.tsx`. In the single-file build the link goes to careercrash.org.
+
+## 13. Field reports (plan, 9 October 2026)
+
+"Let's go live to our correspondent…": a reporter on location, cut in from
+the desk. It changes the scene and the overlay, so it's its own shot, not just
+another seat at the desk.
+
+### 13.1 The reporters
+
+| | **Chase Hurley** (US) | **Rupert Fennimore-Twistleton** (UK) |
+|---|---|---|
+| Beat | Storm chaser and "live from the scene" man: hood up, leaning into wind that isn't there, shouting over silence | Foreign correspondent: safari jacket, war-zone gravitas for the most trivial story ("I'm standing outside a sandwich shop that has run out of sandwiches") |
+| Running gags | always on the wrong side of a barrier; mistakes a leaf blower for a hurricane | never quite sure which country he's in; signs off in a language he doesn't speak |
+| Anchor | Brock's favourite ("my guy") | Philippa's old flame, which nobody mentions |
+
+Guests from the other games come along as locals: crypto bros on the Trading
+Floor, a delegate outside the Summit, a career's worker at their job.
+
+### 13.2 Shots
+
+| Shot | Layout | When |
+|---|---|---|
+| `desk` | today's desk shot | the anchors talking to each other |
+| `split` | the double box: an anchor in a box on the left (their desk picture, cropped, studio behind), the reporter on the right on location; both lower thirds | an anchor and the reporter talking to each other (the throw, the questions) |
+| `field` | full screen on location: reporter waist-up in front of the backdrop | the reporter's report |
+
+The shot follows who's talking (anchor ↔ reporter = `split`, reporter alone =
+`field`), and a line's `shot` can override it.
+
+### 13.3 The field overlay
+
+Different furniture from the desk, so the cut reads instantly:
+- **Dateline strap:** `LIVE · THE TRADING FLOOR, CANARY WHARF` instead of BREAKING.
+- **Local clock:** `3:12 AM LOCAL` (always an unreasonable hour).
+- **Satellite bug:** a small dish icon and `VIA SATELLITE`; in `split`, a thin
+  white border around each box and a `DELAY` tag when there's a delay.
+- The BSN corner logo and the ticker stay.
+- **Weather layer** (optional per report): wind lines, rain, snow, leaves,
+  paper (CSS, like the chair), and the reporter's `windswept` pose.
+
+### 13.4 Location backdrops: reuse first
+
+The 14 arena paintings already in the game are ready-made locations, blurred
+slightly behind the reporter for depth: the Trading Floor (Crypto Bros), the
+Summit Hall (Diplomatic Incident, once painted), the supermarket, the
+construction site, the docks, the airport, the hospital, the museum, the
+station… A report names its `location` arena; dedicated location plates
+(a glacier, a motorway hard shoulder, a sheep field) can come later.
+
+### 13.5 Comic devices built into the format
+
+| Device | Script | What happens |
+|---|---|---|
+| Satellite delay | `pause: "delay"` on the anchor's line to the reporter | the reporter keeps smiling, frozen, for 1.5–2.5 s, then answers the question *before* last |
+| Signal break | `glitch: true` on a line | picture tears and freezes, audio stutters, the line resumes mid-word |
+| Photobomb | `photobomb: <persona or career>` on a line | a local's face pops up behind the reporter's shoulder, waving |
+| Weather that isn't there | `weather: "wind"` on the report | wind lines and a windswept reporter, while the backdrop is perfectly calm |
+| The cut-off | a `cut` pause on the anchor | "Chase, we're going to have to—" and the reporter keeps talking into a dead mic |
+
+### 13.6 Script format additions
+
+```jsonc
+"field": {
+  "reporter": "chase",                        // cast id (cast.ts FIELD)
+  "location": "arena.trading-floor",          // backdrop and, if they brawl, the arena
+  "dateline": "THE TRADING FLOOR, CANARY WHARF",
+  "localTime": "3:12 AM",
+  "weather": "wind",                          // optional
+  "enters": 3                                 // the throw: first line it can speak
+},
+"beats": [ { "who": "field", "heat": 1, "text": "…", "pause": "delay" } ]
+```
+
+Checks to add: the reporter only speaks after `enters`; a `delay` pause is
+only on a line addressed to the field (the next speaker is `field`); a field
+report still fits the 60 s budget.
+
+### 13.7 Where the brawl happens
+
+Either as now (back in the studio, the anchors arguing about the report), or
+**on location**: the brawl moves to the report's arena with the reporter and
+the locals (Chase vs three crypto bros on the Trading Floor). `brawl.where:
+"studio" | "field"`.
+
+### 13.8 Phases
+
+1. **Block-out:** the three shots, the field overlay, delay and glitch, using
+   the existing arena paintings and a career face as a stand-in reporter
+   (TV host for Chase, journalist for Rupert). One test report per reporter.
+2. **Art (brief 06):** both reporters waist-up with a microphone, seven
+   expressions each plus lip-flap twins, plus body sheets and fight heads.
+3. **Weather and photobombs:** the CSS weather layers and the photobomb pop-up.
+4. **Field brawls:** `brawl.where: "field"`, with locals from the other games.
+

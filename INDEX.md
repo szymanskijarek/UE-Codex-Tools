@@ -81,11 +81,11 @@ and share the sim, renderer, puppets, audio and content bundle with Career Crash
 
 | What | Where |
 |---|---|
-| Design | `docs/career-crash/10-broken-news.md`: §2 the segment (2.1 heat, 2.2 score), §3 cast and studio (3.4 what BSN stands for), §4 episode script format and checks (4.3 the real story, 4.4 comic timing), §5 minigame contract, §6 weekly pipeline, **§7 content rules for real news**, §10 as built + "Not yet", §11 owner decisions, §12 feed ads |
+| Design | `docs/career-crash/10-broken-news.md`: §2 the segment (2.1 heat, 2.2 score), §3 cast and studio (3.4 what BSN stands for), §4 episode script format and checks (4.3 the real story, 4.4 comic timing), §5 minigame contract, §6 weekly pipeline, **§7 content rules for real news**, §10 as built + "Not yet", §11 owner decisions, §12 feed ads, §13 field reports (plan) |
 | Page | entry `career-crash/apps/client/news/index.html`; code `apps/client/src/news/` (`Studio.tsx` segment player, `episode.ts` format/timeline/checks, `cast.ts`, `episodes/*.json`, `minigames/`) |
 | Feed ads | `promotedPosts` in `apps/client/src/career/feed.ts` (`news_ad`, `news_ad_link` in `live.json`), placed in `Hub.tsx` |
 | Test | `apps/client/test/news-episode.test.ts` |
-| Art | `career-crash/art/news/README.md` (briefs 01–05: desk shot, anchors, studio arena, guests, page) |
+| Art | `career-crash/art/news/README.md` (briefs 01–06: desk shot, anchors, studio arena, guests, page, field reporters) |
 
 ## Career Crash: code map (`career-crash/`)
 

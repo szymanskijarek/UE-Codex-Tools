@@ -24,6 +24,7 @@ the house style and the layout rules it needs.
 | 3 | [`03-STUDIO_ARENA.md`](03-STUDIO_ARENA.md) | The studio floor for the brawl: backdrop and furniture sheets (intact, damaged, destroyed) | 4 | 2 |
 | 4 | [`04-GUESTS.md`](04-GUESTS.md) | The recurring guests: Dusty Gale (weather) first; seated close-ups, body sheet and heads | 6 + 1 + 4 per guest | 3 |
 | 5 | [`05-PAGE.md`](05-PAGE.md) | BSN channel bug, show logo (with the bug), ident card, share image, icon | 5 | 3 |
+| 6 | [`06-FIELD_REPORTERS.md`](06-FIELD_REPORTERS.md) | Field reporters Chase Hurley and Rupert Fennimore-Twistleton: waist-up with a mic, seven expressions each, mouth twins; later fight bodies | 14 + 6 | 2 |
 
 Order: the desk shot is what everyone sees first and for longest (about 30
 seconds of every episode), so it comes first; the fighters next, since the
