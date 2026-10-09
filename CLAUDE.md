@@ -10,6 +10,14 @@ doing anything else.
 
 **If in doubt, it's Career Crash.** Almost all work in this repo is on the game.
 
+## Repo index: read this before any other doc
+
+`INDEX.md` lives on `dev`: read it with `git show origin/dev:INDEX.md`
+(after `git fetch origin dev`). It maps every project, doc section, code area
+and art brief. When asked to "read the docs", read the index, then open only
+the sections the task needs. The rule for keeping it current is in `dev`'s
+`CLAUDE.md`.
+
 ## Career Crash: first steps in a new session
 
 1. `main` (where sessions start) does **not** contain the game. Get it:
