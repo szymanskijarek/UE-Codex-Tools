@@ -2,8 +2,8 @@
 
 > **Status (9 October 2026):** A (both body sheets) delivered and in the
 > game (`npc.news-brock`, `npc.news-philippa`; Brock's sheet needed six cuts
-> in the manifest, Philippa's one). Still to come: B, the four heads each:
-> until then each fights with the sheet's own head, one expression.
+> in the manifest, Philippa's one), and so is B (four heads each; they came
+> in at 1254 px and were scaled to the usual 256 px). Nothing left here.
 
 > Part of the Broken News art set (`art/news/README.md`, read *The two
 > anchors* first). Design: `docs/career-crash/10-broken-news.md` §3.

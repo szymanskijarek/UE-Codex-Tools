@@ -337,8 +337,8 @@ before the first hit lands, so it changes with the sim like any other fight.
   mouth) every 0.13 s, once those frames exist (brief 01 D). Anyone without
   painted art falls back to their career face. Speech bubbles sit in the top
   strip; the clock sits above the strap, bottom right.
-- In the brawl the anchors wear their own puppets (`npc.news-brock`,
-  `npc.news-philippa`, art brief 02 A) and fight with the TV host's and
+- In the brawl the anchors wear their own puppets and four-expression faces
+  (`npc.news-brock`, `npc.news-philippa`, art brief 02) and fight with the TV host's and
   journalist's moves.
 - The brawl is a close-up (`BattleRenderer.closeUp`, up to 3.4×): framed on the anchors,
   cut straight to the framing, bottom strip kept clear.
