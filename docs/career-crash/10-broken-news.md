@@ -113,6 +113,11 @@ All synthesised like the rest of Career Crash's music (`replay/music.ts`, NES-st
 | Hand-off | sting `newsHandoff` | "This week on…": rising arpeggio and a hit |
 | Game, sign-off | song `news-theme` | the BSN anthem: self-important cable-news brass in D major |
 
+The page's *Sound* switch covers the music as well as the voices, whatever
+Career Crash's own music setting says (`music.setEnabled(on, false)`, not
+saved). A sting asked for while the audio is still waking up from the first
+tap plays as soon as it's running.
+
 Speech: each line's babble is timed to its bubble (`babble(…, fitS)`): every
 syllable is voiced and stretched or squeezed, same pitch, to end with the typing.
 
@@ -400,8 +405,8 @@ before the first hit lands, so it changes with the sim like any other fight.
 - The brawl is a close-up (`BattleRenderer.closeUp`, up to 3.4×): framed on the anchors,
   cut straight to the framing, bottom strip kept clear.
 
-**Not yet:** a real episode and minigame, desk art for the later guests
-(brief 04: Biff, Tamsin, Ainsley, Kevin), mouth twins for the guests, lazy-loading minigames, per-anchor
+**Not yet:** a real episode and minigame, art briefs 09 (the guests' mouth twins and `hurt`)
+and 10 (Biff, Tamsin, Ainsley, Kevin), lazy-loading minigames, per-anchor
 voices beyond pitch and type, links from the rest of the site, sitemap and
 share image (the page is `noindex` until launch).
 

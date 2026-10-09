@@ -1,8 +1,8 @@
 # Broken News: art briefs for the image agent
 
 > **Status (9 October 2026):** briefs 01–03 and 05–08 are in the game. Open:
-> the later guests in 04 (Biff, Tamsin, Ainsley, Kevin), and mouth twins for
-> the episode guests (08).
+> 09 (the guests' mouth twins and `hurt`, ready-to-paste) and 10 (the later
+> guests from 04: Biff, Tamsin, Ainsley, Kevin, ready-to-paste).
 
 Art for **careercrash.org/news** (design: `docs/career-crash/10-broken-news.md`):
 a cable-news studio where two anchors read the week's story, bicker, and
@@ -25,10 +25,22 @@ the house style and the layout rules it needs.
 | 6 | [`06-FIELD_REPORTERS.md`](06-FIELD_REPORTERS.md) | Field reporters Chase Hurley and Rupert Fennimore-Twistleton, ready-to-paste: 14 close-ups, 6 mouth twins, 2 body sheets, 8 fight heads | 30 | **1** |
 | 7 | [`07-LOCATIONS.md`](07-LOCATIONS.md) | Six location plates for field reports (motorway, sheep field, ministry steps, glacier, car park, sandwich shop) | 6 | 2 |
 | 8 | [`08-EPISODE_GUESTS.md`](08-EPISODE_GUESTS.md) | Desk close-ups for the episode guests: Gideon, Marcel, Terry, Sir Nigel, Such Wow Wes (six each) | 30 | 3 |
+| 9 | [`09-GUEST_MOUTHS_AND_HURT.md`](09-GUEST_MOUTHS_AND_HURT.md) | Ready-to-paste: mouth twins for Dusty and four episode guests, `hurt` for the five episode guests | 20 + 5 | **1** |
+| 10 | [`10-LATER_GUESTS.md`](10-LATER_GUESTS.md) | Ready-to-paste: Biff, Tamsin, Ainsley and Kevin, complete (desk, twins, `hurt`, body sheet, heads) | 4 × 16 | 2 |
 
 Order: the desk shot is what everyone sees first and for longest (about 30
 seconds of every episode), so it comes first; the fighters next, since the
 brawl is the punchline.
+
+## Sending art back
+
+Upload the pictures as **zips of at most 30 MB each** (the upload limit). A
+1254 px PNG is about 2 MB, so **about 12 pictures per zip**; split a round
+across several zips and number them (`Guests-Part-1.zip`, `Guests-Part-2.zip`…).
+Say "wait" before the first and "go" after the last if they come in several
+messages. File names inside the zip don't have to match; Claude maps every
+picture to the game's own name and checks each one by eye. Don't re-send
+pictures that are already in the game, unless they've changed.
 
 ## The channel
 

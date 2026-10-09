@@ -144,6 +144,8 @@ export function Studio() {
   const lastCue = useRef<Cue | null>(null);
 
   useEffect(() => sfx.setMuted(muted), [muted]);
+  // The page's own sound switch covers the music too, whatever the game's music setting says.
+  useEffect(() => music.setEnabled(!muted, false), [muted]);
   const sting = (id: Parameters<typeof music.sting>[0]) => !muted && music.sting(id);
 
   // The segment ends: hand over to the minigame.

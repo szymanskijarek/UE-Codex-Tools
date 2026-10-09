@@ -496,12 +496,15 @@ export class Music {
     return ctx.startRendering();
   }
 
-  setEnabled(on: boolean): void {
+  /** Music on or off; `persist: false` for a page with its own sound switch (Broken News). */
+  setEnabled(on: boolean, persist = true): void {
     this.enabled = on;
-    try {
-      window.localStorage.setItem(ON_KEY, on ? '1' : '0');
-    } catch {
-      /* storage unavailable */
+    if (persist) {
+      try {
+        window.localStorage.setItem(ON_KEY, on ? '1' : '0');
+      } catch {
+        /* storage unavailable */
+      }
     }
     if (on) {
       this.unlock();
@@ -536,8 +539,14 @@ export class Music {
    * Play a short cue (see STINGS) over whatever's playing, ducking the song
    * for its length, or on its own after the song has finished.
    */
-  sting(id: StingId): void {
-    if (!this.enabled || !this.ctx || !this.out || (this.ctx as AudioContext).state !== 'running') return;
+  sting(id: StingId, retry = true): void {
+    if (!this.enabled || !this.ctx || !this.out) return;
+    if ((this.ctx as AudioContext).state !== 'running') {
+      // Still waking up from the tap that started it (Safari resumes late): play it once it's running.
+      const live = this.ctx as AudioContext;
+      if (retry && live.state === 'suspended') void live.resume().then(() => live.state === 'running' && this.sting(id, false));
+      return;
+    }
     const ctx = this.ctx;
     const st = STINGS[id];
     const sx = 60 / st.bpm / 4;
