@@ -1,6 +1,8 @@
 # Broken News 03: the studio floor (brawl arena)
 
-> **Status:** not delivered yet. The brawl borrows the Theatre arena until then.
+> **Status (9 October 2026):** delivered and in the game: `arena.news-studio`
+> ("The BSN Studio", marketOnly with `usedBy: "news"`), all 18 furniture
+> pieces.
 
 > Part of the Broken News art set (`art/news/README.md`). Design:
 > `docs/career-crash/10-broken-news.md` §3.

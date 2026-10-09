@@ -326,6 +326,8 @@ export const arenaSchema = z.object({
   unlock: z.object({ league: z.string() }),
   /** Market floors only (08): never in the ladder, the Sandbox, online fights, gatecrashers or balance runs. */
   marketOnly: z.boolean().optional(),
+  /** A marketOnly arena used by a page rather than a market floor (Broken News' studio, 10): that page. */
+  usedBy: z.string().optional(),
   /** The career-ladder boss fought at the end of this arena's stages. */
   boss: z.object({ career: ref('career'), name: z.string() }).optional(),
 });

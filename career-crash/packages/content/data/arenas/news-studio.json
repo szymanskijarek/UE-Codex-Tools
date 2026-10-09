@@ -1,0 +1,297 @@
+{
+ "id": "arena.news-studio",
+ "sizeMm": [
+  16000,
+  10000
+ ],
+ "navCellMm": 500,
+ "walls": [],
+ "spawns": {
+  "a": [
+   [
+    3000,
+    5000
+   ],
+   [
+    3000,
+    3000
+   ],
+   [
+    3000,
+    7000
+   ],
+   [
+    4500,
+    2000
+   ],
+   [
+    4500,
+    8000
+   ]
+  ],
+  "b": [
+   [
+    13000,
+    5000
+   ],
+   [
+    13000,
+    3000
+   ],
+   [
+    13000,
+    7000
+   ],
+   [
+    11500,
+    2000
+   ],
+   [
+    11500,
+    8000
+   ]
+  ],
+  "ffa": [
+   [
+    5600,
+    5600
+   ],
+   [
+    10400,
+    5600
+   ],
+   [
+    8000,
+    8200
+   ],
+   [
+    3000,
+    8000
+   ],
+   [
+    13000,
+    8000
+   ],
+   [
+    8000,
+    9200
+   ]
+  ]
+ },
+ "refereeSpawn": [
+  8000,
+  1500
+ ],
+ "props": [
+  {
+   "prop": "prop.office-chair",
+   "at": [
+    6200,
+    4200
+   ]
+  },
+  {
+   "prop": "prop.office-chair",
+   "at": [
+    9800,
+    4200
+   ]
+  },
+  {
+   "prop": "prop.laptop",
+   "at": [
+    6800,
+    3400
+   ]
+  },
+  {
+   "prop": "prop.laptop",
+   "at": [
+    9200,
+    3400
+   ]
+  },
+  {
+   "prop": "prop.paper-stack",
+   "at": [
+    4200,
+    6800
+   ]
+  },
+  {
+   "prop": "prop.paper-stack",
+   "at": [
+    11800,
+    6800
+   ]
+  },
+  {
+   "prop": "prop.potted-plant",
+   "at": [
+    1000,
+    1000
+   ]
+  },
+  {
+   "prop": "prop.potted-plant",
+   "at": [
+    15000,
+    1000
+   ]
+  }
+ ],
+ "hazards": [],
+ "suddenDeath": {
+  "everyTicks": 200,
+  "region": [
+   0,
+   0,
+   16000,
+   10000
+  ],
+  "action": {
+   "spawn": {
+    "prop": "prop.flood",
+    "count": 1
+   },
+   "effects": [
+    {
+     "type": "applyStatus",
+     "status": "status.distracted",
+     "durationTicks": 80
+    }
+   ]
+  }
+ },
+ "theme": {
+  "floor": "#1c2a55",
+  "wall": "#0b1330",
+  "accent": "#c8102e"
+ },
+ "unlock": {
+  "league": "intern"
+ },
+ "stations": [
+  {
+   "id": "desk",
+   "name": "the News Desk",
+   "at": [
+    8000,
+    3800
+   ]
+  },
+  {
+   "id": "weather",
+   "name": "the Weather Wall",
+   "at": [
+    2400,
+    3600
+   ]
+  },
+  {
+   "id": "sofa",
+   "name": "the Guest Sofa",
+   "at": [
+    13600,
+    3600
+   ]
+  },
+  {
+   "id": "rug",
+   "name": "the Red Rug",
+   "at": [
+    8000,
+    7000
+   ]
+  }
+ ],
+ "obstacles": [
+  {
+   "at": [
+    6500,
+    2000,
+    3000,
+    1200
+   ],
+   "art": [
+    "news-desk"
+   ]
+  },
+  {
+   "at": [
+    200,
+    200,
+    1800,
+    1400
+   ],
+   "art": [
+    "weather-screen"
+   ]
+  },
+  {
+   "at": [
+    14000,
+    200,
+    1800,
+    1400
+   ],
+   "art": [
+    "guest-sofa"
+   ]
+  },
+  {
+   "at": [
+    4800,
+    200,
+    1100,
+    800
+   ],
+   "art": [
+    "studio-camera"
+   ],
+   "chanceBp": 8000
+  },
+  {
+   "at": [
+    10100,
+    200,
+    1100,
+    800
+   ],
+   "art": [
+    "teleprompter"
+   ],
+   "chanceBp": 8000
+  },
+  {
+   "at": [
+    600,
+    8600,
+    900,
+    700
+   ],
+   "art": [
+    "light-stand"
+   ],
+   "chanceBp": 7000
+  },
+  {
+   "at": [
+    14500,
+    8600,
+    900,
+    700
+   ],
+   "art": [
+    "light-stand"
+   ],
+   "chanceBp": 7000
+  }
+ ],
+ "debris": [
+  "prop.paper-stack",
+  "prop.laptop"
+ ],
+ "marketOnly": true,
+ "usedBy": "news"
+}

@@ -80,5 +80,11 @@
  "bell-podium": {"w": 1400, "fp": [1100, 900]},
  "server-rack": {"w": 1500, "fp": [1300, 800]},
  "beanbag-pile": {"w": 2400, "fp": [2100, 1200]},
- "gold-bull-statue": {"w": 2600, "fp": [2300, 1300]}
+ "gold-bull-statue": {"w": 2600, "fp": [2300, 1300]},
+ "news-desk": {"w": 3200, "fp": [3000, 1200]},
+ "studio-camera": {"w": 1300, "fp": [1100, 800]},
+ "teleprompter": {"w": 1300, "fp": [1100, 800]},
+ "weather-screen": {"w": 2000, "fp": [1800, 1400]},
+ "light-stand": {"w": 1100, "fp": [900, 700]},
+ "guest-sofa": {"w": 2000, "fp": [1800, 1400]}
 }

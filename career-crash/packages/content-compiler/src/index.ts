@@ -359,7 +359,7 @@ function validateMarkets(b: ContentBundle): string[] {
     for (const [from, to] of Object.entries(m.aliases ?? {})) if (!m.cast[to]) errors.push(`${m.id}: alias ${from} → ${to}, but ${to} has no persona`);
     if (!b.arenas.find((a) => a.id === m.arena)?.marketOnly) errors.push(`${m.id}: ${m.arena} should be a marketOnly arena`);
   }
-  for (const a of b.arenas) if (a.marketOnly && !b.markets.some((m) => m.arena === a.id)) errors.push(`${a.id}: marketOnly, but no market floor uses it`);
+  for (const a of b.arenas) if (a.marketOnly && !a.usedBy && !b.markets.some((m) => m.arena === a.id)) errors.push(`${a.id}: marketOnly, but no market floor (or page, usedBy) uses it`);
   return errors;
 }
 

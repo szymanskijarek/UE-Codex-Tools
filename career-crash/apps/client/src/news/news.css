@@ -369,6 +369,11 @@ body.bn-page {
 .bn-seat-us.bn-painted {
   left: 13%;
 }
+.bn-seat-guest.bn-painted {
+  left: 75%;
+  width: 25%;
+  bottom: 40%;
+}
 .bn-painted img {
   display: block;
   width: 100%;

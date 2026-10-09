@@ -11,7 +11,7 @@
     "MANAGEMENT RESPONDS WITH MANDATORY RESILIENCE WORKSHOP",
     "SHREDDER DECLINES TO COMMENT, SHREDS COMMENT"
   ],
-  "guest": { "name": "Dusty Gale", "role": "Weather · on a short-term contract", "career": "career.photographer", "enters": 5, "bsn": "Barometric Storm Network" },
+  "guest": { "name": "Dusty Gale", "role": "Weather · on a short-term contract", "career": "career.photographer", "enters": 5, "bsn": "Barometric Storm Network", "art": "dusty" },
   "beats": [
     { "who": "us", "heat": 0, "text": "Good evening. I'm Brock Stetson Jr., and this is Broken News." },
     { "who": "uk", "heat": 0, "text": "And I'm Philippa Featherstonehaugh. Tonight: the nation's office printers have formed a union." },
@@ -26,7 +26,7 @@
   ],
   "brawl": {
     "seconds": 4,
-    "arena": "arena.theatre",
+    "arena": "arena.news-studio",
     "shouts": { "us": "BACK TO YOU, PHILIPPA!", "uk": "IT'S FANSHAW!", "guest": "HIGH PRESSURE SYSTEM!" }
   },
   "minigame": "test-card",

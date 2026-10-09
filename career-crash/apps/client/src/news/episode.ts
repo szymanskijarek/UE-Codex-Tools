@@ -121,7 +121,7 @@ export function moodOf(b: Beat): Emotion {
 }
 
 /** The painted desk-shot expressions (art brief 01 C). */
-export type DeskFace = 'neutral' | 'talk' | 'smug' | 'surprised' | 'angry' | 'lunge';
+export type DeskFace = 'neutral' | 'talk' | 'smug' | 'surprised' | 'angry' | 'lunge' | 'hurt';
 
 /**
  * Which painted expression someone at the desk wears on a line. The speaker
@@ -133,7 +133,8 @@ export function deskFace(b: Beat, seat: Seat): DeskFace {
   if (seat === b.who) {
     if (b.heat === 3) return 'lunge';
     if (b.mood === 'angry') return 'angry';
-    if (b.mood === 'surprised' || b.mood === 'hurt') return 'surprised';
+    if (b.mood === 'hurt') return 'hurt';
+    if (b.mood === 'surprised') return 'surprised';
     if (b.mood === 'neutral') return 'talk';
     return b.heat >= 2 ? 'angry' : b.heat === 1 ? 'smug' : 'talk';
   }

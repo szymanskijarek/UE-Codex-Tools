@@ -337,6 +337,11 @@ before the first hit lands, so it changes with the sim like any other fight.
   mouth) every 0.13 s (brief 01 D: talk, smug and angry for both anchors). Anyone without
   painted art falls back to their career face. Speech bubbles sit in the top
   strip; the clock sits above the strap, bottom right.
+- The brawl happens in the BSN Studio (`arena.news-studio`, art brief 03): a
+  small arena with the news desk in the middle; `marketOnly` with
+  `usedBy: "news"` keeps it out of the ladder and the Sandbox. Dusty is
+  painted at the desk too, and any desk line can use `"mood": "hurt"`
+  (brief 01E; `surprised` until that art lands).
 - In the brawl the anchors wear their own puppets and four-expression faces
   (`npc.news-brock`, `npc.news-philippa`, art brief 02) and fight with the TV host's and
   journalist's moves.

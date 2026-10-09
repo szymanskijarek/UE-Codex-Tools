@@ -1,10 +1,11 @@
 # Broken News: art briefs for the image agent
 
-> **Status (9 October 2026):** the desk shot is painted: backdrop, desk and
-> both anchors, six expressions each (01 A–C), and both anchors fight in
-> their own bodies and faces (02), with lip flap at the desk (01 D). Next: the
-> studio arena (03) and Dusty Gale (04). Still on stand-ins: Dusty (the
-> photographer's face and puppet) and the brawl's arena (the Theatre).
+> **Status (9 October 2026):** the desk shot is fully painted (backdrop, desk,
+> both anchors and Dusty Gale, six expressions each, lip flap for the
+> anchors), the anchors fight in their own bodies and faces (02), and the
+> brawl happens in the BSN Studio (03, `arena.news-studio`). Next: the seated
+> `hurt` pose and the rogue chair (01E), Dusty's fight body and heads (04),
+> page art (05).
 
 Art for **careercrash.org/news** (design: `docs/career-crash/10-broken-news.md`):
 a cable-news studio where two anchors read the week's story, bicker, and
@@ -19,6 +20,7 @@ the house style and the layout rules it needs.
 |---|---|---|---|---|
 | 1 | [`01-DESK_SHOT.md`](01-DESK_SHOT.md) | The close-up: studio backdrop, the desk as a front layer, the anchors seated (half-body, six expressions each), and second mouth frames for lip flap | 2 + 12 + 6–10 | **1** |
 | 1D | [`01D-MOUTH_PROMPTS.md`](01D-MOUTH_PROMPTS.md) | Ready-to-paste prompts for 01 D (lip-flap mouth frames), for the session that drew the anchors | 6 + 4 | **1** |
+| 1E | [`01E-HURT_PROMPTS.md`](01E-HURT_PROMPTS.md) | Seated `hurt` pose for all three (hit by a rogue chair) and the flying-chair sprite, as ready-to-paste prompts | 3 + 1 | **1** |
 | 2 | [`02-ANCHORS_BRAWL.md`](02-ANCHORS_BRAWL.md) | Brock and Philippa as fighters: body sheets and four heads each | 2 + 8 | **1** |
 | 3 | [`03-STUDIO_ARENA.md`](03-STUDIO_ARENA.md) | The studio floor for the brawl: backdrop and furniture sheets (intact, damaged, destroyed) | 4 | 2 |
 | 4 | [`04-GUESTS.md`](04-GUESTS.md) | The recurring guests: Dusty Gale (weather) first; seated close-ups, body sheet and heads | 6 + 1 + 4 per guest | 3 |

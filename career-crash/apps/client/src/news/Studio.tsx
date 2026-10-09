@@ -17,7 +17,8 @@ import deskUrl from './art/desk-front.webp';
 
 /** Painted desk-shot people, `art/desk-<who>-<face>.webp`; anyone without them falls back to their career face. */
 const DESK_ART = import.meta.glob('./art/desk-*-*.webp', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
-const deskArt = (who: string | undefined, face: DeskFace) => (who ? DESK_ART[`./art/desk-${who}-${face}.webp`] : undefined);
+const deskArt = (who: string | undefined, face: DeskFace): string | undefined =>
+  who ? (DESK_ART[`./art/desk-${who}-${face}.webp`] ?? (face === 'hurt' ? DESK_ART[`./art/desk-${who}-surprised.webp`] : undefined)) : undefined;
 /** The same picture with the other mouth (`…-<face>-b.webp`, open if the main one is shut and vice versa), for lip flap. */
 const deskArtAlt = (who: string | undefined, face: DeskFace) => (who ? DESK_ART[`./art/desk-${who}-${face}-b.webp`] : undefined);
 /** Lip flap: how long each mouth frame holds while a line is being typed out. */
@@ -60,7 +61,7 @@ function brawlInput(ep: Episode, people: Person[]): BattleInput {
     const c: CharacterSnapshot = { ...base, name: p.name, careers: [p.career], masteries: [], held, level: 6, ...(p.persona ? { persona: p.persona } : {}) };
     return { playerId: `news-${p.seat}`, playerName: p.name, rating: 1000, characters: [c] };
   });
-  return { schemaVersion: 1, contentHash: bundle.hash, simVersion: SIM_VERSION, seed: ep.id, arenaId: ep.brawl.arena ?? 'arena.theatre', mode: 'ffa', teams, modifiers: [] };
+  return { schemaVersion: 1, contentHash: bundle.hash, simVersion: SIM_VERSION, seed: ep.id, arenaId: ep.brawl.arena ?? 'arena.news-studio', mode: 'ffa', teams, modifiers: [] };
 }
 
 /** Where to start the brawl: just before the first blow lands (the anchors start across the stage). */

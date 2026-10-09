@@ -40,5 +40,8 @@
  "docks-damaged": {"anchors": true, "cols": 2, "names": ["shipping-container-damaged", "dock-crane-damaged", "winch-damaged", "bollards-damaged"]},
  "trading-floor": ["trading-desk", "screen-wall", "bell-podium", "server-rack", "beanbag-pile", "gold-bull-statue"],
  "trading-floor-damaged": {"anchors": true, "cols": 3, "names": ["trading-desk-damaged", "screen-wall-damaged", "bell-podium-damaged", "server-rack-damaged", "beanbag-pile-damaged", "gold-bull-statue-damaged"]},
- "trading-floor-destroyed": {"anchors": true, "cols": 3, "names": ["trading-desk-destroyed", "screen-wall-destroyed", "bell-podium-destroyed", "server-rack-destroyed", "beanbag-pile-destroyed", "gold-bull-statue-destroyed"], "px": 130}
+ "trading-floor-destroyed": {"anchors": true, "cols": 3, "names": ["trading-desk-destroyed", "screen-wall-destroyed", "bell-podium-destroyed", "server-rack-destroyed", "beanbag-pile-destroyed", "gold-bull-statue-destroyed"], "px": 130},
+ "news-studio": ["news-desk", "studio-camera", "teleprompter", "weather-screen", "light-stand", "guest-sofa"],
+ "news-studio-damaged": {"anchors": true, "cols": 3, "names": ["news-desk-damaged", "studio-camera-damaged", "teleprompter-damaged", "weather-screen-damaged", "light-stand-damaged", "guest-sofa-damaged"]},
+ "news-studio-destroyed": {"anchors": true, "cols": 3, "names": ["news-desk-destroyed", "studio-camera-destroyed", "teleprompter-destroyed", "weather-screen-destroyed", "light-stand-destroyed", "guest-sofa-destroyed"], "px": 130}
 }
