@@ -2,8 +2,10 @@
 
 > **Status (9 October 2026):** A (backdrop) and B (desk) delivered and in the
 > game, at 1672 × 941 (the same 16:9 as asked, a bit smaller; fine). Still to
-> come: C, the anchors seated (the desk shot uses 64 px career faces on CSS
-> suits until then). The desk is drawn 8% higher than painted so its plaque
+> come: C for Philippa (Brock's six delivered and in the game, 9 October;
+> she uses her 64 px career face on a CSS suit until then). Brock's set is the
+> reference for hers: same 1254 × 1254 square canvas, same scale, head top
+> about 4% down, cut off at the bottom edge, turned the other way. The desk is drawn 8% higher than painted so its plaque
 > clears the lower third and the straps, so keep C's anchors at the same scale
 > and let the game place them.
 

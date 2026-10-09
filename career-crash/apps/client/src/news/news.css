@@ -360,6 +360,24 @@ body.bn-page {
     opacity: 0;
   }
 }
+/* Painted desk-shot people (art brief 01 C): square, waist up; the desk hides them below the hands. */
+.bn-person.bn-painted {
+  width: 27%;
+  bottom: 39%;
+  display: block;
+}
+.bn-seat-us.bn-painted {
+  left: 13%;
+}
+.bn-painted img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.bn-painted.bn-talking img {
+  animation: bn-talk 0.3s ease-in-out infinite alternate;
+  transform-origin: 50% 100%;
+}
 .bn-head {
   width: 70%;
   position: relative;
@@ -459,7 +477,8 @@ body.bn-page {
   z-index: 3;
 }
 .bn-bubble-us {
-  left: 10%;
+  left: 17%;
+  top: 4.5%;
 }
 .bn-bubble-uk {
   right: 12%;

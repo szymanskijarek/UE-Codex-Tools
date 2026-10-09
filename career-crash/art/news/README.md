@@ -1,10 +1,11 @@
 # Broken News: art briefs for the image agent
 
 > **Status (9 October 2026):** the desk shot's backdrop and desk are in the
-> game (01 A–B). Everything else runs on stand-ins: the anchors at the desk
-> are the career faces of the TV host (Brock), the journalist (Philippa) and
-> the photographer (Dusty Gale) on CSS suits (01 C next), and the brawl uses
-> those careers' puppets in the Theatre arena.
+> game (01 A–B), and so is Brock at the desk, all six expressions (01 C).
+> Everything else runs on stand-ins: Philippa and Dusty Gale at the desk are
+> the journalist's and photographer's career faces on CSS suits (Philippa's
+> six are next), and the brawl uses the TV host's, journalist's and
+> photographer's puppets in the Theatre arena.
 
 Art for **careercrash.org/news** (design: `docs/career-crash/10-broken-news.md`):
 a cable-news studio where two anchors read the week's story, bicker, and

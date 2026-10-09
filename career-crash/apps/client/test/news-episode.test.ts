@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { ANCHORS } from '../src/news/cast';
-import { BSN_OFFICIAL, checkEpisode, cueAt, FORMAT, spellsBsn, timeline, type Episode } from '../src/news/episode';
+import { BSN_OFFICIAL, checkEpisode, cueAt, deskFace, FORMAT, spellsBsn, timeline, type Episode } from '../src/news/episode';
 import { EPISODES } from '../src/news/episodes';
 import pilot from '../src/news/episodes/2026-w41-printers.json';
 
@@ -47,5 +47,16 @@ describe('Broken News episodes (10 §4)', () => {
     for (const p of ['British Broadcasting Corporation', 'Bad News', 'Big Shouty Network Now']) expect([p, spellsBsn(p)]).toEqual([p, false]);
     const used = [BSN_OFFICIAL, ...Object.values(ANCHORS).map((a) => a.bsn), ...EPISODES.flatMap((e) => [e.bsn, e.guest?.bsn ?? []].flat())].map((x) => x.toLowerCase());
     expect(used.length).toBe(new Set(used).size);
+  });
+
+  it('desk faces follow the spiral (art brief 01 C)', () => {
+    expect(deskFace({ who: 'us', heat: 0, text: '' }, 'us')).toBe('talk');
+    expect(deskFace({ who: 'us', heat: 0, text: '' }, 'uk')).toBe('neutral');
+    expect(deskFace({ who: 'us', heat: 1, text: '' }, 'us')).toBe('smug');
+    expect(deskFace({ who: 'us', heat: 1, text: '' }, 'uk')).toBe('surprised');
+    expect(deskFace({ who: 'uk', heat: 1, mood: 'surprised', text: '' }, 'uk')).toBe('surprised');
+    expect(deskFace({ who: 'uk', heat: 2, text: '' }, 'us')).toBe('angry');
+    expect(deskFace({ who: 'us', heat: 3, text: '' }, 'us')).toBe('lunge');
+    expect(deskFace({ who: 'us', heat: 3, text: '' }, 'uk')).toBe('angry');
   });
 });

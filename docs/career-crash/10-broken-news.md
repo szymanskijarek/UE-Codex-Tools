@@ -330,7 +330,10 @@ before the first hit lands, so it changes with the sim like any other fight.
   October): backdrop and desk layers, with the headline on the big screen,
   BSN on the side screens and *BROKEN NEWS · BSN* on the desk's plaque,
   written by the game (`apps/client/src/news/art/`, sources in
-  `career-crash/art/news/`).
+  `career-crash/art/news/`). Brock is painted too, six expressions picked by
+  `deskFace` (talk; smug at heat 1; angry at 2; lunge on the swing; listeners
+  calm, then taken aback, then angry). Anyone without painted art falls back
+  to their career face.
 - The brawl is a close-up (`BattleRenderer.closeUp`): framed on the anchors,
   cut straight to the framing, bottom strip kept clear.
 

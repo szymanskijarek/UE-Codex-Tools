@@ -9,11 +9,15 @@ import { BattleRenderer } from '../replay/renderer';
 import { voiceFor, withVoice, type Voice } from '../replay/voices';
 import { Portrait } from '../ui/components';
 import { ANCHORS, type Anchor } from './cast';
-import { BSN_OFFICIAL, checkEpisode, cueAt, moodOf, timeline, type Cue, type Episode, type Seat } from './episode';
+import { BSN_OFFICIAL, checkEpisode, cueAt, deskFace, type DeskFace, moodOf, timeline, type Cue, type Episode, type Seat } from './episode';
 import { EPISODES, pickEpisode } from './episodes';
 import { MINIGAMES, minigameById } from './minigames';
 import backdropUrl from './art/desk-backdrop.webp';
 import deskUrl from './art/desk-front.webp';
+
+/** Painted desk-shot people, `art/desk-<who>-<face>.webp`; anyone without them falls back to their career face. */
+const DESK_ART = import.meta.glob('./art/desk-*-*.webp', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+const deskArt = (who: string | undefined, face: DeskFace) => (who ? DESK_ART[`./art/desk-${who}-${face}.webp`] : undefined);
 
 /** Seconds of run-up shown before the first punch lands. */
 const BRAWL_RUNUP_TICKS = TICKS_PER_SECOND;
@@ -32,13 +36,14 @@ interface Person {
   color: string;
   voice: Voice;
   bsn?: string;
+  art?: string;
 }
 
 function cast(ep: Episode): Person[] {
   const anchor = (a: Anchor): Person => ({ ...a, voice: withVoice(voiceFor(a.career.replace('career.', ''), a.name, ''), { type: a.voice, pitch: a.pitch }) });
   const out = [anchor(ANCHORS.us), anchor(ANCHORS.uk)];
   const g = ep.guest;
-  if (g) out.push({ seat: 'guest', name: g.name, role: g.role, career: g.career, color: '#0e7c66', voice: voiceFor(g.career.replace('career.', ''), g.name, ''), bsn: g.bsn });
+  if (g) out.push({ seat: 'guest', name: g.name, role: g.role, career: g.career, color: '#0e7c66', voice: voiceFor(g.career.replace('career.', ''), g.name, ''), bsn: g.bsn, art: g.art });
   return out;
 }
 
@@ -223,6 +228,12 @@ export function Studio() {
     return heat >= 2 ? 'angry' : heat === 1 && seat !== 'guest' ? 'surprised' : 'neutral';
   };
   const showDesk = stage === 'segment' && (cue.phase === 'ident' || cue.phase === 'desk');
+  const faceFor = (seat: Seat): DeskFace => (cue.phase === 'desk' && beat ? deskFace(beat, seat) : 'neutral');
+
+  // Fetch every painted expression up front, so a face swap never flashes empty.
+  useEffect(() => {
+    for (const url of Object.values(DESK_ART)) new Image().src = url;
+  }, []);
 
   return (
     <div class="bn">
@@ -278,6 +289,13 @@ export function Studio() {
             <div class="bn-cam">
               {people.map((p) => {
                 if (p.seat === 'guest' && !guestIn) return null;
+                const art = deskArt(p.art, faceFor(p.seat));
+                if (art)
+                  return (
+                    <div key={p.seat} class={`bn-person bn-painted bn-seat-${p.seat}${p.seat === speaking ? ' bn-talking' : ''}`}>
+                      <img src={art} alt="" />
+                    </div>
+                  );
                 return (
                   <div key={p.seat} class={`bn-person bn-seat-${p.seat}${p.seat === speaking ? ' bn-talking' : ''}`} style={{ '--c': p.color }}>
                     <div class="bn-head">

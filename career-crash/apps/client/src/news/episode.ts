@@ -33,6 +33,8 @@ export interface Guest {
   enters: number;
   /** What the guest thinks BSN stands for. */
   bsn?: string;
+  /** Their painted desk-shot pictures, once they exist (art brief 04). */
+  art?: string;
 }
 
 export interface Episode {
@@ -116,6 +118,26 @@ export function beatMs(b: Beat): number {
 
 export function moodOf(b: Beat): Emotion {
   return b.mood ?? (b.heat >= 2 ? 'angry' : 'neutral');
+}
+
+/** The painted desk-shot expressions (art brief 01 C). */
+export type DeskFace = 'neutral' | 'talk' | 'smug' | 'surprised' | 'angry' | 'lunge';
+
+/**
+ * Which painted expression someone at the desk wears on a line. The speaker
+ * talks, gets smug once it's bickering, angry once it's personal, and lunges
+ * on the swing; a line's own `mood` wins. Everyone else reacts: calm, then
+ * taken aback, then angry.
+ */
+export function deskFace(b: Beat, seat: Seat): DeskFace {
+  if (seat === b.who) {
+    if (b.heat === 3) return 'lunge';
+    if (b.mood === 'angry') return 'angry';
+    if (b.mood === 'surprised' || b.mood === 'hurt') return 'surprised';
+    if (b.mood === 'neutral') return 'talk';
+    return b.heat >= 2 ? 'angry' : b.heat === 1 ? 'smug' : 'talk';
+  }
+  return b.heat >= 2 ? 'angry' : b.heat === 1 && seat !== 'guest' ? 'surprised' : 'neutral';
 }
 
 export function timeline(ep: Episode): { cues: Cue[]; totalMs: number } {
