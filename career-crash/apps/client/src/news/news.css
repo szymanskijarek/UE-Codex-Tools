@@ -463,15 +463,15 @@ body.bn-page {
 
 .bn-bubble {
   position: absolute;
-  top: 9%;
-  max-width: 44%;
+  top: 4.5%;
+  max-width: 48%;
   padding: 1.2cqw 1.6cqw;
   background: #fff;
   color: #10152a;
   border: 0.35cqw solid #1b1f2a;
   border-radius: 1.6cqw;
   font-weight: 700;
-  font-size: max(11px, 2.1cqw);
+  font-size: max(11px, 1.9cqw);
   line-height: 1.25;
   box-shadow: 0.5cqw 0.5cqw 0 #0006;
   z-index: 3;
@@ -481,7 +481,7 @@ body.bn-page {
   top: 4.5%;
 }
 .bn-bubble-uk {
-  right: 12%;
+  right: 3%;
 }
 .bn-bubble-guest {
   right: 3%;
@@ -523,7 +523,7 @@ body.bn-page {
 }
 .bn-clock {
   position: absolute;
-  top: 3%;
+  bottom: 16.5%;
   right: 2.5%;
   font-weight: 800;
   font-size: 1.4cqw;

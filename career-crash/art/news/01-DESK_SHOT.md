@@ -1,13 +1,10 @@
 # Broken News 01: the desk shot
 
-> **Status (9 October 2026):** A (backdrop) and B (desk) delivered and in the
-> game, at 1672 × 941 (the same 16:9 as asked, a bit smaller; fine). Still to
-> come: C for Philippa (Brock's six delivered and in the game, 9 October;
-> she uses her 64 px career face on a CSS suit until then). Brock's set is the
-> reference for hers: same 1254 × 1254 square canvas, same scale, head top
-> about 4% down, cut off at the bottom edge, turned the other way. The desk is drawn 8% higher than painted so its plaque
-> clears the lower third and the straps, so keep C's anchors at the same scale
-> and let the game place them.
+> **Status (9 October 2026):** A (backdrop), B (desk) and C (both anchors,
+> six expressions each) delivered and in the game. The canvas came in at
+> 1672 × 941 and the anchors at 1254 × 1254: keep those sizes for anything
+> new. Next: D, the second mouth frames for lip flap (the game already plays
+> them the moment they exist).
 
 > Part of the Broken News art set (`art/news/README.md`, read *The two
 > anchors* first). Design: `docs/career-crash/10-broken-news.md` §3.
@@ -99,6 +96,38 @@ fountain pen.*
 | `surprised` (just insulted) | jaw dropped, hair still perfect | glasses slipping off, mouth a small O |
 | `angry` (it's personal now) | red-faced, vein on forehead, jabbing finger sideways | eyes narrowed to slits, pen gripped like a dagger, nostrils flared |
 | `lunge` (the swing) | half out of the chair towards the right, fist pulled back, tie flying | half out of the chair towards the left, fountain pen raised high, glasses flying off |
+
+## D. Lip flap: second mouth frames, `art/news/desk-<anchor>-<expression>-b.png`
+
+While a line types out, the game swaps the speaker between the expression
+and its **-b** twin every 0.13 s, so the mouth flaps like a cartoon. The twin
+is **the same picture with only the mouth changed**: open if the original is
+shut, shut if it's open. Same canvas (1254 × 1254), same pose, hands, hair,
+glasses and pen, to the pixel: anything else that moves will jitter.
+
+**How to ask:** attach the original expression and ask the agent to *edit*
+it, not draw it again:
+
+> Edit the attached image. Change ONLY the mouth: [MOUTH]. Keep every other
+> pixel identical: same pose, same hands, same hair, same clothes, same
+> outline, same canvas size and position, transparent background.
+
+| File | From | [MOUTH] | Priority |
+|---|---|---|---|
+| `desk-brock-talk-b.png` | `desk-brock-talk.png` | closed in a confident on-air smile | **1** |
+| `desk-brock-smug-b.png` | `desk-brock-smug.png` | open mid-word, still grinning | **1** |
+| `desk-brock-angry-b.png` | `desk-brock-angry.png` | shut, teeth gritted, still furious | **1** |
+| `desk-philippa-talk-b.png` | `desk-philippa-talk.png` | closed, lips pressed, mid-sentence pause | **1** |
+| `desk-philippa-smug-b.png` | `desk-philippa-smug.png` | slightly open, a dry remark, still smirking | **1** |
+| `desk-philippa-angry-b.png` | `desk-philippa-angry.png` | open, a clipped furious word | **1** |
+| `desk-<anchor>-surprised-b.png` | `…-surprised.png` | half closed, a sputter | 2 |
+| `desk-<anchor>-lunge-b.png` | `…-lunge.png` | the other mouth (open ↔ gritted) | 2 |
+
+`neutral` needs no twin (it's the listening face). Guests (brief 04) get the
+same three priority-1 twins.
+
+If the agent can't keep the rest identical, send it anyway: Claude can paste
+just the mouth area onto the original.
 
 ## Importing
 

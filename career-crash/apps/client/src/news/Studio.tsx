@@ -18,6 +18,10 @@ import deskUrl from './art/desk-front.webp';
 /** Painted desk-shot people, `art/desk-<who>-<face>.webp`; anyone without them falls back to their career face. */
 const DESK_ART = import.meta.glob('./art/desk-*-*.webp', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 const deskArt = (who: string | undefined, face: DeskFace) => (who ? DESK_ART[`./art/desk-${who}-${face}.webp`] : undefined);
+/** The same picture with the other mouth (`…-<face>-b.webp`, open if the main one is shut and vice versa), for lip flap. */
+const deskArtAlt = (who: string | undefined, face: DeskFace) => (who ? DESK_ART[`./art/desk-${who}-${face}-b.webp`] : undefined);
+/** Lip flap: how long each mouth frame holds while a line is being typed out. */
+const FLAP_MS = 130;
 
 /** Seconds of run-up shown before the first punch lands. */
 const BRAWL_RUNUP_TICKS = TICKS_PER_SECOND;
@@ -289,7 +293,10 @@ export function Studio() {
             <div class="bn-cam">
               {people.map((p) => {
                 if (p.seat === 'guest' && !guestIn) return null;
-                const art = deskArt(p.art, faceFor(p.seat));
+                const face = faceFor(p.seat);
+                // The speaker's mouth flaps while their line types out, when there's a second mouth frame.
+                const flap = p.seat === speaking && progress < 1 && Math.floor(ms / FLAP_MS) % 2 === 1;
+                const art = (flap && deskArtAlt(p.art, face)) || deskArt(p.art, face);
                 if (art)
                   return (
                     <div key={p.seat} class={`bn-person bn-painted bn-seat-${p.seat}${p.seat === speaking ? ' bn-talking' : ''}`}>

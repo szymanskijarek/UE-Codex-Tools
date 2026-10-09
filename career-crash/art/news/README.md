@@ -1,11 +1,11 @@
 # Broken News: art briefs for the image agent
 
-> **Status (9 October 2026):** the desk shot's backdrop and desk are in the
-> game (01 A–B), and so is Brock at the desk, all six expressions (01 C).
-> Everything else runs on stand-ins: Philippa and Dusty Gale at the desk are
-> the journalist's and photographer's career faces on CSS suits (Philippa's
-> six are next), and the brawl uses the TV host's, journalist's and
-> photographer's puppets in the Theatre arena.
+> **Status (9 October 2026):** the desk shot is painted: backdrop, desk and
+> both anchors, six expressions each (01 A–C). Next: the lip-flap mouth
+> frames (01 D), then the anchors as fighters (02). Still on stand-ins: Dusty
+> Gale at the desk (the photographer's career face on a CSS suit, 04) and the
+> brawl (the TV host's, journalist's and photographer's puppets in the
+> Theatre arena).
 
 Art for **careercrash.org/news** (design: `docs/career-crash/10-broken-news.md`):
 a cable-news studio where two anchors read the week's story, bicker, and
@@ -18,7 +18,7 @@ the house style and the layout rules it needs.
 
 | # | File | What | Images | Priority |
 |---|---|---|---|---|
-| 1 | [`01-DESK_SHOT.md`](01-DESK_SHOT.md) | The close-up: studio backdrop, the desk as a front layer, and the anchors seated (half-body, six expressions each) | 2 + 12 | **1** |
+| 1 | [`01-DESK_SHOT.md`](01-DESK_SHOT.md) | The close-up: studio backdrop, the desk as a front layer, the anchors seated (half-body, six expressions each), and second mouth frames for lip flap | 2 + 12 + 6–10 | **1** |
 | 2 | [`02-ANCHORS_BRAWL.md`](02-ANCHORS_BRAWL.md) | Brock and Philippa as fighters: body sheets and four heads each | 2 + 8 | **1** |
 | 3 | [`03-STUDIO_ARENA.md`](03-STUDIO_ARENA.md) | The studio floor for the brawl: backdrop and furniture sheets (intact, damaged, destroyed) | 4 | 2 |
 | 4 | [`04-GUESTS.md`](04-GUESTS.md) | The recurring guests: Dusty Gale (weather) first; seated close-ups, body sheet and heads | 6 + 1 + 4 per guest | 3 |
