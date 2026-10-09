@@ -32,7 +32,10 @@ const URLS = import.meta.glob('./faces/faces.webp', { eager: true, query: '?url'
 export const FACE_ATLAS = { url: URLS['./faces/faces.webp'] ?? '', w: (atlas as { w: number }).w, h: (atlas as { h: number }).h };
 
 export function faceRect(careerId: string, emotion: FaceFrame = 'neutral'): FaceRect | null {
-  return FACES[`${careerId}:${emotion}`] ?? null;
+  const rc = FACES[`${careerId}:${emotion}`];
+  if (rc) return rc;
+  // A head set still missing an emotion (art arriving in parts) shows its neutral face; variant frames stay optional.
+  return emotion === 'angry' || emotion === 'surprised' || emotion === 'hurt' ? (FACES[`${careerId}:neutral`] ?? null) : null;
 }
 
 /** Height correction for a face frame (1 for most; >1 when the art has extras above the head). */

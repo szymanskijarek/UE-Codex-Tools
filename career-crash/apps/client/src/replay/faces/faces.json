@@ -2894,4364 +2894,4448 @@
    "w": 61,
    "h": 64
   },
-  "npc.news-brock:angry": {
+  "npc.news-ainsley:angry": {
    "x": 1381,
+   "y": 926,
+   "w": 64,
+   "h": 61
+  },
+  "npc.news-biff:angry": {
+   "x": 1447,
+   "y": 926,
+   "w": 64,
+   "h": 59
+  },
+  "npc.news-brock:angry": {
+   "x": 1513,
    "y": 926,
    "w": 59,
    "h": 64
   },
   "npc.news-chase:angry": {
-   "x": 1442,
+   "x": 1574,
    "y": 926,
    "w": 64,
    "h": 53
   },
   "npc.news-dusty:angry": {
-   "x": 1508,
+   "x": 1640,
    "y": 926,
    "w": 64,
    "h": 57
   },
+  "npc.news-kevin:angry": {
+   "x": 1706,
+   "y": 926,
+   "w": 64,
+   "h": 60
+  },
   "npc.news-philippa:angry": {
-   "x": 1574,
+   "x": 1772,
    "y": 926,
    "w": 64,
    "h": 50
   },
   "npc.news-rupert:angry": {
-   "x": 1640,
+   "x": 1838,
    "y": 926,
    "w": 59,
    "h": 64
   },
+  "npc.news-tamsin:angry": {
+   "x": 1899,
+   "y": 926,
+   "w": 64,
+   "h": 53
+  },
   "npc.night-watchman:angry": {
-   "x": 1701,
+   "x": 1965,
    "y": 926,
    "w": 62,
    "h": 64
   },
   "npc.panto-horse-b:angry": {
-   "x": 1765,
-   "y": 926,
+   "x": 2,
+   "y": 992,
    "w": 62,
    "h": 64
   },
   "npc.panto-horse:angry": {
-   "x": 1829,
-   "y": 926,
+   "x": 66,
+   "y": 992,
    "w": 55,
    "h": 64
   },
   "npc.pantomime-dame:angry": {
-   "x": 1886,
-   "y": 926,
+   "x": 123,
+   "y": 992,
    "w": 64,
    "h": 62
   },
   "npc.parent-helper-b:angry": {
-   "x": 1952,
-   "y": 926,
+   "x": 189,
+   "y": 992,
    "w": 57,
    "h": 64
   },
   "npc.parent-helper:angry": {
-   "x": 2,
+   "x": 248,
    "y": 992,
    "w": 54,
    "h": 64
   },
   "npc.pegged-peggy:angry": {
-   "x": 58,
+   "x": 304,
    "y": 992,
    "w": 64,
    "h": 55
   },
   "npc.perfume-queen:angry": {
-   "x": 124,
+   "x": 370,
    "y": 992,
    "w": 64,
    "h": 57
   },
   "npc.pharma-rep:angry": {
-   "x": 190,
+   "x": 436,
    "y": 992,
    "w": 58,
    "h": 64
   },
   "npc.planning-officer:angry": {
-   "x": 250,
+   "x": 496,
    "y": 992,
    "w": 64,
    "h": 61
   },
   "npc.professional-visitor:angry": {
-   "x": 316,
+   "x": 562,
    "y": 992,
    "w": 64,
    "h": 57
   },
   "npc.reg-auditor-b:angry": {
-   "x": 382,
+   "x": 628,
    "y": 992,
    "w": 64,
    "h": 56
   },
   "npc.reg-auditor:angry": {
-   "x": 448,
+   "x": 694,
    "y": 992,
    "w": 64,
    "h": 63
   },
   "npc.replacement-coordinator:angry": {
-   "x": 514,
+   "x": 760,
    "y": 992,
    "w": 64,
    "h": 59
   },
   "npc.sample-sprayer-b:angry": {
-   "x": 580,
+   "x": 826,
    "y": 992,
    "w": 60,
    "h": 64
   },
   "npc.sample-sprayer:angry": {
-   "x": 642,
+   "x": 888,
    "y": 992,
    "w": 53,
    "h": 64
   },
   "npc.sauce-boy-b:angry": {
-   "x": 697,
+   "x": 943,
    "y": 992,
    "w": 55,
    "h": 64
   },
   "npc.sauce-boy:angry": {
-   "x": 754,
+   "x": 1000,
    "y": 992,
    "w": 61,
    "h": 64
   },
   "npc.school-teacher:angry": {
-   "x": 817,
+   "x": 1063,
    "y": 992,
    "w": 64,
    "h": 57
   },
   "npc.shop-steward-b:angry": {
-   "x": 883,
+   "x": 1129,
    "y": 992,
    "w": 61,
    "h": 64
   },
   "npc.shop-steward:angry": {
-   "x": 946,
+   "x": 1192,
    "y": 992,
    "w": 52,
    "h": 64
   },
   "npc.surveyor-b:angry": {
-   "x": 1000,
+   "x": 1246,
    "y": 992,
    "w": 53,
    "h": 64
   },
   "npc.surveyor:angry": {
-   "x": 1055,
+   "x": 1301,
    "y": 992,
    "w": 50,
    "h": 64
   },
   "npc.swab-deputy-b:angry": {
-   "x": 1107,
+   "x": 1353,
    "y": 992,
    "w": 64,
    "h": 61
   },
   "npc.swab-deputy:angry": {
-   "x": 1173,
+   "x": 1419,
    "y": 992,
    "w": 59,
    "h": 64
   },
   "npc.theatre-critic:angry": {
-   "x": 1234,
+   "x": 1480,
    "y": 992,
    "w": 64,
    "h": 51
   },
   "npc.ticket-inspector-b:angry": {
-   "x": 1300,
+   "x": 1546,
    "y": 992,
    "w": 56,
    "h": 64
   },
   "npc.ticket-inspector:angry": {
-   "x": 1358,
+   "x": 1604,
    "y": 992,
    "w": 53,
    "h": 64
   },
   "npc.train-driver:angry": {
-   "x": 1413,
+   "x": 1659,
    "y": 992,
    "w": 61,
    "h": 64
   },
   "npc.trainee-shopper-b:angry": {
-   "x": 1476,
+   "x": 1722,
    "y": 992,
    "w": 59,
    "h": 64
   },
   "npc.trainee-shopper:angry": {
-   "x": 1537,
+   "x": 1783,
    "y": 992,
    "w": 64,
    "h": 60
   },
   "npc.trawler-captain:angry": {
-   "x": 1603,
+   "x": 1849,
    "y": 992,
    "w": 64,
    "h": 60
   },
   "npc.trolley-lad-b:angry": {
-   "x": 1669,
+   "x": 1915,
    "y": 992,
    "w": 60,
    "h": 64
   },
   "npc.trolley-lad:angry": {
-   "x": 1731,
+   "x": 1977,
    "y": 992,
    "w": 64,
    "h": 60
   },
   "npc.trolley-marshal:angry": {
-   "x": 1797,
-   "y": 992,
+   "x": 2,
+   "y": 1058,
    "w": 62,
    "h": 64
   },
   "npc.understudy-b:angry": {
-   "x": 1861,
-   "y": 992,
+   "x": 66,
+   "y": 1058,
    "w": 55,
    "h": 64
   },
   "npc.understudy:angry": {
-   "x": 1918,
-   "y": 992,
+   "x": 123,
+   "y": 1058,
    "w": 58,
    "h": 64
   },
   "npc.union-rep:angry": {
-   "x": 1978,
-   "y": 992,
+   "x": 183,
+   "y": 1058,
    "w": 64,
    "h": 52
   },
   "npc.wax-figure-b:angry": {
-   "x": 2,
+   "x": 249,
    "y": 1058,
    "w": 64,
    "h": 57
   },
   "npc.wax-figure:angry": {
-   "x": 68,
+   "x": 315,
    "y": 1058,
    "w": 62,
    "h": 64
   },
   "career.referee:angry": {
-   "x": 132,
+   "x": 379,
    "y": 1058,
    "w": 64,
    "h": 60
   },
   "npc.auditor:hurt": {
-   "x": 198,
+   "x": 445,
    "y": 1058,
    "w": 64,
    "h": 59
   },
   "npc.baggage-handler:hurt": {
-   "x": 264,
+   "x": 511,
    "y": 1058,
    "w": 52,
    "h": 64
   },
   "npc.barcode-scanner-b:hurt": {
-   "x": 318,
+   "x": 565,
    "y": 1058,
    "w": 64,
    "h": 60
   },
   "npc.barcode-scanner:hurt": {
-   "x": 384,
+   "x": 631,
    "y": 1058,
    "w": 51,
    "h": 64
   },
   "npc.bride-to-be:hurt": {
-   "x": 437,
+   "x": 684,
    "y": 1058,
    "w": 64,
    "h": 57
   },
   "npc.bridesmaid-b:hurt": {
-   "x": 503,
+   "x": 750,
    "y": 1058,
    "w": 55,
    "h": 64
   },
   "npc.bridesmaid:hurt": {
-   "x": 560,
+   "x": 807,
    "y": 1058,
    "w": 64,
    "h": 61
   },
   "npc.bro-ada:hurt": {
-   "x": 626,
+   "x": 873,
    "y": 1058,
    "w": 64,
    "h": 61
   },
   "npc.bro-anon:hurt": {
-   "x": 692,
+   "x": 939,
    "y": 1058,
    "w": 64,
    "h": 62
   },
   "npc.bro-avax:hurt": {
-   "x": 758,
+   "x": 1005,
    "y": 1058,
    "w": 57,
    "h": 64
   },
   "npc.bro-bnb:hurt": {
-   "x": 817,
+   "x": 1064,
    "y": 1058,
    "w": 58,
    "h": 64
   },
   "npc.bro-btc:hurt": {
-   "x": 877,
+   "x": 1124,
    "y": 1058,
    "w": 63,
    "h": 64
   },
   "npc.bro-doge:hurt": {
-   "x": 942,
+   "x": 1189,
    "y": 1058,
    "w": 64,
    "h": 54
   },
   "npc.bro-dot:hurt": {
-   "x": 1008,
+   "x": 1255,
    "y": 1058,
    "w": 54,
    "h": 64
   },
   "npc.bro-eth:hurt": {
-   "x": 1064,
+   "x": 1311,
    "y": 1058,
    "w": 64,
    "h": 62
   },
   "npc.bro-link:hurt": {
-   "x": 1130,
+   "x": 1377,
    "y": 1058,
    "w": 63,
    "h": 64
   },
   "npc.bro-ltc:hurt": {
-   "x": 1195,
+   "x": 1442,
    "y": 1058,
    "w": 64,
    "h": 61
   },
   "npc.bro-pepe:hurt": {
-   "x": 1261,
+   "x": 1508,
    "y": 1058,
    "w": 64,
    "h": 56
   },
   "npc.bro-shib:hurt": {
-   "x": 1327,
+   "x": 1574,
    "y": 1058,
    "w": 64,
    "h": 58
   },
   "npc.bro-sol:hurt": {
-   "x": 1393,
+   "x": 1640,
    "y": 1058,
    "w": 60,
    "h": 64
   },
   "npc.bro-ton:hurt": {
-   "x": 1455,
+   "x": 1702,
    "y": 1058,
    "w": 60,
    "h": 64
   },
   "npc.bro-trx:hurt": {
-   "x": 1517,
+   "x": 1764,
    "y": 1058,
    "w": 64,
    "h": 57
   },
   "npc.bro-xrp:hurt": {
-   "x": 1583,
+   "x": 1830,
    "y": 1058,
    "w": 61,
    "h": 64
   },
   "npc.carousel-crew-b:hurt": {
-   "x": 1646,
+   "x": 1893,
    "y": 1058,
    "w": 64,
    "h": 63
   },
   "npc.carousel-crew:hurt": {
-   "x": 1712,
+   "x": 1959,
    "y": 1058,
    "w": 64,
    "h": 61
   },
   "npc.change-consultant:hurt": {
-   "x": 1778,
-   "y": 1058,
+   "x": 2,
+   "y": 1124,
    "w": 63,
    "h": 64
   },
   "npc.compliance-officer:hurt": {
-   "x": 1843,
-   "y": 1058,
+   "x": 67,
+   "y": 1124,
    "w": 64,
    "h": 51
   },
   "npc.crane-operator:hurt": {
-   "x": 1909,
-   "y": 1058,
+   "x": 133,
+   "y": 1124,
    "w": 60,
    "h": 64
   },
   "npc.customs-officer:hurt": {
-   "x": 1971,
-   "y": 1058,
+   "x": 195,
+   "y": 1124,
    "w": 64,
    "h": 63
   },
   "npc.del-ar:hurt": {
-   "x": 2,
+   "x": 261,
    "y": 1124,
    "w": 64,
    "h": 50
   },
   "npc.del-at:hurt": {
-   "x": 68,
+   "x": 327,
    "y": 1124,
    "w": 64,
    "h": 62
   },
   "npc.del-au:hurt": {
-   "x": 134,
+   "x": 393,
    "y": 1124,
    "w": 64,
    "h": 56
   },
   "npc.del-be:hurt": {
-   "x": 200,
+   "x": 459,
    "y": 1124,
    "w": 64,
    "h": 56
   },
   "npc.del-br:hurt": {
-   "x": 266,
+   "x": 525,
    "y": 1124,
    "w": 64,
    "h": 61
   },
   "npc.del-ca:hurt": {
-   "x": 332,
+   "x": 591,
    "y": 1124,
    "w": 64,
    "h": 53
   },
   "npc.del-ch:hurt": {
-   "x": 398,
+   "x": 657,
    "y": 1124,
    "w": 64,
    "h": 55
   },
   "npc.del-cl:hurt": {
-   "x": 464,
+   "x": 723,
    "y": 1124,
    "w": 64,
    "h": 54
   },
   "npc.del-co:hurt": {
-   "x": 530,
+   "x": 789,
    "y": 1124,
    "w": 64,
    "h": 52
   },
   "npc.del-de:hurt": {
-   "x": 596,
+   "x": 855,
    "y": 1124,
    "w": 64,
    "h": 60
   },
   "npc.del-dk:hurt": {
-   "x": 662,
+   "x": 921,
    "y": 1124,
    "w": 64,
    "h": 64
   },
   "npc.del-eg:hurt": {
-   "x": 728,
+   "x": 987,
    "y": 1124,
    "w": 64,
    "h": 53
   },
   "npc.del-eng:hurt": {
-   "x": 794,
+   "x": 1053,
    "y": 1124,
    "w": 64,
    "h": 61
   },
   "npc.del-es:hurt": {
-   "x": 860,
+   "x": 1119,
    "y": 1124,
    "w": 64,
    "h": 51
   },
   "npc.del-fr:hurt": {
-   "x": 926,
+   "x": 1185,
    "y": 1124,
    "w": 64,
    "h": 53
   },
   "npc.del-gr:hurt": {
-   "x": 992,
+   "x": 1251,
    "y": 1124,
    "w": 64,
    "h": 53
   },
   "npc.del-id:hurt": {
-   "x": 1058,
+   "x": 1317,
    "y": 1124,
    "w": 64,
    "h": 62
   },
   "npc.del-ie:hurt": {
-   "x": 1124,
+   "x": 1383,
    "y": 1124,
    "w": 64,
    "h": 48
   },
   "npc.del-in:hurt": {
-   "x": 1190,
+   "x": 1449,
    "y": 1124,
    "w": 64,
    "h": 59
   },
   "npc.del-it:hurt": {
-   "x": 1256,
+   "x": 1515,
    "y": 1124,
    "w": 64,
    "h": 64
   },
   "npc.del-jm:hurt": {
-   "x": 1322,
+   "x": 1581,
    "y": 1124,
    "w": 64,
    "h": 59
   },
   "npc.del-jp:hurt": {
-   "x": 1388,
+   "x": 1647,
    "y": 1124,
    "w": 64,
    "h": 55
   },
   "npc.del-ke:hurt": {
-   "x": 1454,
+   "x": 1713,
    "y": 1124,
    "w": 61,
    "h": 64
   },
   "npc.del-kr:hurt": {
-   "x": 1517,
+   "x": 1776,
    "y": 1124,
    "w": 64,
    "h": 57
   },
   "npc.del-ma:hurt": {
-   "x": 1583,
+   "x": 1842,
    "y": 1124,
    "w": 64,
    "h": 64
   },
   "npc.del-mx:hurt": {
-   "x": 1649,
+   "x": 1908,
    "y": 1124,
    "w": 64,
    "h": 54
   },
   "npc.del-ng:hurt": {
-   "x": 1715,
+   "x": 1974,
    "y": 1124,
    "w": 60,
    "h": 64
   },
   "npc.del-nl:hurt": {
-   "x": 1777,
-   "y": 1124,
+   "x": 2,
+   "y": 1190,
    "w": 64,
    "h": 55
   },
   "npc.del-no:hurt": {
-   "x": 1843,
-   "y": 1124,
+   "x": 68,
+   "y": 1190,
    "w": 64,
    "h": 59
   },
   "npc.del-nz:hurt": {
-   "x": 1909,
-   "y": 1124,
+   "x": 134,
+   "y": 1190,
    "w": 64,
    "h": 50
   },
   "npc.del-observer:hurt": {
-   "x": 1975,
-   "y": 1124,
+   "x": 200,
+   "y": 1190,
    "w": 64,
    "h": 57
   },
   "npc.del-ph:hurt": {
-   "x": 2,
+   "x": 266,
    "y": 1190,
    "w": 64,
    "h": 50
   },
   "npc.del-pl:hurt": {
-   "x": 68,
+   "x": 332,
    "y": 1190,
    "w": 64,
    "h": 60
   },
   "npc.del-pt:hurt": {
-   "x": 134,
+   "x": 398,
    "y": 1190,
    "w": 64,
    "h": 63
   },
   "npc.del-sco:hurt": {
-   "x": 200,
+   "x": 464,
    "y": 1190,
    "w": 61,
    "h": 64
   },
   "npc.del-se:hurt": {
-   "x": 263,
+   "x": 527,
    "y": 1190,
    "w": 63,
    "h": 64
   },
   "npc.del-th:hurt": {
-   "x": 328,
+   "x": 592,
    "y": 1190,
    "w": 64,
    "h": 53
   },
   "npc.del-us:hurt": {
-   "x": 394,
+   "x": 658,
    "y": 1190,
    "w": 64,
    "h": 59
   },
   "npc.del-vn:hurt": {
-   "x": 460,
+   "x": 724,
    "y": 1190,
    "w": 64,
    "h": 52
   },
   "npc.del-wal:hurt": {
-   "x": 526,
+   "x": 790,
    "y": 1190,
    "w": 64,
    "h": 55
   },
   "npc.del-za:hurt": {
-   "x": 592,
+   "x": 856,
    "y": 1190,
    "w": 62,
    "h": 64
   },
   "npc.dog-handler-b:hurt": {
-   "x": 656,
+   "x": 920,
    "y": 1190,
    "w": 64,
    "h": 59
   },
   "npc.dog-handler:hurt": {
-   "x": 722,
+   "x": 986,
    "y": 1190,
    "w": 51,
    "h": 64
   },
   "npc.food-truck-boss:hurt": {
-   "x": 775,
+   "x": 1039,
    "y": 1190,
    "w": 60,
    "h": 64
   },
   "npc.free-pen-intern-b:hurt": {
-   "x": 837,
+   "x": 1101,
    "y": 1190,
    "w": 64,
    "h": 56
   },
   "npc.free-pen-intern:hurt": {
-   "x": 903,
+   "x": 1167,
    "y": 1190,
    "w": 53,
    "h": 64
   },
   "npc.grandchild-b:hurt": {
-   "x": 958,
+   "x": 1222,
    "y": 1190,
    "w": 62,
    "h": 64
   },
   "npc.grandchild:hurt": {
-   "x": 1022,
+   "x": 1286,
    "y": 1190,
    "w": 60,
    "h": 64
   },
   "npc.gutting-crew-b:hurt": {
-   "x": 1084,
+   "x": 1348,
    "y": 1190,
    "w": 64,
    "h": 63
   },
   "npc.gutting-crew:hurt": {
-   "x": 1150,
+   "x": 1414,
    "y": 1190,
    "w": 54,
    "h": 64
   },
   "npc.health-inspector:hurt": {
-   "x": 1206,
+   "x": 1470,
    "y": 1190,
    "w": 64,
    "h": 54
   },
   "npc.hedge-fund-owner:hurt": {
-   "x": 1272,
+   "x": 1536,
    "y": 1190,
    "w": 63,
    "h": 64
   },
   "npc.hi-vis-marshal-b:hurt": {
-   "x": 1337,
+   "x": 1601,
    "y": 1190,
    "w": 53,
    "h": 64
   },
   "npc.hi-vis-marshal:hurt": {
-   "x": 1392,
+   "x": 1656,
    "y": 1190,
    "w": 49,
    "h": 64
   },
   "npc.inst-brussels:hurt": {
-   "x": 1443,
+   "x": 1707,
    "y": 1190,
    "w": 64,
    "h": 54
   },
   "npc.inst-fed-ambassador:hurt": {
-   "x": 1509,
+   "x": 1773,
    "y": 1190,
    "w": 64,
    "h": 57
   },
   "npc.inst-fed-official:hurt": {
-   "x": 1575,
+   "x": 1839,
    "y": 1190,
    "w": 64,
    "h": 59
   },
   "npc.inst-health-hazmat:hurt": {
-   "x": 1641,
+   "x": 1905,
    "y": 1190,
    "w": 64,
    "h": 64
   },
   "npc.inst-health-inspector:hurt": {
-   "x": 1707,
+   "x": 1971,
    "y": 1190,
    "w": 64,
    "h": 55
   },
   "npc.inst-icc-gendarme:hurt": {
-   "x": 1773,
-   "y": 1190,
+   "x": 2,
+   "y": 1256,
    "w": 64,
    "h": 61
   },
   "npc.inst-icc-magistrate:hurt": {
-   "x": 1839,
-   "y": 1190,
+   "x": 68,
+   "y": 1256,
    "w": 64,
    "h": 62
   },
   "npc.inst-lender-officer:hurt": {
-   "x": 1905,
-   "y": 1190,
+   "x": 134,
+   "y": 1256,
    "w": 64,
    "h": 59
   },
   "npc.inst-lender:hurt": {
-   "x": 1971,
-   "y": 1190,
+   "x": 200,
+   "y": 1256,
    "w": 64,
    "h": 61
   },
   "npc.inst-nato-aide:hurt": {
-   "x": 2,
+   "x": 266,
    "y": 1256,
    "w": 64,
    "h": 52
   },
   "npc.inst-nato-official:hurt": {
-   "x": 68,
+   "x": 332,
    "y": 1256,
    "w": 64,
    "h": 60
   },
   "npc.inst-oil-exec:hurt": {
-   "x": 134,
+   "x": 398,
    "y": 1256,
    "w": 64,
    "h": 62
   },
   "npc.inst-oil-roughneck:hurt": {
-   "x": 200,
+   "x": 464,
    "y": 1256,
    "w": 61,
    "h": 64
   },
   "npc.inst-rater:hurt": {
-   "x": 263,
+   "x": 527,
    "y": 1256,
    "w": 64,
    "h": 59
   },
   "npc.inst-tech-founder:hurt": {
-   "x": 329,
+   "x": 593,
    "y": 1256,
    "w": 64,
    "h": 58
   },
   "npc.inst-tech-hacker:hurt": {
-   "x": 395,
+   "x": 659,
    "y": 1256,
    "w": 61,
    "h": 64
   },
   "npc.inst-un-envoy:hurt": {
-   "x": 458,
+   "x": 722,
    "y": 1256,
    "w": 64,
    "h": 55
   },
   "npc.inst-un-peacekeeper:hurt": {
-   "x": 524,
+   "x": 788,
    "y": 1256,
    "w": 64,
    "h": 61
   },
   "npc.it-intern-b:hurt": {
-   "x": 590,
+   "x": 854,
    "y": 1256,
    "w": 64,
    "h": 60
   },
   "npc.it-intern:hurt": {
-   "x": 656,
+   "x": 920,
    "y": 1256,
    "w": 62,
    "h": 64
   },
   "npc.it-support-lead:hurt": {
-   "x": 720,
+   "x": 984,
    "y": 1256,
    "w": 64,
    "h": 63
   },
   "npc.junior-associate-b:hurt": {
-   "x": 786,
+   "x": 1050,
    "y": 1256,
    "w": 60,
    "h": 64
   },
   "npc.junior-associate:hurt": {
-   "x": 848,
+   "x": 1112,
    "y": 1256,
    "w": 56,
    "h": 64
   },
   "npc.labourer-b:hurt": {
-   "x": 906,
+   "x": 1170,
    "y": 1256,
    "w": 52,
    "h": 64
   },
   "npc.labourer:hurt": {
-   "x": 960,
+   "x": 1224,
    "y": 1256,
    "w": 49,
    "h": 64
   },
   "npc.lackey-b:hurt": {
-   "x": 1011,
+   "x": 1275,
    "y": 1256,
    "w": 62,
    "h": 64
   },
   "npc.lackey:hurt": {
-   "x": 1075,
+   "x": 1339,
    "y": 1256,
    "w": 54,
    "h": 64
   },
   "npc.madam-chair:hurt": {
-   "x": 1131,
+   "x": 1395,
    "y": 1256,
    "w": 64,
    "h": 50
   },
   "npc.mystery-shopper:hurt": {
-   "x": 1197,
+   "x": 1461,
    "y": 1256,
    "w": 59,
    "h": 64
   },
+  "npc.news-ainsley:hurt": {
+   "x": 1522,
+   "y": 1256,
+   "w": 64,
+   "h": 64
+  },
+  "npc.news-biff:hurt": {
+   "x": 1588,
+   "y": 1256,
+   "w": 64,
+   "h": 56
+  },
   "npc.news-brock:hurt": {
-   "x": 1258,
+   "x": 1654,
    "y": 1256,
    "w": 64,
    "h": 64
   },
   "npc.news-chase:hurt": {
-   "x": 1324,
+   "x": 1720,
    "y": 1256,
    "w": 64,
    "h": 55
   },
   "npc.news-dusty:hurt": {
-   "x": 1390,
+   "x": 1786,
    "y": 1256,
    "w": 64,
    "h": 54
   },
   "npc.news-philippa:hurt": {
-   "x": 1456,
+   "x": 1852,
    "y": 1256,
    "w": 64,
    "h": 51
   },
   "npc.news-rupert:hurt": {
-   "x": 1522,
+   "x": 1918,
    "y": 1256,
    "w": 61,
    "h": 64
   },
-  "npc.night-watchman:hurt": {
-   "x": 1585,
+  "npc.news-tamsin:hurt": {
+   "x": 1981,
    "y": 1256,
+   "w": 64,
+   "h": 48
+  },
+  "npc.night-watchman:hurt": {
+   "x": 2,
+   "y": 1322,
    "w": 59,
    "h": 64
   },
   "npc.panto-horse-b:hurt": {
-   "x": 1646,
-   "y": 1256,
+   "x": 63,
+   "y": 1322,
    "w": 63,
    "h": 64
   },
   "npc.panto-horse:hurt": {
-   "x": 1711,
-   "y": 1256,
+   "x": 128,
+   "y": 1322,
    "w": 53,
    "h": 64
   },
   "npc.pantomime-dame:hurt": {
-   "x": 1766,
-   "y": 1256,
+   "x": 183,
+   "y": 1322,
    "w": 64,
    "h": 61
   },
   "npc.parent-helper-b:hurt": {
-   "x": 1832,
-   "y": 1256,
+   "x": 249,
+   "y": 1322,
    "w": 57,
    "h": 64
   },
   "npc.parent-helper:hurt": {
-   "x": 1891,
-   "y": 1256,
+   "x": 308,
+   "y": 1322,
    "w": 56,
    "h": 64
   },
   "npc.pegged-peggy:hurt": {
-   "x": 1949,
-   "y": 1256,
+   "x": 366,
+   "y": 1322,
    "w": 64,
    "h": 52
   },
   "npc.perfume-queen:hurt": {
-   "x": 2,
+   "x": 432,
    "y": 1322,
    "w": 64,
    "h": 57
   },
   "npc.pharma-rep:hurt": {
-   "x": 68,
+   "x": 498,
    "y": 1322,
    "w": 57,
    "h": 64
   },
   "npc.planning-officer:hurt": {
-   "x": 127,
+   "x": 557,
    "y": 1322,
    "w": 64,
    "h": 59
   },
   "npc.professional-visitor:hurt": {
-   "x": 193,
+   "x": 623,
    "y": 1322,
    "w": 64,
    "h": 56
   },
   "npc.reg-auditor-b:hurt": {
-   "x": 259,
+   "x": 689,
    "y": 1322,
    "w": 64,
    "h": 54
   },
   "npc.reg-auditor:hurt": {
-   "x": 325,
+   "x": 755,
    "y": 1322,
    "w": 64,
    "h": 62
   },
   "npc.replacement-coordinator:hurt": {
-   "x": 391,
+   "x": 821,
    "y": 1322,
    "w": 64,
    "h": 59
   },
   "npc.sample-sprayer-b:hurt": {
-   "x": 457,
+   "x": 887,
    "y": 1322,
    "w": 64,
    "h": 63
   },
   "npc.sample-sprayer:hurt": {
-   "x": 523,
+   "x": 953,
    "y": 1322,
    "w": 60,
    "h": 64
   },
   "npc.sauce-boy-b:hurt": {
-   "x": 585,
+   "x": 1015,
    "y": 1322,
    "w": 55,
    "h": 64
   },
   "npc.sauce-boy:hurt": {
-   "x": 642,
+   "x": 1072,
    "y": 1322,
    "w": 61,
    "h": 64
   },
   "npc.school-teacher:hurt": {
-   "x": 705,
+   "x": 1135,
    "y": 1322,
    "w": 64,
    "h": 57
   },
   "npc.shop-steward-b:hurt": {
-   "x": 771,
+   "x": 1201,
    "y": 1322,
    "w": 63,
    "h": 64
   },
   "npc.shop-steward:hurt": {
-   "x": 836,
+   "x": 1266,
    "y": 1322,
    "w": 53,
    "h": 64
   },
   "npc.surveyor-b:hurt": {
-   "x": 891,
+   "x": 1321,
    "y": 1322,
    "w": 54,
    "h": 64
   },
   "npc.surveyor:hurt": {
-   "x": 947,
+   "x": 1377,
    "y": 1322,
    "w": 51,
    "h": 64
   },
   "npc.swab-deputy-b:hurt": {
-   "x": 1000,
+   "x": 1430,
    "y": 1322,
    "w": 64,
    "h": 62
   },
   "npc.swab-deputy:hurt": {
-   "x": 1066,
+   "x": 1496,
    "y": 1322,
    "w": 58,
    "h": 64
   },
   "npc.theatre-critic:hurt": {
-   "x": 1126,
+   "x": 1556,
    "y": 1322,
    "w": 64,
    "h": 49
   },
   "npc.ticket-inspector-b:hurt": {
-   "x": 1192,
+   "x": 1622,
    "y": 1322,
    "w": 62,
    "h": 64
   },
   "npc.ticket-inspector:hurt": {
-   "x": 1256,
+   "x": 1686,
    "y": 1322,
    "w": 53,
    "h": 64
   },
   "npc.train-driver:hurt": {
-   "x": 1311,
+   "x": 1741,
    "y": 1322,
    "w": 60,
    "h": 64
   },
   "npc.trainee-shopper-b:hurt": {
-   "x": 1373,
+   "x": 1803,
    "y": 1322,
    "w": 60,
    "h": 64
   },
   "npc.trainee-shopper:hurt": {
-   "x": 1435,
+   "x": 1865,
    "y": 1322,
    "w": 64,
    "h": 60
   },
   "npc.trawler-captain:hurt": {
-   "x": 1501,
+   "x": 1931,
    "y": 1322,
    "w": 64,
    "h": 59
   },
   "npc.trolley-lad-b:hurt": {
-   "x": 1567,
-   "y": 1322,
+   "x": 2,
+   "y": 1388,
    "w": 60,
    "h": 64
   },
   "npc.trolley-lad:hurt": {
-   "x": 1629,
-   "y": 1322,
+   "x": 64,
+   "y": 1388,
    "w": 64,
    "h": 58
   },
   "npc.trolley-marshal:hurt": {
-   "x": 1695,
-   "y": 1322,
+   "x": 130,
+   "y": 1388,
    "w": 64,
    "h": 64
   },
   "npc.understudy-b:hurt": {
-   "x": 1761,
-   "y": 1322,
+   "x": 196,
+   "y": 1388,
    "w": 64,
    "h": 63
   },
   "npc.understudy:hurt": {
-   "x": 1827,
-   "y": 1322,
+   "x": 262,
+   "y": 1388,
    "w": 59,
    "h": 64
   },
   "npc.union-rep:hurt": {
-   "x": 1888,
-   "y": 1322,
+   "x": 323,
+   "y": 1388,
    "w": 64,
    "h": 52
   },
   "npc.wax-figure-b:hurt": {
-   "x": 1954,
-   "y": 1322,
+   "x": 389,
+   "y": 1388,
    "w": 64,
    "h": 59
   },
   "npc.wax-figure:hurt": {
-   "x": 2,
+   "x": 455,
    "y": 1388,
    "w": 63,
    "h": 64
   },
   "career.referee:hurt": {
-   "x": 67,
+   "x": 520,
    "y": 1388,
    "w": 64,
    "h": 64
   },
   "career.accountant:hurt2": {
-   "x": 133,
+   "x": 586,
    "y": 1388,
    "w": 63,
    "h": 64
   },
   "career.archaeologist:hurt2": {
-   "x": 198,
+   "x": 651,
    "y": 1388,
    "w": 64,
    "h": 50
   },
   "career.astronaut:hurt2": {
-   "x": 264,
+   "x": 717,
    "y": 1388,
    "w": 64,
    "h": 54
   },
   "career.baker:hurt2": {
-   "x": 330,
+   "x": 783,
    "y": 1388,
    "w": 63,
    "h": 64
   },
   "career.barista:hurt2": {
-   "x": 395,
+   "x": 848,
    "y": 1388,
    "w": 54,
    "h": 64
   },
   "career.beekeeper:hurt2": {
-   "x": 451,
+   "x": 904,
    "y": 1388,
    "w": 64,
    "h": 55
   },
   "career.builder:hurt2": {
-   "x": 517,
+   "x": 970,
    "y": 1388,
    "w": 58,
    "h": 64
   },
   "career.bus-driver:hurt2": {
-   "x": 577,
+   "x": 1030,
    "y": 1388,
    "w": 62,
    "h": 64
   },
   "career.carpenter:hurt2": {
-   "x": 641,
+   "x": 1094,
    "y": 1388,
    "w": 56,
    "h": 64
   },
   "career.chef:hurt2": {
-   "x": 699,
+   "x": 1152,
    "y": 1388,
    "w": 58,
    "h": 64
   },
   "career.chimney-sweep:hurt2": {
-   "x": 759,
+   "x": 1212,
    "y": 1388,
    "w": 53,
    "h": 64
   },
   "career.clown:hurt2": {
-   "x": 814,
+   "x": 1267,
    "y": 1388,
    "w": 64,
    "h": 57,
    "k": 1.12
   },
   "career.conspiracy-podcaster:hurt2": {
-   "x": 880,
+   "x": 1333,
    "y": 1388,
    "w": 62,
    "h": 64
   },
   "career.delivery-driver:hurt2": {
-   "x": 944,
+   "x": 1397,
    "y": 1388,
    "w": 60,
    "h": 64
   },
   "career.dentist:hurt2": {
-   "x": 1006,
+   "x": 1459,
    "y": 1388,
    "w": 60,
    "h": 64
   },
   "career.dj:hurt2": {
-   "x": 1068,
+   "x": 1521,
    "y": 1388,
    "w": 64,
    "h": 56
   },
   "career.dog-groomer:hurt2": {
-   "x": 1134,
+   "x": 1587,
    "y": 1388,
    "w": 55,
    "h": 64
   },
   "career.electrician:hurt2": {
-   "x": 1191,
+   "x": 1644,
    "y": 1388,
    "w": 54,
    "h": 64
   },
   "career.engineer:hurt2": {
-   "x": 1247,
+   "x": 1700,
    "y": 1388,
    "w": 55,
    "h": 64
   },
   "career.farmer:hurt2": {
-   "x": 1304,
+   "x": 1757,
    "y": 1388,
    "w": 64,
    "h": 53
   },
   "career.fashion-designer:hurt2": {
-   "x": 1370,
+   "x": 1823,
    "y": 1388,
    "w": 64,
    "h": 64
   },
   "career.firefighter:hurt2": {
-   "x": 1436,
+   "x": 1889,
    "y": 1388,
    "w": 64,
    "h": 58
   },
   "career.flight-attendant:hurt2": {
-   "x": 1502,
+   "x": 1955,
    "y": 1388,
    "w": 55,
    "h": 64
   },
   "career.florist:hurt2": {
-   "x": 1559,
-   "y": 1388,
+   "x": 2,
+   "y": 1454,
    "w": 64,
    "h": 63
   },
   "career.food-critic:hurt2": {
-   "x": 1625,
-   "y": 1388,
+   "x": 68,
+   "y": 1454,
    "w": 64,
    "h": 62
   },
   "career.fortune-teller:hurt2": {
-   "x": 1691,
-   "y": 1388,
+   "x": 134,
+   "y": 1454,
    "w": 64,
    "h": 53
   },
   "career.gardener:hurt2": {
-   "x": 1757,
-   "y": 1388,
+   "x": 200,
+   "y": 1454,
    "w": 54,
    "h": 64
   },
   "career.hairdresser:hurt2": {
-   "x": 1813,
-   "y": 1388,
+   "x": 256,
+   "y": 1454,
    "w": 54,
    "h": 64
   },
   "career.hotel-concierge:hurt2": {
-   "x": 1869,
-   "y": 1388,
+   "x": 312,
+   "y": 1454,
    "w": 56,
    "h": 64
   },
   "career.ice-cream-vendor:hurt2": {
-   "x": 1927,
-   "y": 1388,
+   "x": 370,
+   "y": 1454,
    "w": 53,
    "h": 64
   },
   "career.influencer:hurt2": {
-   "x": 1982,
-   "y": 1388,
+   "x": 425,
+   "y": 1454,
    "w": 64,
    "h": 58
   },
   "career.janitor:hurt2": {
-   "x": 2,
+   "x": 491,
    "y": 1454,
    "w": 64,
    "h": 64
   },
   "career.journalist:hurt2": {
-   "x": 68,
+   "x": 557,
    "y": 1454,
    "w": 55,
    "h": 64
   },
   "career.lawyer:hurt2": {
-   "x": 125,
+   "x": 614,
    "y": 1454,
    "w": 61,
    "h": 64
   },
   "career.librarian:hurt2": {
-   "x": 188,
+   "x": 677,
    "y": 1454,
    "w": 64,
    "h": 59
   },
   "career.life-coach:hurt2": {
-   "x": 254,
+   "x": 743,
    "y": 1454,
    "w": 54,
    "h": 64
   },
   "career.lifeguard:hurt2": {
-   "x": 310,
+   "x": 799,
    "y": 1454,
    "w": 60,
    "h": 64
   },
   "career.magician:hurt2": {
-   "x": 372,
+   "x": 861,
    "y": 1454,
    "w": 58,
    "h": 64
   },
   "career.marine-biologist:hurt2": {
-   "x": 432,
+   "x": 921,
    "y": 1454,
    "w": 56,
    "h": 64
   },
   "career.mechanic:hurt2": {
-   "x": 490,
+   "x": 979,
    "y": 1454,
    "w": 58,
    "h": 64
   },
   "career.mime:hurt2": {
-   "x": 550,
+   "x": 1039,
    "y": 1454,
    "w": 63,
    "h": 64
   },
   "career.museum-curator:hurt2": {
-   "x": 615,
+   "x": 1104,
    "y": 1454,
    "w": 63,
    "h": 64
   },
   "npc.pegged-peggy:hurt2": {
-   "x": 680,
+   "x": 1169,
    "y": 1454,
    "w": 64,
    "h": 54
   },
   "career.nurse:hurt2": {
-   "x": 746,
+   "x": 1235,
    "y": 1454,
    "w": 56,
    "h": 64
   },
   "career.painter:hurt2": {
-   "x": 804,
+   "x": 1293,
    "y": 1454,
    "w": 64,
    "h": 57
   },
   "career.paramedic:hurt2": {
-   "x": 870,
+   "x": 1359,
    "y": 1454,
    "w": 62,
    "h": 64
   },
   "career.personal-trainer:hurt2": {
-   "x": 934,
+   "x": 1423,
    "y": 1454,
    "w": 54,
    "h": 64
   },
   "career.photographer:hurt2": {
-   "x": 990,
+   "x": 1479,
    "y": 1454,
    "w": 61,
    "h": 64
   },
   "career.plumber:hurt2": {
-   "x": 1053,
+   "x": 1542,
    "y": 1454,
    "w": 61,
    "h": 64
   },
   "career.police-officer:hurt2": {
-   "x": 1116,
+   "x": 1605,
    "y": 1454,
    "w": 59,
    "h": 64
   },
   "career.politician:hurt2": {
-   "x": 1177,
+   "x": 1666,
    "y": 1454,
    "w": 57,
    "h": 64
   },
   "career.postal-worker:hurt2": {
-   "x": 1236,
+   "x": 1725,
    "y": 1454,
    "w": 60,
    "h": 64
   },
   "career.programmer:hurt2": {
-   "x": 1298,
+   "x": 1787,
    "y": 1454,
    "w": 57,
    "h": 64
   },
   "career.psychologist:hurt2": {
-   "x": 1357,
+   "x": 1846,
    "y": 1454,
    "w": 56,
    "h": 64
   },
   "career.referee:hurt2": {
-   "x": 1415,
+   "x": 1904,
    "y": 1454,
    "w": 64,
    "h": 64
   },
   "career.sailor:hurt2": {
-   "x": 1481,
+   "x": 1970,
    "y": 1454,
    "w": 53,
    "h": 64
   },
   "career.scientist:hurt2": {
-   "x": 1536,
-   "y": 1454,
+   "x": 2,
+   "y": 1520,
    "w": 57,
    "h": 64
   },
   "career.security-guard:hurt2": {
-   "x": 1595,
-   "y": 1454,
+   "x": 61,
+   "y": 1520,
    "w": 60,
    "h": 64
   },
   "career.tailor:hurt2": {
-   "x": 1657,
-   "y": 1454,
+   "x": 123,
+   "y": 1520,
    "w": 64,
    "h": 64
   },
   "career.tattoo-artist:hurt2": {
-   "x": 1723,
-   "y": 1454,
+   "x": 189,
+   "y": 1520,
    "w": 55,
    "h": 64
   },
   "career.taxi-driver:hurt2": {
-   "x": 1780,
-   "y": 1454,
+   "x": 246,
+   "y": 1520,
    "w": 56,
    "h": 64
   },
   "career.teacher:hurt2": {
-   "x": 1838,
-   "y": 1454,
+   "x": 304,
+   "y": 1520,
    "w": 58,
    "h": 64
   },
   "career.train-conductor:hurt2": {
-   "x": 1898,
-   "y": 1454,
+   "x": 364,
+   "y": 1520,
    "w": 58,
    "h": 64
   },
   "career.tv-host:hurt2": {
-   "x": 1958,
-   "y": 1454,
+   "x": 424,
+   "y": 1520,
    "w": 54,
    "h": 64
   },
   "career.veterinarian:hurt2": {
-   "x": 2,
+   "x": 480,
    "y": 1520,
    "w": 58,
    "h": 64
   },
   "career.welder:hurt2": {
-   "x": 62,
+   "x": 540,
    "y": 1520,
    "w": 53,
    "h": 64
   },
   "career.window-cleaner:hurt2": {
-   "x": 117,
+   "x": 595,
    "y": 1520,
    "w": 63,
    "h": 64
   },
   "career.zookeeper:hurt2": {
-   "x": 182,
+   "x": 660,
    "y": 1520,
    "w": 64,
    "h": 48
   },
   "career.accountant:hurt3": {
-   "x": 248,
+   "x": 726,
    "y": 1520,
    "w": 55,
    "h": 64,
    "k": 1.15
   },
   "career.archaeologist:hurt3": {
-   "x": 305,
+   "x": 783,
    "y": 1520,
    "w": 64,
    "h": 63,
    "k": 1.26
   },
   "career.astronaut:hurt3": {
-   "x": 371,
+   "x": 849,
    "y": 1520,
    "w": 64,
    "h": 63,
    "k": 1.17
   },
   "career.baker:hurt3": {
-   "x": 437,
+   "x": 915,
    "y": 1520,
    "w": 58,
    "h": 64,
    "k": 1.07
   },
   "career.barista:hurt3": {
-   "x": 497,
+   "x": 975,
    "y": 1520,
    "w": 56,
    "h": 64
   },
   "career.beekeeper:hurt3": {
-   "x": 555,
+   "x": 1033,
    "y": 1520,
    "w": 63,
    "h": 64,
    "k": 1.23
   },
   "career.builder:hurt3": {
-   "x": 620,
+   "x": 1098,
    "y": 1520,
    "w": 51,
    "h": 64,
    "k": 1.16
   },
   "career.bus-driver:hurt3": {
-   "x": 673,
+   "x": 1151,
    "y": 1520,
    "w": 54,
    "h": 64,
    "k": 1.15
   },
   "career.carpenter:hurt3": {
-   "x": 729,
+   "x": 1207,
    "y": 1520,
    "w": 57,
    "h": 64
   },
   "career.chef:hurt3": {
-   "x": 788,
+   "x": 1266,
    "y": 1520,
    "w": 59,
    "h": 64
   },
   "career.chimney-sweep:hurt3": {
-   "x": 849,
+   "x": 1327,
    "y": 1520,
    "w": 50,
    "h": 64,
    "k": 1.08
   },
   "career.clown:hurt3": {
-   "x": 901,
+   "x": 1379,
    "y": 1520,
    "w": 64,
    "h": 60,
    "k": 1.18
   },
   "career.conspiracy-podcaster:hurt3": {
-   "x": 967,
+   "x": 1445,
    "y": 1520,
    "w": 55,
    "h": 64,
    "k": 1.13
   },
   "career.delivery-driver:hurt3": {
-   "x": 1024,
+   "x": 1502,
    "y": 1520,
    "w": 56,
    "h": 64,
    "k": 1.07
   },
   "career.dentist:hurt3": {
-   "x": 1082,
+   "x": 1560,
    "y": 1520,
    "w": 54,
    "h": 64,
    "k": 1.11
   },
   "career.dj:hurt3": {
-   "x": 1138,
+   "x": 1616,
    "y": 1520,
    "w": 60,
    "h": 64,
    "k": 1.22
   },
   "career.dog-groomer:hurt3": {
-   "x": 1200,
+   "x": 1678,
    "y": 1520,
    "w": 52,
    "h": 64,
    "k": 1.08
   },
   "career.electrician:hurt3": {
-   "x": 1254,
+   "x": 1732,
    "y": 1520,
    "w": 51,
    "h": 64
   },
   "career.engineer:hurt3": {
-   "x": 1307,
+   "x": 1785,
    "y": 1520,
    "w": 62,
    "h": 64
   },
   "career.farmer:hurt3": {
-   "x": 1371,
+   "x": 1849,
    "y": 1520,
    "w": 64,
    "h": 58,
    "k": 1.16
   },
   "career.fashion-designer:hurt3": {
-   "x": 1437,
+   "x": 1915,
    "y": 1520,
    "w": 64,
    "h": 61
   },
   "career.firefighter:hurt3": {
-   "x": 1503,
+   "x": 1981,
    "y": 1520,
    "w": 64,
    "h": 63,
    "k": 1.11
   },
   "career.flight-attendant:hurt3": {
-   "x": 1569,
-   "y": 1520,
+   "x": 2,
+   "y": 1586,
    "w": 59,
    "h": 64
   },
   "career.florist:hurt3": {
-   "x": 1630,
-   "y": 1520,
+   "x": 63,
+   "y": 1586,
    "w": 64,
    "h": 59
   },
   "career.food-critic:hurt3": {
-   "x": 1696,
-   "y": 1520,
+   "x": 129,
+   "y": 1586,
    "w": 63,
    "h": 64
   },
   "career.fortune-teller:hurt3": {
-   "x": 1761,
-   "y": 1520,
+   "x": 194,
+   "y": 1586,
    "w": 64,
    "h": 55
   },
   "career.gardener:hurt3": {
-   "x": 1827,
-   "y": 1520,
+   "x": 260,
+   "y": 1586,
    "w": 63,
    "h": 64
   },
   "career.hairdresser:hurt3": {
-   "x": 1892,
-   "y": 1520,
+   "x": 325,
+   "y": 1586,
    "w": 56,
    "h": 64
   },
   "career.hotel-concierge:hurt3": {
-   "x": 1950,
-   "y": 1520,
+   "x": 383,
+   "y": 1586,
    "w": 57,
    "h": 64
   },
   "career.ice-cream-vendor:hurt3": {
-   "x": 2,
+   "x": 442,
    "y": 1586,
    "w": 62,
    "h": 64
   },
   "career.influencer:hurt3": {
-   "x": 66,
+   "x": 506,
    "y": 1586,
    "w": 64,
    "h": 64,
    "k": 1.12
   },
   "career.janitor:hurt3": {
-   "x": 132,
+   "x": 572,
    "y": 1586,
    "w": 62,
    "h": 64
   },
   "career.journalist:hurt3": {
-   "x": 196,
+   "x": 636,
    "y": 1586,
    "w": 60,
    "h": 64
   },
   "career.lawyer:hurt3": {
-   "x": 258,
+   "x": 698,
    "y": 1586,
    "w": 62,
    "h": 64
   },
   "career.librarian:hurt3": {
-   "x": 322,
+   "x": 762,
    "y": 1586,
    "w": 64,
    "h": 63,
    "k": 1.09
   },
   "career.life-coach:hurt3": {
-   "x": 388,
+   "x": 828,
    "y": 1586,
    "w": 59,
    "h": 64
   },
   "career.lifeguard:hurt3": {
-   "x": 449,
+   "x": 889,
    "y": 1586,
    "w": 64,
    "h": 63
   },
   "career.magician:hurt3": {
-   "x": 515,
+   "x": 955,
    "y": 1586,
    "w": 61,
    "h": 64
   },
   "career.marine-biologist:hurt3": {
-   "x": 578,
+   "x": 1018,
    "y": 1586,
    "w": 59,
    "h": 64
   },
   "career.mechanic:hurt3": {
-   "x": 639,
+   "x": 1079,
    "y": 1586,
    "w": 62,
    "h": 64
   },
   "career.mime:hurt3": {
-   "x": 703,
+   "x": 1143,
    "y": 1586,
    "w": 64,
    "h": 63
   },
   "career.museum-curator:hurt3": {
-   "x": 769,
+   "x": 1209,
    "y": 1586,
    "w": 64,
    "h": 63
   },
   "career.nurse:hurt3": {
-   "x": 835,
+   "x": 1275,
    "y": 1586,
    "w": 62,
    "h": 64
   },
   "career.painter:hurt3": {
-   "x": 899,
+   "x": 1339,
    "y": 1586,
    "w": 64,
    "h": 56
   },
   "career.paramedic:hurt3": {
-   "x": 965,
+   "x": 1405,
    "y": 1586,
    "w": 63,
    "h": 64
   },
   "career.personal-trainer:hurt3": {
-   "x": 1030,
+   "x": 1470,
    "y": 1586,
    "w": 56,
    "h": 64
   },
   "career.photographer:hurt3": {
-   "x": 1088,
+   "x": 1528,
    "y": 1586,
    "w": 61,
    "h": 64
   },
   "career.plumber:hurt3": {
-   "x": 1151,
+   "x": 1591,
    "y": 1586,
    "w": 58,
    "h": 64
   },
   "career.police-officer:hurt3": {
-   "x": 1211,
+   "x": 1651,
    "y": 1586,
    "w": 59,
    "h": 64
   },
   "career.politician:hurt3": {
-   "x": 1272,
+   "x": 1712,
    "y": 1586,
    "w": 59,
    "h": 64
   },
   "career.postal-worker:hurt3": {
-   "x": 1333,
+   "x": 1773,
    "y": 1586,
    "w": 55,
    "h": 64,
    "k": 1.11
   },
   "career.programmer:hurt3": {
-   "x": 1390,
+   "x": 1830,
    "y": 1586,
    "w": 61,
    "h": 64
   },
   "career.psychologist:hurt3": {
-   "x": 1453,
+   "x": 1893,
    "y": 1586,
    "w": 62,
    "h": 64
   },
   "career.referee:hurt3": {
-   "x": 1517,
+   "x": 1957,
    "y": 1586,
    "w": 64,
    "h": 61
   },
   "career.sailor:hurt3": {
-   "x": 1583,
-   "y": 1586,
+   "x": 2,
+   "y": 1652,
    "w": 60,
    "h": 64
   },
   "career.scientist:hurt3": {
-   "x": 1645,
-   "y": 1586,
+   "x": 64,
+   "y": 1652,
    "w": 60,
    "h": 64
   },
   "career.security-guard:hurt3": {
-   "x": 1707,
-   "y": 1586,
+   "x": 126,
+   "y": 1652,
    "w": 60,
    "h": 64
   },
   "career.tailor:hurt3": {
-   "x": 1769,
-   "y": 1586,
+   "x": 188,
+   "y": 1652,
    "w": 63,
    "h": 64
   },
   "career.tattoo-artist:hurt3": {
-   "x": 1834,
-   "y": 1586,
+   "x": 253,
+   "y": 1652,
    "w": 59,
    "h": 64
   },
   "career.taxi-driver:hurt3": {
-   "x": 1895,
-   "y": 1586,
+   "x": 314,
+   "y": 1652,
    "w": 62,
    "h": 64
   },
   "career.teacher:hurt3": {
-   "x": 1959,
-   "y": 1586,
+   "x": 378,
+   "y": 1652,
    "w": 62,
    "h": 64
   },
   "career.train-conductor:hurt3": {
-   "x": 2,
+   "x": 442,
    "y": 1652,
    "w": 61,
    "h": 64
   },
   "career.tv-host:hurt3": {
-   "x": 65,
+   "x": 505,
    "y": 1652,
    "w": 57,
    "h": 64
   },
   "career.veterinarian:hurt3": {
-   "x": 124,
+   "x": 564,
    "y": 1652,
    "w": 61,
    "h": 64
   },
   "career.welder:hurt3": {
-   "x": 187,
+   "x": 627,
    "y": 1652,
    "w": 59,
    "h": 64
   },
   "career.window-cleaner:hurt3": {
-   "x": 248,
+   "x": 688,
    "y": 1652,
    "w": 63,
    "h": 64
   },
   "career.zookeeper:hurt3": {
-   "x": 313,
+   "x": 753,
    "y": 1652,
    "w": 64,
    "h": 58,
    "k": 1.21
   },
   "npc.auditor:neutral": {
-   "x": 379,
+   "x": 819,
    "y": 1652,
    "w": 64,
    "h": 60
   },
   "npc.baggage-handler:neutral": {
-   "x": 445,
+   "x": 885,
    "y": 1652,
    "w": 51,
    "h": 64
   },
   "npc.barcode-scanner-b:neutral": {
-   "x": 498,
+   "x": 938,
    "y": 1652,
    "w": 64,
    "h": 61
   },
   "npc.barcode-scanner:neutral": {
-   "x": 564,
+   "x": 1004,
    "y": 1652,
    "w": 49,
    "h": 64
   },
   "npc.bride-to-be:neutral": {
-   "x": 615,
+   "x": 1055,
    "y": 1652,
    "w": 64,
    "h": 57
   },
   "npc.bridesmaid-b:neutral": {
-   "x": 681,
+   "x": 1121,
    "y": 1652,
    "w": 52,
    "h": 64
   },
   "npc.bridesmaid:neutral": {
-   "x": 735,
+   "x": 1175,
    "y": 1652,
    "w": 64,
    "h": 63
   },
   "npc.bro-ada:neutral": {
-   "x": 801,
+   "x": 1241,
    "y": 1652,
    "w": 62,
    "h": 64
   },
   "npc.bro-anon:neutral": {
-   "x": 865,
+   "x": 1305,
    "y": 1652,
    "w": 64,
    "h": 62
   },
   "npc.bro-avax:neutral": {
-   "x": 931,
+   "x": 1371,
    "y": 1652,
    "w": 56,
    "h": 64
   },
   "npc.bro-bnb:neutral": {
-   "x": 989,
+   "x": 1429,
    "y": 1652,
    "w": 64,
    "h": 59
   },
   "npc.bro-btc:neutral": {
-   "x": 1055,
+   "x": 1495,
    "y": 1652,
    "w": 64,
    "h": 62
   },
   "npc.bro-doge:neutral": {
-   "x": 1121,
+   "x": 1561,
    "y": 1652,
    "w": 64,
    "h": 60
   },
   "npc.bro-dot:neutral": {
-   "x": 1187,
+   "x": 1627,
    "y": 1652,
    "w": 52,
    "h": 64
   },
   "npc.bro-eth:neutral": {
-   "x": 1241,
+   "x": 1681,
    "y": 1652,
    "w": 64,
    "h": 60
   },
   "npc.bro-link:neutral": {
-   "x": 1307,
+   "x": 1747,
    "y": 1652,
    "w": 60,
    "h": 64
   },
   "npc.bro-ltc:neutral": {
-   "x": 1369,
+   "x": 1809,
    "y": 1652,
    "w": 64,
    "h": 63
   },
   "npc.bro-pepe:neutral": {
-   "x": 1435,
+   "x": 1875,
    "y": 1652,
    "w": 64,
    "h": 55
   },
   "npc.bro-shib:neutral": {
-   "x": 1501,
+   "x": 1941,
    "y": 1652,
    "w": 64,
    "h": 54
   },
   "npc.bro-sol:neutral": {
-   "x": 1567,
-   "y": 1652,
+   "x": 2,
+   "y": 1718,
    "w": 63,
    "h": 64
   },
   "npc.bro-ton:neutral": {
-   "x": 1632,
-   "y": 1652,
+   "x": 67,
+   "y": 1718,
    "w": 60,
    "h": 64
   },
   "npc.bro-trx:neutral": {
-   "x": 1694,
-   "y": 1652,
+   "x": 129,
+   "y": 1718,
    "w": 63,
    "h": 64
   },
   "npc.bro-xrp:neutral": {
-   "x": 1759,
-   "y": 1652,
+   "x": 194,
+   "y": 1718,
    "w": 62,
    "h": 64
   },
   "npc.carousel-crew-b:neutral": {
-   "x": 1823,
-   "y": 1652,
+   "x": 258,
+   "y": 1718,
    "w": 64,
    "h": 64
   },
   "npc.carousel-crew:neutral": {
-   "x": 1889,
-   "y": 1652,
+   "x": 324,
+   "y": 1718,
    "w": 62,
    "h": 64
   },
   "npc.change-consultant:neutral": {
-   "x": 1953,
-   "y": 1652,
+   "x": 388,
+   "y": 1718,
    "w": 61,
    "h": 64
   },
   "npc.compliance-officer:neutral": {
-   "x": 2,
+   "x": 451,
    "y": 1718,
    "w": 64,
    "h": 52
   },
   "npc.crane-operator:neutral": {
-   "x": 68,
+   "x": 517,
    "y": 1718,
    "w": 61,
    "h": 64
   },
   "npc.customs-officer:neutral": {
-   "x": 131,
+   "x": 580,
    "y": 1718,
    "w": 63,
    "h": 64
   },
   "npc.del-ar:neutral": {
-   "x": 196,
+   "x": 645,
    "y": 1718,
    "w": 64,
    "h": 50
   },
   "npc.del-at:neutral": {
-   "x": 262,
+   "x": 711,
    "y": 1718,
    "w": 64,
    "h": 63
   },
   "npc.del-au:neutral": {
-   "x": 328,
+   "x": 777,
    "y": 1718,
    "w": 64,
    "h": 48
   },
   "npc.del-be:neutral": {
-   "x": 394,
+   "x": 843,
    "y": 1718,
    "w": 64,
    "h": 57
   },
   "npc.del-br:neutral": {
-   "x": 460,
+   "x": 909,
    "y": 1718,
    "w": 64,
    "h": 63
   },
   "npc.del-ca:neutral": {
-   "x": 526,
+   "x": 975,
    "y": 1718,
    "w": 64,
    "h": 52
   },
   "npc.del-ch:neutral": {
-   "x": 592,
+   "x": 1041,
    "y": 1718,
    "w": 64,
    "h": 57
   },
   "npc.del-cl:neutral": {
-   "x": 658,
+   "x": 1107,
    "y": 1718,
    "w": 64,
    "h": 48
   },
   "npc.del-co:neutral": {
-   "x": 724,
+   "x": 1173,
    "y": 1718,
    "w": 64,
    "h": 55
   },
   "npc.del-de:neutral": {
-   "x": 790,
+   "x": 1239,
    "y": 1718,
    "w": 64,
    "h": 62
   },
   "npc.del-dk:neutral": {
-   "x": 856,
+   "x": 1305,
    "y": 1718,
    "w": 64,
    "h": 58
   },
   "npc.del-eg:neutral": {
-   "x": 922,
+   "x": 1371,
    "y": 1718,
    "w": 64,
    "h": 53
   },
   "npc.del-eng:neutral": {
-   "x": 988,
+   "x": 1437,
    "y": 1718,
    "w": 64,
    "h": 64
   },
   "npc.del-es:neutral": {
-   "x": 1054,
+   "x": 1503,
    "y": 1718,
    "w": 64,
    "h": 56
   },
   "npc.del-fr:neutral": {
-   "x": 1120,
+   "x": 1569,
    "y": 1718,
    "w": 64,
    "h": 55
   },
   "npc.del-gr:neutral": {
-   "x": 1186,
+   "x": 1635,
    "y": 1718,
    "w": 64,
    "h": 55
   },
   "npc.del-id:neutral": {
-   "x": 1252,
+   "x": 1701,
    "y": 1718,
    "w": 61,
    "h": 64
   },
   "npc.del-ie:neutral": {
-   "x": 1315,
+   "x": 1764,
    "y": 1718,
    "w": 64,
    "h": 51
   },
   "npc.del-in:neutral": {
-   "x": 1381,
+   "x": 1830,
    "y": 1718,
    "w": 64,
    "h": 61
   },
   "npc.del-it:neutral": {
-   "x": 1447,
+   "x": 1896,
    "y": 1718,
    "w": 64,
    "h": 62
   },
   "npc.del-jm:neutral": {
-   "x": 1513,
+   "x": 1962,
    "y": 1718,
    "w": 64,
    "h": 60
   },
   "npc.del-jp:neutral": {
-   "x": 1579,
-   "y": 1718,
+   "x": 2,
+   "y": 1784,
    "w": 64,
    "h": 55
   },
   "npc.del-ke:neutral": {
-   "x": 1645,
-   "y": 1718,
+   "x": 68,
+   "y": 1784,
    "w": 62,
    "h": 64
   },
   "npc.del-kr:neutral": {
-   "x": 1709,
-   "y": 1718,
+   "x": 132,
+   "y": 1784,
    "w": 64,
    "h": 59
   },
   "npc.del-ma:neutral": {
-   "x": 1775,
-   "y": 1718,
+   "x": 198,
+   "y": 1784,
    "w": 64,
    "h": 62
   },
   "npc.del-mx:neutral": {
-   "x": 1841,
-   "y": 1718,
+   "x": 264,
+   "y": 1784,
    "w": 64,
    "h": 52
   },
   "npc.del-ng:neutral": {
-   "x": 1907,
-   "y": 1718,
+   "x": 330,
+   "y": 1784,
    "w": 60,
    "h": 64
   },
   "npc.del-nl:neutral": {
-   "x": 1969,
-   "y": 1718,
+   "x": 392,
+   "y": 1784,
    "w": 64,
    "h": 56
   },
   "npc.del-no:neutral": {
-   "x": 2,
+   "x": 458,
    "y": 1784,
    "w": 61,
    "h": 64
   },
   "npc.del-nz:neutral": {
-   "x": 65,
+   "x": 521,
    "y": 1784,
    "w": 64,
    "h": 52
   },
   "npc.del-observer:neutral": {
-   "x": 131,
+   "x": 587,
    "y": 1784,
    "w": 64,
    "h": 59
   },
   "npc.del-ph:neutral": {
-   "x": 197,
+   "x": 653,
    "y": 1784,
    "w": 64,
    "h": 58
   },
   "npc.del-pl:neutral": {
-   "x": 263,
+   "x": 719,
    "y": 1784,
    "w": 64,
    "h": 52
   },
   "npc.del-pt:neutral": {
-   "x": 329,
+   "x": 785,
    "y": 1784,
    "w": 64,
    "h": 59
   },
   "npc.del-sco:neutral": {
-   "x": 395,
+   "x": 851,
    "y": 1784,
    "w": 63,
    "h": 64
   },
   "npc.del-se:neutral": {
-   "x": 460,
+   "x": 916,
    "y": 1784,
    "w": 57,
    "h": 64
   },
   "npc.del-th:neutral": {
-   "x": 519,
+   "x": 975,
    "y": 1784,
    "w": 64,
    "h": 53
   },
   "npc.del-us:neutral": {
-   "x": 585,
+   "x": 1041,
    "y": 1784,
    "w": 64,
    "h": 55
   },
   "npc.del-vn:neutral": {
-   "x": 651,
+   "x": 1107,
    "y": 1784,
    "w": 64,
    "h": 58
   },
   "npc.del-wal:neutral": {
-   "x": 717,
+   "x": 1173,
    "y": 1784,
    "w": 64,
    "h": 57
   },
   "npc.del-za:neutral": {
-   "x": 783,
+   "x": 1239,
    "y": 1784,
    "w": 62,
    "h": 64
   },
   "npc.dog-handler-b:neutral": {
-   "x": 847,
+   "x": 1303,
    "y": 1784,
    "w": 64,
    "h": 58
   },
   "npc.dog-handler:neutral": {
-   "x": 913,
+   "x": 1369,
    "y": 1784,
    "w": 51,
    "h": 64
   },
   "npc.food-truck-boss:neutral": {
-   "x": 966,
+   "x": 1422,
    "y": 1784,
    "w": 59,
    "h": 64
   },
   "npc.free-pen-intern-b:neutral": {
-   "x": 1027,
+   "x": 1483,
    "y": 1784,
    "w": 64,
    "h": 58
   },
   "npc.free-pen-intern:neutral": {
-   "x": 1093,
+   "x": 1549,
    "y": 1784,
    "w": 51,
    "h": 64
   },
   "npc.grandchild-b:neutral": {
-   "x": 1146,
+   "x": 1602,
    "y": 1784,
    "w": 64,
    "h": 64
   },
   "npc.grandchild:neutral": {
-   "x": 1212,
+   "x": 1668,
    "y": 1784,
    "w": 56,
    "h": 64
   },
   "npc.gutting-crew-b:neutral": {
-   "x": 1270,
+   "x": 1726,
    "y": 1784,
    "w": 64,
    "h": 64
   },
   "npc.gutting-crew:neutral": {
-   "x": 1336,
+   "x": 1792,
    "y": 1784,
    "w": 53,
    "h": 64
   },
   "npc.health-inspector:neutral": {
-   "x": 1391,
+   "x": 1847,
    "y": 1784,
    "w": 64,
    "h": 54
   },
   "npc.hedge-fund-owner:neutral": {
-   "x": 1457,
+   "x": 1913,
    "y": 1784,
    "w": 61,
    "h": 64
   },
   "npc.hi-vis-marshal-b:neutral": {
-   "x": 1520,
+   "x": 1976,
    "y": 1784,
    "w": 54,
    "h": 64
   },
   "npc.hi-vis-marshal:neutral": {
-   "x": 1576,
-   "y": 1784,
+   "x": 2,
+   "y": 1850,
    "w": 49,
    "h": 64
   },
   "npc.inst-brussels:neutral": {
-   "x": 1627,
-   "y": 1784,
+   "x": 53,
+   "y": 1850,
    "w": 64,
    "h": 55
   },
   "npc.inst-fed-ambassador:neutral": {
-   "x": 1693,
-   "y": 1784,
+   "x": 119,
+   "y": 1850,
    "w": 64,
    "h": 58
   },
   "npc.inst-fed-official:neutral": {
-   "x": 1759,
-   "y": 1784,
+   "x": 185,
+   "y": 1850,
    "w": 64,
    "h": 60
   },
   "npc.inst-health-hazmat:neutral": {
-   "x": 1825,
-   "y": 1784,
+   "x": 251,
+   "y": 1850,
    "w": 62,
    "h": 64
   },
   "npc.inst-health-inspector:neutral": {
-   "x": 1889,
-   "y": 1784,
+   "x": 315,
+   "y": 1850,
    "w": 64,
    "h": 61
   },
   "npc.inst-icc-gendarme:neutral": {
-   "x": 1955,
-   "y": 1784,
+   "x": 381,
+   "y": 1850,
    "w": 64,
    "h": 63
   },
   "npc.inst-icc-magistrate:neutral": {
-   "x": 2,
+   "x": 447,
    "y": 1850,
    "w": 64,
    "h": 64
   },
   "npc.inst-lender-officer:neutral": {
-   "x": 68,
+   "x": 513,
    "y": 1850,
    "w": 64,
    "h": 56
   },
   "npc.inst-lender:neutral": {
-   "x": 134,
+   "x": 579,
    "y": 1850,
    "w": 64,
    "h": 59
   },
   "npc.inst-nato-aide:neutral": {
-   "x": 200,
+   "x": 645,
    "y": 1850,
    "w": 64,
    "h": 50
   },
   "npc.inst-nato-official:neutral": {
-   "x": 266,
+   "x": 711,
    "y": 1850,
    "w": 64,
    "h": 61
   },
   "npc.inst-oil-exec:neutral": {
-   "x": 332,
+   "x": 777,
    "y": 1850,
    "w": 64,
    "h": 59
   },
   "npc.inst-oil-roughneck:neutral": {
-   "x": 398,
+   "x": 843,
    "y": 1850,
    "w": 64,
    "h": 64
   },
   "npc.inst-rater:neutral": {
-   "x": 464,
+   "x": 909,
    "y": 1850,
    "w": 64,
    "h": 60
   },
   "npc.inst-tech-founder:neutral": {
-   "x": 530,
+   "x": 975,
    "y": 1850,
    "w": 64,
    "h": 59
   },
   "npc.inst-tech-hacker:neutral": {
-   "x": 596,
+   "x": 1041,
    "y": 1850,
    "w": 64,
    "h": 63
   },
   "npc.inst-un-envoy:neutral": {
-   "x": 662,
+   "x": 1107,
    "y": 1850,
    "w": 64,
    "h": 52
   },
   "npc.inst-un-peacekeeper:neutral": {
-   "x": 728,
+   "x": 1173,
    "y": 1850,
    "w": 64,
    "h": 61
   },
   "npc.it-intern-b:neutral": {
-   "x": 794,
+   "x": 1239,
    "y": 1850,
    "w": 64,
    "h": 63
   },
   "npc.it-intern:neutral": {
-   "x": 860,
+   "x": 1305,
    "y": 1850,
    "w": 59,
    "h": 64
   },
   "npc.it-support-lead:neutral": {
-   "x": 921,
+   "x": 1366,
    "y": 1850,
    "w": 64,
    "h": 62
   },
   "npc.junior-associate-b:neutral": {
-   "x": 987,
+   "x": 1432,
    "y": 1850,
    "w": 55,
    "h": 64
   },
   "npc.junior-associate:neutral": {
-   "x": 1044,
+   "x": 1489,
    "y": 1850,
    "w": 55,
    "h": 64
   },
   "npc.labourer-b:neutral": {
-   "x": 1101,
+   "x": 1546,
    "y": 1850,
    "w": 55,
    "h": 64
   },
   "npc.labourer:neutral": {
-   "x": 1158,
+   "x": 1603,
    "y": 1850,
    "w": 49,
    "h": 64
   },
   "npc.lackey-b:neutral": {
-   "x": 1209,
+   "x": 1654,
    "y": 1850,
    "w": 54,
    "h": 64
   },
   "npc.lackey:neutral": {
-   "x": 1265,
+   "x": 1710,
    "y": 1850,
    "w": 53,
    "h": 64
   },
   "npc.madam-chair:neutral": {
-   "x": 1320,
+   "x": 1765,
    "y": 1850,
    "w": 64,
    "h": 51
   },
   "npc.mystery-shopper:neutral": {
-   "x": 1386,
+   "x": 1831,
    "y": 1850,
    "w": 63,
    "h": 64
   },
-  "npc.news-brock:neutral": {
-   "x": 1451,
+  "npc.news-ainsley:neutral": {
+   "x": 1896,
    "y": 1850,
+   "w": 64,
+   "h": 59
+  },
+  "npc.news-biff:neutral": {
+   "x": 1962,
+   "y": 1850,
+   "w": 64,
+   "h": 59
+  },
+  "npc.news-brock:neutral": {
+   "x": 2,
+   "y": 1916,
    "w": 60,
    "h": 64
   },
   "npc.news-chase:neutral": {
-   "x": 1513,
-   "y": 1850,
+   "x": 64,
+   "y": 1916,
    "w": 64,
    "h": 53
   },
   "npc.news-dusty:neutral": {
-   "x": 1579,
-   "y": 1850,
+   "x": 130,
+   "y": 1916,
    "w": 64,
    "h": 55
   },
+  "npc.news-kevin:neutral": {
+   "x": 196,
+   "y": 1916,
+   "w": 64,
+   "h": 57
+  },
   "npc.news-philippa:neutral": {
-   "x": 1645,
-   "y": 1850,
+   "x": 262,
+   "y": 1916,
    "w": 64,
    "h": 52
   },
   "npc.news-rupert:neutral": {
-   "x": 1711,
-   "y": 1850,
+   "x": 328,
+   "y": 1916,
    "w": 62,
    "h": 64
   },
+  "npc.news-tamsin:neutral": {
+   "x": 392,
+   "y": 1916,
+   "w": 64,
+   "h": 50
+  },
   "npc.night-watchman:neutral": {
-   "x": 1775,
-   "y": 1850,
+   "x": 458,
+   "y": 1916,
    "w": 62,
    "h": 64
   },
   "npc.panto-horse-b:neutral": {
-   "x": 1839,
-   "y": 1850,
+   "x": 522,
+   "y": 1916,
    "w": 59,
    "h": 64
   },
   "npc.panto-horse:neutral": {
-   "x": 1900,
-   "y": 1850,
+   "x": 583,
+   "y": 1916,
    "w": 56,
    "h": 64
   },
   "npc.pantomime-dame:neutral": {
-   "x": 1958,
-   "y": 1850,
+   "x": 641,
+   "y": 1916,
    "w": 64,
    "h": 61
   },
   "npc.parent-helper-b:neutral": {
-   "x": 2,
+   "x": 707,
    "y": 1916,
    "w": 58,
    "h": 64
   },
   "npc.parent-helper:neutral": {
-   "x": 62,
+   "x": 767,
    "y": 1916,
    "w": 54,
    "h": 64
   },
   "npc.pegged-peggy:neutral": {
-   "x": 118,
+   "x": 823,
    "y": 1916,
    "w": 64,
    "h": 53
   },
   "npc.perfume-queen:neutral": {
-   "x": 184,
+   "x": 889,
    "y": 1916,
    "w": 64,
    "h": 57
   },
   "npc.pharma-rep:neutral": {
-   "x": 250,
+   "x": 955,
    "y": 1916,
    "w": 59,
    "h": 64
   },
   "npc.planning-officer:neutral": {
-   "x": 311,
+   "x": 1016,
    "y": 1916,
    "w": 64,
    "h": 61
   },
   "npc.professional-visitor:neutral": {
-   "x": 377,
+   "x": 1082,
    "y": 1916,
    "w": 64,
    "h": 56
   },
   "npc.reg-auditor-b:neutral": {
-   "x": 443,
+   "x": 1148,
    "y": 1916,
    "w": 64,
    "h": 59
   },
   "npc.reg-auditor:neutral": {
-   "x": 509,
+   "x": 1214,
    "y": 1916,
    "w": 64,
    "h": 61
   },
   "npc.replacement-coordinator:neutral": {
-   "x": 575,
+   "x": 1280,
    "y": 1916,
    "w": 64,
    "h": 61
   },
   "npc.sample-sprayer-b:neutral": {
-   "x": 641,
+   "x": 1346,
    "y": 1916,
    "w": 59,
    "h": 64
   },
   "npc.sample-sprayer:neutral": {
-   "x": 702,
+   "x": 1407,
    "y": 1916,
    "w": 52,
    "h": 64
   },
   "npc.sauce-boy-b:neutral": {
-   "x": 756,
+   "x": 1461,
    "y": 1916,
    "w": 54,
    "h": 64
   },
   "npc.sauce-boy:neutral": {
-   "x": 812,
+   "x": 1517,
    "y": 1916,
    "w": 61,
    "h": 64
   },
   "npc.school-teacher:neutral": {
-   "x": 875,
+   "x": 1580,
    "y": 1916,
    "w": 64,
    "h": 56
   },
   "npc.shop-steward-b:neutral": {
-   "x": 941,
+   "x": 1646,
    "y": 1916,
    "w": 60,
    "h": 64
   },
   "npc.shop-steward:neutral": {
-   "x": 1003,
+   "x": 1708,
    "y": 1916,
    "w": 52,
    "h": 64
   },
   "npc.surveyor-b:neutral": {
-   "x": 1057,
+   "x": 1762,
    "y": 1916,
    "w": 52,
    "h": 64
   },
   "npc.surveyor:neutral": {
-   "x": 1111,
+   "x": 1816,
    "y": 1916,
    "w": 50,
    "h": 64
   },
   "npc.swab-deputy-b:neutral": {
-   "x": 1163,
+   "x": 1868,
    "y": 1916,
    "w": 64,
    "h": 61
   },
   "npc.swab-deputy:neutral": {
-   "x": 1229,
+   "x": 1934,
    "y": 1916,
    "w": 61,
    "h": 64
   },
   "npc.theatre-critic:neutral": {
-   "x": 1292,
-   "y": 1916,
+   "x": 2,
+   "y": 1982,
    "w": 64,
    "h": 50
   },
   "npc.ticket-inspector-b:neutral": {
-   "x": 1358,
-   "y": 1916,
+   "x": 68,
+   "y": 1982,
    "w": 56,
    "h": 64
   },
   "npc.ticket-inspector:neutral": {
-   "x": 1416,
-   "y": 1916,
+   "x": 126,
+   "y": 1982,
    "w": 54,
    "h": 64
   },
   "npc.train-driver:neutral": {
-   "x": 1472,
-   "y": 1916,
+   "x": 182,
+   "y": 1982,
    "w": 64,
    "h": 62
   },
   "npc.trainee-shopper-b:neutral": {
-   "x": 1538,
-   "y": 1916,
+   "x": 248,
+   "y": 1982,
    "w": 59,
    "h": 64
   },
   "npc.trainee-shopper:neutral": {
-   "x": 1599,
-   "y": 1916,
+   "x": 309,
+   "y": 1982,
    "w": 64,
    "h": 60
   },
   "npc.trawler-captain:neutral": {
-   "x": 1665,
-   "y": 1916,
+   "x": 375,
+   "y": 1982,
    "w": 64,
    "h": 60
   },
   "npc.trolley-lad-b:neutral": {
-   "x": 1731,
-   "y": 1916,
+   "x": 441,
+   "y": 1982,
    "w": 62,
    "h": 64
   },
   "npc.trolley-lad:neutral": {
-   "x": 1795,
-   "y": 1916,
+   "x": 505,
+   "y": 1982,
    "w": 64,
    "h": 58
   },
   "npc.trolley-marshal:neutral": {
-   "x": 1861,
-   "y": 1916,
+   "x": 571,
+   "y": 1982,
    "w": 64,
    "h": 64
   },
   "npc.understudy-b:neutral": {
-   "x": 1927,
-   "y": 1916,
+   "x": 637,
+   "y": 1982,
    "w": 54,
    "h": 64
   },
   "npc.understudy:neutral": {
-   "x": 1983,
-   "y": 1916,
+   "x": 693,
+   "y": 1982,
    "w": 58,
    "h": 64
   },
   "npc.union-rep:neutral": {
-   "x": 2,
+   "x": 753,
    "y": 1982,
    "w": 64,
    "h": 51
   },
   "npc.wax-figure-b:neutral": {
-   "x": 68,
+   "x": 819,
    "y": 1982,
    "w": 64,
    "h": 58
   },
   "npc.wax-figure:neutral": {
-   "x": 134,
+   "x": 885,
    "y": 1982,
    "w": 63,
    "h": 64
   },
   "career.referee:neutral": {
-   "x": 199,
+   "x": 950,
    "y": 1982,
    "w": 62,
    "h": 64
   },
   "npc.auditor:surprised": {
-   "x": 263,
+   "x": 1014,
    "y": 1982,
    "w": 64,
    "h": 59
   },
   "npc.baggage-handler:surprised": {
-   "x": 329,
+   "x": 1080,
    "y": 1982,
    "w": 52,
    "h": 64
   },
   "npc.barcode-scanner-b:surprised": {
-   "x": 383,
+   "x": 1134,
    "y": 1982,
    "w": 64,
    "h": 61
   },
   "npc.barcode-scanner:surprised": {
-   "x": 449,
+   "x": 1200,
    "y": 1982,
    "w": 57,
    "h": 64
   },
   "npc.bride-to-be:surprised": {
-   "x": 508,
+   "x": 1259,
    "y": 1982,
    "w": 64,
    "h": 58
   },
   "npc.bridesmaid-b:surprised": {
-   "x": 574,
+   "x": 1325,
    "y": 1982,
    "w": 53,
    "h": 64
   },
   "npc.bridesmaid:surprised": {
-   "x": 629,
+   "x": 1380,
    "y": 1982,
    "w": 64,
    "h": 62
   },
   "npc.bro-ada:surprised": {
-   "x": 695,
+   "x": 1446,
    "y": 1982,
    "w": 60,
    "h": 64
   },
   "npc.bro-anon:surprised": {
-   "x": 757,
+   "x": 1508,
    "y": 1982,
    "w": 63,
    "h": 64
   },
   "npc.bro-avax:surprised": {
-   "x": 822,
+   "x": 1573,
    "y": 1982,
    "w": 53,
    "h": 64
   },
   "npc.bro-bnb:surprised": {
-   "x": 877,
+   "x": 1628,
    "y": 1982,
    "w": 59,
    "h": 64
   },
   "npc.bro-btc:surprised": {
-   "x": 938,
+   "x": 1689,
    "y": 1982,
    "w": 63,
    "h": 64
   },
   "npc.bro-doge:surprised": {
-   "x": 1003,
+   "x": 1754,
    "y": 1982,
    "w": 64,
    "h": 64
   },
   "npc.bro-dot:surprised": {
-   "x": 1069,
+   "x": 1820,
    "y": 1982,
    "w": 51,
    "h": 64
   },
   "npc.bro-eth:surprised": {
-   "x": 1122,
+   "x": 1873,
    "y": 1982,
    "w": 64,
    "h": 56
   },
   "npc.bro-link:surprised": {
-   "x": 1188,
+   "x": 1939,
    "y": 1982,
    "w": 61,
    "h": 64
   },
   "npc.bro-ltc:surprised": {
-   "x": 1251,
-   "y": 1982,
+   "x": 2,
+   "y": 2048,
    "w": 63,
    "h": 64
   },
   "npc.bro-pepe:surprised": {
-   "x": 1316,
-   "y": 1982,
+   "x": 67,
+   "y": 2048,
    "w": 64,
    "h": 56
   },
   "npc.bro-shib:surprised": {
-   "x": 1382,
-   "y": 1982,
+   "x": 133,
+   "y": 2048,
    "w": 64,
    "h": 56
   },
   "npc.bro-sol:surprised": {
-   "x": 1448,
-   "y": 1982,
+   "x": 199,
+   "y": 2048,
    "w": 60,
    "h": 64
   },
   "npc.bro-ton:surprised": {
-   "x": 1510,
-   "y": 1982,
+   "x": 261,
+   "y": 2048,
    "w": 43,
    "h": 64
   },
   "npc.bro-trx:surprised": {
-   "x": 1555,
-   "y": 1982,
+   "x": 306,
+   "y": 2048,
    "w": 62,
    "h": 64
   },
   "npc.bro-xrp:surprised": {
-   "x": 1619,
-   "y": 1982,
+   "x": 370,
+   "y": 2048,
    "w": 58,
    "h": 64
   },
   "npc.carousel-crew-b:surprised": {
-   "x": 1679,
-   "y": 1982,
+   "x": 430,
+   "y": 2048,
    "w": 64,
    "h": 63
   },
   "npc.carousel-crew:surprised": {
-   "x": 1745,
-   "y": 1982,
+   "x": 496,
+   "y": 2048,
    "w": 64,
    "h": 64
   },
   "npc.change-consultant:surprised": {
-   "x": 1811,
-   "y": 1982,
+   "x": 562,
+   "y": 2048,
    "w": 62,
    "h": 64
   },
   "npc.compliance-officer:surprised": {
-   "x": 1875,
-   "y": 1982,
+   "x": 626,
+   "y": 2048,
    "w": 64,
    "h": 52
   },
   "npc.crane-operator:surprised": {
-   "x": 1941,
-   "y": 1982,
+   "x": 692,
+   "y": 2048,
    "w": 59,
    "h": 64
   },
   "npc.customs-officer:surprised": {
-   "x": 2,
+   "x": 753,
    "y": 2048,
    "w": 62,
    "h": 64
   },
   "npc.del-ar:surprised": {
-   "x": 66,
+   "x": 817,
    "y": 2048,
    "w": 64,
    "h": 53
   },
   "npc.del-at:surprised": {
-   "x": 132,
+   "x": 883,
    "y": 2048,
    "w": 64,
    "h": 61
   },
   "npc.del-au:surprised": {
-   "x": 198,
+   "x": 949,
    "y": 2048,
    "w": 64,
    "h": 55
   },
   "npc.del-be:surprised": {
-   "x": 264,
+   "x": 1015,
    "y": 2048,
    "w": 64,
    "h": 58
   },
   "npc.del-br:surprised": {
-   "x": 330,
+   "x": 1081,
    "y": 2048,
    "w": 64,
    "h": 62
   },
   "npc.del-ca:surprised": {
-   "x": 396,
+   "x": 1147,
    "y": 2048,
    "w": 64,
    "h": 58
   },
   "npc.del-ch:surprised": {
-   "x": 462,
+   "x": 1213,
    "y": 2048,
    "w": 61,
    "h": 64
   },
   "npc.del-cl:surprised": {
-   "x": 525,
+   "x": 1276,
    "y": 2048,
    "w": 64,
    "h": 52
   },
   "npc.del-co:surprised": {
-   "x": 591,
+   "x": 1342,
    "y": 2048,
    "w": 64,
    "h": 52
   },
   "npc.del-de:surprised": {
-   "x": 657,
+   "x": 1408,
    "y": 2048,
    "w": 64,
    "h": 64
   },
   "npc.del-dk:surprised": {
-   "x": 723,
+   "x": 1474,
    "y": 2048,
    "w": 64,
    "h": 60
   },
   "npc.del-eg:surprised": {
-   "x": 789,
+   "x": 1540,
    "y": 2048,
    "w": 64,
    "h": 61
   },
   "npc.del-eng:surprised": {
-   "x": 855,
+   "x": 1606,
    "y": 2048,
    "w": 57,
    "h": 64
   },
   "npc.del-es:surprised": {
-   "x": 914,
+   "x": 1665,
    "y": 2048,
    "w": 64,
    "h": 57
   },
   "npc.del-fr:surprised": {
-   "x": 980,
+   "x": 1731,
    "y": 2048,
    "w": 64,
    "h": 53
   },
   "npc.del-gr:surprised": {
-   "x": 1046,
+   "x": 1797,
    "y": 2048,
    "w": 64,
    "h": 57
   },
   "npc.del-id:surprised": {
-   "x": 1112,
+   "x": 1863,
    "y": 2048,
    "w": 54,
    "h": 64
   },
   "npc.del-ie:surprised": {
-   "x": 1168,
+   "x": 1919,
    "y": 2048,
    "w": 64,
    "h": 54
   },
   "npc.del-in:surprised": {
-   "x": 1234,
-   "y": 2048,
+   "x": 2,
+   "y": 2114,
    "w": 64,
    "h": 62
   },
   "npc.del-it:surprised": {
-   "x": 1300,
-   "y": 2048,
+   "x": 68,
+   "y": 2114,
    "w": 58,
    "h": 64
   },
   "npc.del-jm:surprised": {
-   "x": 1360,
-   "y": 2048,
+   "x": 128,
+   "y": 2114,
    "w": 64,
    "h": 62
   },
   "npc.del-jp:surprised": {
-   "x": 1426,
-   "y": 2048,
+   "x": 194,
+   "y": 2114,
    "w": 64,
    "h": 58
   },
   "npc.del-ke:surprised": {
-   "x": 1492,
-   "y": 2048,
+   "x": 260,
+   "y": 2114,
    "w": 64,
    "h": 64
   },
   "npc.del-kr:surprised": {
-   "x": 1558,
-   "y": 2048,
+   "x": 326,
+   "y": 2114,
    "w": 64,
    "h": 60
   },
   "npc.del-ma:surprised": {
-   "x": 1624,
-   "y": 2048,
+   "x": 392,
+   "y": 2114,
    "w": 61,
    "h": 64
   },
   "npc.del-mx:surprised": {
-   "x": 1687,
-   "y": 2048,
+   "x": 455,
+   "y": 2114,
    "w": 64,
    "h": 51
   },
   "npc.del-ng:surprised": {
-   "x": 1753,
-   "y": 2048,
+   "x": 521,
+   "y": 2114,
    "w": 61,
    "h": 64
   },
   "npc.del-nl:surprised": {
-   "x": 1816,
-   "y": 2048,
+   "x": 584,
+   "y": 2114,
    "w": 64,
    "h": 55
   },
   "npc.del-no:surprised": {
-   "x": 1882,
-   "y": 2048,
+   "x": 650,
+   "y": 2114,
    "w": 64,
    "h": 60
   },
   "npc.del-nz:surprised": {
-   "x": 1948,
-   "y": 2048,
+   "x": 716,
+   "y": 2114,
    "w": 64,
    "h": 52
   },
   "npc.del-observer:surprised": {
-   "x": 2,
+   "x": 782,
    "y": 2114,
    "w": 64,
    "h": 60
   },
   "npc.del-ph:surprised": {
-   "x": 68,
+   "x": 848,
    "y": 2114,
    "w": 64,
    "h": 52
   },
   "npc.del-pl:surprised": {
-   "x": 134,
+   "x": 914,
    "y": 2114,
    "w": 63,
    "h": 64
   },
   "npc.del-pt:surprised": {
-   "x": 199,
+   "x": 979,
    "y": 2114,
    "w": 62,
    "h": 64
   },
   "npc.del-sco:surprised": {
-   "x": 263,
+   "x": 1043,
    "y": 2114,
    "w": 58,
    "h": 64
   },
   "npc.del-se:surprised": {
-   "x": 323,
+   "x": 1103,
    "y": 2114,
    "w": 64,
    "h": 61
   },
   "npc.del-th:surprised": {
-   "x": 389,
+   "x": 1169,
    "y": 2114,
    "w": 64,
    "h": 56
   },
   "npc.del-us:surprised": {
-   "x": 455,
+   "x": 1235,
    "y": 2114,
    "w": 64,
    "h": 61
   },
   "npc.del-vn:surprised": {
-   "x": 521,
+   "x": 1301,
    "y": 2114,
    "w": 62,
    "h": 64
   },
   "npc.del-wal:surprised": {
-   "x": 585,
+   "x": 1365,
    "y": 2114,
    "w": 64,
    "h": 58
   },
   "npc.del-za:surprised": {
-   "x": 651,
+   "x": 1431,
    "y": 2114,
    "w": 61,
    "h": 64
   },
   "npc.dog-handler-b:surprised": {
-   "x": 714,
+   "x": 1494,
    "y": 2114,
    "w": 64,
    "h": 59
   },
   "npc.dog-handler:surprised": {
-   "x": 780,
+   "x": 1560,
    "y": 2114,
    "w": 50,
    "h": 64
   },
   "npc.food-truck-boss:surprised": {
-   "x": 832,
+   "x": 1612,
    "y": 2114,
    "w": 59,
    "h": 64
   },
   "npc.free-pen-intern-b:surprised": {
-   "x": 893,
+   "x": 1673,
    "y": 2114,
    "w": 64,
    "h": 57
   },
   "npc.free-pen-intern:surprised": {
-   "x": 959,
+   "x": 1739,
    "y": 2114,
    "w": 52,
    "h": 64
   },
   "npc.grandchild-b:surprised": {
-   "x": 1013,
+   "x": 1793,
    "y": 2114,
    "w": 64,
    "h": 64
   },
   "npc.grandchild:surprised": {
-   "x": 1079,
+   "x": 1859,
    "y": 2114,
    "w": 60,
    "h": 64
   },
   "npc.gutting-crew-b:surprised": {
-   "x": 1141,
+   "x": 1921,
    "y": 2114,
    "w": 64,
    "h": 64
   },
   "npc.gutting-crew:surprised": {
-   "x": 1207,
-   "y": 2114,
+   "x": 2,
+   "y": 2180,
    "w": 62,
    "h": 64
   },
   "npc.health-inspector:surprised": {
-   "x": 1271,
-   "y": 2114,
+   "x": 66,
+   "y": 2180,
    "w": 64,
    "h": 55
   },
   "npc.hedge-fund-owner:surprised": {
-   "x": 1337,
-   "y": 2114,
+   "x": 132,
+   "y": 2180,
    "w": 61,
    "h": 64
   },
   "npc.hi-vis-marshal-b:surprised": {
-   "x": 1400,
-   "y": 2114,
+   "x": 195,
+   "y": 2180,
    "w": 52,
    "h": 64
   },
   "npc.hi-vis-marshal:surprised": {
-   "x": 1454,
-   "y": 2114,
+   "x": 249,
+   "y": 2180,
    "w": 49,
    "h": 64
   },
   "npc.inst-brussels:surprised": {
-   "x": 1505,
-   "y": 2114,
+   "x": 300,
+   "y": 2180,
    "w": 64,
    "h": 53
   },
   "npc.inst-fed-ambassador:surprised": {
-   "x": 1571,
-   "y": 2114,
+   "x": 366,
+   "y": 2180,
    "w": 64,
    "h": 58
   },
   "npc.inst-fed-official:surprised": {
-   "x": 1637,
-   "y": 2114,
+   "x": 432,
+   "y": 2180,
    "w": 64,
    "h": 60
   },
   "npc.inst-health-hazmat:surprised": {
-   "x": 1703,
-   "y": 2114,
+   "x": 498,
+   "y": 2180,
    "w": 62,
    "h": 64
   },
   "npc.inst-health-inspector:surprised": {
-   "x": 1767,
-   "y": 2114,
+   "x": 562,
+   "y": 2180,
    "w": 64,
    "h": 57
   },
   "npc.inst-icc-gendarme:surprised": {
-   "x": 1833,
-   "y": 2114,
+   "x": 628,
+   "y": 2180,
    "w": 55,
    "h": 64
   },
   "npc.inst-icc-magistrate:surprised": {
-   "x": 1890,
-   "y": 2114,
+   "x": 685,
+   "y": 2180,
    "w": 64,
    "h": 61
   },
   "npc.inst-lender-officer:surprised": {
-   "x": 1956,
-   "y": 2114,
+   "x": 751,
+   "y": 2180,
    "w": 64,
    "h": 57
   },
   "npc.inst-lender:surprised": {
-   "x": 2,
+   "x": 817,
    "y": 2180,
    "w": 64,
    "h": 56
   },
   "npc.inst-nato-aide:surprised": {
-   "x": 68,
+   "x": 883,
    "y": 2180,
    "w": 64,
    "h": 52
   },
   "npc.inst-nato-official:surprised": {
-   "x": 134,
+   "x": 949,
    "y": 2180,
    "w": 64,
    "h": 61
   },
   "npc.inst-oil-exec:surprised": {
-   "x": 200,
+   "x": 1015,
    "y": 2180,
    "w": 57,
    "h": 64
   },
   "npc.inst-oil-roughneck:surprised": {
-   "x": 259,
+   "x": 1074,
    "y": 2180,
    "w": 59,
    "h": 64
   },
   "npc.inst-rater:surprised": {
-   "x": 320,
+   "x": 1135,
    "y": 2180,
    "w": 64,
    "h": 60
   },
   "npc.inst-tech-founder:surprised": {
-   "x": 386,
+   "x": 1201,
    "y": 2180,
    "w": 64,
    "h": 57
   },
   "npc.inst-tech-hacker:surprised": {
-   "x": 452,
+   "x": 1267,
    "y": 2180,
    "w": 60,
    "h": 64
   },
   "npc.inst-un-envoy:surprised": {
-   "x": 514,
+   "x": 1329,
    "y": 2180,
    "w": 64,
    "h": 52
   },
   "npc.inst-un-peacekeeper:surprised": {
-   "x": 580,
+   "x": 1395,
    "y": 2180,
    "w": 64,
    "h": 63
   },
   "npc.it-intern-b:surprised": {
-   "x": 646,
+   "x": 1461,
    "y": 2180,
    "w": 64,
    "h": 62
   },
   "npc.it-intern:surprised": {
-   "x": 712,
+   "x": 1527,
    "y": 2180,
    "w": 58,
    "h": 64
   },
   "npc.it-support-lead:surprised": {
-   "x": 772,
+   "x": 1587,
    "y": 2180,
    "w": 64,
    "h": 62
   },
   "npc.junior-associate-b:surprised": {
-   "x": 838,
+   "x": 1653,
    "y": 2180,
    "w": 60,
    "h": 64
   },
   "npc.junior-associate:surprised": {
-   "x": 900,
+   "x": 1715,
    "y": 2180,
    "w": 54,
    "h": 64
   },
   "npc.labourer-b:surprised": {
-   "x": 956,
+   "x": 1771,
    "y": 2180,
    "w": 52,
    "h": 64
   },
   "npc.labourer:surprised": {
-   "x": 1010,
+   "x": 1825,
    "y": 2180,
    "w": 58,
    "h": 64
   },
   "npc.lackey-b:surprised": {
-   "x": 1070,
+   "x": 1885,
    "y": 2180,
    "w": 63,
    "h": 64
   },
   "npc.lackey:surprised": {
-   "x": 1135,
+   "x": 1950,
    "y": 2180,
    "w": 55,
    "h": 64
   },
   "npc.madam-chair:surprised": {
-   "x": 1192,
-   "y": 2180,
+   "x": 2,
+   "y": 2246,
    "w": 64,
    "h": 49
   },
   "npc.mystery-shopper:surprised": {
-   "x": 1258,
-   "y": 2180,
+   "x": 68,
+   "y": 2246,
    "w": 63,
    "h": 64
   },
+  "npc.news-ainsley:surprised": {
+   "x": 133,
+   "y": 2246,
+   "w": 64,
+   "h": 61
+  },
+  "npc.news-biff:surprised": {
+   "x": 199,
+   "y": 2246,
+   "w": 55,
+   "h": 64
+  },
   "npc.news-brock:surprised": {
-   "x": 1323,
-   "y": 2180,
+   "x": 256,
+   "y": 2246,
    "w": 59,
    "h": 64
   },
   "npc.news-chase:surprised": {
-   "x": 1384,
-   "y": 2180,
+   "x": 317,
+   "y": 2246,
    "w": 63,
    "h": 64
   },
   "npc.news-dusty:surprised": {
-   "x": 1449,
-   "y": 2180,
+   "x": 382,
+   "y": 2246,
    "w": 64,
    "h": 60
   },
   "npc.news-philippa:surprised": {
-   "x": 1515,
-   "y": 2180,
+   "x": 448,
+   "y": 2246,
    "w": 64,
    "h": 52
   },
   "npc.news-rupert:surprised": {
-   "x": 1581,
-   "y": 2180,
+   "x": 514,
+   "y": 2246,
    "w": 57,
    "h": 64
   },
+  "npc.news-tamsin:surprised": {
+   "x": 573,
+   "y": 2246,
+   "w": 64,
+   "h": 53
+  },
   "npc.night-watchman:surprised": {
-   "x": 1640,
-   "y": 2180,
+   "x": 639,
+   "y": 2246,
    "w": 60,
    "h": 64
   },
   "npc.panto-horse-b:surprised": {
-   "x": 1702,
-   "y": 2180,
+   "x": 701,
+   "y": 2246,
    "w": 64,
    "h": 60
   },
   "npc.panto-horse:surprised": {
-   "x": 1768,
-   "y": 2180,
+   "x": 767,
+   "y": 2246,
    "w": 54,
    "h": 64
   },
   "npc.pantomime-dame:surprised": {
-   "x": 1824,
-   "y": 2180,
+   "x": 823,
+   "y": 2246,
    "w": 64,
    "h": 61
   },
   "npc.parent-helper-b:surprised": {
-   "x": 1890,
-   "y": 2180,
+   "x": 889,
+   "y": 2246,
    "w": 58,
    "h": 64
   },
   "npc.parent-helper:surprised": {
-   "x": 1950,
-   "y": 2180,
+   "x": 949,
+   "y": 2246,
    "w": 54,
    "h": 64
   },
   "npc.pegged-peggy:surprised": {
-   "x": 2,
+   "x": 1005,
    "y": 2246,
    "w": 64,
    "h": 52
   },
   "npc.perfume-queen:surprised": {
-   "x": 68,
+   "x": 1071,
    "y": 2246,
    "w": 64,
    "h": 56
   },
   "npc.pharma-rep:surprised": {
-   "x": 134,
+   "x": 1137,
    "y": 2246,
    "w": 60,
    "h": 64
   },
   "npc.planning-officer:surprised": {
-   "x": 196,
+   "x": 1199,
    "y": 2246,
    "w": 64,
    "h": 61
   },
   "npc.professional-visitor:surprised": {
-   "x": 262,
+   "x": 1265,
    "y": 2246,
    "w": 64,
    "h": 56
   },
   "npc.reg-auditor-b:surprised": {
-   "x": 328,
+   "x": 1331,
    "y": 2246,
    "w": 64,
    "h": 56
   },
   "npc.reg-auditor:surprised": {
-   "x": 394,
+   "x": 1397,
    "y": 2246,
    "w": 64,
    "h": 63
   },
   "npc.replacement-coordinator:surprised": {
-   "x": 460,
+   "x": 1463,
    "y": 2246,
    "w": 64,
    "h": 60
   },
   "npc.sample-sprayer-b:surprised": {
-   "x": 526,
+   "x": 1529,
    "y": 2246,
    "w": 61,
    "h": 64
   },
   "npc.sample-sprayer:surprised": {
-   "x": 589,
+   "x": 1592,
    "y": 2246,
    "w": 59,
    "h": 64
   },
   "npc.sauce-boy-b:surprised": {
-   "x": 650,
+   "x": 1653,
    "y": 2246,
    "w": 56,
    "h": 64
   },
   "npc.sauce-boy:surprised": {
-   "x": 708,
+   "x": 1711,
    "y": 2246,
    "w": 62,
    "h": 64
   },
   "npc.school-teacher:surprised": {
-   "x": 772,
+   "x": 1775,
    "y": 2246,
    "w": 64,
    "h": 58
   },
   "npc.shop-steward-b:surprised": {
-   "x": 838,
+   "x": 1841,
    "y": 2246,
    "w": 62,
    "h": 64
   },
   "npc.shop-steward:surprised": {
-   "x": 902,
+   "x": 1905,
    "y": 2246,
    "w": 52,
    "h": 64
   },
   "npc.surveyor-b:surprised": {
-   "x": 956,
+   "x": 1959,
    "y": 2246,
    "w": 60,
    "h": 64
   },
   "npc.surveyor:surprised": {
-   "x": 1018,
-   "y": 2246,
+   "x": 2,
+   "y": 2312,
    "w": 50,
    "h": 64
   },
   "npc.swab-deputy-b:surprised": {
-   "x": 1070,
-   "y": 2246,
+   "x": 54,
+   "y": 2312,
    "w": 64,
    "h": 60
   },
   "npc.swab-deputy:surprised": {
-   "x": 1136,
-   "y": 2246,
+   "x": 120,
+   "y": 2312,
    "w": 60,
    "h": 64
   },
   "npc.theatre-critic:surprised": {
-   "x": 1198,
-   "y": 2246,
+   "x": 182,
+   "y": 2312,
    "w": 64,
    "h": 50
   },
   "npc.ticket-inspector-b:surprised": {
-   "x": 1264,
-   "y": 2246,
+   "x": 248,
+   "y": 2312,
    "w": 62,
    "h": 64
   },
   "npc.ticket-inspector:surprised": {
-   "x": 1328,
-   "y": 2246,
+   "x": 312,
+   "y": 2312,
    "w": 53,
    "h": 64
   },
   "npc.train-driver:surprised": {
-   "x": 1383,
-   "y": 2246,
+   "x": 367,
+   "y": 2312,
    "w": 64,
    "h": 63
   },
   "npc.trainee-shopper-b:surprised": {
-   "x": 1449,
-   "y": 2246,
+   "x": 433,
+   "y": 2312,
    "w": 62,
    "h": 64
   },
   "npc.trainee-shopper:surprised": {
-   "x": 1513,
-   "y": 2246,
+   "x": 497,
+   "y": 2312,
    "w": 64,
    "h": 61
   },
   "npc.trawler-captain:surprised": {
-   "x": 1579,
-   "y": 2246,
+   "x": 563,
+   "y": 2312,
    "w": 64,
    "h": 61
   },
   "npc.trolley-lad-b:surprised": {
-   "x": 1645,
-   "y": 2246,
+   "x": 629,
+   "y": 2312,
    "w": 64,
    "h": 62
   },
   "npc.trolley-lad:surprised": {
-   "x": 1711,
-   "y": 2246,
+   "x": 695,
+   "y": 2312,
    "w": 64,
    "h": 59
   },
   "npc.trolley-marshal:surprised": {
-   "x": 1777,
-   "y": 2246,
+   "x": 761,
+   "y": 2312,
    "w": 62,
    "h": 64
   },
   "npc.understudy-b:surprised": {
-   "x": 1841,
-   "y": 2246,
+   "x": 825,
+   "y": 2312,
    "w": 54,
    "h": 64
   },
   "npc.understudy:surprised": {
-   "x": 1897,
-   "y": 2246,
+   "x": 881,
+   "y": 2312,
    "w": 59,
    "h": 64
   },
   "npc.union-rep:surprised": {
-   "x": 1958,
-   "y": 2246,
+   "x": 942,
+   "y": 2312,
    "w": 64,
    "h": 52
   },
   "npc.wax-figure-b:surprised": {
-   "x": 2,
+   "x": 1008,
    "y": 2312,
    "w": 64,
    "h": 61
   },
   "npc.wax-figure:surprised": {
-   "x": 68,
+   "x": 1074,
    "y": 2312,
    "w": 63,
    "h": 64
   },
   "career.referee:surprised": {
-   "x": 133,
+   "x": 1139,
    "y": 2312,
    "w": 54,
    "h": 64
   },
   "career.accountant:surprised2": {
-   "x": 189,
+   "x": 1195,
    "y": 2312,
    "w": 61,
    "h": 64
   },
   "career.archaeologist:surprised2": {
-   "x": 252,
+   "x": 1258,
    "y": 2312,
    "w": 64,
    "h": 55,
    "k": 1.1
   },
   "career.astronaut:surprised2": {
-   "x": 318,
+   "x": 1324,
    "y": 2312,
    "w": 64,
    "h": 57
   },
   "career.baker:surprised2": {
-   "x": 384,
+   "x": 1390,
    "y": 2312,
    "w": 59,
    "h": 64
   },
   "career.barista:surprised2": {
-   "x": 445,
+   "x": 1451,
    "y": 2312,
    "w": 63,
    "h": 64
   },
   "career.beekeeper:surprised2": {
-   "x": 510,
+   "x": 1516,
    "y": 2312,
    "w": 64,
    "h": 57,
    "k": 1.08
   },
   "career.builder:surprised2": {
-   "x": 576,
+   "x": 1582,
    "y": 2312,
    "w": 61,
    "h": 64
   },
   "career.bus-driver:surprised2": {
-   "x": 639,
+   "x": 1645,
    "y": 2312,
    "w": 63,
    "h": 64
   },
   "career.carpenter:surprised2": {
-   "x": 704,
+   "x": 1710,
    "y": 2312,
    "w": 61,
    "h": 64
   },
   "career.chef:surprised2": {
-   "x": 767,
+   "x": 1773,
    "y": 2312,
    "w": 59,
    "h": 64
   },
   "career.chimney-sweep:surprised2": {
-   "x": 828,
+   "x": 1834,
    "y": 2312,
    "w": 57,
    "h": 64
   },
   "career.clown:surprised2": {
-   "x": 887,
+   "x": 1893,
    "y": 2312,
    "w": 64,
    "h": 55,
    "k": 1.08
   },
   "career.conspiracy-podcaster:surprised2": {
-   "x": 953,
+   "x": 1959,
    "y": 2312,
    "w": 63,
    "h": 64
   },
   "career.delivery-driver:surprised2": {
-   "x": 1018,
-   "y": 2312,
+   "x": 2,
+   "y": 2378,
    "w": 64,
    "h": 64
   },
   "career.dentist:surprised2": {
-   "x": 1084,
-   "y": 2312,
+   "x": 68,
+   "y": 2378,
    "w": 54,
    "h": 64,
    "k": 1.11
   },
   "career.dj:surprised2": {
-   "x": 1140,
-   "y": 2312,
+   "x": 124,
+   "y": 2378,
    "w": 64,
    "h": 63,
    "k": 1.09
   },
   "career.dog-groomer:surprised2": {
-   "x": 1206,
-   "y": 2312,
+   "x": 190,
+   "y": 2378,
    "w": 63,
    "h": 64
   },
   "career.electrician:surprised2": {
-   "x": 1271,
-   "y": 2312,
+   "x": 255,
+   "y": 2378,
    "w": 54,
    "h": 64
   },
   "career.engineer:surprised2": {
-   "x": 1327,
-   "y": 2312,
+   "x": 311,
+   "y": 2378,
    "w": 64,
    "h": 63
   },
   "career.farmer:surprised2": {
-   "x": 1393,
-   "y": 2312,
+   "x": 377,
+   "y": 2378,
    "w": 64,
    "h": 53
   },
   "career.fashion-designer:surprised2": {
-   "x": 1459,
-   "y": 2312,
+   "x": 443,
+   "y": 2378,
    "w": 64,
    "h": 62
   },
   "career.firefighter:surprised2": {
-   "x": 1525,
-   "y": 2312,
+   "x": 509,
+   "y": 2378,
    "w": 64,
    "h": 59
   },
   "career.flight-attendant:surprised2": {
-   "x": 1591,
-   "y": 2312,
+   "x": 575,
+   "y": 2378,
    "w": 64,
    "h": 63
   },
   "career.florist:surprised2": {
-   "x": 1657,
-   "y": 2312,
+   "x": 641,
+   "y": 2378,
    "w": 64,
    "h": 64
   },
   "career.food-critic:surprised2": {
-   "x": 1723,
-   "y": 2312,
+   "x": 707,
+   "y": 2378,
    "w": 64,
    "h": 56
   },
   "career.fortune-teller:surprised2": {
-   "x": 1789,
-   "y": 2312,
+   "x": 773,
+   "y": 2378,
    "w": 64,
    "h": 52
   },
   "career.gardener:surprised2": {
-   "x": 1855,
-   "y": 2312,
+   "x": 839,
+   "y": 2378,
    "w": 61,
    "h": 64
   },
   "career.hairdresser:surprised2": {
-   "x": 1918,
-   "y": 2312,
+   "x": 902,
+   "y": 2378,
    "w": 60,
    "h": 64
   },
   "career.hotel-concierge:surprised2": {
-   "x": 1980,
-   "y": 2312,
+   "x": 964,
+   "y": 2378,
    "w": 57,
    "h": 64
   },
   "career.ice-cream-vendor:surprised2": {
-   "x": 2,
+   "x": 1023,
    "y": 2378,
    "w": 61,
    "h": 64
   },
   "career.influencer:surprised2": {
-   "x": 65,
+   "x": 1086,
    "y": 2378,
    "w": 64,
    "h": 61
   },
   "career.janitor:surprised2": {
-   "x": 131,
+   "x": 1152,
    "y": 2378,
    "w": 58,
    "h": 64,
    "k": 1.09
   },
   "career.journalist:surprised2": {
-   "x": 191,
+   "x": 1212,
    "y": 2378,
    "w": 60,
    "h": 64
   },
   "career.lawyer:surprised2": {
-   "x": 253,
+   "x": 1274,
    "y": 2378,
    "w": 62,
    "h": 64
   },
   "career.librarian:surprised2": {
-   "x": 317,
+   "x": 1338,
    "y": 2378,
    "w": 60,
    "h": 64,
    "k": 1.18
   },
   "career.life-coach:surprised2": {
-   "x": 379,
+   "x": 1400,
    "y": 2378,
    "w": 51,
    "h": 64
   },
   "career.lifeguard:surprised2": {
-   "x": 432,
+   "x": 1453,
    "y": 2378,
    "w": 57,
    "h": 64,
    "k": 1.07
   },
   "career.magician:surprised2": {
-   "x": 491,
+   "x": 1512,
    "y": 2378,
    "w": 55,
    "h": 64
   },
   "career.marine-biologist:surprised2": {
-   "x": 548,
+   "x": 1569,
    "y": 2378,
    "w": 64,
    "h": 62
   },
   "career.mechanic:surprised2": {
-   "x": 614,
+   "x": 1635,
    "y": 2378,
    "w": 59,
    "h": 64
   },
   "career.mime:surprised2": {
-   "x": 675,
+   "x": 1696,
    "y": 2378,
    "w": 64,
    "h": 64
   },
   "career.museum-curator:surprised2": {
-   "x": 741,
+   "x": 1762,
    "y": 2378,
    "w": 64,
    "h": 63
   },
   "career.nurse:surprised2": {
-   "x": 807,
+   "x": 1828,
    "y": 2378,
    "w": 64,
    "h": 58
   },
   "career.painter:surprised2": {
-   "x": 873,
+   "x": 1894,
    "y": 2378,
    "w": 64,
    "h": 56
   },
   "career.paramedic:surprised2": {
-   "x": 939,
+   "x": 1960,
    "y": 2378,
    "w": 60,
    "h": 64
   },
   "career.personal-trainer:surprised2": {
-   "x": 1001,
-   "y": 2378,
+   "x": 2,
+   "y": 2444,
    "w": 59,
    "h": 64
   },
   "career.photographer:surprised2": {
-   "x": 1062,
-   "y": 2378,
+   "x": 63,
+   "y": 2444,
    "w": 64,
    "h": 62
   },
   "career.plumber:surprised2": {
-   "x": 1128,
-   "y": 2378,
+   "x": 129,
+   "y": 2444,
    "w": 64,
    "h": 64
   },
   "career.police-officer:surprised2": {
-   "x": 1194,
-   "y": 2378,
+   "x": 195,
+   "y": 2444,
    "w": 58,
    "h": 64
   },
   "career.politician:surprised2": {
-   "x": 1254,
-   "y": 2378,
+   "x": 255,
+   "y": 2444,
    "w": 57,
    "h": 64
   },
   "career.postal-worker:surprised2": {
-   "x": 1313,
-   "y": 2378,
+   "x": 314,
+   "y": 2444,
    "w": 57,
    "h": 64,
    "k": 1.07
   },
   "career.programmer:surprised2": {
-   "x": 1372,
-   "y": 2378,
+   "x": 373,
+   "y": 2444,
    "w": 60,
    "h": 64
   },
   "career.psychologist:surprised2": {
-   "x": 1434,
-   "y": 2378,
+   "x": 435,
+   "y": 2444,
    "w": 58,
    "h": 64
   },
   "career.referee:surprised2": {
-   "x": 1494,
-   "y": 2378,
+   "x": 495,
+   "y": 2444,
    "w": 63,
    "h": 64
   },
   "career.sailor:surprised2": {
-   "x": 1559,
-   "y": 2378,
+   "x": 560,
+   "y": 2444,
    "w": 54,
    "h": 64
   },
   "career.scientist:surprised2": {
-   "x": 1615,
-   "y": 2378,
+   "x": 616,
+   "y": 2444,
    "w": 64,
    "h": 64
   },
   "career.security-guard:surprised2": {
-   "x": 1681,
-   "y": 2378,
+   "x": 682,
+   "y": 2444,
    "w": 60,
    "h": 64
   },
   "career.tailor:surprised2": {
-   "x": 1743,
-   "y": 2378,
+   "x": 744,
+   "y": 2444,
    "w": 60,
    "h": 64
   },
   "career.tattoo-artist:surprised2": {
-   "x": 1805,
-   "y": 2378,
+   "x": 806,
+   "y": 2444,
    "w": 55,
    "h": 64
   },
   "career.taxi-driver:surprised2": {
-   "x": 1862,
-   "y": 2378,
+   "x": 863,
+   "y": 2444,
    "w": 55,
    "h": 64
   },
   "career.teacher:surprised2": {
-   "x": 1919,
-   "y": 2378,
+   "x": 920,
+   "y": 2444,
    "w": 62,
    "h": 64
   },
   "career.train-conductor:surprised2": {
-   "x": 1983,
-   "y": 2378,
+   "x": 984,
+   "y": 2444,
    "w": 57,
    "h": 64
   },
   "career.tv-host:surprised2": {
-   "x": 2,
+   "x": 1043,
    "y": 2444,
    "w": 54,
    "h": 64
   },
   "career.veterinarian:surprised2": {
-   "x": 58,
+   "x": 1099,
    "y": 2444,
    "w": 61,
    "h": 64
   },
   "career.welder:surprised2": {
-   "x": 121,
+   "x": 1162,
    "y": 2444,
    "w": 56,
    "h": 64
   },
   "career.window-cleaner:surprised2": {
-   "x": 179,
+   "x": 1220,
    "y": 2444,
    "w": 62,
    "h": 64
   },
   "career.zookeeper:surprised2": {
-   "x": 243,
+   "x": 1284,
    "y": 2444,
    "w": 64,
    "h": 50

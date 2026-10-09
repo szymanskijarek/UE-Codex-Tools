@@ -1,10 +1,12 @@
 # Broken News 10: the later guests, ready-to-paste (Brody, Tamsin, Ainsley, Kevin)
 
-> **Status (9 October 2026):** not delivered yet. Brief 04 introduced these
-> four (Brody Kale replaces Coach Biff, cast bible
-> `docs/career-crash/11-broken-news-cast.md` §5); this file turns them into prompts. Each one is complete when it
-> arrives: desk close-ups, mouth twins, `hurt`, a body sheet and four fight
-> heads, 16 pictures per guest.
+> **Status (9 October 2026):** Tamsin, Ainsley and Kevin delivered and in the
+> game (desk, twins, `hurt`, body sheets as `npc.news-tamsin`, `-ainsley`,
+> `-kevin`). Still to send: **Kevin's `surprised` and `hurt` fight heads**
+> (round 4; until then he shows `neutral`), and **Brody** (all of him).
+> Coach Biff arrived too, drawn from this brief's earlier version: he's
+> imported (`desk-biff-*`, `npc.news-biff`) and waiting for the owner's call
+> on whether he comes back alongside Brody (cast bible §5).
 
 > Part of the Broken News art set (`art/news/README.md`). Design:
 > `docs/career-crash/10-broken-news.md` §3.2.

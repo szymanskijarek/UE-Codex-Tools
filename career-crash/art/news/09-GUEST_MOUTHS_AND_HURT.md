@@ -1,9 +1,9 @@
 # Broken News 09: mouth twins and `hurt` for the desk guests (ready-to-paste)
 
-> **Status (9 October 2026):** not delivered yet. Dusty and the five episode
-> guests (brief 08) hold still while they talk, and if the rogue chair hits a
-> guest they fall back to `surprised`. The game picks these files up by name,
-> so no code changes are needed when they arrive.
+> **Status (9 October 2026):** delivered and in the game: all 20 mouth twins
+> (Dusty's for his current look; the redesign in brief 11 brings new ones) and
+> the five `hurt` pictures. Claude pasted only the mouth area of each twin
+> onto its original, so the flap never jitters.
 
 > Part of the Broken News art set (`art/news/README.md`). Method: brief 01D
 > (the anchors' mouth twins) and brief 01E (the anchors' `hurt`).

@@ -44,6 +44,13 @@
       "text": "SORRY, BROCK!"
     },
     {
+      "who": "guest",
+      "heat": 2,
+      "text": "(walks on. Picks up the light. Opens his mouth to speak. Closes it again.)",
+      "mood": "neutral",
+      "pause": "beat"
+    },
+    {
       "who": "us",
       "heat": 2,
       "text": "Great drop, Jeff! Real height on that one!",
@@ -86,12 +93,23 @@
     "arena": "arena.news-studio",
     "shouts": {
       "us": "IT'S OUR AWARD!",
-      "uk": "IT'S A HAZARD!"
+      "uk": "IT'S A HAZARD!",
+      "guest": "…"
     }
   },
   "minigame": "test-card",
   "realStory": {
     "text": "Made up. Workplace safety awards are real and well earned; this studio would not win one. Jeff is fine. Brock is fine. The lighting rig has been rehung, mostly."
   },
-  "signoff": "Brock would like to thank Jeff for thirty great years. Jeff would like to apologise for the next thirty."
+  "signoff": "Brock would like to thank Jeff for thirty great years. Jeff would like to apologise for the next thirty.",
+  "guest": {
+    "name": "Kevin",
+    "role": "The Intern · has never spoken on air",
+    "career": "career.janitor",
+    "enters": 6,
+    "bsn": "Brings Sandwiches Nervously",
+    "color": "#6b7280",
+    "art": "kevin",
+    "persona": "npc.news-kevin"
+  }
 }

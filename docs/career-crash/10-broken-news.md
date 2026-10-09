@@ -409,8 +409,12 @@ before the first hit lands, so it changes with the sim like any other fight.
   `FIELD` with stand-in faces (sailor, fashion designer); Brody is a guest
   (personal trainer). Test episodes: *Toaster Festival* (Hamish, docks as
   Wellington), *The Launch* (Bev, the Theatre as a rooftop party),
-  *Nine-Nil* (Brody), *Safety Award* (Jeff). The twelve earlier episodes had
-  a voice pass to match the bible.
+  *Nine-Nil* (Brody), *Safety Award* (Jeff, with Kevin picking up the
+  light). The twelve earlier episodes had a voice pass to match the bible.
+- Guest art (briefs 09–10): every painted guest has mouth twins and `hurt`;
+  Tamsin, Ainsley, Kevin and Coach Biff have desk pictures, brawl puppets
+  and heads (`npc.news-<x>`). A head set missing an emotion shows its
+  neutral face (`faceRect`).
 - The brawl happens in the BSN Studio (`arena.news-studio`, art brief 03): a
   small arena with the news desk in the middle; `marketOnly` with
   `usedBy: "news"` keeps it out of the ladder and the Sandbox. Dusty is
@@ -422,8 +426,7 @@ before the first hit lands, so it changes with the sim like any other fight.
 - The brawl is a close-up (`BattleRenderer.closeUp`, up to 3.4×): framed on the anchors,
   cut straight to the framing, bottom strip kept clear.
 
-**Not yet:** a real episode and minigame, art briefs 09 (the guests' mouth twins and `hurt`)
-and 10 (Brody, Tamsin, Ainsley, Kevin), the cast bible's new art (11 §9), lazy-loading minigames, per-anchor
+**Not yet:** a real episode and minigame, Brody's art (brief 10), Kevin's two missing heads, brief 11 (the new cast), lazy-loading minigames, per-anchor
 voices beyond pitch and type, links from the rest of the site, sitemap and
 share image (the page is `noindex` until launch).
 

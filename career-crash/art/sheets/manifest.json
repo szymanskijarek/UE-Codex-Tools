@@ -1047,5 +1047,51 @@
    "footL": 206,
    "footR": 207
   }
+ },
+ "npc-news-tamsin": {
+  "split": [
+   [
+    8,
+    0.45
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "torso": 3,
+   "upperArmL": 2,
+   "upperArmR": 4,
+   "foreArmL": 5,
+   "foreArmR": 6,
+   "pelvis": 7,
+   "thighL": 8,
+   "thighR": 9,
+   "shinL": 101,
+   "shinR": 10,
+   "footL": 11,
+   "footR": 12
+  }
+ },
+ "npc-news-kevin": {
+  "cut": [
+   [
+    1,
+    0.31
+   ]
+  ],
+  "parts": {
+   "head": 0,
+   "torso": 201,
+   "upperArmL": 3,
+   "upperArmR": 4,
+   "foreArmL": 5,
+   "foreArmR": 6,
+   "pelvis": 7,
+   "thighL": 8,
+   "thighR": 9,
+   "shinL": 10,
+   "shinR": 11,
+   "footL": 12,
+   "footR": 13
+  }
  }
 }
