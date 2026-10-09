@@ -2,7 +2,7 @@
 
 > **Status (9 October 2026):** the desk shot is painted: backdrop, desk and
 > both anchors, six expressions each (01 A–C), and both anchors fight in
-> their own bodies and faces (02). Next: the lip-flap mouth frames (01 D), the
+> their own bodies and faces (02), with lip flap at the desk (01 D). Next: the
 > studio arena (03) and Dusty Gale (04). Still on stand-ins: Dusty (the
 > photographer's face and puppet) and the brawl's arena (the Theatre).
 

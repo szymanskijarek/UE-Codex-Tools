@@ -334,7 +334,7 @@ before the first hit lands, so it changes with the sim like any other fight.
   each, picked by `deskFace` (talk; smug at heat 1; angry at 2; lunge on the
   swing; listeners calm, then taken aback, then angry). While a line types
   out, the speaker flaps between the expression and its `-b` twin (the other
-  mouth) every 0.13 s, once those frames exist (brief 01 D). Anyone without
+  mouth) every 0.13 s (brief 01 D: talk, smug and angry for both anchors). Anyone without
   painted art falls back to their career face. Speech bubbles sit in the top
   strip; the clock sits above the strap, bottom right.
 - In the brawl the anchors wear their own puppets and four-expression faces

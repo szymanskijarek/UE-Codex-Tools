@@ -1,10 +1,10 @@
 # Broken News 01: the desk shot
 
-> **Status (9 October 2026):** A (backdrop), B (desk) and C (both anchors,
-> six expressions each) delivered and in the game. The canvas came in at
-> 1672 × 941 and the anchors at 1254 × 1254: keep those sizes for anything
-> new. Next: D, the second mouth frames for lip flap (the game already plays
-> them the moment they exist).
+> **Status (9 October 2026):** A–C delivered, and D's six priority mouth
+> frames (talk, smug, angry for both anchors). The agent's edits shifted a
+> few edge pixels all over, so only each mouth area was pasted onto the
+> original (`desk-*-b.png` here are those patched files). Optional: the four
+> priority-2 twins (surprised, lunge).
 
 > Part of the Broken News art set (`art/news/README.md`, read *The two
 > anchors* first). Design: `docs/career-crash/10-broken-news.md` §3.
