@@ -40,7 +40,7 @@ export interface Beat {
 export interface Field {
   /** Reporter id (cast.ts `FIELD`). */
   reporter: 'chase' | 'rupert';
-  /** The location: an arena whose painting is the backdrop. */
+  /** The location: an arena whose painting is the backdrop, or a location plate `news:<name>` (art brief 07). */
   location: string;
   /** The strap: where they are, in capitals. */
   dateline: string;

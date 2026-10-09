@@ -1,84 +1,137 @@
-# Broken News 06: the field reporters
+# Broken News 06: the field reporters (ready-to-paste prompts)
 
-> **Status (9 October 2026):** not delivered yet. Design:
-> `docs/career-crash/10-broken-news.md` §13. Until the art lands, the block-out
-> stands the TV host's and journalist's career faces in for them, in front of
-> the existing arena paintings.
+> **Status (9 October 2026):** not delivered yet. The field block-out is live
+> (design `docs/career-crash/10-broken-news.md` §13): stand-in career faces on a
+> CSS jacket with a CSS microphone. The game picks these pictures up by file
+> name the moment they're in, so no code changes are needed when they arrive.
 
 > Part of the Broken News art set (`art/news/README.md`).
 
-Two reporters who appear "live on location", cut in from the desk: full
-screen in front of a location backdrop, or in the right-hand box of a split
-screen next to an anchor. Same pixel-art house style as the desk pictures, and
-the **same canvas, scale and head height as the desk anchors** (attach
-`art/news/desk-brock-neutral.png` as the reference), so they sit next to the
-anchors in a split screen without looking bigger or smaller.
+Two reporters who appear "live on location": full screen in front of a
+location painting, or in the right-hand box of a split screen next to an
+anchor. **Use the same image-agent session that drew the desk anchors** if you
+can (it remembers their style and scale); otherwise attach
+`art/news/desk-brock-neutral.png` as the reference for every prompt.
 
-Locations come from the existing arena paintings, so **draw the reporters
-only**, on a transparent background.
+30 images in four rounds. Do them in order: round 1 is what the game shows most.
 
-## The reporters
+| Round | What | Images | Files |
+|---|---|---|---|
+| 1 | Close-ups, seven expressions each | 14 | `art/news/field-<reporter>-<expression>.png` |
+| 2 | Mouth twins for lip flap | 6 | `art/news/field-<reporter>-<expression>-b.png` |
+| 3 | Body sheets (for brawls on location) | 2 | `art/sheets/npc-news-<reporter>.png` |
+| 4 | Fight heads, four each | 8 | `art/heads/<expression>/npc-news-<reporter>.png` |
 
-**Chase Hurley** (`chase`), American field reporter, he/him, 30s. *A storm
-chaser who treats every story as a hurricane: a bright orange waterproof
-storm jacket with the hood up, a BSN-red handheld microphone with a square
-mic flag (blank), wind-tousled dark hair escaping the hood, a determined jaw,
-squinting into wind that isn't there.*
+`<reporter>` is `chase` or `rupert`.
 
-**Rupert Fennimore-Twistleton** (`rupert`), British foreign correspondent,
-he/him, 50s. *War-correspondent gravitas for trivial stories: a khaki safari
-jacket with too many pockets, a blue shirt, a lanyard press pass (blank), a
-neat grey moustache, sunburnt nose, a battered microphone with a blank mic
-flag, reading glasses pushed up on his forehead.*
+## Setup (paste once, first)
 
-## Layout (both)
+> We're adding two field reporters to the Broken News cast, drawn exactly like
+> the news anchors you made earlier (Brock and Philippa): same chunky pixel-art
+> style, thick dark outline (#1b1f2a), flat colours with one shade tone, light
+> from the top left, friendly cartoon proportions, and the SAME scale and head
+> height as the anchors (head about 300 px tall, top of head about 4% down from
+> the top edge). Each picture: 1254 × 1254, transparent background, waist up,
+> standing, slight 3/4 turn to the LEFT, holding a handheld TV microphone at chin
+> height in the right hand. The mic has a small square mic flag that is BLANK
+> (no letters: the game prints on it). No background, no text, no logos. Keep
+> each reporter identical across all their pictures: same position, size,
+> clothes and hair; only the face, the free hand and the posture change.
+> Reply "ready" and wait for the first one.
 
-- **Canvas:** 1254 × 1254 px, transparent background.
-- **Waist up, standing,** facing the camera at a slight 3/4 turn to the
-  **left** (they're on the right of the split screen, looking towards the
-  anchor's box), holding the microphone in the right hand at chin height.
-- Same position and scale in every expression, so the game can swap them
-  without a jump. Head about 300 px tall, top of the head about 4% down.
-- The microphone's mic flag stays blank: the game prints BSN on it.
+### The two reporters (the prompts below refer to these)
 
-## Style preamble (paste first)
+**Chase Hurley** (American field reporter, he/him, 30s): *a storm chaser who
+treats every story as a hurricane: a bright orange waterproof storm jacket with
+the hood up and the drawstrings flying, wind-tousled dark hair escaping the
+hood, a determined square jaw, a light stubble, squinting into wind that
+isn't there; a red handheld microphone.*
 
-> Pixel-art character portrait for "Career Crash", a comedic 2D brawler,
-> matching the attached news-anchor picture exactly in style, scale and head
-> height: chunky clean pixel art, thick dark outline (#1b1f2a), flat colours
-> with one shade tone, light from the top left, friendly cartoon proportions.
-> Waist-up, standing, slight 3/4 turn to the left, holding a handheld TV
-> microphone at chin height in the right hand. Transparent background,
-> 1254 × 1254. No text, no letters, no logos, no background.
+**Rupert Fennimore-Twistleton** (British foreign correspondent, he/him, 50s):
+*war-correspondent gravitas for trivial stories: a khaki safari jacket with
+far too many pockets over a pale blue shirt, a blank press pass on a lanyard, a
+neat grey moustache, a sunburnt nose, reading glasses pushed up on his
+forehead, a battered silver handheld microphone.*
 
-## Expressions (seven each; then their -b mouth twins, as in brief 01 D)
+## Round 1: close-ups (14)
 
-| `<expression>` | Chase | Rupert |
+**Chase** (`field-chase-<expression>.png`):
+
+1. `neutral`: *Chase listening to the studio: hand pressed to his earpiece, squinting, leaning slightly into the wind, mouth closed.*
+2. `talk`: *Chase reporting: mouth wide open, shouting over imaginary wind, free hand pointing back over his shoulder at the scene.*
+3. `smug`: *Chase with the scoop: big grin, thumbs up with the free hand, hood blown back off his head.*
+4. `surprised`: *Chase startled by something behind him: jaw dropped, looking back over his shoulder, eyebrows up.*
+5. `angry`: *Chase being talked over: red-faced, shouting into the mic held right up to his mouth, veins standing out.*
+6. `frozen`: *Chase on a satellite delay: a fixed, slightly too wide grin, eyes unblinking and a bit glassy, perfectly still, as if the picture froze mid-smile.*
+7. `hurt`: *Chase hit by something off screen: knocked sideways, the hood pulled down over his eyes, the mic still held up heroically, a few dizzy stars.*
+
+**Rupert** (`field-rupert-<expression>.png`):
+
+8. `neutral`: *Rupert listening: a grave, patient expression, one finger on his earpiece, mouth closed under the moustache.*
+9. `talk`: *Rupert reporting: mouth open mid-word, solemn as a war report, free hand gesturing gravely at the scene behind him.*
+10. `smug`: *Rupert with a knowing half-smile, eyebrows raised, glasses pushed up, as if he has seen it all before.*
+11. `surprised`: *Rupert startled: reading glasses dropping down onto his nose, moustache bristling, eyes wide.*
+12. `angry`: *Rupert in clipped fury: lips pressed thin, gripping the mic like a baton, nostrils flared.*
+13. `frozen`: *Rupert on a satellite delay: a fixed polite smile, one eyebrow stuck halfway up, perfectly still.*
+14. `hurt`: *Rupert hit by something off screen: glasses askew, moustache crooked, safari hat (if any) gone, a couple of dizzy birds circling.*
+
+## Round 2: mouth twins (6)
+
+> Take your picture of [REPORTER] [EXPRESSION]. Make an EDITED COPY where ONLY
+> THE MOUTH changes to: [MOUTH]. Everything else must stay pixel-identical:
+> same canvas, position, pose, hands, mic, hair, eyes and clothes.
+
+| File | Expression | [MOUTH] |
 |---|---|---|
-| `neutral` (waiting, listening in the earpiece) | squinting into the wind, hand on earpiece | grave, patient nod, finger on earpiece |
-| `talk` (reporting) | mouth open, shouting over imaginary wind, free hand pointing behind him | mouth open mid-word, solemn, free hand gesturing at the scene |
-| `smug` (got the scoop) | thumbs up, big grin, hood blown back | knowing half-smile, eyebrows raised over his glasses |
-| `surprised` (something behind him) | jaw dropped, looking over his shoulder | glasses dropping onto his nose, moustache bristling |
-| `angry` (the anchors talking over him) | shouting into the mic, red-faced | clipped fury, mic gripped like a baton |
-| `frozen` (satellite delay: stuck mid-smile) | a fixed, slightly too-wide grin, eyes unblinking, totally still | a fixed polite smile, one eyebrow stuck halfway up |
-| `hurt` (hit by something off screen) | knocked sideways, hood over his face, mic still held up | glasses askew, moustache crooked, a few dizzy stars |
+| `field-chase-talk-b.png` | talk | closed, mid-shout pause, lips pressed |
+| `field-chase-smug-b.png` | smug | open, mid-word, still grinning |
+| `field-chase-angry-b.png` | angry | shut, teeth gritted |
+| `field-rupert-talk-b.png` | talk | closed, lips pressed under the moustache |
+| `field-rupert-smug-b.png` | smug | slightly open, a dry remark |
+| `field-rupert-angry-b.png` | angry | open, a clipped furious word |
 
-**Prompt (one per picture, after the preamble):**
+If more than the mouth moves, send it anyway: Claude pastes just the mouth.
 
-> [REPORTER DESCRIPTION]. Expression and pose: [EXPRESSION].
+## Round 3: body sheets (2)
 
-Files: `art/news/field-<reporter>-<expression>.png` (14 pictures), then the
-mouth twins `field-<reporter>-<expression>-b.png` for `talk`, `smug` and
-`angry` (6 more, made by editing only the mouth, as in `01D-MOUTH_PROMPTS.md`).
+Attach `art/heads/_reference/body-sheet-example.webp` and copy its layout exactly.
 
-## Fighters (for field brawls, later)
+> Pixel-art character sheet for "Career Crash", matching the attached example
+> sheet exactly in style and layout: chunky clean pixel art, thick dark outline
+> (#1b1f2a), flat colours with one shade tone, light from the top left, big
+> head (head to body about 1 : 1.4), friendly cartoon proportions.
+> Transparent background, 1254 × 1254. LEFT: the full character standing in
+> 3/4 view facing right, hands empty. RIGHT: the same character cut into 13
+> separate paper-doll pieces laid out like the example (head, torso, pelvis,
+> two upper arms, two forearms with hands, two thighs, two shins, two shoes),
+> each outlined, with rounded joint ends and a clear gap around every piece.
+> No text, no logos, no shadow. The character: [REPORTER, full body: Chase in
+> orange storm jacket, waterproof trousers and wellington boots, the mic clipped
+> to his belt / Rupert in safari jacket, khaki trousers and desert boots, the mic
+> in a breast pocket].
 
-Body sheets and four fight heads exactly as in brief 02, for
-`npc-news-chase` and `npc-news-rupert` (same descriptions; the microphone goes
-on the belt, hands empty).
+Files: `art/sheets/npc-news-chase.png`, `art/sheets/npc-news-rupert.png`.
+
+## Round 4: fight heads (8)
+
+Attach the reporter's own body sheet from round 3.
+
+> Pixel-art cartoon head for "Career Crash": chunky clean pixel art, thick dark
+> outline (#1b1f2a), flat colours with one shade tone, transparent background,
+> 256 × 256, head only, centred, 3/4 view facing right, the character from the
+> attached sheet with the same hair and headwear. Expression: [EXPRESSION].
+
+| | `neutral` | `angry` | `surprised` | `hurt` |
+|---|---|---|---|---|
+| Chase | squinting into the wind, determined | shouting, hood flying | jaw dropped, hood blown back | eyes squeezed shut, hood over one eye |
+| Rupert | grave, moustache neat | clipped shout, moustache bristling | glasses dropping, eyes wide | wincing, glasses askew |
+
+Files: `art/heads/<expression>/npc-news-chase.png`, `…/npc-news-rupert.png`.
 
 ## Importing
 
-Same as the desk pictures: Claude converts them to 512 px WebP in
-`apps/client/src/news/art/`, and the field shot picks the expression from the
-line like `deskFace` does (`frozen` during a satellite delay, `hurt` for a hit).
+Upload in any order and with any names (say which is which if unsure).
+Claude converts the close-ups to 512 px WebP in `apps/client/src/news/art/`
+(the field shot then shows them instead of the stand-ins), slices the body
+sheets (`pnpm --filter @cc/art-pipeline puppets npc-news-chase npc-news-rupert`),
+imports the heads (`… faces`), and checks the previews.

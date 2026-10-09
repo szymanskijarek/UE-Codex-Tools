@@ -516,6 +516,7 @@ export function Studio() {
 }
 
 /** The reporter's painted pictures (art brief 06), once they exist; the career face stands in until then. */
+const LOCATION_ART = import.meta.glob('./art/location-*.webp', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 const FIELD_ART = import.meta.glob('./art/field-*-*.webp', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 
 type FieldFace = 'neutral' | 'talk' | 'smug' | 'surprised' | 'angry' | 'frozen' | 'hurt';
@@ -553,7 +554,8 @@ function Figure({ p, face, painted, talking, frozen, mic }: { p: Person; face: E
 /** The location: the arena painting, softened behind the reporter, with any weather and photobomb. */
 function Location({ ep, reporter, beat, speaking, delaying, children }: { ep: Episode; reporter: Person; beat: Beat; speaking: Seat | null; delaying: boolean; children?: ComponentChildren }) {
   const f = ep.field!;
-  const bg = arenaArt(f.location)?.url;
+  // A location plate (art brief 07, `news:<name>`) or an arena's painting.
+  const bg = f.location.startsWith('news:') ? LOCATION_ART[`./art/location-${f.location.slice(5)}.webp`] : arenaArt(f.location)?.url;
   const face = fieldFace(beat, delaying, speaking === 'field');
   const painted = FIELD_ART[`./art/field-${reporter.art}-${face}.webp`];
   return (

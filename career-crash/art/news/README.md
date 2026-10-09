@@ -1,10 +1,9 @@
 # Broken News: art briefs for the image agent
 
-> **Status (9 October 2026):** everything briefed so far is in the game: the
-> painted desk shot (three people, seven expressions each, lip flap for the
-> anchors), the rogue chair, all three fighting in their own bodies and faces,
-> the BSN Studio, and the page art (logo, BSN bug, ident, share image, icons).
-> Still open: the later guests in 04 (Biff, Tamsin, Ainsley, Kevin).
+> **Status (9 October 2026):** everything up to brief 05 is in the game. Open:
+> 06 field reporters (ready-to-paste, first), 07 location plates, 08 the episode
+> guests' desk close-ups, and the later guests in 04 (Biff, Tamsin, Ainsley,
+> Kevin).
 
 Art for **careercrash.org/news** (design: `docs/career-crash/10-broken-news.md`):
 a cable-news studio where two anchors read the week's story, bicker, and
@@ -24,7 +23,9 @@ the house style and the layout rules it needs.
 | 3 | [`03-STUDIO_ARENA.md`](03-STUDIO_ARENA.md) | The studio floor for the brawl: backdrop and furniture sheets (intact, damaged, destroyed) | 4 | 2 |
 | 4 | [`04-GUESTS.md`](04-GUESTS.md) | The recurring guests: Dusty Gale (weather) first; seated close-ups, body sheet and heads | 6 + 1 + 4 per guest | 3 |
 | 5 | [`05-PAGE.md`](05-PAGE.md) | BSN channel bug, show logo (with the bug), ident card, share image, icon | 5 | 3 |
-| 6 | [`06-FIELD_REPORTERS.md`](06-FIELD_REPORTERS.md) | Field reporters Chase Hurley and Rupert Fennimore-Twistleton: waist-up with a mic, seven expressions each, mouth twins; later fight bodies | 14 + 6 | 2 |
+| 6 | [`06-FIELD_REPORTERS.md`](06-FIELD_REPORTERS.md) | Field reporters Chase Hurley and Rupert Fennimore-Twistleton, ready-to-paste: 14 close-ups, 6 mouth twins, 2 body sheets, 8 fight heads | 30 | **1** |
+| 7 | [`07-LOCATIONS.md`](07-LOCATIONS.md) | Six location plates for field reports (motorway, sheep field, ministry steps, glacier, car park, sandwich shop) | 6 | 2 |
+| 8 | [`08-EPISODE_GUESTS.md`](08-EPISODE_GUESTS.md) | Desk close-ups for the episode guests: Gideon, Marcel, Terry, Sir Nigel, Such Wow Wes (six each) | 30 | 3 |
 
 Order: the desk shot is what everyone sees first and for longest (about 30
 seconds of every episode), so it comes first; the fighters next, since the
