@@ -1,7 +1,11 @@
 # Broken News 01: the desk shot
 
-> **Status:** not delivered yet. The desk shot is drawn in CSS (`apps/client/src/news/news.css`)
-> with 64 px career faces until then.
+> **Status (9 October 2026):** A (backdrop) and B (desk) delivered and in the
+> game, at 1672 × 941 (the same 16:9 as asked, a bit smaller; fine). Still to
+> come: C, the anchors seated (the desk shot uses 64 px career faces on CSS
+> suits until then). The desk is drawn 8% higher than painted so its plaque
+> clears the lower third and the straps, so keep C's anchors at the same scale
+> and let the game place them.
 
 > Part of the Broken News art set (`art/news/README.md`, read *The two
 > anchors* first). Design: `docs/career-crash/10-broken-news.md` §3.

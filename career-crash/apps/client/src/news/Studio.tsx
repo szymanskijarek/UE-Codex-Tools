@@ -12,6 +12,8 @@ import { ANCHORS, type Anchor } from './cast';
 import { BSN_OFFICIAL, checkEpisode, cueAt, moodOf, timeline, type Cue, type Episode, type Seat } from './episode';
 import { EPISODES, pickEpisode } from './episodes';
 import { MINIGAMES, minigameById } from './minigames';
+import backdropUrl from './art/desk-backdrop.webp';
+import deskUrl from './art/desk-front.webp';
 
 /** Seconds of run-up shown before the first punch lands. */
 const BRAWL_RUNUP_TICKS = TICKS_PER_SECOND;
@@ -268,12 +270,11 @@ export function Studio() {
 
         {showDesk && cue.phase === 'desk' && (
           <div class="bn-studio">
-            <div class="bn-wall">
-              <div class="bn-wall-logo">BSN</div>
-              <div class="bn-wall-story">{ep.headline}</div>
-              <div class="bn-wall-logo">BSN</div>
-            </div>
-            <div class="bn-skyline" />
+            {/* The painted studio (art/news brief 01); the game writes on its screens. */}
+            <img class="bn-layer" src={backdropUrl} alt="" />
+            <div class="bn-screen-l">BSN</div>
+            <div class="bn-screen-c">{ep.headline}</div>
+            <div class="bn-screen-r">BSN</div>
             <div class="bn-cam">
               {people.map((p) => {
                 if (p.seat === 'guest' && !guestIn) return null;
@@ -288,10 +289,11 @@ export function Studio() {
                   </div>
                 );
               })}
-              <div class="bn-desk">
-                <div class="bn-desk-logo">BROKEN NEWS</div>
-                <div class={`bn-papers bn-papers-${heat}`} />
+              <img class="bn-layer bn-desk" src={deskUrl} alt="" />
+              <div class="bn-desk-logo">
+                BROKEN NEWS <span>BSN</span>
               </div>
+              <div class={`bn-papers bn-papers-${heat}`} />
             </div>
             {beat && speaker && (
               <div class={`bn-bubble bn-bubble-${speaker.seat}`}>

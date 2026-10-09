@@ -326,10 +326,15 @@ before the first hit lands, so it changes with the sim like any other fight.
   picker; `?ep=<id>` and `?at=<ms>`.
 
 - Fake Broken News ads in the career feed link to the page (§12).
+- The desk shot uses the painted studio (art brief 01 A–B, delivered 9
+  October): backdrop and desk layers, with the headline on the big screen,
+  BSN on the side screens and *BROKEN NEWS · BSN* on the desk's plaque,
+  written by the game (`apps/client/src/news/art/`, sources in
+  `career-crash/art/news/`).
 - The brawl is a close-up (`BattleRenderer.closeUp`): framed on the anchors,
   cut straight to the framing, bottom strip kept clear.
 
-**Not yet:** studio art (CSS block-out with 64 px career faces; brawl in the
+**Not yet:** the rest of the studio art (the anchors at the desk are 64 px career faces on CSS suits; brawl in the
 Theatre with stand-in careers, starting from the arena's spawns, so the guest
 starts out of shot), a real episode and minigame, lazy-loading minigames, per-anchor
 voices beyond pitch and type, links from the rest of the site, sitemap and

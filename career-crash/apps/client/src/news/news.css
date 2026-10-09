@@ -214,50 +214,81 @@ body.bn-page {
 
 /* ---- The desk shot ---- */
 .bn-studio {
-  background: linear-gradient(#0e1a3f 0, #1b2c66 55%, #0b1330 100%);
+  background: #0e1a3f;
 }
-.bn-wall {
+/* Painted layers (art/news brief 01) cover the picture; text sits on their screens by image fractions. */
+.bn-layer {
   position: absolute;
-  left: 6%;
-  right: 6%;
-  top: 6%;
-  height: 34%;
-  display: grid;
-  grid-template-columns: 1fr 3fr 1fr;
-  gap: 1.2%;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
 }
-.bn-wall > div {
+.bn-screen-l,
+.bn-screen-c,
+.bn-screen-r {
+  position: absolute;
+  top: 12%;
+  height: 24.5%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 0.4cqw solid #2f4386;
-  background: linear-gradient(135deg, #24438f, #0f1f4d);
-  box-shadow: inset 0 0 3cqw #0009;
+  text-align: center;
   font-weight: 900;
-}
-.bn-wall-logo {
-  font-size: 4cqw;
-  color: #ffffff30;
-}
-.bn-wall-story {
-  font-size: 3.6cqw;
-  letter-spacing: 0.05em;
   color: #fff;
-  background: linear-gradient(135deg, #b30e2a, #5c0716) !important;
   text-shadow: 0 0.3cqw 0 #0007;
 }
-.bn-skyline {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 40%;
-  height: 10%;
-  background:
-    linear-gradient(90deg, transparent 0 4%, #0a1430 4% 9%, transparent 9% 12%, #0a1430 12% 15%, transparent 15% 22%, #0a1430 22% 30%, transparent 30% 34%, #0a1430 34% 37%, transparent 37% 60%, #0a1430 60% 66%, transparent 66% 70%, #0a1430 70% 78%, transparent 78% 84%, #0a1430 84% 90%, transparent 90%);
-  opacity: 0.8;
+.bn-screen-c {
+  left: 31.6%;
+  width: 37%;
+  font-size: 3.6cqw;
+  letter-spacing: 0.05em;
+  line-height: 1.05;
+  padding: 0 2%;
 }
-
+.bn-screen-l,
+.bn-screen-r {
+  width: 18.7%;
+  font-size: 5cqw;
+  color: #ffffff40;
+  letter-spacing: 0.08em;
+}
+.bn-screen-l {
+  left: 8.5%;
+}
+.bn-screen-r {
+  left: 73%;
+}
 /* The camera: everything that shakes as the desk heats up. */
+/* The desk sits 8% higher than painted so its plaque clears the lower third and the straps. */
+.bn-desk {
+  top: -8%;
+}
+.bn-desk-logo {
+  position: absolute;
+  left: 26.5%;
+  width: 47%;
+  top: 69.5%;
+  height: 6%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2cqw;
+  font-weight: 900;
+  font-size: 2.6cqw;
+  letter-spacing: 0.15em;
+  color: #fff;
+  text-shadow: 0 0.25cqw 0 #5c0716;
+}
+.bn-desk-logo span {
+  font-size: 0.6em;
+  background: #fff;
+  color: #13204a;
+  padding: 0.1em 0.4em;
+  text-shadow: none;
+  letter-spacing: 0.08em;
+}
 .bn-cam {
   position: absolute;
   inset: 0;
@@ -304,7 +335,7 @@ body.bn-page {
 
 .bn-person {
   position: absolute;
-  bottom: 27%;
+  bottom: 38%;
   width: 22%;
   display: flex;
   flex-direction: column;
@@ -318,9 +349,9 @@ body.bn-page {
   left: 56%;
 }
 .bn-seat-guest {
-  left: 77%;
-  bottom: 25%;
-  width: 17%;
+  left: 79%;
+  bottom: 45%;
+  width: 16%;
   animation: bn-walk-on 0.5s ease-out both;
 }
 @keyframes bn-walk-on {
@@ -387,45 +418,28 @@ body.bn-page {
   transform: rotate(25deg);
 }
 
-.bn-desk {
-  position: absolute;
-  left: 12%;
-  right: 12%;
-  bottom: 12%;
-  height: 20%;
-  background: linear-gradient(#e9edf7, #aab4cf 12%, #23356f 12.5%, #13204a);
-  border-radius: 1.4cqw 1.4cqw 0.4cqw 0.4cqw;
-  border: 0.35cqw solid #1b1f2a;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.bn-desk-logo {
-  font-weight: 900;
-  font-size: 3cqw;
-  letter-spacing: 0.15em;
-  color: #ffffffd0;
-  margin-top: 2%;
-}
+/* A loose sheet off the painted paper stacks once it gets personal. */
 .bn-papers {
   position: absolute;
-  left: 38%;
-  top: -5%;
-  width: 10%;
-  height: 14%;
+  left: 9%;
+  top: 50%;
+  width: 7%;
+  height: 4%;
   background: #fff;
   border: 0.2cqw solid #1b1f2a;
-  transform: rotate(-4deg);
+  opacity: 0;
 }
 .bn-papers-2 {
-  transform: rotate(-30deg) translate(-40%, -60%);
+  opacity: 1;
+  transform: rotate(-30deg) translate(-20%, -120%);
 }
 .bn-papers-3 {
+  opacity: 1;
   animation: bn-flutter 0.6s ease-out infinite alternate;
 }
 @keyframes bn-flutter {
   to {
-    transform: rotate(160deg) translate(80%, -260%);
+    transform: rotate(160deg) translate(80%, -400%);
   }
 }
 
