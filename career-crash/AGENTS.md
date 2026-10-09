@@ -1,6 +1,7 @@
 # Career Crash — guide for coding agents
 
-Read this before changing anything. Design docs live in `../docs/career-crash/`
+Read this before changing anything. Map of the whole repo: [`../INDEX.md`](../INDEX.md)
+(update it in the same change when you add a project, page, app or major feature). Design docs live in `../docs/career-crash/`
 (00 GDD, 01 technical spec, 02 combat, 03 economy, 04 roadmap). When code and
 docs disagree, fix one of them in the same change.
 

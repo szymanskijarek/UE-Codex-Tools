@@ -10,6 +10,26 @@ doing anything else.
 
 **If in doubt, it's Career Crash.** Almost all work in this repo is on the game.
 
+## Repo index: read this before any other doc
+
+[`INDEX.md`](INDEX.md) (on `dev`; from `main` run `git show origin/dev:INDEX.md`)
+maps every project, doc section, code area and art brief. When asked to "read
+the docs", read the index, then open only the sections the task needs, not
+whole folders.
+
+### Keeping the index current (standing rule)
+
+Update `INDEX.md` in the same commit whenever something new and significant
+lands: a new project or page, a new package/app/worker, a new design doc or
+major section (e.g. a new "As built" phase), a new art brief folder, a major
+feature update, or a file/branch the index points to moving or merging. Keep
+entries to one table row each: a pointer, not a summary. Small tweaks and
+bug fixes don't need an index change.
+
+Keep the project docs themselves tight too: update the owning doc's section
+(usually its "As built" table) rather than appending new prose, and drop
+statements that are no longer true.
+
 ## Career Crash: first steps in a new session
 
 1. `main` (where sessions start) does **not** contain the game. Get it:
