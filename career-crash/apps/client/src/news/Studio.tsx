@@ -9,7 +9,7 @@ import { BattleRenderer } from '../replay/renderer';
 import { voiceFor, withVoice, type Voice } from '../replay/voices';
 import { Portrait } from '../ui/components';
 import { ANCHORS, type Anchor } from './cast';
-import { checkEpisode, cueAt, moodOf, timeline, type Cue, type Episode, type Seat } from './episode';
+import { BSN_OFFICIAL, checkEpisode, cueAt, moodOf, timeline, type Cue, type Episode, type Seat } from './episode';
 import { EPISODES, pickEpisode } from './episodes';
 import { MINIGAMES, minigameById } from './minigames';
 
@@ -29,13 +29,14 @@ interface Person {
   career: string;
   color: string;
   voice: Voice;
+  bsn?: string;
 }
 
 function cast(ep: Episode): Person[] {
   const anchor = (a: Anchor): Person => ({ ...a, voice: withVoice(voiceFor(a.career.replace('career.', ''), a.name, ''), { type: a.voice, pitch: a.pitch }) });
   const out = [anchor(ANCHORS.us), anchor(ANCHORS.uk)];
   const g = ep.guest;
-  if (g) out.push({ seat: 'guest', name: g.name, role: g.role, career: g.career, color: '#0e7c66', voice: voiceFor(g.career.replace('career.', ''), g.name, '') });
+  if (g) out.push({ seat: 'guest', name: g.name, role: g.role, career: g.career, color: '#0e7c66', voice: voiceFor(g.career.replace('career.', ''), g.name, ''), bsn: g.bsn });
   return out;
 }
 
@@ -258,6 +259,7 @@ export function Studio() {
 
         {stage === 'segment' && cue.phase === 'ident' && (
           <div class="bn-card bn-ident">
+            <div class="bn-presents">BSN presents</div>
             <div class="bn-ident-logo bn-slam">
               BROKEN<span>NEWS</span>
             </div>
@@ -267,9 +269,9 @@ export function Studio() {
         {showDesk && cue.phase === 'desk' && (
           <div class="bn-studio">
             <div class="bn-wall">
-              <div class="bn-wall-logo">BN</div>
+              <div class="bn-wall-logo">BSN</div>
               <div class="bn-wall-story">{ep.headline}</div>
-              <div class="bn-wall-logo">BN</div>
+              <div class="bn-wall-logo">BSN</div>
             </div>
             <div class="bn-skyline" />
             <div class="bn-cam">
@@ -331,6 +333,16 @@ export function Studio() {
                 </>
               )}
             </div>
+            <div class="bn-bsn">
+              <b>BSN</b> stands for {BSN_OFFICIAL}. Officially.
+              {people.map((p) => p.bsn && (
+                <span key={p.seat}>
+                  {' '}
+                  {p.name.split(' ')[0]}: <i>{p.bsn}</i>.
+                </span>
+              ))}{' '}
+              Ticker: <i>{ep.bsn}</i>.
+            </div>
             <div class="bn-handoff-blurb">Brock and Philippa will be back next week, legal permitting.</div>
             <button class="bn-go" onClick={roll}>
               ↺ Watch it again
@@ -341,12 +353,15 @@ export function Studio() {
         {/* Broadcast furniture: on for the desk and the brawl. */}
         {stage === 'segment' && (cue.phase === 'desk' || cue.phase === 'brawl') && (
           <>
-            <div class="bn-live">● LIVE</div>
+            <div class="bn-live">● LIVE · BSN</div>
             <div class="bn-clock">7:00 PM ET · MIDNIGHT GMT</div>
             {speaker && (
               <div class="bn-third" style={{ '--c': speaker.color }}>
                 <b>{speaker.name}</b>
-                <span>{speaker.role}</span>
+                <span>
+                  {speaker.role}
+                  {speaker.bsn && ` · ${speaker.bsn}`}
+                </span>
               </div>
             )}
             <div class="bn-chyron">
@@ -355,7 +370,7 @@ export function Studio() {
             </div>
             <div class="bn-ticker">
               <div class="bn-ticker-run">
-                {[...ep.ticker, ...ep.ticker].map((t, i) => (
+                {[`BSN: ${ep.bsn.toUpperCase()}`, ...ep.ticker, `BSN: ${ep.bsn.toUpperCase()}`, ...ep.ticker].map((t, i) => (
                   <span key={i}>{t}</span>
                 ))}
               </div>

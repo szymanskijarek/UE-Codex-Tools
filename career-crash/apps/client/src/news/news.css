@@ -119,6 +119,23 @@ body.bn-page {
     transform: skewX(-8deg) rotate(-6deg) translateY(1cqw);
   }
 }
+.bn-presents {
+  color: var(--bn-muted);
+  font-weight: 800;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  font-size: 1.8cqw;
+  margin-bottom: 1cqw;
+}
+.bn-bsn {
+  max-width: 70%;
+  color: var(--bn-muted);
+  font-size: max(11px, 1.5cqw);
+  line-height: 1.4;
+}
+.bn-bsn b {
+  color: var(--bn-text);
+}
 .bn-tag {
   margin: 1cqw 0 0;
   color: var(--bn-gold);

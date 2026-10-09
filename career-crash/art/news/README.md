@@ -26,6 +26,13 @@ Order: the desk shot is what everyone sees first and for longest (about 30
 seconds of every episode), so it comes first; the fighters next, since the
 brawl is the punchline.
 
+## The channel
+
+The show is *Broken News*, on the channel **BSN** (officially the Breaking
+Story Network; nobody agrees what it stands for, design §3.4). The game
+writes "BSN" and the show name wherever they appear, so the art itself stays
+free of text unless a brief says otherwise (the logo, brief 05).
+
 ## The look
 
 Same pixel-art house style as the rest of Career Crash (thick dark outline

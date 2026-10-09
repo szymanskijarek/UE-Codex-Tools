@@ -17,6 +17,8 @@ export interface Anchor {
   pitch: number;
   /** Strap colour. */
   color: string;
+  /** What they insist BSN stands for (10 §3.4). */
+  bsn: string;
 }
 
 export const ANCHORS: Record<'us' | 'uk', Anchor> = {
@@ -28,6 +30,7 @@ export const ANCHORS: Record<'us' | 'uk', Anchor> = {
     voice: 'deep',
     pitch: 0.9,
     color: '#c8102e',
+    bsn: 'Brock Stetson Network',
   },
   uk: {
     seat: 'uk',
@@ -37,5 +40,6 @@ export const ANCHORS: Record<'us' | 'uk', Anchor> = {
     voice: 'bright',
     pitch: 1.05,
     color: '#1d3f8f',
+    bsn: 'British Standards Network',
   },
 };

@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'vitest';
-import { checkEpisode, cueAt, FORMAT, timeline, type Episode } from '../src/news/episode';
+import { ANCHORS } from '../src/news/cast';
+import { BSN_OFFICIAL, checkEpisode, cueAt, FORMAT, spellsBsn, timeline, type Episode } from '../src/news/episode';
+import { EPISODES } from '../src/news/episodes';
 import pilot from '../src/news/episodes/2026-w41-printers.json';
 
 const MINIGAMES = ['test-card'];
@@ -34,5 +36,16 @@ describe('Broken News episodes (10 §4)', () => {
     };
     const p = checkEpisode(bad, MINIGAMES).join('\n');
     for (const want of ['heat 0', 'heat 3', 'cools down', 'before walking on', 'brawl must last', 'unknown minigame', 'over the 60 s limit']) expect(p).toContain(want);
+  });
+
+  it('every episode file follows the format', () => {
+    for (const e of EPISODES) expect([e.id, checkEpisode(e, MINIGAMES)]).toEqual([e.id, []]);
+  });
+
+  it('BSN never means the same thing twice (10 §3.4)', () => {
+    for (const p of [BSN_OFFICIAL, ...Object.values(ANCHORS).map((a) => a.bsn), 'Bureau of Selective Narratives', 'Brawling Since Nineteen-something']) expect([p, spellsBsn(p)]).toEqual([p, true]);
+    for (const p of ['British Broadcasting Corporation', 'Bad News', 'Big Shouty Network Now']) expect([p, spellsBsn(p)]).toEqual([p, false]);
+    const used = [BSN_OFFICIAL, ...Object.values(ANCHORS).map((a) => a.bsn), ...EPISODES.flatMap((e) => [e.bsn, e.guest?.bsn ?? []].flat())].map((x) => x.toLowerCase());
+    expect(used.length).toBe(new Set(used).size);
   });
 });

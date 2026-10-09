@@ -542,12 +542,12 @@ export function promotedPosts(s: CareerSave): FeedPost[] {
   // Broken News (10): an ad for the latest episode, on most fights.
   const ep = EPISODES[0];
   if (ep && rng.int(10) < 6) {
-    const vars = { headline: ep.headline.charAt(0) + ep.headline.slice(1).toLowerCase() };
+    const vars = { headline: ep.headline.charAt(0) + ep.headline.slice(1).toLowerCase(), bsn: ep.bsn };
     const line = (key: string) => {
       const l = bundle.live[key] ?? [''];
       return fill(l[rng.int(l.length)]!, vars);
     };
-    out.push({ id: `promo-news-${ep.id}-${s.wins + s.losses}`, fight: -1, mood: 'company', by: 'company', author: 'Broken News', sub: 'Broadcast media · Mostly live', icon: '📺', text: line('news_ad'), promoted: true, reacts: 40 + rng.int(4000), comments: 5 + rng.int(300), link: { href: NEWS_URL, title: 'Broken News · careercrash.org/news', blurb: line('news_ad_link'), art: '📺🥊' } });
+    out.push({ id: `promo-news-${ep.id}-${s.wins + s.losses}`, fight: -1, mood: 'company', by: 'company', author: 'Broken News on BSN', sub: 'BSN · Breaking Story Network · Mostly live', icon: '📺', text: line('news_ad'), promoted: true, reacts: 40 + rng.int(4000), comments: 5 + rng.int(300), link: { href: NEWS_URL, title: 'Broken News · careercrash.org/news', blurb: line('news_ad_link'), art: '📺🥊' } });
   }
   return out;
 }

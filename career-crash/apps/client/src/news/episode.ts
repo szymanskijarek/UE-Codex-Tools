@@ -31,6 +31,8 @@ export interface Guest {
   career: string;
   /** Index of the beat where the guest walks on (before it, the seat is empty). */
   enters: number;
+  /** What the guest thinks BSN stands for. */
+  bsn?: string;
 }
 
 export interface Episode {
@@ -38,6 +40,11 @@ export interface Episode {
   id: string;
   /** Monday of the week it airs (ISO date). */
   week: string;
+  /**
+   * This episode's guess at what BSN stands for (10 §3.4), first on the
+   * ticker: officially Breaking Story Network, never the same twice.
+   */
+  bsn: string;
   /** The story, as the anchors would title it. Shown on the monitor wall. */
   headline: string;
   /** The strap under the anchors. */
@@ -88,6 +95,20 @@ export const FORMAT = {
   beatMaxMs: 6000,
 } as const;
 
+/** The channel's official name; everyone else has their own (10 §3.4). */
+export const BSN_OFFICIAL = 'Breaking Story Network';
+const SMALL_WORDS = new Set(['of', 'the', 'and', 'a', 'an', 'in', 'on', 'for', 'to', 'at', 'by']);
+
+/** True when the phrase's initials (small words skipped) spell B-S-N. */
+export function spellsBsn(phrase: string): boolean {
+  const initials = phrase
+    .split(/\s+/)
+    .filter((w) => w && !SMALL_WORDS.has(w.toLowerCase()))
+    .map((w) => w[0]!.toUpperCase())
+    .join('');
+  return initials === 'BSN';
+}
+
 export function beatMs(b: Beat): number {
   if (b.ms) return b.ms;
   return Math.max(FORMAT.beatMinMs, Math.min(FORMAT.beatMaxMs, FORMAT.beatBaseMs + b.text.length * FORMAT.beatPerCharMs));
@@ -137,6 +158,9 @@ export function checkEpisode(ep: Episode, minigames: readonly string[]): string[
   if (!minigames.includes(ep.minigame)) out.push(`unknown minigame "${ep.minigame}"`);
   if (!ep.ticker.length) out.push('the ticker needs at least one line');
   if (!ep.realStory?.text) out.push('every episode ends with the real story');
+  if (!ep.bsn || !spellsBsn(ep.bsn)) out.push(`"${ep.bsn ?? ''}" doesn't spell BSN`);
+  else if (ep.bsn.toLowerCase() === BSN_OFFICIAL.toLowerCase()) out.push('the ticker never uses the official BSN name');
+  if (ep.guest?.bsn && !spellsBsn(ep.guest.bsn)) out.push(`the guest's "${ep.guest.bsn}" doesn't spell BSN`);
   const { totalMs } = timeline(ep);
   if (totalMs > FORMAT.maxMs) out.push(`segment runs ${(totalMs / 1000).toFixed(1)} s, over the ${FORMAT.maxMs / 1000} s limit`);
   return out;

@@ -45,9 +45,10 @@ Alternatives, by the joke they make:
 | **BSN: Breaking Story Network** | The straight-faced version; the joke is in the initials only. |
 | **Breaking BS** | Show title on BSN; also *BS at Six*, *Full BS*, *The BS Report*, *Total BS Tonight*. |
 
-These combine with the show name: *Broken News, on BSN*. The channel name
-goes on the ident, the desk front, the lower thirds' corner bug and the
-feed ads' author line ("BSN · Broadcast media").
+**Decided (owner, 9 October):** the channel is **BSN**, officially the
+**Breaking Story Network**, and the show is *Broken News, on BSN*. Nobody
+agrees what BSN stands for, and that's a running joke across every episode
+(§3.4).
 
 URL: `/news` whatever the name, each episode `/news/?ep=<id>` (later `/news/<id>`).
 
@@ -139,6 +140,38 @@ Art: `career-crash/art/news/` (briefs 01–05). Until it arrives the desk shot i
 CSS with the TV host's and journalist's faces, and the brawl uses those
 careers' puppets in the Theatre (§10).
 
+### 3.4 What BSN stands for (running joke)
+
+Officially: **Breaking Story Network**. Nobody believes it.
+
+| Who | BSN is the… | Where it shows |
+|---|---|---|
+| The channel | Breaking Story Network | ident ("BSN presents"), live bug, feed ads, sign-off |
+| Brock | Brock Stetson Network (his initials; he's sure he owns it) | his lower third, every episode |
+| Philippa | British Standards Network | her lower third, every episode |
+| Each guest | their own (Dusty: Barometric Storm Network) | their lower third (`guest.bsn`) |
+| The ticker | **a different one every episode** (`bsn` in the script) | first item on the crawl: `BSN: BREAKING STUFF NETWORK` |
+
+The sign-off card lists them all: *"BSN stands for Breaking Story Network.
+Officially. Brock: Brock Stetson Network. Philippa: British Standards
+Network. Dusty: Barometric Storm Network. Ticker: Breaking Stuff Network."*
+Scripts can also have the anchors bicker about it at heat 1.
+
+Rules (checked): every expansion's initials spell B-S-N (small words like
+*of* and *the* are skipped, a hyphenated word counts once); the ticker never
+uses the official name; no expansion is ever used twice, across all
+episodes, anchors and guests. The joke is that the letters are obvious, so
+the expansion never says the obvious one, and stays clean.
+
+Bank of unused ticker expansions (strike them off as they air):
+*Barely Sourced News*, *Bureau of Selective Narratives*, *Bold Speculation
+Nightly*, *Blame Someone Now*, *Big Shouty Network*, *Biased Since Noon*,
+*Bravely Saying Nothing*, *Buffering Signal Now*, *Bluffing Since Nineteen-something*,
+*Breaking Sofas Nightly*, *Broadly Similar News*, *Believe Some News*,
+*Bring Snacks Now*, *Best Seen Never*, *Bonus Shouting Network*, *Brawling
+Studio Nightly*, *Burying Stories Nightly*, *Both Sides, Nearly*,
+*Blatantly Spinning News*, *Background Shouting Network*.
+
 ## 4. Episodes
 
 ### 4.1 Script format
@@ -150,10 +183,11 @@ An episode is one JSON file, `apps/client/src/news/episodes/<id>.json`
 |---|---|
 | `id` | `2026-w41-printers`: year, ISO week, slug. Also the brawl's seed, so an episode's fight is the same every time. |
 | `week` | Monday it airs (ISO date). The newest is the default episode. |
+| `bsn` | This episode's ticker guess at what BSN stands for (§3.4): spells B-S-N, never repeats. |
 | `headline` | Two or three words for the video wall: `PRINTERS UNIONISE`. |
 | `chyron` | The BREAKING strap: one line, no "BREAKING:". |
 | `ticker` | 3–6 joke headlines for the crawl. |
-| `guest` | Optional: `name`, `role` (lower third), stand-in `career`, `enters` (line index). |
+| `guest` | Optional: `name`, `role` (lower third), stand-in `career`, `enters` (line index), `bsn` (their own expansion). |
 | `beats` | The desk lines: `who` (`us`, `uk`, `guest`), `text`, `heat`, optional `mood` (`neutral`, `angry`, `surprised`, `hurt`) and `ms` (hold time; default from reading speed). |
 | `brawl` | `seconds` (2–6), optional `arena`, `shouts` per seat. |
 | `minigame` | The week's minigame id (§5). |

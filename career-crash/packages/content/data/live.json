@@ -5628,7 +5628,10 @@
    "Brock Stetson Jr. has a regional Emmy (Best Hair) and would like you to know. BROKEN NEWS, this week: {headline}.",
    "We break it. You fix it. This week's story on BROKEN NEWS is a game.",
    "Trusted by nobody. Watched by everybody. BROKEN NEWS: {headline}.",
-   "Our anchors have agreed to disagree. Physically. BROKEN NEWS, new episode now."
+   "Our anchors have agreed to disagree. Physically. BROKEN NEWS, new episode now.",
+   "BSN: the {bsn}. Probably. Nobody's checked. Watch BROKEN NEWS.",
+   "BSN stands for Breaking Story Network. Brock says it's the Brock Stetson Network. Philippa says British Standards. This week: {headline}.",
+   "Ask three BSN staff what BSN stands for and get four answers. This week the ticker says: {bsn}."
   ],
   "news_ad_link": [
    "This week: {headline}",

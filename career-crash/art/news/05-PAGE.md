@@ -6,7 +6,8 @@
 > Part of the Broken News art set (`art/news/README.md`). Design:
 > `docs/career-crash/10-broken-news.md` §2.
 
-Four images: the show's logo, the ident card it slams onto at the start of
+Four images (a fifth for the channel bug is optional: a small "BSN"
+rounded box in red and white, 256 × 128, the only text BSN): the show's logo, the ident card it slams onto at the start of
 every episode, the share image and the page icon.
 
 **Reference to attach:** `apps/client/src/cryptobro/logo.webp` (how Crypto
