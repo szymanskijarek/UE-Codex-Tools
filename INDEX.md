@@ -87,7 +87,7 @@ and share the sim, renderer, puppets, audio and content bundle with Career Crash
 | Voice check (who says what) | `apps/client/src/news/voice.ts`; skill `.claude/skills/broken-news-voice/SKILL.md` |
 | On air | `active` in each episode JSON (`ON_AIR` in `episodes.ts`) |
 | Test | `apps/client/test/news-episode.test.ts` |
-| Art | `career-crash/art/news/README.md` (briefs 01–12: desk shot, anchors, studio arena, guests, page, field reporters, locations, episode guests, guest mouths and hurt, later guests, new cast, emu and alpaca; zips under 30 MB) |
+| Art | `career-crash/art/news/README.md` (briefs 01–13: desk shot, anchors, studio arena, guests, page, field reporters, locations, episode guests, guest mouths and hurt, later guests, new cast, emu and alpaca, Wrestle the Bird; zips under 30 MB) |
 
 ## Career Crash: code map (`career-crash/`)
 
