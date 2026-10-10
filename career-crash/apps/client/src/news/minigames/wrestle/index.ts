@@ -47,7 +47,7 @@ export const wrestle: Minigame = {
       <div class="bn-w-trousers"><img alt="" /><div><div class="bn-w-bar"><b></b></div><span></span></div></div>
       <div class="bn-w-lanes">${LANES.map((l) => `<div class="bn-w-lane bn-w-${l.move}"><i class="bn-w-note">${l.icon}</i><span class="bn-w-target">${l.icon}<small>${l.move.toUpperCase()} ${l.key}</small></span></div>`).join('')}</div>
       <div class="bn-w-call"></div>
-      <div class="bn-w-ready"><b>WRESTLE THE BIRD</b><p>Side Neck winds up a <em>peck</em>, a <em>kick</em> or a <em>body slam</em>.<br />When its note hits the line: <em>grab</em>, <em>block</em> or <em>duck</em>.</p><p class="bn-w-how">Tap the left, middle or right of the screen · or ← ↓ →</p><button>Square up</button></div>`;
+      <div class="bn-w-ready"><b>WRESTLE THE BIRD</b><p>Side Neck winds up a <em>peck</em>, a <em>kick</em> or a <em>body slam</em>.<br />When its note hits the line: <em>grab</em>, <em>block</em> or <em>duck</em>.</p><p class="bn-w-how">Tap the lane: ✊ grab · ✋ block · ⤵ duck · or ← ↓ →</p><button>Square up</button></div>`;
     const $ = <T extends Element>(s: string) => root.querySelector(s) as T;
     const emu = $<HTMLImageElement>('.bn-w-emu img');
     const emuBox = $<HTMLDivElement>('.bn-w-emu');
@@ -219,11 +219,12 @@ export const wrestle: Minigame = {
       e.preventDefault();
       press(move);
     };
+    // Touch or click: each lane is its own button, the whole height of the lane.
     const onPointer = (e: PointerEvent) => {
-      if (phase === 'ready') return;
-      const r = root.getBoundingClientRect();
-      const third = Math.min(2, Math.max(0, Math.floor(((e.clientX - r.left) / r.width) * 3)));
-      press(LANES[third]!.move);
+      const k = lanes.indexOf((e.target as Element).closest('.bn-w-lane') as HTMLDivElement);
+      if (phase !== 'fight' || k < 0) return;
+      e.preventDefault();
+      press(LANES[k]!.move);
     };
     ready.querySelector('button')!.addEventListener('click', start);
     window.addEventListener('keydown', onKey);

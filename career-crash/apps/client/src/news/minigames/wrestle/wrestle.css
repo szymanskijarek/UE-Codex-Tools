@@ -189,9 +189,10 @@
   right: 2%;
   top: 10%;
   bottom: 3%;
-  width: 24%;
+  width: 30%;
   display: flex;
   gap: 0.6cqw;
+  touch-action: none;
 }
 .bn-w-lane {
   --c: #f5c518;
