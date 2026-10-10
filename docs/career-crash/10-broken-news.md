@@ -2,8 +2,8 @@
 
 Status: **block-out** (§10). The reusable studio open runs end to end at
 `careercrash.org/news/` (unlisted, `noindex`) with painted art for the
-studio, anchors, guests and field reporters, twelve fictional test episodes
-and a placeholder minigame. No real-news episode yet.
+studio, anchors, guests and field reporters, sixteen fictional test episodes,
+the first real-news script (*Man vs Emu*, §10) and a placeholder minigame.
 
 A weekly news show, as a game. Every week a new minigame covers one story from
 the world news, comically and sarcastically, and every minigame starts the
@@ -190,8 +190,7 @@ episodes, anchors and guests. The joke is that the letters are obvious, so
 the expansion never says the obvious one, and stays clean.
 
 Bank of unused ticker expansions (strike them off as they air):
-*Barely Sourced News*, *Bureau of Selective Narratives*, *Bold Speculation
-Nightly*, *Biased Since Noon*,
+*Barely Sourced News*, *Biased Since Noon*,
 *Buffering Signal Now*, *Bluffing Since Nineteen-something*,
 *Breaking Sofas Nightly*, *Broadly Similar News*, *Believe Some News*,
 *Best Seen Never*, *Bonus Shouting Network*, *Brawling
@@ -426,7 +425,11 @@ before the first hit lands, so it changes with the sim like any other fight.
 - The brawl is a close-up (`BattleRenderer.closeUp`, up to 3.4×): framed on the anchors,
   cut straight to the framing, bottom strip kept clear.
 
-**Not yet:** a real episode and minigame, Brody's art (brief 10), lazy-loading minigames, per-anchor
+- First real story: `2026-w42-emu` (*Man vs Emu*: an escaped emu wrestles a
+  man on the A381 in Devon, late September 2026), Rupert on the sheep-field
+  plate; owner's script. Still on the `test-card` minigame.
+
+**Not yet:** a real minigame, Brody's art (brief 10), lazy-loading minigames, per-anchor
 voices beyond pitch and type, links from the rest of the site, sitemap and
 share image (the page is `noindex` until launch).
 

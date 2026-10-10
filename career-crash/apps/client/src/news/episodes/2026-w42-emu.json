@@ -1,0 +1,109 @@
+{
+  "id": "2026-w42-emu",
+  "week": "2026-10-12",
+  "bsn": "Bold Speculation Nightly",
+  "headline": "MAN VS EMU",
+  "chyron": "DEADLY DUEL IN DEVON: MAN VS BIRD",
+  "ticker": [
+    "EMU RETURNS HOME, \"NO REGRETS\"",
+    "ALPACA WITNESS DECLINES TO COMMENT",
+    "TROUSERS RECOVERED, SAID TO BE \"IN STABLE CONDITION\"",
+    "EMU FACT: CAN RUN AT 30 MPH. MAN FACT: CANNOT",
+    "CAREERCRASH.ORG: THE ZOOKEEPER SAYS HE'D HAVE HANDLED IT"
+  ],
+  "field": {
+    "reporter": "rupert",
+    "location": "news:sheep-field",
+    "dateline": "THE A381, NEAR SALCOMBE, DEVON",
+    "localTime": "4:45 AM",
+    "enters": 4
+  },
+  "beats": [
+    {
+      "who": "us",
+      "heat": 0,
+      "text": "Good evening. Reports are coming in from Devon of a deadly duel between a man and a bird."
+    },
+    {
+      "who": "uk",
+      "heat": 0,
+      "text": "Well. It wasn't that deadly, Brock. Nobody died."
+    },
+    {
+      "who": "us",
+      "heat": 1,
+      "text": "…What?",
+      "mood": "surprised",
+      "pause": "beat"
+    },
+    {
+      "who": "us",
+      "heat": 1,
+      "text": "We go now live to the scene of the incident. Over to you, Rupert.",
+      "pause": "delay"
+    },
+    {
+      "who": "field",
+      "heat": 1,
+      "text": "Brock. I am standing at the edge of a battlefield. Here, a lone man went face to beak with an emu known only as Side Neck."
+    },
+    {
+      "who": "field",
+      "heat": 1,
+      "text": "Twenty seconds of hand-to-wing combat. The man fell. The bird withdrew to its own lines. And there was, I'm afraid, a casualty.",
+      "pause": "long"
+    },
+    {
+      "who": "uk",
+      "heat": 2,
+      "text": "Rupert, the battlefield was the side of the A381, and the only casualty was a pair of trousers. Who writes these?"
+    },
+    {
+      "who": "us",
+      "heat": 2,
+      "text": "Forgive my friend, Rupert. She doesn't understand the gravity of the situation.",
+      "shot": "desk"
+    },
+    {
+      "who": "uk",
+      "heat": 2,
+      "text": "What situation? A man wrestling a bird?",
+      "shot": "desk"
+    },
+    {
+      "who": "us",
+      "heat": 2,
+      "text": "A bird called Side Neck is ALWAYS serious business.",
+      "shot": "desk",
+      "pause": "beat"
+    },
+    {
+      "who": "uk",
+      "heat": 2,
+      "text": "It's an oversized chicken.",
+      "mood": "neutral",
+      "shot": "desk",
+      "pause": "long"
+    },
+    {
+      "who": "us",
+      "heat": 3,
+      "text": "THAT'S ENOUGH!",
+      "shot": "desk"
+    }
+  ],
+  "brawl": {
+    "seconds": 6,
+    "arena": "arena.news-studio",
+    "shouts": {
+      "us": "RESPECT THE EMU!",
+      "uk": "IT'S A CHICKEN!"
+    }
+  },
+  "minigame": "test-card",
+  "realStory": {
+    "text": "In late September 2026 an emu called Side Neck slipped out through a farm gate left open near Salcombe, Devon. A passer-by wrestled it to the ground on the A381, but after about twenty seconds the emu got up, knocked him over and ran back into its own field, watched by an alpaca. A driver's video of the scuffle passed two million views.",
+    "source": "https://www.upi.com/Odd_News/2026/09/28/escaped-emu-wrestling-Devon-England/1651790611221/"
+  },
+  "signoff": "Philippa has written to Side Neck to apologise. By hand. On headed paper."
+}
