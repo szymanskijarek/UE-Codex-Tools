@@ -31,10 +31,10 @@ const CALL: Record<Verdict, string> = { perfect: 'PERFECT!', good: 'GOOD', wrong
 const REACT_MS = 520;
 const END_MS = 2600;
 
+// This chunk is fetched while the open plays: warm every frame then, so the first wind-up doesn't flash.
+for (const url of [...Object.values(ART), plateUrl, alpacaUrl, alpacaBUrl]) new Image().src = url;
+
 export const wrestle: Minigame = {
-  id: 'wrestle',
-  title: 'Wrestle the Bird',
-  blurb: 'Grab, block or duck on the beat. Protect the trousers.',
   mount(el, ctx) {
     const sfx = ctx.sfx;
     const attacks = bout();
@@ -98,8 +98,6 @@ export const wrestle: Minigame = {
       void root.offsetWidth;
       root.classList.add(cls);
     };
-    // Preload every frame so the first wind-up doesn't flash.
-    for (const url of Object.values(ART)) new Image().src = url;
     trousers();
     show(emu, art('emu-idle'));
     show(hands, art('hands-ready'));

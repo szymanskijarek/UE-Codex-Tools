@@ -261,14 +261,19 @@ Use one or two per episode: if every line pauses, none of them land.
 ## 5. Minigames
 
 A minigame is a module in `apps/client/src/news/minigames/` registered in
-`MINIGAMES` (`minigames/index.ts`):
+`MINIGAMES` (`minigames/index.ts`). The registry holds only what the hand-off
+card needs; the game itself is a lazy chunk (its code, CSS and art), fetched
+while the open plays and mounted after the hand-off:
 
 ```ts
-interface Minigame {
+interface MinigameEntry {
   id: string;
   title: string;   // the hand-off card: "THIS WEEK: <title>"
   blurb: string;   // one line: what to do
-  mount(el: HTMLElement, ctx: { episode: Episode; done(r: { score?: number; line: string }): void }): () => void;
+  load(): Promise<Minigame>;   // () => import('./wrestle').then((m) => m.wrestle)
+}
+interface Minigame {
+  mount(el: HTMLElement, ctx: { episode: Episode; sfx?: Sfx; done(r: { score?: number; line: string }): void }): () => void;
 }
 ```
 
@@ -279,8 +284,9 @@ its returned function runs. Constraints:
 - **30 seconds to 3 minutes** of play, one-thumb on a phone, mouse on desktop.
 - **No backend.** Client only; local storage for a best score at most (and
   only for per-viewer conveniences).
-- **Small.** It's a lazy-loadable chunk (the studio can `import()` it later),
-  ideally under ~150 KB with its art.
+- **Small.** It's a lazy chunk, fetched while the open plays: ideally under
+  ~150 KB of code; art can be more (*Wrestle the Bird*: 8 KB of code, about
+  1.3 MB of pictures, preloaded when the chunk arrives).
 - It may reuse anything in the client: the sim and renderer for a fight, the
   puppets and faces, the synth audio and music.
 - Same tone and content rules (§7).
@@ -446,7 +452,7 @@ before the first hit lands, so it changes with the sim like any other fight.
 - On air: only *Man vs Emu* and *Chairs Recalled* (`active: false` on the
   other fifteen, which still play by `?ep=`).
 
-**Not yet:** the emu's kick frame (re-send), Brody's art (brief 10), lazy-loading minigames, per-anchor
+**Not yet:** the emu's kick frame (re-send, brief 13), Brody's art (brief 10), per-anchor
 voices beyond pitch and type, links from the rest of the site, sitemap and
 share image (the page is `noindex` until launch).
 

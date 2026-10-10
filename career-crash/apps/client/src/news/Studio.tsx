@@ -280,17 +280,29 @@ export function Studio() {
     };
   }, [stage, take]);
 
-  // The week's minigame.
+  // The week's minigame: its chunk starts loading with the open, and mounts after the hand-off.
   useEffect(() => {
-    if (stage !== 'game' || !game || !gameHost.current) return;
-    return game.mount(gameHost.current, {
-      episode: ep,
-      sfx,
-      done: (r) => {
-        setResult(r);
-        setTimeout(() => setStage('signoff'), 700);
-      },
+    if (stage === 'segment') void game?.load();
+  }, [stage]);
+  useEffect(() => {
+    if (stage !== 'game' || !game) return;
+    let unmount: (() => void) | undefined;
+    let gone = false;
+    void game.load().then((g) => {
+      if (gone || !gameHost.current) return;
+      unmount = g.mount(gameHost.current, {
+        episode: ep,
+        sfx,
+        done: (r) => {
+          setResult(r);
+          setTimeout(() => setStage('signoff'), 700);
+        },
+      });
     });
+    return () => {
+      gone = true;
+      unmount?.();
+    };
   }, [stage]);
 
   const roll = () => {

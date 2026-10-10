@@ -9,9 +9,6 @@ const BARS = ['#c0c0c0', '#c0c000', '#00c0c0', '#00c000', '#c000c0', '#c00000', 
 const LINES = ['Fixed it.', 'Have you tried turning the news off and on again?', 'Signal restored. Dignity not restored.', 'Normal service has resumed. Normal is relative.'];
 
 export const testCard: Minigame = {
-  id: 'test-card',
-  title: 'Please Stand By',
-  blurb: 'Tap the test card until the signal comes back.',
   mount(el, ctx) {
     let taps = 0;
     const need = 8;

@@ -105,6 +105,38 @@ white hearts, no person in them. No skin, no body, nothing rude.
 | `art/news/wrestle-trousers-4.png` | 25% | the trousers slipping down to half-mast, held up by one desperate belt loop, red boxer shorts with white hearts peeking out at the top |
 | `art/news/wrestle-trousers-5.png` | 0%, lost | no trousers at all: just the red boxer shorts with white hearts, standing alone, a single grey feather on top, a tiny white flag of surrender stuck in the waistband |
 
+## Re-send: the kick (one picture)
+
+The first `wrestle-emu-kick.png` arrived cut off halfway down (the file itself
+was truncated). Hand the agent this section on its own, with
+`wrestle-emu-tell-kick.png` and `wrestle-emu-peck.png` attached as references.
+
+> Pixel-art game sprite for "Career Crash", a comedic 2D game, matching the two
+> attached emu pictures exactly: the same emu (Side Neck), the same art style,
+> outline, colours, feather texture, eye and beak, the same scale and camera.
+> 1024 × 1024 PNG, fully transparent background, nothing but the emu: no
+> ground, no shadow, no grass, no text, no frame.
+>
+> The moment: the kick lands. The first attached picture is his wind-up
+> (standing on one leg, the other raised in a karate stance); this is the
+> next frame, a split second later. He is seen from the front, close up, and
+> has thrust his raised foot **straight at the viewer**: the big grey
+> three-toed foot fills the lower-middle of the picture, hugely
+> foreshortened, toes spread, the sole facing the camera, a few clumps of mud
+> flicking off the toes. Behind the foot, the rest of the emu is smaller and
+> further away: shaggy grey-brown body leaning back, the standing leg
+> braced, stubby wings flung out for balance, his pale blue-grey neck bent
+> sharply sideways, beak open in a triumphant honk, eyes squeezed into a
+> cheeky grin. Three short white speed lines around the foot. Comic and
+> theatrical, never scary; no blood, no injury.
+>
+> Check before sending: the whole emu and the whole foot are inside the
+> canvas, nothing cut off at any edge; the picture is complete to the bottom
+> row; the background is transparent.
+
+File: `art/news/wrestle-emu-kick.png`. Send it on its own (it's about 1 MB),
+zipped or as a plain image.
+
 ## Sending
 
 22 PNGs, about 2 MB each: send as **two zips** (`Wrestle-1.zip`: part A,
