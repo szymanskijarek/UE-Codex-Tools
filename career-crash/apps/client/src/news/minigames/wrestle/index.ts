@@ -14,8 +14,6 @@ import './wrestle.css';
 
 const ART = import.meta.glob('./art/*.webp', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 const art = (name: string) => ART[`./art/${name}.webp`];
-/** A frame, or a stand-in until it arrives (the kick came through truncated: its wind-up lunges instead). */
-const frame = (name: string) => art(name) ?? art(name.replace('emu-', 'emu-tell-')) ?? art('emu-idle')!;
 
 type Move = 'grab' | 'block' | 'duck';
 const LANES: { move: Move; icon: string; key: string }[] = [
@@ -173,8 +171,8 @@ export const wrestle: Minigame = {
       }
       const since = now - verdictAt;
       if (landed(verdict)) {
-        emuBox.className = `bn-w-emu bn-w-strike${art(`emu-${a}`) ? '' : ' bn-w-lunge'}`;
-        show(emu, frame(`emu-${a}`));
+        emuBox.className = 'bn-w-emu bn-w-strike';
+        show(emu, art(`emu-${a}`));
         show(hands, art('hands-hit'));
       } else {
         emuBox.className = 'bn-w-emu bn-w-dazed';

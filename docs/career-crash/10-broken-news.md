@@ -447,12 +447,11 @@ before the first hit lands, so it changes with the sim like any other fight.
   blocks or ducks on the beat (tap the left/middle/right third, or ← ↓ →).
   16 attacks, faster and tighter as it goes (`rules.ts`: fall 1.5 → 0.72 s,
   window ±240 → ±85 ms); each one that lands costs the trousers a stage, four
-  and they're gone. Minigames now get the studio's `sfx`. The kick frame
-  arrived truncated: the kick wind-up lunges in its place until it's re-sent.
+  and they're gone. Minigames now get the studio's `sfx`.
 - On air: only *Man vs Emu* and *Chairs Recalled* (`active: false` on the
   other fifteen, which still play by `?ep=`).
 
-**Not yet:** the emu's kick frame (re-send, brief 13), Brody's art (brief 10), per-anchor
+**Not yet:** Brody's art (brief 10), per-anchor
 voices beyond pitch and type, links from the rest of the site, sitemap and
 share image (the page is `noindex` until launch).
 
