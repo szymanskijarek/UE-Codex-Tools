@@ -24,7 +24,7 @@ transparent background** (floors and walls are seamless tiles instead).
 | C | Furniture, from above | 10 |
 | D | Floors and wall (seamless tiles) | 5 |
 
-**References to attach:** `art/news/rogue-chair.png` (Jeff's chair as it
+**References to attach:** `art/news/fx-rogue-chair.png` (Jeff's chair as it
 looks in the show: match its colours), `art/news/desk-brock-neutral.png`
 (Brock: hair, suit, red tie), `art/news/desk-backdrop.png` (the studio's
 navy, red and chrome).
