@@ -406,9 +406,9 @@ before the first hit lands, so it changes with the sim like any other fight.
   and beep, for Bev); a reporter's clock can read `TOMORROW` (Hamish); a
   reporter can be short (`height` in `cast.ts`, Hamish 0.72, stand-in only);
   every episode can end on a kind `signoff` line. Hamish and Bev are in
-  `FIELD` with stand-in faces (sailor, fashion designer); Brody is a guest
-  (personal trainer). Test episodes: *Toaster Festival* (Hamish, docks as
-  Wellington), *The Launch* (Bev, the Theatre as a rooftop party),
+  `FIELD`, painted (brief 11) with their own brawl bodies; Jeff's drops are
+  sprites; Brody is a guest with a stand-in face (personal trainer). Test episodes: *Toaster Festival* (Hamish, on the
+  Wellington Toaster Festival plate), *The Launch* (Bev, launch-party plate),
   *Nine-Nil* (Brody), *Safety Award* (Jeff, with Kevin picking up the
   light). The twelve earlier episodes had a voice pass to match the bible.
 - Guest art (briefs 09–10): every painted guest has mouth twins and `hurt`;
@@ -426,7 +426,7 @@ before the first hit lands, so it changes with the sim like any other fight.
 - The brawl is a close-up (`BattleRenderer.closeUp`, up to 3.4×): framed on the anchors,
   cut straight to the framing, bottom strip kept clear.
 
-**Not yet:** a real episode and minigame, Brody's art (brief 10), Kevin's two missing heads, brief 11 (the new cast), lazy-loading minigames, per-anchor
+**Not yet:** a real episode and minigame, Brody's art (brief 10), Dusty's redesign (brief 11, part 1 still to come), lazy-loading minigames, per-anchor
 voices beyond pitch and type, links from the rest of the site, sitemap and
 share image (the page is `noindex` until launch).
 

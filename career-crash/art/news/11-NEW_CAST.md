@@ -1,10 +1,13 @@
 # Broken News 11: the new cast, ready-to-paste (Dusty's redesign, Hamish, Bev, Jeff's drops, two locations)
 
-> **Status (9 October 2026):** not delivered yet. Who these people are: the
-> cast bible, `docs/career-crash/11-broken-news-cast.md`. All of them are
-> already in the game with stand-ins (Hamish a sailor's face, Bev a fashion
-> designer's, Jeff's drops as glyphs), so each picture replaces a stand-in
-> the moment it's imported. Brody Kale is in brief 10.
+> **Status (10 October 2026):** B, C, D and E delivered and in the game:
+> Hamish (drawn short, so his stand-in scaling is off) and Bev with their
+> field pictures, twins, brawl bodies (`npc.news-hamish`, `npc.news-bev`) and
+> heads; Jeff's five drops; the Wellington, Wellington Toaster Festival and
+> launch-party plates (*Toaster Festival* and *The Launch* now use them).
+> **Waiting: Dusty's part 1** (A1, the seven new desk pictures). His part 2
+> (twins, body sheet, heads) arrived twice and is held back until part 1
+> comes, so his desk, twins and brawl look all change together.
 
 > Part of the Broken News art set (`art/news/README.md`).
 > **Sending them back:** zips under 30 MB each, about 12 pictures per zip.

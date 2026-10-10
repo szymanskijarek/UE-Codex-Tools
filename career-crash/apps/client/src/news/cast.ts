@@ -65,7 +65,7 @@ export interface Reporter {
   bsn: string;
   /** Their painted pictures, `art/field-<art>-<face>.webp` (brief 06), once they exist. */
   art: string;
-  /** How tall they stand in the shot (1 = everyone else). Hamish is short, so the props loom (cast bible 11 §4). */
+  /** How tall the stand-in stands (1 = everyone else); painted art draws the height itself (Hamish is short, cast bible 11 §4). */
   height?: number;
 }
 
@@ -100,6 +100,7 @@ export const FIELD: Record<'chase' | 'rupert' | 'hamish' | 'bev', Reporter> = {
     name: 'Hamish Tuck',
     role: 'Asia-Pacific Bureau (the bureau is him)',
     career: 'career.sailor',
+    persona: 'npc.news-hamish',
     voice: 'mid',
     pitch: 1.12,
     color: '#0f766e',
@@ -113,6 +114,7 @@ export const FIELD: Record<'chase' | 'rupert' | 'hamish' | 'bev', Reporter> = {
     name: 'Bev Fizzwilliam',
     role: 'Entertainment & Lifestyle · live from the launch',
     career: 'career.fashion-designer',
+    persona: 'npc.news-bev',
     voice: 'bright',
     pitch: 0.92,
     color: '#be185d',

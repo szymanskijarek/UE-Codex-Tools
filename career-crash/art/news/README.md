@@ -1,9 +1,9 @@
 # Broken News: art briefs for the image agent
 
-> **Status (9 October 2026):** briefs 01–03 and 05–09 are in the game, and
-> most of 10 (Tamsin, Ainsley, Kevin, and the retired Coach Biff). Open: 10's
-> Brody and Kevin's two missing heads, and 11 (the new cast: Dusty's
-> redesign, Hamish, Bev, Jeff's drops, two locations), ready-to-paste. Who
+> **Status (10 October 2026):** briefs 01–03 and 05–09 are in the game, most
+> of 10 (Tamsin, Ainsley, Kevin, and the retired Coach Biff) and most of 11
+> (Hamish, Bev, Jeff's drops, the new locations). Open: Brody (10) and
+> Dusty's redesign part 1 (11 A1; part 2 is held until it arrives). Who
 > everyone is: the cast bible, `docs/career-crash/11-broken-news-cast.md`.
 
 Art for **careercrash.org/news** (design: `docs/career-crash/10-broken-news.md`):

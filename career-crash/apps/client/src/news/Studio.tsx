@@ -341,6 +341,7 @@ export function Studio() {
     const field = reporter ? [`./art/field-${reporter.art}-`] : [];
     for (const [key, url] of Object.entries(DESK_ART)) if (desk.some((d) => key.startsWith(d))) new Image().src = url;
     for (const [key, url] of Object.entries(FIELD_ART)) if (field.some((d) => key.startsWith(d))) new Image().src = url;
+    for (const b of ep.beats) if (b.drop && DROP_ART[`./art/drop-${b.drop}.webp`]) new Image().src = DROP_ART[`./art/drop-${b.drop}.webp`]!;
   }, [people, reporter]);
 
   return (
