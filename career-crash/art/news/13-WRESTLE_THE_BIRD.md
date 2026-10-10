@@ -1,7 +1,8 @@
 # Broken News 13: *Wrestle the Bird* (the *Man vs Emu* minigame)
 
-> **Status (10 October 2026):** open. The game is built once this art starts
-> arriving. Part of the Broken News art set (`art/news/README.md`); the emu's
+> **Status (10 October 2026):** delivered and in the game, except
+> `wrestle-emu-kick.png`, which arrived truncated (only the top half): please
+> re-send it. Until then the kick wind-up lunges in its place. Part of the Broken News art set (`art/news/README.md`); the emu's
 > look comes from brief 12 (`12-EMU_AND_ALPACA.md`), so send that one first.
 
 **The game:** first person, on the A381 verge. You are the passer-by,

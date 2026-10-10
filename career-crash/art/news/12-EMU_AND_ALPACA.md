@@ -1,7 +1,6 @@
 # Broken News 12: the emu and the alpaca witness (*Man vs Emu*)
 
-> **Status (10 October 2026):** open. Stand-ins (🦙, 🦤) are in the game until
-> these land. Part of the Broken News art set (`art/news/README.md`).
+> **Status (10 October 2026):** delivered and in the game. Part of the Broken News art set (`art/news/README.md`).
 
 Two animals on location for episode `2026-w42-emu` (*Man vs Emu*): Rupert
 reports from the side of the A381 in Devon, where an escaped emu called

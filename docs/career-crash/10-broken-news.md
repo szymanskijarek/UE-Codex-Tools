@@ -434,12 +434,19 @@ before the first hit lands, so it changes with the sim like any other fight.
   man on the A381 in Devon, late September 2026), Rupert on the sheep-field
   plate; owner's script. Cameos on location (`field.cameos`): the alpaca
   witness pans in beside Rupert, and the emu is loose again in the far field
-  at the end (stand-in glyphs until art brief 12). Still on the `test-card`
-  minigame.
+  at the end (art brief 12).
+- First real minigame: **Wrestle the Bird** (`minigames/wrestle/`, art brief
+  13). First person on the sheep-field plate: Side Neck winds up a peck, a
+  kick or a body slam, its note falls down that lane, and the player grabs,
+  blocks or ducks on the beat (tap the left/middle/right third, or ← ↓ →).
+  16 attacks, faster and tighter as it goes (`rules.ts`: fall 1.5 → 0.72 s,
+  window ±240 → ±85 ms); each one that lands costs the trousers a stage, four
+  and they're gone. Minigames now get the studio's `sfx`. The kick frame
+  arrived truncated: the kick wind-up lunges in its place until it's re-sent.
 - On air: only *Man vs Emu* and *Chairs Recalled* (`active: false` on the
   other fifteen, which still play by `?ep=`).
 
-**Not yet:** a real minigame, Brody's art (brief 10), lazy-loading minigames, per-anchor
+**Not yet:** the emu's kick frame (re-send), Brody's art (brief 10), lazy-loading minigames, per-anchor
 voices beyond pitch and type, links from the rest of the site, sitemap and
 share image (the page is `noindex` until launch).
 

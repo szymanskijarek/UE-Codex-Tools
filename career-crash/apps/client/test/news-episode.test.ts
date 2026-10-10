@@ -6,7 +6,7 @@ import { EPISODES, ON_AIR, pickEpisode } from '../src/news/episodes';
 import { voiceFlags } from '../src/news/voice';
 import pilot from '../src/news/episodes/2026-w41-printers.json';
 
-const MINIGAMES = ['test-card'];
+const MINIGAMES = ['test-card', 'wrestle'];
 const ep = pilot as Episode;
 
 describe('Broken News episodes (10 §4)', () => {

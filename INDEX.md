@@ -82,7 +82,7 @@ and share the sim, renderer, puppets, audio and content bundle with Career Crash
 | What | Where |
 |---|---|
 | Design | `docs/career-crash/10-broken-news.md`: §2 the segment (2.1 heat, 2.2 score), §3 cast and studio (3.4 what BSN stands for), §4 episode script format and checks (4.3 the real story, 4.4 comic timing), §5 minigame contract, §6 weekly pipeline, **§7 content rules for real news**, §10 as built + "Not yet", §11 owner decisions, §12 feed ads, §13 field reports; cast bible `docs/career-crash/11-broken-news-cast.md` (characters, likability rules, relationships, story leads, §10 voice rules) |
-| Page | entry `career-crash/apps/client/news/index.html`; code `apps/client/src/news/` (`Studio.tsx` segment player, `episode.ts` format/timeline/checks, `cast.ts`, `episodes/*.json`, `minigames/`) |
+| Page | entry `career-crash/apps/client/news/index.html`; code `apps/client/src/news/` (`Studio.tsx` segment player, `episode.ts` format/timeline/checks, `cast.ts`, `episodes/*.json`, `minigames/`: `test-card`, `wrestle/` = Wrestle the Bird) |
 | Feed ads | `promotedPosts` in `apps/client/src/career/feed.ts` (`news_ad`, `news_ad_link` in `live.json`), placed in `Hub.tsx` |
 | Voice check (who says what) | `apps/client/src/news/voice.ts`; skill `.claude/skills/broken-news-voice/SKILL.md` |
 | On air | `active` in each episode JSON (`ON_AIR` in `episodes.ts`) |

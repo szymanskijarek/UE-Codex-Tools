@@ -285,6 +285,7 @@ export function Studio() {
     if (stage !== 'game' || !game || !gameHost.current) return;
     return game.mount(gameHost.current, {
       episode: ep,
+      sfx,
       done: (r) => {
         setResult(r);
         setTimeout(() => setStage('signoff'), 700);
