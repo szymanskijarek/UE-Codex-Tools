@@ -2,7 +2,7 @@
 
 > **Status (10 October 2026):** briefs 01–09, 11, 12 and 13 are in the game, and
 > most of 10 (Tamsin, Ainsley, Kevin, and the retired Coach Biff). Open:
-> Brody (10). Who everyone is: the cast bible,
+> Brody (10), *Spinning With Intent* (14). Who everyone is: the cast bible,
 > `docs/career-crash/11-broken-news-cast.md`.
 
 Art for **careercrash.org/news** (design: `docs/career-crash/10-broken-news.md`):
@@ -31,6 +31,7 @@ the house style and the layout rules it needs.
 | 11 | [`11-NEW_CAST.md`](11-NEW_CAST.md) | Ready-to-paste: Dusty redesigned, Hamish (short) and Bev complete, Jeff's five drops, Wellington and launch-party plates | 54 | **1** |
 | 12 | [`12-EMU_AND_ALPACA.md`](12-EMU_AND_ALPACA.md) | Ready-to-paste: the alpaca witness (still, chewing) and Side Neck the emu (two running frames), sprites for *Man vs Emu* | 4 | **1** |
 | 13 | [`13-WRESTLE_THE_BIRD.md`](13-WRESTLE_THE_BIRD.md) | Ready-to-paste: the *Man vs Emu* minigame, first person: Side Neck close up (idle, wind-ups, attacks, dazed, endings), your hands, the trouser integrity meter | 22 | **1** |
+| 14 | [`14-SPINNING_WITH_INTENT.md`](14-SPINNING_WITH_INTENT.md) | Ready-to-paste: the *Chairs Recalled* minigame, top down: the chair (base, seat in three damage states, wrecked), Brock from above, ten pieces of furniture, floor and wall tiles | 23 | **1** |
 
 Order: the desk shot is what everyone sees first and for longest (about 30
 seconds of every episode), so it comes first; the fighters next, since the

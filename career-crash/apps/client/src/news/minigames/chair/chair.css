@@ -1,0 +1,221 @@
+/* Spinning With Intent (minigames/chair): top down through the BSN building. Sizes in cqw (the TV frame). */
+.bn-c {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #0a0d18;
+  color: #fff;
+  font-weight: 900;
+  user-select: none;
+  touch-action: none;
+}
+.bn-c canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.bn-c-shake canvas {
+  animation: bn-c-shake 0.25s linear;
+}
+@keyframes bn-c-shake {
+  25% {
+    transform: translate(-0.8%, 0.5%);
+  }
+  50% {
+    transform: translate(0.7%, -0.5%);
+  }
+  75% {
+    transform: translate(-0.4%, 0.3%);
+  }
+}
+
+.bn-c-hud {
+  position: absolute;
+  top: 3%;
+  left: 2.5%;
+  right: 2.5%;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  pointer-events: none;
+  text-shadow: 0 0.2cqw 0 #000;
+}
+.bn-c-hp span {
+  display: block;
+  font-size: 1.4cqw;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.5cqw;
+}
+.bn-c-bar {
+  width: 22cqw;
+  height: 1.6cqw;
+  background: #fff2;
+  border: 0.2cqw solid #fff5;
+  border-radius: 1cqw;
+  overflow: hidden;
+}
+.bn-c-bar b {
+  display: block;
+  height: 100%;
+  background: linear-gradient(90deg, #22c55e, #a3e635);
+  transition: width 0.25s;
+}
+.bn-c-low b {
+  background: linear-gradient(90deg, #ef4444, #f97316);
+  animation: bn-c-blink 0.5s steps(2) infinite;
+}
+@keyframes bn-c-blink {
+  50% {
+    opacity: 0.4;
+  }
+}
+.bn-c-time {
+  font-size: 2.4cqw;
+  font-variant-numeric: tabular-nums;
+  background: #0b1020c0;
+  padding: 0.4cqw 1.2cqw;
+  border-radius: 0.6cqw;
+}
+
+.bn-c-call {
+  position: absolute;
+  left: 50%;
+  top: 20%;
+  translate: -50% 0;
+  font-size: 3.4cqw;
+  white-space: nowrap;
+  text-shadow: 0 0.3cqw 0 #000, 0 0 1.2cqw #000;
+  opacity: 0;
+  pointer-events: none;
+}
+.bn-c-good {
+  color: var(--bn-gold, #f5c518);
+  font-size: 4.6cqw;
+}
+.bn-c-bad {
+  color: #f43f5e;
+}
+.bn-c-warn {
+  color: #fbbf24;
+  font-size: 2.6cqw;
+}
+.bn-c-jeff {
+  font-size: 2.2cqw;
+  font-style: italic;
+  color: #cbd5e1;
+}
+.bn-c-pop {
+  animation: bn-c-pop 1.4s ease-out both;
+}
+@keyframes bn-c-pop {
+  0% {
+    opacity: 0;
+    scale: 0.7;
+  }
+  12% {
+    opacity: 1;
+    scale: 1.08;
+  }
+  25% {
+    scale: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Touch controls: shown on touch screens only. */
+.bn-c-pad {
+  display: none;
+}
+.bn-c-touch {
+  display: block;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.bn-c-stick {
+  position: absolute;
+  left: 14%;
+  top: 72%;
+  width: 12cqw;
+  height: 12cqw;
+  translate: -50% -50%;
+  border-radius: 50%;
+  border: 0.3cqw solid #fff6;
+  background: #0006;
+  opacity: 0.5;
+}
+.bn-c-stick b {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 5cqw;
+  height: 5cqw;
+  margin: -2.5cqw;
+  border-radius: 50%;
+  background: #fffc;
+}
+.bn-c-push {
+  position: absolute;
+  right: 5%;
+  bottom: 10%;
+  width: 13cqw;
+  height: 13cqw;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-style: normal;
+  font-size: 2cqw;
+  background: #c8102e99;
+  border: 0.3cqw solid #fff8;
+  opacity: 0.6;
+}
+.bn-c-on {
+  opacity: 1;
+}
+
+.bn-c-ready {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.2cqw;
+  text-align: center;
+  background: #050811d0;
+  padding: 0 8%;
+}
+.bn-c-ready b {
+  font-size: 4.2cqw;
+  color: var(--bn-gold, #f5c518);
+}
+.bn-c-ready p {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.8cqw;
+  line-height: 1.45;
+}
+.bn-c-ready em {
+  font-style: normal;
+  color: var(--bn-gold, #f5c518);
+}
+.bn-c-how {
+  font-size: 1.5cqw;
+  opacity: 0.75;
+}
+.bn-c-ready button {
+  margin-top: 0.8cqw;
+  font: inherit;
+  font-size: 2.2cqw;
+  padding: 1cqw 3cqw;
+  border: 0;
+  border-radius: 0.8cqw;
+  background: var(--bn-red, #c8102e);
+  color: #fff;
+  cursor: pointer;
+}

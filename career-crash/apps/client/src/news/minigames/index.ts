@@ -39,6 +39,7 @@ const once = (f: () => Promise<Minigame>) => {
 
 export const MINIGAMES: MinigameEntry[] = [
   { id: 'test-card', title: 'Please Stand By', blurb: 'Tap the test card until the signal comes back.', load: once(() => import('./test-card').then((m) => m.testCard)) },
+  { id: 'chair', title: 'Spinning With Intent', blurb: "You are Jeff's recalled chair. Find Brock. Hit Brock.", load: once(() => import('./chair').then((m) => m.chair)) },
   { id: 'wrestle', title: 'Wrestle the Bird', blurb: 'Grab, block or duck on the beat. Protect the trousers.', load: once(() => import('./wrestle').then((m) => m.wrestle)) },
 ];
 

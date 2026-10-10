@@ -448,6 +448,16 @@ before the first hit lands, so it changes with the sim like any other fight.
   16 attacks, faster and tighter as it goes (`rules.ts`: fall 1.5 → 0.72 s,
   window ±240 → ±85 ms); each one that lands costs the trousers a stage, four
   and they're gone. Minigames now get the studio's `sfx`.
+- Second minigame, block-out: **Spinning With Intent** (`minigames/chair/`,
+  *Chairs Recalled*, art brief 14). Top down, you are Jeff's recalled chair:
+  out of the props store, through the newsroom and green room, into Studio 1,
+  and into Brock fast enough to knock him over. Steer with WASD/arrows (or a
+  thumb stick on the left half of a touch screen), push with Space (or hold
+  the right half). The chair keeps its momentum (`rules.ts`: thrust, drag,
+  turn rate); walls and furniture cost integrity by impact speed, and an
+  arrow at the edge points to Brock. The building is `map.ts` (rectangles; a
+  test checks the chair fits from start to Brock). Shapes and labels until
+  brief 14's sprites land, picked up by name.
 - On air: only *Man vs Emu* and *Chairs Recalled* (`active: false` on the
   other fifteen, which still play by `?ep=`).
 
