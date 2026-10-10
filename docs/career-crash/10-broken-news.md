@@ -1,9 +1,10 @@
 # 10 — Broken News (design v0.1)
 
-Status: **block-out** (§10). The reusable studio open runs end to end at
-`careercrash.org/news/` (unlisted, `noindex`) with painted art for the
-studio, anchors, guests and field reporters, sixteen fictional test episodes,
-the first real-news script (*Man vs Emu*, §10) and a placeholder minigame.
+Status: **live** (§10). The studio open runs end to end at
+`careercrash.org/news/` (indexed, in the sitemap) with painted art for the
+studio, anchors, guests and field reporters. On air: *Man vs Emu* (the first
+real story) and *Chairs Recalled*, each with its own minigame; sixteen
+fictional test episodes stay playable by `?ep=`.
 
 A weekly news show, as a game. Every week a new minigame covers one story from
 the world news, comically and sarcastically, and every minigame starts the
@@ -308,7 +309,9 @@ signal comes back), shows the contract.
 6. `pnpm check`, play it, screenshot each phase (`?at=<ms>` starts the open
    part-way in), then release as usual (`WORKFLOW.md`) whenever it's ready:
    there is no fixed day (§11). The feed ads pick up the newest episode
-   automatically.
+   automatically. Update the "On air now" list in `news/index.html` (what
+   search engines read) when an episode goes on or off air; the test fails
+   until it matches.
 
 Past episodes stay playable (`?ep=<id>`, and a picker under the screen when
 there's more than one).
@@ -391,7 +394,7 @@ before the first hit lands, so it changes with the sim like any other fight.
   strip; the clock sits above the strap, bottom right.
 - Page art (brief 05): the BSN bug in the corner, the show logo on the page
   and start card, the painted ident, a share image and icons in the link
-  preview (still `noindex`).
+  preview.
 - Episodes (all fictional, for testing the format; each riffs on a Monty
   Python sketch): *Printers Unionise* (pilot), *Chairs Recalled*, *Clinics
   Strike* (Argument Clinic), *Ex-Coin* (Dead Parrot; plugs Crypto Bros),
@@ -462,9 +465,15 @@ before the first hit lands, so it changes with the sim like any other fight.
 - On air: only *Man vs Emu* and *Chairs Recalled* (`active: false` on the
   other fifteen, which still play by `?ep=`).
 
-**Not yet:** Brody's art (brief 10), per-anchor
-voices beyond pitch and type, links from the rest of the site, sitemap and
-share image (the page is `noindex` until launch).
+- Search (10 October): indexed. `news/index.html` has a canonical URL,
+  `VideoGame` and breadcrumb structured data, and text for crawlers listing
+  the episodes on air (a test keeps that list in step with `active`); `/news/`
+  is in `sitemap.xml` and linked from the home page's crawler text. A link to
+  one episode (`?ep=`) names it in the tab title; its canonical stays `/news/`.
+
+**Not yet:** Brody's art (brief 10), per-anchor voices beyond pitch and type,
+a visible link from the game itself (owner: feed ads only, §11), per-episode
+pages (`/news/<id>`) with their own share images.
 
 ## 11. Owner decisions (9 October 2026)
 

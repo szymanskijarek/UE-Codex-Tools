@@ -164,11 +164,11 @@ props, 344 abilities (every career has a Senior Move), 28 summoned critters, 132
 
 | What | Where |
 |---|---|
-| `robots.txt`, `sitemap.xml` (the three real pages) | `apps/client/public/` |
-| Title, description, canonical, Open Graph / Twitter tags | each page's `index.html` (`apps/client/index.html`, `cryptobro/`, `incident/`) |
-| Structured data (`WebSite`, `VideoGame`) | `apps/client/index.html` |
-| Share images (1200 × 630) | `public/share.jpg`, `public/cryptobro/share.jpg`, `public/incident/share.jpg` |
-| Text for crawlers and no-JavaScript visitors | inside `<div id="app">` in each `index.html`; each `main.tsx` clears it before rendering |
+| `robots.txt`, `sitemap.xml` (the four real pages) | `apps/client/public/` |
+| Title, description, canonical, Open Graph / Twitter tags | each page's `index.html` (`apps/client/index.html`, `cryptobro/`, `incident/`, `news/`) |
+| Structured data (`WebSite`, `VideoGame`; Broken News: `VideoGame`, breadcrumbs) | `apps/client/index.html`, `news/index.html` |
+| Share images (1200 × 630) | `public/share.jpg`, `public/cryptobro/share.jpg`, `public/incident/share.jpg`, `public/news/share.jpg` |
+| Text for crawlers and no-JavaScript visitors | inside `<div id="app">` in each `index.html`; each `main.tsx` clears it before rendering. Broken News lists the episodes on air (a test checks it) |
 | www → careercrash.org (301) | `apps/client/src/site-worker.ts` |
 
 `share.jpg` and `incident/share.jpg` are Sandbox / Summit screenshots with a title

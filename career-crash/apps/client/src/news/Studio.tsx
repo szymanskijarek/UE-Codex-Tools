@@ -144,6 +144,10 @@ type Stage = 'cold' | 'segment' | 'game' | 'signoff';
 
 export function Studio() {
   const ep = useMemo(() => pickEpisode(), []);
+  // A link to one episode (?ep=) names it in the tab, and in search results that render the page.
+  useEffect(() => {
+    if (new URLSearchParams(window.location.search).has('ep')) document.title = `${ep.headline.toLowerCase().replace(/\b(?!vs\b|of\b|the\b|and\b)\w/g, (c) => c.toUpperCase())} · Broken News on BSN`;
+  }, [ep]);
   const people = useMemo(() => cast(ep), [ep]);
   const reporter = useMemo(() => reporterOf(ep), [ep]);
   /** Everyone who can speak: the desk, the guest, the reporter and Jeff off screen (the brawl is only the studio). */

@@ -1,3 +1,4 @@
+import { readFileSync } from 'node:fs';
 import { describe, expect, it } from 'vitest';
 import { ANCHORS, FIELD } from '../src/news/cast';
 import type { Beat } from '../src/news/episode';
@@ -61,6 +62,13 @@ describe('Broken News episodes (10 §4)', () => {
     const f = voiceFlags(slips).join('\n');
     for (const want of ['line 1: Philippa is British', 'line 2: Brock never gets her surname right', 'line 3: Kevin never speaks', 'line 5: Philippa is never cruel']) expect(f).toContain(want);
     expect(f).not.toMatch(/line [46]:/);
+  });
+
+  it("the page's text for crawlers lists exactly the episodes on air", () => {
+    const html = readFileSync(new URL('../news/index.html', import.meta.url), 'utf8');
+    const listed = [...html.matchAll(/\/news\/\?ep=([\w-]+)/g)].map((m) => m[1]).sort();
+    expect(listed).toEqual(ON_AIR.map((e) => e.id).sort());
+    expect(html).not.toMatch(/name="robots"/);
   });
 
   it('only episodes on air are offered, but any one plays by id', () => {

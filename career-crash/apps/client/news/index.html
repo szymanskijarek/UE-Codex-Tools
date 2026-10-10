@@ -4,10 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0a1022" />
-    <title>Broken News on BSN · Career Crash</title>
-    <meta name="description" content="Broken News: two anchors, one desk, zero professionalism. Every week the news spirals into a brawl and a minigame." />
-    <!-- Prototype: kept out of search until it launches. -->
-    <meta name="robots" content="noindex" />
+    <title>Broken News: the week's news as a brawl, then a game · Career Crash</title>
+    <meta name="description" content="Broken News on BSN: two cable-news anchors read a real story, argue, and brawl across the desk. Then you play the story in a free browser minigame. This week: Man vs Emu." />
+    <link rel="canonical" href="https://careercrash.org/news/" />
     <meta property="og:site_name" content="Career Crash" />
     <meta property="og:title" content="Broken News · on BSN" />
     <meta property="og:description" content="Two anchors, one desk, zero professionalism. The news spirals into a brawl, then you play the story." />
@@ -18,15 +17,52 @@
     <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Two cartoon news anchors brawling across a news desk, papers and a coffee mug flying." />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Broken News · on BSN" />
+    <meta name="twitter:description" content="Two anchors, one desk, zero professionalism. The news spirals into a brawl, then you play the story." />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "VideoGame",
+            "name": "Broken News",
+            "url": "https://careercrash.org/news/",
+            "image": "https://careercrash.org/news/share.jpg",
+            "description": "News satire as a game: two cable-news anchors read a real story, argue and brawl, then the player plays the story in a short minigame.",
+            "genre": ["Comedy", "News satire", "Minigames"],
+            "gamePlatform": "Web browser",
+            "applicationCategory": "Game",
+            "operatingSystem": "Any",
+            "playMode": "SinglePlayer",
+            "isAccessibleForFree": true,
+            "inLanguage": "en",
+            "isPartOf": { "@type": "VideoGame", "name": "Career Crash", "url": "https://careercrash.org/" }
+          },
+          {
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              { "@type": "ListItem", "position": 1, "name": "Career Crash", "item": "https://careercrash.org/" },
+              { "@type": "ListItem", "position": 2, "name": "Broken News", "item": "https://careercrash.org/news/" }
+            ]
+          }
+        ]
+      }
+    </script>
     <link rel="icon" type="image/png" href="/news/icon-64.png" />
     <link rel="apple-touch-icon" href="/news/icon-180.png" />
   </head>
   <body class="bn-page">
-    <!-- Shown until the page starts (Preact replaces it). -->
+    <!-- Shown until the page starts (Preact replaces it), and all that crawlers and link previews without JavaScript see. Update the episodes with each new one. -->
     <div id="app">
       <main style="max-width: 640px; margin: 0 auto; padding: 48px 16px; line-height: 1.5">
-        <h1 style="margin: 0 0 8px">Broken News</h1>
-        <p style="margin: 0 0 16px">Two anchors read the week's news, argue, and brawl. Then you play the story. Part of <a href="/">Career Crash</a>.</p>
+        <h1 style="margin: 0 0 8px">Broken News, on BSN</h1>
+        <p style="margin: 0 0 16px"><strong>The week's news as a brawl, then a game.</strong> Two cable-news anchors, Brock Stetson Jr. and Philippa Featherstonehaugh, read a real story. The conversation spirals, they brawl across the desk, and then you play the story in a short free minigame. Every episode ends with what really happened and a link to the source.</p>
+        <h2 style="margin: 24px 0 8px; font-size: 1.2em">On air now</h2>
+        <ul style="margin: 0 0 16px; padding-left: 20px">
+          <li><a href="/news/?ep=2026-w42-emu">Man vs Emu</a>: an escaped emu called Side Neck wrestles a man on a Devon road, and wins. Play <em>Wrestle the Bird</em>: grab, block or duck on the beat to protect your trousers.</li>
+          <li><a href="/news/?ep=2026-w41-chairs">Chairs Recalled</a>: forty thousand office chairs recalled for "spinning with intent". Play <em>Spinning With Intent</em>: steer a runaway chair through the TV station and into the anchor.</li>
+        </ul>
+        <p style="margin: 0 0 16px">Part of <a href="/">Career Crash</a>, the free browser brawler where ordinary jobs fight it out. Also on careercrash.org: <a href="/cryptobro/">Crypto Bros</a> and <a href="/incident/">Diplomatic Incident</a>.</p>
         <noscript><p>Broken News needs JavaScript to run.</p></noscript>
       </main>
     </div>
