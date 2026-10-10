@@ -1,8 +1,8 @@
 # Broken News: art briefs for the image agent
 
-> **Status (10 October 2026):** briefs 01–09, 11, 12 and 13 are in the game, and
+> **Status (10 October 2026):** briefs 01–09 and 11–14 are in the game, and
 > most of 10 (Tamsin, Ainsley, Kevin, and the retired Coach Biff). Open:
-> Brody (10), *Spinning With Intent* (14). Who everyone is: the cast bible,
+> Brody (10). Who everyone is: the cast bible,
 > `docs/career-crash/11-broken-news-cast.md`.
 
 Art for **careercrash.org/news** (design: `docs/career-crash/10-broken-news.md`):

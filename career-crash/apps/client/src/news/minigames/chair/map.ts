@@ -55,28 +55,28 @@ export const WALLS: Rect[] = [
 
 export const PROPS: Prop[] = [
   // Props store: shelving the chair has to get round.
-  { kind: 'shelves', x: 120, y: 1040, w: 300, h: 70 },
-  { kind: 'shelves', x: 300, y: 1260, w: 300, h: 70 },
+  { kind: 'shelves', x: 120, y: 1058, w: 300, h: 34 },
+  { kind: 'shelves', x: 300, y: 1278, w: 300, h: 34 },
   { kind: 'cable-reel', x: 520, y: 1480, w: 80, h: 80 },
   // Newsroom: rows of desks.
-  { kind: 'news-desk', x: 860, y: 960, w: 220, h: 110 },
-  { kind: 'news-desk', x: 860, y: 1320, w: 220, h: 110 },
-  { kind: 'news-desk', x: 1240, y: 1140, w: 220, h: 110 },
-  { kind: 'news-desk', x: 1600, y: 960, w: 220, h: 110 },
-  { kind: 'news-desk', x: 1600, y: 1320, w: 220, h: 110 },
+  { kind: 'news-desk', x: 860, y: 975, w: 220, h: 80 },
+  { kind: 'news-desk', x: 860, y: 1335, w: 220, h: 80 },
+  { kind: 'news-desk', x: 1240, y: 1155, w: 220, h: 80 },
+  { kind: 'news-desk', x: 1600, y: 975, w: 220, h: 80 },
+  { kind: 'news-desk', x: 1600, y: 1335, w: 220, h: 80 },
   { kind: 'water-cooler', x: 2240, y: 1460, w: 60, h: 60 },
-  { kind: 'coffee-cart', x: 1980, y: 1180, w: 140, h: 80 },
+  { kind: 'coffee-cart', x: 1980, y: 1189, w: 140, h: 62 },
   // Green room.
   { kind: 'sofa', x: 1900, y: 380, w: 240, h: 100 },
   { kind: 'plant', x: 2260, y: 80, w: 70, h: 70 },
   { kind: 'plant', x: 1560, y: 680, w: 70, h: 70 },
-  { kind: 'coffee-cart', x: 1620, y: 120, w: 140, h: 80 },
+  { kind: 'coffee-cart', x: 1620, y: 129, w: 140, h: 62 },
   // Studio 1: cameras and lights between the door and the desk.
-  { kind: 'camera', x: 1120, y: 200, w: 110, h: 110 },
-  { kind: 'camera', x: 1120, y: 520, w: 110, h: 110 },
-  { kind: 'light', x: 820, y: 360, w: 70, h: 70 },
-  { kind: 'light', x: 760, y: 90, w: 70, h: 70 },
-  { kind: 'light', x: 760, y: 640, w: 70, h: 70 },
+  { kind: 'camera', x: 1120, y: 215, w: 110, h: 80 },
+  { kind: 'camera', x: 1120, y: 535, w: 110, h: 80 },
+  { kind: 'light', x: 823, y: 355, w: 64, h: 80 },
+  { kind: 'light', x: 763, y: 85, w: 64, h: 80 },
+  { kind: 'light', x: 763, y: 635, w: 64, h: 80 },
   { kind: 'cable-reel', x: 960, y: 420, w: 80, h: 80 },
   // The anchor desk: Brock sits on its open (east) side, facing the cameras.
   { kind: 'anchor-desk', x: 160, y: 250, w: 160, h: 300 },

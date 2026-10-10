@@ -1,8 +1,8 @@
 # Broken News 14: *Spinning With Intent* (the *Chairs Recalled* minigame)
 
-> **Status (10 October 2026):** open. The game is built as a block-out
-> (shapes and labels); each picture here replaces its shape by name as soon
-> as it's imported. Part of the Broken News art set (`art/news/README.md`).
+> **Status (10 October 2026):** delivered and in the game. Furniture is
+> cropped to what's drawn on import, and the footprints in `map.ts` follow
+> each picture's proportions. Part of the Broken News art set (`art/news/README.md`).
 
 **The game:** top down. You are **Jeff's recalled office chair** (the one
 that hit Brock in *Chairs Recalled*), loose in the BSN building. Roll out of

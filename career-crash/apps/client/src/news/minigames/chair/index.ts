@@ -268,7 +268,8 @@ export const chair: Minigame = {
       const im = sprite(down ? 'brock-hit' : startled ? 'brock-startled' : 'brock');
       g.save();
       g.translate(BROCK.x, BROCK.y);
-      if (down) g.rotate(Math.min(1, (now - brockHitAt) / 300) * 1.4);
+      // The block-out tips over; the painted one is already sprawled.
+      if (down && !im) g.rotate(Math.min(1, (now - brockHitAt) / 300) * 1.4);
       if (im) {
         g.drawImage(im, -BROCK.r * 1.6, -BROCK.r * 1.6, BROCK.r * 3.2, BROCK.r * 3.2);
       } else {
