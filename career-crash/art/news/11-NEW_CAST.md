@@ -1,13 +1,11 @@
 # Broken News 11: the new cast, ready-to-paste (Dusty's redesign, Hamish, Bev, Jeff's drops, two locations)
 
-> **Status (10 October 2026):** B, C, D and E delivered and in the game:
-> Hamish (drawn short, so his stand-in scaling is off) and Bev with their
-> field pictures, twins, brawl bodies (`npc.news-hamish`, `npc.news-bev`) and
-> heads; Jeff's five drops; the Wellington, Wellington Toaster Festival and
-> launch-party plates (*Toaster Festival* and *The Launch* now use them).
-> **Waiting: Dusty's part 1** (A1, the seven new desk pictures). His part 2
-> (twins, body sheet, heads) arrived twice and is held back until part 1
-> comes, so his desk, twins and brawl look all change together.
+> **Status (10 October 2026):** delivered and in the game, all five parts:
+> Dusty redesigned (desk pictures, twins, brawl body `npc.news-dusty` and
+> heads, all switched together; the old sheet's manifest cuts were dropped,
+> the new one slices cleanly), Hamish (drawn short, so his stand-in scaling
+> is off) and Bev with field pictures, twins, brawl bodies and heads, Jeff's
+> five drops, and the Wellington, Toaster Festival and launch-party plates.
 
 > Part of the Broken News art set (`art/news/README.md`).
 > **Sending them back:** zips under 30 MB each, about 12 pictures per zip.

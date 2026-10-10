@@ -426,7 +426,7 @@ before the first hit lands, so it changes with the sim like any other fight.
 - The brawl is a close-up (`BattleRenderer.closeUp`, up to 3.4×): framed on the anchors,
   cut straight to the framing, bottom strip kept clear.
 
-**Not yet:** a real episode and minigame, Brody's art (brief 10), Dusty's redesign (brief 11, part 1 still to come), lazy-loading minigames, per-anchor
+**Not yet:** a real episode and minigame, Brody's art (brief 10), lazy-loading minigames, per-anchor
 voices beyond pitch and type, links from the rest of the site, sitemap and
 share image (the page is `noindex` until launch).
 

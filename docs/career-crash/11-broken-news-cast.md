@@ -237,13 +237,12 @@ personally.*
 - **Why we love him:** he has a PhD and genuine joy. Philippa is the only one
   who listens to his isobars, and the two of them nerding out is the show's
   sweetest scene.
-- **Redesign (his art needs work):** today he reads as a blond handsome man
-  in a suit, too close to Brock and to Wes. Give him his own silhouette:
-  **tall, lanky, a little stooped**, big round glasses that fog up, freckles,
-  a **too-big yellow rain mac over a teal cardigan with a cloud pattern**, a
-  pocket barometer on a chain, and **weathervane hair**: a red-ginger cowlick
-  that always points the way the wind is blowing (indoors too). Keep his
-  colours (teal and yellow) and his name.
+- **Look (redesigned, brief 11 A):** his own silhouette, so he no longer
+  reads as another Brock or Wes: **tall, lanky, a little stooped**, big
+  round glasses that fog up, freckles, a **too-big yellow rain mac over a
+  teal cardigan with a cloud pattern**, a pocket barometer on a chain, and
+  **weathervane hair**: a red-ginger cowlick that always points the way the
+  wind is blowing (indoors too).
 
 > *"That's not a cloud, Brock. That's Gerald. And Gerald is upset."*
 

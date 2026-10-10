@@ -1005,49 +1005,6 @@
    "footR": 12
   }
  },
- "npc-news-dusty": {
-  "cut": [
-   [
-    3,
-    0.351
-   ],
-   [
-    201,
-    0.282
-   ],
-   [
-    202,
-    0.364
-   ],
-   [
-    203,
-    0.364
-   ],
-   [
-    204,
-    0.556
-   ],
-   [
-    205,
-    0.556
-   ]
-  ],
-  "parts": {
-   "head": 1,
-   "torso": 3,
-   "pelvis": 201,
-   "upperArmL": 2,
-   "upperArmR": 4,
-   "foreArmL": 5,
-   "foreArmR": 6,
-   "thighL": 202,
-   "thighR": 203,
-   "shinL": 204,
-   "shinR": 205,
-   "footL": 206,
-   "footR": 207
-  }
- },
  "npc-news-tamsin": {
   "split": [
    [

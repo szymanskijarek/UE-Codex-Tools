@@ -4,7 +4,8 @@
 > the game (a seventh, presenting while facing the camera, is kept as
 > `desk-dusty-neutral-front.png`). His body sheet
 > (`npc.news-dusty`, six manifest cuts) and four fight heads are in too, so
-> Dusty is complete (his mouth twins are in brief 09). The other guests are
+> Dusty is complete. He has since been redesigned (brief 11 A: tall, lanky,
+> yellow rain mac, weathervane hair); the pictures above are the new look. The other guests are
 > now ready-to-paste prompts in brief 10.
 
 > Part of the Broken News art set (`art/news/README.md`). Design:
