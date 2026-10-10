@@ -2,7 +2,7 @@
 
 > **Status (10 October 2026):** briefs 01–09 and 11 are in the game, and
 > most of 10 (Tamsin, Ainsley, Kevin, and the retired Coach Biff). Open:
-> Brody (10). Who everyone is: the cast bible,
+> Brody (10), the emu and the alpaca (12). Who everyone is: the cast bible,
 > `docs/career-crash/11-broken-news-cast.md`.
 
 Art for **careercrash.org/news** (design: `docs/career-crash/10-broken-news.md`):
@@ -29,6 +29,7 @@ the house style and the layout rules it needs.
 | 9 | [`09-GUEST_MOUTHS_AND_HURT.md`](09-GUEST_MOUTHS_AND_HURT.md) | Ready-to-paste: mouth twins for Dusty and four episode guests, `hurt` for the five episode guests | 20 + 5 | **1** |
 | 10 | [`10-LATER_GUESTS.md`](10-LATER_GUESTS.md) | Ready-to-paste: Brody, Tamsin, Ainsley and Kevin, complete (desk, twins, `hurt`, body sheet, heads) | 4 × 16 | 2 |
 | 11 | [`11-NEW_CAST.md`](11-NEW_CAST.md) | Ready-to-paste: Dusty redesigned, Hamish (short) and Bev complete, Jeff's five drops, Wellington and launch-party plates | 54 | **1** |
+| 12 | [`12-EMU_AND_ALPACA.md`](12-EMU_AND_ALPACA.md) | Ready-to-paste: the alpaca witness (still, chewing) and Side Neck the emu (two running frames), sprites for *Man vs Emu* | 4 | **1** |
 
 Order: the desk shot is what everyone sees first and for longest (about 30
 seconds of every episode), so it comes first; the fighters next, since the

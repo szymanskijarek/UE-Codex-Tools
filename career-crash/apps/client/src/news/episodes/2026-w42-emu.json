@@ -6,7 +6,7 @@
   "chyron": "DEADLY DUEL IN DEVON: MAN VS BIRD",
   "ticker": [
     "EMU RETURNS HOME, \"NO REGRETS\"",
-    "ALPACA WITNESS DECLINES TO COMMENT",
+    "ALPACA WITNESS \"DEEPLY UNIMPRESSED\"",
     "TROUSERS RECOVERED, SAID TO BE \"IN STABLE CONDITION\"",
     "EMU FACT: CAN RUN AT 30 MPH. MAN FACT: CANNOT",
     "CAREERCRASH.ORG: THE ZOOKEEPER SAYS HE'D HAVE HANDLED IT"
@@ -16,7 +16,19 @@
     "location": "news:sheep-field",
     "dateline": "THE A381, NEAR SALCOMBE, DEVON",
     "localTime": "4:45 AM",
-    "enters": 4
+    "enters": 4,
+    "cameos": [
+      {
+        "art": "alpaca",
+        "from": 5,
+        "spot": "beside"
+      },
+      {
+        "art": "emu",
+        "from": 10,
+        "spot": "far"
+      }
+    ]
   },
   "beats": [
     {
@@ -50,6 +62,11 @@
     {
       "who": "field",
       "heat": 1,
+      "text": "The sole witness, a woolly gentleman of Andean extraction, watched the entire engagement from the gate. He has declined to comment."
+    },
+    {
+      "who": "field",
+      "heat": 1,
       "text": "Twenty seconds of hand-to-wing combat. The man fell. The bird withdrew to its own lines. And there was, I'm afraid, a casualty.",
       "pause": "long"
     },
@@ -74,7 +91,7 @@
       "who": "us",
       "heat": 2,
       "text": "A bird called Side Neck is ALWAYS serious business.",
-      "shot": "desk",
+      "shot": "split",
       "pause": "beat"
     },
     {
@@ -82,7 +99,7 @@
       "heat": 2,
       "text": "It's an oversized chicken.",
       "mood": "neutral",
-      "shot": "desk",
+      "shot": "split",
       "pause": "long"
     },
     {

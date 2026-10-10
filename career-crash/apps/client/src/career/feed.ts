@@ -3,7 +3,7 @@ import { careerRank, grantableAbilities, marketFighter, RANKS, shortName, stageI
 import { Rng } from '@cc/sim';
 import { nameOf } from '../i18n';
 import { lootName, lootStatsText, RARITY_NAMES } from './Loot';
-import { EPISODES } from '../news/episodes';
+import { ON_AIR } from '../news/episodes';
 import { companyName, currentCareer, mainChar, type CareerSave, type FightSummary } from './model';
 
 /**
@@ -540,7 +540,7 @@ export function promotedPosts(s: CareerSave): FeedPost[] {
   const out: FeedPost[] = [{ id: `promo-hiring-${s.stage}`, fight: -1, mood: 'company', by: 'company', company: info.company, author: info.company, sub: `${nameOf(info.arenaId)} · ${200 + rng.int(9000)} followers`, icon: info.company[0], text: pick('feed_hiring'), promoted: true, reacts: 5 + rng.int(60), comments: rng.int(8) }];
   out.push({ id: `promo-shop-${s.stage}`, fight: -1, mood: 'company', by: 'company', author: 'Corner Shop', sub: 'Retail · Open till late', icon: '🛒', text: pick('feed_shop'), promoted: true, reacts: 3 + rng.int(30), comments: 0 });
   // Broken News (10): an ad for the latest episode, on most fights.
-  const ep = EPISODES[0];
+  const ep = ON_AIR[0];
   if (ep && rng.int(10) < 6) {
     const vars = { headline: ep.headline.charAt(0) + ep.headline.slice(1).toLowerCase(), bsn: ep.bsn };
     const line = (key: string) => {

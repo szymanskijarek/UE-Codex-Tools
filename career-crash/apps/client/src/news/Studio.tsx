@@ -12,9 +12,10 @@ import type { Emotion } from '../replay/face-art';
 import { Portrait } from '../ui/components';
 import { ANCHORS, FIELD, JEFF, type Anchor } from './cast';
 import { arenaArt } from '../replay/arena-art';
-import { BLEEP, BSN_OFFICIAL, bleepsAt, checkEpisode, type Drop, cueAt, deskFace, isAction, shotOf, shownText, splitAnchor, typeMs, type Beat, type Shot, type DeskFace, moodOf, timeline, type Cue, type Episode, type Seat } from './episode';
-import { EPISODES, pickEpisode } from './episodes';
+import { BLEEP, BSN_OFFICIAL, bleepsAt, checkEpisode, type Drop, cueAt, deskFace, isAction, shotOf, shownText, splitAnchor, typeMs, type Beat, type Shot, type DeskFace, moodOf, timeline, type Cue, type Cameo, type Episode, type Seat } from './episode';
+import { ON_AIR, pickEpisode } from './episodes';
 import { MINIGAMES, minigameById } from './minigames';
+import { voiceFlags } from './voice';
 import backdropUrl from './art/desk-backdrop.webp';
 import deskUrl from './art/desk-front.webp';
 import logoUrl from './art/logo.webp';
@@ -151,7 +152,7 @@ export function Studio() {
     return [...people, ...(reporter ? [reporter] : []), ...(ep.beats.some((b) => b.who === 'jeff') ? [jeff] : [])];
   }, [people, reporter]);
   const { cues, totalMs } = useMemo(() => timeline(ep), [ep]);
-  const problems = useMemo(() => checkEpisode(ep, MINIGAMES.map((m) => m.id)), [ep]);
+  const problems = useMemo(() => [...checkEpisode(ep, MINIGAMES.map((m) => m.id)), ...voiceFlags(ep).map((f) => `voice, ${f}`)], [ep]);
   const game = minigameById(ep.minigame);
   const [stage, setStage] = useState<Stage>('cold');
   const [take, setTake] = useState(0);
@@ -342,6 +343,7 @@ export function Studio() {
     for (const [key, url] of Object.entries(DESK_ART)) if (desk.some((d) => key.startsWith(d))) new Image().src = url;
     for (const [key, url] of Object.entries(FIELD_ART)) if (field.some((d) => key.startsWith(d))) new Image().src = url;
     for (const b of ep.beats) if (b.drop && DROP_ART[`./art/drop-${b.drop}.webp`]) new Image().src = DROP_ART[`./art/drop-${b.drop}.webp`]!;
+    for (const c of ep.field?.cameos ?? []) for (const k of ['', '-b']) if (CAMEO_ART[`./art/cameo-${c.art}${k}.webp`]) new Image().src = CAMEO_ART[`./art/cameo-${c.art}${k}.webp`]!;
   }, [people, reporter]);
 
   return (
@@ -537,16 +539,17 @@ export function Studio() {
         )}
         {stage !== 'cold' && stage !== 'segment' && <button onClick={roll}>↺ Replay the open</button>}
         <button onClick={() => setMuted(!muted)}>{muted ? '🔇 Sound off' : '🔊 Sound on'}</button>
-        {EPISODES.length > 1 && (
+        {(ON_AIR.length > 1 || !ON_AIR.includes(ep)) && (
           <select
             value={ep.id}
             onChange={(e) => {
               window.location.search = `?ep=${(e.target as HTMLSelectElement).value}`;
             }}
           >
-            {EPISODES.map((x) => (
+            {(ON_AIR.includes(ep) ? ON_AIR : [ep, ...ON_AIR]).map((x) => (
               <option key={x.id} value={x.id}>
                 {x.week} · {x.headline}
+                {x.active === false ? ' (off air)' : ''}
               </option>
             ))}
           </select>
@@ -565,6 +568,38 @@ export function Studio() {
 /** The reporter's painted pictures (art brief 06), once they exist; the career face stands in until then. */
 const LOCATION_ART = import.meta.glob('./art/location-*.webp', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
 const FIELD_ART = import.meta.glob('./art/field-*-*.webp', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+
+/** Cameos on location (`field.cameos`): their sprites, a glyph until they land, and how they move. */
+const CAMEO_ART = import.meta.glob('./art/cameo-*.webp', { eager: true, query: '?url', import: 'default' }) as Record<string, string>;
+const CAMEO_STAND_IN: Record<Cameo['art'], string> = { alpaca: '🦙', emu: '🦤' };
+/** `beside` pans into frame over this long; `far` dashes from one side of the gate to the other in this long. */
+const CAMEO_MS: Record<Cameo['spot'], number> = { beside: 5000, far: 1300 };
+/** Frame swap: a slow chew beside the reporter, legs going flat out in the distance. */
+const CAMEO_FRAME_MS: Record<Cameo['spot'], number> = { beside: 700, far: 110 };
+const cameoStarts = new WeakMap<Episode, Map<number, number>>();
+/** When line `i` starts, ms into the segment (cached per episode). */
+function lineStart(ep: Episode, i: number): number {
+  let m = cameoStarts.get(ep);
+  if (!m) cameoStarts.set(ep, (m = new Map(timeline(ep).cues.filter((c) => c.beat !== undefined).map((c) => [c.beat!, c.at]))));
+  return m.get(i) ?? 0;
+}
+
+/** A cameo on location: on its way in (or across) since its line started, by the segment clock, so a cut doesn't restart it. */
+function CameoSprite({ ep, c, ms }: { ep: Episode; c: Cameo; ms: number }) {
+  const since = ms - lineStart(ep, c.from);
+  if (since < 0) return null;
+  const second = Math.floor(since / CAMEO_FRAME_MS[c.spot]) % 2 === 1;
+  const art = (second && CAMEO_ART[`./art/cameo-${c.art}-b.webp`]) || CAMEO_ART[`./art/cameo-${c.art}.webp`];
+  // Beside: eases in once. Far: loose again, back and forth across the far field (faces the way it runs).
+  const leg = since / CAMEO_MS[c.spot];
+  const back = Math.floor(leg) % 2 === 1;
+  const t = c.spot === 'beside' ? 1 - (1 - Math.min(1, leg)) ** 3 : back ? leg % 1 : 1 - (leg % 1);
+  return (
+    <div class={`bn-cameo bn-cameo-${c.spot}${c.spot === 'far' && back ? ' bn-cameo-flip' : ''}`} style={{ '--t': t }}>
+      {art ? <img src={art} alt="" /> : <span class={second ? 'bn-cameo-step' : ''}>{CAMEO_STAND_IN[c.art]}</span>}
+    </div>
+  );
+}
 
 type FieldFace = 'neutral' | 'talk' | 'smug' | 'surprised' | 'angry' | 'frozen' | 'hurt';
 
@@ -610,6 +645,7 @@ function Location({ ep, reporter, beat, speaking, delaying, ms, progress, childr
   return (
     <div class={`bn-location${f.weather ? ` bn-weather-${f.weather}` : ''}`}>
       {bg && <img class="bn-location-bg" src={bg} alt="" />}
+      {f.cameos?.map((c) => <CameoSprite key={c.art} ep={ep} c={c} ms={ms} />)}
       {beat.photobomb && (
         <div class="bn-photobomb" key={beat.text}>
           <Portrait c={{ appearance: { skin: '#e0b48a', hair: '#3b2416', hairStyle: 0 }, careers: [beat.photobomb.startsWith('career.') ? beat.photobomb : 'career.clown'], ...(beat.photobomb.startsWith('npc.') ? { persona: beat.photobomb } : {}) }} size={120} mood="surprised" />

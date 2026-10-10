@@ -2,7 +2,8 @@ import { describe, expect, it } from 'vitest';
 import { ANCHORS, FIELD } from '../src/news/cast';
 import type { Beat } from '../src/news/episode';
 import { BLEEP, bleepsAt, beatMs, shotOf, BSN_OFFICIAL, checkEpisode, cueAt, deskFace, shownText, typeMs, FORMAT, spellsBsn, timeline, type Episode } from '../src/news/episode';
-import { EPISODES } from '../src/news/episodes';
+import { EPISODES, ON_AIR, pickEpisode } from '../src/news/episodes';
+import { voiceFlags } from '../src/news/voice';
 import pilot from '../src/news/episodes/2026-w41-printers.json';
 
 const MINIGAMES = ['test-card'];
@@ -41,6 +42,32 @@ describe('Broken News episodes (10 §4)', () => {
 
   it('every episode file follows the format', () => {
     for (const e of EPISODES) expect([e.id, checkEpisode(e, MINIGAMES)]).toEqual([e.id, []]);
+  });
+
+  it('everyone stays in character (cast bible 11 §10)', () => {
+    for (const e of EPISODES) expect([e.id, voiceFlags(e)]).toEqual([e.id, []]);
+    const slips: Episode = {
+      ...ep,
+      guest: { name: 'Kevin', role: 'The Intern', career: 'career.intern', enters: 0, art: 'kevin' },
+      beats: [
+        { who: 'uk', heat: 1, text: 'The only casualty was a pair of pants.' },
+        { who: 'us', heat: 1, text: 'Thank you, Philippa Featherstonehaugh.' },
+        { who: 'guest', heat: 1, text: 'Can I just say something?' },
+        { who: 'guest', heat: 1, text: '(picks up the light)' },
+        { who: 'uk', heat: 2, text: 'Brock, you idiot.' },
+        { who: 'uk', heat: 2, text: 'Pants. On purpose.', offVoice: 'quoting Brock' },
+      ],
+    };
+    const f = voiceFlags(slips).join('\n');
+    for (const want of ['line 1: Philippa is British', 'line 2: Brock never gets her surname right', 'line 3: Kevin never speaks', 'line 5: Philippa is never cruel']) expect(f).toContain(want);
+    expect(f).not.toMatch(/line [46]:/);
+  });
+
+  it('only episodes on air are offered, but any one plays by id', () => {
+    expect(ON_AIR.every((e) => e.active !== false)).toBe(true);
+    expect(ON_AIR[0]).toBe(pickEpisode(''));
+    const off = EPISODES.find((e) => e.active === false);
+    if (off) expect(pickEpisode(`?ep=${off.id}`)).toBe(off);
   });
 
   it('BSN never means the same thing twice (10 §3.4)', () => {

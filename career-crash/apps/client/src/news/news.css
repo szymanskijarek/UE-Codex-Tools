@@ -957,6 +957,53 @@ body.bn-page {
   }
 }
 /* A local pops up behind the reporter's shoulder. */
+/* Cameos on location (field.cameos): `--t` runs 0 → 1 from their line on (Studio.tsx CameoSprite). */
+.bn-cameo {
+  position: absolute;
+  pointer-events: none;
+}
+.bn-cameo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.bn-cameo span {
+  display: block;
+  line-height: 1;
+}
+/* A witness at the reporter's side, panning in from the right edge. */
+.bn-cameo-beside {
+  left: calc(68% + (1 - var(--t)) * 36%);
+  bottom: 12%;
+  width: 24%;
+}
+.bn-cameo-beside span {
+  font-size: clamp(40px, 9vw, 120px);
+}
+/* A runaway in the far field, dashing about by the gate (left of the reporter); `--t` 1 is the right end. */
+.bn-cameo-far {
+  left: calc(2% + var(--t) * 22%);
+  bottom: 44%;
+  width: 7%;
+}
+.bn-cameo-flip {
+  transform: scaleX(-1);
+}
+.bn-cameo-far span {
+  font-size: clamp(14px, 2.6vw, 34px);
+}
+.bn-cameo-step {
+  transform: translateY(-12%);
+}
+.bn-box-field .bn-cameo-beside {
+  left: calc(70% + (1 - var(--t)) * 34%);
+  bottom: 0;
+  width: 32%;
+}
+.bn-box-field .bn-cameo-far {
+  left: calc(2% + var(--t) * 14%);
+  width: 9%;
+}
 .bn-photobomb {
   position: absolute;
   left: 63%;

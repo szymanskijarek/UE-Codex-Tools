@@ -46,6 +46,8 @@ export interface Beat {
   shot?: Shot;
   /** The satellite picture tears and stutters as the line starts (field shots). */
   glitch?: boolean;
+  /** The line breaks its speaker's voice on purpose (voice.ts): say why, and the voice check lets it be. */
+  offVoice?: string;
   /** A local pops up behind the reporter's shoulder, waving: a persona (`npc.bro-pepe`) or a career. */
   photobomb?: string;
 }
@@ -62,8 +64,23 @@ export interface Field {
   localTime: string;
   /** Weather that isn't there. */
   weather?: 'wind';
+  /** Others on location: a witness at the reporter's side, a runaway in the distance. */
+  cameos?: Cameo[];
   /** The throw: the first line index the reporter can speak at. */
   enters: number;
+}
+
+/**
+ * Someone (or something) on location besides the reporter: a sprite
+ * (`art/cameo-<art>.webp`, an optional `-b` twin as its second frame), a
+ * glyph until the art lands.
+ */
+export interface Cameo {
+  art: 'alpaca' | 'emu';
+  /** The first line it's in shot from; it stays for the rest of the report. */
+  from: number;
+  /** `beside`: next to the reporter, slowly panning into frame. `far`: small, running across the far field. */
+  spot: 'beside' | 'far';
 }
 
 /**
@@ -97,6 +114,11 @@ export interface Guest {
 export interface Episode {
   /** Slug, also the brawl's seed: `2026-w41-printers`. */
   id: string;
+  /**
+   * On air (default). `false` takes it off the picker, the default and the
+   * feed ads; it still plays at `?ep=<id>` for checking.
+   */
+  active?: boolean;
   /** Monday of the week it airs (ISO date). */
   week: string;
   /**
@@ -323,6 +345,10 @@ export function checkEpisode(ep: Episode, minigames: readonly string[]): string[
     if (b.text.includes('{') && b.text.replaceAll('{bleep}', '').includes('{')) out.push(`line ${i + 1}: unknown {…} tag (only {bleep})`);
     if ((b.shot === 'split' || b.shot === 'field' || b.glitch || b.photobomb) && !ep.field) out.push(`line ${i + 1}: a field shot, but no field report`);
   });
+  for (const c of ep.field?.cameos ?? []) {
+    if (c.from < 0 || c.from >= ep.beats.length) out.push(`the ${c.art} comes on at line ${c.from + 1}, which doesn't exist`);
+    else if (!ep.beats.some((_, i) => i >= c.from && shotOf(ep, i) !== 'desk')) out.push(`the ${c.art} is never in shot: no field or split line from line ${c.from + 1}`);
+  }
   if (ep.chyron.length > FORMAT.chyronMax) out.push(`chyron is ${ep.chyron.length} characters; the strap fits ${FORMAT.chyronMax}`);
   if (!ep.realStory?.text) out.push('every episode ends with the real story');
   if (!ep.bsn || !spellsBsn(ep.bsn)) out.push(`"${ep.bsn ?? ''}" doesn't spell BSN`);

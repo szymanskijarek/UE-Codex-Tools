@@ -207,13 +207,14 @@ An episode is one JSON file, `apps/client/src/news/episodes/<id>.json`
 | Field | What |
 |---|---|
 | `id` | `2026-w41-printers`: year, ISO week, slug. Also the brawl's seed, so an episode's fight is the same every time. |
+| `active` | Optional, default on air. `false` takes it off the picker, the default and the feed ads; `?ep=<id>` still plays it. |
 | `week` | Monday it airs (ISO date). The newest is the default episode. |
 | `bsn` | This episode's ticker guess at what BSN stands for (§3.4): spells B-S-N, never repeats. |
 | `headline` | Two or three words for the video wall: `PRINTERS UNIONISE`. |
 | `chyron` | The BREAKING strap: one line, no "BREAKING:". |
 | `ticker` | 3–6 joke headlines for the crawl. |
 | `guest` | Optional: `name`, `role` (lower third), stand-in `career`, `enters` (line index), `bsn` (their own expansion). |
-| `beats` | The desk lines: `who` (`us`, `uk`, `guest`, `field`, or `jeff`: the technician, off screen, a dashed bubble from the top and no lower third), `text` (`{bleep}` puts a censor bar and a beep in place of a word), `heat`, optional `mood` (`neutral`, `angry`, `surprised`, `hurt`), `ms` (hold time; default from reading speed), `chair` (a seat Jeff's runaway chair hits as the line starts) and `drop` (`light`, `boom`, `sandbag`, `coffee`, `tile`: Jeff drops it on Brock, desk shot only), plus the field and pause fields (§4.4, §13.6). |
+| `beats` | The desk lines: `who` (`us`, `uk`, `guest`, `field`, or `jeff`: the technician, off screen, a dashed bubble from the top and no lower third), `text` (`{bleep}` puts a censor bar and a beep in place of a word), `heat`, optional `mood` (`neutral`, `angry`, `surprised`, `hurt`), `ms` (hold time; default from reading speed), `chair` (a seat Jeff's runaway chair hits as the line starts) and `drop` (`light`, `boom`, `sandbag`, `coffee`, `tile`: Jeff drops it on Brock, desk shot only), `offVoice` (why a line breaks its speaker's voice on purpose, §4.2), plus the field and pause fields (§4.4, §13.6). |
 | `brawl` | `seconds` (2–8), optional `arena`, `shouts` per seat. |
 | `minigame` | The week's minigame id (§5). |
 | `realStory` | `text` (2–3 plain sentences: what actually happened) and `source` (a link to a reputable report). |
@@ -231,6 +232,10 @@ start card; `apps/client/test/news-episode.test.ts` runs it on every episode
 file: at least 4 lines, both anchors speak, heat starts at 0, never drops and
 ends at 3, a guest only speaks after walking on, the brawl is 2–8 s, the
 minigame exists, there is a ticker and a real story, and phases 1–5 fit in 60 s.
+The same test runs the voice check (`voice.ts`, cast bible 11 §10): a line
+where a character slips out of character (Philippa saying "pants", Kevin
+speaking) fails unless it gives a reason in `offVoice`. The page lists both
+kinds of problem on the start card.
 
 ### 4.3 The real story
 
@@ -427,7 +432,12 @@ before the first hit lands, so it changes with the sim like any other fight.
 
 - First real story: `2026-w42-emu` (*Man vs Emu*: an escaped emu wrestles a
   man on the A381 in Devon, late September 2026), Rupert on the sheep-field
-  plate; owner's script. Still on the `test-card` minigame.
+  plate; owner's script. Cameos on location (`field.cameos`): the alpaca
+  witness pans in beside Rupert, and the emu is loose again in the far field
+  at the end (stand-in glyphs until art brief 12). Still on the `test-card`
+  minigame.
+- On air: only *Man vs Emu* and *Chairs Recalled* (`active: false` on the
+  other fifteen, which still play by `?ep=`).
 
 **Not yet:** a real minigame, Brody's art (brief 10), lazy-loading minigames, per-anchor
 voices beyond pitch and type, links from the rest of the site, sitemap and
@@ -539,6 +549,10 @@ station… A report names its `location` arena; dedicated location plates
   "dateline": "THE TRADING FLOOR, CANARY WHARF",
   "localTime": "3:12 AM",
   "weather": "wind",                          // optional
+  "cameos": [                                 // optional: others on location (art `cameo-<art>.webp`)
+    { "art": "alpaca", "from": 5, "spot": "beside" },  // pans in next to the reporter
+    { "art": "emu", "from": 10, "spot": "far" }        // dashes about in the far field
+  ],
   "enters": 3                                 // the throw: first line it can speak
 },
 "beats": [ { "who": "field", "heat": 1, "text": "…", "pause": "delay" } ]

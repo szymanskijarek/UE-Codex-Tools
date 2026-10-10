@@ -308,3 +308,19 @@ kind `signoff` line per episode.
 **Scripts (done):** a voice pass over the twelve test episodes, and one test
 episode each for Hamish (*Toaster Festival*), Bev (*The Launch*), Brody
 (*Nine-Nil*) and Jeff (*Safety Award*).
+
+## 10. Voice rules (checked)
+
+What each character always and never does in a script, as a checklist:
+the skill `.claude/skills/broken-news-voice/SKILL.md`. The slips words can
+catch are checked in code (`apps/client/src/news/voice.ts`, run by
+`test/news-episode.test.ts` and listed on the page's start card): British
+and American English (Philippa and Rupert say *trousers*, Brock and Chase
+say *pants*), cruel words, Brock getting Philippa's surname right or
+blaming Jeff, Philippa's "!" before the swing, Bev's explicit words,
+Jeff's one short line, and Kevin and Marcel never speaking. A line that
+breaks voice on purpose gives the reason in `offVoice`.
+
+Established by scripts so far: Rupert calls a roadside a battlefield and
+trousers a casualty (*Man vs Emu*); Brock calls Philippa "my friend" to
+others.
