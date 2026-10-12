@@ -169,14 +169,16 @@ props, 344 abilities (every career has a Senior Move), 28 summoned critters, 132
 | Structured data (`WebSite`, `VideoGame`; Broken News: `VideoGame`, breadcrumbs) | `apps/client/index.html`, `news/index.html` |
 | Share images (1200 × 630) | `public/share.jpg`, `public/cryptobro/share.jpg`, `public/incident/share.jpg`, `public/news/share.jpg` |
 | Text for crawlers and no-JavaScript visitors | inside `<div id="app">` in each `index.html`; each `main.tsx` clears it before rendering. Broken News lists the episodes on air (a test checks it) |
-| www → careercrash.org (301) | `apps/client/src/site-worker.ts` |
+| www → careercrash.org (301); the asset store's `/news` → `/news/` and `/index.html` → `/` redirects made permanent (307 → 301) | `apps/client/src/site-worker.ts` |
 
 `share.jpg` and `incident/share.jpg` are Sandbox / Summit screenshots with a title
 plate; the painted Summit share image (`art/incident/11-FX_AND_PAGE.md` #5) replaces
 the Incident one when it arrives. In-game screens (`#/career` …) sit behind a hash
 and are never indexed; add a page to `sitemap.xml` only when it has its own path.
 After changing tags, check a preview with the platforms' debuggers (Facebook Sharing
-Debugger, LinkedIn Post Inspector) to refresh their cache.
+Debugger, LinkedIn Post Inspector) to refresh their cache. Search Console listing
+http://, www. or slash-less addresses under "Page with redirect" is expected: those
+forward (301) to the canonical pages, which are the ones indexed.
 
 ## Tools
 
