@@ -5,6 +5,7 @@ import { uiDue, unreadCount, type StoryThread } from '@cc/game-rules';
 import { currentReplay, navigate } from '../state';
 import { Portrait } from '../ui/components';
 import { PageHead } from './CoreActions';
+import { storyArt, type StoryArt } from './story-art';
 import { menuSfx } from './menuVoice';
 import { acceptGig, career, declineGig, dismissPing, fireStoryBeat, readThread, replyStory, type CareerSave } from './model';
 
@@ -64,7 +65,7 @@ export function MessagesScreen({ s, id }: { s: CareerSave; id?: string }) {
                   <span class="grow">
                     <b>{t.name}</b>
                     <span class="muted tiny"> · {ago(last?.fight ?? 0, st.fights)}</span>
-                    <span class="msg-preview small">{threadState(t) || (last ? `${last.from === 'me' ? 'You: ' : ''}${last.text}` : '')}</span>
+                    <span class="msg-preview small">{threadState(t) || (last ? `${last.from === 'me' ? 'You: ' : ''}${last.art ? '📎 Attachment' : last.text}` : '')}</span>
                   </span>
                   {unread && <span class="msg-dot" aria-label="Unread" />}
                 </a>
@@ -96,7 +97,7 @@ function Thread({ s, t }: { s: CareerSave; t: StoryThread }) {
       return;
     }
     setTyping(true);
-    const ms = Math.min(1800, 500 + next.text.length * 12);
+    const ms = next.art ? 900 : Math.min(1800, 500 + next.text.length * 12);
     const h = window.setTimeout(() => {
       setTyping(false);
       setShown(shown + 1);
@@ -119,7 +120,7 @@ function Thread({ s, t }: { s: CareerSave; t: StoryThread }) {
       <div class="msg-lines">
         {t.lines.slice(0, shown).map((l, i) => (
           <div key={i} class={`msg-line ${l.from}`}>
-            <div class="msg-bubble">{l.text}</div>
+            {l.art ? storyArt(l.art as StoryArt) && <img class="msg-attachment" src={storyArt(l.art as StoryArt)} alt="" /> : <div class="msg-bubble">{l.text}</div>}
           </div>
         ))}
         {typing && (
@@ -180,11 +181,11 @@ function Thread({ s, t }: { s: CareerSave; t: StoryThread }) {
   );
 }
 
-/** New-message pop-ups, bottom-right (top on phones), at most two; tap to open, ✕ to dismiss. */
-export function MessagePings({ s, here }: { s: CareerSave; here?: string }) {
+/** New-message pop-ups, bottom-right (top on phones), at most two; tap to open, ✕ to dismiss. Not shown on Messaging itself. */
+export function MessagePings({ s }: { s: CareerSave }) {
   const st = s.story;
   const seen = useRef<Set<string>>(new Set(st?.pings ?? []));
-  const pings = (st?.pings ?? []).filter((id) => id !== here).slice(0, 2);
+  const pings = (st?.pings ?? []).slice(0, 2);
   useEffect(() => {
     const fresh = pings.filter((id) => !seen.current.has(`${id}:${st?.threads[id]?.lines.length}`));
     if (fresh.length) menuSfx.play('ping');
@@ -195,7 +196,7 @@ export function MessagePings({ s, here }: { s: CareerSave; here?: string }) {
     <div class="msg-pings" role="status">
       {pings.map((id) => {
         const t = st.threads[id]!;
-        const last = [...t.lines].reverse().find((l) => l.from === 'them');
+        const last = [...t.lines].reverse().find((l) => l.from === 'them' && !l.art);
         return (
           <div class="msg-ping" key={id}>
             <button class="msg-ping-open" onClick={() => navigate(`/career/messages/${id}`)}>

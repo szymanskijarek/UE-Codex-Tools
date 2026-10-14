@@ -3101,3 +3101,15 @@ body:has(.shell.li) {
   border-radius: 6px;
   margin-bottom: 10px;
 }
+.msg-attachment {
+  display: block;
+  width: min(320px, 80%);
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 10px;
+  border: 1px solid var(--li-line);
+  animation: msg-in 0.18s ease-out;
+}
+.li-photo.li-story-card {
+  aspect-ratio: 16 / 9;
+}

@@ -30,7 +30,7 @@ export function CareerScreen({ sub, arg }: { sub?: string; arg?: string }) {
   const story = (
     <>
       <StoryRunner s={s} />
-      <MessagePings s={s} here={sub === 'messages' ? arg : undefined} />
+      {sub !== 'messages' && <MessagePings s={s} />}
     </>
   );
   if (sub === 'results')

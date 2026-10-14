@@ -37,7 +37,8 @@
           "Some personal news: my best friend {me} is finally on here! 🎉 Reliable, punctual, and can take a chair to the back like nobody I've ever met. Recruiters, you know what to do. 🙏"
         ],
         "tags": "#Networking #Friendship #OpenToWork",
-        "mood": "network"
+        "mood": "network",
+        "art": "intro-card"
       }
     ]
   },
@@ -109,7 +110,8 @@
         ],
         "tags": "#NewBeginnings #Web3 #WAGMI",
         "mood": "bro",
-        "link": "crypto"
+        "link": "crypto",
+        "art": "farewell-card"
       }
     ]
   },
@@ -117,7 +119,7 @@
     "id": "story.ch1-07-agency",
     "contact": "contact.agency",
     "after": ["story.ch1-06-poached"],
-    "trigger": { "kind": "idle", "ms": 3000 },
+    "trigger": { "kind": "progress", "fights": 2 },
     "lines": [
       "Short-staffed? 🙋 Temporarily Yours sends a warm body to any fight, from 💵 {tempcost}.",
       "Our temps turn up. Mostly. They don't level up, they don't learn, and they don't ask questions. Book them on the job card.",
@@ -158,8 +160,10 @@
     "trigger": { "kind": "progress", "stage": 4 },
     "lines": [
       "You beat {boss}?! I've updated your file from 'Brave' to 'Promising'. ✨",
-      "That opens a second seat on your squad. Fill it with someone who grows."
+      "That opens a second seat on your squad. Fill it with someone who grows.",
+      "Your new terms are attached. Sign anywhere. We'll find it."
     ],
+    "art": "offer-letter",
     "effects": [
       { "kind": "squadSlots", "n": 2 },
       { "kind": "connections", "n": 25 }

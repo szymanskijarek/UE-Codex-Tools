@@ -774,6 +774,8 @@ export type StoryTrigger = z.infer<typeof storyTriggerSchema>;
 export const STORY_UNLOCKS = ['messages', 'feed', 'easyApply', 'temps', 'hiring'] as const;
 export const FEED_GATES = ['bro', 'delegate', 'news'] as const;
 export const STORY_LINKS = ['crypto', 'incident', 'news'] as const;
+/** Story cards (art/STORY_BRIEF.md Part A) a post or a message can carry. */
+export const STORY_CARDS = ['intro-card', 'farewell-card', 'offer-letter', 'rugpull-card'] as const;
 
 export const storyEffectSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('unlock'), what: z.enum(STORY_UNLOCKS) }),
@@ -788,6 +790,8 @@ export const storyEffectSchema = z.discriminatedUnion('kind', [
     tags: z.string().max(80).optional(),
     mood: z.enum(['network', 'news', 'bro', 'company']).optional(),
     link: z.enum(STORY_LINKS).optional(),
+    /** A picture under the post. */
+    art: z.enum(STORY_CARDS).optional(),
   }),
   z.object({ kind: z.literal('partner'), action: z.enum(['join', 'leave']) }),
   z.object({ kind: z.literal('cash'), n: int.min(1) }),
@@ -808,6 +812,8 @@ export const storyBeatSchema = z.object({
   /** Unanswered for this long, the first reply is taken for the player (never stuck, 12 §4.3). */
   fallbackMs: int.min(1000).max(120_000).optional(),
   effects: z.array(storyEffectSchema).default([]),
+  /** A picture attached after the lines (an offer letter…). */
+  art: z.enum(STORY_CARDS).optional(),
   /** Pops up (ping) when it arrives; quiet beats only add to the thread. */
   quiet: z.boolean().optional(),
 });

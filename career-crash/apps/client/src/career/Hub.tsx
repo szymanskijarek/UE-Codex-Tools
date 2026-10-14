@@ -167,6 +167,7 @@ function PostCard({ p, fights, s }: { p: FeedPost; fights: number; s: CareerSave
         </div>
       </header>
       <p>{p.text}</p>
+      {p.art && storyArt(p.art) && <img class="li-photo li-story-card" src={storyArt(p.art)} alt="" />}
       {p.photo && fightPhoto.value?.fight === p.fight && <img class="li-photo" src={fightPhoto.value.url} alt={`Fight photo: ${p.text}`} />}
       {p.photo && developing.value === p.fight && fightPhoto.value?.fight !== p.fight && <div class="li-photo li-photo-wait">📸 Developing…</div>}
       {p.link && (

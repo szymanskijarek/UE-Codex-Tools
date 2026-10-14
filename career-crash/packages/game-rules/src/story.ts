@@ -27,6 +27,8 @@ export interface StoryLine {
   text: string;
   /** Career fight number it arrived after. */
   fight: number;
+  /** A picture attached (a story card). */
+  art?: string;
 }
 
 export interface StoryThread extends StoryLook {
@@ -206,6 +208,7 @@ export function fireBeat(bundle: ContentBundle, st: StoryState, beat: StoryBeatD
     const text = Array.isArray(l) ? l[Rng.fromSeed(`story:${ctx.seed}:${beat.id}:${i}`).int(l.length)]! : l;
     t.lines.push({ from: 'them', text: fillSlots(text, ctx.slots), fight: ctx.fights });
   });
+  if (beat.art) t.lines.push({ from: 'them', text: '', fight: ctx.fights, art: beat.art });
   if (beat.replies?.length) t.ask = beat.id;
   if (!beat.quiet) ping(st, t.id);
   const outer: OuterEffect[] = [];

@@ -5,6 +5,7 @@ import { Rng } from '@cc/sim';
 import { nameOf } from '../i18n';
 import { lootName, lootStatsText, RARITY_NAMES } from './Loot';
 import { ON_AIR } from '../news/episodes';
+import type { StoryArt } from './story-art';
 import { companyName, currentCareer, mainChar, type CareerSave, type FightSummary } from './model';
 
 /**
@@ -44,6 +45,8 @@ export interface FeedPost {
   /** The people from that fight's other team (they turn up in the comments). */
   cast?: { name: string; career: string; appearance: { skin: string; hair: string; hairStyle: number } }[];
   company?: string;
+  /** A story card under the post (art/STORY_BRIEF.md). */
+  art?: StoryArt;
   /** A fight photo post: shows the latest fight photo (photo.ts) while it is this fight's. */
   photo?: boolean;
   /** The player's own reaction and comments on this post. */
@@ -765,6 +768,7 @@ export function storyPost(s: CareerSave, e: Extract<StoryEffect, { kind: 'post' 
     text: fillSlots(e.lines[rng.int(e.lines.length)]!, slots),
     ...(e.tags ? { tags: e.tags } : {}),
     ...(e.link ? { link: LINKS[e.link]() } : {}),
+    ...(e.art ? { art: e.art } : {}),
     reacts: 60 + rng.int(400),
     comments: 6 + rng.int(40),
   };
