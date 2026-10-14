@@ -3,6 +3,7 @@ import { bundle } from '@cc/content';
 import {
   activeHrNotes,
   agencyTemp,
+  pointsLeft,
   afterFight,
   answerGig,
   expireGigs,
@@ -617,6 +618,7 @@ export function collectResults(s: CareerSave): CareerSave {
     const crossed = milestonesCrossed(bundle, before.connections, after.connections);
     if (crossed.length) next.feed.splice(fresh.length, 0, ...crossed.map((n) => milestonePost(next, n)));
     storyCameos(next, after, { bossWin, chapter: Math.floor(stage / STAGES_PER_ARENA) + 1 });
+    storyNudges(next, after, outcome);
     const opened = [...after.unlocks.filter((u) => !before.unlocks.includes(u)).map((u) => UNLOCK_NAMES[u]), ...(after.squadSlots > before.seats ? [`Squad seat ${after.squadSlots}`] : [])];
     next.last.progress = { connections: after.connections - before.connections, opened, ...(bossWin ? { title: jobTitle(bundle, next.stage) } : {}) };
   }
@@ -1021,3 +1023,57 @@ function storyCameos(s: CareerSave, st: StoryState, at: { bossWin: boolean; chap
  * fired). Made last, after every constant the migration uses.
  */
 export const career = signal<CareerSave | null>(migrate(load()));
+
+/**
+ * Nudges (12 §8.3). The career coach writes when someone has points to spend
+ * (a career milestone, skill points, stat points) or perks sit unassigned in
+ * the bag; the supermarket pushes a consumable, mostly after a lost fight.
+ * Each has a cooldown in fights. Mutates `st`.
+ */
+export function storyNudges(s: CareerSave, st: StoryState, outcome: 'win' | 'draw' | 'loss'): void {
+  if (!hasUnlock(st, 'easyApply')) return;
+  const N = bundle.economy.nudges;
+  const rng = Rng.fromSeed(`nudge:${s.seed}:${st.fights}`);
+  const nudged = (st.nudged ??= {});
+  const ctx = storyCtx(s);
+  const look = (id: string) => {
+    const c = bundle.contacts.find((x) => x.id === id)!;
+    return { name: c.name, sub: c.sub, ...contactLook(bundle, c, st, s.stage) };
+  };
+  const line = (key: string, slots: Record<string, string | number>) => {
+    const l = bundle.live[key] ?? [];
+    return l.length ? [fillSlots(l[rng.int(l.length)]!, { ...ctx.slots, ...slots })] : [];
+  };
+  // The coach: the first thing worth nagging about, main character first.
+  if (st.fights - (nudged.coach ?? 0) >= N.coachGap && rng.int(10000) < N.coachBp) {
+    const people = [mainChar(s), ...Object.values(s.chars).filter((c) => c.c.id !== s.mainId)];
+    const freeGear = [mainChar(s), ...s.squad.map((id) => s.chars[id]).filter((c): c is CareerChar => !!c)].some((c) => (c.gear ?? []).length < bundle.economy.loot.slots);
+    let nag: { key: string; who: CareerChar; points: number; to: 'skills' | 'perks' } | null = null;
+    for (const cc of people) {
+      const skill = cc.c.careers.reduce((n, cid) => n + pointsLeft(bundle, cc, cid), 0);
+      if (cc.c.pendingOffer) nag = { key: 'nudge_coach_career', who: cc, points: 1, to: 'skills' };
+      else if (skill > 0) nag = { key: 'nudge_coach_skills', who: cc, points: skill, to: 'skills' };
+      else if (cc.c.unspentPoints > 0) nag = { key: 'nudge_coach_stats', who: cc, points: cc.c.unspentPoints, to: 'skills' };
+      if (nag) break;
+    }
+    const bag = (s.bag ?? []).length;
+    if (!nag && bag > 0 && freeGear) nag = { key: 'nudge_coach_perks', who: mainChar(s), points: bag, to: 'perks' };
+    if (nag) {
+      const who = nag.who.c.id === s.mainId ? 'you' : nag.who.c.name;
+      sendMessage(st, 'contact.coach', look('contact.coach'), line(nag.key, { name: who, points: nag.points, s: nag.points === 1 ? '' : 's' }), st.fights, undefined, { to: nag.to, ...(nag.to === 'skills' ? { id: nag.who.c.id } : {}) });
+      nudged.coach = st.fights;
+    }
+  }
+  // The supermarket: a consumable you can afford, when someone in the line-up has room to pack it.
+  const odds = outcome === 'loss' ? N.shopAfterLossBp : N.shopBp;
+  if (st.fights - (nudged.shop ?? 0) >= N.shopGap && rng.int(10000) < odds) {
+    const room = lineup(s).some((c) => !c.temp && (c.loadout ?? []).length < LOADOUT_SLOTS);
+    const stock = shopStock(s).filter((i) => i.price <= s.cash);
+    if (room && stock.length) {
+      const item = stock[rng.int(stock.length)]!;
+      const name = bundle.locale[`${item.id}.name`] ?? item.id;
+      sendMessage(st, 'contact.store', look('contact.store'), line(outcome === 'loss' ? 'nudge_shop_loss' : 'nudge_shop', { item: name, price: item.price }), st.fights, undefined, { to: 'shop' });
+      nudged.shop = st.fights;
+    }
+  }
+}

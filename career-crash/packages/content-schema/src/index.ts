@@ -512,6 +512,13 @@ export const economySchema = z.object({
     /** Connection counts that earn a badge and a post. */
     connectionMilestones: z.array(int.min(1)).min(1),
   }),
+  /**
+   * Nudges (12 §8.3): the career coach writes when there are points or perks
+   * to spend, at most every `coachGap` fights; the supermarket pushes
+   * consumables after a lost fight (`shopAfterLossBp`), now and then otherwise
+   * (`shopBp`), at most every `shopGap` fights.
+   */
+  nudges: z.object({ coachGap: int.min(1), coachBp: bp, shopGap: int.min(1), shopAfterLossBp: bp, shopBp: bp }),
   /** Invite-only gigs (12 §8.2): when invites arrive and how long they stay open. */
   gigs: z.object({ fromFight: int.min(1), everyFights: int.min(1), chanceBp: bp, expiresAfter: int.min(1) }),
   /**

@@ -32,6 +32,8 @@ export interface StoryLine {
   art?: string;
   /** A link card to another show's page. */
   link?: 'crypto' | 'incident' | 'news';
+  /** A button to a career screen (the nudges: spend points, assign perks, go shopping); `id` picks whose. */
+  action?: { to: 'skills' | 'perks' | 'shop'; id?: string };
 }
 
 export interface StoryThread extends StoryLook {
@@ -84,6 +86,8 @@ export interface StoryState {
   pings: string[];
   /** The last chapter whose title card has been shown (12 §7.5). */
   chapterSeen?: number;
+  /** When each nudge last wrote (fight number), for their cooldowns (12 §8.3). */
+  nudged?: Record<string, number>;
 }
 
 /** Values for the `{slot}`s in story text (12 §4.1). */
@@ -435,7 +439,7 @@ export function milestonesCrossed(bundle: ContentBundle, before: number, after: 
  * leader of a set that crashed your fight): appended to their thread, which
  * is made with `look` the first time.
  */
-export function sendMessage(st: StoryState, id: string, look: StoryLook & { name: string; sub: string }, lines: string[], fights: number, link?: StoryLine['link']): void {
+export function sendMessage(st: StoryState, id: string, look: StoryLook & { name: string; sub: string }, lines: string[], fights: number, link?: StoryLine['link'], action?: StoryLine['action']): void {
   let t = st.threads[id];
   if (!t) {
     t = { id, ...look, lines: [], read: 0 };
@@ -443,6 +447,7 @@ export function sendMessage(st: StoryState, id: string, look: StoryLook & { name
   }
   for (const text of lines) t.lines.push({ from: 'them', text, fight: fights });
   if (link) t.lines.push({ from: 'them', text: '', fight: fights, link });
+  if (action) t.lines.push({ from: 'them', text: '', fight: fights, action });
   st.order = [id, ...st.order.filter((x) => x !== id)];
   ping(st, id);
 }

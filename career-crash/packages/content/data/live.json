@@ -5683,6 +5683,33 @@
    "Hey {first}! Brock again. Brand new episode on tonight: {headline}. You'd love it. I'm in it!",
    "Buddy! Brock here. New Broken News is live: {headline}. Philippa did the research. I did the hair.",
    "{first}! Big night at BSN: {headline}. Come watch. Bring snacks. Bring a friend. Bring a chair, we keep losing them."
+  ],
+  "nudge_coach_career": [
+   "{first}! Roxanne here. 🚀 A career milestone is waiting for {name} and it's just… sitting there? Potential doesn't unlock itself. (It does. But only if you click.)",
+   "Quick check-in, {first}: a brand new career is waiting for {name} RIGHT NOW. Imagine the LinkedIn post. Now imagine not making it. Sad, right? 🚀"
+  ],
+  "nudge_coach_skills": [
+   "{first}, I'm seeing {points} unspent skill point{s} on {name}. That's not a skill tree, that's a skill twig. 🌱 Unlock your potential!",
+   "Hey superstar 🌟 {points} skill point{s} going spare on {name}. In my 3-day masterclass we call that 'leaving money on the mat'.",
+   "Gentle reminder from your coach: {points} skill point{s} on {name}. Every unspent point is a punch you didn't throw. 🥊 (That's a direct quote from my book.)"
+  ],
+  "nudge_coach_stats": [
+   "{first}! {points} stat point{s} going spare on {name}. Strength? Confidence? Both? I believe in you. My invoice believes in you too. 💪",
+   "Coach Roxanne here. {points} unspent stat point{s} on {name}. Champions spend. Interns hoard. Which are you? (Don't answer. Just click.) 💪"
+  ],
+  "nudge_coach_perks": [
+   "{first}, you have {points} perk{s} in your bag doing absolutely nothing. A perk in the bag is worth zero perks on the body. 🎁 Assign them!",
+   "Roxanne again! Unassigned perks: {points}. You know who assigns perks? Leaders. You know who doesn't? People who lose to {next}. 🎁"
+  ],
+  "nudge_shop_loss": [
+   "Tough day at the {arena}? 🛒 Fresco Express is here for you. {item}, just 💵 {price}. Studies show fighters who pack a snack lose 12% more slowly.",
+   "We heard about the fight. Everyone heard about the fight. 🛒 Make it right with {item} (💵 {price}). Every little hurts. Less, with snacks.",
+   "Sorry for your loss. 🛒 Not sorry enough to stop selling things: {item}, 💵 {price}, aisle 4. Grab one before your rematch with {next}."
+  ],
+  "nudge_shop": [
+   "This week at Fresco Express: {item}, 💵 {price}. Pack one for your fight with {next}. Or don't, and find out. 🛒",
+   "Hi {first}! Your Fresco Rewards points are worth absolutely nothing, but {item} is only 💵 {price}. 🛒 Every little hurts.",
+   "Flash sale! 🛒 {item} for 💵 {price}. Recommended by 9 out of 10 people who were knocked out yesterday."
   ]
  }
 }

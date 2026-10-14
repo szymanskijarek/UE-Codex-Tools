@@ -8,6 +8,9 @@ import { PageHead } from './CoreActions';
 import { storyArt, type StoryArt } from './story-art';
 import { CRYPTO_URL, INCIDENT_URL, NEWS_URL } from './feed';
 
+/** Buttons a nudge can carry (12 §8.3). */
+const ACTION_LABELS = { skills: '🌳 Unlock your potential', perks: '🎁 Assign perks', shop: '🛒 Go shopping' } as const;
+
 /** Link cards a message can carry (another show's page). */
 const LINKS = {
   crypto: { href: CRYPTO_URL, title: 'Crypto Bros · careercrash.org/cryptobro', blurb: 'Watch the bros brawl live, every hour', art: '📈🥊' },
@@ -65,7 +68,7 @@ export function MessagesScreen({ s, id }: { s: CareerSave; id?: string }) {
         <ul class="li-card msg-list">
           {st.order.map((tid) => {
             const t = st.threads[tid]!;
-            const last = t.lines[t.lines.length - 1];
+            const last = [...t.lines].reverse().find((l) => l.text || l.art);
             const unread = t.lines.length > t.read || !!t.ask || t.gig?.state === 'open';
             return (
               <li key={tid}>
@@ -101,7 +104,7 @@ function Thread({ s, t }: { s: CareerSave; t: StoryThread }) {
       return;
     }
     const next = t.lines[shown]!;
-    if (next.from === 'me' || next.link) {
+    if (next.from === 'me' || next.link || next.action) {
       setShown(shown + 1);
       return;
     }
@@ -131,6 +134,10 @@ function Thread({ s, t }: { s: CareerSave; t: StoryThread }) {
           <div key={i} class={`msg-line ${l.from}`}>
             {l.art ? (
               storyArt(l.art as StoryArt) && <img class="msg-attachment" src={storyArt(l.art as StoryArt)} alt="" />
+            ) : l.action ? (
+              <button class="li-btn primary small msg-action" onClick={() => navigate(l.action!.to === 'skills' ? `/career/skills/${l.action!.id ?? ''}` : `/career/${l.action!.to}`)}>
+                {ACTION_LABELS[l.action.to]}
+              </button>
             ) : l.link ? (
               <a class="li-linkcard msg-link" href={LINKS[l.link].href} {...(LINKS[l.link].href.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {})}>
                 <span class="li-linkcard-art" aria-hidden="true">
@@ -245,7 +252,7 @@ export function MessagePings({ s }: { s: CareerSave }) {
     <div class="msg-pings" role="status">
       {pings.map((id) => {
         const t = st.threads[id]!;
-        const last = [...t.lines].reverse().find((l) => l.from === 'them' && !l.art);
+        const last = [...t.lines].reverse().find((l) => l.from === 'them' && l.text);
         return (
           <div class="msg-ping" key={id}>
             <button class="msg-ping-open" onClick={() => navigate(`/career/messages/${id}`)}>

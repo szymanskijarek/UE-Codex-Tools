@@ -72,6 +72,7 @@
     "offers": { "cashPerChapter": 200, "perkAtLeast": "rare", "epicHireFromChapter": 3 },
     "connectionMilestones": [50, 100, 250, 500]
   },
+  "nudges": { "coachGap": 3, "coachBp": 7000, "shopGap": 2, "shopAfterLossBp": 8500, "shopBp": 1500 },
   "gigs": { "fromFight": 4, "everyFights": 3, "chanceBp": 5000, "expiresAfter": 3 },
   "nationality": {
     "changeCooldownH": 24,

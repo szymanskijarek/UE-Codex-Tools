@@ -8,5 +8,7 @@
   { "id": "contact.bev", "kind": "news", "name": "Bev Fizzwilliam", "sub": "Entertainment & Lifestyle Editor · BSN", "career": "career.fashion-designer", "persona": "npc.news-bev" },
   { "id": "contact.brock", "kind": "news", "name": "Brock Stetson Jr.", "sub": "Senior Anchor (self-appointed) · BSN", "career": "career.tv-host", "persona": "npc.news-brock" },
   { "id": "contact.kevin", "kind": "news", "name": "Kevin", "sub": "The Intern · BSN", "career": "career.journalist", "persona": "npc.news-kevin" },
-  { "id": "contact.delegate", "kind": "delegate", "name": "{delegate}", "sub": "Delegate for {country} · The Summit Hall", "career": "career.politician" }
+  { "id": "contact.delegate", "kind": "delegate", "name": "{delegate}", "sub": "Delegate for {country} · The Summit Hall", "career": "career.politician" },
+  { "id": "contact.coach", "kind": "persona", "name": "Roxanne Ascendo", "sub": "Career Coach · Certified Potential Unlocker™ · DM me", "career": "career.life-coach" },
+  { "id": "contact.store", "kind": "company", "name": "Fresco Express", "sub": "Supermarket · Every little hurts · Open till late", "icon": "🛒" }
 ]
