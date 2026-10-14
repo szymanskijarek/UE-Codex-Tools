@@ -1,6 +1,6 @@
 # Story mode and Messages: brief for the image agent
 
-> **Status:** in progress. Part A delivered and in the game (14 Oct 2026): all five cards (`rugpull-card` kept for the friend's return, phase 3), the temp sticker (on temps' chests in fights) and lanyard (on temps' portraits), and the four connection badges (on the profile). Part B (gig characters): 3 of 13 in (14 Oct 2026): `npc-gig-napoleonic`, `npc-gig-method-actor`, `npc-gig-stunt-double`. Design: `docs/career-crash/12-career-story.md`.
+> **Status:** in progress. Part A delivered and in the game (14 Oct 2026): all five cards (`rugpull-card` kept for the friend's return, phase 3), the temp sticker (on temps' chests in fights) and lanyard (on temps' portraits), and the four connection badges (on the profile). Part B (gig characters): 6 of 13 in (14 Oct 2026): `npc-gig-napoleonic`, `npc-gig-method-actor`, `npc-gig-stunt-double`, `npc-gig-head-waiter`, `npc-gig-trainee-waiter`, `npc-gig-posh-guest`. Still to come: rival mascot, cabin crew, performance artist, facilitator, understudy, sous-chef, TV judge. Design: `docs/career-crash/12-career-story.md`.
 > Nothing here blocks the game: until the art lands, it uses emoji, arena art,
 > CSS and the careers' own looks in its place. Part A is phase 4; Part B (the
 > gig casts) can be imported any time, like gatecrashers.
@@ -176,7 +176,7 @@ careers. No real people, no real brands, no weapons beyond comedy props.
 | 2 | `npc-gig-method-actor` | Battlefield Extra | A method actor in a green Rifles-style jacket (no insignia from a real regiment), dramatic hair, a single tear, refuses to break character | a rolled-up script |
 | 3 | `npc-gig-stunt-double` | Battlefield Extra | A nervous stunt double in an identical costume to the actor but two sizes too big, knee pads and elbow pads visible over it, a helmet under the hat | a crash mat folded under one arm |
 | 4 | `npc-gig-head-waiter` | Silver Service Waiter | An immaculate head waiter, sixties, slicked silver hair, white tailcoat jacket, black bow tie, a white cloth over one forearm, utterly disdainful | a silver cloche |
-| 5 | `npc-gig-trainee-waiter` | Silver Service Waiter | A first-shift waiter, too-big waistcoat, crooked bow tie, name badge, terrified | a tray of wobbling champagne flutes |
+| 5 | `npc-gig-trainee-waiter` | Silver Service Waiter | Rory, a first-shift waiter, too-big waistcoat, crooked bow tie, name badge, terrified | a tray of wobbling champagne flutes |
 | 6 | `npc-gig-posh-guest` | Silver Service Waiter | A tipsy aristocratic gala guest in evening dress (tuxedo or ball gown variant, pick the tuxedo), monocle, a paper charity raffle ticket in the lapel, flushed cheeks | a half-eaten vol-au-vent |
 | 7 | `npc-gig-rival-mascot` | Store Mascot | A person in a slightly grubby full-body foam mascot costume of a cartoon badger, the head on but the face hole showing a grumpy human face | a giant foam pointing hand |
 | 8 | `npc-gig-cabin-crew` | Focus Group | Budget-airline cabin crew: bright orange and purple uniform, neckerchief, a fixed smile that does not reach the eyes, hair in a bun | a drinks-trolley handle (the trolley stays off the sheet) |

@@ -48,7 +48,7 @@
     "invite": [
       "Good evening. We're two waiters short for the Fotheringay charity gala tonight. Black tie. Silver service.",
       "One small thing: the guests have been told the waiters are 'part of the entertainment'. They have been drinking since the soup.",
-      "You'll be serving with Gaston, our head waiter (thirty years, never dropped a canapé, never forgiven anyone), and Tiffany, who started this morning.",
+      "You'll be serving with Gaston, our head waiter (thirty years, never dropped a canapé, never forgiven anyone), and Rory, who started this morning.",
       "💵 {cash}, plus whatever's left of the buffet. This is a one-time engagement."
     ],
     "accept": "🍾 Put on the waistcoat",
@@ -56,12 +56,12 @@
     "side": "cast",
     "allies": [
       { "name": "Gaston", "career": "career.hotel-concierge", "persona": "npc.gig-head-waiter", "personality": "personality.competitive", "levelOffset": 1 },
-      { "name": "Tiffany (first shift)", "career": "career.barista", "persona": "npc.gig-trainee-waiter", "personality": "personality.coward", "levelOffset": -2, "statOffset": -2 }
+      { "name": "Rory (first shift)", "career": "career.barista", "persona": "npc.gig-trainee-waiter", "personality": "personality.coward", "levelOffset": -2, "statOffset": -2 }
     ],
     "opponents": [
       { "name": "Sir Giles Fotheringay", "career": "career.politician", "persona": "npc.gig-posh-guest", "personality": "personality.confident", "levelOffset": 0 },
-      { "name": "Lady Arabella Crump", "career": "career.fashion-designer", "persona": "npc.gig-posh-guest", "personality": "personality.aggressive", "levelOffset": 0 },
-      { "name": "The Hon. Toby Vane", "career": "career.lawyer", "persona": "npc.gig-posh-guest", "personality": "personality.greedy", "levelOffset": -1 }
+      { "name": "Lord Arbuthnot Crump", "career": "career.fashion-designer", "persona": "npc.gig-posh-guest", "personality": "personality.aggressive", "levelOffset": 0 },
+      { "name": "Hon. Toby Vane", "career": "career.lawyer", "persona": "npc.gig-posh-guest", "personality": "personality.greedy", "levelOffset": -1 }
     ],
     "pay": { "win": 480, "loss": 180 },
     "posts": {
@@ -70,7 +70,7 @@
         "Proud to say I served at the Fotheringay charity gala. 🍾 Raised: 💵 thousands for charity. Lowered: three aristocrats, gently, onto the dessert trolley. #Teamwork #SilverService"
       ],
       "loss": [
-        "Last night I worked a charity gala and was 'part of the entertainment'. 🍾 Lady Arabella has a wicked left hook and no regrets. Tipped: zero. Learned: everything. #Hospitality #Resilience",
+        "Last night I worked a charity gala and was 'part of the entertainment'. 🍾 Lord Crump has a wicked left hook and no regrets. Tipped: zero. Learned: everything. #Hospitality #Resilience",
         "Some nights you serve the canapés, and some nights the canapés are served to you, at speed. 🍾 Thank you Gaston for dragging me out by my waistcoat. #FailForward #Hospitality"
       ]
     },
