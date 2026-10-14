@@ -1,6 +1,6 @@
 # Story mode and Messages: brief for the image agent
 
-> **Status:** in progress. Part A delivered and in the game (14 Oct 2026): all five cards (`rugpull-card` kept for the friend's return, phase 3), the temp sticker (on temps' chests in fights) and lanyard (on temps' portraits), and the four connection badges (on the profile). Part B (gig characters) not started. Design: `docs/career-crash/12-career-story.md`.
+> **Status:** in progress. Part A delivered and in the game (14 Oct 2026): all five cards (`rugpull-card` kept for the friend's return, phase 3), the temp sticker (on temps' chests in fights) and lanyard (on temps' portraits), and the four connection badges (on the profile). Part B (gig characters): 3 of 13 in (14 Oct 2026): `npc-gig-napoleonic`, `npc-gig-method-actor`, `npc-gig-stunt-double`. Design: `docs/career-crash/12-career-story.md`.
 > Nothing here blocks the game: until the art lands, it uses emoji, arena art,
 > CSS and the careers' own looks in its place. Part A is phase 4; Part B (the
 > gig casts) can be imported any time, like gatecrashers.
@@ -187,7 +187,9 @@ careers. No real people, no real brands, no weapons beyond comedy props.
 | 13 | `npc-gig-tv-judge` | Cooking Show Pilot | A TV cooking-show judge: sharp blazer over a black T-shirt, folded arms, one eyebrow permanently raised, reading glasses on a chain | a tasting spoon |
 
 **Head expressions** (four per character, as for gatecrashers): `neutral`,
-`angry`, `hurt`, `happy`. The napoleonic extra keeps the bearskin hat in every
+`angry`, `surprised`, `hurt`. (The first three characters came with a happy,
+open-mouthed head instead of `surprised`; it's used in that slot, which also
+drives the talking mouth, and works fine. Either is OK.) The napoleonic extra keeps the bearskin hat in every
 head; the mascot's head is the human face inside the costume's face hole.
 
 **Import:** body sheets as `art/sheets/npc-gig-<name>.png`, heads as
