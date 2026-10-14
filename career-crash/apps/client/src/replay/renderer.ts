@@ -19,6 +19,22 @@ import { IMPACT_FX, type ImpactFxId } from './impact-fx';
 import { EMOTION_FRAMES, emotionFor, faceScale, type FaceFrame } from './face-art';
 import { faceTexture, hasPuppet, loadPuppets, NEUTRAL, Puppet, PUPPET_HEIGHT, type Pose } from './puppet';
 import { Ragdoll } from './ragdoll';
+import { storyArt } from '../career/story-art';
+
+/** Career story (12): the visitor sticker agency temps wear (art/STORY_BRIEF.md), loaded once. */
+let TEMP_STICKER: Texture | null = null;
+async function loadTempSticker(): Promise<void> {
+  const url = storyArt('temp-sticker');
+  if (!url || TEMP_STICKER) return;
+  const img = new Image();
+  img.src = url;
+  try {
+    await img.decode();
+    TEMP_STICKER = Texture.from(img);
+  } catch {
+    TEMP_STICKER = null;
+  }
+}
 import { voiceFor, withVoice, type Shout, type Voice } from './voices';
 
 /**
@@ -383,7 +399,7 @@ export class BattleRenderer {
     }
     el.appendChild(this.app.canvas);
     this.art = arenaArt(this.arena.id);
-    await Promise.all([loadPuppets(), this.loadBackdrop(), loadItems()]);
+    await Promise.all([loadPuppets(), this.loadBackdrop(), loadItems(), loadTempSticker()]);
     if (this.destroyed) {
       this.app.destroy(true, { children: true });
       return;
@@ -1090,6 +1106,8 @@ export class BattleRenderer {
     // A persona without a body of its own still wears its own painted faces on the borrowed one.
     const puppet = pupId && hasPuppet(pupId) ? new Puppet(pupId, r, own ? undefined : snap?.persona) : null;
     let emote: Text | null = null;
+    // Agency temps (ids from agencyTemp: `temp-…`) wear a visitor sticker on the chest.
+    if (puppet && TEMP_STICKER && snap?.id.startsWith('temp-')) puppet.pin(TEMP_STICKER);
     if (puppet) {
       doll.visible = false;
       puppet.root.addChild(held);

@@ -3113,3 +3113,40 @@ body:has(.shell.li) {
 .li-photo.li-story-card {
   aspect-ratio: 16 / 9;
 }
+.portrait-wrap {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+}
+.temp-lanyard {
+  position: absolute;
+  right: -8px;
+  bottom: -6px;
+  width: 24px;
+  height: 24px;
+  transform: rotate(-12deg);
+  pointer-events: auto;
+}
+.conn-badge {
+  position: relative;
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  margin-right: 4px;
+  vertical-align: middle;
+}
+.conn-badge img {
+  width: 100%;
+  height: 100%;
+}
+.conn-badge span {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 33%;
+  text-align: center;
+  font-size: 7px;
+  font-weight: 800;
+  line-height: 1;
+  color: #1b1f2a;
+}

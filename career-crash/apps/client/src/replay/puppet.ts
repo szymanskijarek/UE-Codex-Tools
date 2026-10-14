@@ -161,6 +161,16 @@ export class Puppet {
   /** Where the held item sits, updated every render (screen coords). */
   hand = { x: 0, y: 0, rot: 0 };
 
+  /** A flat badge on the chest (12 §6.1: a temp's visitor sticker), drawn over the torso and following it. */
+  private pinned: Sprite | null = null;
+  pin(t: Texture): void {
+    const torso = this.sprites.get('torso');
+    if (!torso || this.pinned) return;
+    this.pinned = new Sprite(t);
+    this.pinned.anchor.set(0.5);
+    this.root.addChildAt(this.pinned, this.root.getChildIndex(torso) + 1);
+  }
+
   constructor(
     career: string,
     /** Character radius in screen px; the puppet is PUPPET_HEIGHT radii tall. */
@@ -454,6 +464,14 @@ export class Puppet {
     const waistX = X[1]! + dx * d.torso * kb;
     const waistY = Y[1]! + dy * d.torso * kb;
     this.place('torso', X[1]!, Y[1]!, waistX, waistY, f, true);
+    if (this.pinned) {
+      // Halfway down the chest, a little towards the front.
+      const size = d.shoulder * 2.4;
+      const tex = this.pinned.texture;
+      this.pinned.position.set(X[1]! + (waistX - X[1]!) * 0.5 + dy * f * d.shoulder * 0.2, Y[1]! + (waistY - Y[1]!) * 0.5 - dx * f * d.shoulder * 0.2);
+      this.pinned.rotation = Math.atan2(waistY - Y[1]!, waistX - X[1]!) - Math.PI / 2;
+      this.pinned.scale.set((f * size) / tex.width, size / tex.height);
+    }
     this.place('pelvis', waistX, waistY, X[2]!, Y[2]!, f, true);
     // Head: neck anchor on point 1, crown along neck → head centre.
     let hx = X[0]! - X[1]!;

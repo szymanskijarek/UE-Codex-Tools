@@ -11,7 +11,7 @@ import { NamePicker } from './NamePicker';
 import { HrChips } from './File';
 import { interviewerLabel, startNextFight } from './CoreActions';
 import { feedSeen } from './Messages';
-import { storyArt } from './story-art';
+import { storyArt, type StoryArt } from './story-art';
 import { GearIcons } from './Loot';
 import { abandon, applicants, bookTemps, canApply, companyName, interviewers, renameCharacter, renameCompany, setPostMine, currentCareer, lineup, lineupHr, mainChar, nationalityChangeable, nationBoost, nextOpponents, save, setNationality, skipIntro, squadSlots, squadUnlocked, tempSeats, tempsComing, type CareerSave } from './model';
 import { developing, fightPhoto } from './photo';
@@ -98,6 +98,25 @@ function Feed({ s }: { s: CareerSave }) {
         )
       )}
     </div>
+  );
+}
+
+/** Connection milestones (12 §7.3): the badge for the highest one reached, with what it stands for. */
+const MILESTONES: [number, StoryArt, string][] = [
+  [500, 'badge-4', '500+'],
+  [250, 'badge-3', '250'],
+  [100, 'badge-2', '100'],
+  [50, 'badge-1', '50'],
+];
+function ConnectionBadge({ n }: { n: number }) {
+  const m = MILESTONES.find(([at]) => n >= at);
+  const url = m && storyArt(m[1]);
+  if (!m || !url) return null;
+  return (
+    <span class="conn-badge" title={`${m[2]} connections milestone`}>
+      <img src={url} alt="" />
+      <span>{m[2]}</span>
+    </span>
   );
 }
 
@@ -274,7 +293,10 @@ function Person({ cc, tag, hr, nation }: { cc: CareerChar; tag?: string; hr?: Ac
   const senior = seniorCareer ? bundle.careers.find((x) => x.id === seniorCareer)?.senior : undefined;
   return (
     <div class="li-person">
-      <Portrait c={cc.c} size={40} mood={(hr && hrMood(hr)) ?? 'neutral'} />
+      <span class="portrait-wrap">
+        <Portrait c={cc.c} size={40} mood={(hr && hrMood(hr)) ?? 'neutral'} />
+        {cc.temp && storyArt('temp-lanyard') && <img class="temp-lanyard" src={storyArt('temp-lanyard')} alt="Agency temp" title="Agency temp" />}
+      </span>
       <div class="grow">
         <b>{cc.c.name}</b> {tag && <span class="li-pill">{tag}</span>} <Loadout ids={cc.loadout} /> <GearIcons gear={cc.gear} />
         <div class="muted small">
@@ -469,7 +491,10 @@ export function Hub({ save: s }: { save: CareerSave }) {
               <div class="li-stats small">
                 <div>
                   <span>Connections</span>
-                  <b>{s.story ? (s.story.connections >= 500 ? '500+' : s.story.connections) : viewers}</b>
+                  <b>
+                    {s.story && <ConnectionBadge n={s.story.connections} />}
+                    {s.story ? (s.story.connections >= 500 ? '500+' : s.story.connections) : viewers}
+                  </b>
                 </div>
                 <div>
                   <span>Profile viewers</span>

@@ -576,9 +576,11 @@ Decided (Oct 2026): all six as recommended below; players may fight alone.
 | Tests | `packages/game-rules/test/story.test.ts`, `apps/client/test/career-story.test.ts` |
 | Balance | `pnpm balance --ladder [--battles=N] [--stages=N]` (`tools/balance/src/ladder.ts`) |
 
-**Art in:** the quiet feed, the friend's introduction and farewell cards (on their posts), and the
-offer letter (attached to Karen's message after chapter 1's boss); the rug-pull card waits for the
-friend's return. **Not yet:** the desktop docked Messaging panel (Messaging is a page with two
+**Art in:** the quiet feed, the friend's introduction and farewell cards (on their posts), the
+offer letter (attached to Karen's message after chapter 1's boss), the temp visitor sticker (pinned to
+temps' chests in fights: `Puppet.pin`, temps recognised by their `temp-` snapshot id) and lanyard (on
+their portraits), and connection badges at 50 / 100 / 250 / 500+ on the profile; the rug-pull card
+waits for the friend's return. Gig characters (brief Part B) still wear their careers' looks. **Not yet:** the desktop docked Messaging panel (Messaging is a page with two
 panes on wide screens); chapters 2+ and the cameos (phase 3); progress features
 (phase 2); the story art (phase 4). Old saves skip chapter 1 and get Karen's
 💵 500 restructuring bonus; their booked temps match their old line-up.

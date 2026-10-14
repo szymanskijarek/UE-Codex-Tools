@@ -1,6 +1,6 @@
 # Story mode and Messages: brief for the image agent
 
-> **Status:** in progress. Delivered (14 Oct 2026): `feed-empty`, `intro-card`, `farewell-card`, `offer-letter`, `rugpull-card` (kept for the friend's return, phase 3). Part B not started. Design: `docs/career-crash/12-career-story.md`.
+> **Status:** in progress. Part A delivered and in the game (14 Oct 2026): all five cards (`rugpull-card` kept for the friend's return, phase 3), the temp sticker (on temps' chests in fights) and lanyard (on temps' portraits), and the four connection badges (on the profile). Part B (gig characters) not started. Design: `docs/career-crash/12-career-story.md`.
 > Nothing here blocks the game: until the art lands, it uses emoji, arena art,
 > CSS and the careers' own looks in its place. Part A is phase 4; Part B (the
 > gig casts) can be imported any time, like gatecrashers.
