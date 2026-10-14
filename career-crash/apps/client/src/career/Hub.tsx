@@ -524,7 +524,7 @@ export function Hub({ save: s }: { save: CareerSave }) {
                 </button>
               </div>
               {editCompany && s.company && <CompanyPicker value={s.company} onChange={(c) => renameCompany(s, c)} />}
-              <Nationality s={s} boost={nation} />
+              {(!s.story || hasUnlock(s.story, 'nationality') || s.nationality) && <Nationality s={s} boost={nation} />}
               <div class="muted small">
                 {nameOf(info.arenaId)} area · Level {m.c.level} · <span class="li-link">
                   {s.wins + s.losses} fight{s.wins + s.losses === 1 ? '' : 's'}

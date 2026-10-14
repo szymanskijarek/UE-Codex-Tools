@@ -164,7 +164,7 @@ const TAGS: Record<string, string[]> = {
 
 /** Crypto Bros (08): the market floor's cast, and where the floor lives. */
 const CRYPTO = bundle.markets.find((m) => m.id === 'market.crypto');
-const BRO_SYMBOLS = CRYPTO ? Object.keys(CRYPTO.cast).sort() : [];
+export const BRO_SYMBOLS = CRYPTO ? Object.keys(CRYPTO.cast).sort() : [];
 /** The single-file build has no second page: send players to the site. */
 export const CRYPTO_URL = import.meta.env?.VITE_INLINE === '1' ? 'https://careercrash.org/cryptobro/' : '/cryptobro/';
 
@@ -175,6 +175,12 @@ export const INCIDENT_URL = import.meta.env?.VITE_INLINE === '1' ? 'https://care
 /** Broken News (10): its own page; the feed carries its ads. */
 export const NEWS_URL = import.meta.env?.VITE_INLINE === '1' ? 'https://careercrash.org/news/' : '/news/';
 const UK_NATIONS: Record<string, string> = { ENG: 'England', SCO: 'Scotland', WAL: 'Wales' };
+/** The delegate who writes to this save (12 §8): the player's own country's, else one picked for the save. */
+export function storyDelegate(s: CareerSave): string | undefined {
+  if (s.nationality && COUNTRIES?.cast[s.nationality]) return s.nationality;
+  return DEL_KEYS.length ? DEL_KEYS[Rng.fromSeed(`delegate:${s.seed}`).int(DEL_KEYS.length)] : undefined;
+}
+
 /** A country's name (English: the feed is in English). */
 export function countryName(key: string): string {
   if (UK_NATIONS[key]) return UK_NATIONS[key]!;
@@ -207,7 +213,7 @@ function instWho(name: string, career: string, persona: string): NonNullable<Fee
 }
 
 /** A delegate as a feed author: name, job line and their own portrait. */
-function delegateSpeaker(key: string): Pick<FeedPost, 'author' | 'sub' | 'who'> | null {
+export function delegateSpeaker(key: string): Pick<FeedPost, 'author' | 'sub' | 'who'> | null {
   const m = COUNTRIES?.cast[key];
   if (!COUNTRIES || !m) return null;
   const f = marketFighter(bundle, COUNTRIES, { symbol: key, changeBp: 0, capRank: 1, score: 0, pumping: false, dumping: false, leveraged: false });
@@ -215,7 +221,7 @@ function delegateSpeaker(key: string): Pick<FeedPost, 'author' | 'sub' | 'who'> 
 }
 
 /** A bro as a feed author: name, job line and portrait (their own art once it's painted). */
-function broSpeaker(sym: string): Pick<FeedPost, 'author' | 'sub' | 'who'> | null {
+export function broSpeaker(sym: string): Pick<FeedPost, 'author' | 'sub' | 'who'> | null {
   const m = CRYPTO?.cast[sym];
   if (!CRYPTO || !m) return null;
   // The same face as on the floor: build the fighter at a neutral score.
@@ -439,8 +445,10 @@ export function fightPosts(s: CareerSave, r: FightSummary): FeedPost[] {
   }
 
   // 8. A country's delegate (09) posts from the Summit Hall: always the first time, then about every other fight.
+  // In a story career only once a delegate has written to you (12 §8).
+  const delegatesOn = !s.story || s.story.gates.includes('delegate');
   const firstTime = !(s.feed ?? []).some((p) => p.by === 'delegate');
-  const key = DEL_KEYS.length && (firstTime || chance(0.5)) ? pick(DEL_KEYS) : '';
+  const key = delegatesOn && DEL_KEYS.length && (firstTime || chance(0.5)) ? pick(DEL_KEYS) : '';
   const del = key ? delegateSpeaker(key) : null;
   if (del) {
     const about = r.outcome === 'win' ? 'incident_post_about_win' : r.outcome === 'loss' ? 'incident_post_about_loss' : '';
@@ -470,7 +478,7 @@ export function fightPosts(s: CareerSave, r: FightSummary): FeedPost[] {
   // 9. An institution (09 §7.2) has a statement about your fight: the first time from the second fight on, then about one fight in three.
   // Which one depends on the fight: the ICC and the UN after a lot of knockouts, the Lenders after a loss, the Raters after a flawless win.
   const firstInst = !(s.feed ?? []).some((p) => p.mood === 'institution');
-  if (INSTITUTIONS.length && fightNo >= 2 && (firstInst || chance(0.3))) {
+  if (delegatesOn && INSTITUTIONS.length && fightNo >= 2 && (firstInst || chance(0.3))) {
     const many = Number(slots.kos) >= 3;
     const weights = INSTITUTIONS.map((c) => {
       const l = INST_LEAN[c.id] ?? {};
@@ -550,7 +558,8 @@ export function promotedPosts(s: CareerSave): FeedPost[] {
   out.push({ id: `promo-shop-${s.stage}`, fight: -1, mood: 'company', by: 'company', author: 'Corner Shop', sub: 'Retail · Open till late', icon: '🛒', text: pick('feed_shop'), promoted: true, reacts: 3 + rng.int(30), comments: 0 });
   // Broken News (10): an ad for the latest episode, on most fights.
   const ep = ON_AIR[0];
-  if (ep && rng.int(10) < 6) {
+  // In a story career only once BSN has been in touch (12 §8).
+  if (ep && (!s.story || s.story.gates.includes('news')) && rng.int(10) < 6) {
     const vars = { headline: ep.headline.charAt(0) + ep.headline.slice(1).toLowerCase(), bsn: ep.bsn };
     const line = (key: string) => {
       const l = bundle.live[key] ?? [''];
@@ -757,7 +766,14 @@ export function storyPost(s: CareerSave, e: Extract<StoryEffect, { kind: 'post' 
   const slots = { me: m.c.name, first: shortName(bundle, m.c.name), friend: f?.c.name ?? '', friendfirst: f ? shortName(bundle, f.c.name) : '' };
   const career = f ? f.c.careers[f.c.careers.length - 1]! : currentCareer(m);
   const mood = e.mood ?? 'network';
-  const author = e.by === 'friend' && f ? { author: f.c.name, sub: mood === 'bro' ? 'Head of Vibes at a DAO · Web3 · WAGMI' : `${nameOf(career)} · Your friend · 500+ connections`, who: { careers: [career], appearance: f.c.appearance } } : { author: 'Career Crash', sub: 'News', icon: '📰' };
+  const contact = bundle.story.find((b) => b.id === beatId)?.contact;
+  const t = contact ? s.story?.threads[contact] : undefined;
+  const author =
+    e.by === 'friend' && f
+      ? { author: f.c.name, sub: mood === 'bro' ? 'Head of Vibes at a DAO · Web3 · WAGMI' : `${nameOf(career)} · Your friend · 500+ connections`, who: { careers: [career], appearance: f.c.appearance } }
+      : t
+        ? { author: t.name, sub: t.sub, ...(t.who ? { who: t.who } : { icon: t.icon ?? '📰' }) }
+        : { author: 'Career Crash', sub: 'News', icon: '📰' };
   return {
     id: `story-${beatId}`,
     fight: feedFight(s),

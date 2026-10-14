@@ -3219,3 +3219,6 @@ body:has(.shell.li) {
 .chapter-card .li-btn {
   margin-top: 12px;
 }
+.msg-link {
+  max-width: min(360px, 85%);
+}

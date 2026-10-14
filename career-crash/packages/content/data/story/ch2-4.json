@@ -1,0 +1,171 @@
+[
+  {
+    "id": "story.ch2-01-gavin",
+    "contact": "contact.gavin",
+    "after": ["story.ch1-06-poached"],
+    "trigger": { "kind": "progress", "stage": 5 },
+    "lines": [
+      ["gm {first} 🌅 Gavin here. {friendfirst} says you're 'good with your hands'.", "gm gm {first} 🌅 it's Gavin. yes, THAT Gavin. {friendfirst} talks about you constantly. mostly in the group chat."],
+      "I'm building something. Can't say what. It's on-chain. You'd be employee #0 (#1 is taken, by me).",
+      "just say the word and I'll send you a whitepaper. it's one page. the page is blank. that's the vision."
+    ],
+    "replies": [
+      { "text": "Tell me more", "next": "story.ch2-02-gavin-pitch" },
+      { "text": "What's a DAO?", "next": "story.ch2-02-gavin-pitch", "flag": "gavin.dao" },
+      { "text": "No", "next": "story.ch2-02-gavin-pitch", "flag": "gavin.no" }
+    ],
+    "fallbackMs": 30000
+  },
+  {
+    "id": "story.ch2-02-gavin-pitch",
+    "contact": "contact.gavin",
+    "after": ["story.ch2-01-gavin"],
+    "trigger": { "kind": "reply" },
+    "lines": [
+      ["few understand.", "'{reply}'. love that energy. few understand."],
+      "the ones who do are brawling on the trading floor right now. come watch. not financial advice. 📈"
+    ],
+    "link": "crypto",
+    "effects": [{ "kind": "connections", "n": 5 }]
+  },
+  {
+    "id": "story.ch2-03-bev",
+    "contact": "contact.bev",
+    "after": ["story.ch1-06-poached"],
+    "trigger": { "kind": "progress", "stage": 6 },
+    "lines": [
+      "Darling! Bev Fizzwilliam, BSN. I'm at your friend's DAO launch party. 🥂",
+      ["Free bar, no chairs, and a man called Gavin explaining money to a fountain. The fountain looks convinced.", "The theme is 'decentralised'. Nobody knows where the canapés are. Very on brand, darling."],
+      "We're running a little piece tonight and your name came up. Twice. In a good way, mostly. To you, darling! 🥂"
+    ],
+    "effects": [
+      { "kind": "gate", "feed": "news" },
+      { "kind": "connections", "n": 10 },
+      {
+        "kind": "post",
+        "by": "contact",
+        "lines": [
+          "LIVE from the launch of a decentralised autonomous organisation, darling! 🥂 Head of Vibes {friend} gave a speech about 'the future'. Gavin gave a speech about Gavin. Nobody could find the exit, which I'm told is the business model. Back to you, Brock.",
+          "Tonight's launch: a DAO! 🥂 The champagne is real, the money is theoretical, and the Head of Vibes, {friend}, is doing a wonderful job of not reading the contract. Cheers, darlings. Back to the studio."
+        ],
+        "tags": "#BrokenNews #BSN #LaunchParty",
+        "mood": "news",
+        "link": "news"
+      }
+    ]
+  },
+  {
+    "id": "story.ch2-04-brock",
+    "contact": "contact.brock",
+    "after": ["story.ch2-03-bev"],
+    "trigger": { "kind": "progress", "stage": 8 },
+    "lines": [
+      "Hey there! Brock Stetson Jr., BSN. Huge fan. HUGE.",
+      "Folks are saying you took down {lastboss} in a final interview! We want your comment for tonight's show.",
+      "Keep it short. The teleprompter only goes so fast. I read it myself!"
+    ],
+    "replies": [
+      { "text": "No comment.", "next": "story.ch2-05-brock-story" },
+      { "text": "I'd do it again.", "next": "story.ch2-05-brock-story", "flag": "brock.again" },
+      { "text": "Thoughts and prayers.", "next": "story.ch2-05-brock-story", "flag": "brock.prayers" }
+    ],
+    "fallbackMs": 30000
+  },
+  {
+    "id": "story.ch2-05-brock-story",
+    "contact": "contact.brock",
+    "after": ["story.ch2-04-brock"],
+    "trigger": { "kind": "reply" },
+    "lines": [
+      "\"{reply}\" WOW. That's going straight on the teleprompter. Chills, buddy.",
+      "You're on BSN tonight! Look for the lower third. I spelled your name myself, so it's probably right."
+    ],
+    "link": "news",
+    "effects": [
+      { "kind": "connections", "n": 25 },
+      {
+        "kind": "post",
+        "by": "contact",
+        "lines": [
+          "BREAKING: {me} beats {lastboss} in a final interview! 🎸 \"{reply}\", says {first}. Folks, I've read the report. Well, I've held it. More at eleven!",
+          "TONIGHT ON BSN: a final interview turns into a final INTERVIEW. 🎸 {me} on beating {lastboss}: \"{reply}\" Incredible stuff. Stay with us!"
+        ],
+        "tags": "#BreakingNews #BSN #BrokenNews",
+        "mood": "news",
+        "link": "news"
+      }
+    ]
+  },
+  {
+    "id": "story.ch3-01-delegate",
+    "contact": "contact.delegate",
+    "after": ["story.ch1-06-poached"],
+    "trigger": { "kind": "progress", "stage": 9 },
+    "lines": [
+      "Greetings, {first}. I am {delegate}, delegate for {country} at the Summit Hall.",
+      "Word of your… interviews has reached the Summit. Forty nations, one hall, an extremely contested buffet.",
+      "Should you wish to declare a nationality, your profile now has a space for it. Countries that do well at the Summit lend their people a little swagger."
+    ],
+    "replies": [
+      { "text": "I'm in" },
+      { "text": "Which country?", "flag": "delegate.which" },
+      { "text": "Is there a buffet?", "flag": "delegate.buffet" }
+    ],
+    "link": "incident",
+    "effects": [
+      { "kind": "unlock", "what": "nationality" },
+      { "kind": "gate", "feed": "delegate" },
+      { "kind": "connections", "n": 10 }
+    ]
+  },
+  {
+    "id": "story.ch3-02-kevin",
+    "contact": "contact.kevin",
+    "after": ["story.ch2-03-bev"],
+    "trigger": { "kind": "progress", "stage": 10 },
+    "lines": ["(Kevin sent an attachment: untitled.txt, 0 KB)"],
+    "typing": true
+  },
+  {
+    "id": "story.ch4-01-friend-back",
+    "contact": "contact.friend",
+    "after": ["story.ch1-06-poached"],
+    "trigger": { "kind": "progress", "stage": 13 },
+    "lines": [
+      "hey. so. funny story.",
+      ["the DAO voted to dissolve itself. then it voted to dissolve the vote. then Gavin left for a 'retreat'.", "the DAO has 'completed its journey'. that's what Gavin said. from a boat."],
+      "I'm… open to work? 🥲"
+    ],
+    "replies": [
+      { "text": "Come work with me", "next": "story.ch4-02-friend-hired" },
+      { "text": "Told you so", "next": "story.ch4-02-friend-hired", "flag": "friend.toldyou" }
+    ],
+    "fallbackMs": 30000
+  },
+  {
+    "id": "story.ch4-02-friend-hired",
+    "contact": "contact.friend",
+    "after": ["story.ch4-01-friend-back"],
+    "trigger": { "kind": "reply" },
+    "lines": [
+      ["'{reply}'. noted. I'll bring snacks. and the DAO's beanbags. they're the only asset left.", "'{reply}'. fair. I'll bring snacks. and the beanbags. the beanbags are non-negotiable."],
+      "see you in the line-up 💛"
+    ],
+    "effects": [
+      { "kind": "partner", "action": "rehire" },
+      { "kind": "connections", "n": 15 },
+      {
+        "kind": "post",
+        "by": "friend",
+        "lines": [
+          "Some personal news: the DAO I co-led has completed its journey. 🚀 Our treasury is now a rug, our rug is now a metaphor, and I'm thrilled to be joining my oldest friend {me} at {mycompany}. Gavin, if you're reading this from the boat: few understand.",
+          "After a transformative chapter in Web3, I'm returning to brawling. 🙏 Huge thanks to {me} for taking me back, and to the DAO for teaching me that 'decentralised' means nobody knows where the money went."
+        ],
+        "tags": "#OpenToWork #Web3 #Resilience",
+        "mood": "bro",
+        "link": "crypto",
+        "art": "rugpull-card"
+      }
+    ]
+  }
+]

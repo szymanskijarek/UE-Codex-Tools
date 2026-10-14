@@ -159,7 +159,7 @@
     "after": ["story.ch1-08-karen"],
     "trigger": { "kind": "progress", "stage": 4 },
     "lines": [
-      "You beat {boss}?! I've updated your file from 'Brave' to 'Promising'. ✨",
+      "You beat {lastboss}?! I've updated your file from 'Brave' to 'Promising'. ✨",
       "That opens a second seat on your squad. Fill it with someone who grows.",
       "Oh, and expect a letter. Someone downstairs wants to make you an offer."
     ],

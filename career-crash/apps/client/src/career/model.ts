@@ -22,6 +22,9 @@ import {
   shortName,
   tempCost,
   uiDue,
+  contactLook,
+  sendMessage,
+  fillSlots,
   jobTitle,
   makeOffer,
   milestonesCrossed,
@@ -75,9 +78,10 @@ import {
   type NationalBoost,
 } from '@cc/game-rules';
 import { Rng, SIM_VERSION, simulate, type BattleInput } from '@cc/sim';
-import { FEED_CAP, fightPosts, gigPost, milestonePost, starterPosts, storyPost, titlePost, type FeedPost } from './feed';
+import { broSpeaker, BRO_SYMBOLS, countryName, delegateSpeaker, FEED_CAP, fightPosts, gigPost, milestonePost, starterPosts, storyDelegate, storyPost, titlePost, type FeedPost } from './feed';
 import { pickPhotoMoment, type PhotoMoment } from './photo-moment';
 import { lastSummit } from '../incident/likes';
+import { ON_AIR } from '../news/episodes';
 
 /**
  * Offline career mode (03 §8): one main character climbs a ladder of fights,
@@ -198,7 +202,7 @@ function legacyStory(s: CareerSave): void {
   const m = mainChar(s);
   const st = newStory(makeFriend(bundle, s.seed, currentCareer(m), m.c.level, careerRank(m, currentCareer(m))));
   st.fired = bundle.story.filter((b) => b.id.startsWith('story.ch1-')).map((b) => b.id);
-  st.unlocks = ['messages', 'feed', 'easyApply', 'temps', 'hiring'];
+  st.unlocks = ['messages', 'feed', 'easyApply', 'temps', 'hiring', 'nationality'];
   st.gates = ['bro', 'delegate', 'news'];
   st.squadSlots = SQUAD_SIZE;
   st.fights = s.wins + s.losses;
@@ -210,7 +214,6 @@ function legacyStory(s: CareerSave): void {
   if (beat) applyOuter(s, fireBeat(bundle, st, beat, storyCtx(s)));
 }
 
-export const career = signal<CareerSave | null>(migrate(load()));
 
 export function save(s: CareerSave): void {
   career.value = { ...s };
@@ -500,7 +503,7 @@ export function collectResults(s: CareerSave): CareerSave {
     const mvp = out.result.mvp === r.entityId;
     const xp = Math.round((battleXp(bundle.economy, outcome, r.counters.kos, mvp, false) * diff.rewardBp * earlyBp) / 100_000_000);
     const friend = s.story?.friend;
-    if (friend && r.snapshotId === friend.c.id) {
+    if (friend && r.snapshotId === friend.c.id && !s.chars[friend.c.id]) {
       // The friend grows with you while they fight next to you, and spends their own points.
       const g = growFriend(bundle, friend, xp, s.seed);
       applyBattleToCharacter(friend.c, r, outcome, mvp);
@@ -613,6 +616,7 @@ export function collectResults(s: CareerSave): CareerSave {
     const after = next.story!;
     const crossed = milestonesCrossed(bundle, before.connections, after.connections);
     if (crossed.length) next.feed.splice(fresh.length, 0, ...crossed.map((n) => milestonePost(next, n)));
+    storyCameos(next, after, { bossWin, chapter: Math.floor(stage / STAGES_PER_ARENA) + 1 });
     const opened = [...after.unlocks.filter((u) => !before.unlocks.includes(u)).map((u) => UNLOCK_NAMES[u]), ...(after.squadSlots > before.seats ? [`Squad seat ${after.squadSlots}`] : [])];
     next.last.progress = { connections: after.connections - before.connections, opened, ...(bossWin ? { title: jobTitle(bundle, next.stage) } : {}) };
   }
@@ -776,7 +780,10 @@ function storySlots(s: CareerSave): Record<string, string | number> {
   const m = mainChar(s);
   const info = stageInfo(bundle, s.stage);
   const boss = stageInfo(bundle, chapterBossStage(s.stage));
+  // The boss of the chapter just finished (chapter 1's before any is done).
+  const last = stageInfo(bundle, Math.max(STAGES_PER_ARENA, Math.floor(s.stage / STAGES_PER_ARENA) * STAGES_PER_ARENA) - 1);
   const f = s.story?.friend;
+  const del = storyDelegate(s);
   const loc = (id: string) => bundle.locale[`${id}.name`] ?? id;
   return {
     me: m.c.name,
@@ -792,11 +799,18 @@ function storySlots(s: CareerSave): Record<string, string | number> {
     hirecost: Math.min(...Object.values(HIRE_COST)),
     boss: boss.bossName ?? boss.company,
     bosscompany: boss.company,
+    title: jobTitle(bundle, s.stage),
+    lastboss: last.bossName ?? last.company,
+    mycompany: companyName(s),
+    ...(del ? { delegate: COUNTRY_CAST?.cast[del]?.name ?? del, country: countryName(del) } : {}),
   };
 }
 
+const COUNTRY_CAST = bundle.markets.find((m) => m.source === 'likes');
+
 export function storyCtx(s: CareerSave): StoryCtx {
-  return { seed: s.seed, fights: s.story?.fights ?? s.wins + s.losses, stage: s.stage, cash: s.cash, slots: storySlots(s) };
+  const del = storyDelegate(s);
+  return { seed: s.seed, fights: s.story?.fights ?? s.wins + s.losses, stage: s.stage, cash: s.cash, slots: storySlots(s), ...(del ? { delegate: del } : {}) };
 }
 
 /** Apply what a beat did outside the story: cash, posts in the feed, the starter feed. Mutates `s`. */
@@ -805,6 +819,12 @@ function applyOuter(s: CareerSave, effects: OuterEffect[], beatId = ''): void {
     if (e.kind === 'cash') s.cash += e.n;
     else if (e.kind === 'starterFeed') s.feed = [...(s.feed ?? []), ...starterPosts(s)].slice(0, FEED_CAP);
     else if (e.kind === 'post') s.feed = [storyPost(s, e, beatId), ...(s.feed ?? [])].slice(0, FEED_CAP);
+    else if (e.kind === 'rehire' && s.story?.friend && !s.chars[s.story.friend.c.id]) {
+      // The friend comes back (12 §8, chapter 4): on the staff for good, free, in a seat if there is one.
+      const f = s.story.friend;
+      s.chars = { ...s.chars, [f.c.id]: f };
+      if (s.squad.length < squadSlots(s)) s.squad = [...s.squad, f.c.id];
+    }
   }
 }
 
@@ -903,7 +923,7 @@ export function skipIntro(s: CareerSave): void {
   });
 }
 
-const UNLOCK_NAMES: Record<StoryUnlock, string> = { messages: 'Messaging', feed: 'Your feed', easyApply: 'Easy Apply', temps: 'Agency temps', hiring: 'Hiring' };
+const UNLOCK_NAMES: Record<StoryUnlock, string> = { messages: 'Messaging', feed: 'Your feed', easyApply: 'Easy Apply', temps: 'Agency temps', hiring: 'Hiring', nationality: 'Nationality (the Summit Hall)' };
 
 /** The free hire in a chapter's offer letter: a rare applicant (epic from `epicHireFromChapter`), a level behind you. */
 function offerRecruit(s: CareerSave, chapter: number): Character {
@@ -958,3 +978,46 @@ export function seeChapter(s: CareerSave, chapter: number): void {
   if (!s.story || (s.story.chapterSeen ?? 0) >= chapter) return;
   save({ ...s, story: { ...s.story, chapterSeen: chapter } });
 }
+
+/**
+ * Cameos outside the scripted chapters (12 §8.1). The leader of the first
+ * set that gatecrashes your fight writes once; and from chapter 5, each
+ * chapter boss beaten brings a message from the other shows in turn: a
+ * crypto bro, your delegate, or Brock with the episode on air. Mutates `st`.
+ */
+function storyCameos(s: CareerSave, st: StoryState, at: { bossWin: boolean; chapter: number }): void {
+  const ctx = storyCtx(s);
+  const rng = Rng.fromSeed(`cameo:${s.seed}:${st.fights}`);
+  const say = (key: string, slots: Record<string, string | number>) => {
+    const l = bundle.live[key] ?? [];
+    return l.length ? [fillSlots(l[rng.int(l.length)]!, { ...ctx.slots, ...slots })] : [];
+  };
+  const crash = s.last?.crash;
+  const lead = crash?.members[0];
+  if (crash && lead && !st.flags.includes('crash.met')) {
+    st.flags.push('crash.met');
+    const name = (id: string) => bundle.locale[`${id}.name`] ?? id;
+    sendMessage(st, `crash.${crash.set}`, { name: lead.name, sub: `${name(lead.persona)} · ${name(crash.set)}`, who: { careers: [lead.career], appearance: lead.appearance, persona: lead.persona, ...(lead.art ? { art: lead.art } : {}) } }, say('cameo_crash', { leader: lead.name }), st.fights);
+  }
+  if (!at.bossWin || at.chapter < 4) return;
+  const ep = ON_AIR[0];
+  const kinds = ['bro', 'delegate', 'news'].filter((k) => k !== 'news' || ep);
+  const kind = kinds[at.chapter % kinds.length];
+  if (kind === 'news' && ep) {
+    const c = bundle.contacts.find((x) => x.id === 'contact.brock')!;
+    sendMessage(st, c.id, { name: c.name, sub: c.sub, ...contactLook(bundle, c, st, s.stage) }, say('cameo_news', { headline: ep.headline }), st.fights, 'news');
+  } else if (kind === 'delegate' && ctx.delegate) {
+    const d = delegateSpeaker(ctx.delegate);
+    if (d) sendMessage(st, 'contact.delegate', { name: d.author, sub: d.sub, ...(d.who ? { who: d.who } : {}) }, say('cameo_delegate', { name: d.author, country: countryName(ctx.delegate) }), st.fights, 'incident');
+  } else if (BRO_SYMBOLS.length) {
+    const sym = BRO_SYMBOLS[rng.int(BRO_SYMBOLS.length)]!;
+    const b = broSpeaker(sym);
+    if (b) sendMessage(st, sym === 'ETH' ? 'contact.gavin' : `bro.${sym}`, { name: b.author, sub: b.sub, ...(b.who ? { who: b.who } : {}) }, say('cameo_bro', { name: b.author }), st.fights, 'crypto');
+  }
+}
+
+/**
+ * The career in play, loaded and brought up to date (migrated, story beats due
+ * fired). Made last, after every constant the migration uses.
+ */
+export const career = signal<CareerSave | null>(migrate(load()));

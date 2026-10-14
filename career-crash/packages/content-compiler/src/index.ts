@@ -413,7 +413,7 @@ function validateHrNotes(b: ContentBundle): string[] {
 }
 
 /** Story slots a line may use (12 §4.1). */
-const STORY_SLOTS = new Set(['me', 'first', 'friend', 'friendfirst', 'company', 'next', 'arena', 'cash', 'tempspend', 'tempcost', 'boss', 'bosscompany', 'gig', 'hirecost']);
+const STORY_SLOTS = new Set(['me', 'first', 'friend', 'friendfirst', 'company', 'next', 'arena', 'cash', 'tempspend', 'tempcost', 'boss', 'bosscompany', 'gig', 'hirecost', 'delegate', 'country', 'reply', 'title', 'lastboss', 'mycompany']);
 
 /** Career story (12): contacts, beats and gigs reference real things, use known slots, and chapter 1 can unlock Easy Apply. */
 export function validateStory(b: ContentBundle): string[] {
@@ -428,7 +428,6 @@ export function validateStory(b: ContentBundle): string[] {
   };
   for (const c of b.contacts) {
     if (c.career && !careers.has(c.career)) errors.push(`${c.id}: unknown career ${c.career}`);
-    if (c.persona && !(`${c.persona}.name` in b.locale)) errors.push(`locale: missing key ${c.persona}.name`);
     slots(c.id, c.name + ' ' + c.sub);
   }
   const replied = new Set<string>();

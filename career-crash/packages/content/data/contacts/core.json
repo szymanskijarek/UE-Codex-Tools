@@ -3,5 +3,10 @@
   { "id": "contact.recruiter", "kind": "recruiter", "name": "Jules at {company}", "sub": "Talent Partner · Hiring 🔥 · Loves a group interview", "icon": "🧲" },
   { "id": "contact.agency", "kind": "company", "name": "Temporarily Yours Staffing", "sub": "Staffing · Bodies on demand · Mostly on time", "icon": "🪪" },
   { "id": "contact.karen", "kind": "persona", "name": "Karen Whitfield", "sub": "Talent Acquisition · Hiring 🔥 · People are an investment", "career": "career.hotel-concierge" },
-  { "id": "contact.boss", "kind": "boss", "name": "{boss}", "sub": "Final interviewer at {bosscompany}" }
+  { "id": "contact.boss", "kind": "boss", "name": "{boss}", "sub": "Final interviewer at {bosscompany}" },
+  { "id": "contact.gavin", "kind": "bro", "name": "Gas Fee Gavin", "sub": "Founder · Stealth DAO · Not financial advice", "bro": "ETH" },
+  { "id": "contact.bev", "kind": "news", "name": "Bev Fizzwilliam", "sub": "Entertainment & Lifestyle Editor · BSN", "career": "career.fashion-designer", "persona": "npc.news-bev" },
+  { "id": "contact.brock", "kind": "news", "name": "Brock Stetson Jr.", "sub": "Senior Anchor (self-appointed) · BSN", "career": "career.tv-host", "persona": "npc.news-brock" },
+  { "id": "contact.kevin", "kind": "news", "name": "Kevin", "sub": "The Intern · BSN", "career": "career.journalist", "persona": "npc.news-kevin" },
+  { "id": "contact.delegate", "kind": "delegate", "name": "{delegate}", "sub": "Delegate for {country} · The Summit Hall", "career": "career.politician" }
 ]

@@ -5663,6 +5663,26 @@
    "I'm thrilled to announce I'm starting a new position as {title} at {company}! 🎉 Huge thanks to {boss} for the final interview, and for the bruise. #NewRole #Grateful",
    "Promoted to {title}! 🚀 Five years ago I was nobody. Two weeks ago I was an Intern. Today I'm {title}. Never stop brawling. #CareerGrowth #Leadership",
    "Some personal news: after beating {boss} in a final interview, I've accepted a role as {title} at {company}. Grateful. Humbled. Slightly concussed. #NewBeginnings"
+  ],
+  "cameo_crash": [
+   "Apologies for the disruption at the {arena}. Not for the chair.",
+   "We were in the area. We are always in the area. Regards.",
+   "Saw you on the floor today. Professionally speaking: lovely technique. Personally speaking: sorry about your face."
+  ],
+  "cameo_bro": [
+   "gm {first} 🌅 {name} here. heard you're climbing. respect. the chart only goes up if you believe. 📈",
+   "{first}. it's {name}. quick one: have you considered that your career is a coin? think about it. then come watch the floor. 📈",
+   "{name} here. not financial advice, but you should be watching the trading floor right now. NOW. 📈"
+  ],
+  "cameo_delegate": [
+   "{first}, {name} again, from the Summit Hall. {country} sends its regards, and a strongly worded resolution about your last fight.",
+   "Greetings, {first}. The Summit has noted your progress. Noted, discussed, minuted and, briefly, fought over.",
+   "{first}, the delegation of {country} would like you to know you are mentioned in three motions. Two are positive."
+  ],
+  "cameo_news": [
+   "Hey {first}! Brock again. Brand new episode on tonight: {headline}. You'd love it. I'm in it!",
+   "Buddy! Brock here. New Broken News is live: {headline}. Philippa did the research. I did the hair.",
+   "{first}! Big night at BSN: {headline}. Come watch. Bring snacks. Bring a friend. Bring a chair, we keep losing them."
   ]
  }
 }

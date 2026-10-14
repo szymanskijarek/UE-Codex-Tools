@@ -759,6 +759,7 @@ export type CrasherDef = z.infer<typeof crasherSchema>;
  */
 export const contactSchema = z.object({
   id: ref('contact'),
+  /** `delegate`: the player's country's delegate (09), or one picked for the save when they have none. */
   kind: z.enum(['friend', 'recruiter', 'persona', 'boss', 'bro', 'delegate', 'news', 'company']),
   name: z.string().max(60),
   sub: z.string().max(90),
@@ -782,7 +783,7 @@ export const storyTriggerSchema = z.discriminatedUnion('kind', [
 ]);
 export type StoryTrigger = z.infer<typeof storyTriggerSchema>;
 
-export const STORY_UNLOCKS = ['messages', 'feed', 'easyApply', 'temps', 'hiring'] as const;
+export const STORY_UNLOCKS = ['messages', 'feed', 'easyApply', 'temps', 'hiring', 'nationality'] as const;
 export const FEED_GATES = ['bro', 'delegate', 'news'] as const;
 export const STORY_LINKS = ['crypto', 'incident', 'news'] as const;
 /** Story cards (art/STORY_BRIEF.md Part A) a post or a message can carry. */
@@ -804,7 +805,8 @@ export const storyEffectSchema = z.discriminatedUnion('kind', [
     /** A picture under the post. */
     art: z.enum(STORY_CARDS).optional(),
   }),
-  z.object({ kind: z.literal('partner'), action: z.enum(['join', 'leave']) }),
+  /** `rehire`: the friend comes back as a free hire, on the staff for good (12 §8, chapter 4). */
+  z.object({ kind: z.literal('partner'), action: z.enum(['join', 'leave', 'rehire']) }),
   z.object({ kind: z.literal('cash'), n: int.min(1) }),
   z.object({ kind: z.literal('gate'), feed: z.enum(FEED_GATES) }),
 ]);
@@ -825,6 +827,10 @@ export const storyBeatSchema = z.object({
   effects: z.array(storyEffectSchema).default([]),
   /** A picture attached after the lines (an offer letter…). */
   art: z.enum(STORY_CARDS).optional(),
+  /** A link card after the lines (another show's page). */
+  link: z.enum(STORY_LINKS).optional(),
+  /** The contact stays "typing…" in the thread afterwards (Kevin). */
+  typing: z.boolean().optional(),
   /** Pops up (ping) when it arrives; quiet beats only add to the thread. */
   quiet: z.boolean().optional(),
 });

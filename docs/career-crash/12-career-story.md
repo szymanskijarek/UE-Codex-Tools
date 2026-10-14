@@ -1,6 +1,6 @@
 # Career Crash: the story mode and Messages (design + implementation plan)
 
-Status: **phases 1, 2 and 4 built** (see §12 for what exists and what doesn't yet). Owner of: the Messages tab, story beats,
+Status: **all four phases built** (see §12 for what exists and what doesn't yet). Owner of: the Messages tab, story beats,
 the first-time experience (FTUE), the friend, temps vs hires, opponent counts
 on the ladder, chapter structure and the cameos from the other shows. Where it
 changes an existing rule it says so; the owning doc (03 §3.5–3.6, 06 §2, 07 §2)
@@ -561,7 +561,7 @@ Decided (Oct 2026): all six as recommended below; players may fight alone.
 
 ---
 
-## 12. As built (phases 1, 2, 4)
+## 12. As built
 
 | What | Where |
 |---|---|
@@ -574,7 +574,8 @@ Decided (Oct 2026): all six as recommended below; players may fight alone.
 | Messaging screen, pop-ups, story runner | `apps/client/src/career/Messages.tsx`; route `#/career/messages[/:thread]`; nav badge in `app.tsx`; `ping` sound in `replay/audio.ts` |
 | Hub: quiet feed, no job card until the recruiter, interviewer counts, temp desk, connections | `apps/client/src/career/Hub.tsx`, `CoreActions.tsx` |
 | Progress (phase 2): job titles by chapter (`economy.progress.titles`), offer letters after every chapter boss (cash `200 × chapter`, a rare-or-better perk, or a free rare hire, epic from chapter 3), connection milestone posts and a Top Voice pill at 500+, +50% XP on stages 1–4 (`progress.earlyXp`), "Next up" on the profile, a chapter title card, "What changed" on Results | `jobTitle`, `makeOffer`, `signOffer`, `milestonesCrossed` in `game-rules/src/story.ts`; `acceptOffer`, `seeChapter` in `model.ts`; `career/progress.ts` (`nextUps`); `Hub.tsx` (`NextUp`, `ChapterCard`); texts `offer_*`, `feed_milestone`, `feed_title` in `live.json` |
-| Tests | `packages/game-rules/test/story.test.ts`, `apps/client/test/career-story.test.ts`, `apps/client/test/career-progress.test.ts` |
+| Cast (phase 3): chapter 2 Gavin's pitch (trading-floor link), Bev's BSN launch-party post (opens BSN posts), Brock runs your quote after the boss (`{reply}`, `{lastboss}`); chapter 3 your delegate opens nationality and Summit posts, Kevin's empty attachment and endless "typing…"; chapter 4 the friend comes back as a free hire (rug-pull card). From chapter 5 each boss win brings a cameo in turn (a bro, your delegate, Brock with the episode on air), and the first gatecrash brings a note from the set's leader | `data/story/ch2-4.json`, contacts `gavin`, `bev`, `brock`, `kevin`, `delegate`; beat `link` and `typing`; effect `partner: rehire`; unlock `nationality`; `sendMessage` in `story.ts`; `storyCameos` in `model.ts`; feed gates in `feed.ts`; texts `cameo_*` in `live.json` |
+| Tests | `packages/game-rules/test/story.test.ts`, `apps/client/test/career-story.test.ts`, `career-progress.test.ts`, `career-chapters.test.ts` (Brock and Bev lines pass the Broken News voice rules; Kevin never speaks) |
 | Balance | `pnpm balance --ladder [--battles=N] [--stages=N]` (`tools/balance/src/ladder.ts`) |
 
 **Art in:** the quiet feed, the friend's introduction and farewell cards (on their posts), the
@@ -582,6 +583,6 @@ offer letter (attached to every offer letter and the promotion post), the temp v
 temps' chests in fights: `Puppet.pin`, temps recognised by their `temp-` snapshot id) and lanyard (on
 their portraits), and connection badges at 50 / 100 / 250 / 500+ on the profile; the rug-pull card
 waits for the friend's return. All 13 gig characters (brief Part B) have their own art. **Not yet:** the desktop docked Messaging panel (Messaging is a page with two
-panes on wide screens); chapters 2+ and the cameos (phase 3); a stat respec as an offer
-choice. Old saves skip chapter 1 and get Karen's
+panes on wide screens); a stat respec as an offer choice; scripted beats past chapter 4
+(the rotating cameos carry on from there). Old saves skip chapter 1 and get Karen's
 💵 500 restructuring bonus; their booked temps match their old line-up.

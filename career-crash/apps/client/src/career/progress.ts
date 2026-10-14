@@ -18,6 +18,7 @@ const UNLOCKS: Record<StoryUnlock, [string, string]> = {
   easyApply: ['🥊', 'Easy Apply'],
   temps: ['🪪', 'Agency temps'],
   hiring: ['🤝', 'Hiring'],
+  nationality: ['🌍', 'Nationality'],
 };
 
 const plural = (n: number, one: string) => `${n} ${one}${n === 1 ? '' : 's'}`;

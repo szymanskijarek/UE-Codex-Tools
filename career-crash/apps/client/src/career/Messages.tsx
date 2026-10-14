@@ -6,6 +6,14 @@ import { currentReplay, navigate, notify } from '../state';
 import { Portrait } from '../ui/components';
 import { PageHead } from './CoreActions';
 import { storyArt, type StoryArt } from './story-art';
+import { CRYPTO_URL, INCIDENT_URL, NEWS_URL } from './feed';
+
+/** Link cards a message can carry (another show's page). */
+const LINKS = {
+  crypto: { href: CRYPTO_URL, title: 'Crypto Bros · careercrash.org/cryptobro', blurb: 'Watch the bros brawl live, every hour', art: '📈🥊' },
+  incident: { href: INCIDENT_URL, title: 'Diplomatic Incident · careercrash.org/incident', blurb: 'Forty countries brawl live in the Summit Hall', art: '🔨🌍' },
+  news: { href: NEWS_URL, title: 'Broken News · careercrash.org/news', blurb: 'Tonight on BSN', art: '📺🥊' },
+};
 import { menuSfx } from './menuVoice';
 import { acceptGig, acceptOffer, career, rarityOf, declineGig, dismissPing, fireStoryBeat, readThread, replyStory, type CareerSave } from './model';
 
@@ -93,7 +101,7 @@ function Thread({ s, t }: { s: CareerSave; t: StoryThread }) {
       return;
     }
     const next = t.lines[shown]!;
-    if (next.from === 'me') {
+    if (next.from === 'me' || next.link) {
       setShown(shown + 1);
       return;
     }
@@ -121,10 +129,24 @@ function Thread({ s, t }: { s: CareerSave; t: StoryThread }) {
       <div class="msg-lines">
         {t.lines.slice(0, shown).map((l, i) => (
           <div key={i} class={`msg-line ${l.from}`}>
-            {l.art ? storyArt(l.art as StoryArt) && <img class="msg-attachment" src={storyArt(l.art as StoryArt)} alt="" /> : <div class="msg-bubble">{l.text}</div>}
+            {l.art ? (
+              storyArt(l.art as StoryArt) && <img class="msg-attachment" src={storyArt(l.art as StoryArt)} alt="" />
+            ) : l.link ? (
+              <a class="li-linkcard msg-link" href={LINKS[l.link].href} {...(LINKS[l.link].href.startsWith('http') ? { target: '_blank', rel: 'noopener' } : {})}>
+                <span class="li-linkcard-art" aria-hidden="true">
+                  {LINKS[l.link].art}
+                </span>
+                <span>
+                  <b>{LINKS[l.link].blurb}</b>
+                  <small>{LINKS[l.link].title}</small>
+                </span>
+              </a>
+            ) : (
+              <div class="msg-bubble">{l.text}</div>
+            )}
           </div>
         ))}
-        {typing && (
+        {(typing || (done && t.typing)) && (
           <div class="msg-line them">
             <div class="msg-bubble msg-typing" aria-label={`${t.name} is typing`}>
               <span />

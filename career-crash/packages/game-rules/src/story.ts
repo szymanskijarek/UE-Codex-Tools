@@ -13,7 +13,7 @@ import { autoUnlock, careerSnapshot, DIFFICULTIES, generatedFighter, grow, RANK_
  * nothing here touches the sim.
  */
 
-export type StoryUnlock = 'messages' | 'feed' | 'easyApply' | 'temps' | 'hiring';
+export type StoryUnlock = 'messages' | 'feed' | 'easyApply' | 'temps' | 'hiring' | 'nationality';
 export type FeedGate = 'bro' | 'delegate' | 'news';
 
 /** Who a thread's portrait shows: a career's face (with a look), a persona, or an icon square. */
@@ -30,6 +30,8 @@ export interface StoryLine {
   fight: number;
   /** A picture attached (a story card). */
   art?: string;
+  /** A link card to another show's page. */
+  link?: 'crypto' | 'incident' | 'news';
 }
 
 export interface StoryThread extends StoryLook {
@@ -41,6 +43,8 @@ export interface StoryThread extends StoryLook {
   read: number;
   /** The beat whose replies are on offer. */
   ask?: string;
+  /** Still "typing…" (Kevin, forever). */
+  typing?: boolean;
   /** An offer letter after a chapter boss (12 §7.2): pick one of the choices, once. */
   offer?: { chapter: number; state: 'open' | 'done'; choices: OfferChoice[]; picked?: number };
   /** An invite-only gig offered in this thread. */
@@ -86,7 +90,7 @@ export interface StoryState {
 export type StorySlots = Record<string, string | number>;
 
 /** What happened outside the story state that the caller has to apply to the save. */
-export type OuterEffect = Extract<StoryEffect, { kind: 'cash' | 'post' | 'starterFeed' }>;
+export type OuterEffect = Extract<StoryEffect, { kind: 'cash' | 'post' | 'starterFeed' }> | { kind: 'rehire' };
 
 export interface StoryCtx {
   seed: string;
@@ -95,6 +99,8 @@ export interface StoryCtx {
   stage: number;
   cash: number;
   slots: StorySlots;
+  /** The country key of the delegate who writes (09): the player's nationality, or one picked for the save. */
+  delegate?: string;
 }
 
 export function fillSlots(text: string, slots: StorySlots): string {
@@ -166,8 +172,12 @@ export function uiDue(bundle: ContentBundle, st: StoryState): StoryBeatDef[] {
 }
 
 /** How a contact looks: the friend, the chapter's boss, a career's face, a crypto bro, or an icon. */
-export function contactLook(bundle: ContentBundle, c: ContactDef, st: StoryState, stage: number): StoryLook {
+export function contactLook(bundle: ContentBundle, c: ContactDef, st: StoryState, stage: number, delegate?: string): StoryLook {
   const plain = { skin: '#e0ac69', hair: '#2b1d14', hairStyle: 0 };
+  if (c.kind === 'delegate' && delegate) {
+    const d = bundle.markets.find((m) => m.source === 'likes')?.cast[delegate];
+    if (d) return { who: { careers: [d.career], appearance: plain, persona: d.persona } };
+  }
   if (c.kind === 'friend' && st.friend) return { who: { careers: [st.friend.c.careers[st.friend.c.careers.length - 1]!], appearance: st.friend.c.appearance } };
   if (c.kind === 'boss') {
     const career = stageInfo(bundle, chapterBossStage(stage)).bossCareer;
@@ -191,7 +201,7 @@ function thread(bundle: ContentBundle, st: StoryState, id: string, ctx: StoryCtx
   if (!t) {
     const c = bundle.contacts.find((x) => x.id === id);
     t = c
-      ? { id, name: fillSlots(c.name, ctx.slots), sub: fillSlots(c.sub, ctx.slots), ...contactLook(bundle, c, st, ctx.stage), lines: [], read: 0 }
+      ? { id, name: fillSlots(c.name, ctx.slots), sub: fillSlots(c.sub, ctx.slots), ...contactLook(bundle, c, st, ctx.stage, ctx.delegate), lines: [], read: 0 }
       : { id, name: fallback?.name ?? id, sub: fallback?.sub ?? '', icon: fallback?.icon ?? '💬', lines: [], read: 0 };
     st.threads[id] = t;
   }
@@ -217,6 +227,8 @@ export function fireBeat(bundle: ContentBundle, st: StoryState, beat: StoryBeatD
     t.lines.push({ from: 'them', text: fillSlots(text, ctx.slots), fight: ctx.fights });
   });
   if (beat.art) t.lines.push({ from: 'them', text: '', fight: ctx.fights, art: beat.art });
+  if (beat.link) t.lines.push({ from: 'them', text: '', fight: ctx.fights, link: beat.link });
+  if (beat.typing) t.typing = true;
   if (beat.replies?.length) t.ask = beat.id;
   if (!beat.quiet) ping(st, t.id);
   const outer: OuterEffect[] = [];
@@ -236,6 +248,11 @@ export function fireBeat(bundle: ContentBundle, st: StoryState, beat: StoryBeatD
         break;
       case 'partner':
         st.partner = e.action === 'join' && !!st.friend;
+        if (e.action === 'rehire' && st.friend) outer.push({ kind: 'rehire' });
+        break;
+      case 'post':
+        // Filled here, so a post can quote the reply that led to it ({reply}).
+        outer.push({ ...e, lines: e.lines.map((l) => fillSlots(l, ctx.slots)) });
         break;
       default:
         outer.push(e);
@@ -256,7 +273,7 @@ export function replyTo(bundle: ContentBundle, st: StoryState, threadId: string,
   if (r.flag && !st.flags.includes(r.flag)) st.flags.push(r.flag);
   const next = r.next ? bundle.story.find((b) => b.id === r.next) : undefined;
   if (!next || !ready(st, next)) return { effects: [] };
-  return { beat: next, effects: fireBeat(bundle, st, next, ctx) };
+  return { beat: next, effects: fireBeat(bundle, st, next, { ...ctx, slots: { ...ctx.slots, reply: r.text } }) };
 }
 
 export function markRead(st: StoryState, threadId: string): void {
@@ -411,4 +428,21 @@ export function offerLabel(c: OfferChoice): string {
 /** Connection milestones crossed going from `before` to `after`. */
 export function milestonesCrossed(bundle: ContentBundle, before: number, after: number): number[] {
   return bundle.economy.progress.connectionMilestones.filter((m) => before < m && after >= m);
+}
+
+/**
+ * A message from someone outside the scripted beats (12 §8.1: a cameo, the
+ * leader of a set that crashed your fight): appended to their thread, which
+ * is made with `look` the first time.
+ */
+export function sendMessage(st: StoryState, id: string, look: StoryLook & { name: string; sub: string }, lines: string[], fights: number, link?: StoryLine['link']): void {
+  let t = st.threads[id];
+  if (!t) {
+    t = { id, ...look, lines: [], read: 0 };
+    st.threads[id] = t;
+  }
+  for (const text of lines) t.lines.push({ from: 'them', text, fight: fights });
+  if (link) t.lines.push({ from: 'them', text: '', fight: fights, link });
+  st.order = [id, ...st.order.filter((x) => x !== id)];
+  ping(st, id);
 }
