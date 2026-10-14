@@ -198,14 +198,14 @@
     "decline": "I already trust nobody",
     "side": "squad",
     "opponents": [
-      { "name": "Facilitator Bryony", "career": "career.life-coach", "persona": "npc.gig-facilitator", "personality": "personality.confident", "levelOffset": 0 },
-      { "name": "Facilitator Dan", "career": "career.personal-trainer", "persona": "npc.gig-facilitator", "personality": "personality.competitive", "levelOffset": 0 },
-      { "name": "Facilitator Moon", "career": "career.psychologist", "persona": "npc.gig-facilitator", "personality": "personality.helpful", "levelOffset": -1 }
+      { "name": "Bryn, facilitator", "career": "career.life-coach", "persona": "npc.gig-facilitator", "personality": "personality.confident", "levelOffset": 0 },
+      { "name": "Dan, facilitator", "career": "career.personal-trainer", "persona": "npc.gig-facilitator", "personality": "personality.competitive", "levelOffset": 0 },
+      { "name": "Moon, facilitator", "career": "career.psychologist", "persona": "npc.gig-facilitator", "personality": "personality.helpful", "levelOffset": -1 }
     ],
     "pay": { "win": 520, "loss": 200 },
     "posts": {
       "win": [
-        "Our team just completed a team-building away day. 🪢 Key learnings: trust is earned, facilitators are heavy, and Bryony can fall from a surprising height. Certificate laminated. #Teamwork #Leadership #Synergy",
+        "Our team just completed a team-building away day. 🪢 Key learnings: trust is earned, facilitators are heavy, and Bryn can fall from a surprising height. Certificate laminated. #Teamwork #Leadership #Synergy",
         "Mandatory fun: completed. 🪢 We caught every facilitator, and then we caught them again, harder. Proud of this team. #TeamBuilding #Culture"
       ],
       "loss": [
@@ -237,9 +237,9 @@
       { "name": "Ding", "career": "career.baker", "persona": "npc.gig-sous-chef", "personality": "personality.paranoid", "levelOffset": -1, "statOffset": -1 }
     ],
     "opponents": [
-      { "name": "Judge Marguerite", "career": "career.food-critic", "persona": "npc.gig-tv-judge", "personality": "personality.aggressive", "levelOffset": 0 },
-      { "name": "Judge Hamish", "career": "career.food-critic", "persona": "npc.gig-tv-judge", "personality": "personality.competitive", "levelOffset": -1 },
-      { "name": "Guest Judge Tilly", "career": "career.influencer", "persona": "npc.gig-tv-judge", "personality": "personality.chaotic", "levelOffset": -1 }
+      { "name": "Marguerite, judge", "career": "career.food-critic", "persona": "npc.gig-tv-judge", "personality": "personality.aggressive", "levelOffset": 0 },
+      { "name": "Harriet, judge", "career": "career.food-critic", "persona": "npc.gig-tv-judge", "personality": "personality.competitive", "levelOffset": -1 },
+      { "name": "Tilly, guest judge", "career": "career.influencer", "persona": "npc.gig-tv-judge", "personality": "personality.chaotic", "levelOffset": -1 }
     ],
     "pay": { "win": 460, "loss": 170 },
     "posts": {
