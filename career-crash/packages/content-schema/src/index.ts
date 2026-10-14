@@ -518,7 +518,15 @@ export const economySchema = z.object({
    * consumables after a lost fight (`shopAfterLossBp`), now and then otherwise
    * (`shopBp`), at most every `shopGap` fights.
    */
-  nudges: z.object({ coachGap: int.min(1), coachBp: bp, shopGap: int.min(1), shopAfterLossBp: bp, shopBp: bp }),
+  nudges: z.object({
+    coachGap: int.min(1),
+    coachBp: bp,
+    shopGap: int.min(1),
+    shopAfterLossBp: bp,
+    shopBp: bp,
+    /** Which supermarkets write, by chapter reached (1-based): the last band whose `fromChapter` you've reached; one of its stores per nudge. Texts `shop_<store>` and `shop_<store>_loss`. */
+    stores: z.array(z.object({ fromChapter: int.min(1), contacts: z.array(ref('contact')).min(1) })).min(1),
+  }),
   /** Invite-only gigs (12 §8.2): when invites arrive and how long they stay open. */
   gigs: z.object({ fromFight: int.min(1), everyFights: int.min(1), chanceBp: bp, expiresAfter: int.min(1) }),
   /**

@@ -5710,6 +5710,66 @@
    "This week at Fresco Express: {item}, 💵 {price}. Pack one for your fight with {next}. Or don't, and find out. 🛒",
    "Hi {first}! Your Fresco Rewards points are worth absolutely nothing, but {item} is only 💵 {price}. 🛒 Every little hurts.",
    "Flash sale! 🛒 {item} for 💵 {price}. Recommended by 9 out of 10 people who were knocked out yesterday."
+  ],
+  "shop_alldi": [
+   "Middle aisle this week at Alldi: {item} (💵 {price}), a snorkel, a cement mixer and a single ski. 🛒 Pack the first one before {next}.",
+   "Alldi price check: {item}, 💵 {price}. The brand version costs more and hits exactly the same. 🛒",
+   "Alldi Specialbuys this week: a kayak, a soldering iron and {item} (💵 {price}). Only one of these will help you against {next}. 🛒"
+  ],
+  "shop_alldi_loss": [
+   "Lost at the {arena}? 🛒 Our cashiers scan at 4 items a second; you went down at about the same speed. {item}, 💵 {price}. Bounce back cheaper.",
+   "Alldi here. Saw the fight. 🛒 {item} for 💵 {price}: not a brand you know, but it works. A bit like you, today.",
+   "Alldi tip: losing is free, {item} is 💵 {price}. Both are available every day. 🛒"
+  ],
+  "shop_liddle": [
+   "Liddle deal of the week: {item}, 💵 {price}. 🛒 Big on bruises, Liddle on price.",
+   "Hi {first}! {item} is 💵 {price} at Liddle. Pack it for {next}. The queue is long but it moves, like a good brawl. 🛒",
+   "Fresh from the Liddle bakery: nothing. Fresh from aisle 3: {item}, 💵 {price}. 🛒"
+  ],
+  "shop_liddle_loss": [
+   "We heard. 🛒 Everyone at the till heard. {item}, 💵 {price}: a Liddle help goes a long way.",
+   "Tough one at the {arena}. Liddle has {item} for 💵 {price}. Not a cure. A snack. 🛒",
+   "Liddle by Liddle, {first}. Start with {item} (💵 {price}). Then the rematch. 🛒"
+  ],
+  "shop_asdo": [
+   "That's Asdo price! 🛒 {item}, 💵 {price}. Tap your back pocket (gently, you're bruised).",
+   "Asdo here! {item} for 💵 {price}. Recommended for anyone with a final interview coming up. Which is you. 🛒",
+   "Asdo Rollback: {item} rolled back to 💵 {price}. Unlike you at the last interview, it won't fall over. 🛒"
+  ],
+  "shop_asdo_loss": [
+   "That's Asdo pain. 🛒 Ease it with {item}, 💵 {price}, aisle 4.",
+   "Ouch. That's Asdo price for {item} (💵 {price}), and that was Asdo pain at the {arena}. Pack one for the rematch. 🛒",
+   "Asdo price promise: if you find {item} cheaper anywhere, you weren't looking hard enough. 💵 {price}. Feel better. 🛒"
+  ],
+  "shop_morrisoffs": [
+   "More reasons to brawl at Morrisoffs! 🛒 {item}, freshly made on Market Street, 💵 {price}.",
+   "Morrisoffs here. Our butcher saw your last fight and said 'respect'. {item}, 💵 {price}. 🛒",
+   "Market Street special: {item} for 💵 {price}, wrapped by someone who calls you 'love'. 🛒"
+  ],
+  "shop_morrisoffs_loss": [
+   "Our fishmonger has seen fewer flops than you did today. 🛒 {item}, 💵 {price}. Back on Market Street, back on your feet.",
+   "Bad day at the {arena}? Morrisoffs has {item} for 💵 {price}. More reasons to get up. 🛒",
+   "Chin up, love. 🛒 {item}, 💵 {price}, from the Morrisoffs café, where nobody asks how the fight went."
+  ],
+  "shop_waitrows": [
+   "Good afternoon, {title}. 🧺 Waitrows has selected {item} (💵 {price}) for discerning brawlers. Free coffee with your loyalty card. Terms apply. They always do.",
+   "A gentle note from Waitrows: {item}, 💵 {price}, responsibly sourced, irresponsibly used. 🧺",
+   "Waitrows Essentials: {item}, 💵 {price}. Essential for a {title}. Optional for everyone else. 🧺"
+  ],
+  "shop_waitrows_loss": [
+   "We were so sorry to hear about the {arena}, {title}. 🧺 Might we suggest {item}, 💵 {price}? It pairs beautifully with a bruised ego.",
+   "Waitrows here. Losing is not on brand, {first}. {item}, 💵 {price}, aisle Quinoa. 🧺",
+   "Waitrows customer care: we've noticed a dip in your results, {title}. {item}, 💵 {price}, discreetly bagged. 🧺"
+  ],
+  "shop_ns": [
+   "This is not just any snack. 🧺 This is {item}: slow-cooked, hand-packed, 💵 {price}, for a {title} who means business.",
+   "N&S Food: {item}, 💵 {price}, finished with a drizzle of dominance. Pack it for {next}. 🧺",
+   "This is not just any {item}. This is a 💵 {price} {item}, for the {title} who has everything except a win streak. 🧺"
+  ],
+  "shop_ns_loss": [
+   "This is not just any defeat. 🧺 This is a slow-motion, hand-crafted defeat. Recover with {item}, 💵 {price}.",
+   "That was not just any loss, {first}. 🧺 {item} (💵 {price}): the N&S way back to the top.",
+   "Dine In for Two: {item} and a quiet word with yourself, 💵 {price}. 🧺"
   ]
  }
 }

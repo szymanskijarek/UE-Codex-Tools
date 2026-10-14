@@ -10,5 +10,11 @@
   { "id": "contact.kevin", "kind": "news", "name": "Kevin", "sub": "The Intern · BSN", "career": "career.journalist", "persona": "npc.news-kevin" },
   { "id": "contact.delegate", "kind": "delegate", "name": "{delegate}", "sub": "Delegate for {country} · The Summit Hall", "career": "career.politician" },
   { "id": "contact.coach", "kind": "persona", "name": "Roxanne Ascendo", "sub": "Career Coach · Certified Potential Unlocker™ · DM me", "career": "career.life-coach" },
-  { "id": "contact.store", "kind": "company", "name": "Fresco Express", "sub": "Supermarket · Every little hurts · Open till late", "icon": "🛒" }
+  { "id": "contact.store", "kind": "company", "name": "Fresco Express", "sub": "Supermarket · Every little hurts · Open till late", "icon": "🛒" },
+  { "id": "contact.store-alldi", "kind": "company", "name": "Alldi", "sub": "Discount supermarket · Like brands, only cheaper · Middle aisle of mystery", "icon": "🛒" },
+  { "id": "contact.store-liddle", "kind": "company", "name": "Liddle", "sub": "Discount supermarket · Big on bruises, Liddle on price", "icon": "🛒" },
+  { "id": "contact.store-asdo", "kind": "company", "name": "Asdo", "sub": "Supermarket · That's Asdo pain · Pocket the savings, tap the pocket", "icon": "🛒" },
+  { "id": "contact.store-morrisoffs", "kind": "company", "name": "Morrisoffs", "sub": "Supermarket · More reasons to brawl · Market Street since forever", "icon": "🛒" },
+  { "id": "contact.store-waitrows", "kind": "company", "name": "Waitrows", "sub": "Food hall · Quality brawls, honestly priced · Free coffee, terms apply", "icon": "🧺" },
+  { "id": "contact.store-ns", "kind": "company", "name": "N&S Food", "sub": "Food hall · This is not just any snack", "icon": "🧺" }
 ]

@@ -20,13 +20,13 @@ describe('nudges (12 §8.3)', () => {
       st.fights = f;
       storyNudges(s, st, 'loss');
       coach ||= !!st.threads['contact.coach'];
-      store ||= !!st.threads['contact.store'];
+      store ||= ['contact.store-alldi', 'contact.store-liddle'].some((id) => !!st.threads[id]);
     }
     expect(coach && store).toBe(true);
     const c = st.threads['contact.coach']!;
     expect(c.lines.some((l) => l.action?.to === 'skills' && l.action.id === mainChar(s).c.id)).toBe(true);
     expect(c.lines.every((l) => !l.text.includes('{'))).toBe(true);
-    const shop = st.threads['contact.store']!;
+    const shop = (st.threads['contact.store-alldi'] ?? st.threads['contact.store-liddle'])!;
     expect(shop.lines.some((l) => l.action?.to === 'shop')).toBe(true);
     expect(shop.lines.some((l) => /💵 \d+/.test(l.text))).toBe(true);
     // Cooldown: the same fight again writes nothing new.
@@ -39,11 +39,36 @@ describe('nudges (12 §8.3)', () => {
     const s = structuredClone(cur());
     s.cash = 0;
     const st = s.story!;
-    delete st.threads['contact.store'];
+    const before = Object.keys(st.threads).filter((k) => k.startsWith('contact.store')).length;
     for (let f = 100; f < 120; f++) {
       st.fights = f;
       storyNudges(s, st, 'loss');
     }
-    expect(st.threads['contact.store']).toBeUndefined();
+    expect(Object.keys(st.threads).filter((k) => k.startsWith('contact.store')).length).toBe(before);
+  });
+
+  it('the shops move up-market with the career: discounters first, food halls at the top', () => {
+    const want: [number, string[]][] = [
+      [0, ['contact.store-alldi', 'contact.store-liddle']],
+      [10, ['contact.store', 'contact.store-asdo']],
+      [22, ['contact.store-morrisoffs']],
+      [34, ['contact.store-waitrows', 'contact.store-ns']],
+    ];
+    for (const [stage, ids] of want) {
+      const s = structuredClone(cur());
+      s.stage = stage;
+      s.cash = 1000;
+      const st = s.story!;
+      for (const k of Object.keys(st.threads)) if (k.startsWith('contact.store')) delete st.threads[k];
+      st.nudged = {};
+      for (let f = 200; f < 260; f++) {
+        st.fights = f;
+        storyNudges(s, st, 'loss');
+      }
+      const seen = Object.keys(st.threads).filter((k) => k.startsWith('contact.store'));
+      expect(seen.length).toBeGreaterThan(0);
+      for (const k of seen) expect(ids, `stage ${stage}`).toContain(k);
+      for (const k of seen) expect(st.threads[k]!.lines.every((l) => !l.text.includes('{'))).toBe(true);
+    }
   });
 });

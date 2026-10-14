@@ -458,6 +458,12 @@ export function validateStory(b: ContentBundle): string[] {
   };
   for (const x of b.story) if (!visit(x.id)) errors.push(`${x.id}: "after" loops back on itself`);
   if (b.story.length && !b.story.some((x) => x.effects.some((e) => e.kind === 'unlock' && e.what === 'easyApply'))) errors.push('story: no beat unlocks Easy Apply');
+  for (const band of b.economy.nudges.stores)
+    for (const id of band.contacts) {
+      if (!contacts.has(id)) errors.push(`economy.nudges.stores: unknown contact ${id}`);
+      const slug = id === 'contact.store' ? '' : id.replace('contact.store-', '');
+      for (const k of slug ? [`shop_${slug}`, `shop_${slug}_loss`] : ['nudge_shop', 'nudge_shop_loss']) if (!b.live[k]?.length) errors.push(`live.json: missing ${k} for ${id}`);
+    }
   for (const c of b.economy.friend.careers) if (!careers.has(c)) errors.push(`economy.friend: unknown career ${c}`);
   for (const g of b.gigs) {
     if (!arenas.has(g.arena)) errors.push(`${g.id}: unknown arena ${g.arena}`);

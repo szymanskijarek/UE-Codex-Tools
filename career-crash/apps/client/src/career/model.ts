@@ -1072,7 +1072,19 @@ export function storyNudges(s: CareerSave, st: StoryState, outcome: 'win' | 'dra
     if (room && stock.length) {
       const item = stock[rng.int(stock.length)]!;
       const name = bundle.locale[`${item.id}.name`] ?? item.id;
-      sendMessage(st, 'contact.store', look('contact.store'), line(outcome === 'loss' ? 'nudge_shop_loss' : 'nudge_shop', { item: name, price: item.price }), st.fights, undefined, { to: 'shop' });
+      // Which shop writes moves up-market with the career: discounters first, food halls at the top.
+      const chapter = Math.floor(s.stage / STAGES_PER_ARENA) + 1;
+      const band = [...N.stores].reverse().find((b) => chapter >= b.fromChapter) ?? N.stores[0]!;
+      const store = band.contacts[rng.int(band.contacts.length)]!;
+      const slug = store === 'contact.store' ? '' : store.replace('contact.store-', '');
+      const key = slug ? `shop_${slug}` : 'nudge_shop';
+      // Never the same line twice in a row from the same shop.
+      const lines = bundle.live[outcome === 'loss' ? `${key}_loss` : key] ?? [];
+      const prev = st.threads[store]?.lines.filter((l) => l.text).at(-1)?.text;
+      const fills = lines.map((l) => fillSlots(l, { ...ctx.slots, item: name, price: item.price }));
+      const fresh = fills.filter((t) => !prev || t.slice(0, 24) !== prev.slice(0, 24));
+      const pick = fresh.length ? fresh[rng.int(fresh.length)]! : fills[0];
+      if (pick) sendMessage(st, store, look(store), [pick], st.fights, undefined, { to: 'shop' });
       nudged.shop = st.fights;
     }
   }
