@@ -7,6 +7,7 @@ import { navigate, notify, scrollToTop } from '../state';
 import { Card, CareerChip, Portrait } from '../ui/components';
 import { type BoardRow, career, charById, collectResults, sellLoot, companyName, currentCareer, draftCharacter, mainChar, startCareer, type CareerSave } from './model';
 import { MessagePings, MessagesScreen, StoryRunner, unreadMessages } from './Messages';
+import { nextUps } from './progress';
 import { CompanyPicker } from './CompanyPicker';
 import { NamePicker } from './NamePicker';
 import { developing, fightPhoto } from './photo';
@@ -370,6 +371,33 @@ function Results({ save: s0 }: { save: CareerSave }) {
           <h2>Match summary</h2>
           <Board rows={r.board.filter((b) => b.team === 0)} title={companyName(s)} />
           <Board rows={r.board.filter((b) => b.team !== 0)} title={r.gig ? r.gig.from : stageInfo(bundle, r.stage).company} />
+        </Card>
+      )}
+      {r.progress && (
+        <Card class="what-changed">
+          <h2>📈 What changed</h2>
+          <ul class="small">
+            {r.progress.title && (
+              <li>
+                💼 New title: <b>{r.progress.title}</b>. An offer letter is waiting in your messages.
+              </li>
+            )}
+            {r.progress.opened.map((o) => (
+              <li>
+                🔓 <b>{o}</b> is open
+              </li>
+            ))}
+            {r.progress.connections > 0 && (
+              <li>
+                🤝 +{r.progress.connections} connections ({s.story?.connections ?? 0} now)
+              </li>
+            )}
+            {nextUps(s, 1).map((x) => (
+              <li class="muted">
+                {x.icon} Next up: {x.text}
+              </li>
+            ))}
+          </ul>
         </Card>
       )}
       {unreadMessages(s) > 0 && (

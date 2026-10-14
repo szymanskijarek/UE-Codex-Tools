@@ -51,9 +51,11 @@ export function grantableAbilities(bundle: ContentBundle): Map<string, string> {
   return m;
 }
 
-export function rollLoot(bundle: ContentBundle, rng: Rng, uid: string, rolls = 1): LootItem {
+export function rollLoot(bundle: ContentBundle, rng: Rng, uid: string, rolls = 1, atLeast?: LootRarity): LootItem {
   const L = bundle.economy.loot;
-  const rarity = rollRarity(bundle, rng, rolls);
+  const rolled = rollRarity(bundle, rng, rolls);
+  // A guaranteed floor (an offer letter's perk): never below `atLeast`.
+  const rarity = atLeast && LOOT_RARITIES.indexOf(rolled) < LOOT_RARITIES.indexOf(atLeast) ? atLeast : rolled;
   const def = rarityDef(bundle, rarity);
   const base = rng.pick(bundle.loot);
   // Pick which stats, mostly the ones this kind of item favours, then share the points out.

@@ -1,13 +1,13 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { signal } from '@preact/signals';
 import { bundle } from '@cc/content';
-import { uiDue, unreadCount, type StoryThread } from '@cc/game-rules';
-import { currentReplay, navigate } from '../state';
+import { offerLabel, uiDue, unreadCount, type StoryThread } from '@cc/game-rules';
+import { currentReplay, navigate, notify } from '../state';
 import { Portrait } from '../ui/components';
 import { PageHead } from './CoreActions';
 import { storyArt, type StoryArt } from './story-art';
 import { menuSfx } from './menuVoice';
-import { acceptGig, career, declineGig, dismissPing, fireStoryBeat, readThread, replyStory, type CareerSave } from './model';
+import { acceptGig, acceptOffer, career, rarityOf, declineGig, dismissPing, fireStoryBeat, readThread, replyStory, type CareerSave } from './model';
 
 /**
  * Messages (12 §3): the career story, told like a networking site's inbox.
@@ -29,6 +29,7 @@ function Avatar({ t, size }: { t: StoryThread; size: number }) {
 }
 
 function threadState(t: StoryThread): string {
+  if (t.offer?.state === 'open') return '📜 Offer letter: pick a perk';
   if (t.gig?.state === 'open') return '📨 Invitation';
   if (t.gig?.state === 'accepted') return '🎬 Accepted';
   if (t.ask) return '💬 Waiting for your reply';
@@ -168,6 +169,32 @@ function Thread({ s, t }: { s: CareerSave; t: StoryThread }) {
               {gig.decline}
             </button>
           </div>
+        </div>
+      )}
+      {done && t.offer?.state === 'open' && (
+        <div class="msg-gig msg-offer">
+          <div class="small">
+            <b>Pick one welcome perk.</b> <span class="muted">Only one, and it can't be swapped later.</span>
+          </div>
+          {t.offer.choices.map((c, i) => (
+            <button
+              class="li-btn msg-offer-pick"
+              onClick={() => {
+                const cur = career.value;
+                if (!cur) return;
+                const r = acceptOffer(cur, t.id, i);
+                notify(r.text, r.ok ? 'good' : 'error');
+              }}
+            >
+              {c.kind === 'hire' && <Portrait c={c.recruit} size={32} />}
+              <span class="grow">
+                <b>{offerLabel(c)}</b>
+                <span class="muted tiny">
+                  {c.kind === 'cash' ? 'Straight into your wallet.' : c.kind === 'perk' ? 'A perk for your bag, guaranteed at least that good.' : `${bundle.locale[`${c.recruit.careers[0]}.name`] ?? ''} · Lv ${c.recruit.level} · ${rarityOf(c.recruit)} applicant, no hiring fee.`}
+                </span>
+              </span>
+            </button>
+          ))}
         </div>
       )}
       {t.gig?.state === 'accepted' && s.pending?.gig === t.gig.id && (

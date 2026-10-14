@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'preact/hooks';
 import { bundle } from '@cc/content';
-import { type NationalBoost, careerRank, DIFFICULTIES, hasUnlock, isNameParts, partsFromName, difficulty, RANKS, stageInfo, STAGES_PER_ARENA, hrMood, tempCost, type ActiveHrNote, type CareerChar, type DifficultyId } from '@cc/game-rules';
+import { type NationalBoost, careerRank, DIFFICULTIES, chapterBossStage, hasUnlock, isNameParts, jobTitle, partsFromName, difficulty, RANKS, stageInfo, STAGES_PER_ARENA, hrMood, tempCost, type ActiveHrNote, type CareerChar, type DifficultyId } from '@cc/game-rules';
 import { descOf, nameOf } from '../i18n';
 import { arenaArt } from '../replay/arena-art';
 import { navigate } from '../state';
@@ -12,8 +12,9 @@ import { HrChips } from './File';
 import { interviewerLabel, startNextFight } from './CoreActions';
 import { feedSeen } from './Messages';
 import { storyArt, type StoryArt } from './story-art';
+import { nextUps } from './progress';
 import { GearIcons } from './Loot';
-import { abandon, applicants, bookTemps, canApply, companyName, interviewers, renameCharacter, renameCompany, setPostMine, currentCareer, lineup, lineupHr, mainChar, nationalityChangeable, nationBoost, nextOpponents, save, setNationality, skipIntro, squadSlots, squadUnlocked, tempSeats, tempsComing, type CareerSave } from './model';
+import { abandon, applicants, bookTemps, canApply, companyName, interviewers, renameCharacter, renameCompany, setPostMine, currentCareer, lineup, lineupHr, mainChar, nationalityChangeable, nationBoost, nextOpponents, save, seeChapter, setNationality, skipIntro, squadSlots, squadUnlocked, tempSeats, tempsComing, type CareerSave } from './model';
 import { developing, fightPhoto } from './photo';
 import { PuppetView } from './PuppetView';
 import { castLike, hasLiked, lastSummit, loadLastSummit, VOTE_URL } from '../incident/likes';
@@ -102,12 +103,12 @@ function Feed({ s }: { s: CareerSave }) {
 }
 
 /** Connection milestones (12 §7.3): the badge for the highest one reached, with what it stands for. */
-const MILESTONES: [number, StoryArt, string][] = [
-  [500, 'badge-4', '500+'],
-  [250, 'badge-3', '250'],
-  [100, 'badge-2', '100'],
-  [50, 'badge-1', '50'],
-];
+const BADGES: StoryArt[] = ['badge-1', 'badge-2', 'badge-3', 'badge-4'];
+const MILESTONES: [number, StoryArt, string][] = bundle.economy.progress.connectionMilestones
+  .map((n, i, all): [number, StoryArt, string] => [n, BADGES[Math.min(i, BADGES.length - 1)]!, i === all.length - 1 ? `${n}+` : String(n)])
+  .reverse();
+/** 500+ connections: the profile gets a Top Voice pill. */
+const TOP_VOICE = bundle.economy.progress.connectionMilestones[bundle.economy.progress.connectionMilestones.length - 1]!;
 function ConnectionBadge({ n }: { n: number }) {
   const m = MILESTONES.find(([at]) => n >= at);
   const url = m && storyArt(m[1]);
@@ -117,6 +118,51 @@ function ConnectionBadge({ n }: { n: number }) {
       <img src={url} alt="" />
       <span>{m[2]}</span>
     </span>
+  );
+}
+
+/** "Next up" (12 §7.1): the next few things that open, and how far away they are. */
+function NextUp({ s }: { s: CareerSave }) {
+  const items = nextUps(s);
+  if (!items.length || !canApply(s)) return null;
+  return (
+    <div class="li-next small">
+      <b>Next up</b>
+      <ul>
+        {items.map((x) => (
+          <li>
+            <span aria-hidden="true">{x.icon}</span> {x.text}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+/** A new chapter's title card (12 §7.5): shown once when the ladder reaches a new arena. */
+function ChapterCard({ s }: { s: CareerSave }) {
+  const chapter = Math.floor(s.stage / STAGES_PER_ARENA);
+  if (!s.story || chapter < 1 || (s.story.chapterSeen ?? 0) >= chapter || s.pending) return null;
+  const info = stageInfo(bundle, s.stage);
+  const art = arenaArt(info.arenaId);
+  const boss = stageInfo(bundle, chapterBossStage(s.stage));
+  return (
+    <div class="chapter-card-wrap" role="dialog" aria-label={`Chapter ${chapter + 1}`}>
+      <div class="li-card chapter-card">
+        <div class="chapter-art" style={art ? { backgroundImage: `url(${art.url})` } : undefined} />
+        <div class="chapter-kicker">Chapter {chapter + 1}</div>
+        <h2>{nameOf(info.arenaId)}</h2>
+        <p>
+          Your new title: <b>{jobTitle(bundle, s.stage)}</b>
+        </p>
+        <p class="muted small">
+          First up: {info.company} ({interviewKind(s).toLowerCase()}). The final interview: {boss.bossName ?? boss.company}, {nameOf(boss.bossCareer ?? '')}.
+        </p>
+        <button class="li-btn primary" onClick={() => seeChapter(s, chapter)}>
+          Let's go 🥊
+        </button>
+      </div>
+    </div>
   );
 }
 
@@ -443,6 +489,7 @@ export function Hub({ save: s }: { save: CareerSave }) {
   const people = unlocked ? applicants(s).slice(0, 3) : [];
   return (
     <section class="li-page">
+      <ChapterCard s={s} />
       {s.pending && (
         <div class="li-card li-alert">
           <b>A fight is waiting for its results.</b>{' '}
@@ -466,7 +513,10 @@ export function Hub({ save: s }: { save: CareerSave }) {
                 </button>
               </h1>
               {editName && <NamePicker value={nameParts} onChange={(n) => renameCharacter(s, m.c.id, n)} />}
-              <div class="li-headline">{headline(m)}</div>
+              <div class="li-headline">
+                <b>{jobTitle(bundle, s.stage)}</b> · {headline(m)}
+                {(s.story?.connections ?? 0) >= TOP_VOICE && <span class="li-pill gold"> 🎙️ Top Voice</span>}
+              </div>
               <div class="li-company small">
                 🏢 {companyName(s)}
                 <button class="ghost small" title="Rename your company" onClick={() => setEditCompany(!editCompany)}>
@@ -493,7 +543,7 @@ export function Hub({ save: s }: { save: CareerSave }) {
                   <span>Connections</span>
                   <b>
                     {s.story && <ConnectionBadge n={s.story.connections} />}
-                    {s.story ? (s.story.connections >= 500 ? '500+' : s.story.connections) : viewers}
+                    {s.story ? (s.story.connections >= TOP_VOICE ? `${TOP_VOICE}+` : s.story.connections) : viewers}
                   </b>
                 </div>
                 <div>
@@ -511,6 +561,7 @@ export function Hub({ save: s }: { save: CareerSave }) {
                   <b>💵 {s.cash}</b>
                 </div>
               </div>
+              <NextUp s={s} />
               <div class="li-row">
                 {apply && (
                   <button class="li-btn primary" onClick={fight} disabled={!!s.pending} title="Straight to the next fight">

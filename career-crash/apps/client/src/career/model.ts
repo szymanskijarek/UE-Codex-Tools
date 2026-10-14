@@ -22,8 +22,14 @@ import {
   shortName,
   tempCost,
   uiDue,
+  jobTitle,
+  makeOffer,
+  milestonesCrossed,
+  signOffer,
+  STAGES_PER_ARENA,
   chapterBossStage,
   type OuterEffect,
+  type StoryUnlock,
   type StoryCtx,
   type StoryState,
   applyHrNotes,
@@ -69,7 +75,7 @@ import {
   type NationalBoost,
 } from '@cc/game-rules';
 import { Rng, SIM_VERSION, simulate, type BattleInput } from '@cc/sim';
-import { FEED_CAP, fightPosts, gigPost, starterPosts, storyPost, type FeedPost } from './feed';
+import { FEED_CAP, fightPosts, gigPost, milestonePost, starterPosts, storyPost, titlePost, type FeedPost } from './feed';
 import { pickPhotoMoment, type PhotoMoment } from './photo-moment';
 import { lastSummit } from '../incident/likes';
 
@@ -142,6 +148,8 @@ export interface FightSummary {
   gig?: { id: string; title: string; from: string };
   /** Agency temps paid for this fight. */
   temps?: { n: number; cost: number };
+  /** What this fight changed in the story (12 §7.4): connections gained, what opened, a new title. */
+  progress?: { connections: number; opened: string[]; title?: string };
   /** The item a win dropped; `sold` is set when the bag was full and it was sold on the spot. */
   loot?: { item: LootItem; sold?: number };
   /** Critters each side summoned (summon ids, with the summoner's name for ours) and which of our fighters got spooked. */
@@ -471,6 +479,9 @@ export function collectResults(s: CareerSave): CareerSave {
   const outcome: 'win' | 'draw' | 'loss' = out.result.winner === 0 ? 'win' : out.result.winner < 0 ? 'draw' : 'loss';
   const diff = difficulty(s.difficulty);
   const rel = relationshipDeltas(out.result, out.events);
+  // The first ladder stages pay extra XP, so the first levels come quickly (12 §7.4).
+  const early = bundle.economy.progress.earlyXp;
+  const earlyBp = !gig && stage < early.stages ? early.bp : 10000;
   const growth: FightSummary['growth'] = [];
   const milestoneCheck = (cc: CareerChar): boolean => {
     const milestone = hasMilestone(bundle.economy, cc.c);
@@ -487,7 +498,7 @@ export function collectResults(s: CareerSave): CareerSave {
   for (const r of out.result.characters) {
     if (r.team !== 0) continue;
     const mvp = out.result.mvp === r.entityId;
-    const xp = Math.round((battleXp(bundle.economy, outcome, r.counters.kos, mvp, false) * diff.rewardBp) / 10000);
+    const xp = Math.round((battleXp(bundle.economy, outcome, r.counters.kos, mvp, false) * diff.rewardBp * earlyBp) / 100_000_000);
     const friend = s.story?.friend;
     if (friend && r.snapshotId === friend.c.id) {
       // The friend grows with you while they fight next to you, and spends their own points.
@@ -581,18 +592,29 @@ export function collectResults(s: CareerSave): CareerSave {
   const photo = pickPhotoMoment(input, [s.mainId], s.last?.photo) ?? undefined;
   const temps = s.pending.temps ? { n: s.pending.temps, cost: s.pending.temps * tempCost(bundle, stage) } : undefined;
   next.last = { stage, outcome, cash, pay, board, growth, ...(s.pending.hr?.length ? { hr: s.pending.hr } : {}), ...(s.pending.nation ? { nation: s.pending.nation } : {}), ...(loot ? { loot } : {}), ...(summons.mine.length || summons.theirs.length ? { summons } : {}), ...(photo ? { photo } : {}), ...(crash ? { crash } : {}), ...(gig ? { gig: { id: gig.id, title: gig.title, from: gig.from.name } } : {}), ...(temps ? { temps } : {}) };
-  next.feed = [...(gig ? gigPost(next, next.last, gig) : fightPosts(next, next.last)), ...(s.feed ?? [])].slice(0, FEED_CAP);
+  const fresh = gig ? gigPost(next, next.last, gig) : fightPosts(next, next.last);
+  next.feed = [...fresh, ...(s.feed ?? [])].slice(0, FEED_CAP);
   // The story (12): the network grows, a gig is signed off, invites lapse or arrive, and any beats now due fire.
   if (next.story) {
     const st = structuredClone(next.story);
     next.story = st;
+    const before = { connections: st.connections, unlocks: [...st.unlocks], seats: st.squadSlots };
     afterFight(st, outcome, teamKos);
     const ctx = storyCtx(next);
     if (gig) finishGig(bundle, st, gig.id, outcome, cash, ctx);
     expireGigs(bundle, st, st.fights);
-    const offer = gig ? null : rollGig(bundle, st, ctx);
-    if (offer) offerGig(bundle, st, offer, ctx);
+    const invite = gig ? null : rollGig(bundle, st, ctx);
+    if (invite) offerGig(bundle, st, invite, ctx);
+    // A chapter boss beaten: the next company's talent team sends an offer letter (12 §7.2).
+    const bossWin = !gig && outcome === 'win' && stageInfo(bundle, stage).boss;
+    if (bossWin) makeOffer(bundle, st, Math.floor(stage / STAGES_PER_ARENA) + 1, offerRecruit(next, Math.floor(stage / STAGES_PER_ARENA) + 1), ctx);
     storyProgress(next, false);
+    // Connection milestones get a post, below the fight's own posts.
+    const after = next.story!;
+    const crossed = milestonesCrossed(bundle, before.connections, after.connections);
+    if (crossed.length) next.feed.splice(fresh.length, 0, ...crossed.map((n) => milestonePost(next, n)));
+    const opened = [...after.unlocks.filter((u) => !before.unlocks.includes(u)).map((u) => UNLOCK_NAMES[u]), ...(after.squadSlots > before.seats ? [`Squad seat ${after.squadSlots}`] : [])];
+    next.last.progress = { connections: after.connections - before.connections, opened, ...(bossWin ? { title: jobTitle(bundle, next.stage) } : {}) };
   }
   if (photo && next.feed[0]?.photo) lastFight = { input, fight: next.feed[0].fight };
   save(next);
@@ -879,4 +901,60 @@ export function skipIntro(s: CareerSave): void {
     }
     st.pings = [];
   });
+}
+
+const UNLOCK_NAMES: Record<StoryUnlock, string> = { messages: 'Messaging', feed: 'Your feed', easyApply: 'Easy Apply', temps: 'Agency temps', hiring: 'Hiring' };
+
+/** The free hire in a chapter's offer letter: a rare applicant (epic from `epicHireFromChapter`), a level behind you. */
+function offerRecruit(s: CareerSave, chapter: number): Character {
+  const rng = Rng.fromSeed(`offer-hire:${s.seed}:${chapter}`);
+  const rarity = chapter >= bundle.economy.progress.offers.epicHireFromChapter ? 'epic' : 'rare';
+  const c = generateRecruit(bundle, rng, `offer-${s.seed}-${chapter}`, { rarity });
+  c.level = Math.max(1, mainChar(s).c.level - 1);
+  for (let p = 1; p < c.level; p++) c.unspentPoints++;
+  return c;
+}
+
+/**
+ * Sign an offer letter, taking choice `i`: the bonus goes in the wallet, the
+ * perk in the bag (sold if it's full), the hire on the staff. Posts the
+ * promotion. Returns a line for a toast, or an error (nothing signed).
+ */
+export function acceptOffer(s: CareerSave, threadId: string, i: number): { ok: boolean; text: string } {
+  const t = s.story?.threads[threadId];
+  const c = t?.offer?.state === 'open' ? t.offer.choices[i] : undefined;
+  if (!t?.offer || !c) return { ok: false, text: 'This offer has already been signed' };
+  if (c.kind === 'hire' && Object.keys(s.chars).length >= ROSTER_CAP) return { ok: false, text: `Your staff is full (${ROSTER_CAP}): let someone go first, or pick another perk` };
+  let text = '';
+  withStory(s, (st, next) => {
+    signOffer(bundle, st, threadId, i, storyCtx(next));
+    if (c.kind === 'cash') {
+      next.cash += c.cash;
+      text = `💵 +${c.cash} signing bonus`;
+    } else if (c.kind === 'perk') {
+      const item = rollLoot(bundle, Rng.fromSeed(`offer-perk:${s.seed}:${threadId}`), `offer-${s.seed}-${threadId}`, 1, c.atLeast as LootItem['rarity']);
+      const bag = [...(next.bag ?? [])];
+      if (bag.length >= bundle.economy.loot.bagCap) {
+        next.cash += lootSellPrice(bundle, item);
+        text = 'Your perks inbox was full, so the perk was cashed out';
+      } else {
+        next.bag = [...bag, item];
+        text = '🎁 A new perk is in your bag';
+      }
+    } else {
+      const cc: CareerChar = { c: c.recruit, careerXp: {}, nodes: [] };
+      ensureRoots(bundle, cc);
+      next.chars = { ...next.chars, [c.recruit.id]: cc };
+      if (next.squad.length < squadSlots(next)) next.squad = [...next.squad, c.recruit.id];
+      text = `🤝 ${c.recruit.name} joins the staff`;
+    }
+    next.feed = [titlePost(next, jobTitle(bundle, t.offer!.chapter * STAGES_PER_ARENA), t.offer!.chapter), ...(next.feed ?? [])].slice(0, FEED_CAP);
+  });
+  return { ok: true, text };
+}
+
+/** The chapter title card has been seen. */
+export function seeChapter(s: CareerSave, chapter: number): void {
+  if (!s.story || (s.story.chapterSeen ?? 0) >= chapter) return;
+  save({ ...s, story: { ...s.story, chapterSeen: chapter } });
 }

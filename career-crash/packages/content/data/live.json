@@ -5638,6 +5638,31 @@
    "Watch the anchors lose it, then play the story",
    "The news, read, argued, brawled and gamified",
    "Two anchors, one desk, no professionalism"
+  ],
+  "offer_letter": [
+   "Congratulations, {first}! 🎉 Following your final interview with {boss}, we're delighted to offer you a position at {company}.",
+   "Dear {first}, the hiring committee met (in a corridor) and agreed unanimously (two votes to one) to make you an offer. 🎉",
+   "{first}! We saw what you did to {boss}. Legal saw it too. We'd love to have you at {company}. 🎉"
+  ],
+  "offer_terms": [
+   "Your new title: {title}. As a welcome, pick ONE of the perks below. Only one. HR is watching.",
+   "Your new title is {title}, effective immediately (backdated, for tax reasons). Choose one welcome perk below.",
+   "You'll start as {title}. Please choose one of the welcome packages below and sign anywhere. We'll find it."
+  ],
+  "offer_signed": [
+   "Wonderful. Welcome aboard, {title} {first}. 🤝 Your lanyard is in the post.",
+   "Signed, sealed, delivered. Congratulations, {title}! Please don't fight anyone in reception.",
+   "Perfect choice. HR has filed it under 'Surprisingly Reasonable'. Welcome, {title}. 🤝"
+  ],
+  "feed_milestone": [
+   "Humbled to share that I've reached {n} connections! 🙏 Every one of you has hit me at least once, or wanted to. #Networking #Grateful",
+   "{n} connections! 🎉 That's {n} people who clicked a button without reading my profile. I appreciate each and every one of you. #Milestone #Community",
+   "Some personal news: {n} connections. 🙏 To everyone who accepted my request mid-brawl: thank you, and sorry about the chair. #Networking #Blessed"
+  ],
+  "feed_title": [
+   "I'm thrilled to announce I'm starting a new position as {title} at {company}! 🎉 Huge thanks to {boss} for the final interview, and for the bruise. #NewRole #Grateful",
+   "Promoted to {title}! 🚀 Five years ago I was nobody. Two weeks ago I was an Intern. Today I'm {title}. Never stop brawling. #CareerGrowth #Leadership",
+   "Some personal news: after beating {boss} in a final interview, I've accepted a role as {title} at {company}. Grateful. Humbled. Slightly concussed. #NewBeginnings"
   ]
  }
 }

@@ -501,6 +501,17 @@ export const economySchema = z.object({
   temps: z.object({ costBase: int.min(0), costPerStage: int.min(0), levelOffset: int, statOffset: int, rank: int.min(1).max(5), spendBp: bp }),
   /** The friend who fights the first fights with you (12 §6.2): careers they may have, and how much of their tree they use. */
   friend: z.object({ careers: z.array(ref('career')).min(3), spendBp: bp }),
+  /** Career progress (12 §7): faster first levels, job titles by chapter, offer letters, connection milestones. */
+  progress: z.object({
+    /** Extra battle XP (basis points) on the first ladder stages. */
+    earlyXp: z.object({ stages: int.min(0), bp: bp }),
+    /** The headline's job title for each chapter reached (the last one sticks). */
+    titles: z.array(z.string().max(30)).min(2),
+    /** After each chapter boss: a signing bonus per chapter, a perk of at least this rarity, or a free hire (rare, epic from `epicHireFromChapter`). */
+    offers: z.object({ cashPerChapter: int.min(0), perkAtLeast: z.enum(LOOT_RARITIES), epicHireFromChapter: int.min(1) }),
+    /** Connection counts that earn a badge and a post. */
+    connectionMilestones: z.array(int.min(1)).min(1),
+  }),
   /** Invite-only gigs (12 §8.2): when invites arrive and how long they stay open. */
   gigs: z.object({ fromFight: int.min(1), everyFights: int.min(1), chanceBp: bp, expiresAfter: int.min(1) }),
   /**

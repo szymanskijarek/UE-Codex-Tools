@@ -1,6 +1,6 @@
 # Career Crash: the story mode and Messages (design + implementation plan)
 
-Status: **phase 1 built** (see §12 for what exists and what doesn't yet). Owner of: the Messages tab, story beats,
+Status: **phases 1, 2 and 4 built** (see §12 for what exists and what doesn't yet). Owner of: the Messages tab, story beats,
 the first-time experience (FTUE), the friend, temps vs hires, opponent counts
 on the ladder, chapter structure and the cameos from the other shows. Where it
 changes an existing rule it says so; the owning doc (03 §3.5–3.6, 06 §2, 07 §2)
@@ -561,7 +561,7 @@ Decided (Oct 2026): all six as recommended below; players may fight alone.
 
 ---
 
-## 12. As built (phase 1)
+## 12. As built (phases 1, 2, 4)
 
 | What | Where |
 |---|---|
@@ -573,14 +573,15 @@ Decided (Oct 2026): all six as recommended below; players may fight alone.
 | Save, line-up, fights, gigs, migration, skip intro | `apps/client/src/career/model.ts` (`story` on the save) |
 | Messaging screen, pop-ups, story runner | `apps/client/src/career/Messages.tsx`; route `#/career/messages[/:thread]`; nav badge in `app.tsx`; `ping` sound in `replay/audio.ts` |
 | Hub: quiet feed, no job card until the recruiter, interviewer counts, temp desk, connections | `apps/client/src/career/Hub.tsx`, `CoreActions.tsx` |
-| Tests | `packages/game-rules/test/story.test.ts`, `apps/client/test/career-story.test.ts` |
+| Progress (phase 2): job titles by chapter (`economy.progress.titles`), offer letters after every chapter boss (cash `200 × chapter`, a rare-or-better perk, or a free rare hire, epic from chapter 3), connection milestone posts and a Top Voice pill at 500+, +50% XP on stages 1–4 (`progress.earlyXp`), "Next up" on the profile, a chapter title card, "What changed" on Results | `jobTitle`, `makeOffer`, `signOffer`, `milestonesCrossed` in `game-rules/src/story.ts`; `acceptOffer`, `seeChapter` in `model.ts`; `career/progress.ts` (`nextUps`); `Hub.tsx` (`NextUp`, `ChapterCard`); texts `offer_*`, `feed_milestone`, `feed_title` in `live.json` |
+| Tests | `packages/game-rules/test/story.test.ts`, `apps/client/test/career-story.test.ts`, `apps/client/test/career-progress.test.ts` |
 | Balance | `pnpm balance --ladder [--battles=N] [--stages=N]` (`tools/balance/src/ladder.ts`) |
 
 **Art in:** the quiet feed, the friend's introduction and farewell cards (on their posts), the
-offer letter (attached to Karen's message after chapter 1's boss), the temp visitor sticker (pinned to
+offer letter (attached to every offer letter and the promotion post), the temp visitor sticker (pinned to
 temps' chests in fights: `Puppet.pin`, temps recognised by their `temp-` snapshot id) and lanyard (on
 their portraits), and connection badges at 50 / 100 / 250 / 500+ on the profile; the rug-pull card
 waits for the friend's return. All 13 gig characters (brief Part B) have their own art. **Not yet:** the desktop docked Messaging panel (Messaging is a page with two
-panes on wide screens); chapters 2+ and the cameos (phase 3); progress features
-(phase 2); the story art (phase 4). Old saves skip chapter 1 and get Karen's
+panes on wide screens); chapters 2+ and the cameos (phase 3); a stat respec as an offer
+choice. Old saves skip chapter 1 and get Karen's
 💵 500 restructuring bonus; their booked temps match their old line-up.

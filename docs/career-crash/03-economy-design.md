@@ -133,7 +133,7 @@ grow; `economy.temps`), or you fight alone. **Hiring** opens with Talent
 Acquisition's message after the third fight (1 squad seat, a 2nd once chapter
 1's boss falls): hire applicants (💵 250/450/700 by rarity, refreshed after each
 win, roster cap 6), pick who fights, and grow their own trees. Ladder stages have
-1–3 interviewers (`economy.ladder`, 12 §5). Results are applied by re-simulating
+1–3 interviewers (`economy.ladder`, 12 §5). Stages 1–4 pay +50% XP, and every chapter boss beaten brings an offer letter: a new job title plus one of a signing bonus, a rare-or-better perk or a free hire (`economy.progress`, 12 §7). Results are applied by re-simulating
 the pending battle, so replays can't be gamed.
 
 Difficulty shapes opponents, never the player:

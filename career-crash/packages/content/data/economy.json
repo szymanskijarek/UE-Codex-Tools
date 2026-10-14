@@ -66,6 +66,12 @@
   },
   "temps": { "costBase": 30, "costPerStage": 4, "levelOffset": -4, "statOffset": -3, "rank": 1, "spendBp": 0 },
   "friend": { "careers": ["career.nurse", "career.paramedic", "career.firefighter", "career.security-guard", "career.personal-trainer", "career.builder", "career.lifeguard"], "spendBp": 7000 },
+  "progress": {
+    "earlyXp": { "stages": 4, "bp": 15000 },
+    "titles": ["Intern", "Associate", "Senior Associate", "Manager", "Senior Manager", "Director", "Vice President", "Senior Vice President", "Chief of Staff", "Chief Brawling Officer"],
+    "offers": { "cashPerChapter": 200, "perkAtLeast": "rare", "epicHireFromChapter": 3 },
+    "connectionMilestones": [50, 100, 250, 500]
+  },
   "gigs": { "fromFight": 4, "everyFights": 3, "chanceBp": 5000, "expiresAfter": 3 },
   "nationality": {
     "changeCooldownH": 24,

@@ -800,3 +800,22 @@ export function gigPost(s: CareerSave, r: FightSummary, gig: GigDef): FeedPost[]
     },
   ];
 }
+
+/** A connection milestone reached (12 §7.3): your humble post about it. */
+export function milestonePost(s: CareerSave, n: number): FeedPost {
+  const m = mainChar(s);
+  const rng = Rng.fromSeed(`milestone:${s.seed}:${n}`);
+  const lines = bundle.live.feed_milestone ?? ['{n} connections!'];
+  const cid = currentCareer(m);
+  return { id: `milestone-${n}`, fight: feedFight(s), by: 'me', author: m.c.name, sub: `${RANKS[careerRank(m, cid) - 1]} ${nameOf(cid)} at ${companyName(s)}`, who: { careers: [cid], appearance: m.c.appearance }, mood: 'news', text: fillSlots(lines[rng.int(lines.length)]!, { n }), tags: '#Milestone #Networking', reacts: 80 + n + rng.int(300), comments: 8 + rng.int(40) };
+}
+
+/** An offer letter signed (12 §7.2): the promotion announcement. */
+export function titlePost(s: CareerSave, title: string, chapter: number): FeedPost {
+  const m = mainChar(s);
+  const rng = Rng.fromSeed(`title:${s.seed}:${chapter}`);
+  const lines = bundle.live.feed_title ?? ['New role: {title}!'];
+  const boss = stageInfo(bundle, chapter * 4 - 1);
+  const cid = currentCareer(m);
+  return { id: `title-${chapter}`, fight: feedFight(s), by: 'me', author: m.c.name, sub: `${title} at ${stageInfo(bundle, chapter * 4).company}`, who: { careers: [cid], appearance: m.c.appearance }, mood: 'news', art: 'offer-letter', text: fillSlots(lines[rng.int(lines.length)]!, { title, company: stageInfo(bundle, chapter * 4).company, boss: boss.bossName ?? boss.company }), tags: '#NewRole #Promotion #Grateful', reacts: 300 + rng.int(1500), comments: 25 + rng.int(120) };
+}

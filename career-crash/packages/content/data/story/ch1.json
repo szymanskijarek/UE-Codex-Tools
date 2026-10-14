@@ -161,9 +161,8 @@
     "lines": [
       "You beat {boss}?! I've updated your file from 'Brave' to 'Promising'. ✨",
       "That opens a second seat on your squad. Fill it with someone who grows.",
-      "Your new terms are attached. Sign anywhere. We'll find it."
+      "Oh, and expect a letter. Someone downstairs wants to make you an offer."
     ],
-    "art": "offer-letter",
     "effects": [
       { "kind": "squadSlots", "n": 2 },
       { "kind": "connections", "n": 25 }
