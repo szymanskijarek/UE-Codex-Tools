@@ -27,7 +27,7 @@ The economy numbers live in `economy.json` → `hr`; the notes live in
 | Rule | Value |
 |---|---|
 | Staff | You plus up to **5 hires** (roster cap 6, unchanged). |
-| Squad | You plus **2** hires fight (3v3, unchanged). Empty slots get agency temps. |
+| Squad | You plus up to **2** hires fight. Seats open with the story (12 §6.3): 1 when hiring opens, 2 after chapter 1's boss. Empty seats can take paid agency temps, or stay empty. |
 | Garden Leave | Everyone else, up to **3**. They're still on the payroll, "between projects". |
 | Garden Leave XP | After each fight, everyone on Garden Leave gets **25%** of the fight's base XP (win/draw/loss, no KO or MVP bonus), at the difficulty's reward rate. It's from the online courses they "did" in a deckchair. Their careers rank up from it too. |
 | Moving people | One tap in the Squad screen: **🌷 Garden Leave** or **💼 Back to work**. A new hire joins the squad if there's room, otherwise they start on Garden Leave. |

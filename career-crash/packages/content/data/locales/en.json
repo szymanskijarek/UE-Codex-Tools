@@ -1912,5 +1912,18 @@
  "nationality.podium.name": "On the Podium",
  "nationality.podium.desc": "Your country made the Summit's top three last hour. A little extra swagger.",
  "nationality.support.name": "Home Support",
- "nationality.support.desc": "Your country made the Summit's top ten last hour. Someone back home is cheering."
+ "nationality.support.desc": "Your country made the Summit's top ten last hour. Someone back home is cheering.",
+ "npc.gig-method-actor.name": "Method Actor",
+ "npc.gig-stunt-double.name": "Stunt Double",
+ "npc.gig-napoleonic.name": "Napoleonic Extra",
+ "npc.gig-head-waiter.name": "Head Waiter",
+ "npc.gig-trainee-waiter.name": "Trainee Waiter",
+ "npc.gig-posh-guest.name": "Posh Guest",
+ "npc.gig-rival-mascot.name": "Rival Mascot",
+ "npc.gig-cabin-crew.name": "Cabin Crew",
+ "npc.gig-performance-artist.name": "Performance Artist",
+ "npc.gig-facilitator.name": "Team-building Facilitator",
+ "npc.gig-understudy.name": "Celebrity Chef's Understudy",
+ "npc.gig-sous-chef.name": "Sous-chef",
+ "npc.gig-tv-judge.name": "TV Judge"
 }

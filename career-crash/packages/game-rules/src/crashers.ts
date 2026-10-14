@@ -27,9 +27,9 @@ function weighted(rng: Rng, weights: number[]): number {
  * leader comes at `level` (the player's main character), henchmen a little
  * below, each with one career's moves and a boss-style stat top-up for the
  * careers they don't have. `opts.force` skips the dice and `opts.set` picks the
- * set (Sandbox, tests).
+ * set (Sandbox, tests); `opts.maxSize` caps how many come.
  */
-export function rollCrashers(bundle: ContentBundle, seed: string, arenaId: string, level: number, rank: number, opts: { force?: boolean; set?: string; size?: number } = {}): CrasherInput | undefined {
+export function rollCrashers(bundle: ContentBundle, seed: string, arenaId: string, level: number, rank: number, opts: { force?: boolean; set?: string; size?: number; maxSize?: number } = {}): CrasherInput | undefined {
   const e = bundle.economy.crashers;
   const rng = Rng.fromSeed(`crash:${seed}`);
   if (!opts.force && !opts.set && rng.int(10000) >= e.chanceBp) return undefined;
@@ -37,7 +37,8 @@ export function rollCrashers(bundle: ContentBundle, seed: string, arenaId: strin
   const pool = home.length && (!visiting.length || rng.int(10000) < e.homeBp) ? home : visiting.length ? visiting : home;
   if (!pool.length) return undefined;
   const set = (opts.set ? bundle.crashers.find((c) => c.id === opts.set) : undefined) ?? pool[rng.int(pool.length)]!;
-  const size = opts.size ?? 1 + weighted(rng, e.sizeWeights);
+  // Never more of them than the bigger side has fighters (career ladder, 12 §5).
+  const size = Math.max(1, Math.min(opts.maxSize ?? Number.MAX_SAFE_INTEGER, opts.size ?? 1 + weighted(rng, e.sizeWeights)));
   const diff: DifficultyDef = { ...DIFFICULTIES[1]!, spendBp: e.spendBp };
   const characters = Array.from({ length: size }, (_, i) => {
     const m = i === 0 ? set.leader : set.henchmen;

@@ -12,7 +12,6 @@ export const RANKS = ['Trainee', 'Junior', 'Senior', 'Lead', 'Head'] as const;
 /** Career XP needed to reach rank 1..5. */
 export const RANK_XP = [0, 200, 550, 1100, 1900] as const;
 /** Squad building unlocks when the main character reaches this rank in their current career. */
-export const SQUAD_UNLOCK_RANK = 3;
 
 export function rankOf(careerXp: number): number {
   let r = 1;
@@ -330,7 +329,30 @@ export function stageInfo(bundle: ContentBundle, stage: number): StageInfo {
   };
 }
 
-export function opponentTeam(bundle: ContentBundle, seed: string, stage: number, diff: DifficultyDef, size: number): CareerChar[] {
+/** How many interviewers a ladder stage has, 1 to 3, the boss included on a boss stage (12 §5). */
+export function ladderSize(bundle: ContentBundle, stage: number): number {
+  const L = bundle.economy.ladder;
+  const chapter = Math.floor(stage / STAGES_PER_ARENA);
+  const row = chapter === 0 ? L.chapter1 : L.pattern[(chapter - 1) % L.pattern.length]!;
+  return row[stage % STAGES_PER_ARENA]!;
+}
+
+/** Level and rank offsets for a stage's non-boss interviewers: a lone one is senior, a panel junior, the first stages easier. */
+export function ladderAdjust(bundle: ContentBundle, stage: number, size: number): { levels: number; rank: number; stats: number } {
+  const L = bundle.economy.ladder;
+  // The first stages (with the friend) are a plain, easier group interview.
+  if (stage < L.tutorial.stages) return { levels: L.tutorial.levels, rank: 0, stats: L.tutorial.stats };
+  const by = size === 1 ? L.solo : size >= 3 ? L.panel : L.duo;
+  return { levels: by.levels, rank: by.rank, stats: by.stats };
+}
+
+/** The ladder's opponents for a stage: as many as `ladderSize` says, adjusted for how many there are. */
+export function ladderOpponents(bundle: ContentBundle, seed: string, stage: number, diff: DifficultyDef): CareerChar[] {
+  const size = ladderSize(bundle, stage);
+  return opponentTeam(bundle, seed, stage, diff, size, ladderAdjust(bundle, stage, size));
+}
+
+export function opponentTeam(bundle: ContentBundle, seed: string, stage: number, diff: DifficultyDef, size: number, adjust: { levels: number; rank: number; stats?: number } = { levels: 0, rank: 0 }): CareerChar[] {
   const info = stageInfo(bundle, stage);
   const rng = Rng.fromSeed(`opp:${seed}:${stage}`);
   const out: CareerChar[] = [];
@@ -338,9 +360,10 @@ export function opponentTeam(bundle: ContentBundle, seed: string, stage: number,
     const boss = info.boss && i === 0;
     // Bosses are a level or two up, less so early on, where a level is a big share of a fighter.
     const bossLevels = boss ? Math.min(2, Math.floor(stage / STAGES_PER_ARENA)) : 0;
-    const f = generatedFighter(bundle, rng, `opp-${seed}-${stage}-${i}`, info.level + diff.levelOffset + bossLevels, info.rank + diff.rankOffset + (boss ? 1 : 0), diff);
+    const adj = boss ? { levels: 0, rank: 0, stats: 0 } : adjust;
+    const f = generatedFighter(bundle, rng, `opp-${seed}-${stage}-${i}`, info.level + diff.levelOffset + bossLevels + adj.levels, Math.max(1, Math.min(5, info.rank + diff.rankOffset + (boss ? 1 : 0) + adj.rank)), diff);
     if (boss && info.bossCareer) makeBoss(bundle, f, info.bossCareer, info.bossName ?? f.c.name, info.rank + diff.rankOffset + 1);
-    for (const k of STAT_KEYS) f.c.stats[k] = Math.max(1, f.c.stats[k] + diff.statOffset);
+    for (const k of STAT_KEYS) f.c.stats[k] = Math.max(1, f.c.stats[k] + diff.statOffset + (adj.stats ?? 0));
     f.loadout = aiLoadout(bundle, rng, diff, stage);
     // Own RNG stream, so gear never shifts how the rest of the team is generated.
     f.gear = opponentGear(bundle, Rng.fromSeed(`gear:${seed}:${stage}:${i}`), stage, f.c.id, boss);
@@ -400,13 +423,26 @@ function makeBoss(bundle: ContentBundle, f: CareerChar, career: string, name: st
 }
 
 /** Agency temps fill the squad until you can build one: roughly your level, sensible skills. */
-export function agencyTemp(bundle: ContentBundle, seed: string, slot: number, level: number, rank: number): CareerChar {
+/**
+ * An agency temp (12 §6.1): paid per fight, a couple of levels behind you,
+ * a Trainee with only their main move, a bit weaker all round, and they never
+ * grow. Cheap on purpose, so a proper hire is worth it.
+ */
+export function agencyTemp(bundle: ContentBundle, seed: string, slot: number, level: number): CareerChar {
+  const T = bundle.economy.temps;
   const rng = Rng.fromSeed(`temp:${seed}:${slot}:${level}`);
-  const t = generatedFighter(bundle, rng, `temp-${seed}-${slot}`, level, rank, difficulty('normal'));
+  const t = generatedFighter(bundle, rng, `temp-${seed}-${slot}`, level + T.levelOffset, T.rank, { ...difficulty('normal'), spendBp: T.spendBp });
+  for (const k of STAT_KEYS) t.c.stats[k] = Math.max(1, t.c.stats[k] + T.statOffset);
   t.temp = true;
-  // The agency sends them with a packed lunch.
-  t.loadout = ['item.meal-deal'];
+  // They bring a lanyard. Nothing else.
+  t.loadout = [];
   return t;
+}
+
+/** What one temp costs for a fight at this stage. */
+export function tempCost(bundle: ContentBundle, stage: number): number {
+  const T = bundle.economy.temps;
+  return T.costBase + T.costPerStage * stage;
 }
 
 // ---------------------------------------------------------------------------

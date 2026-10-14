@@ -1,6 +1,6 @@
 import { useState } from 'preact/hooks';
 import { bundle } from '@cc/content';
-import { careerRank, hrMood, RANK_XP, RANKS, SQUAD_UNLOCK_RANK, stageInfo, unreadHrNotes, type CareerChar } from '@cc/game-rules';
+import { careerRank, hrMood, RANKS, stageInfo, tempCost, unreadHrNotes, type CareerChar } from '@cc/game-rules';
 import { abilitySummary, nameOf } from '../i18n';
 import { navigate, notify } from '../state';
 import { Card, CareerChip, Portrait } from '../ui/components';
@@ -9,7 +9,7 @@ import { Loadout, RankBar, skillAlert } from './Career';
 import { HrChips } from './File';
 import { PageHead } from './CoreActions';
 import { GearIcons } from './Loot';
-import { applicants, currentCareer, dismiss, hire, HIRE_COST, lineup, lineupHr, mainChar, onGardenLeave, rarityOf, ROSTER_CAP, SQUAD_SIZE, squadUnlocked, toggleSquad, type CareerSave } from './model';
+import { applicants, currentCareer, dismiss, hire, HIRE_COST, lineup, lineupHr, mainChar, onGardenLeave, rarityOf, ROSTER_CAP, squadSlots, squadUnlocked, toggleSquad, type CareerSave } from './model';
 
 const LEAVE_PCT = Math.round(bundle.economy.hr.gardenLeaveXpBp / 100);
 
@@ -22,19 +22,15 @@ export function SquadScreen({ save: s }: { save: CareerSave }) {
   const [hype, setHype] = useState(1);
   if (!squadUnlocked(s)) {
     const cid = currentCareer(m);
-    const need = RANK_XP[SQUAD_UNLOCK_RANK - 1]!;
     return (
       <section>
         <PageHead back="/career" backLabel="Home" title="👥 Squad" />
         <Card class="locked-card">
           <h1>🔒 Squad building</h1>
           <p>
-            Agency temps fight alongside {m.c.name} for now. Reach <b>{RANKS[SQUAD_UNLOCK_RANK - 1]}</b> rank as a {nameOf(cid)} to hire and train your own teammates.
+            Hiring isn't open to {m.c.name} yet. Talent Acquisition gets in touch after a few fights: watch your 💬 messages. Until then it's you, your friend while they're around, and agency temps.
           </p>
           <RankBar cc={m} careerId={cid} />
-          <p class="muted small">
-            {m.careerXp[cid] ?? 0} / {need} career XP · rank {careerRank(m, cid)} of 5
-          </p>
           <button class="ghost small" onClick={() => navigate(`/career/file/${m.c.id}`)}>
             📁 Read your own personnel file
           </button>
@@ -99,7 +95,7 @@ export function SquadScreen({ save: s }: { save: CareerSave }) {
   return (
     <section>
       <PageHead back="/career" backLabel="Home" title="👥 Squad">
-        {SQUAD_SIZE} teammates fight with {m.c.name}; empty slots are filled by agency temps. Everyone else is on 🌷 Garden Leave. 💵 {s.cash} · staff {staff.length + 1}/{ROSTER_CAP}
+        {squadSlots(s)} hire{squadSlots(s) === 1 ? '' : 's'} can fight with {m.c.name}; empty seats can take agency temps (💵 {tempCost(bundle, s.stage)} a fight, they never grow). Everyone else is on 🌷 Garden Leave. 💵 {s.cash} · staff {staff.length + 1}/{ROSTER_CAP}
       </PageHead>
 
       <Card>
@@ -187,7 +183,7 @@ export function SquadScreen({ save: s }: { save: CareerSave }) {
                     const err = hire(s, c);
                     if (err) notify(err, 'error');
                     else {
-                      notify(s.squad.length < SQUAD_SIZE ? `${c.name} joins the squad!` : `${c.name} is hired, and starts on Garden Leave.`, 'good');
+                      notify(s.squad.length < squadSlots(s) ? `${c.name} joins the squad!` : `${c.name} is hired, and starts on Garden Leave.`, 'good');
                       setHype((h) => h + 1);
                     }
                   }}

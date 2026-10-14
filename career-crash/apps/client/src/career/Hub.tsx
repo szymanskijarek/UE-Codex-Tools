@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'preact/hooks';
+import { useEffect, useRef, useState } from 'preact/hooks';
 import { bundle } from '@cc/content';
-import { type NationalBoost, careerRank, DIFFICULTIES, isNameParts, partsFromName, difficulty, RANKS, SQUAD_UNLOCK_RANK, stageInfo, STAGES_PER_ARENA, hrMood, type ActiveHrNote, type CareerChar, type DifficultyId } from '@cc/game-rules';
+import { type NationalBoost, careerRank, DIFFICULTIES, hasUnlock, isNameParts, partsFromName, difficulty, RANKS, stageInfo, STAGES_PER_ARENA, hrMood, tempCost, type ActiveHrNote, type CareerChar, type DifficultyId } from '@cc/game-rules';
 import { descOf, nameOf } from '../i18n';
 import { arenaArt } from '../replay/arena-art';
 import { navigate } from '../state';
@@ -9,9 +9,10 @@ import { levelProgress, Loadout, RankBar, skillAlert } from './Career';
 import { CompanyPicker } from './CompanyPicker';
 import { NamePicker } from './NamePicker';
 import { HrChips } from './File';
-import { startNextFight } from './CoreActions';
+import { interviewerLabel, startNextFight } from './CoreActions';
+import { feedSeen } from './Messages';
 import { GearIcons } from './Loot';
-import { abandon, applicants, companyName, renameCharacter, renameCompany, setPostMine, currentCareer, lineup, lineupHr, mainChar, nationalityChangeable, nationBoost, nextOpponents, save, setNationality, squadUnlocked, type CareerSave } from './model';
+import { abandon, applicants, bookTemps, canApply, companyName, interviewers, renameCharacter, renameCompany, setPostMine, currentCareer, lineup, lineupHr, mainChar, nationalityChangeable, nationBoost, nextOpponents, save, setNationality, skipIntro, squadSlots, squadUnlocked, tempSeats, tempsComing, type CareerSave } from './model';
 import { developing, fightPhoto } from './photo';
 import { PuppetView } from './PuppetView';
 import { castLike, hasLiked, lastSummit, loadLastSummit, VOTE_URL } from '../incident/likes';
@@ -34,8 +35,9 @@ function ago(n: number): string {
   return n <= 0 ? 'Just now' : `${n} fight${n === 1 ? '' : 's'} ago`;
 }
 
-/** Your saved posts (newest first) with the sponsored ones slotted in. */
+/** Your saved posts (newest first) with the sponsored ones slotted in. Empty until the friend introduces you (12 §2). */
 function timeline(s: CareerSave): FeedPost[] {
+  if (s.story && !hasUnlock(s.story, 'feed')) return [];
   const saved = s.feed?.length ? s.feed : starterPosts(s);
   const [hiring, shop, news] = promotedPosts(s);
   const out = [...saved];
@@ -52,8 +54,30 @@ function Feed({ s }: { s: CareerSave }) {
   const posts = timeline(s);
   const fights = s.feed?.find((p) => p.fight > 0)?.fight ?? 0;
   const more = posts.length - shown;
+  const box = useRef<HTMLDivElement>(null);
+  // How far down the feed the player has read (the story's scroll beats wait on it).
+  useEffect(() => {
+    const el = box.current;
+    if (!el || typeof IntersectionObserver === 'undefined') return;
+    const cards = [...el.querySelectorAll('.li-post')];
+    const io = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) feedSeen.value = Math.max(feedSeen.value, cards.indexOf(e.target) + 1);
+    });
+    cards.forEach((c) => io.observe(c));
+    return () => io.disconnect();
+  }, [posts.length, shown]);
+  if (!posts.length)
+    return (
+      <div class="li-card li-feed-empty">
+        <div class="li-feed-empty-art" aria-hidden="true">
+          🌵
+        </div>
+        <b>Your feed is quiet</b>
+        <p class="muted small">Connect with people to see their updates. Nobody's connected with you yet. Give it a moment.</p>
+      </div>
+    );
   return (
-    <>
+    <div ref={box} class="li-feed">
       {posts.slice(0, shown).map((p) => (
         <PostCard key={p.id} p={p} fights={fights} s={s} />
       ))}
@@ -68,7 +92,40 @@ function Feed({ s }: { s: CareerSave }) {
           </button>
         )
       )}
-    </>
+    </div>
+  );
+}
+
+/** What kind of interview a stage is, by how many sit on the panel. */
+function interviewKind(s: CareerSave): string {
+  if (stageInfo(bundle, s.stage).boss) return 'Final interview';
+  const n = interviewers(s);
+  return n === 1 ? 'One-to-one' : n === 2 ? 'Group interview' : 'Panel interview';
+}
+
+/** Book agency temps for the empty seats (12 §6.1): paid per fight, weak, and they never grow. */
+function TempDesk({ s }: { s: CareerSave }) {
+  const seats = tempSeats(s);
+  if (!s.story || !hasUnlock(s.story, 'temps') || seats <= 0) return null;
+  const booked = Math.min(s.story.temps, seats);
+  const coming = tempsComing(s);
+  const cost = tempCost(bundle, s.stage);
+  return (
+    <div class="li-temps small">
+      <span>
+        🪪 Agency temps: <b>{booked}</b> of {seats} free seat{seats === 1 ? '' : 's'} · 💵 {cost} each per fight
+        {coming < booked && <span class="muted"> (only {coming} affordable)</span>}
+      </span>
+      <span class="row">
+        <button class="li-btn small" disabled={booked <= 0} onClick={() => bookTemps(s, booked - 1)} aria-label="One temp fewer">
+          －
+        </button>
+        <button class="li-btn small" disabled={booked >= seats} onClick={() => bookTemps(s, booked + 1)} aria-label="Book a temp">
+          ＋ Temp
+        </button>
+      </span>
+      {booked === 0 && <span class="muted tiny">Going alone is allowed. Brave, but allowed.</span>}
+    </div>
   );
 }
 
@@ -354,6 +411,7 @@ export function Hub({ save: s }: { save: CareerSave }) {
   const chapter = Math.floor(s.stage / STAGES_PER_ARENA);
   const viewers = 13 + s.wins * 7 + s.losses * 3;
   const fight = () => startNextFight(s);
+  const apply = canApply(s);
   const people = unlocked ? applicants(s).slice(0, 3) : [];
   return (
     <section class="li-page">
@@ -404,6 +462,10 @@ export function Hub({ save: s }: { save: CareerSave }) {
               </div>
               <div class="li-stats small">
                 <div>
+                  <span>Connections</span>
+                  <b>{s.story ? (s.story.connections >= 500 ? '500+' : s.story.connections) : viewers}</b>
+                </div>
+                <div>
                   <span>Profile viewers</span>
                   <b>{viewers}</b>
                 </div>
@@ -419,9 +481,11 @@ export function Hub({ save: s }: { save: CareerSave }) {
                 </div>
               </div>
               <div class="li-row">
-                <button class="li-btn primary" onClick={fight} disabled={!!s.pending} title="Straight to the next fight">
-                  🥊 Easy Apply
-                </button>
+                {apply && (
+                  <button class="li-btn primary" onClick={fight} disabled={!!s.pending} title="Straight to the next fight">
+                    🥊 Easy Apply · {interviewerLabel(s)}
+                  </button>
+                )}
                 <button class={`li-btn primary ${skillAlert(m) ? 'alert' : ''}`} onClick={() => navigate(`/career/skills/${m.c.id}`)}>
                   🌳 Skills & endorsements
                 </button>
@@ -437,7 +501,13 @@ export function Hub({ save: s }: { save: CareerSave }) {
         </aside>
 
         <div class="li-center">
-          <div class="li-card li-job">
+          {!apply && (
+            <div class="li-card li-job-none">
+              <b>📭 No opportunities yet</b>
+              <p class="muted small">Recruiters reach out to profiles with a network. Yours is… getting there.</p>
+            </div>
+          )}
+          {apply && <div class="li-card li-job">
             <header>
               <span class="li-logo-sq big">{info.company[0]}</span>
               <div class="grow">
@@ -464,11 +534,14 @@ export function Hub({ save: s }: { save: CareerSave }) {
               <div>
                 <h3>Your application</h3>
                 {mine.map((cc, i) => (
-                  <Person cc={cc} tag={i === 0 ? 'You' : cc.temp ? 'Agency temp' : undefined} hr={mineHr.get(cc.c.id)} nation={i === 0 ? nation : null} />
+                  <Person cc={cc} tag={i === 0 ? 'You' : cc.temp ? 'Agency temp · doesn\'t grow' : cc.c.id === s.story?.friend?.c.id ? 'Your friend' : undefined} hr={mineHr.get(cc.c.id)} nation={i === 0 ? nation : null} />
                 ))}
+                <TempDesk s={s} />
               </div>
               <div>
-                <h3>Meet the hiring team</h3>
+                <h3>
+                  Meet the hiring team <span class="li-pill">{interviewKind(s)} · {'👤'.repeat(opp.length)}</span>
+                </h3>
                 {opp.map((cc) => (
                   <Person cc={cc} />
                 ))}
@@ -476,13 +549,13 @@ export function Hub({ save: s }: { save: CareerSave }) {
             </div>
             <div class="li-row">
               <button class="li-btn primary big" onClick={fight} disabled={!!s.pending}>
-                🥊 Easy Apply (Fight!)
+                🥊 Easy Apply (Fight!) · {interviewerLabel(s)}
               </button>
-              <button class="li-btn" onClick={() => navigate('/career/squad')} title={unlocked ? 'Build your squad' : `Unlocks at ${RANKS[SQUAD_UNLOCK_RANK - 1]} rank`}>
-                {unlocked ? '👥 Edit squad' : `🔒 Squad at ${RANKS[SQUAD_UNLOCK_RANK - 1]}`}
+              <button class="li-btn" onClick={() => navigate('/career/squad')} title={unlocked ? 'Build your squad' : 'Hiring opens soon: watch your messages'}>
+                {unlocked ? `👥 Edit squad (${squadSlots(s)} seat${squadSlots(s) === 1 ? '' : 's'})` : '🔒 Squad: hiring opens soon'}
               </button>
             </div>
-          </div>
+          </div>}
 
           <div class="li-sort muted small">
             <span>Sort by: </span>
@@ -516,7 +589,7 @@ export function Hub({ save: s }: { save: CareerSave }) {
               </>
             ) : (
               <p class="muted small">
-                Reach <b>{RANKS[SQUAD_UNLOCK_RANK - 1]}</b> rank to grow your network and hire your own squad. Until then, the agency sends temps.
+                Hiring isn't open to you yet. Talent Acquisition will be in touch. Until then it's you, {s.story?.partner ? 'your friend' : 'and whoever the agency sends'}.
               </p>
             )}
           </div>
@@ -553,6 +626,11 @@ export function Hub({ save: s }: { save: CareerSave }) {
                 ))}
               </select>
             </label>
+            {!apply && (
+              <button class="li-btn small" onClick={() => skipIntro(s)} title="Open Easy Apply, temps and hiring straight away">
+                ⏭️ Skip the intro
+              </button>
+            )}
             <button
               class="li-btn small"
               onClick={() => {

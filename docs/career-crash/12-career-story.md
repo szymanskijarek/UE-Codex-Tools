@@ -1,6 +1,6 @@
 # Career Crash: the story mode and Messages (design + implementation plan)
 
-Status: **proposal, nothing built.** Owner of: the Messages tab, story beats,
+Status: **phase 1 built** (see §12 for what exists and what doesn't yet). Owner of: the Messages tab, story beats,
 the first-time experience (FTUE), the friend, temps vs hires, opponent counts
 on the ladder, chapter structure and the cameos from the other shows. Where it
 changes an existing rule it says so; the owning doc (03 §3.5–3.6, 06 §2, 07 §2)
@@ -230,11 +230,12 @@ stage has, from 1 to 3, gatecrashers not counted (they're never announced).
 
 ```jsonc
 "ladder": {
-  "chapter1": [2, 2, 1, 2],               // stages 1–4; the boss stage counts the boss
+  "chapter1": [2, 2, 1, 3],               // stages 1–4; the boss stage counts the boss
   "pattern": [[1, 2, 3, 2], [2, 1, 3, 3], [2, 3, 1, 2], [3, 2, 2, 3]], // later chapters, picked by chapter
-  "soloLevels": 1, "soloRank": 1,         // a one-to-one interviewer is senior
-  "panelLevels": -1,                      // a panel is three juniors
-  "tutorialLevels": -1                    // stages 1–2
+  "solo":  { "levels": 2, "rank": 1, "stats": 1 },   // a one-to-one interviewer is senior
+  "duo":   { "levels": 1, "rank": 0, "stats": 1 },
+  "panel": { "levels": 0, "rank": 0, "stats": -1 },  // a panel is three juniors
+  "tutorial": { "stages": 2, "levels": -2, "stats": -2 } // stages 1–2, with the friend (replaces the above)
 }
 ```
 
@@ -257,10 +258,10 @@ meal deal each. New:
 
 | | Old | New (`economy.json` → `temps`) |
 |---|---|---|
-| Cost | free | 💵 `30 + 4 × stage` each, per fight, paid when booked |
-| Level | yours | yours − 2 (min 1) |
+| Cost | free | 💵 `30 + 4 × stage` each, per fight, paid as the fight starts (booked temps keep coming until unbooked; only as many as you can afford) |
+| Level | yours | yours − 4 (min 1) |
 | Rank | yours | Trainee, main move only (`spendBp` 0) |
-| Stats | as generated | −2 each (`statOffset`) |
+| Stats | as generated | −3 each (`statOffset`) |
 | Packed | meal deal | nothing ("brought a lanyard") |
 | Growth | none | none |
 | Look | normal | visitor sticker on the torso, "TEMP" lanyard on portraits (art) |
@@ -311,6 +312,29 @@ fixed line-up policies:
 | 5–8 | you + 2 temps | 1–3 | ≤ 40% |
 
 The headline is the gap: **two hires vs two temps ≥ 25 points** from chapter 2.
+
+**Measured** (phase 1, `pnpm balance --ladder --battles=60`, Normal; the player
+is a generated fighter at the stage's level, a hire a level and a rank behind):
+
+| Stage | Arena | Opp | solo | temp | temps | friend | hire+temp | hires |
+|---|---|---|---|---|---|---|---|---|
+| 1 | supermarket | 2 | 20% | 68% | 97% | 83% | 100% | 100% |
+| 2 | supermarket | 2 | 15% | 67% | 97% | 93% | 97% | 100% |
+| 3 | supermarket | 1 | 35% | 90% | 100% | 93% | 100% | 100% |
+| 4 ☠ | supermarket | 3 | 0% | 2% | 15% | 18% | 38% | 50% |
+| 5 | office | 1 | 25% | 90% | 98% | 100% | 100% | 100% |
+| 6 | office | 2 | 2% | 10% | 52% | 27% | 73% | 78% |
+| 7 | office | 3 | 0% | 3% | 18% | 12% | 40% | 53% |
+| 8 ☠ | office | 2 | 0% | 5% | 42% | 37% | 72% | 83% |
+| 9 | diner | 2 | 2% | 17% | 48% | 42% | 83% | 92% |
+| 10 | diner | 1 | 42% | 88% | 100% | 95% | 100% | 100% |
+| 11 | diner | 3 | 0% | 0% | 12% | 3% | 47% | 65% |
+| 12 ☠ | diner | 3 | 0% | 0% | 3% | 3% | 12% | 45% |
+
+Friend stages land at 83–93%, a lone senior interviewer beats you alone about
+two times in three but falls to you plus one temp, and from chapter 2 two hires
+beat two temps by 20–40 points (most on panels and bosses). Panels (3) are the
+hard stages; one-to-ones are the breathers.
 Temps' offsets in `economy.json` get tuned until it holds.
 
 ---
@@ -386,6 +410,39 @@ nothing that tells the player to buy real crypto.
 - **Bag full:** Corner Shop DMs about selling perks.
 - **Milestone career offer:** a recruiter "saw you're open to new roles".
 - **First gatecrash:** the set's leader writes.
+
+### 8.2 Invite-only gigs
+
+One-off brawls offered in a message (owner's idea, added in phase 1). A gig
+arrives in its own thread from whoever is hiring, with an **accept** and a
+**decline** button. It can be accepted only there and only once; declined or
+ignored for `expiresAfter` fights, it's gone for good. Each gig is offered at
+most once per career.
+
+- **When:** from fight `fromFight` (4), at most every `everyFights` (3), with
+  `chanceBp` (50%) after each ladder fight, never while another invite is open,
+  only gigs whose `minStage` you've reached (`economy.gigs`).
+- **Who goes** (`side`): `squad` (your usual line-up, friend/hires/booked temps),
+  `solo` (you alone), or `cast` (you plus the gig's own, very strange temps).
+- **Off the ladder:** a gig never moves your stage or your record, drops no
+  loot, and pays a flat fee × the difficulty multiplier. XP, HR notes and the
+  nationality boost work as in any fight.
+- **Afterwards:** your own post about it (`posts`), and the sender signs off in
+  the thread (`after`).
+- **Content:** `packages/content/data/gigs/*.json`. Opponents and allies are
+  named, with a career (their moves) and an optional persona (`npc.gig-*`: job
+  title now, their own art once the brief's sheets land; until then they wear
+  the career's look).
+
+| Gig | Arena | Side | Who |
+|---|---|---|---|
+| Battlefield Extra (Napoleonic) | theatre (a soundstage) | cast: a method actor and a stunt double who has never done a stunt | three French Imperial Guard extras, in costume since 5am |
+| Silver Service Waiter | hotel | cast: Gaston the head waiter, Tiffany on her first shift | three posh gala guests told the waiters are "part of the entertainment" |
+| Store Mascot | supermarket | solo | three rival mascots (a badger, a carrot, Mister Coupon) |
+| Focus Group | airport | squad | cabin crew defending the overhead lockers |
+| Night Guard | museum | solo | two performance artists "liberating" a vase |
+| Team-building Away Day | warehouse | squad | three facilitators doing Trust Falls, on you |
+| Cooking Show Pilot | diner | cast: the celebrity chef's understudy, a sous-chef who speaks in timers | three TV judges who fight back |
 
 ---
 
@@ -489,7 +546,9 @@ Saves without `story` are migrated at load:
 
 ---
 
-## 11. Owner decisions needed
+## 11. Owner decisions
+
+Decided (Oct 2026): all six as recommended below; players may fight alone.
 
 | # | Question | Recommendation |
 |---|---|---|
@@ -499,3 +558,25 @@ Saves without `story` are migrated at load:
 | 4 | Squad unlock: story beat after fight 3 (this doc) or keep Senior rank? | Story beat: Senior arrives far too late for "investment" to mean anything. |
 | 5 | Crypto "invest in Gavin's coin" side bet driven by the live hourly feed? | Not now: reads as gambling. Revisit as cosmetic-only. |
 | 6 | Relaxed/Hard/Brutal: same story? | Same beats; difficulty only touches opponents (03 §3.5). |
+
+---
+
+## 12. As built (phase 1)
+
+| What | Where |
+|---|---|
+| Schemas: contacts, beats (triggers, effects), gigs; economy `ladder`, `temps`, `friend`, `gigs`, `crashers.fromStage` | `packages/content-schema/src/index.ts` |
+| Content checks (refs, reply chains, cycles, slots, gig casts) | `validateStory` in `packages/content-compiler/src/index.ts` |
+| Content | `data/contacts/core.json`, `data/story/ch1.json` (beats 1–10), `data/story/systemic.json` (loss streak, old-save welcome), `data/gigs/core.json` (7 gigs) |
+| Story engine, friend, gigs | `packages/game-rules/src/story.ts` |
+| Ladder sizes, weak paid temps | `ladderSize`, `ladderAdjust`, `ladderOpponents`, `agencyTemp`, `tempCost` in `game-rules/src/skills.ts`; crasher cap `maxSize` in `crashers.ts` |
+| Save, line-up, fights, gigs, migration, skip intro | `apps/client/src/career/model.ts` (`story` on the save) |
+| Messaging screen, pop-ups, story runner | `apps/client/src/career/Messages.tsx`; route `#/career/messages[/:thread]`; nav badge in `app.tsx`; `ping` sound in `replay/audio.ts` |
+| Hub: quiet feed, no job card until the recruiter, interviewer counts, temp desk, connections | `apps/client/src/career/Hub.tsx`, `CoreActions.tsx` |
+| Tests | `packages/game-rules/test/story.test.ts`, `apps/client/test/career-story.test.ts` |
+| Balance | `pnpm balance --ladder [--battles=N] [--stages=N]` (`tools/balance/src/ladder.ts`) |
+
+**Not yet:** the desktop docked Messaging panel (Messaging is a page with two
+panes on wide screens); chapters 2+ and the cameos (phase 3); progress features
+(phase 2); the story art (phase 4). Old saves skip chapter 1 and get Karen's
+💵 500 restructuring bonus; their booked temps match their old line-up.

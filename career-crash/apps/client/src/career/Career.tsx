@@ -1,11 +1,12 @@
 import { useEffect, useMemo, useState } from 'preact/hooks';
 import { bundle } from '@cc/content';
-import { careerRank, DIFFICULTIES, pointsLeft, formatName, partsFromName, randomCompany, RANK_XP, RANKS, SQUAD_UNLOCK_RANK, stageInfo, type CareerChar, type CompanyName, type DifficultyId, type NameParts } from '@cc/game-rules';
+import { careerRank, DIFFICULTIES, pointsLeft, formatName, partsFromName, randomCompany, RANK_XP, RANKS, stageInfo, type CareerChar, type CompanyName, type DifficultyId, type NameParts } from '@cc/game-rules';
 import { Rng } from '@cc/sim';
 import { abilitySummary, descOf, nameOf } from '../i18n';
 import { navigate, notify, scrollToTop } from '../state';
 import { Card, CareerChip, Portrait } from '../ui/components';
-import { type BoardRow, career, collectResults, sellLoot, companyName, currentCareer, draftCharacter, mainChar, startCareer, type CareerSave } from './model';
+import { type BoardRow, career, charById, collectResults, sellLoot, companyName, currentCareer, draftCharacter, mainChar, startCareer, type CareerSave } from './model';
+import { MessagePings, MessagesScreen, StoryRunner, unreadMessages } from './Messages';
 import { CompanyPicker } from './CompanyPicker';
 import { NamePicker } from './NamePicker';
 import { developing, fightPhoto } from './photo';
@@ -21,11 +22,31 @@ import { SquadScreen } from './Squad';
 import { flagEmoji, NATIONS } from './nation';
 import { countryName } from './feed';
 
-/** Career mode router: #/career, #/career/skills/:id, #/career/squad, #/career/shop, #/career/perks/:id, #/career/results. */
+/** Career mode router: #/career, #/career/skills/:id, #/career/squad, #/career/shop, #/career/perks/:id, #/career/results, #/career/messages/:thread. */
 export function CareerScreen({ sub, arg }: { sub?: string; arg?: string }) {
   const s = career.value;
   if (!s) return <CreateCharacter />;
-  if (sub === 'results') return <Results save={s} />;
+  // The story (12) runs on every career screen: its timers, and pop-ups for new messages.
+  const story = (
+    <>
+      <StoryRunner s={s} />
+      <MessagePings s={s} here={sub === 'messages' ? arg : undefined} />
+    </>
+  );
+  if (sub === 'results')
+    return (
+      <>
+        <Results save={s} />
+        {story}
+      </>
+    );
+  if (sub === 'messages')
+    return (
+      <>
+        <MessagesScreen s={s} id={arg} />
+        {story}
+      </>
+    );
   // Every other career screen keeps the next fight one tap away (on the hub, once its own button has scrolled off).
   const screen =
     sub === 'skills' ? <SkillsScreen save={s} id={arg ?? s.mainId} /> :
@@ -38,6 +59,7 @@ export function CareerScreen({ sub, arg }: { sub?: string; arg?: string }) {
     <>
       {screen}
       <EasyApplyFab s={s} afterScroll={screen.type === Hub ? 520 : 0} />
+      {story}
     </>
   );
 }
@@ -318,7 +340,7 @@ function Results({ save: s0 }: { save: CareerSave }) {
         <div class="grow">
           <h1>{title}</h1>
           <p class="lead">
-            Stage {r.stage + 1} {r.outcome === 'win' ? 'cleared' : 'still to beat'} · 💵 +{r.cash}
+            {r.gig ? `${r.gig.title} for ${r.gig.from}` : `Stage ${r.stage + 1} ${r.outcome === 'win' ? 'cleared' : 'still to beat'}`} · 💵 +{r.cash}
           </p>
           {r.pay && (
             <div class="pay small">
@@ -331,6 +353,11 @@ function Results({ save: s0 }: { save: CareerSave }) {
               )}
               {r.pay.multiplier !== 1 && <span>Difficulty ×{r.pay.multiplier.toFixed(2).replace(/0$/, '')}</span>}
               <b>= 💵 {r.pay.total}</b>
+              {r.temps && (
+                <span class="muted">
+                  (temps: {r.temps.n} × 💵 {r.temps.cost / r.temps.n}, paid at the door)
+                </span>
+              )}
             </div>
           )}
         </div>
@@ -342,17 +369,15 @@ function Results({ save: s0 }: { save: CareerSave }) {
         <Card>
           <h2>Match summary</h2>
           <Board rows={r.board.filter((b) => b.team === 0)} title={companyName(s)} />
-          <Board rows={r.board.filter((b) => b.team !== 0)} title={stageInfo(bundle, r.stage).company} />
+          <Board rows={r.board.filter((b) => b.team !== 0)} title={r.gig ? r.gig.from : stageInfo(bundle, r.stage).company} />
         </Card>
       )}
-      {r.unlockedSquad && (
+      {unreadMessages(s) > 0 && (
         <Card class="highlight">
-          <h2>👥 Squad building unlocked!</h2>
-          <p>
-            {mainChar(s).c.name} made {RANKS[SQUAD_UNLOCK_RANK - 1]}. You can now hire your own teammates and send them in instead of agency temps.
-          </p>
-          <button class="primary" onClick={() => navigate('/career/squad')}>
-            Build your squad
+          <h2>💬 New messages ({unreadMessages(s)})</h2>
+          <p class="muted small">People have been in touch since the fight.</p>
+          <button class="primary" onClick={() => navigate('/career/messages')}>
+            Open Messaging
           </button>
         </Card>
       )}
@@ -390,8 +415,8 @@ function Results({ save: s0 }: { save: CareerSave }) {
             <h3>
               {g.name} {g.leave && <span class="badge green">🌷 Garden Leave</span>}
             </h3>
-            <div>+{g.xp} XP · Level {s.chars[g.id]?.c.level}</div>
-            {s.chars[g.id] && <RankBar cc={s.chars[g.id]!} careerId={g.career} />}
+            <div>+{g.xp} XP · Level {charById(s, g.id)?.c.level}</div>
+            {charById(s, g.id) && <RankBar cc={charById(s, g.id)!} careerId={g.career} />}
             {g.levelsGained > 0 && <div class="good">⬆️ Level up! +{g.levelsGained} stat point{g.levelsGained === 1 ? '' : 's'}</div>}
             {g.rankAfter > g.rankBefore && (
               <div class="good">

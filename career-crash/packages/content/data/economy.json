@@ -55,7 +55,18 @@
     "opponentGearFromStage": [6, 18]
   },
   "hr": { "squadSize": 2, "staffCap": 6, "gardenLeaveXpBp": 2500 },
-  "crashers": { "chanceBp": 1000, "homeBp": 6500, "earliestTick": 360, "latestTick": 1100, "minActiveBp": 6000, "sizeWeights": [2, 4, 4], "leaderLevelOffset": -1, "henchmanLevelOffset": -2, "spendBp": 6000 },
+  "crashers": { "chanceBp": 1000, "homeBp": 6500, "earliestTick": 360, "latestTick": 1100, "minActiveBp": 6000, "sizeWeights": [2, 4, 4], "leaderLevelOffset": -1, "henchmanLevelOffset": -2, "spendBp": 6000, "fromStage": 3 },
+  "ladder": {
+    "chapter1": [2, 2, 1, 3],
+    "pattern": [[1, 2, 3, 2], [2, 1, 3, 3], [2, 3, 1, 2], [3, 2, 2, 3]],
+    "solo": { "levels": 2, "rank": 1, "stats": 1 },
+    "duo": { "levels": 1, "rank": 0, "stats": 1 },
+    "panel": { "levels": 0, "rank": 0, "stats": -1 },
+    "tutorial": { "stages": 2, "levels": -2, "stats": -2 }
+  },
+  "temps": { "costBase": 30, "costPerStage": 4, "levelOffset": -4, "statOffset": -3, "rank": 1, "spendBp": 0 },
+  "friend": { "careers": ["career.nurse", "career.paramedic", "career.firefighter", "career.security-guard", "career.personal-trainer", "career.builder", "career.lifeguard"], "spendBp": 7000 },
+  "gigs": { "fromFight": 4, "everyFights": 3, "chanceBp": 5000, "expiresAfter": 3 },
   "nationality": {
     "changeCooldownH": 24,
     "tiers": [

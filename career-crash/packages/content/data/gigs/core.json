@@ -1,0 +1,260 @@
+[
+  {
+    "id": "gig.period-drama",
+    "from": { "name": "Deirdre at Extras Unlimited", "sub": "Casting · Film & TV · Background artists", "icon": "🎬" },
+    "title": "Battlefield Extra (Napoleonic)",
+    "arena": "arena.theatre",
+    "minStage": 2,
+    "invite": [
+      "Darling! We're shooting another one of those Napoleonic war dramas. The one with the green jacket. Number 27, I think.",
+      "We need a hero for ONE take. You'd be fighting the French Imperial Guard. They're extras. They've been in costume since 5am and they are furious.",
+      "We'll send two of ours to back you up: a method actor who hasn't broken character since 2019, and a stunt double who has never done a stunt.",
+      "Pays 💵 {cash}. Lunch is a sandwich. One take only, darling. I won't ask twice."
+    ],
+    "accept": "🎬 Accept the role",
+    "decline": "Not my period",
+    "side": "cast",
+    "allies": [
+      { "name": "Monty Vale", "career": "career.magician", "persona": "npc.gig-method-actor", "personality": "personality.confident", "levelOffset": 0 },
+      { "name": "Dot Spinks", "career": "career.lifeguard", "persona": "npc.gig-stunt-double", "personality": "personality.clumsy", "levelOffset": -1, "statOffset": -1 }
+    ],
+    "opponents": [
+      { "name": "Grenadier Dupont", "career": "career.security-guard", "persona": "npc.gig-napoleonic", "personality": "personality.aggressive", "levelOffset": 0 },
+      { "name": "Corporal Lefèvre", "career": "career.police-officer", "persona": "npc.gig-napoleonic", "personality": "personality.competitive", "levelOffset": -1 },
+      { "name": "Drummer Boy Gerald", "career": "career.dj", "persona": "npc.gig-napoleonic", "personality": "personality.chaotic", "levelOffset": -1 }
+    ],
+    "pay": { "win": 420, "loss": 160 },
+    "posts": {
+      "win": [
+        "Thrilled to share I've wrapped my first feature film! 🎬 I played 'Soldier Who Wins (uncredited)'. The French Imperial Guard did not read the script. Neither did I. #Acting #Grateful #OneTake",
+        "Big news: I'm in a period drama! 🎬 Three extras charged me in full uniform. The director shouted 'cut'. Nobody cut. We won anyway. #FilmIndustry #Resilience"
+      ],
+      "loss": [
+        "Today I learned that background extras in Napoleonic uniforms do not hold back. 🎬 My performance has been described as 'a convincing corpse'. Grateful for the opportunity. #Acting #FailForward",
+        "Some personal news: I died on screen today. Several times. The Imperial Guard won this one, but the sandwich was excellent. #FilmIndustry #Resilience"
+      ]
+    },
+    "after": {
+      "win": ["That's a WRAP, darling! 💵 {cash}. The director cried. Monty is still in character and has asked for a horse."],
+      "loss": ["Well, it's a wrap. The Imperial Guard took the field and the catering table. 💵 {cash} for your trouble, darling."]
+    }
+  },
+  {
+    "id": "gig.posh-banquet",
+    "from": { "name": "Fenwick & Daughters Catering", "sub": "Events · Silver service · No questions asked", "icon": "🍾" },
+    "title": "Silver Service Waiter (one night only)",
+    "arena": "arena.hotel",
+    "minStage": 3,
+    "invite": [
+      "Good evening. We're two waiters short for the Fotheringay charity gala tonight. Black tie. Silver service.",
+      "One small thing: the guests have been told the waiters are 'part of the entertainment'. They have been drinking since the soup.",
+      "You'll be serving with Gaston, our head waiter (thirty years, never dropped a canapé, never forgiven anyone), and Tiffany, who started this morning.",
+      "💵 {cash}, plus whatever's left of the buffet. This is a one-time engagement."
+    ],
+    "accept": "🍾 Put on the waistcoat",
+    "decline": "I only do self-service",
+    "side": "cast",
+    "allies": [
+      { "name": "Gaston", "career": "career.hotel-concierge", "persona": "npc.gig-head-waiter", "personality": "personality.competitive", "levelOffset": 1 },
+      { "name": "Tiffany (first shift)", "career": "career.barista", "persona": "npc.gig-trainee-waiter", "personality": "personality.coward", "levelOffset": -2, "statOffset": -2 }
+    ],
+    "opponents": [
+      { "name": "Sir Giles Fotheringay", "career": "career.politician", "persona": "npc.gig-posh-guest", "personality": "personality.confident", "levelOffset": 0 },
+      { "name": "Lady Arabella Crump", "career": "career.fashion-designer", "persona": "npc.gig-posh-guest", "personality": "personality.aggressive", "levelOffset": 0 },
+      { "name": "The Hon. Toby Vane", "career": "career.lawyer", "persona": "npc.gig-posh-guest", "personality": "personality.greedy", "levelOffset": -1 }
+    ],
+    "pay": { "win": 480, "loss": 180 },
+    "posts": {
+      "win": [
+        "Worked a black-tie gala last night as a silver service waiter. 🍾 Learned a lot about hospitality, conflict resolution and how far a vol-au-vent can travel. Sir Giles, you know what you did. #Hospitality #Grateful",
+        "Proud to say I served at the Fotheringay charity gala. 🍾 Raised: 💵 thousands for charity. Lowered: three aristocrats, gently, onto the dessert trolley. #Teamwork #SilverService"
+      ],
+      "loss": [
+        "Last night I worked a charity gala and was 'part of the entertainment'. 🍾 Lady Arabella has a wicked left hook and no regrets. Tipped: zero. Learned: everything. #Hospitality #Resilience",
+        "Some nights you serve the canapés, and some nights the canapés are served to you, at speed. 🍾 Thank you Gaston for dragging me out by my waistcoat. #FailForward #Hospitality"
+      ]
+    },
+    "after": {
+      "win": ["Splendid. 💵 {cash}. Gaston says you may call him Gaston. That has never happened before."],
+      "loss": ["The guests rated the entertainment five stars. 💵 {cash}. Please return the waistcoat."]
+    }
+  },
+  {
+    "id": "gig.mascot-opening",
+    "from": { "name": "Grand Openings Ltd", "sub": "Events · Ribbons · Inflatable arches", "icon": "🎈" },
+    "title": "Store Mascot (grand reopening)",
+    "arena": "arena.supermarket",
+    "minStage": 2,
+    "invite": [
+      "Hiya! Our supermarket's grand reopening needs a mascot. You'd be Shelfie, the fun-sized shopping trolley. The suit is a bit warm.",
+      "Heads up: three rival mascots from the shop across the road have heard about it. They're coming. They don't have a permit.",
+      "Solo job, the suit only fits one. 💵 {cash} and a voucher. Today only!"
+    ],
+    "accept": "🎈 Get in the suit",
+    "decline": "I'm allergic to foam",
+    "side": "solo",
+    "opponents": [
+      { "name": "Barry the Bargain Badger", "career": "career.clown", "persona": "npc.gig-rival-mascot", "personality": "personality.aggressive", "levelOffset": -2 },
+      { "name": "Colin the Carrot", "career": "career.mime", "persona": "npc.gig-rival-mascot", "personality": "personality.chaotic", "levelOffset": -2 },
+      { "name": "Mister Coupon", "career": "career.ice-cream-vendor", "persona": "npc.gig-rival-mascot", "personality": "personality.greedy", "levelOffset": -3 }
+    ],
+    "pay": { "win": 360, "loss": 140 },
+    "posts": {
+      "win": [
+        "Spent today as Shelfie, the fun-sized shopping trolley, at a grand reopening. 🎈 Three rival mascots tried to crash it. A carrot is now in aisle 4 and will be for some time. #Retail #BrandAmbassador #Grateful",
+        "Brand ambassador work can be tough. 🎈 Today I defended a supermarket reopening against a badger, a carrot and a coupon. Undefeated in foam. #Marketing #Resilience"
+      ],
+      "loss": [
+        "Today a giant carrot beat me up in front of 200 shoppers and a balloon arch. 🎈 I was dressed as a trolley. There is no lesson here. #Retail #FailForward",
+        "Grand reopening update: the rival mascots won. 🎈 Barry the Bargain Badger has taken my head (the foam one) as a trophy. #BrandAmbassador #Vulnerability"
+      ]
+    },
+    "after": {
+      "win": ["Ribbon cut, rivals routed! 💵 {cash}, and the voucher is valid on any item under 💵 1."],
+      "loss": ["The carrot is our mascot now, apparently. 💵 {cash}. Please return the trolley head if you find it."]
+    }
+  },
+  {
+    "id": "gig.focus-group",
+    "from": { "name": "Skyhigh Insights", "sub": "Market research · Budget aviation · Feedback is a gift", "icon": "✈️" },
+    "title": "Focus Group (whole team)",
+    "arena": "arena.airport",
+    "minStage": 4,
+    "invite": [
+      "Hello! We're testing a new budget airline experience and would love your whole team on board.",
+      "The experience is: you fight the cabin crew for the overhead lockers. There are feedback forms at the end.",
+      "Bring your usual squad. 💵 {cash} and a free scratch card (non-winning). One flight only."
+    ],
+    "accept": "✈️ Board with my team",
+    "decline": "I'll take the train",
+    "side": "squad",
+    "opponents": [
+      { "name": "Purser Davina", "career": "career.flight-attendant", "persona": "npc.gig-cabin-crew", "personality": "personality.competitive", "levelOffset": 0 },
+      { "name": "Trainee Marco", "career": "career.flight-attendant", "persona": "npc.gig-cabin-crew", "personality": "personality.helpful", "levelOffset": -1 },
+      { "name": "Trainee Precious", "career": "career.security-guard", "persona": "npc.gig-cabin-crew", "personality": "personality.aggressive", "levelOffset": -1 }
+    ],
+    "pay": { "win": 450, "loss": 170 },
+    "posts": {
+      "win": [
+        "Took part in an airline focus group today with my team. ✈️ Feedback given: the overhead lockers are worth fighting for. Feedback received: a trolley to the shins. #CustomerExperience #Teamwork",
+        "Our squad helped test a new budget airline. ✈️ We won the overhead lockers, the window seat and the respect of the cabin crew. Would fly again (on a different airline). #Research #Leadership"
+      ],
+      "loss": [
+        "Focus group report: the cabin crew are very well trained. ✈️ We were asked to remain seated. We did. On the floor. #CustomerExperience #Resilience",
+        "Some feedback for the new budget airline: the safety demonstration was performed on us. ✈️ #Research #FailForward"
+      ]
+    },
+    "after": {
+      "win": ["Thank you for flying with us! 💵 {cash}. Your feedback has been noted and lost."],
+      "loss": ["Thank you for flying with us. 💵 {cash}. Please collect your belongings and your dignity from the overhead lockers."]
+    }
+  },
+  {
+    "id": "gig.museum-gala",
+    "from": { "name": "The Museum of Old Things", "sub": "Arts & Culture · After-hours events", "icon": "🏛️" },
+    "title": "Night Guard (one night, very temporary)",
+    "arena": "arena.museum",
+    "minStage": 5,
+    "invite": [
+      "Good evening. Tonight's gala features a performance piece called 'Resistance'. Our night guard resigned during rehearsals.",
+      "You're the guard now. The artists will try to 'liberate' a vase. Please stop them.",
+      "They will say it's part of the piece. It isn't. It's a vase. Solo shift, 💵 {cash}. We only ask once; we're a museum, we're very busy."
+    ],
+    "accept": "🏛️ Take the torch",
+    "decline": "I'm not a vase person",
+    "side": "solo",
+    "opponents": [
+      { "name": "Ondine", "career": "career.mime", "persona": "npc.gig-performance-artist", "personality": "personality.chaotic", "levelOffset": -1 },
+      { "name": "Felix (Untitled)", "career": "career.painter", "persona": "npc.gig-performance-artist", "personality": "personality.confident", "levelOffset": -1 }
+    ],
+    "pay": { "win": 420, "loss": 160 },
+    "posts": {
+      "win": [
+        "Worked a night shift as a museum guard at a gala. 🏛️ Two performance artists tried to take a vase 'as commentary'. I responded with commentary of my own. The vase is fine. #ArtsAndCulture #Security",
+        "Proud to report I was part of a performance piece tonight without knowing it. 🏛️ Reviews call my role 'unexpectedly physical'. The vase stays. #Art #Resilience"
+      ],
+      "loss": [
+        "Tonight I was a museum guard for four hours and part of an art installation for six. 🏛️ The vase is gone. The critics loved it. #ArtsAndCulture #FailForward",
+        "Gala update: the performance artists won and have titled the piece after me. 🏛️ It's called 'Floor'. #Art #Vulnerability"
+      ]
+    },
+    "after": {
+      "win": ["The vase thanks you. So do we. 💵 {cash}."],
+      "loss": ["The vase is now in a private collection, apparently. 💵 {cash}. The reviews were excellent."]
+    }
+  },
+  {
+    "id": "gig.team-building",
+    "from": { "name": "Synergy Outdoors Ltd", "sub": "Team-building · Away days · Trust exercises", "icon": "🪢" },
+    "title": "Team-building Away Day (mandatory fun)",
+    "arena": "arena.warehouse",
+    "minStage": 6,
+    "invite": [
+      "Great news! Your company has been booked onto our team-building away day. (Someone in Finance ticked a box.)",
+      "Today's exercise is Trust Fall: our facilitators fall, you catch them. Then they fall on you. Repeatedly.",
+      "Bring your usual squad. 💵 {cash} and a laminated certificate. One booking per company, per lifetime."
+    ],
+    "accept": "🪢 Let's synergise",
+    "decline": "I already trust nobody",
+    "side": "squad",
+    "opponents": [
+      { "name": "Facilitator Bryony", "career": "career.life-coach", "persona": "npc.gig-facilitator", "personality": "personality.confident", "levelOffset": 0 },
+      { "name": "Facilitator Dan", "career": "career.personal-trainer", "persona": "npc.gig-facilitator", "personality": "personality.competitive", "levelOffset": 0 },
+      { "name": "Facilitator Moon", "career": "career.psychologist", "persona": "npc.gig-facilitator", "personality": "personality.helpful", "levelOffset": -1 }
+    ],
+    "pay": { "win": 520, "loss": 200 },
+    "posts": {
+      "win": [
+        "Our team just completed a team-building away day. 🪢 Key learnings: trust is earned, facilitators are heavy, and Bryony can fall from a surprising height. Certificate laminated. #Teamwork #Leadership #Synergy",
+        "Mandatory fun: completed. 🪢 We caught every facilitator, and then we caught them again, harder. Proud of this team. #TeamBuilding #Culture"
+      ],
+      "loss": [
+        "Today our team learned to trust each other, mostly by lying on the warehouse floor together. 🪢 #TeamBuilding #Vulnerability",
+        "Away day update: the facilitators won the trust exercise. 🪢 We have been asked to 'reflect'. We are reflecting from the floor. #Culture #FailForward"
+      ]
+    },
+    "after": {
+      "win": ["What a day! 💵 {cash} and your certificate is in the post. Feedback form attached (mandatory)."],
+      "loss": ["Remember: there's no failure, only feedback. 💵 {cash}. The feedback is that you failed."]
+    }
+  },
+  {
+    "id": "gig.cooking-show",
+    "from": { "name": "Saucepan Productions", "sub": "TV · Cooking competitions · Pilot season", "icon": "🍳" },
+    "title": "Contestant (cooking show pilot)",
+    "arena": "arena.diner",
+    "minStage": 4,
+    "invite": [
+      "Hi! We're filming the pilot of a new cooking competition and one of our contestants has dropped out (burns).",
+      "The twist: the judges fight back. Three of them. They have strong opinions and stronger forearms.",
+      "You'll cook with our celebrity chef's understudy and a sous-chef who only communicates in kitchen timers. 💵 {cash}. Pilot only, so one shot."
+    ],
+    "accept": "🍳 Yes, chef",
+    "decline": "I can't boil an egg",
+    "side": "cast",
+    "allies": [
+      { "name": "Nico (the understudy)", "career": "career.chef", "persona": "npc.gig-understudy", "personality": "personality.confident", "levelOffset": 0 },
+      { "name": "Ding", "career": "career.baker", "persona": "npc.gig-sous-chef", "personality": "personality.paranoid", "levelOffset": -1, "statOffset": -1 }
+    ],
+    "opponents": [
+      { "name": "Judge Marguerite", "career": "career.food-critic", "persona": "npc.gig-tv-judge", "personality": "personality.aggressive", "levelOffset": 0 },
+      { "name": "Judge Hamish", "career": "career.food-critic", "persona": "npc.gig-tv-judge", "personality": "personality.competitive", "levelOffset": -1 },
+      { "name": "Guest Judge Tilly", "career": "career.influencer", "persona": "npc.gig-tv-judge", "personality": "personality.chaotic", "levelOffset": -1 }
+    ],
+    "pay": { "win": 460, "loss": 170 },
+    "posts": {
+      "win": [
+        "I'm a TV chef now (pilot episode, pending). 🍳 The judges said my soufflé 'lacked conviction'. They then lacked consciousness. #Cooking #Grateful #YesChef",
+        "Filmed a cooking show pilot today! 🍳 We won the judges over, one at a time, with a frying pan. Ding the sous-chef said 'ding'. High praise. #Hospitality #Teamwork"
+      ],
+      "loss": [
+        "Today I was eliminated from a cooking show by being physically removed from the kitchen. 🍳 The judges said I was 'raw'. Fair. #Cooking #FailForward",
+        "Cooking show update: the judges won, and then ate my entry. 🍳 Mixed reviews. #Resilience #YesChef"
+      ]
+    },
+    "after": {
+      "win": ["That's the pilot! 💵 {cash}. The network says it's 'too violent for daytime', which we're taking as a yes."],
+      "loss": ["Lovely footage. 💵 {cash}. The judges asked for your recipe and your address."]
+    }
+  }
+]

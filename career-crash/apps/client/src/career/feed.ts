@@ -1,5 +1,6 @@
 import { bundle } from '@cc/content';
-import { careerRank, grantableAbilities, marketFighter, RANKS, shortName, stageInfo } from '@cc/game-rules';
+import type { GigDef, StoryEffect } from '@cc/content-schema';
+import { careerRank, fillSlots, grantableAbilities, marketFighter, RANKS, shortName, stageInfo } from '@cc/game-rules';
 import { Rng } from '@cc/sim';
 import { nameOf } from '../i18n';
 import { lootName, lootStatsText, RARITY_NAMES } from './Loot';
@@ -325,7 +326,11 @@ export function fightPosts(s: CareerSave, r: FightSummary): FeedPost[] {
     const hired = Object.values(s.chars).find((c) => c.c.name === o.name);
     const who = { careers: [o.career], appearance: o.appearance };
     const extra = { selfdealt: o.dealt };
-    if (hired) {
+    const friend = s.story?.friend;
+    if (friend && friend.c.name === o.name) {
+      // The friend (12 §6.2) posts like a teammate.
+      if (chance(0.7)) add({ by: 'staff', author: o.name, sub: `${nameOf(o.career)} · Your friend · 500+ connections`, who }, r.outcome === 'win' ? 'feed_star' : 'feed_teammate_loss', extra);
+    } else if (hired) {
       if (chance(r.outcome === 'win' ? 0.6 : 0.5)) add({ by: 'staff', author: o.name, sub: headline(hired.c.id), who }, (r.outcome === 'win' ? 'feed_star' : 'feed_teammate_loss'), extra);
     } else if (chance(0.45)) add({ by: 'temp', author: o.name, sub: `${nameOf(o.career)} · Agency temp · #OpenToWork`, who }, (r.outcome === 'win' ? 'feed_temp_win' : 'feed_temp_loss'), extra);
   }
@@ -402,7 +407,8 @@ export function fightPosts(s: CareerSave, r: FightSummary): FeedPost[] {
   const posts = [...(photo ? [photo] : []), ...(first ? [first] : []), ...perks, ...rest];
 
   // 7. A crypto bro (08) slides in, 2nd or 3rd: an "opportunity", a flex, some wisdom, or your fight.
-  const sym = BRO_SYMBOLS.length ? pick(BRO_SYMBOLS) : '';
+  // In a story career only once Gavin has turned up (12 §8).
+  const sym = BRO_SYMBOLS.length && (!s.story || s.story.gates.includes('bro')) ? pick(BRO_SYMBOLS) : '';
   const bro = sym ? broSpeaker(sym) : null;
   if (bro) {
     const about = r.outcome === 'win' ? 'bro_post_about_win' : r.outcome === 'loss' ? 'bro_post_about_loss' : '';
@@ -724,4 +730,69 @@ export function discussion(p: FeedPost, s: CareerSave): Discussion {
     }
   });
   return { reactions, total, reactedBy, comments, commentCount: Math.max(p.comments, comments.length) + (p.mine?.said?.length ?? 0) };
+}
+
+// ---------------------------------------------------------------------------
+// The story (12): posts written by beats, and gig posts
+// ---------------------------------------------------------------------------
+const LINKS = {
+  crypto: () => ({ href: CRYPTO_URL, title: 'Crypto Bros · careercrash.org/cryptobro', blurb: 'Watch the bros brawl live, every hour', art: '📈🥊' }),
+  incident: () => ({ href: INCIDENT_URL, title: 'Diplomatic Incident · careercrash.org/incident', blurb: 'Forty countries brawl live', art: '🔨🌍' }),
+  news: () => ({ href: NEWS_URL, title: 'Broken News · careercrash.org/news', blurb: 'Tonight on BSN', art: '📺🥊' }),
+};
+
+/** The latest fight number in the feed (0 before the first fight). */
+function feedFight(s: CareerSave): number {
+  return s.feed?.find((p) => p.fight > 0)?.fight ?? 0;
+}
+
+/** A post a story beat writes: the friend's introduction, their farewell. */
+export function storyPost(s: CareerSave, e: Extract<StoryEffect, { kind: 'post' }>, beatId: string): FeedPost {
+  const m = mainChar(s);
+  const rng = Rng.fromSeed(`story-post:${s.seed}:${beatId}`);
+  const f = s.story?.friend;
+  const slots = { me: m.c.name, first: shortName(bundle, m.c.name), friend: f?.c.name ?? '', friendfirst: f ? shortName(bundle, f.c.name) : '' };
+  const career = f ? f.c.careers[f.c.careers.length - 1]! : currentCareer(m);
+  const mood = e.mood ?? 'network';
+  const author = e.by === 'friend' && f ? { author: f.c.name, sub: mood === 'bro' ? 'Head of Vibes at a DAO · Web3 · WAGMI' : `${nameOf(career)} · Your friend · 500+ connections`, who: { careers: [career], appearance: f.c.appearance } } : { author: 'Career Crash', sub: 'News', icon: '📰' };
+  return {
+    id: `story-${beatId}`,
+    fight: feedFight(s),
+    ...author,
+    by: mood === 'bro' ? 'bro' : 'stranger',
+    ...(mood === 'bro' ? { bro: 'DAO' } : {}),
+    mood,
+    text: fillSlots(e.lines[rng.int(e.lines.length)]!, slots),
+    ...(e.tags ? { tags: e.tags } : {}),
+    ...(e.link ? { link: LINKS[e.link]() } : {}),
+    reacts: 60 + rng.int(400),
+    comments: 6 + rng.int(40),
+  };
+}
+
+/** After a gig (12 §8.2): your post about it, with the fight photo when there is one. */
+export function gigPost(s: CareerSave, r: FightSummary, gig: GigDef): FeedPost[] {
+  const fightNo = feedFight(s) + 1;
+  const rng = Rng.fromSeed(`gig-post:${s.seed}:${gig.id}`);
+  const m = mainChar(s);
+  const lines = r.outcome === 'win' ? gig.posts.win : gig.posts.loss;
+  const cast = (r.board ?? []).filter((b) => b.team !== 0).map((b) => ({ name: b.name, career: b.career, appearance: b.appearance }));
+  const cid = currentCareer(m);
+  return [
+    {
+      id: `${fightNo}-gig`,
+      fight: fightNo,
+      by: 'me',
+      author: m.c.name,
+      sub: `${RANKS[careerRank(m, cid) - 1]} ${nameOf(cid)} · ${gig.title}`,
+      who: { careers: [cid], appearance: m.c.appearance },
+      mood: r.outcome === 'win' ? 'win' : 'loss',
+      text: fillSlots(lines[rng.int(lines.length)]!, { me: m.c.name, first: shortName(bundle, m.c.name), gig: gig.title, cash: r.cash }),
+      cast,
+      company: gig.from.name,
+      ...(r.photo ? { photo: true } : {}),
+      reacts: 200 + rng.int(2000),
+      comments: 15 + rng.int(120),
+    },
+  ];
 }

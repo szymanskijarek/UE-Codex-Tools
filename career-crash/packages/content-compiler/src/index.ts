@@ -159,6 +159,9 @@ export function compileContent(dataDir: string): CompileResult {
     hrNotes: collections.hrNotes as ContentBundle['hrNotes'],
     crashers: collections.crashers as ContentBundle['crashers'],
     markets: collections.markets as ContentBundle['markets'],
+    contacts: collections.contacts as ContentBundle['contacts'],
+    story: collections.story as ContentBundle['story'],
+    gigs: collections.gigs as ContentBundle['gigs'],
     furniture: furniture.data,
   };
   // Every standing obstacle takes its art's real-world footprint.
@@ -276,6 +279,7 @@ export function validateBundle(b: ContentBundle): string[] {
   errors.push(...validateHrNotes(b));
   errors.push(...validateCrashers(b));
   errors.push(...validateMarkets(b));
+  errors.push(...validateStory(b));
 
   // Tag vocabulary (01 §5.2): every used tag must be declared.
   const used = new Set<string>();
@@ -405,5 +409,69 @@ function validateHrNotes(b: ContentBundle): string[] {
     if (n.mood && (!allyCaused || n.tone === 'buff')) errors.push(`${n.id}: mood is only for debuffs a teammate causes`);
   }
   for (const c of b.careers) if (!c.boss && !c.deprecated && (perCareer.get(c.id) ?? 0) < 2) errors.push(`${c.id}: needs at least 2 HR notes (has ${perCareer.get(c.id) ?? 0})`);
+  return errors;
+}
+
+/** Story slots a line may use (12 §4.1). */
+const STORY_SLOTS = new Set(['me', 'first', 'friend', 'friendfirst', 'company', 'next', 'arena', 'cash', 'tempspend', 'tempcost', 'boss', 'bosscompany', 'gig', 'hirecost']);
+
+/** Career story (12): contacts, beats and gigs reference real things, use known slots, and chapter 1 can unlock Easy Apply. */
+export function validateStory(b: ContentBundle): string[] {
+  const errors: string[] = [];
+  const contacts = new Set(b.contacts.map((c) => c.id));
+  const beats = new Map(b.story.map((x) => [x.id, x]));
+  const careers = new Map(b.careers.map((c) => [c.id, c]));
+  const personalities = new Set(b.personalities.map((p) => p.id));
+  const arenas = new Set(b.arenas.map((a) => a.id));
+  const slots = (where: string, text: string) => {
+    for (const m of text.matchAll(/\{([a-z]+)\}/g)) if (!STORY_SLOTS.has(m[1]!)) errors.push(`${where}: unknown slot {${m[1]}}`);
+  };
+  for (const c of b.contacts) {
+    if (c.career && !careers.has(c.career)) errors.push(`${c.id}: unknown career ${c.career}`);
+    if (c.persona && !(`${c.persona}.name` in b.locale)) errors.push(`locale: missing key ${c.persona}.name`);
+    slots(c.id, c.name + ' ' + c.sub);
+  }
+  const replied = new Set<string>();
+  for (const x of b.story) {
+    if (!contacts.has(x.contact)) errors.push(`${x.id}: unknown contact ${x.contact}`);
+    for (const a of x.after) if (!beats.has(a)) errors.push(`${x.id}: after unknown beat ${a}`);
+    for (const l of x.lines.flat()) slots(x.id, l);
+    for (const r of x.replies ?? []) {
+      if (!r.next) continue;
+      const n = beats.get(r.next);
+      if (!n) errors.push(`${x.id}: reply leads to unknown beat ${r.next}`);
+      else if (n.trigger.kind !== 'reply') errors.push(`${x.id}: reply leads to ${r.next}, whose trigger isn't "reply"`);
+      replied.add(r.next);
+    }
+    if (x.fallbackMs && !x.replies?.length) errors.push(`${x.id}: fallbackMs without replies`);
+    for (const e of x.effects) if (e.kind === 'post') for (const l of e.lines) slots(x.id, l);
+  }
+  for (const x of b.story) if (x.trigger.kind === 'reply' && !replied.has(x.id)) errors.push(`${x.id}: nothing replies its way`);
+  // No cycles through "after".
+  const state = new Map<string, number>();
+  const visit = (id: string): boolean => {
+    if (state.get(id) === 2) return true;
+    if (state.get(id) === 1) return false;
+    state.set(id, 1);
+    for (const a of beats.get(id)?.after ?? []) if (!visit(a)) return false;
+    state.set(id, 2);
+    return true;
+  };
+  for (const x of b.story) if (!visit(x.id)) errors.push(`${x.id}: "after" loops back on itself`);
+  if (b.story.length && !b.story.some((x) => x.effects.some((e) => e.kind === 'unlock' && e.what === 'easyApply'))) errors.push('story: no beat unlocks Easy Apply');
+  for (const c of b.economy.friend.careers) if (!careers.has(c)) errors.push(`economy.friend: unknown career ${c}`);
+  for (const g of b.gigs) {
+    if (!arenas.has(g.arena)) errors.push(`${g.id}: unknown arena ${g.arena}`);
+    if (g.side === 'cast' && !g.allies?.length) errors.push(`${g.id}: a "cast" gig needs allies`);
+    if (g.side !== 'cast' && g.allies?.length) errors.push(`${g.id}: allies only come on "cast" gigs`);
+    for (const f of [...(g.allies ?? []), ...g.opponents]) {
+      const c = careers.get(f.career);
+      if (!c) errors.push(`${g.id}: unknown career ${f.career}`);
+      else if (c.boss || c.deprecated) errors.push(`${g.id}: ${f.career} is a boss or retired career`);
+      if (!personalities.has(f.personality)) errors.push(`${g.id}: unknown personality ${f.personality}`);
+      if (f.persona && !(`${f.persona}.name` in b.locale)) errors.push(`locale: missing key ${f.persona}.name`);
+    }
+    for (const l of [...g.invite, ...g.posts.win, ...g.posts.loss, ...g.after.win, ...g.after.loss]) slots(g.id, l);
+  }
   return errors;
 }

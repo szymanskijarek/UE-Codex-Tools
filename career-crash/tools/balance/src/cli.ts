@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { bundle } from '@cc/content';
 import type { BattleMode } from '@cc/sim';
 import { bossReport } from './bosses';
+import { LADDER_POLICIES, ladderReport } from './ladder';
 import { summonReport } from './summons';
 import { runBalance, toMarkdown } from './run';
 import { recordMarkets } from './record-markets';
@@ -21,6 +22,13 @@ if (args.get('bosses') === 'true') {
   const rows = bossReport(bundle, Math.min(battles, 200));
   console.log('| Stage | Arena | Boss | Player wins | vs generic boss |\n|---|---|---|---|---|');
   for (const r of rows) console.log(`| ${r.stage} | ${r.arena.replace('arena.', '')} | ${r.boss} | ${(r.winBp / 100).toFixed(0)}% | ${(r.genericWinBp / 100).toFixed(0)}% |`);
+  process.exit(0);
+}
+if (args.get('ladder') === 'true') {
+  // pnpm balance --ladder [--battles=N] [--stages=N]: win rates per stage alone, with temps, the friend or hires (12 §6.4).
+  const rows = ladderReport(bundle, Math.min(battles, 200), Number(args.get('stages') ?? 12));
+  console.log(`| Stage | Arena | Opp | ${LADDER_POLICIES.join(' | ')} |\n|---|---|---|${LADDER_POLICIES.map(() => '---').join('|')}|`);
+  for (const r of rows) console.log(`| ${r.stage}${r.boss ? ' ☠' : ''} | ${r.arena.replace('arena.', '')} | ${r.opponents} | ${LADDER_POLICIES.map((p) => `${(r.winBp[p] / 100).toFixed(0)}%`).join(' | ')} |`);
   process.exit(0);
 }
 if (args.get('summons') === 'true') {

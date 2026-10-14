@@ -60,8 +60,14 @@ pnpm dev                        # worker on :8787, client on :5173 (proxied /api
 
 ## Career mode (v0.9)
 
-Create a fighter, climb the ladder, spend stat and skill points, hire a squad at
-Senior rank, and spend fight pay in the Corner Shop: each fighter packs up to 3
+Create a fighter and the story starts in 💬 **Messaging** (12): your oldest
+friend introduces you to the network, a recruiter unlocks Easy Apply, and the
+two of you take the first group interviews (2v2) before they leave for a crypto
+DAO. After that you fight alone, book cheap agency temps (who never grow), or
+hire a squad once Talent Acquisition gets in touch. Each stage has 1–3
+interviewers, and now and then an **invite-only gig** arrives in your messages:
+a one-off brawl (Napoleonic film extras, a posh gala as waiters, rival mascots…)
+you can accept once. Climb the ladder, spend stat and skill points, and spend fight pay in the Corner Shop: each fighter packs up to 3
 items — consumables that fire at kick-off or at low HP, and gear that adds a
 little to their stats. Opponents carry items too (03 §3.6). Each of the 12
 arenas ends in a boss fight against its own boss (a Store Manager, a CEO, a

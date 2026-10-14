@@ -1,0 +1,168 @@
+[
+  {
+    "id": "story.ch1-01-hello",
+    "contact": "contact.friend",
+    "trigger": { "kind": "idle", "ms": 4000 },
+    "lines": [
+      ["omg you're FINALLY on here 😭", "{first}!!! you made a profile!! I'm so proud of you 😭"],
+      ["your profile is giving witness protection. 0 connections, no posts, not one photo of you holding a giant cheque.", "0 connections. ZERO. even my nan has 40 and she thinks this is a dating site."],
+      "ok. let me sort you out."
+    ],
+    "replies": [
+      { "text": "Thanks!", "next": "story.ch1-02-network" },
+      { "text": "Who is this?", "next": "story.ch1-02-network", "flag": "friend.cold" },
+      { "text": "I'm fine, actually", "next": "story.ch1-02-network", "flag": "friend.proud" }
+    ],
+    "fallbackMs": 20000,
+    "effects": [{ "kind": "unlock", "what": "messages" }]
+  },
+  {
+    "id": "story.ch1-02-network",
+    "contact": "contact.friend",
+    "after": ["story.ch1-01-hello"],
+    "trigger": { "kind": "reply" },
+    "lines": [
+      ["done. introduced you to everyone I know.", "done. introduced you to everyone I know. well. everyone who still replies to me."],
+      "your feed should wake up now. like everything. comment 'Congrats!' on everything. it's the law."
+    ],
+    "effects": [
+      { "kind": "unlock", "what": "feed" },
+      { "kind": "connections", "n": 12 },
+      { "kind": "starterFeed" },
+      {
+        "kind": "post",
+        "by": "friend",
+        "lines": [
+          "Delighted to introduce my oldest friend {me}! 🎉 We've been through a lot together: a group project, a flat with a ghost, and a 5-a-side final we don't talk about. {first} is looking for a role where getting hit is part of the job. Please connect! 🙏",
+          "Some personal news: my best friend {me} is finally on here! 🎉 Reliable, punctual, and can take a chair to the back like nobody I've ever met. Recruiters, you know what to do. 🙏"
+        ],
+        "tags": "#Networking #Friendship #OpenToWork",
+        "mood": "network"
+      }
+    ]
+  },
+  {
+    "id": "story.ch1-03-opportunity",
+    "contact": "contact.recruiter",
+    "after": ["story.ch1-02-network"],
+    "trigger": { "kind": "scroll", "posts": 4, "fallbackMs": 25000 },
+    "lines": [
+      ["Hi {first}, I came across your profile and I think you'd be a GREAT fit for a Brawler role at {company}. 🚀", "Hi {first}! Your profile popped up in my search for 'available, durable'. I think you'd be a GREAT fit for a Brawler role at {company}. 🚀"],
+      "It's a group interview: two of you against two of ours, in the {arena}. Bring a friend!",
+      "Hit Easy Apply when you're ready. It's very easy. That's the whole point."
+    ],
+    "replies": [
+      { "text": "Interested", "next": "story.ch1-04-plus-one" },
+      { "text": "Is this a scam?", "next": "story.ch1-04-plus-one", "flag": "recruiter.scam" },
+      { "text": "Tell me more", "next": "story.ch1-04-plus-one" }
+    ],
+    "fallbackMs": 20000,
+    "effects": [
+      { "kind": "unlock", "what": "easyApply" },
+      { "kind": "connections", "n": 1 }
+    ]
+  },
+  {
+    "id": "story.ch1-04-plus-one",
+    "contact": "contact.friend",
+    "after": ["story.ch1-03-opportunity"],
+    "trigger": { "kind": "reply" },
+    "lines": [
+      ["wait. a GROUP interview?? I'm in.", "did someone say GROUP interview. I'm in. I'm already in my interview trainers."],
+      ["I've been training. I've watched a video. most of a video.", "I've been training. I did a plank yesterday. a whole one."],
+      "see you on the job card 🥊"
+    ],
+    "effects": [{ "kind": "partner", "action": "join" }]
+  },
+  {
+    "id": "story.ch1-05-first-fight",
+    "contact": "contact.friend",
+    "after": ["story.ch1-04-plus-one"],
+    "trigger": { "kind": "progress", "fights": 1 },
+    "lines": [
+      ["WE DID IT. did we? I was on the floor for most of it. great view of the ceiling tiles.", "ok that was AMAZING. I've never been hit by a stranger before. very freeing."],
+      "same again? I've told my manager I'm 'at the dentist'."
+    ]
+  },
+  {
+    "id": "story.ch1-06-poached",
+    "contact": "contact.friend",
+    "after": ["story.ch1-04-plus-one"],
+    "trigger": { "kind": "progress", "fights": 2 },
+    "lines": [
+      "ok don't be mad.",
+      "a guy called Gavin slid into my DMs. he says I have 'founder energy'.",
+      ["I'm Head of Vibes at a DAO now. I don't know what a DAO is. nobody does. that's the vibe.", "I'm Head of Vibes at a DAO now. I asked what a DAO is and he said 'exactly'."],
+      "you'll be fine on your own. you were always the one who got hit the most anyway 💛"
+    ],
+    "replies": [{ "text": "Congrats!" }, { "text": "Is this a scam?", "flag": "friend.warned" }, { "text": "Take me with you" }],
+    "effects": [
+      { "kind": "partner", "action": "leave" },
+      { "kind": "gate", "feed": "bro" },
+      { "kind": "connections", "n": 4 },
+      {
+        "kind": "post",
+        "by": "friend",
+        "lines": [
+          "Thrilled to announce I'm starting a new position as Head of Vibes at a decentralised autonomous organisation! 🚀 Huge thanks to {me} for the brawls, the bruises and the lift home. Gavin, let's make history (on the blockchain).",
+          "Personal news: after two whole fights in the brawling industry, I'm pivoting to Web3 as Head of Vibes. 🚀 {first}, you taught me everything I know about getting up off the floor. Gavin says that's 'basically crypto'."
+        ],
+        "tags": "#NewBeginnings #Web3 #WAGMI",
+        "mood": "bro",
+        "link": "crypto"
+      }
+    ]
+  },
+  {
+    "id": "story.ch1-07-agency",
+    "contact": "contact.agency",
+    "after": ["story.ch1-06-poached"],
+    "trigger": { "kind": "idle", "ms": 3000 },
+    "lines": [
+      "Short-staffed? 🙋 Temporarily Yours sends a warm body to any fight, from 💵 {tempcost}.",
+      "Our temps turn up. Mostly. They don't level up, they don't learn, and they don't ask questions. Book them on the job card.",
+      "Or fight alone. We respect a founder."
+    ],
+    "effects": [{ "kind": "unlock", "what": "temps" }]
+  },
+  {
+    "id": "story.ch1-08-karen",
+    "contact": "contact.karen",
+    "after": ["story.ch1-07-agency"],
+    "trigger": { "kind": "progress", "fights": 3 },
+    "lines": [
+      "Hi {first}! Karen from Talent Acquisition 👋",
+      ["I see you've spent 💵 {tempspend} on temps so far. Temps are a cost. People are an investment. 🚀", "Quick one: temps are a cost. People are an investment. 🚀 (Also temps are a cost. You've spent 💵 {tempspend} on them.)"],
+      "Hiring is open for you now: one seat on your squad, from 💵 {hirecost}. Hires level up, learn moves and remember your birthday. Temps have called people 'boss', 'mate' and, once, 'Dad'."
+    ],
+    "replies": [{ "text": "Show me candidates", "flag": "karen.keen" }, { "text": "Sounds great 👍" }],
+    "effects": [
+      { "kind": "unlock", "what": "hiring" },
+      { "kind": "squadSlots", "n": 1 }
+    ]
+  },
+  {
+    "id": "story.ch1-09-boss",
+    "contact": "contact.boss",
+    "after": ["story.ch1-04-plus-one"],
+    "trigger": { "kind": "progress", "stage": 3 },
+    "lines": [
+      ["Looking forward to our final interview, {first}.", "I hear you've been interviewing around, {first}. Ours is the final one."],
+      ["Bring a pen. You'll need it to sign your resignation.", "Bring a CV. I'll need something to wipe the floor with afterwards."]
+    ]
+  },
+  {
+    "id": "story.ch1-10-promoted",
+    "contact": "contact.karen",
+    "after": ["story.ch1-08-karen"],
+    "trigger": { "kind": "progress", "stage": 4 },
+    "lines": [
+      "You beat {boss}?! I've updated your file from 'Brave' to 'Promising'. ✨",
+      "That opens a second seat on your squad. Fill it with someone who grows."
+    ],
+    "effects": [
+      { "kind": "squadSlots", "n": 2 },
+      { "kind": "connections", "n": 25 }
+    ]
+  }
+]

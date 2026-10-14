@@ -125,11 +125,16 @@ Battle snapshots carry `unlocked` (only those career moves fight) and
 The standalone client opens on **Career**: create a main character (pick one of
 28 starting jobs, name, personality, difficulty), climb a ladder of stages (4 per
 arena, every 4th a boss), spend stat and skill points, take new careers at level
-milestones. Agency temps fill the squad until the main character reaches
-**Senior** in a career; then the **Squad** screen unlocks: hire applicants
-(💵 250/450/700 by rarity, refreshed after each win, roster cap 6), pick the two
-who fight, and grow their own trees. Results are applied by re-simulating the
-pending battle, so replays can't be gamed.
+milestones. Since the career story (12) the opening is told through Messages:
+a friend fights the first two fights with you (2v2), then leaves; **agency
+temps** can be booked per fight (💵 `30 + 4 × stage` each, two levels behind
+you, Trainee with only their main move, −2 to every stat, nothing packed, never
+grow; `economy.temps`), or you fight alone. **Hiring** opens with Talent
+Acquisition's message after the third fight (1 squad seat, a 2nd once chapter
+1's boss falls): hire applicants (💵 250/450/700 by rarity, refreshed after each
+win, roster cap 6), pick who fights, and grow their own trees. Ladder stages have
+1–3 interviewers (`economy.ladder`, 12 §5). Results are applied by re-simulating
+the pending battle, so replays can't be gamed.
 
 Difficulty shapes opponents, never the player:
 

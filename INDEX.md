@@ -48,7 +48,7 @@ and share the sim, renderer, puppets, audio and content bundle with Career Crash
 | `05-summons-and-senior-moves.md` | §3 summon rules (fears, panic), §4 summon list, §5 every career's new move, §6b as built, §7 art needed |
 | `06-personnel-files-and-garden-leave.md` | §2 staff/Garden Leave, §3 HR notes (conditions, budget), §4 reveal and scowl |
 | `07-gatecrashers.md` | §2 when, §3 the 24 sets, §4 strength, §5 sim, §7 posts, §8 content rules, §10 Sandbox |
-| `12-career-story.md` | **Proposal, not built.** Story mode told through a Messages tab: §2 the first session beat by beat, §3 Messages UI, §4 story beats as data (triggers, effects, save), §5 1–3 opponents per stage, §6 friend / paid weak temps / hiring, §7 progress features, §8 cameos from Crypto Bros, Diplomatic Incident and Broken News, **§9 implementation plan** (phases 1–4), §10 old saves, §11 owner decisions |
+| `12-career-story.md` | **Phase 1 built** (§12 as built). Story mode told through a Messages tab: §2 the first session beat by beat, §3 Messages UI, §4 story beats as data (triggers, effects, save), §5 1–3 opponents per stage, §6 friend / paid weak temps / hiring, §7 progress features, §8 cameos from Crypto Bros, Diplomatic Incident and Broken News, §8.2 invite-only gigs, **§9 implementation plan** (phases 1–4), §10 old saves, §11 owner decisions, §12 as built |
 
 ## Crypto Bros
 
@@ -95,7 +95,8 @@ and share the sim, renderer, puppets, audio and content bundle with Career Crash
 | Area | Where |
 |---|---|
 | Client shell, routes (`#/career`, `#/sandbox`, `#/lab`, `#/privacy`…) | `apps/client/src/app.tsx`, `main.tsx`, `state.ts`, `i18n.ts` |
-| Career mode | `apps/client/src/career/` (Hub, Shop, Squad, Skills, File = personnel file, `feed.ts`, `photo*.ts`) |
+| Career mode | `apps/client/src/career/` (Hub, Shop, Squad, Skills, File = personnel file, Messages = story inbox and gigs, `feed.ts`, `photo*.ts`) |
+| Career story (12) | rules `packages/game-rules/src/story.ts`; content `data/contacts/`, `data/story/`, `data/gigs/`; balance `pnpm balance --ladder` |
 | Screens | `apps/client/src/screens/` (Sandbox, Fight, Replay, Reports, Office, Lab…) |
 | Replay renderer | `apps/client/src/replay/` (`renderer.ts`, `puppet.ts`, `ragdoll.ts`, `audio.ts`, `music.ts`, `voices.ts`, `impact-fx.ts`) |
 | Sliced art output | `apps/client/src/replay/{puppets,faces,items,obstacles,arenas,critters}/` |
@@ -117,7 +118,7 @@ and share the sim, renderer, puppets, audio and content bundle with Career Crash
 | Sheet manifests (slicer overrides, `cut`, `cutX`) | `art/sheets/manifest.json`, `art/items/`, `art/obstacles/`, `art/critters/`, `art/sheets-grid/` `manifest.json` |
 | Source folders | `sheets/` (bodies), `heads/`, `faces/`, `faces-b/`, `items/`, `obstacles/`, `arenas/`, `critters/`, `ui/` |
 | Slicer previews | `tools/art-pipeline/out/` |
-| Briefs (style template: `FX_BRIEF.md`; rule: new art starts as a brief, `PIPELINES.md` §5) | `ART_BRIEF.md` (open gaps), `CHARACTER_PROMPTS.md`, `FX_BRIEF.md`, `FX_GAPS_BRIEF.md`, `GATECRASHER_PROMPTS.md`, `PERSONNEL_FILE_PROMPTS.md`, `STORY_BRIEF.md` (story mode cards, temp sticker, badges; not started), `sheets/BODY_SHEET_PROMPTS.md`, `cryptobro/`, `incident/`, `news/` |
+| Briefs (style template: `FX_BRIEF.md`; rule: new art starts as a brief, `PIPELINES.md` §5) | `ART_BRIEF.md` (open gaps), `CHARACTER_PROMPTS.md`, `FX_BRIEF.md`, `FX_GAPS_BRIEF.md`, `GATECRASHER_PROMPTS.md`, `PERSONNEL_FILE_PROMPTS.md`, `STORY_BRIEF.md` (story cards, temp sticker, badges, 13 gig characters; not started), `sheets/BODY_SHEET_PROMPTS.md`, `cryptobro/`, `incident/`, `news/` |
 
 ## Unreal/Codex tooling (`main`)
 

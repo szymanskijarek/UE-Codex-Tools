@@ -39,6 +39,8 @@ export type SfxName =
   | 'chomp'
   | 'wah'
   | 'shutter'
+  // Career story (12): a new message.
+  | 'ping'
   // Animal voices (critterVoice picks one per summon).
   | 'bark'
   | 'yap'
@@ -320,6 +322,10 @@ export class Sfx {
         break;
       case 'alarm':
         for (let i = 0; i < 4; i++) this.tone('square', i % 2 ? 330 : 440, i % 2 ? 330 : 440, T(i * 0.22), 0.18, 0.12, 0.01);
+        break;
+      case 'ping':
+        this.tone('sine', 880, 880, t, 0.09, 0.22);
+        this.tone('sine', 1320, 1320, T(0.09), 0.16, 0.2);
         break;
       case 'dingdong':
         this.tone('sine', 660, 660, t, 0.45, 0.3);

@@ -25,7 +25,7 @@ fight treats them, and the posts and comments they leave. The numbers live in
 
 | Rule | Value |
 |---|---|
-| Chance | **10%** of fights (`chanceBp` 1000). Never in a boss fight or the first fight of a career. |
+| Chance | **10%** of fights (`chanceBp` 1000). Never in a boss fight, and in career mode never before stage 4 (`fromStage` 3) nor more of them than the bigger side has fighters (12 §5). |
 | Earliest | Not before **18 s** (`earliestTick` 360). Their arrival tick is rolled between 18 s and 43 s. |
 | Latest | Not after **55 s** (`latestTick` 1100), well before the shortest fights end (10th percentile: 54 s). |
 | Fight still open | Each side needs **60%** of its fighters standing (`minActiveBp` 6000; 2 of 3 in a 3v3). If not, they wait, and if the fight never reopens before their latest tick, they don't come. So they never arrive in a fight that's nearly over. |

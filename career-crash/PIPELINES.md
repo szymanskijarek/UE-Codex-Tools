@@ -106,6 +106,11 @@ against a run on the previous commit and put the headline numbers in the PR
 as strong as the previous stage's opponents, and prints the player's win rate
 against the boss and against the old generic boss. Bosses are tuned to 30–45%.
 
+`pnpm balance --ladder [--battles=N] [--stages=12]` plays each career ladder
+stage on Normal (with its 1–3 interviewers) with six line-ups: alone, one temp,
+two temps, the friend, a hire and a temp, two hires, and prints the win rate of
+each (12 §6.4). Tune `economy.temps` and `economy.ladder` with it.
+
 ## 5. Art pipeline
 
 `tools/art-pipeline` (uses `sharp`) turns painted source art in `art/` into

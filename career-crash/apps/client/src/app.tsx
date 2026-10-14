@@ -12,6 +12,8 @@ import { Lab } from './screens/Lab';
 import { Sandbox } from './screens/Sandbox';
 import { Privacy } from './screens/Privacy';
 import { CareerScreen } from './career/Career';
+import { career } from './career/model';
+import { unreadMessages } from './career/Messages';
 import { music } from './replay/music';
 
 function useRoute(): string[] {
@@ -43,6 +45,7 @@ const TABS: [string, string, string][] = [
 /** Career mode's top navigation (networking-site style): [route, icon, label]. */
 const CAREER_NAV: [string, string, string][] = [
   ['career', '🏠', 'Home'],
+  ['career/messages', '💬', 'Messaging'],
   ['career/squad', '👥', 'My Network'],
   ['career/skills', '💼', 'Skills'],
   ['career/shop', '🛒', 'Shop'],
@@ -133,7 +136,10 @@ export function App() {
             <nav class="li-nav">
               {CAREER_NAV.map(([id, icon, label]) => (
                 <a key={id} href={`#/${id}`} class={navActive(id) ? 'active' : ''}>
-                  <span class="icon">{icon}</span>
+                  <span class="icon">
+                    {icon}
+                    {id === 'career/messages' && unreadMessages(career.value) > 0 && <span class="li-nav-badge">{unreadMessages(career.value)}</span>}
+                  </span>
                   <span>{label}</span>
                 </a>
               ))}

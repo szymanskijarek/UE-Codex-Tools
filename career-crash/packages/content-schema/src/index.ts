@@ -483,7 +483,26 @@ export const economySchema = z.object({
     leaderLevelOffset: int,
     henchmanLevelOffset: int,
     spendBp: bp,
+    /** Career ladder: never before this stage, and never more of them than the bigger side has fighters. */
+    fromStage: int.min(0),
   }),
+  /** The career ladder's opponent counts (12 §5): chapter 1's four stages, then one pattern per later chapter (boss stages count the boss). */
+  ladder: z.object({
+    chapter1: z.array(int.min(1).max(3)).length(4),
+    pattern: z.array(z.array(int.min(1).max(3)).length(4)).min(1),
+    /** By how many interviewers there are (1, 2, 3): level, rank and per-stat offsets, so a lone interviewer is senior and a panel junior. */
+    solo: z.object({ levels: int, rank: int, stats: int }),
+    duo: z.object({ levels: int, rank: int, stats: int }),
+    panel: z.object({ levels: int, rank: int, stats: int }),
+    /** The first stages (with the friend) are a level easier. */
+    tutorial: z.object({ stages: int.min(0), levels: int, stats: int }),
+  }),
+  /** Agency temps (12 §6.1): paid per fight, weak, never grow. */
+  temps: z.object({ costBase: int.min(0), costPerStage: int.min(0), levelOffset: int, statOffset: int, rank: int.min(1).max(5), spendBp: bp }),
+  /** The friend who fights the first fights with you (12 §6.2): careers they may have, and how much of their tree they use. */
+  friend: z.object({ careers: z.array(ref('career')).min(3), spendBp: bp }),
+  /** Invite-only gigs (12 §8.2): when invites arrive and how long they stay open. */
+  gigs: z.object({ fromFight: int.min(1), everyFights: int.min(1), chanceBp: bp, expiresAfter: int.min(1) }),
   /**
    * Nationality in career mode: the main character's country, if the player
    * picked one, lends a small boost when it did well at the Diplomatic
@@ -543,6 +562,10 @@ export interface ContentBundle {
   crashers: CrasherDef[];
   /** Market floors (08). */
   markets: MarketDef[];
+  /** Career story (12): who writes to you, what they say and when, and the invite-only gigs. */
+  contacts: ContactDef[];
+  story: StoryBeatDef[];
+  gigs: GigDef[];
   /** Real-world size of every piece of obstacle art (furniture.json), so each object looks the same size everywhere. */
   furniture: Record<string, FurnitureDef>;
 }
@@ -715,6 +738,121 @@ export const crasherSchema = z.object({
   exits: z.array(z.string()).min(1).optional(),
 });
 export type CrasherDef = z.infer<typeof crasherSchema>;
+
+// ---------------------------------------------------------------------------
+// Career story (12): contacts, story beats told through Messages, gigs
+// ---------------------------------------------------------------------------
+/**
+ * Someone who writes to the player. `name` and `sub` may use the story slots
+ * ({friend}, {company}, {me}, {first}…); the friend's own name comes from the save.
+ */
+export const contactSchema = z.object({
+  id: ref('contact'),
+  kind: z.enum(['friend', 'recruiter', 'persona', 'boss', 'bro', 'delegate', 'news', 'company']),
+  name: z.string().max(60),
+  sub: z.string().max(90),
+  /** Portrait: a career's painted face, a persona's, or an icon square. */
+  career: ref('career').optional(),
+  persona: ref('npc').optional(),
+  icon: z.string().max(8).optional(),
+  /** Crypto Bros (08): the bro's ticker, for their portrait and name. */
+  bro: z.string().regex(/^[A-Z0-9]{2,6}$/).optional(),
+});
+export type ContactDef = z.infer<typeof contactSchema>;
+
+/** When a beat fires (12 §4.2). UI-timed kinds (idle, scroll) only decide when; nothing in the sim depends on them. */
+export const storyTriggerSchema = z.discriminatedUnion('kind', [
+  z.object({ kind: z.literal('start') }),
+  z.object({ kind: z.literal('idle'), ms: int.min(0).max(120_000) }),
+  z.object({ kind: z.literal('scroll'), posts: int.min(1), fallbackMs: int.min(1000).max(120_000) }),
+  z.object({ kind: z.literal('reply') }),
+  z.object({ kind: z.literal('progress'), fights: int.min(0).optional(), stage: int.min(0).optional(), cash: int.min(0).optional(), lossStreak: int.min(1).optional(), any: z.boolean().optional() }),
+  z.object({ kind: z.literal('legacy') }),
+]);
+export type StoryTrigger = z.infer<typeof storyTriggerSchema>;
+
+export const STORY_UNLOCKS = ['messages', 'feed', 'easyApply', 'temps', 'hiring'] as const;
+export const FEED_GATES = ['bro', 'delegate', 'news'] as const;
+export const STORY_LINKS = ['crypto', 'incident', 'news'] as const;
+
+export const storyEffectSchema = z.discriminatedUnion('kind', [
+  z.object({ kind: z.literal('unlock'), what: z.enum(STORY_UNLOCKS) }),
+  z.object({ kind: z.literal('squadSlots'), n: int.min(0).max(4) }),
+  z.object({ kind: z.literal('connections'), n: int.min(1) }),
+  z.object({ kind: z.literal('starterFeed') }),
+  z.object({
+    kind: z.literal('post'),
+    /** Written by the friend, or by the beat's contact. */
+    by: z.enum(['friend', 'contact']),
+    lines: z.array(z.string().max(400)).min(1),
+    tags: z.string().max(80).optional(),
+    mood: z.enum(['network', 'news', 'bro', 'company']).optional(),
+    link: z.enum(STORY_LINKS).optional(),
+  }),
+  z.object({ kind: z.literal('partner'), action: z.enum(['join', 'leave']) }),
+  z.object({ kind: z.literal('cash'), n: int.min(1) }),
+  z.object({ kind: z.literal('gate'), feed: z.enum(FEED_GATES) }),
+]);
+export type StoryEffect = z.infer<typeof storyEffectSchema>;
+
+export const storyBeatSchema = z.object({
+  id: ref('story'),
+  contact: ref('contact'),
+  /** Beats that must have fired first. */
+  after: z.array(ref('story')).default([]),
+  trigger: storyTriggerSchema,
+  /** Messages, in order; a list is one line picked per save. */
+  lines: z.array(z.union([z.string().max(300), z.array(z.string().max(300)).min(1)])).min(1),
+  /** Canned replies (12 §3.3). `next` fires that beat (a `reply` trigger); `flag` is remembered. */
+  replies: z.array(z.object({ text: z.string().max(32), next: ref('story').optional(), flag: z.string().regex(/^[a-z][a-z0-9.-]*$/).optional() })).max(3).optional(),
+  /** Unanswered for this long, the first reply is taken for the player (never stuck, 12 §4.3). */
+  fallbackMs: int.min(1000).max(120_000).optional(),
+  effects: z.array(storyEffectSchema).default([]),
+  /** Pops up (ping) when it arrives; quiet beats only add to the thread. */
+  quiet: z.boolean().optional(),
+});
+export type StoryBeatDef = z.infer<typeof storyBeatSchema>;
+
+/** A fighter written into a gig: name, look and moves. */
+const gigFighterSchema = z.object({
+  name: z.string().max(40),
+  career: ref('career'),
+  /** Job title and art (`<persona>.name`, the puppet sheet named after it once it exists; until then the career's look). */
+  persona: ref('npc').optional(),
+  personality: ref('personality'),
+  /** Level relative to the player's main character, and stat points added or taken. */
+  levelOffset: int.min(-5).max(5),
+  statOffset: int.min(-4).max(4).optional(),
+});
+
+/**
+ * Invite-only gigs (12 §8.2): a one-off brawl offered in a message, accepted
+ * with a button in the thread, once. Off the ladder: it never moves the stage.
+ */
+export const gigSchema = z.object({
+  id: ref('gig'),
+  /** Who sends the invite. */
+  from: z.object({ name: z.string().max(60), sub: z.string().max(90), icon: z.string().max(8) }),
+  /** The job, as on the job card ("Battlefield Extra (Napoleonic)"). */
+  title: z.string().max(60),
+  arena: ref('arena'),
+  /** The earliest ladder stage it may be offered at. */
+  minStage: int.min(0),
+  invite: z.array(z.string().max(300)).min(1),
+  accept: z.string().max(32),
+  decline: z.string().max(32),
+  /** Who goes: your usual squad, you alone, or you with the gig's own (very strange) temps. */
+  side: z.enum(['squad', 'solo', 'cast']),
+  allies: z.array(gigFighterSchema).max(2).optional(),
+  opponents: z.array(gigFighterSchema).min(1).max(4),
+  /** Flat pay (before the difficulty multiplier). */
+  pay: z.object({ win: int.min(0), loss: int.min(0) }),
+  /** Your post afterwards ({me}, {first}, {gig}, {cash}). */
+  posts: z.object({ win: z.array(z.string().max(400)).min(1), loss: z.array(z.string().max(400)).min(1) }),
+  /** The sender's sign-off in the thread afterwards. */
+  after: z.object({ win: z.array(z.string().max(300)).min(1), loss: z.array(z.string().max(300)).min(1) }),
+});
+export type GigDef = z.infer<typeof gigSchema>;
 
 
 /**
@@ -943,6 +1081,9 @@ export const COLLECTIONS = {
   hrNotes: hrNoteSchema,
   crashers: crasherSchema,
   markets: marketSchema,
+  contacts: contactSchema,
+  story: storyBeatSchema,
+  gigs: gigSchema,
 } as const;
 export type CollectionName = keyof typeof COLLECTIONS;
 

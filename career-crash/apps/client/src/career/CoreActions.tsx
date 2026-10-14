@@ -3,7 +3,8 @@ import type { ComponentChildren } from 'preact';
 import { bundle } from '@cc/content';
 import { pointsLeft, stageInfo, type CareerChar } from '@cc/game-rules';
 import { currentReplay, navigate } from '../state';
-import { collectResults, lastFight, prepareFight, squadUnlocked, type CareerSave } from './model';
+import { canApply, collectResults, interviewers, lastFight, prepareFight, squadUnlocked, type CareerSave } from './model';
+import { unreadMessages } from './Messages';
 import { captureFightPhoto, fightPhoto } from './photo';
 
 /**
@@ -40,10 +41,20 @@ export function startNextFight(s: CareerSave): void {
     cur = collectResults(cur);
     developPhoto(cur);
   }
+  if (!canApply(cur)) {
+    navigate('/career');
+    return;
+  }
   const info = stageInfo(bundle, cur.stage);
   const input = prepareFight(cur);
   currentReplay.value = { id: 'career', input, title: `Stage ${cur.stage + 1} · vs ${info.company}`, back: '/career/results' };
   navigate('/replay/career');
+}
+
+/** "2 interviewers": how many the next stage has (12 §5). */
+export function interviewerLabel(s: CareerSave): string {
+  const n = interviewers(s);
+  return `${n} interviewer${n === 1 ? '' : 's'}`;
 }
 
 /**
@@ -52,11 +63,19 @@ export function startNextFight(s: CareerSave): void {
  */
 export function CoreActions({ s, here }: { s: CareerSave; here?: 'results' | 'replay' }) {
   const who = pointsTarget(s);
+  const unread = unreadMessages(s);
   return (
     <div class="core-actions">
-      <button class="li-btn primary big" onClick={() => startNextFight(s)}>
-        🥊 Easy Apply{here === 'replay' ? ': next fight' : ` · Stage ${s.stage + 1}`}
-      </button>
+      {canApply(s) && (
+        <button class="li-btn primary big" onClick={() => startNextFight(s)}>
+          🥊 Easy Apply{here === 'replay' ? ': next fight' : ` · Stage ${s.stage + 1}`} · {interviewerLabel(s)}
+        </button>
+      )}
+      {unread > 0 && (
+        <button class="li-btn alert" onClick={() => navigate('/career/messages')}>
+          💬 Messages ({unread})
+        </button>
+      )}
       {who && (
         <button class="li-btn alert" onClick={() => navigate(`/career/skills/${who.c.id}`)}>
           🌳 Spend points
@@ -88,7 +107,7 @@ export function EasyApplyFab({ s, afterScroll = 0 }: { s: CareerSave; afterScrol
     window.addEventListener('scroll', on, { passive: true });
     return () => window.removeEventListener('scroll', on);
   }, [afterScroll]);
-  if (!shown) return null;
+  if (!shown || (!s.pending && !canApply(s))) return null;
   return (
     <button class="easy-fab" onClick={() => (s.pending ? navigate('/career/results') : startNextFight(s))} aria-label={s.pending ? 'Collect results' : 'Easy Apply: next fight'}>
       {s.pending ? '📋 Results' : `🥊 Easy Apply`}

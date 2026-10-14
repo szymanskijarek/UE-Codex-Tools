@@ -3,6 +3,29 @@ import { bundle } from '@cc/content';
 import {
   activeHrNotes,
   agencyTemp,
+  afterFight,
+  answerGig,
+  expireGigs,
+  finishGig,
+  fireBeat,
+  gigFighters,
+  growFriend,
+  hasUnlock,
+  ladderOpponents,
+  ladderSize,
+  makeFriend,
+  newStory,
+  offerGig,
+  progressDue,
+  replyTo,
+  rollGig,
+  shortName,
+  tempCost,
+  uiDue,
+  chapterBossStage,
+  type OuterEffect,
+  type StoryCtx,
+  type StoryState,
   applyHrNotes,
   applyNationalBoost,
   canChangeNationality,
@@ -30,11 +53,9 @@ import {
   generateRecruit,
   grow,
   hasMilestone,
-  opponentTeam,
   rollCrashers,
   recruitRarity,
   relationshipDeltas,
-  SQUAD_UNLOCK_RANK,
   stageInfo,
   type ActiveHrNote,
   type CareerChar,
@@ -48,7 +69,7 @@ import {
   type NationalBoost,
 } from '@cc/game-rules';
 import { Rng, SIM_VERSION, simulate, type BattleInput } from '@cc/sim';
-import { FEED_CAP, fightPosts, type FeedPost } from './feed';
+import { FEED_CAP, fightPosts, gigPost, starterPosts, storyPost, type FeedPost } from './feed';
 import { pickPhotoMoment, type PhotoMoment } from './photo-moment';
 import { lastSummit } from '../incident/likes';
 
@@ -70,7 +91,7 @@ export interface CareerSave {
   cash: number;
   applicants: Character[];
   /** `hr`: the HR notes in effect for our fighters, recorded when the fight was set up. */
-  pending: { input: BattleInput; stage: number; hr?: FightSummary['hr']; nation?: FightSummary['nation'] } | null;
+  pending: { input: BattleInput; stage: number; hr?: FightSummary['hr']; nation?: FightSummary['nation']; gig?: string; temps?: number } | null;
   last: FightSummary | null;
   wins: number;
   losses: number;
@@ -86,6 +107,8 @@ export interface CareerSave {
   nationality?: string;
   /** When it was last changed (ms), for the cooldown. */
   nationalitySetAt?: number;
+  /** The career story (12): messages, unlocks, the friend, temps, gigs. Older saves get one on load. */
+  story?: StoryState;
 }
 
 /** One line of the post-fight board. */
@@ -115,7 +138,10 @@ export interface FightSummary {
   hr?: { id: string; name: string; note: string; by: string[] }[];
   /** The nationality boost the main character fought with. */
   nation?: { country: string; tier: string; rank: number; hour: string };
-  unlockedSquad: boolean;
+  /** An invite-only gig (12 §8.2) rather than a ladder stage. */
+  gig?: { id: string; title: string; from: string };
+  /** Agency temps paid for this fight. */
+  temps?: { n: number; cost: number };
   /** The item a win dropped; `sold` is set when the bag was full and it was sold on the spot. */
   loot?: { item: LootItem; sold?: number };
   /** Critters each side summoned (summon ids, with the summoner's name for ours) and which of our fighters got spooked. */
@@ -142,15 +168,38 @@ function load(): CareerSave | null {
   }
 }
 
-function migrate(s: CareerSave | null): CareerSave | null {
+export function migrate(s: CareerSave | null): CareerSave | null {
   if (!s) return s;
   s.inventory ??= {};
   s.feed ??= [];
   s.bag ??= [];
   if (!isCompanyName(s.company)) s.company = randomCompany(Rng.fromSeed(`company:${s.seed}`));
+  if (!s.story) legacyStory(s);
   if (!s.feed.length && s.last?.board) s.feed = fightPosts(s, s.last);
   for (const c of Object.values(s.chars)) c.loadout ??= [];
+  storyProgress(s, false);
   return s;
+}
+
+/**
+ * A save from before the story (12 §10): chapter 1 counts as done, everything
+ * is open, the line-up stays what it was (now with paid temps), and Karen
+ * writes with a restructuring bonus.
+ */
+function legacyStory(s: CareerSave): void {
+  const m = mainChar(s);
+  const st = newStory(makeFriend(bundle, s.seed, currentCareer(m), m.c.level, careerRank(m, currentCareer(m))));
+  st.fired = bundle.story.filter((b) => b.id.startsWith('story.ch1-')).map((b) => b.id);
+  st.unlocks = ['messages', 'feed', 'easyApply', 'temps', 'hiring'];
+  st.gates = ['bro', 'delegate', 'news'];
+  st.squadSlots = SQUAD_SIZE;
+  st.fights = s.wins + s.losses;
+  st.connections = 12 + 3 * s.wins + s.losses;
+  st.gigs.lastOffer = st.fights;
+  st.temps = Math.max(0, SQUAD_SIZE - s.squad.length);
+  s.story = st;
+  const beat = bundle.story.find((b) => b.trigger.kind === 'legacy');
+  if (beat) applyOuter(s, fireBeat(bundle, st, beat, storyCtx(s)));
 }
 
 export const career = signal<CareerSave | null>(migrate(load()));
@@ -197,9 +246,14 @@ export function currentCareer(cc: CareerChar): string {
   return cc.c.careers[cc.c.careers.length - 1]!;
 }
 
+/** Hiring is open (12 §6.3): Karen's message after the third fight. */
 export function squadUnlocked(s: CareerSave): boolean {
-  const m = mainChar(s);
-  return careerRank(m, m.c.careers[0]!) >= SQUAD_UNLOCK_RANK || m.c.careers.some((cid) => careerRank(m, cid) >= SQUAD_UNLOCK_RANK);
+  return !!s.story && hasUnlock(s.story, 'hiring');
+}
+
+/** Hires who may fight next to you now (seats open with the story). */
+export function squadSlots(s: CareerSave): number {
+  return squadUnlocked(s) ? Math.min(SQUAD_SIZE, s.story!.squadSlots) : 0;
 }
 
 /** A fresh main character for the creation screen. */
@@ -229,17 +283,53 @@ export function startCareer(main: Character, diff: DifficultyId, company: Compan
     inventory: { 'item.meal-deal': 1 },
     company,
     ...(nationality ? { nationality, nationalitySetAt: Date.now() } : {}),
+    feed: [],
+    story: newStory(makeFriend(bundle, seed, mc.c.careers[0]!, mc.c.level, 1)),
   };
   save(s);
 }
 
-/** Teammates for the next fight: hires in the squad, then agency temps. */
+/** Who fights next to you before any temps: the friend while they're with you, then hires in their seats. */
+function regulars(s: CareerSave): CareerChar[] {
+  const st = s.story;
+  const mates: CareerChar[] = [];
+  if (st?.partner && st.friend) mates.push(st.friend);
+  for (const id of s.squad.slice(0, squadSlots(s))) {
+    const cc = s.chars[id];
+    if (cc) mates.push(cc);
+  }
+  return mates.slice(0, SQUAD_SIZE);
+}
+
+/** Seats left for agency temps. */
+export function tempSeats(s: CareerSave): number {
+  return s.story && hasUnlock(s.story, 'temps') ? SQUAD_SIZE - regulars(s).length : 0;
+}
+
+/** Temps who'll actually come to the next fight: the ones booked, if there's a seat and the cash for them. */
+export function tempsComing(s: CareerSave): number {
+  const cost = tempCost(bundle, s.stage);
+  return Math.max(0, Math.min(s.story?.temps ?? 0, tempSeats(s), cost > 0 ? Math.floor(s.cash / cost) : SQUAD_SIZE));
+}
+
+/** Book (or unbook) temps for the fights ahead; they're paid as each fight starts. */
+export function bookTemps(s: CareerSave, n: number): void {
+  if (!s.story) return;
+  save({ ...s, story: { ...s.story, temps: Math.max(0, Math.min(SQUAD_SIZE, n)) } });
+}
+
+/** Teammates for the next fight: the friend, hires in their seats, then any booked temps. Alone is allowed. */
 export function lineup(s: CareerSave): CareerChar[] {
   const m = mainChar(s);
-  const rank = careerRank(m, currentCareer(m));
-  const mates: CareerChar[] = s.squad.map((id) => s.chars[id]).filter((x): x is CareerChar => !!x);
-  for (let i = mates.length; i < SQUAD_SIZE; i++) mates.push(agencyTemp(bundle, s.seed, i, m.c.level, rank));
+  const mates = regulars(s);
+  const n = tempsComing(s);
+  for (let i = 0; i < n; i++) mates.push(agencyTemp(bundle, s.seed, i, m.c.level));
   return [m, ...mates.slice(0, SQUAD_SIZE)];
+}
+
+/** Whether the next ladder fight can be started (the recruiter's message unlocks Easy Apply). */
+export function canApply(s: CareerSave): boolean {
+  return !s.story || hasUnlock(s.story, 'easyApply');
 }
 
 /** Hired staff not in the squad: on Garden Leave. */
@@ -289,13 +379,26 @@ export function openFile(s: CareerSave, id: string): void {
 }
 
 export function nextOpponents(s: CareerSave): CareerChar[] {
-  return opponentTeam(bundle, s.seed, s.stage, difficulty(s.difficulty), 3);
+  return ladderOpponents(bundle, s.seed, s.stage, difficulty(s.difficulty));
+}
+
+/** How many interviewers the next stage has (1–3, gatecrashers never counted). */
+export function interviewers(s: CareerSave): number {
+  return ladderSize(bundle, s.stage);
+}
+
+/** Pay for the temps of a fight being set up: the cost goes, the spend is remembered. */
+function payTemps(s: CareerSave, n: number): CareerSave {
+  if (!n || !s.story) return s;
+  const cost = n * tempCost(bundle, s.stage);
+  return { ...s, cash: s.cash - cost, story: { ...s.story, tempSpend: s.story.tempSpend + cost } };
 }
 
 /** Build the battle for the next stage and remember it until results are collected. */
 export function prepareFight(s: CareerSave): BattleInput {
   const info = stageInfo(bundle, s.stage);
   const team = lineup(s);
+  const temps = team.filter((c) => c.temp).length;
   const hr = lineupHr(s, team);
   // Nationality: the main character only, fixed now so the fight replays the same.
   const nation = nationBoost(s);
@@ -312,13 +415,47 @@ export function prepareFight(s: CareerSave): BattleInput {
     ],
     modifiers: [],
   };
-  // Gatecrashers (07): now and then, never in a boss fight or your very first one. As strong as you are.
+  // Gatecrashers (07): now and then, never in a boss fight or before stage `fromStage`. As strong as you are,
+  // and never more of them than the bigger side has fighters.
   const m = mainChar(s);
-  const crashers = info.boss || s.stage === 0 ? undefined : rollCrashers(bundle, input.seed, info.arenaId, m.c.level, careerRank(m, currentCareer(m)));
+  const sides = Math.max(...input.teams.map((t) => t.characters.length));
+  const crashers = info.boss || s.stage < bundle.economy.crashers.fromStage ? undefined : rollCrashers(bundle, input.seed, info.arenaId, m.c.level, careerRank(m, currentCareer(m)), { maxSize: sides });
   if (crashers) input.crashers = crashers;
   const hrUsed = team.flatMap((c) => (hr.get(c.c.id) ?? []).map((a) => ({ id: c.c.id, name: c.c.name, note: a.note.id, by: a.by })));
   const nationUsed = nation ? { country: nation.country, tier: nation.tier.id, rank: nation.rank, hour: nation.hour } : undefined;
-  save({ ...s, pending: { input, stage: s.stage, ...(hrUsed.length ? { hr: hrUsed } : {}), ...(nationUsed ? { nation: nationUsed } : {}) } });
+  save({ ...payTemps(s, temps), pending: { input, stage: s.stage, ...(hrUsed.length ? { hr: hrUsed } : {}), ...(nationUsed ? { nation: nationUsed } : {}), ...(temps ? { temps } : {}) } });
+  return input;
+}
+
+/**
+ * An invite-only gig (12 §8.2): your usual line-up, you alone, or you with the
+ * gig's own strange temps, against its cast, in its arena. Off the ladder.
+ */
+export function prepareGig(s: CareerSave, gigId: string): BattleInput | null {
+  const gig = bundle.gigs.find((g) => g.id === gigId);
+  if (!gig) return null;
+  const m = mainChar(s);
+  const rank = careerRank(m, currentCareer(m));
+  const team = gig.side === 'squad' ? lineup(s) : [m];
+  const temps = team.filter((c) => c.temp).length;
+  const hr = lineupHr(s, team);
+  const nation = nationBoost(s);
+  const ours = team.map((c, i) => applyNationalBoost(applyHrNotes(careerSnapshot(bundle, c), hr.get(c.c.id) ?? []), i === 0 ? nation : null));
+  if (gig.side === 'cast') ours.push(...gigFighters(bundle, s.seed, gig, 'allies', m.c.level, rank));
+  const input: BattleInput = {
+    schemaVersion: 1,
+    contentHash: bundle.hash,
+    simVersion: SIM_VERSION,
+    seed: `${s.seed}:${gig.id}`,
+    arenaId: gig.arena,
+    mode: 'duel_3v3',
+    teams: [
+      { playerId: 'you', playerName: companyName(s), rating: 1000, characters: ours },
+      { playerId: 'opp', playerName: gig.from.name, rating: 1000, characters: gigFighters(bundle, s.seed, gig, 'opponents', m.c.level, rank) },
+    ],
+    modifiers: [],
+  };
+  save({ ...payTemps(s, temps), pending: { input, stage: s.stage, gig: gig.id, ...(temps ? { temps } : {}) } });
   return input;
 }
 
@@ -329,10 +466,10 @@ export let lastFight: { input: BattleInput; fight: number } | null = null;
 export function collectResults(s: CareerSave): CareerSave {
   if (!s.pending) return s;
   const { input, stage } = s.pending;
+  const gig = s.pending.gig ? bundle.gigs.find((g) => g.id === s.pending!.gig) : undefined;
   const out = simulate(input, bundle);
   const outcome: 'win' | 'draw' | 'loss' = out.result.winner === 0 ? 'win' : out.result.winner < 0 ? 'draw' : 'loss';
   const diff = difficulty(s.difficulty);
-  const wasUnlocked = squadUnlocked(s);
   const rel = relationshipDeltas(out.result, out.events);
   const growth: FightSummary['growth'] = [];
   const milestoneCheck = (cc: CareerChar): boolean => {
@@ -349,14 +486,22 @@ export function collectResults(s: CareerSave): CareerSave {
   });
   for (const r of out.result.characters) {
     if (r.team !== 0) continue;
+    const mvp = out.result.mvp === r.entityId;
+    const xp = Math.round((battleXp(bundle.economy, outcome, r.counters.kos, mvp, false) * diff.rewardBp) / 10000);
+    const friend = s.story?.friend;
+    if (friend && r.snapshotId === friend.c.id) {
+      // The friend grows with you while they fight next to you, and spends their own points.
+      const g = growFriend(bundle, friend, xp, s.seed);
+      applyBattleToCharacter(friend.c, r, outcome, mvp);
+      growth.push({ ...g, name: friend.c.name, newTraits: [], milestone: false });
+      continue;
+    }
     const cc = s.chars[r.snapshotId];
-    if (!cc) continue; // agency temps don't persist
+    if (!cc) continue; // agency temps and gig casts don't persist
     for (const itemId of used.get(r.entityId) ?? []) {
       const i = (cc.loadout ?? []).indexOf(itemId);
       if (i >= 0) cc.loadout!.splice(i, 1);
     }
-    const mvp = out.result.mvp === r.entityId;
-    const xp = Math.round((battleXp(bundle.economy, outcome, r.counters.kos, mvp, false) * diff.rewardBp) / 10000);
     const g = grow(bundle, cc, xp);
     applyBattleToCharacter(cc.c, r, outcome, mvp);
     const newTraits = evaluateTraits(bundle, cc.c);
@@ -372,13 +517,15 @@ export function collectResults(s: CareerSave): CareerSave {
     growth.push({ ...g, name: cc.c.name, newTraits: [], milestone: milestoneCheck(cc), leave: true });
   }
   const teamKos = out.result.characters.filter((r) => r.team === 0).reduce((n, r) => n + r.counters.kos, 0);
-  const pay = fightPay(outcome, stage, teamKos, diff);
+  // Gigs pay a flat fee (before the difficulty multiplier); ladder fights pay as usual.
+  const gigBase = gig ? (outcome === 'win' ? gig.pay.win : gig.pay.loss) : 0;
+  const pay = gig ? { base: gigBase, stage: 0, kos: 0, koCount: teamKos, multiplier: diff.rewardBp / 10000, total: Math.round((gigBase * diff.rewardBp) / 10000) } : fightPay(outcome, stage, teamKos, diff);
   const cash = pay.total;
   // A win drops one item. Bosses and Brutal roll extra times and keep the best.
   let loot: FightSummary['loot'];
   const bag = [...(s.bag ?? [])];
   let lootCash = 0;
-  if (outcome === 'win') {
+  if (outcome === 'win' && !gig) {
     const L = bundle.economy.loot;
     const rolls = 1 + (stageInfo(bundle, stage).boss ? L.bossExtraRolls : 0) + (s.difficulty === 'brutal' ? L.brutalExtraRolls : 0);
     const item = rollLoot(bundle, Rng.fromSeed(`${input.seed}:loot`), `loot-${s.seed}-${stage}-${s.wins}`, rolls);
@@ -393,12 +540,13 @@ export function collectResults(s: CareerSave): CareerSave {
   const next: CareerSave = {
     ...s,
     bag,
-    stage: outcome === 'win' ? stage + 1 : stage,
+    // A gig never moves you up the ladder (or changes its record, which seeds the ladder's fights).
+    stage: outcome === 'win' && !gig ? stage + 1 : s.stage,
     cash: s.cash + cash + lootCash,
     pending: null,
-    wins: s.wins + (outcome === 'win' ? 1 : 0),
-    losses: s.losses + (outcome === 'loss' ? 1 : 0),
-    applicants: outcome === 'win' ? [] : s.applicants,
+    wins: s.wins + (outcome === 'win' && !gig ? 1 : 0),
+    losses: s.losses + (outcome === 'loss' && !gig ? 1 : 0),
+    applicants: outcome === 'win' && !gig ? [] : s.applicants,
     last: null,
   };
   // Who summoned what, and who ran from it (for the feed).
@@ -431,8 +579,21 @@ export function collectResults(s: CareerSave): CareerSave {
   }
   // The previous fight's photo steers this one away from the same kind of shot and the same face.
   const photo = pickPhotoMoment(input, [s.mainId], s.last?.photo) ?? undefined;
-  next.last = { stage, outcome, cash, pay, board, growth, ...(s.pending.hr?.length ? { hr: s.pending.hr } : {}), ...(s.pending.nation ? { nation: s.pending.nation } : {}), unlockedSquad: !wasUnlocked && squadUnlocked(next), ...(loot ? { loot } : {}), ...(summons.mine.length || summons.theirs.length ? { summons } : {}), ...(photo ? { photo } : {}), ...(crash ? { crash } : {}) };
-  next.feed = [...fightPosts(next, next.last), ...(s.feed ?? [])].slice(0, FEED_CAP);
+  const temps = s.pending.temps ? { n: s.pending.temps, cost: s.pending.temps * tempCost(bundle, stage) } : undefined;
+  next.last = { stage, outcome, cash, pay, board, growth, ...(s.pending.hr?.length ? { hr: s.pending.hr } : {}), ...(s.pending.nation ? { nation: s.pending.nation } : {}), ...(loot ? { loot } : {}), ...(summons.mine.length || summons.theirs.length ? { summons } : {}), ...(photo ? { photo } : {}), ...(crash ? { crash } : {}), ...(gig ? { gig: { id: gig.id, title: gig.title, from: gig.from.name } } : {}), ...(temps ? { temps } : {}) };
+  next.feed = [...(gig ? gigPost(next, next.last, gig) : fightPosts(next, next.last)), ...(s.feed ?? [])].slice(0, FEED_CAP);
+  // The story (12): the network grows, a gig is signed off, invites lapse or arrive, and any beats now due fire.
+  if (next.story) {
+    const st = structuredClone(next.story);
+    next.story = st;
+    afterFight(st, outcome, teamKos);
+    const ctx = storyCtx(next);
+    if (gig) finishGig(bundle, st, gig.id, outcome, cash, ctx);
+    expireGigs(bundle, st, st.fights);
+    const offer = gig ? null : rollGig(bundle, st, ctx);
+    if (offer) offerGig(bundle, st, offer, ctx);
+    storyProgress(next, false);
+  }
   if (photo && next.feed[0]?.photo) lastFight = { input, fight: next.feed[0].fight };
   save(next);
   return next;
@@ -460,11 +621,12 @@ export function rarityOf(c: Character): keyof typeof HIRE_COST {
 
 export function hire(s: CareerSave, c: Character): string | null {
   const cost = HIRE_COST[rarityOf(c)];
+  if (!squadUnlocked(s)) return 'Hiring opens soon: watch your messages';
   if (s.cash < cost) return `Needs $${cost}`;
   if (Object.keys(s.chars).length >= ROSTER_CAP) return `Roster is full (${ROSTER_CAP})`;
   const cc: CareerChar = { c, careerXp: {}, nodes: [] };
   ensureRoots(bundle, cc);
-  const squad = s.squad.length < SQUAD_SIZE ? [...s.squad, c.id] : s.squad;
+  const squad = s.squad.length < squadSlots(s) ? [...s.squad, c.id] : s.squad;
   save({ ...s, cash: s.cash - cost, chars: { ...s.chars, [c.id]: cc }, squad, applicants: s.applicants.filter((x) => x.id !== c.id) });
   return null;
 }
@@ -474,7 +636,8 @@ export function toggleSquad(s: CareerSave, id: string): string | null {
     save({ ...s, squad: s.squad.filter((x) => x !== id) });
     return null;
   }
-  if (s.squad.length >= SQUAD_SIZE) return 'Squad is full: send someone on Garden Leave first';
+  const seats = squadSlots(s);
+  if (s.squad.length >= seats) return seats < SQUAD_SIZE ? `Only ${seats} seat${seats === 1 ? '' : 's'} on your squad for now: send someone on Garden Leave first` : 'Squad is full: send someone on Garden Leave first';
   save({ ...s, squad: [...s.squad, id] });
   return null;
 }
@@ -581,4 +744,139 @@ export function setPostMine(s: CareerSave, id: string, mine: NonNullable<FeedPos
   const next = [...feed];
   next[i] = { ...feed[i]!, mine };
   save({ ...s, feed: next });
+}
+
+// ---------------------------------------------------------------------------
+// The story (12): messages, beats, replies and gigs
+// ---------------------------------------------------------------------------
+/** Values for the `{slot}`s in story text. */
+function storySlots(s: CareerSave): Record<string, string | number> {
+  const m = mainChar(s);
+  const info = stageInfo(bundle, s.stage);
+  const boss = stageInfo(bundle, chapterBossStage(s.stage));
+  const f = s.story?.friend;
+  const loc = (id: string) => bundle.locale[`${id}.name`] ?? id;
+  return {
+    me: m.c.name,
+    first: shortName(bundle, m.c.name),
+    friend: f?.c.name ?? 'your friend',
+    friendfirst: f ? shortName(bundle, f.c.name) : 'your friend',
+    company: info.company,
+    next: info.company,
+    arena: loc(info.arenaId).toLowerCase(),
+    cash: s.cash,
+    tempspend: s.story?.tempSpend ?? 0,
+    tempcost: tempCost(bundle, s.stage),
+    hirecost: Math.min(...Object.values(HIRE_COST)),
+    boss: boss.bossName ?? boss.company,
+    bosscompany: boss.company,
+  };
+}
+
+export function storyCtx(s: CareerSave): StoryCtx {
+  return { seed: s.seed, fights: s.story?.fights ?? s.wins + s.losses, stage: s.stage, cash: s.cash, slots: storySlots(s) };
+}
+
+/** Apply what a beat did outside the story: cash, posts in the feed, the starter feed. Mutates `s`. */
+function applyOuter(s: CareerSave, effects: OuterEffect[], beatId = ''): void {
+  for (const e of effects) {
+    if (e.kind === 'cash') s.cash += e.n;
+    else if (e.kind === 'starterFeed') s.feed = [...(s.feed ?? []), ...starterPosts(s)].slice(0, FEED_CAP);
+    else if (e.kind === 'post') s.feed = [storyPost(s, e, beatId), ...(s.feed ?? [])].slice(0, FEED_CAP);
+  }
+}
+
+/** Fire every progress beat now due (a beat can make the next one due). Mutates `s`; saves it when `persist`. */
+export function storyProgress(s: CareerSave, persist = true): CareerSave {
+  if (!s.story) return s;
+  let fired = 0;
+  for (let guard = 0; guard < 20; guard++) {
+    const due = progressDue(bundle, s.story, { fights: s.story.fights, stage: s.stage, cash: s.cash });
+    if (!due.length) break;
+    if (fired === 0) s.story = structuredClone(s.story);
+    for (const b of due) applyOuter(s, fireBeat(bundle, s.story, b, storyCtx(s)), b.id);
+    fired += due.length;
+  }
+  if (persist && fired) save(s);
+  return s;
+}
+
+function withStory(s: CareerSave, fn: (st: StoryState, next: CareerSave) => void): void {
+  if (!s.story) return;
+  const next: CareerSave = { ...s, story: structuredClone(s.story) };
+  fn(next.story!, next);
+  storyProgress(next, false);
+  save(next);
+}
+
+/** A beat the UI was timing (an idle wait, the feed being scrolled) is due now. */
+export function fireStoryBeat(s: CareerSave, beatId: string): void {
+  const beat = bundle.story.find((b) => b.id === beatId);
+  if (!beat || s.story?.fired.includes(beatId)) return;
+  withStory(s, (st, next) => applyOuter(next, fireBeat(bundle, st, beat, storyCtx(next)), beat.id));
+}
+
+/** The player picks reply `i` in a thread. */
+export function replyStory(s: CareerSave, threadId: string, i: number): void {
+  withStory(s, (st, next) => {
+    const r = replyTo(bundle, st, threadId, i, storyCtx(next));
+    applyOuter(next, r.effects, r.beat?.id);
+  });
+}
+
+/** A thread has been opened: everything in it is read, its pop-up goes. */
+export function readThread(s: CareerSave, threadId: string): void {
+  const t = s.story?.threads[threadId];
+  if (!t || (t.read === t.lines.length && !s.story!.pings.includes(threadId))) return;
+  withStory(s, (st) => {
+    st.threads[threadId]!.read = st.threads[threadId]!.lines.length;
+    st.pings = st.pings.filter((x) => x !== threadId);
+  });
+}
+
+/** Dismiss a pop-up without opening the thread. */
+export function dismissPing(s: CareerSave, threadId: string): void {
+  if (!s.story?.pings.includes(threadId)) return;
+  withStory(s, (st) => (st.pings = st.pings.filter((x) => x !== threadId)));
+}
+
+/** Accept an invite-only gig (once) and set its fight up. */
+export function acceptGig(s: CareerSave, gigId: string): BattleInput | null {
+  if (!s.story || s.pending) return null;
+  const st = structuredClone(s.story);
+  if (!answerGig(bundle, st, gigId, true, storyCtx(s))) return null;
+  return prepareGig({ ...s, story: st }, gigId);
+}
+
+export function declineGig(s: CareerSave, gigId: string): void {
+  withStory(s, (st, next) => answerGig(bundle, st, gigId, false, storyCtx(next)));
+}
+
+/** Anyone on the payroll, or the friend. */
+export function charById(s: CareerSave, id: string): CareerChar | undefined {
+  return s.chars[id] ?? (s.story?.friend?.c.id === id ? s.story.friend : undefined);
+}
+
+/** "Skip the intro" (12 §4.3): play the opening beats at once, taking the first reply each time, until Easy Apply is open. */
+export function skipIntro(s: CareerSave): void {
+  withStory(s, (st, next) => {
+    for (let guard = 0; guard < 20 && !hasUnlock(st, 'easyApply'); guard++) {
+      const ask = Object.values(st.threads).find((t) => t.ask);
+      if (ask) {
+        const r = replyTo(bundle, st, ask.id, 0, storyCtx(next));
+        applyOuter(next, r.effects, r.beat?.id);
+        continue;
+      }
+      const due = uiDue(bundle, st)[0];
+      if (!due) break;
+      applyOuter(next, fireBeat(bundle, st, due, storyCtx(next)), due.id);
+    }
+    // One more round for the reply that follows Easy Apply (the friend joining).
+    const ask = Object.values(st.threads).find((t) => t.ask);
+    if (ask) {
+      const r = replyTo(bundle, st, ask.id, 0, storyCtx(next));
+      applyOuter(next, r.effects, r.beat?.id);
+    }
+    st.pings = [];
+  });
 }

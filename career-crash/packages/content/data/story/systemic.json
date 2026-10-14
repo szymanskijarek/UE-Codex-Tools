@@ -1,0 +1,27 @@
+[
+  {
+    "id": "story.legacy-welcome",
+    "contact": "contact.karen",
+    "trigger": { "kind": "legacy" },
+    "lines": [
+      "Hi {first}! Karen from Talent Acquisition 👋 Quick update on our partners at the temp agency.",
+      "Temps now cost 💵 {tempcost} a fight, and legally we can no longer describe them as 'as good as you'. They aren't. They never were.",
+      "To soften the blow, here's a 💵 500 restructuring bonus. Spend it on people who grow. 🚀"
+    ],
+    "replies": [{ "text": "Thanks!" }, { "text": "Is this a scam?", "flag": "karen.doubted" }],
+    "effects": [
+      { "kind": "cash", "n": 500 },
+      { "kind": "unlock", "what": "messages" }
+    ]
+  },
+  {
+    "id": "story.sys-loss-streak",
+    "contact": "contact.friend",
+    "after": ["story.ch1-06-poached"],
+    "trigger": { "kind": "progress", "lossStreak": 3 },
+    "lines": [
+      ["heard you've lost three in a row 👀 the DAO has a channel just for your fights now.", "three losses in a row?? the DAO voted to send you thoughts and prayers. it passed 4 to 3."],
+      "have you tried hiring someone who levels up? or Relaxed difficulty in Career settings? or a DAO? 🚀"
+    ]
+  }
+]
