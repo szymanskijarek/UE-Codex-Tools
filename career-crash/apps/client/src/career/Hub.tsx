@@ -11,6 +11,7 @@ import { NamePicker } from './NamePicker';
 import { HrChips } from './File';
 import { interviewerLabel, startNextFight } from './CoreActions';
 import { feedSeen } from './Messages';
+import { storyArt } from './story-art';
 import { GearIcons } from './Loot';
 import { abandon, applicants, bookTemps, canApply, companyName, interviewers, renameCharacter, renameCompany, setPostMine, currentCareer, lineup, lineupHr, mainChar, nationalityChangeable, nationBoost, nextOpponents, save, setNationality, skipIntro, squadSlots, squadUnlocked, tempSeats, tempsComing, type CareerSave } from './model';
 import { developing, fightPhoto } from './photo';
@@ -69,9 +70,13 @@ function Feed({ s }: { s: CareerSave }) {
   if (!posts.length)
     return (
       <div class="li-card li-feed-empty">
-        <div class="li-feed-empty-art" aria-hidden="true">
-          🌵
-        </div>
+        {storyArt('feed-empty') ? (
+          <img class="li-feed-empty-img" src={storyArt('feed-empty')} alt="An empty open-plan office with a tumbleweed rolling down the aisle" />
+        ) : (
+          <div class="li-feed-empty-art" aria-hidden="true">
+            🌵
+          </div>
+        )}
         <b>Your feed is quiet</b>
         <p class="muted small">Connect with people to see their updates. Nobody's connected with you yet. Give it a moment.</p>
       </div>

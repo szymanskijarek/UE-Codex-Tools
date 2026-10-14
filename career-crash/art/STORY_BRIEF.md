@@ -1,6 +1,6 @@
 # Story mode and Messages: brief for the image agent
 
-> **Status:** not started. Design: `docs/career-crash/12-career-story.md`.
+> **Status:** in progress. Delivered: `feed-empty` (14 Oct 2026). Part B not started. Design: `docs/career-crash/12-career-story.md`.
 > Nothing here blocks the game: until the art lands, it uses emoji, arena art,
 > CSS and the careers' own looks in its place. Part A is phase 4; Part B (the
 > gig casts) can be imported any time, like gatecrashers.

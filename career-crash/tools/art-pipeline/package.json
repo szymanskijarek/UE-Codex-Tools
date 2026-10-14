@@ -10,7 +10,8 @@
     "faces": "tsx src/faces.ts",
     "puppets-grid": "tsx src/puppets-grid.ts",
     "arenas": "tsx src/arenas.ts",
-    "critters": "tsx src/critters.ts"
+    "critters": "tsx src/critters.ts",
+    "story": "tsx src/story.ts"
   },
   "dependencies": {
     "@cc/content": "workspace:*",

@@ -31,7 +31,7 @@ and share the sim, renderer, puppets, audio and content bundle with Career Crash
 |---|---|
 | `AGENTS.md` | Package map, the 7 standing rules (determinism, goldens, no numbers in TS…), common tasks (add a career / prop / arena / endpoint), commands |
 | `WORKFLOW.md` | Where things live (hosts, workers, artifact), Branches and releases, Everyday loop, Checking a release, Bringing in new art, Adding content, Search and link previews, Tools, Claude Code setup, Troubleshooting, Settings checklist, Next milestones |
-| `PIPELINES.md` | Pipeline table at the top; §1 content build, §2 checks, §3 goldens, §4 balance, §5 art (intro: new art starts as a brief; 5.1 puppets, 5.3 faces, 5.4 items/obstacles, 5.4a impact FX, 5.4b hazards, 5.5 arenas, 5.5b critters, 5.6 prompts; adding an arena / boss / career art), §6 client builds (6.1 hosted, 6.2 single file, 6.3 Claude artifact, 6.4 careercrash.org), §7 API worker (7.1 API launch, 7.2 Crypto Bros feed, 7.3 vote service), §8 CI |
+| `PIPELINES.md` | Pipeline table at the top; §1 content build, §2 checks, §3 goldens, §4 balance, §5 art (intro: new art starts as a brief; 5.1 puppets, 5.3 faces, 5.4 items/obstacles, 5.4a impact FX, 5.4b hazards, 5.5 arenas, 5.5b critters, 5.5c career story art, 5.6 prompts; adding an arena / boss / career art), §6 client builds (6.1 hosted, 6.2 single file, 6.3 Claude artifact, 6.4 careercrash.org), §7 API worker (7.1 API launch, 7.2 Crypto Bros feed, 7.3 vote service), §8 CI |
 | `README.md` | Feature summary with content counts, career mode, quick start |
 
 ## Career Crash: design docs (`docs/career-crash/`)
@@ -118,7 +118,7 @@ and share the sim, renderer, puppets, audio and content bundle with Career Crash
 | Sheet manifests (slicer overrides, `cut`, `cutX`) | `art/sheets/manifest.json`, `art/items/`, `art/obstacles/`, `art/critters/`, `art/sheets-grid/` `manifest.json` |
 | Source folders | `sheets/` (bodies), `heads/`, `faces/`, `faces-b/`, `items/`, `obstacles/`, `arenas/`, `critters/`, `ui/` |
 | Slicer previews | `tools/art-pipeline/out/` |
-| Briefs (style template: `FX_BRIEF.md`; rule: new art starts as a brief, `PIPELINES.md` §5) | `ART_BRIEF.md` (open gaps), `CHARACTER_PROMPTS.md`, `FX_BRIEF.md`, `FX_GAPS_BRIEF.md`, `GATECRASHER_PROMPTS.md`, `PERSONNEL_FILE_PROMPTS.md`, `STORY_BRIEF.md` (story cards, temp sticker, badges, 13 gig characters; not started), `sheets/BODY_SHEET_PROMPTS.md`, `cryptobro/`, `incident/`, `news/` |
+| Briefs (style template: `FX_BRIEF.md`; rule: new art starts as a brief, `PIPELINES.md` §5) | `ART_BRIEF.md` (open gaps), `CHARACTER_PROMPTS.md`, `FX_BRIEF.md`, `FX_GAPS_BRIEF.md`, `GATECRASHER_PROMPTS.md`, `PERSONNEL_FILE_PROMPTS.md`, `STORY_BRIEF.md` (story cards, temp sticker, badges, 13 gig characters; `feed-empty` in, the rest to come), `story/`, `sheets/BODY_SHEET_PROMPTS.md`, `cryptobro/`, `incident/`, `news/` |
 
 ## Unreal/Codex tooling (`main`)
 

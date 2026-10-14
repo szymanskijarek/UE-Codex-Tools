@@ -313,6 +313,18 @@ is empty: the 30 newer careers were re-imported from separate sheets through
   Human summons need no art: they use the drawn body in `art.color` holding
   `art.held`.
 
+### 5.5c Career story art (cards, temp markers, badges)
+
+`pnpm --filter @cc/art-pipeline story`
+
+- **Source:** `art/story/<name>.png`, named as in `art/STORY_BRIEF.md` Part A
+  (`feed-empty`, `intro-card`, `farewell-card`, `offer-letter`, `rugpull-card`,
+  `temp-sticker`, `temp-lanyard`, `badge-1`…`badge-4`).
+- **Output:** `apps/client/src/career/story-art/<name>.webp`: cards lossy at
+  960 px wide (quality 70), stickers and badges 256 px with alpha.
+- **In the game:** `storyArt(name)` in `apps/client/src/career/story-art.ts`;
+  any piece not imported yet falls back to emoji.
+
 ### 5.6 Art prompts
 
 `pnpm art:prompts` writes `tools/art-pipeline/out/prompts.json`: generation
