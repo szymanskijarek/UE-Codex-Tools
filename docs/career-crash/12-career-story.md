@@ -438,7 +438,7 @@ most once per career.
 |---|---|---|---|
 | Battlefield Extra (Napoleonic) | theatre (a soundstage) | cast: a method actor and a stunt double who has never done a stunt | three French Imperial Guard extras, in costume since 5am |
 | Silver Service Waiter | hotel | cast: Gaston the head waiter, Tiffany on her first shift | three posh gala guests told the waiters are "part of the entertainment" |
-| Store Mascot | supermarket | solo | three rival mascots (a badger, a carrot, Mister Coupon) |
+| Store Mascot | supermarket | solo | three rival mascots, all in the same badger suit |
 | Focus Group | airport | squad | cabin crew defending the overhead lockers |
 | Night Guard | museum | solo | two performance artists "liberating" a vase |
 | Team-building Away Day | warehouse | squad | three facilitators doing Trust Falls, on you |
@@ -580,7 +580,7 @@ Decided (Oct 2026): all six as recommended below; players may fight alone.
 offer letter (attached to Karen's message after chapter 1's boss), the temp visitor sticker (pinned to
 temps' chests in fights: `Puppet.pin`, temps recognised by their `temp-` snapshot id) and lanyard (on
 their portraits), and connection badges at 50 / 100 / 250 / 500+ on the profile; the rug-pull card
-waits for the friend's return. Gig characters (brief Part B): the period drama's three (Napoleonic extra, method actor, stunt double) and the gala's three (head waiter, trainee waiter, posh guest) have their own art; the other seven still wear their careers' looks. **Not yet:** the desktop docked Messaging panel (Messaging is a page with two
+waits for the friend's return. Gig characters (brief Part B): the period drama's three (Napoleonic extra, method actor, stunt double) the gala's three (head waiter, trainee waiter, posh guest), the rival mascot, the cabin crew and the performance artist have their own art; the team-building and cooking-show casts still wear their careers' looks. **Not yet:** the desktop docked Messaging panel (Messaging is a page with two
 panes on wide screens); chapters 2+ and the cameos (phase 3); progress features
 (phase 2); the story art (phase 4). Old saves skip chapter 1 and get Karen's
 💵 500 restructuring bonus; their booked temps match their old line-up.

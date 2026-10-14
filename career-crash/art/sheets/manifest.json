@@ -1050,5 +1050,13 @@
    "footL": 12,
    "footR": 13
   }
+ },
+ "npc-gig-cabin-crew": {
+  "split": [
+   [
+    0,
+    0.565
+   ]
+  ]
  }
 }

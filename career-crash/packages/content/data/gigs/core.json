@@ -95,23 +95,23 @@
     "side": "solo",
     "opponents": [
       { "name": "Barry the Bargain Badger", "career": "career.clown", "persona": "npc.gig-rival-mascot", "personality": "personality.aggressive", "levelOffset": -2 },
-      { "name": "Colin the Carrot", "career": "career.mime", "persona": "npc.gig-rival-mascot", "personality": "personality.chaotic", "levelOffset": -2 },
-      { "name": "Mister Coupon", "career": "career.ice-cream-vendor", "persona": "npc.gig-rival-mascot", "personality": "personality.greedy", "levelOffset": -3 }
+      { "name": "Bernie the Budget Badger", "career": "career.mime", "persona": "npc.gig-rival-mascot", "personality": "personality.chaotic", "levelOffset": -2 },
+      { "name": "Brian the Bulk-Buy Badger", "career": "career.ice-cream-vendor", "persona": "npc.gig-rival-mascot", "personality": "personality.greedy", "levelOffset": -3 }
     ],
     "pay": { "win": 360, "loss": 140 },
     "posts": {
       "win": [
-        "Spent today as Shelfie, the fun-sized shopping trolley, at a grand reopening. 🎈 Three rival mascots tried to crash it. A carrot is now in aisle 4 and will be for some time. #Retail #BrandAmbassador #Grateful",
-        "Brand ambassador work can be tough. 🎈 Today I defended a supermarket reopening against a badger, a carrot and a coupon. Undefeated in foam. #Marketing #Resilience"
+        "Spent today as Shelfie, the fun-sized shopping trolley, at a grand reopening. 🎈 Three rival mascots tried to crash it. One of them is now in aisle 4 and will be for some time. #Retail #BrandAmbassador #Grateful",
+        "Brand ambassador work can be tough. 🎈 Today I defended a supermarket reopening against three badgers in identical suits. Nobody knows which one is Barry. Undefeated in foam. #Marketing #Resilience"
       ],
       "loss": [
-        "Today a giant carrot beat me up in front of 200 shoppers and a balloon arch. 🎈 I was dressed as a trolley. There is no lesson here. #Retail #FailForward",
+        "Today three giant badgers beat me up in front of 200 shoppers and a balloon arch. 🎈 I was dressed as a trolley. There is no lesson here. #Retail #FailForward",
         "Grand reopening update: the rival mascots won. 🎈 Barry the Bargain Badger has taken my head (the foam one) as a trophy. #BrandAmbassador #Vulnerability"
       ]
     },
     "after": {
       "win": ["Ribbon cut, rivals routed! 💵 {cash}, and the voucher is valid on any item under 💵 1."],
-      "loss": ["The carrot is our mascot now, apparently. 💵 {cash}. Please return the trolley head if you find it."]
+      "loss": ["The badgers are our mascots now, apparently. 💵 {cash}. Please return the trolley head if you find it."]
     }
   },
   {
@@ -129,9 +129,9 @@
     "decline": "I'll take the train",
     "side": "squad",
     "opponents": [
-      { "name": "Purser Davina", "career": "career.flight-attendant", "persona": "npc.gig-cabin-crew", "personality": "personality.competitive", "levelOffset": 0 },
-      { "name": "Trainee Marco", "career": "career.flight-attendant", "persona": "npc.gig-cabin-crew", "personality": "personality.helpful", "levelOffset": -1 },
-      { "name": "Trainee Precious", "career": "career.security-guard", "persona": "npc.gig-cabin-crew", "personality": "personality.aggressive", "levelOffset": -1 }
+      { "name": "Davina, Purser", "career": "career.flight-attendant", "persona": "npc.gig-cabin-crew", "personality": "personality.competitive", "levelOffset": 0 },
+      { "name": "Marisa, trainee", "career": "career.flight-attendant", "persona": "npc.gig-cabin-crew", "personality": "personality.helpful", "levelOffset": -1 },
+      { "name": "Precious, trainee", "career": "career.security-guard", "persona": "npc.gig-cabin-crew", "personality": "personality.aggressive", "levelOffset": -1 }
     ],
     "pay": { "win": 450, "loss": 170 },
     "posts": {
@@ -164,7 +164,7 @@
     "decline": "I'm not a vase person",
     "side": "solo",
     "opponents": [
-      { "name": "Ondine", "career": "career.mime", "persona": "npc.gig-performance-artist", "personality": "personality.chaotic", "levelOffset": -1 },
+      { "name": "Orson", "career": "career.mime", "persona": "npc.gig-performance-artist", "personality": "personality.chaotic", "levelOffset": -1 },
       { "name": "Felix (Untitled)", "career": "career.painter", "persona": "npc.gig-performance-artist", "personality": "personality.confident", "levelOffset": -1 }
     ],
     "pay": { "win": 420, "loss": 160 },
