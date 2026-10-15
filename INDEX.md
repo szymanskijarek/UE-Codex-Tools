@@ -119,7 +119,7 @@ and share the sim, renderer, puppets, audio and content bundle with Career Crash
 | Sheet manifests (slicer overrides, `cut`, `cutX`) | `art/sheets/manifest.json`, `art/items/`, `art/obstacles/`, `art/critters/`, `art/sheets-grid/` `manifest.json` |
 | Source folders | `sheets/` (bodies), `heads/`, `faces/`, `faces-b/`, `items/`, `obstacles/`, `arenas/`, `critters/`, `ui/` |
 | Slicer previews | `tools/art-pipeline/out/` |
-| Briefs (style template: `FX_BRIEF.md`; rule: new art starts as a brief, `PIPELINES.md` §5) | `ART_BRIEF.md` (open gaps), `CHARACTER_PROMPTS.md`, `FX_BRIEF.md`, `FX_GAPS_BRIEF.md`, `GATECRASHER_PROMPTS.md`, `PERSONNEL_FILE_PROMPTS.md`, `STORY_BRIEF.md` (story cards, temp sticker, badges, 13 gig characters; all delivered), `story/`, `sheets/BODY_SHEET_PROMPTS.md`, `cryptobro/`, `incident/`, `news/` |
+| Briefs (style template: `FX_BRIEF.md`; rule: new art starts as a brief, `PIPELINES.md` §5) | `ART_BRIEF.md` (open gaps), `CHARACTER_PROMPTS.md`, `FX_BRIEF.md`, `FX_GAPS_BRIEF.md`, `GATECRASHER_PROMPTS.md`, `PERSONNEL_FILE_PROMPTS.md`, `STYLE_TILE_BRIEF.md` (the new look's first art: 3 faces, body template, builder outfit, 3 hats; doc 13), `STORY_BRIEF.md` (story cards, temp sticker, badges, 13 gig characters; all delivered), `story/`, `sheets/BODY_SHEET_PROMPTS.md`, `cryptobro/`, `incident/`, `news/` |
 
 ## Unreal/Codex tooling (`main`)
 

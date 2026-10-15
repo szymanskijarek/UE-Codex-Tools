@@ -255,9 +255,10 @@ way to the house style.
 
 ### 3.4 Production order
 
-1. Template and style bible, then 4 test faces and 4 test outfits (builder,
-   teacher, chef, astronaut: one easy, one outlier, one hat, one helmet).
-   Owner approves the look before anything else is made.
+1. **Style tile** (brief: `career-crash/art/STYLE_TILE_BRIEF.md`): 3 faces
+   (one in all 8 frames, one with her own hijab), the body template, the
+   builder's outfit and 3 hats. Owner approves the look before anything else
+   is made; teacher, chef and astronaut outfits follow as the first wave.
 2. Face set: 16 faces as 4 × 4 grids, one sheet per frame (8 sheets).
    Spread across skin tones, ages, hair types and gender presentation; 2–3
    with their own headwear; glasses and beards as part of some faces.
