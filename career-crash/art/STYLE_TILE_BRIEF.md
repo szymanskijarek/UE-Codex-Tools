@@ -1,9 +1,9 @@
 # Style tile: brief for the image agent
 
-> **Status:** not delivered yet. This is the first art for the wardrobe and
-> art-style work (`docs/career-crash/13-wardrobe-and-art-style.md`, §3.2 and
-> phase 2). Nothing else in that plan gets drawn until the owner signs off
-> this tile.
+> **Status:** round 1 delivered (two sheets, 15 October 2026): **the look is
+> approved in principle**; the structure needs round 2 (see "Round 2" at the
+> end). This is the first art for the wardrobe and art-style work
+> (`docs/career-crash/13-wardrobe-and-art-style.md`, §3.2 and phase 2).
 
 This file is self-contained: hand it to the image agent together with the
 reference images it names.
@@ -41,11 +41,9 @@ real anatomy, each one slightly exaggerated, never cute, never grim.
 | A thin dark line around the outer silhouette only | Black lines inside the face or clothes (except glasses frames and dark features) |
 | Clear, chunky shapes and colour clusters that survive being shrunk to 48 px | Soft airbrush blur, photographic micro-detail, film grain |
 
-**Important: paint it, don't pixel it.** Deliver clean painted illustrations
-at the sizes below, **not pixel art**. The game's pipeline shrinks every image
-to its native size (faces 48 px), snaps it to the palette and adds the outline,
-which is how the reference look was made. Fake "pixel" blocks drawn at large
-size turn to mush when shrunk.
+**Painted or pixel art: both work.** Round 1 came back as clean pixel art at
+large size and still held up when shrunk to 48 px, so either is fine. What
+matters is clear shapes and colour clusters, not soft blur or photo detail.
 
 ## References to attach
 
@@ -243,3 +241,69 @@ arrives:
 - [ ] No hats on faces (Face 3's hijab excepted), no hands, no shoulders.
 - [ ] Body sheets: 12 pieces, no head piece, clear gaps, rounded joint ends.
 - [ ] Painted, not pixel art; no text, labels, ground shadow or gore.
+
+## Round 2: what round 1 got right, and what to fix
+
+Round 1 (two 1536 × 1024 sheets) nailed the **look**: realistic but likeable
+faces, warm many-tone skin, textured hair and beards, glasses and eyes that
+still read at 48 px. Keep all of that. The **structure** missed the brief:
+
+| Problem | Why it matters |
+|---|---|
+| Face 1 always wears a cap or the hard hat | Hats must be separate sprites so any hat fits any face. A face with a hat painted in can't take another one |
+| The 8 frames are neutral, smile, laugh, angry, wink, surprised, sad, and one more, all subtle | The game needs **neutral, angry, surprised, hurt, hurt 2, hurt 3, surprised 2, hat hair**, and fights need them big and comic. At 48 px, today's angry and sad barely differ from neutral |
+| Faces 1 and 2 follow the reference portraits, not the brief's people | Fine if the owner wants them in the set. Face 2 of the brief (an older woman with deep brown skin) still needs testing |
+| No body template (the bald mannequin) | The template keeps every future outfit on the same proportions |
+| Sheet 1's body pieces are fused (arms on the torso, both thighs in one piece) | Sheet 2's 13-piece exploded builder is right: **use it as the layout** for every body from now on |
+
+Smile, laugh and wink are worth keeping as extra frames (victory poses,
+photos), but they come after the game's 8.
+
+### Prompt R2-1: Face 1 without a hat, game expressions → `face-01.png`
+
+Attach round 1's sheets (as the style and the man) and both reference portraits.
+
+> [House style, may be pixel art] The SAME bearded man with glasses as the
+> attached sheets, now WITHOUT any hat: short, slightly messy dark-brown
+> hair. 1536 × 1024 transparent canvas, 4 × 2 equal 384 × 512 cells, no grid
+> lines. Same head size, 3/4 view facing right, chin on a line 85 % of the
+> way down every cell, a short neck stub only (no hoodie, no shoulders).
+> Expressions are BIG and comic, readable on a 48-pixel head, like a cartoon
+> reaction shot:
+> 1. NEUTRAL: relaxed half-smile.
+> 2. ANGRY: brows slammed into a deep V, teeth bared, nostrils flared, a vein
+>    on the temple, face flushed red.
+> 3. SURPRISED: eyebrows high, eyes wide behind the glasses, mouth a round "O".
+> 4. HURT: eyes squeezed shut, teeth clenched, head tilted away, glasses knocked crooked.
+> 5. HURT 2 ("fun pain"): one eye popping, the other squeezed, cross-eyed,
+>    tongue out, cheeks puffed.
+> 6. HURT 3 ("seeing stars"): dizzy spiral eyes, a red bump on the forehead,
+>    glasses hanging off one ear, small cartoon stars circling the head.
+> 7. SURPRISED 2 ("shock horror"): eyes popping, tiny pupils, eyebrows flying
+>    up, jaw dropped comically low, hair standing up, one sweat drop.
+> 8. HAT HAIR: like NEUTRAL, hair pressed flat so the top of the head is a
+>    smooth dome for a cap or helmet to sit on.
+
+### Prompt R2-2: Faces 2 and 3, the same 8 frames → `face-02.png`, `face-03.png`
+
+Same prompt as R2-1, once per face, with the round 1 face attached:
+**Face 2** is the round 1 young man with brown shaggy hair (or the brief's
+older woman with deep brown skin, if the owner prefers to test her);
+**Face 3** is the round 1 woman in the purple hijab. Face 3 skips HAT HAIR
+(her hijab stays; a hard hat goes over it): draw her HURT 3 a second time,
+with stars only and no bump, as frame 8.
+
+### Prompt R2-3: the body template → `mannequin.png`
+
+Attach round 1's sheet 2 (the exploded builder).
+
+> [House style, may be pixel art] The attached exploded builder's exact
+> layout, proportions and 13 pieces, but as a plain body template: a bald
+> featureless head in skin tone, a plain light-grey T-shirt, mid-grey knee
+> shorts, simple grey shoes, bare forearms, hands without gloves. Same
+> pieces in the same places with the same gaps: head, torso, pelvis, two upper
+> arms, two forearms with hands, two thighs, two shins, two shoes. No belt,
+> no tools, no knee pads.
+
+The builder outfit (round 1, sheet 2) and the hats (sheet 2's four: hard
+hat, beanie, cap, chef's toque) are good as they are and don't need redoing.
