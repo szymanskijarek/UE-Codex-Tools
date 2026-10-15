@@ -21,6 +21,7 @@ can build the game incrementally without inventing architecture as it goes.
 | 10 | [Broken News](10-broken-news.md) | careercrash.org/news: a weekly news-satire minigame, each opened by the same studio segment (two anchors, one American, one British, whose desk argument spirals into a brawl); the episode script format and its checks, the minigame contract, the weekly pipeline and the content rules for real news. Block-out. |
 | 11 | [Broken News: the cast](11-broken-news-cast.md) | Who the people of BSN are: each one's flaw and why we love them, voices and sample lines, the relationship map, which character leads which story, and the art and mechanics the new cast needs. |
 | 12 | [Career story and Messages](12-career-story.md) | Proposal: the career mode's story told through LinkedIn-style messages (a friend introduces you, a recruiter unlocks Easy Apply, 2v2 with the friend, then temps and hires), 1–3 opponents per stage, progress features, cameos from the other shows, and the phased implementation plan. |
+| 13 | [Wardrobe and art style](13-wardrobe-and-art-style.md) | Proposal: a fixed face per fighter, unlockable outfits and headwear instead of a new sprite per career, rules for headwear and gendered clothing, and the art-style reset (style bible, body template, normalising tools) done in the same art pass; phased plan and owner decisions. |
 
 ## Precedence
 
