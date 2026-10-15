@@ -48,8 +48,9 @@ anyway (§3.1), so restyling them first would pay for the same art twice.
 | One woman's face, many jobs | Most female careers share the same brown-bun face | Feels like a single character in many costumes, the opposite of what we want |
 
 Most of the cast (builder, firefighter, accountant, chef, police officer and
-others) already agree with each other. That majority is the target; the
-outliers get pulled towards it.
+others) already agree with each other, but the owner wants a more
+interesting look than any of today's art, so everything moves to the new
+target in §3.2.
 
 ---
 
@@ -94,8 +95,8 @@ Rules that keep it fair to every player:
 
 - **Every outfit fits every face.** No outfit is locked by face, body or
   pronoun.
-- **One body template** at launch: the current chunky chibi build, neutral
-  enough for any face. A second build (broad/stocky) is optional later, and
+- **One body template** at launch (§3.2: head : body 1 : 2), neutral enough
+  for any face. A second build (broad/stocky) is optional later, and
   doubles outfit art, so only if players ask for it.
 - **Uniforms are drawn unisex by default:** trousers, scrubs, overalls,
   jackets. Careers whose current outfit is a skirt or dress (teacher, flight
@@ -166,27 +167,76 @@ Wardrobe the first time they load.
 Cost of a **new career** afterwards: one outfit sheet and, at most, one hat.
 Today it is one body sheet plus seven heads plus manifest fixes.
 
-### 3.2 The style bible
+### 3.2 The target look: "VGA caricature"
 
-One file, `career-crash/art/STYLE.md`, attached to every character brief from
-now on (it replaces the house-style preambles copied around today's briefs):
+The owner's references are two low-resolution, realistic-leaning portraits:
+a pixelated photo portrait (front view, ~44 px wide, rich skin tones, beard
+and wool texture made of pixel noise, black lines only on the glasses) and an
+early-90s RPG/adventure dialogue portrait (3/4 view, ~32 px, a 1 px black
+silhouette, warm painted shading, no inner outlines, plus a 16 px icon of the
+same head). Both look **painted or photographed first, then reduced to
+pixels**. Both are more interesting than today's flat chibi, and both would
+turn grim or blurry in a comedy brawler if copied straight.
 
-- **Target look:** the majority style (builder, firefighter, accountant):
-  chunky pixel art, thick `#1b1f2a` outline, flat colour with one shade tone,
-  light from the top left, head : body about 1 : 1.4.
-- **Native resolution:** the figure is drawn on a fixed pixel grid (e.g. 96 px
-  tall) and only scaled up by whole numbers. This kills blur and density drift.
-- **Master palette:** ~40 colours in named ramps (skin ×6, hair ×6, cloth ×8,
-  metal, wood, accent). Fixed skin and hair ramps allow recolouring
-  (more skin tones and hair colours per face for free) and the senior-colour
-  outfit variants.
-- **The template:** `art/template/mannequin.png`, a bald, neutral figure in
-  the standard pose, and its 13 pieces at **fixed positions on a fixed grid**.
-  Outfits are briefed as "dress this mannequin". Fixed boxes mean the slicer
-  reads cells instead of guessing blobs, so the `cut`/`split`/`cutX` fixes go
-  away for new art.
-- **Anchor sheets:** a contact sheet of approved art (template, 4 faces, 4
-  outfits), attached to every prompt so each batch copies the same reference.
+The target keeps their surface and adds the comedy back:
+
+| From the references (more interesting) | Kept from today (accessible and fun) |
+|---|---|
+| Real skull and face anatomy, 3/4 view facing right | Each face exaggerates **one signature feature** (nose, brows, jaw, ears, hair) by 20–30 % |
+| Many-step, hue-shifted skin (shadows towards red-violet, light towards yellow) | Big readable eyes: always a coloured iris pixel and a white highlight; brows 2 px thick, carrying the emotion |
+| Pixel noise as texture on hair, beards, wool, tweed | Flat, clean colour on clothes so outfits read at fight size |
+| 1 px near-black outer silhouette, no inner black lines (except glasses and dark features) | Saturated accent colours for uniforms and hats (hi-vis, chef white, police blue) |
+| Warm key light top left, cool rim light from the right | Big head: head : body about **1 : 2** (today 1 : 1.4), so faces stay the star in a fight |
+
+**References for the image agent and for review:**
+
+| Reference | Take from it |
+|---|---|
+| *Ultima VII* and *Darklands* character portraits (1992) | The second sample's look: painted-then-pixelled, 3/4 view, silhouette outline |
+| *Gabriel Knight: Sins of the Fathers* and *Quest for Glory IV* dialogue portraits (1993–94) | Realistic faces with strong, readable expressions |
+| *Indiana Jones and the Fate of Atlantis*, *The Secret of Monkey Island 2* close-ups (1991–92) | Rich VGA colour, hue-shifted skin, light dithering on texture only |
+| Wadjet Eye Games: *Blackwell*, *Unavowed* portraits | The same style made by hand today, at our sizes |
+| *Thimbleweed Park* | Tone: comedic, caricatured, but every character a real person; body proportions |
+| *Papers, Please* | Low-res realistic faces that are still funny, and faces built from parts, much like our face set |
+| *Day of the Tentacle* | How far caricature can go before it stops being a person (don't go past it) |
+
+**Sizes.** Faces are drawn at **48 × 48 px native** (today's 64 px atlas cells
+hold them with room for hats). Portraits in menus, the personnel file and
+fight photos are the same art at ×2 or ×3, nearest-neighbour. Chips and icons
+are an automatic 24 px reduction. No second portrait set.
+
+**How the look is captured, so it holds across many sessions:**
+
+1. **Style tile first.** One face in all 8 frames, one outfit and one hat,
+   iterated with the image agent from the references until the owner signs it
+   off. It's the anchor attached to every later prompt.
+2. **Palette from the tile.** The signed-off tile's colours become the master
+   palette (`art/template/palette.json`, about 64 colours in named ramps: skin
+   ×6, hair ×6, cloth, metal, accents). Accent ramps are reserved by hand: a
+   palette worked out automatically drops them (see the test below).
+3. **Paint big, pixelate in the pipeline.** The image agent paints at about
+   8× size (384 px heads) in the target style; `normalise` reduces to 48 px,
+   snaps to the palette and draws the silhouette outline. The look comes from
+   a deterministic tool, not from prompt luck, which is how the references
+   were made too.
+4. **The rules in writing:** `career-crash/art/STYLE.md` (this section plus the
+   template and palette), attached to every character brief; it replaces the
+   house-style preambles copied around today's briefs.
+
+**First test (October 2026).** Seven of today's smooth heads through a quick
+`normalise` prototype (44 px, a 40-colour palette taken from the heads
+themselves, 1 px outline). The pixel texture already looks like the
+references and the two face families stop looking like two games. But the
+automatic palette washed out the accents (the fortune teller's purple went
+grey) and the cute 3-pixel eyes stopped reading. So the palette must be
+built by hand, and the source art must be drawn in the target proportions
+(real eyes and brows, not chibi), not just shrunk.
+
+**Bodies and the template.** `art/template/mannequin.png`: a bald, neutral
+figure at 1 : 2, in the standard pose, its 13 pieces at **fixed positions on a
+fixed grid**. Outfits are briefed as "dress this mannequin". Fixed boxes mean
+the slicer reads cells instead of guessing blobs, so the `cut`/`split`/`cutX`
+fixes go away for new art.
 
 ### 3.3 Tooling (makes it mechanical, not taste-by-taste)
 
@@ -255,16 +305,13 @@ Technical notes:
 
 ---
 
-## 5. Decisions for the owner
+## 5. Owner decisions (15 October 2026)
 
-1. **Target style:** the chunky pixel look of the first 36 faces and the
-   builder (recommended: reads best at fight size, and palette snapping works
-   best on it), or the smoother look of the newer 30?
-2. **How many faces at launch:** 12, **16** (recommended) or 24? Each face is 8
-   heads of art.
-3. **Faces with their own headwear** (hijab, turban, headscarf…): include at
-   launch (recommended), or later?
-4. **Changing your face later:** free in the Wardrobe (recommended), or a
-   paid "makeover" as a cash sink?
-5. **Body builds:** one at launch (recommended) or two?
-6. **Retention measuring:** none, or the anonymous daily counter?
+1. **Look:** neither of today's two styles. A new "VGA caricature" look from
+   the owner's reference portraits (§3.2).
+2. **Faces at launch:** 16.
+3. **Faces with their own headwear:** yes, at launch.
+4. **Changing your face later:** free for now.
+5. **Body builds:** one at launch.
+6. **Measuring retention:** not now; in the backlog (`WORKFLOW.md`, Next
+   milestones).

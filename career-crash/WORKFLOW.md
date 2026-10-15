@@ -291,3 +291,7 @@ session gets the Cloudflare plugin.
 - **Online game:** API code, config and deploy workflow are ready and tested locally,
   including cross-origin; follow `PIPELINES.md` §7.1 to launch. Run `/security-review` first.
 - **Settings checklist** above.
+- **Backlog: measuring retention.** The site has no tracking, so there's no
+  retention number. Idea: an anonymous, cookie-free daily "a save was opened"
+  counter in the API worker (`docs/career-crash/13-wardrobe-and-art-style.md` §4).
+  Not wanted yet.

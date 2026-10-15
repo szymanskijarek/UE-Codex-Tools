@@ -49,7 +49,7 @@ and share the sim, renderer, puppets, audio and content bundle with Career Crash
 | `06-personnel-files-and-garden-leave.md` | §2 staff/Garden Leave, §3 HR notes (conditions, budget), §4 reveal and scowl |
 | `07-gatecrashers.md` | §2 when, §3 the 24 sets, §4 strength, §5 sim, §7 posts, §8 content rules, §10 Sandbox |
 | `12-career-story.md` | **Built** (§12 as built). Story mode told through a Messages tab: §2 the first session beat by beat, §3 Messages UI, §4 story beats as data (triggers, effects, save), §5 1–3 opponents per stage, §6 friend / paid weak temps / hiring, §7 progress features, §8 cameos from Crypto Bros, Diplomatic Incident and Broken News, §8.2 invite-only gigs, **§9 implementation plan** (phases 1–4), §10 old saves, §11 owner decisions, §12 as built |
-| `13-wardrobe-and-art-style.md` | **Proposal.** §1 how fighters are drawn now + style audit, §2 face/outfit/headwear layers (2.1 headwear rules, 2.2 gendered clothing, 2.3 Wardrobe and unlocks), §3 art-style reset (3.2 style bible, 3.3 `normalise`/`lineup`/`stylecheck` tools, 3.4 production order), §4 phases, §5 owner decisions |
+| `13-wardrobe-and-art-style.md` | **Proposal.** §1 how fighters are drawn now + style audit, §2 face/outfit/headwear layers (2.1 headwear rules, 2.2 gendered clothing, 2.3 Wardrobe and unlocks), §3 art-style reset (3.2 target look "VGA caricature", references, style tile and palette, 3.3 `normalise`/`lineup`/`stylecheck` tools, 3.4 production order), §4 phases, §5 owner decisions |
 
 ## Crypto Bros
 
