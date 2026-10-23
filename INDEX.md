@@ -10,6 +10,9 @@ Paths are from the repo root. Everything under `career-crash/` and
 
 **Keep it current:** see "Keeping this index current" in `CLAUDE.md`.
 
+**New to the repo?** `HANDOVER.md` is the one-page orientation: products, access,
+infrastructure, deploys, health checks and open work.
+
 ## Projects at a glance
 
 | Project | What | Branch | Code | Design | Live |
@@ -131,10 +134,11 @@ and share the sim, renderer, puppets, audio and content bundle with Career Crash
 | Servers | `Tools/blueprint-mcp/`, `Tools/ue-llm-mcp-bridge/`, `Tools/unreal-analyzer-mcp/`, `Tools/unreal/python/` |
 | Scripts | `scripts/codex/` |
 
-## Open branches with unmerged work (as of 9 Oct 2026)
+## Open branches with unmerged work (as of 23 Oct 2026)
 
 | Branch | What |
 |---|---|
+| `claude/gifted-dirac-ts9syc` | Doc 13 wardrobe and art style, style-tile brief (4 commits) |
 | `claude/parking-warden-game-3eucn3` | Fine Print (3 commits) |
 | `ccr-cb65c9d3-ha0iml` | "Quieter speech bubbles on phones" (1 commit) |
 | `ccr-0ed8c867-87djp3` | "Routing notes on the game branch too; refresh the art to-do list" (1 commit) |
