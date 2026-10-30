@@ -28,6 +28,7 @@ art/** ──art-pipeline──▶ apps/client/src/replay/{puppets,faces,items,o
 | [Art: obstacles](#54-items-and-obstacles) | `pnpm --filter @cc/art-pipeline items obstacles` | `art/obstacles/` | `apps/client/src/replay/obstacles/` |
 | [Art: arenas](#55-arena-backdrops) | `pnpm --filter @cc/art-pipeline arenas` | `art/arenas/` | `apps/client/src/replay/arenas/` |
 | [Art prompts](#56-art-prompts) | `pnpm art:prompts` | content bundle | `tools/art-pipeline/out/prompts.json` |
+| Art: pixel forge | `pnpm --filter @cc/art-pipeline pixel [name]` | `art/pixel/*.json` | `art/pixel/*.png` (sheets for the slicers), previews in `tools/art-pipeline/out/pixel/`; how-to: skill `pixel-forge` |
 | [Client (hosted)](#61-hosted-build) | `pnpm --filter @cc/client build` | client + bundle + art | `apps/client/dist/` |
 | [Client (single file)](#62-single-file-build) | `pnpm --filter @cc/client build:standalone` | same | `apps/client/dist-standalone/` |
 | [Publish to Claude](#63-publishing-the-single-file-as-a-claude-artifact) | Artifact tool | `career-crash.artifact.html` | the Career Crash artifact link |

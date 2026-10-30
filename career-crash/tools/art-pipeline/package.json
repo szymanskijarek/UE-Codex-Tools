@@ -11,7 +11,8 @@
     "puppets-grid": "tsx src/puppets-grid.ts",
     "arenas": "tsx src/arenas.ts",
     "critters": "tsx src/critters.ts",
-    "story": "tsx src/story.ts"
+    "story": "tsx src/story.ts",
+    "pixel": "tsx src/pixel.ts"
   },
   "dependencies": {
     "@cc/content": "workspace:*",
