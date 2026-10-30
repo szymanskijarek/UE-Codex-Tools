@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 200">
+  <!-- far wing -->
+  <path d="M100 96 Q84 50 40 14 Q70 18 96 34 Q118 50 134 88 Z" fill="#62391f"/>
+  <path d="M40 14 Q52 30 58 40 L66 34 Q56 22 40 14 Z" fill="#4e2c16"/>
+  <!-- tail -->
+  <path d="M70 106 L10 86 Q4 100 14 108 L6 118 Q14 130 30 126 L74 126 Z" fill="#7a4a28"/>
+  <path d="M14 108 L60 112 M30 126 L64 118" stroke="#4e2c16" stroke-width="5" fill="none"/>
+  <!-- body -->
+  <path d="M60 104 Q80 78 130 80 Q180 84 196 108 Q190 136 150 144 Q100 150 70 132 Z" fill="#9a6538"/>
+  <path d="M190 116 Q180 140 150 144 Q104 150 74 134 Q120 140 150 134 Q176 128 190 116 Z" fill="#6e4224"/>
+  <!-- belly -->
+  <path d="M110 128 Q150 120 192 110 Q188 134 152 142 Q124 146 110 128 Z" fill="#f3ead8"/>
+  <!-- tie streaming back -->
+  <path d="M176 112 L186 110 L190 118 L180 122 Z" fill="#d8383a"/>
+  <path d="M178 118 L120 150 L100 146 L108 136 L176 112 Z" fill="#d8383a"/>
+  <path d="M176 118 L120 150 L100 146 L118 144 Z" fill="#9c2427"/>
+  <!-- near wing -->
+  <path d="M96 96 Q118 40 150 6 Q176 0 190 8 Q170 30 160 56 Q150 82 140 100 Z" fill="#9a6538"/>
+  <path d="M108 80 Q126 46 150 20 Q140 50 128 76 Z" fill="#c08a55"/>
+  <path d="M150 6 Q176 0 190 8 Q178 14 170 24 Q162 12 150 6 Z M170 24 Q178 14 190 8 Q186 24 176 38 Z" fill="#4e2c16"/>
+  <path d="M120 88 Q136 62 156 40 M132 94 Q146 70 166 48" stroke="#62391f" stroke-width="6" fill="none" stroke-linecap="round"/>
+  <!-- head -->
+  <path d="M176 92 Q180 64 210 62 Q238 62 244 86 Q246 106 228 114 Q204 122 186 114 Q174 106 176 92 Z" fill="#f6f1e6"/>
+  <path d="M240 92 Q238 110 222 116 Q204 120 188 114 Q214 112 228 104 Q238 98 240 92 Z" fill="#cbbfa6"/>
+  <!-- beak -->
+  <path d="M234 78 Q250 78 254 92 Q254 104 246 110 Q244 100 238 98 L228 100 Q226 88 234 78 Z" fill="#f4b62e"/>
+  <path d="M246 110 Q254 104 254 92 Q256 104 250 114 Z" fill="#1b1f2a"/>
+  <!-- eye + brow -->
+  <circle cx="220" cy="82" r="7" fill="#f4b62e"/>
+  <circle cx="222" cy="83" r="4" fill="#1b1f2a"/>
+  <path d="M202 68 L236 76 L233 83 L205 75 Z" fill="#1b1f2a"/>
+  <!-- talons forward -->
+  <path d="M150 140 L176 166 L184 160 L160 136 Z M130 144 L150 176 L158 172 L142 142 Z" fill="#f4b62e"/>
+  <path d="M176 166 L194 168 L192 176 L172 172 Z M150 176 L168 180 L164 188 L146 182 Z" fill="#f4b62e"/>
+  <path d="M194 168 L200 174 M192 176 L196 182 M168 180 L172 188" stroke="#1b1f2a" stroke-width="4"/>
+</svg>

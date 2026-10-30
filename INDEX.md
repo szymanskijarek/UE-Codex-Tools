@@ -49,7 +49,7 @@ and share the sim, renderer, puppets, audio and content bundle with Career Crash
 | `06-personnel-files-and-garden-leave.md` | §2 staff/Garden Leave, §3 HR notes (conditions, budget), §4 reveal and scowl |
 | `07-gatecrashers.md` | §2 when, §3 the 24 sets, §4 strength, §5 sim, §7 posts, §8 content rules, §10 Sandbox |
 | `12-career-story.md` | **Built** (§12 as built). Story mode told through a Messages tab: §2 the first session beat by beat, §3 Messages UI, §4 story beats as data (triggers, effects, save), §5 1–3 opponents per stage, §6 friend / paid weak temps / hiring, §7 progress features, §8 cameos from Crypto Bros, Diplomatic Incident and Broken News, §8.2 invite-only gigs, **§9 implementation plan** (phases 1–4), §10 old saves, §11 owner decisions, §12 as built |
-| `13-hostile-takeover.md` | **Proposal.** US stocks floor + draft-a-fund: §3 trading-day clock, §4 Big Board / My Fund vs The Index, §5 data → power, draft rules, diversification, Hedge, §7 sector cast, **§8 pixel forge findings**, §9 content rules, §10 data feed, **§11 owner decisions**, §12 phases and scene events |
+| `13-regards-wall-street.md` | **Proposal, owner decisions taken (§11).** Regards, Wall Street (`/wallstreet`): US stocks floor + draft-a-fund: §3 trading-day clock, §4 Big Board / My Fund vs The Index, §5 data → power, draft rules, diversification, Hedge, §7 sector cast, **§8 pixel forge findings**, §9 content rules, §10 data feed, **§11 owner decisions**, §12 phases and scene events |
 
 ## Crypto Bros
 
@@ -120,7 +120,7 @@ and share the sim, renderer, puppets, audio and content bundle with Career Crash
 | Source folders | `sheets/` (bodies), `heads/`, `faces/`, `faces-b/`, `items/`, `obstacles/`, `arenas/`, `critters/`, `ui/` |
 | Slicer previews | `tools/art-pipeline/out/` |
 | Briefs (style template: `FX_BRIEF.md`; rule: new art starts as a brief, `PIPELINES.md` §5) | `ART_BRIEF.md` (open gaps), `CHARACTER_PROMPTS.md`, `FX_BRIEF.md`, `FX_GAPS_BRIEF.md`, `GATECRASHER_PROMPTS.md`, `PERSONNEL_FILE_PROMPTS.md`, `STORY_BRIEF.md` (story cards, temp sticker, badges, 13 gig characters; all delivered), `story/`, `sheets/BODY_SHEET_PROMPTS.md`, `cryptobro/`, `incident/`, `news/` |
-| Pixel forge (sprites drawn as code, no imagegen) | specs and sheets `art/pixel/*.json`/`.png`, forge `tools/art-pipeline/src/pixel.ts`, skill `.claude/skills/pixel-forge/SKILL.md`, previews `tools/art-pipeline/out/pixel/`; findings 13 §8 |
+| Pixel forge (sprites drawn as code, no imagegen) | specs and sheets `art/pixel/*.json`/`.png`, forge `tools/art-pipeline/src/pixel.ts`, skill `.claude/skills/pixel-forge/SKILL.md`, previews `tools/art-pipeline/out/pixel/`; findings and scope 13 §8 (flat UI art only; creatures stay painted) |
 
 ## Unreal/Codex tooling (`main`)
 

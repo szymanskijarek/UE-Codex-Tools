@@ -1,7 +1,8 @@
-# 13 — Hostile Takeover (design v0.1, proposal)
+# 13 — Regards, Wall Street (design v0.2, proposal)
 
-Status: **proposal, nothing built** except the pixel forge (§8). Working name;
-alternatives in §11. A third market floor at **careercrash.org/takeover**:
+Status: **proposal, nothing built** except the pixel forge (§8). Owner
+decisions taken 30 Oct 2026 (§11). A third market floor at
+**careercrash.org/wallstreet**, signed off like every corporate email:
 US stocks as office workers, brawling to the rhythm of the trading day. It
 borrows Crypto Bros' engine (08: snapshot → score → endless floor) and adds
 the thing Crypto Bros never had: **you pick the team**. You draft a five-stock
@@ -81,7 +82,7 @@ and rarely lose (they're "the market", so by construction they score 0;
 - The fund's fight is a 5v5 team fight per candle (the existing team mode),
   not endless free-for-all: 13 rounds a day, the day's result is rounds won.
   Each round's power comes from that half hour's data.
-- **Fund vs Fund**: share a link (`/takeover/#f=NVDA.KO.XOM.WMT.JNJ~Synergy+Capital`)
+- **Fund vs Fund**: share a link (`/wallstreet/#f=NVDA.KO.XOM.WMT.JNJ~Synergy+Capital`)
   and the friend sees your fund fight theirs, today, deterministically, with
   no server. A weekly league with stored funds is phase 4 (§12).
 
@@ -223,15 +224,15 @@ fictional employee archetype of the product category, never the founder or
 CEO** (no turtlenecks, no leather jackets, no rockets): the warehouse picker,
 the data-centre tech, the search-results intern.
 
-### 7.3 Company props (the pixel forge's job)
+### 7.3 Company props
 
 Each company carries one held prop that says what it does, generically: a
 graphics card, a cardboard box, a phone, a spreadsheet laptop, a charging
 cable, a VR headset, a magnifying glass, a gold bar, a pill bottle, a
 shopping trolley, a hard drive, a burger. **Generic objects only** (no
 product shapes that are trade dress, no logos). About 40 props cover the top
-100 companies, and they're small, 32×32: exactly what the forge draws well
-(§8).
+100 companies. Painted by the image agent on item sheets (§8), like every
+other prop.
 
 ## 8. Art without the image generator: the pixel forge
 
@@ -240,26 +241,17 @@ imagegen. Findings (30 Oct 2026):
 
 | Option | What | Verdict |
 |---|---|---|
-| **SpriteCook** (Claude plugin directory, community) | Sprite, UI kit and animation *generation* via its own API, with skills and an MCP server | Still an image generator, external account and cost, its own style. Doesn't remove the round trip. |
-| **pixel-plugin / pixel-mcp** (willibrandon), **aseprite-mcp** | Claude drives Aseprite via MCP | Needs the Aseprite desktop app (paid), not in our cloud container. Good for a human artist's machine. |
-| **eachlabs game-asset-generation** | Skill over an AI image API | Imagegen again. |
-| **Code-only sprite arrays** (e.g. opusgamelabs game-assets) | Sprites as 2D arrays in code | The right idea, but generic; doesn't know our outline, shading or sheet layout. |
-| **Our own forge** (built: `tools/art-pipeline/src/pixel.ts` + skill `pixel-forge`) | Sprite = JSON of shapes in palette keys; the forge adds our shade tone and the `#1b1f2a` outline, scales nearest-neighbour into the critter/item sheet layout | **Recommended.** No cost, no network, deterministic, diffs are reviewable, matches the house look, any session can use it. |
+| **SpriteCook** (Claude plugin directory, community) | Sprite, UI kit and animation *generation* via its own API, with skills and an MCP server | An image generator with its own account, cost and style. Doesn't remove the round trip. |
+| **pixel-plugin / pixel-mcp** (willibrandon), **aseprite-mcp**; LibreSprite (free Aseprite fork) | Claude drives Aseprite via MCP | A canvas, not an artist: Claude still places every pixel, so the quality is the same as drawing in code. Needs a desktop app outside the cloud container. |
+| **eachlabs game-asset-generation**, PixelLab, Retro Diffusion | AI pixel-art generators | Imagegen again, mostly paid. |
+| **Our forge, shape ops** (`tools/art-pipeline/src/pixel.ts`) | Sprite = rectangles, ellipses and polygons on a 64 px grid; the forge adds the shade tone and outline | **Owner verdict: pretty bad** (stiff, blocky). |
+| **Our forge, SVG frames** | Drawn as vector curves, rendered to the grid, every pixel snapped to the drawing's colours, outlined | Clearly better (real beak hooks, brows, curved wings), still below the painted art: less detail, muddy small shapes, stiff poses. |
 
-**Proof** (both built and rendered in this change): `art/pixel/rate-hawk`
-(the Fed's Rate Hawk in a red tie, standing and swooping, a §12.1 scene-event
-critter) and `art/pixel/golden-parachute` (a prop). Next to the painted
-poodle and goose at in-game size they sit in the same world; up close
-they're simpler (flatter, fewer pixels of detail).
-
-**Split of work:**
-
-| Painted (image agent, as now) | Forged (code, by Claude) |
-|---|---|
-| The 11 sector body sheets + heads (the rig needs separated limbs and expressive faces) | ~40 company props, 2-pose critters (hawk, dove, dead cat, bull/bear variants), FX frames (ticker tape, confetti, the SPLIT flash), UI icons (sector chips, badges), the trading-floor small furniture |
-| The arena backdrop (*The Exchange*) | Badges for the season (§5.5) |
-
-That cuts this project's imagegen briefs from ~70 images to ~17.
+**Decision:** creatures, people, props and backdrops stay with the image
+agent (briefs as today). The forge (SVG first, skill `pixel-forge`) is kept
+for flat, geometric pieces where it holds up and saves a round trip: sector
+chips, badges (§5.5), ticker plates, UI icons, simple FX frames. The Rate
+Hawk in `art/pixel/` is the ceiling test, not shipped art.
 
 ## 9. Content rules (hard)
 
@@ -303,33 +295,50 @@ Cloudflare Cron, every 30 min in market hours (+ 9:31 and 16:01)
        4. earnings calendar once a day (pre-market)
 ```
 
-- **Provider:** needs batch quotes (100 symbols in one request) and terms
-  that allow showing derived % changes on a free site. Candidates to verify
-  before phase 2: **Alpaca market data** (free plan, IEX feed, multi-symbol
-  snapshots), **Finnhub** (free key, per-symbol, 60/min), **Twelve Data**
-  (free 800/day). Free tiers are delayed and some forbid commercial
-  redistribution; check the terms, not the blog posts.
+- **Provider: Alpaca Market Data, Basic (free) plan** (decided 30 Oct 2026).
+  A free Alpaca account (paper trading, no money in it) gives an API key and
+  secret (Worker secrets). One request, `GET /v2/stocks/snapshots?symbols=…`
+  for all 101 symbols, returns each one's latest trade, today's daily bar
+  (the open) and yesterday's (the gap), so a 30-min tick is **one call**,
+  well inside the 200 calls/min limit and Workers' 50-subrequest cap on the
+  free plan. Prices are real-time from the IEX exchange: IEX handles a small
+  share of US volume, so a price can be a few cents off the consolidated
+  tape, which is irrelevant at the % changes the floor uses; no delay at all.
+  Daily facts (beta, dividend yield, cap tier) come from the weekly script
+  (§10.1); earnings dates from Finnhub's free calendar (one call a day).
+- **Fallback: Finnhub free** (key, 60 calls/min, one call per symbol): 101
+  calls a tick, so split over three cron invocations a minute apart to stay
+  under the 50-subrequest cap.
+- **Before launch:** read Alpaca's market data terms for showing derived
+  numbers on a public, non-commercial page (§11).
 - Showing 15-min-delayed prices is fine: the floor runs a candle behind
   anyway, and "Prices delayed" is in the footer.
 - Failures: as 08 §10 (carry on with the last snapshot, show "delayed").
 
-## 11. Owner decisions needed
+## 11. Owner decisions
 
-1. **Name.** *Hostile Takeover* (`/takeover`), or *Bull Pit*, *Closing Bell*,
-   *The Big Board*, *Synergy*.
-2. **Tickers only, or company names too?** Tickers only is safer
-   (proposed).
-3. **Universe:** S&P 100 (proposed) or the top 50.
-4. **Candle length:** 30 min (proposed; 13 a day) or hourly (7).
-5. **Data provider** after a terms check (§10.2).
-6. **Accounts:** none in v1 (local fund + share links, proposed); a weekly
-   league with stored funds later needs the API worker's D1.
+Taken 30 Oct 2026:
+
+| Question | Decision |
+|---|---|
+| Name | **Regards, Wall Street** at `/wallstreet` |
+| Company names? | **Tickers only** |
+| Universe | **S&P 100** (+ SPY as the benchmark) |
+| Candle / round length | **30 min**, 13 a trading day |
+| Data | **Best free option, a small delay is fine** → Alpaca Basic (§10.2), Finnhub as fallback |
+| Art | Imagegen for anything with a face; the forge only for flat UI pieces (§8) |
+
+Still open:
+
+- **Alpaca's terms** for a public page (checked when the account is made).
+- **Accounts:** none in v1 (local fund + share links, proposed); a weekly
+  league with stored funds later needs the API worker's D1.
 
 ## 12. Phases
 
 1. **Big Board on sample data.** `markets/stocks.json` (10 megacaps on
    sector archetypes borrowing career art, like Crypto Bros phase 1), the
-   trading-day clock with open/closed states, page `/takeover`. Screenshots.
+   trading-day clock with open/closed states, page `/wallstreet`. Screenshots.
 2. **Live feed.** Provider chosen, stocks adapter in `apps/markets`, KV,
    Rewind, `pnpm balance --stocks` on recorded days (target: the day's best
    relative performer of the ten wins the day 60–75%).
@@ -339,14 +348,14 @@ Cloudflare Cron, every 30 min in market hours (+ 9:31 and 16:01)
 4. **Life on the floor.** Scene events (§12.1), earnings calls, lunch and
    power hour, the Weekend Retreat, badges; weekly league if wanted.
 5. **Art.** Painted: 11 sector bodies + heads, the Index Fund, the Short
-   Seller, the Specialist, *The Exchange* backdrop. Forged: props, critters,
-   FX, icons (§8).
+   Seller, the Specialist, *The Exchange* backdrop. Painted too: company props, critters (hawk, dove,
+   cat), FX. Forged: sector chips, badges, ticker plates (§8).
 
 ### 12.1 Scene events
 
 | Event | When | What happens |
 |---|---|---|
-| **Rate Hawk** | Market down; Fed days always | A hawk in a tie swoops on the floor's leader: knockdown, `slowed` (forged sprite, built) |
+| **Rate Hawk** | Market down; Fed days always | A hawk in a tie swoops on the floor's leader: knockdown, `slowed` (painted critter; brief needed) |
 | **Rate Dove** | Market up; Fed days | A dove drops olive branches: small heals for everyone |
 | **Stock Split** ★ | A fighter's stock is up big, rare | The fighter splits into two half-size copies with half the health each, for the rest of the candle |
 | **Buyback** | A fighter's stock is up | They pick up their own coins: heal |
@@ -354,8 +363,8 @@ Cloudflare Cron, every 30 min in market hours (+ 9:31 and 16:01)
 | **Short Squeeze** | The day's worst performer turns sharply | The Short Seller is swarmed; the squeezed fighter goes `pumped` |
 | **Sector Rout** | A sector is the day's worst | A wave hits every fighter of that sector (§5.3) |
 | **Activist Investor** | Rare | A gatecrasher in a bow tie takes over one fighter's AI for a candle ("I have some notes") |
-| **Hostile Takeover** ★ | Rare, the page's namesake | Whoever lands the KO on a fighter *acquires* them: the KO'd fighter swaps teams for the rest of the candle, in a new lanyard |
-| **Golden Parachute** | A megacap is KO'd | They float gently off the floor under a gold parachute instead of ragdolling (forged sprite, built) |
+| **Hostile Takeover** ★ | Rare | Whoever lands the KO on a fighter *acquires* them: the KO'd fighter swaps teams for the rest of the candle, in a new lanyard |
+| **Golden Parachute** | A megacap is KO'd | They float gently off the floor under a gold parachute instead of ragdolling (painted prop; brief needed) |
 | **Dead Cat Bounce** | A stock that fell all morning turns up | A cat bounces across the floor (strictly cartoon, it lands on its feet and leaves offended) |
 | **Circuit Breaker (Level 1)** | S&P down 7% (real rule, very rare) | Everything stops for a 15-s "TRADING HALTED" beat; klaxon; the Specialist faints |
 | **The Regulators** | ~1 day in 5 | Reuse Crypto Bros' gatecrasher set (08 §15) |
@@ -366,10 +375,10 @@ Cloudflare Cron, every 30 min in market hours (+ 9:31 and 16:01)
 
 | Piece | Where |
 |---|---|
-| Page | `apps/client/takeover/index.html`, `apps/client/src/takeover/` (Floor, Draft, Report, `fund.ts` share-link codec) |
+| Page | `apps/client/wallstreet/index.html`, `apps/client/src/wallstreet/` (Floor, Draft, Report, `fund.ts` share-link codec) |
 | Scoring, fund, day clock, NYSE calendar | `packages/game-rules/src/stocks.ts` (reuses `markets.ts`) |
 | Content | `packages/content/data/markets/stocks.json` (universe, sectors, power map, events), `abilities/stocks.json`, `arenas/exchange.json`, `synergies` (Balanced Portfolio) |
 | Sim | Team fights as now; endless floor as 08; ★ concepts as needed |
 | Feed | `apps/markets` stocks adapter |
 | Balance | `tools/balance/src/stocks.ts` |
-| Art | painted: `career-crash/art/takeover/` briefs; forged: `career-crash/art/pixel/` |
+| Art | painted: `career-crash/art/wallstreet/` briefs; forged (icons, badges): `career-crash/art/pixel/` |

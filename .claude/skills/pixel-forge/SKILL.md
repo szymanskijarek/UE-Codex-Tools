@@ -1,6 +1,6 @@
 ---
 name: pixel-forge
-description: Draw Career Crash pixel art as code instead of asking the image generator. Use for small art (critters with 2 poses, props, held items, hats, FX frames, UI icons, ticker badges) when the owner wants new visuals without an imagegen round trip, or says "draw it yourself" / "pixel forge". Not for character body sheets or faces (those stay painted, PIPELINES.md §5).
+description: Draw Career Crash pixel art as code instead of asking the image generator. Use for flat, geometric art (UI icons, badges, sector chips, ticker plates, simple FX frames) when the owner wants visuals without an imagegen round trip, or says "draw it yourself" / "pixel forge". Not for anything with a face or fur/feathers (characters, critters): the owner judged code-drawn creatures below the painted standard (30 Oct 2026), so those stay with the image agent (PIPELINES.md §5).
 ---
 
 # Pixel forge: sprites as code
@@ -13,9 +13,14 @@ slicers read, so a forged sheet imports exactly like painted art.
 
 ## Loop
 
-1. Write `career-crash/art/pixel/<name>.json` (format below). Draw **facing
-   right**, light from the top left, on a 64×64 grid (32×32 for icons and
-   held items).
+1. **Draw in SVG** (`career-crash/art/pixel/<name>-a.svg`, one file per
+   pose): flat fills, curves, each shade and highlight as its own shape,
+   light from the top left, facing right, no gradients, no strokes thinner
+   than ~1/64 of the canvas. The forge renders it to the sprite grid, snaps
+   every pixel to the drawing's own colours and adds the outline. This reads
+   far better than shape ops. Then list it in `career-crash/art/pixel/<name>.json`
+   (`{ "size": [64, 64], "frames": ["<name>-a.svg"] }`; 32×32 for icons).
+   Shape ops (below) are for tiny icons only.
 2. Render: `pnpm --filter @cc/art-pipeline pixel <name>` (from `career-crash/`).
 3. **Look at it:** Read `tools/art-pipeline/out/pixel/<name>.png` (checkerboard
    preview). Judge the silhouette first: would it read at 48 px? Then fix
@@ -28,7 +33,7 @@ slicers read, so a forged sheet imports exactly like painted art.
    `art/pixel/<name>.png`, or copy it into that folder, then run the slicer
    as `PIPELINES.md` §5 says.
 
-## Spec format
+## Spec format (shape ops, for tiny icons)
 
 ```json
 {
@@ -60,4 +65,12 @@ slicers read, so a forged sheet imports exactly like painted art.
 - Big readable silhouette, at most ~8 palette keys, one shade tone each.
 - Slapstick, no gore.
 
-Examples: `art/pixel/rate-hawk.json` (a 2-pose critter), `art/pixel/golden-parachute.json` (a prop).
+## Know the ceiling
+
+Code-drawn art comes out clean but simpler than the painted art: fewer
+pixels of detail, stiffer poses. Fine for icons, badges and plates;
+not for creatures or people. When unsure, render it next to painted art at
+game size and let the owner choose.
+
+Examples: `art/pixel/rate-hawk.json` + `rate-hawk-a.svg`/`-b.svg` (SVG frames; a
+test of the ceiling, not shipped art), `art/pixel/golden-parachute.json` (shape ops).

@@ -4,10 +4,13 @@
  *   pnpm --filter @cc/art-pipeline pixel            # every art/pixel/*.json
  *   pnpm --filter @cc/art-pipeline pixel rate-hawk  # one sprite
  *
- * A sprite is a small grid (usually 64×64) built from shape ops in palette
- * keys: rect, ellipse, poly, line and literal pixel rows. The forge then adds
- * the house look (STYLE_GUIDE.md): one shade tone on the side away from the
- * top-left light, an optional highlight, and the thick #1b1f2a outline. Each
+ * A frame is either an SVG drawing (art/pixel/<file>.svg, preferred: curves
+ * read far better) or a list of shape ops in palette keys (rect, ellipse,
+ * poly, line, literal pixel rows). An SVG is rendered down to the sprite grid
+ * and every pixel snapped to the drawing's own colours, so it comes out as
+ * hard-edged pixel art; shape ops get one shade tone on the side away from the
+ * top-left light and an optional highlight. Both get the house #1b1f2a
+ * outline (STYLE_GUIDE.md). Each
  * frame is scaled up with nearest-neighbour into a 256 px cell, so a sheet
  * drops straight into the critter or item slicers (2 rows × 4 cells).
  *
@@ -37,11 +40,11 @@ interface Spec {
   /** Grid size in sprite pixels. */
   size: [number, number];
   /** Key → [base, shade?, light?] colours. "." is always transparent; "k" is the outline colour. */
-  palette: Record<string, string[]>;
+  palette?: Record<string, string[]>;
   /** Shapes every frame starts from. */
   base?: Op[];
-  /** One entry per pose, drawn over `base`. */
-  frames: Op[][];
+  /** One entry per pose: an SVG file name in art/pixel/, or shape ops drawn over `base`. */
+  frames: (Op[] | string)[];
   /** Mirror each frame left-to-right after drawing (draw facing left, ship facing right). */
   flip?: boolean;
   /** How many pixels deep the shade tone runs from the lower-right edge (default 2). */
@@ -116,7 +119,7 @@ function render(spec: Spec, g: Grid): Buffer {
       return null;
     }
     if (k === 'k') return OUTLINE;
-    const [base, shade, light] = spec.palette[k] ?? ['#ff00ff'];
+    const [base, shade, light] = spec.palette?.[k] ?? ['#ff00ff'];
     const same = (dx: number, dy: number): boolean => g[y + dy]?.[x + dx] === k;
     // Light from the top left: pixels near the region's lower-right edge take the shade tone.
     if (shade) for (let s = 1; s <= depth; s++) if (!same(s, s) || !same(0, s)) return shade;
@@ -141,6 +144,13 @@ async function forge(name: string): Promise<void> {
   const scale = Math.floor(CELL / Math.max(w, h));
   const cells = await Promise.all(
     spec.frames.map(async (frame) => {
+      if (typeof frame === 'string') {
+        const px = await fromSvg(join(SRC, frame), w, h, spec.flip);
+        return sharp(px, { raw: { width: w, height: h, channels: 4 } })
+          .resize(w * scale, h * scale, { kernel: 'nearest' })
+          .png()
+          .toBuffer();
+      }
       const g = blank(w, h);
       for (const op of [...(spec.base ?? []), ...frame]) draw(g, shift(op));
       if (spec.flip) g.forEach((row) => row.reverse());
@@ -166,6 +176,44 @@ async function forge(name: string): Promise<void> {
     for (let x = 0; x < cw; x++) checker.fill(((x / tile) ^ (y / tile)) & 1 ? 0xe9 : 0xf6, (y * cw + x) * 3, (y * cw + x) * 3 + 3);
   await sharp(checker, { raw: { width: cw, height: ch, channels: 3 } }).composite([{ input: png }]).png().toFile(join(PREVIEW, `${name}.png`));
   console.log(`${name}: ${cells.length} frame(s), ${spec.size.join('×')} px ×${scale} → art/pixel/${name}.png`);
+}
+
+const hex = (c: string): number[] => [1, 3, 5].map((i) => parseInt(c.slice(i, i + 2), 16));
+
+/**
+ * An SVG drawing → hard-edged pixels at grid size: rendered smooth, alpha
+ * thresholded, each pixel snapped to the nearest of the drawing's own fill
+ * colours (no blended in-between tones), then outlined.
+ */
+async function fromSvg(file: string, w: number, h: number, flip = false): Promise<Buffer> {
+  const pal = [...new Set(readFileSync(file, 'utf8').match(/#[0-9a-f]{6}\b/gi) ?? [])].map(hex);
+  let img = sharp(file, { density: 300 }).resize(w - 2, h - 2, { fit: 'contain', position: 'bottom', background: { r: 0, g: 0, b: 0, alpha: 0 } });
+  if (flip) img = img.flop();
+  const { data } = await img.extend({ top: 1, bottom: 1, left: 1, right: 1, background: { r: 0, g: 0, b: 0, alpha: 0 } }).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const solid = new Uint8Array(w * h);
+  const out = Buffer.alloc(w * h * 4);
+  for (let i = 0; i < w * h; i++) {
+    const a = data[i * 4 + 3]!;
+    if (a < 110) continue;
+    solid[i] = 1;
+    const c = [0, 1, 2].map((k) => (data[i * 4 + k]! * 255) / a);
+    let best = pal[0] ?? c;
+    let bd = Infinity;
+    for (const p of pal) {
+      const d = 0.3 * (p[0]! - c[0]!) ** 2 + 0.59 * (p[1]! - c[1]!) ** 2 + 0.11 * (p[2]! - c[2]!) ** 2;
+      if (d < bd) [bd, best] = [d, p];
+    }
+    out.set([...best.map(Math.round), 255], i * 4);
+  }
+  const ink = hex(OUTLINE);
+  for (let y = 0; y < h; y++)
+    for (let x = 0; x < w; x++) {
+      if (solid[y * w + x]) continue;
+      let near = false;
+      for (let dy = -1; dy <= 1; dy++) for (let dx = -1; dx <= 1; dx++) if (solid[(y + dy) * w + x + dx] && x + dx >= 0 && x + dx < w) near = true;
+      if (near) out.set([...ink, 255], (y * w + x) * 4);
+    }
+  return out;
 }
 
 /** Ops are written in sprite coordinates; the grid has a 1 px margin. */
