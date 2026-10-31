@@ -1,0 +1,41 @@
+/* Regards, Wall Street (13): Crypto Bros' floor in office hours: navy, brass and a little less neon. */
+body.cb.ws {
+  --cb-bg: #0b1626;
+  --cb-panel: #13233b;
+  --cb-panel-2: #1b3050;
+  --cb-text: #f2f5fa;
+  --cb-muted: #93a4bf;
+  --cb-up: #22c55e;
+  --cb-down: #ef4444;
+  --cb-line: #2a4166;
+}
+
+/* Outside exchange hours the floor replays its last half hour with the lights down. */
+.cb-stage.cb-dim {
+  filter: brightness(0.62) saturate(0.7);
+}
+
+.cb-delayed.cb-closed {
+  background: #13233bee;
+  border-color: #c9a227;
+  color: #f2f5fa;
+}
+
+.cb-delayed.cb-closed {
+  white-space: normal;
+  width: max-content;
+  max-width: calc(100% - 24px);
+  text-align: center;
+}
+
+/* The long title leaves no room for the clock on a phone: it takes the next row. */
+@media (max-width: 700px) {
+  body.ws .cb-brand {
+    flex: 1;
+  }
+  body.ws .cb-clock {
+    order: 2;
+    flex: 1 1 100%;
+    text-align: left;
+  }
+}

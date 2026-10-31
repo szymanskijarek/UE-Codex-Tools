@@ -917,6 +917,8 @@ const marketMemberSchema = z.object({
   popM: z.number().min(0).optional(),
   /** Memberships the institutions react to (09 §7.2.3): `nato`, `eu`, `commonwealth`. */
   tags: z.array(z.string().regex(/^[a-z-]+$/)).optional(),
+  /** Stocks (13): the company's sector, by id in the market's `sectors` (its office archetype). */
+  sector: z.string().regex(/^[a-z-]+$/).optional(),
   /** Evens out the borrowed careers (08 §5.3): stat points added or taken, tuned with `pnpm balance --markets-flat`. */
   statBonus: int.min(-40).max(40).optional(),
   /** How they sound (client only): a voice type, pitch and pace on top of their career's, and an effect (a barking dog, a croaking frog, a voice changer, auto-tune). */
@@ -933,6 +935,42 @@ export const marketSchema = z.object({
   id: ref('market'),
   /** Where the power comes from: hourly price changes (08, the default) or viewers' likes (09). */
   source: z.enum(['prices', 'likes']).optional(),
+  /** How long one snapshot lasts, in seconds (default 3600: an hour). Stocks (13) refresh every 30 minutes. */
+  periodSec: int.min(600).max(3600).optional(),
+  /**
+   * A trading session (13 §3): the floor is live only between `open` and
+   * `close` local time on trading days; outside them it replays the session's
+   * last period. Times are "HH:MM" in `tz`; dates "YYYY-MM-DD".
+   */
+  session: z
+    .object({
+      tz: z.string(),
+      open: z.string().regex(/^\d\d:\d\d$/),
+      close: z.string().regex(/^\d\d:\d\d$/),
+      /** The early close on half days (the day after Thanksgiving, Christmas Eve…). */
+      halfClose: z.string().regex(/^\d\d:\d\d$/),
+      holidays: z.array(z.string().regex(/^\d{4}-\d\d-\d\d$/)),
+      halfDays: z.array(z.string().regex(/^\d{4}-\d\d-\d\d$/)),
+      /** How long the Closing Bell holds the floor after the close. */
+      closingBellSec: int.min(0),
+    })
+    .optional(),
+  /** Scored against this symbol's change (the S&P 500 for stocks, 13 §5.1) instead of the field's median. */
+  benchmark: z.string().optional(),
+  /** Stocks (13 §10): the symbols the feed asks for, biggest company first (the order is the cap rank; refreshed by hand). */
+  universe: z.array(z.string()).optional(),
+  /** Stocks (13 §7.1): each sector's office archetype, by id; a cast member names theirs in `sector`. */
+  sectors: z
+    .record(
+      z.string().regex(/^[a-z-]+$/),
+      z.object({
+        archetype: z.string(),
+        color: z.string().regex(/^#[0-9a-f]{6}$/),
+        /** The archetype's painted art (body and heads, `art/wallstreet/`), worn by every company in the sector; career art until it's in. */
+        persona: ref('npc').optional(),
+      }),
+    )
+    .optional(),
   arena: ref('arena'),
   /** How many contenders fight at once. */
   field: int.min(2).max(12),

@@ -1,0 +1,616 @@
+{
+  "id": "market.stocks",
+  "arena": "arena.trading-floor",
+  "field": 10,
+  "periodSec": 1800,
+  "benchmark": "SPY",
+  "universe": [
+    "NVDA",
+    "MSFT",
+    "AAPL",
+    "AVGO",
+    "ORCL",
+    "GOOGL",
+    "META",
+    "AMZN",
+    "TSLA",
+    "BRK.B",
+    "JPM",
+    "V",
+    "LLY",
+    "WMT"
+  ],
+  "session": {
+    "tz": "America/New_York",
+    "open": "09:30",
+    "close": "16:00",
+    "halfClose": "13:00",
+    "holidays": [
+      "2026-01-01",
+      "2026-01-19",
+      "2026-02-16",
+      "2026-04-03",
+      "2026-05-25",
+      "2026-06-19",
+      "2026-07-03",
+      "2026-09-07",
+      "2026-11-26",
+      "2026-12-25",
+      "2027-01-01",
+      "2027-01-18",
+      "2027-02-15",
+      "2027-03-26",
+      "2027-05-31",
+      "2027-06-18",
+      "2027-07-05",
+      "2027-09-06",
+      "2027-11-25",
+      "2027-12-24"
+    ],
+    "halfDays": [
+      "2026-11-27",
+      "2026-12-24",
+      "2027-11-26"
+    ],
+    "closingBellSec": 90
+  },
+  "spawns": [
+    [
+      2500,
+      2500
+    ],
+    [
+      19500,
+      2500
+    ],
+    [
+      2500,
+      11500
+    ],
+    [
+      19500,
+      11500
+    ],
+    [
+      8000,
+      7000
+    ],
+    [
+      14000,
+      7000
+    ],
+    [
+      11000,
+      2500
+    ],
+    [
+      11000,
+      11500
+    ],
+    [
+      2500,
+      7000
+    ],
+    [
+      19500,
+      7000
+    ]
+  ],
+  "exclude": [
+    "SPY",
+    "GOOG",
+    "BRK.A"
+  ],
+  "score": {
+    "spreadFloor": 15,
+    "max": 200
+  },
+  "power": {
+    "baseLevel": 20,
+    "levelSwing": 18,
+    "statSwing": 140,
+    "rank": 4,
+    "pumpAt": 150,
+    "dumpAt": -150,
+    "leverageAt": -400,
+    "moodTicks": 1200
+  },
+  "candle": {
+    "ticks": 5920,
+    "breakerTicks": 80,
+    "openingTicks": 240,
+    "closingTicks": 0,
+    "relistTicks": 300,
+    "liquidatedTicks": 900,
+    "shieldTicks": 40
+  },
+  "points": {
+    "ko": 3,
+    "liquidation": 5,
+    "candle": 5,
+    "damagePer": 100,
+    "koed": -1,
+    "liquidated": -3
+  },
+  "sectors": {
+    "tech": {
+      "archetype": "Scrum Master",
+      "color": "#3b82f6",
+      "persona": "npc.ws-scrum-master"
+    },
+    "comms": {
+      "archetype": "Engagement Farmer",
+      "color": "#a855f7",
+      "persona": "npc.ws-engagement-farmer"
+    },
+    "discretionary": {
+      "archetype": "Brand Ambassador",
+      "color": "#f97316",
+      "persona": "npc.ws-brand-ambassador"
+    },
+    "staples": {
+      "archetype": "Shelf Stacker",
+      "color": "#22c55e",
+      "persona": "npc.ws-shelf-stacker"
+    },
+    "health": {
+      "archetype": "Sales Rep",
+      "color": "#14b8a6",
+      "persona": "npc.ws-sales-rep"
+    },
+    "financials": {
+      "archetype": "Vest Bro",
+      "color": "#6366f1",
+      "persona": "npc.ws-vest-bro"
+    },
+    "energy": {
+      "archetype": "Roughneck",
+      "color": "#b45309",
+      "persona": "npc.ws-roughneck"
+    },
+    "industrials": {
+      "archetype": "Forklift Certified",
+      "color": "#eab308",
+      "persona": "npc.ws-forklift-certified"
+    },
+    "materials": {
+      "archetype": "Quarry Boss",
+      "color": "#a8a29e",
+      "persona": "npc.ws-quarry-boss"
+    },
+    "utilities": {
+      "archetype": "Meter Reader",
+      "color": "#84cc16",
+      "persona": "npc.ws-meter-reader"
+    },
+    "real-estate": {
+      "archetype": "Open House Agent",
+      "color": "#ec4899",
+      "persona": "npc.ws-open-house-agent"
+    }
+  },
+  "cast": {
+    "NVDA": {
+      "persona": "npc.ws-nvda",
+      "name": "Overclock Owen",
+      "career": "career.programmer",
+      "personality": "personality.aggressive",
+      "sector": "tech",
+      "lines": [
+        "Running hot. As designed.",
+        "More cores. More punches.",
+        "I don't do idle.",
+        "Benchmarks don't lie. You do."
+      ],
+      "art": {
+        "color": "#3b82f6",
+        "icon": "📈"
+      },
+      "statBonus": 14
+    },
+    "MSFT": {
+      "persona": "npc.ws-msft",
+      "name": "Per-My-Last-Email Pam",
+      "career": "career.engineer",
+      "personality": "personality.confident",
+      "sector": "tech",
+      "lines": [
+        "Per my last email: duck.",
+        "Let's circle back to your face.",
+        "Scheduling your defeat. Accept?",
+        "I've cc'd your manager."
+      ],
+      "art": {
+        "color": "#2563eb",
+        "icon": "📈"
+      },
+      "statBonus": 15
+    },
+    "AAPL": {
+      "persona": "npc.ws-aapl",
+      "name": "Genius Bar Gemma",
+      "career": "career.teacher",
+      "personality": "personality.competitive",
+      "sector": "tech",
+      "lines": [
+        "Have you tried turning yourself off?",
+        "It just works. Unlike you.",
+        "Your appointment is now.",
+        "That's not covered."
+      ],
+      "art": {
+        "color": "#60a5fa",
+        "icon": "📈"
+      },
+      "statBonus": 4
+    },
+    "AVGO": {
+      "persona": "npc.ws-avgo",
+      "name": "Chip Chester",
+      "career": "career.welder",
+      "personality": "personality.greedy",
+      "sector": "tech",
+      "lines": [
+        "I'm in everything. Including this fight.",
+        "Acquired. Integrated. Punched.",
+        "Small chip, big shoulder."
+      ],
+      "art": {
+        "color": "#1d4ed8",
+        "icon": "📈"
+      },
+      "statBonus": -15
+    },
+    "ORCL": {
+      "persona": "npc.ws-orcl",
+      "name": "Licence Audit Lou",
+      "career": "career.security-guard",
+      "personality": "personality.paranoid",
+      "sector": "tech",
+      "lines": [
+        "Are you licensed to throw that?",
+        "This punch is per-seat.",
+        "I'll need to see your entitlements."
+      ],
+      "art": {
+        "color": "#93c5fd",
+        "icon": "📈"
+      },
+      "statBonus": 24
+    },
+    "GOOGL": {
+      "persona": "npc.ws-googl",
+      "name": "Search Bar Sasha",
+      "career": "career.librarian",
+      "personality": "personality.paranoid",
+      "sector": "comms",
+      "lines": [
+        "Did you mean: lose?",
+        "Showing results for: your defeat.",
+        "I've indexed your weaknesses.",
+        "Sponsored punch incoming."
+      ],
+      "art": {
+        "color": "#a855f7",
+        "icon": "📈"
+      },
+      "statBonus": -29
+    },
+    "META": {
+      "persona": "npc.ws-meta",
+      "name": "Metrics Mo",
+      "career": "career.influencer",
+      "personality": "personality.chaotic",
+      "sector": "comms",
+      "lines": [
+        "Engagement is up. So is my fist.",
+        "Like, share, concuss.",
+        "Pivoting to violence.",
+        "Time on floor: excellent."
+      ],
+      "art": {
+        "color": "#c084fc",
+        "icon": "📈"
+      },
+      "statBonus": 18
+    },
+    "AMZN": {
+      "persona": "npc.ws-amzn",
+      "name": "Next-Day Nadia",
+      "career": "career.delivery-driver",
+      "personality": "personality.aggressive",
+      "sector": "discretionary",
+      "lines": [
+        "Your beating has shipped.",
+        "Left at your door. Your face is the door.",
+        "Out for delivery. Out for you.",
+        "Signature not required."
+      ],
+      "art": {
+        "color": "#f97316",
+        "icon": "📈"
+      },
+      "statBonus": 20
+    },
+    "TSLA": {
+      "persona": "npc.ws-tsla",
+      "name": "Cruise Control Cal",
+      "career": "career.taxi-driver",
+      "personality": "personality.chaotic",
+      "sector": "discretionary",
+      "lines": [
+        "Hands off the wheel!",
+        "Over-the-air update: punching.",
+        "Full speed. Some steering.",
+        "Range anxiety? You should be anxious."
+      ],
+      "art": {
+        "color": "#fb923c",
+        "icon": "📈"
+      },
+      "statBonus": -9
+    },
+    "BRK.B": {
+      "persona": "npc.ws-brkb",
+      "name": "Buy-and-Hold Hal",
+      "career": "career.accountant",
+      "personality": "personality.lazy",
+      "sector": "financials",
+      "lines": [
+        "I've held this position since 1965.",
+        "Be fearful when others are punching.",
+        "I don't trade. I wait.",
+        "Compound interest. Compound bruises."
+      ],
+      "art": {
+        "color": "#6366f1",
+        "icon": "📈"
+      },
+      "statBonus": 35
+    },
+    "JPM": {
+      "persona": "npc.ws-jpm",
+      "name": "Wire Transfer Wendy",
+      "career": "career.lawyer",
+      "personality": "personality.competitive",
+      "sector": "financials",
+      "lines": [
+        "Funds cleared. Fists cleared.",
+        "That'll take three to five business days.",
+        "Too big to fall over.",
+        "Your overdraft is due."
+      ],
+      "art": {
+        "color": "#4f46e5",
+        "icon": "📈"
+      },
+      "statBonus": 19
+    },
+    "V": {
+      "persona": "npc.ws-v",
+      "name": "Contactless Connie",
+      "career": "career.barista",
+      "personality": "personality.helpful",
+      "sector": "financials",
+      "lines": [
+        "Tap to pay. Tap to punch.",
+        "Approved!",
+        "Declined. Like your chances.",
+        "No PIN needed."
+      ],
+      "art": {
+        "color": "#818cf8",
+        "icon": "📈"
+      },
+      "statBonus": 9
+    },
+    "LLY": {
+      "persona": "npc.ws-lly",
+      "name": "Side-Effects Sid",
+      "career": "career.nurse",
+      "personality": "personality.confident",
+      "sector": "health",
+      "lines": [
+        "May cause drowsiness. Mostly yours.",
+        "Ask your doctor about me.",
+        "Results may vary. Mine won't.",
+        "Take two of these. Fists."
+      ],
+      "art": {
+        "color": "#14b8a6",
+        "icon": "📈"
+      },
+      "statBonus": 35
+    },
+    "WMT": {
+      "persona": "npc.ws-wmt",
+      "name": "Price Gun Petra",
+      "career": "career.farmer",
+      "personality": "personality.helpful",
+      "sector": "staples",
+      "lines": [
+        "Everything's on sale. Including you.",
+        "Clean-up in aisle you.",
+        "Everyday low punches.",
+        "Price check on this beating."
+      ],
+      "art": {
+        "color": "#22c55e",
+        "icon": "📈"
+      },
+      "statBonus": 35
+    }
+  },
+  "anon": {
+    "persona": "npc.ws-temp",
+    "name": "The Temp",
+    "career": "career.photographer",
+    "personality": "personality.clumsy",
+    "lines": [
+      "I started this morning.",
+      "Nobody told me there'd be fighting.",
+      "Where's the printer?",
+      "Is this a paid internship?"
+    ],
+    "art": {
+      "color": "#94a3b8",
+      "icon": "📎"
+    },
+    "statBonus": 7
+  },
+  "referee": {
+    "persona": "npc.ws-specialist",
+    "name": "The Specialist"
+  },
+  "regulators": {
+    "set": "crasher.regulators",
+    "chanceBp": 154,
+    "size": 3,
+    "earliestTick": 600,
+    "latestTick": 3600
+  },
+  "events": {
+    "gapTicks": [
+      600,
+      1100
+    ],
+    "firstTick": 400,
+    "list": [
+      {
+        "id": "hazard.bull-run",
+        "weight": 4,
+        "minMoodBp": 30,
+        "telegraphTicks": 60,
+        "mover": {
+          "prop": "prop.bull",
+          "speedMm": 160
+        }
+      },
+      {
+        "id": "hazard.bear-market",
+        "weight": 4,
+        "maxMoodBp": -30,
+        "telegraphTicks": 60,
+        "mover": {
+          "prop": "prop.bear",
+          "speedMm": 70
+        }
+      },
+      {
+        "id": "hazard.whale-alert",
+        "weight": 2,
+        "maxPerCandle": 1,
+        "telegraphTicks": 80,
+        "mover": {
+          "prop": "prop.whale",
+          "speedMm": 55
+        }
+      },
+      {
+        "id": "hazard.black-swan",
+        "weight": 1,
+        "maxPerCandle": 1,
+        "telegraphTicks": 40,
+        "mover": {
+          "prop": "prop.black-swan",
+          "speedMm": 190
+        }
+      },
+      {
+        "id": "hazard.airdrop",
+        "weight": 3,
+        "telegraphTicks": 60,
+        "zoneMm": [
+          7000,
+          4500
+        ],
+        "action": {
+          "spawn": {
+            "prop": "prop.coffee-cup",
+            "count": 3,
+            "dropFromMm": 5000
+          }
+        },
+        "art": {
+          "fx": "airdrop",
+          "activeTicks": 50
+        }
+      },
+      {
+        "id": "hazard.gas-spike",
+        "weight": 3,
+        "telegraphTicks": 50,
+        "zoneMm": [
+          6500,
+          4500
+        ],
+        "action": {
+          "effects": [
+            {
+              "type": "energy",
+              "amount": -30
+            },
+            {
+              "type": "applyStatus",
+              "status": "status.slowed",
+              "durationTicks": 50
+            }
+          ]
+        },
+        "art": {
+          "fx": "gas",
+          "activeTicks": 80
+        }
+      },
+      {
+        "id": "hazard.fud-cloud",
+        "weight": 3,
+        "maxMoodBp": -30,
+        "telegraphTicks": 50,
+        "zoneMm": [
+          5500,
+          4000
+        ],
+        "action": {
+          "effects": [
+            {
+              "type": "applyStatus",
+              "status": "status.spooked",
+              "durationTicks": 70
+            },
+            {
+              "type": "applyStatus",
+              "status": "status.embarrassed",
+              "durationTicks": 40
+            }
+          ]
+        },
+        "art": {
+          "fx": "fud",
+          "activeTicks": 80
+        }
+      },
+      {
+        "id": "hazard.rug-pull",
+        "weight": 1,
+        "maxPerCandle": 1,
+        "telegraphTicks": 60,
+        "zoneMm": [
+          6000,
+          3500
+        ],
+        "action": {
+          "spin": {
+            "distanceMm": 3500,
+            "heightMm": 1800,
+            "landDamage": 8
+          }
+        },
+        "art": {
+          "fx": "rug",
+          "activeTicks": 40
+        }
+      }
+    ]
+  }
+}

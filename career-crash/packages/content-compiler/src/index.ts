@@ -358,6 +358,17 @@ function validateMarkets(b: ContentBundle): string[] {
       if (personas.has(x.persona)) errors.push(`${m.id} ${sym}: persona ${x.persona} is already used`);
       personas.add(x.persona);
       if (!(`${x.persona}.name` in b.locale)) errors.push(`locale: missing key ${x.persona}.name`);
+      if (x.sector && !m.sectors?.[x.sector]) errors.push(`${m.id} ${sym}: unknown sector ${x.sector}`);
+    }
+    for (const [id, sec] of Object.entries(m.sectors ?? {})) if (sec.persona && !(`${sec.persona}.name` in b.locale)) errors.push(`locale: missing key ${sec.persona}.name (sector ${id})`);
+    if (m.session) {
+      try {
+        new Intl.DateTimeFormat('en-US', { timeZone: m.session.tz });
+      } catch {
+        errors.push(`${m.id}: unknown time zone ${m.session.tz}`);
+      }
+      for (const sym of Object.keys(m.cast)) if (m.universe && !m.universe.includes(sym)) errors.push(`${m.id}: ${sym} has a persona but isn't in the universe`);
+      if (3600 % (m.periodSec ?? 3600) !== 0) errors.push(`${m.id}: periodSec must divide an hour, so periods line up with the session's open`);
     }
     if (m.referee && !(`${m.referee.persona}.name` in b.locale)) errors.push(`locale: missing key ${m.referee.persona}.name`);
     for (const [from, to] of Object.entries(m.aliases ?? {})) if (!m.cast[to]) errors.push(`${m.id}: alias ${from} → ${to}, but ${to} has no persona`);

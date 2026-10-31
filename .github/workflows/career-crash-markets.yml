@@ -1,6 +1,6 @@
 name: career-crash-markets
 
-# Deploys the Crypto Bros market feed (apps/markets → feed.careercrash.org) when
+# Deploys the market feeds, Crypto Bros and Regards, Wall Street (apps/markets → feed.careercrash.org), when
 # prod changes. Needs repo secrets CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID;
 # until they exist (and wrangler.toml has the real KV namespace id) the job
 # skips itself. Launch steps: career-crash/PIPELINES.md §7.2.
@@ -28,6 +28,9 @@ jobs:
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
       # Optional: a free CoinGecko Demo key, copied into the Worker as its secret.
       COINGECKO_KEY: ${{ secrets.COINGECKO_KEY }}
+      # Alpaca market data keys for the stocks feed (13 §10.2); without them it stays idle.
+      ALPACA_KEY_ID: ${{ secrets.ALPACA_KEY_ID }}
+      ALPACA_SECRET: ${{ secrets.ALPACA_SECRET }}
     steps:
       - uses: actions/checkout@v4
       - name: Ready to deploy?
@@ -64,6 +67,12 @@ jobs:
         if: steps.ready.outputs.go && env.COINGECKO_KEY != ''
         working-directory: career-crash/apps/markets
         run: printf '%s' "$COINGECKO_KEY" | pnpm exec wrangler secret put COINGECKO_KEY -c wrangler.toml
+      - name: Alpaca keys
+        if: steps.ready.outputs.go && env.ALPACA_KEY_ID != '' && env.ALPACA_SECRET != ''
+        working-directory: career-crash/apps/markets
+        run: |
+          printf '%s' "$ALPACA_KEY_ID" | pnpm exec wrangler secret put ALPACA_KEY_ID -c wrangler.toml
+          printf '%s' "$ALPACA_SECRET" | pnpm exec wrangler secret put ALPACA_SECRET -c wrangler.toml
       - name: Smoke test
         if: steps.ready.outputs.go
         run: |

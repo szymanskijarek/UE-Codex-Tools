@@ -3616,6 +3616,44 @@
    "🔔 That's the hour. {sym} rings the bell like they invented it. {loser}: see you next hour, ser.",
    "🔔 Closing Bell. {sym} closes the hour on top. {loser} closes it on the floor."
   ],
+  "stocks_opening": [
+   "🔔 The Opening Bell! {up} leads the day, {down} is already updating their CV.",
+   "🔔 Markets are open. {up} strides in; {down} takes the stairs. Badly.",
+   "🔔 Ding ding. Nine thirty. {up} is up, {down} is drafting an apology email."
+  ],
+  "stocks_prices": [
+   "📊 New prices in. {up} leads the half hour; {down} has called a meeting about it.",
+   "📊 Half-hour update: {up} is outperforming. {down} is 'aligning stakeholders'.",
+   "📊 Fresh numbers. {up} gets a corner office; {down} gets a desk by the printer."
+  ],
+  "stocks_open": [
+   "🔔 Round {v}. Back to your desks. Briefly.",
+   "🔔 Round {v}. {sym} leads the half hour.",
+   "🔔 Round {v}. Synergy resumes."
+  ],
+  "stocks_relist": [
+   "📈 {sym} is back on the board. {name} has rebooted.",
+   "🔁 {name} ({sym}) returns from a short, unscheduled leave.",
+   "📈 {name} is back, coffee in hand. Version {v}."
+  ],
+  "stocks_liquidated": [
+   "💥 MARGIN CALL! {name} ({sym}) is escorted from the building by {by}.",
+   "💥 {by} closes {sym}'s position. With a chair.",
+   "💥 {name} has been let go, effective immediately, by {by}."
+  ],
+  "stocks_breaker": [
+   "⛔ Trading halted. {sym} takes the round.",
+   "⛔ HALT. Everyone back to the break room. {sym} wins the round.",
+   "⛔ Pause for a mandatory wellness minute. {sym} won that one."
+  ],
+  "stocks_closing": [
+   "🔔 Closing Bell. The S&P closes {spx}. {up} had the day; {down} has a meeting with HR.",
+   "🔔 That's the day. S&P {spx}. {up} rings the bell. {down} 'reflects on learnings'.",
+   "🔔 Markets closed, S&P {spx}. {up}: thrilled to announce. {down}: open to work."
+  ],
+  "stocks_delayed": [
+   "📡 Price data delayed. The last half hour's line-up carries on."
+  ],
   "market_delayed": [
    "📡 Market data delayed. Last hour's bros are still fighting."
   ],

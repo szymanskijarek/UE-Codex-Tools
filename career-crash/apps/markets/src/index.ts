@@ -1,25 +1,32 @@
 /// <reference types="@cloudflare/workers-types" />
 import { bundle } from '@cc/content';
-import { hourOf, snapshotFromCoinGecko, type CoinGeckoMarket, type MarketSnapshot } from '@cc/game-rules';
+import { alpacaSymbols, floorClock, hourOf, sessionState, snapshotFromAlpaca, snapshotFromCoinGecko, type AlpacaSnapshot, type CoinGeckoMarket, type MarketSnapshot } from '@cc/game-rules';
 
 /**
- * The Crypto Bros market feed (08 §10). Cron: fetch the top coins from
- * CoinGecko at the top of the hour and keep that hour's snapshot (48 hours of
- * them, for Rewind). HTTP: serve them to the page.
+ * The market feeds. Crypto Bros (08 §10): at the top of the hour, the top coins
+ * from CoinGecko, kept 48 hours for Rewind. Regards, Wall Street (13 §10.2):
+ * every half hour while the New York market trades, the stocks from Alpaca,
+ * kept two weeks. HTTP: serve them to the pages.
  *
- *   GET /crypto/latest.json   the newest snapshot
- *   GET /crypto/<hour>.json   one hour, e.g. /crypto/2026-10-05T14.json
- *   GET /crypto/hours.json    the hours on file, newest first
+ *   GET /crypto/latest.json   the newest snapshot (likewise /stocks/…)
+ *   GET /crypto/<hour>.json   one hour, e.g. /crypto/2026-10-05T14.json; /stocks/2026-11-02T14:30.json
+ *   GET /crypto/hours.json    the hours (periods) on file, newest first
  */
 export interface Env {
   FEED: KVNamespace;
   ALLOWED_ORIGIN: string;
   COINGECKO_KEY?: string;
+  /** Alpaca market data keys (free Basic plan); without them the stocks feed stays idle. */
+  ALPACA_KEY_ID?: string;
+  ALPACA_SECRET?: string;
 }
 
 const MARKET = 'market.crypto';
 const KEEP_S = 49 * 3600;
-const HOUR_RE = /^\d{4}-\d{2}-\d{2}T\d{2}$/;
+const HOUR_RE = { crypto: /^\d{4}-\d{2}-\d{2}T\d{2}$/, stocks: /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}$/ };
+const STOCKS = 'market.stocks';
+const STOCKS_KEEP_S = 14 * 86400;
+const ALPACA = 'https://data.alpaca.markets/v2/stocks/snapshots';
 const API = 'https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&order=market_cap_desc&per_page=40&page=1&price_change_percentage=1h,24h&sparkline=true';
 
 /** CoinPaprika's tickers (keyless): the fallback when CoinGecko turns the Worker away. */
@@ -78,6 +85,30 @@ export async function refresh(env: Env, now: number, fetchImpl: typeof fetch = f
   return snap;
 }
 
+/**
+ * The stocks period's snapshot (13 §10.2), once per half-hour period while the
+ * market trades; the retry two minutes later only runs if the first didn't
+ * store anything. Returns null when there's nothing to do.
+ */
+export async function refreshStocks(env: Env, now: number, fetchImpl: typeof fetch = fetch): Promise<MarketSnapshot | null> {
+  if (!env.ALPACA_KEY_ID || !env.ALPACA_SECRET) return null;
+  const def = bundle.markets.find((m) => m.id === STOCKS)!;
+  if (sessionState(def, now).phase !== 'open') return null;
+  const period = floorClock(def, now).hour;
+  if (await env.FEED.get(`stocks/${period}`)) return null;
+  const r = await fetchImpl(`${ALPACA}?symbols=${encodeURIComponent(alpacaSymbols(def).join(','))}&feed=iex`, {
+    headers: { accept: 'application/json', 'APCA-API-KEY-ID': env.ALPACA_KEY_ID, 'APCA-API-SECRET-KEY': env.ALPACA_SECRET },
+  });
+  if (!r.ok) throw new Error(`Alpaca: HTTP ${r.status}`);
+  const prev = await env.FEED.get('stocks/latest');
+  const snap = snapshotFromAlpaca(def, (await r.json()) as Record<string, AlpacaSnapshot>, period, prev ? (JSON.parse(prev) as MarketSnapshot) : null);
+  if (snap.coins.length < def.field) throw new Error(`only ${snap.coins.length} stocks`);
+  const body = JSON.stringify(snap);
+  await env.FEED.put(`stocks/${period}`, body, { expirationTtl: STOCKS_KEEP_S });
+  await env.FEED.put('stocks/latest', body);
+  return snap;
+}
+
 function cors(req: Request, env: Env): Record<string, string> {
   const origin = req.headers.get('origin') ?? '';
   const allowed = env.ALLOWED_ORIGIN.split(',').map((s) => s.trim());
@@ -92,34 +123,39 @@ export async function handle(req: Request, env: Env): Promise<Response> {
   const url = new URL(req.url);
   if (req.method === 'OPTIONS') return new Response(null, { status: 204, headers: { ...cors(req, env), 'access-control-allow-methods': 'GET', 'access-control-max-age': '86400' } });
   if (req.method !== 'GET') return new Response('Method not allowed', { status: 405 });
-  const m = /^\/crypto\/([\w-]+)\.json$/.exec(url.pathname);
+  const m = /^\/(crypto|stocks)\/([\w:-]+)\.json$/.exec(url.pathname);
   if (!m) return new Response('Not found', { status: 404, headers: cors(req, env) });
-  const name = m[1]!;
+  const market = m[1] as 'crypto' | 'stocks';
+  const name = m[2]!;
   if (name === 'latest') {
-    let body = await env.FEED.get('crypto/latest');
+    let body = await env.FEED.get(`${market}/latest`);
     let why = '';
     // A brand-new deploy has nothing on file yet: fill it now rather than at the top of the hour.
     if (!body)
-      body = await refresh(env, Date.now()).then(
+      body = await (market === 'crypto' ? refresh(env, Date.now()) : refreshStocks(env, Date.now())).then(
         (s) => (s ? JSON.stringify(s) : null),
         (e: Error) => ((why = e.message), console.error('feed refresh failed:', why), null),
       );
     return body ? json(body, req, env, 60) : new Response(`No snapshot yet${why ? ` (${why})` : ''}`, { status: 404, headers: cors(req, env) });
   }
   if (name === 'hours') {
-    const list = await env.FEED.list({ prefix: 'crypto/2' });
-    const hours = list.keys.map((k) => k.name.slice('crypto/'.length)).sort().reverse();
+    const list = await env.FEED.list({ prefix: `${market}/2` });
+    const hours = list.keys.map((k) => k.name.slice(market.length + 1)).sort().reverse();
     return json(JSON.stringify({ hours }), req, env, 60);
   }
-  if (!HOUR_RE.test(name)) return new Response('Not found', { status: 404, headers: cors(req, env) });
-  const body = await env.FEED.get(`crypto/${name}`);
+  if (!HOUR_RE[market].test(name)) return new Response('Not found', { status: 404, headers: cors(req, env) });
+  const body = await env.FEED.get(`${market}/${name}`);
   // A finished hour never changes; the current one may still be filled in.
-  return body ? json(body, req, env, name < hourOf(Date.now()) ? 86400 : 60) : new Response('Not found', { status: 404, headers: cors(req, env) });
+  const current = market === 'crypto' ? hourOf(Date.now()) : floorClock(bundle.markets.find((d) => d.id === STOCKS)!, Date.now()).hour;
+  return body ? json(body, req, env, name < current ? 86400 : 60) : new Response('Not found', { status: 404, headers: cors(req, env) });
 }
 
 export default {
   fetch: (req: Request, env: Env) => handle(req, env),
+  // One cron at :00, :02, :30 and :32: crypto on the hour (and its retry), stocks every half hour while New York trades.
   scheduled(event: ScheduledController, env: Env, ctx: ExecutionContext) {
-    ctx.waitUntil(refresh(env, event.scheduledTime).then(() => undefined, (e: Error) => console.error('feed refresh failed:', e.message)));
+    const minute = new Date(event.scheduledTime).getUTCMinutes();
+    if (minute < 30) ctx.waitUntil(refresh(env, event.scheduledTime).then(() => undefined, (e: Error) => console.error('feed refresh failed:', e.message)));
+    ctx.waitUntil(refreshStocks(env, event.scheduledTime).then(() => undefined, (e: Error) => console.error('stocks refresh failed:', e.message)));
   },
 } satisfies ExportedHandler<Env>;

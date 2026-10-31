@@ -407,9 +407,10 @@ client on http://localhost:5173, and `pnpm dev` also runs the API worker.
 - **Locally:** http://localhost:5173/cryptobro/. Add `?t=2026-10-05T14:37:00Z`
   to pin the floor's clock to any moment (screenshots, a liquidation, a
   circuit breaker); the clock runs on from there.
-- **Data:** it fetches `/cryptobro/feed/latest.json` and falls back to the
-  sample snapshot in `src/cryptobro/mock-feed.json` (relabelled as the current
-  hour) until the hourly feed worker exists.
+- **Data:** it fetches `feed.careercrash.org/crypto/…` (§7.2) and falls back to
+  the sample snapshot in `src/cryptobro/mock-feed.json` (relabelled as the
+  current hour) when the feed can't be reached. The floor (`src/market/Floor.tsx`)
+  is shared with Regards, Wall Street; `src/cryptobro/main.tsx` passes its config.
 - **Content:** `packages/content/data/markets/crypto.json` (cast, scoring,
   candle timings, points), text in `live.json` (`market_*`).
 
@@ -433,6 +434,22 @@ client on http://localhost:5173, and `pnpm dev` also runs the API worker.
   often the most-liked country wins the hour).
 - **Art:** briefs in `art/incident/` (ten pictures per brief). Delegates import
   as `npc-del-<key>` with the usual `puppets` and `faces` commands.
+
+**Another page: Regards, Wall Street** (`docs/career-crash/13-regards-wall-street.md`).
+- **Where:** `apps/client/wallstreet/index.html` (entry `src/wallstreet/main.tsx`)
+  builds to `dist-web/wallstreet/index.html`, served at careercrash.org/wallstreet.
+  It shares the floor with Crypto Bros: `src/market/Floor.tsx` takes a config
+  (market, texts, feed, session); each page's `main.tsx` passes its own.
+- **Locally:** http://localhost:5173/wallstreet/. The floor keeps New York
+  hours: outside them it replays the last half hour, dimmed. Pin the clock
+  with `?t=` (UTC): `2026-10-30T18:47:30Z` is a live Friday afternoon,
+  `2026-10-30T13:30:04Z` the Opening Bell, `2026-10-30T20:00:20Z` the Closing Bell.
+- **Data:** `feed.careercrash.org/stocks` (§7.2 step 5), else the sample in
+  `src/wallstreet/mock-feed.json`. `VITE_STOCKS_FEED_URL` points dev builds elsewhere.
+- **Content:** `packages/content/data/markets/stocks.json` (session hours and
+  holidays, universe, sectors, cast, scoring), text in `live.json` (`stocks_*`).
+- **Balance:** `pnpm balance --markets-flat --market=stocks` (every company
+  with a flat market: tune `statBonus` until all are within ±25%).
 
 ### 6.2 Single-file build
 
@@ -596,9 +613,21 @@ runs on its sample snapshot and says so in the footer.
    Settings → Variables and Secrets). Without a key the Worker tries the
    keyless API and then CoinPaprika, and `latest.json` says why if both refuse.
 
+5. **Stocks (Regards, Wall Street, 13 §10.2):** the same Worker serves
+   `/stocks/latest.json`, `/stocks/<period>.json` (e.g. `2026-11-02T14:30`) and
+   `/stocks/hours.json`. Every :00 and :30 while New York trades (the Worker
+   checks the session, holidays and half days from `markets/stocks.json`) it
+   asks Alpaca for all the stocks plus SPY in **one** request and keeps the
+   period two weeks. Needs a free Alpaca account (paper trading is enough) →
+   API keys → GitHub repo secrets `ALPACA_KEY_ID` and `ALPACA_SECRET`; the
+   deploy copies them into the Worker. Without them the stocks feed is idle
+   and /wallstreet runs on its sample. Check after a deploy during market
+   hours: `curl -s https://feed.careercrash.org/stocks/latest.json | head -c 300`.
+   The stocks and their market-cap order (`universe`) are refreshed by hand.
+
 **Locally:** `pnpm --filter @cc/markets dev` runs the Worker on
-http://localhost:8788 with a local KV; trigger the hourly job with
-`curl "http://localhost:8788/__scheduled?cron=0+*+*+*+*"`, then run the
+http://localhost:8788 with a local KV; trigger the job with
+`curl "http://localhost:8788/__scheduled?cron=0,2,30,32+*+*+*+*"`, then run the
 client against it: `VITE_FEED_URL=http://localhost:8788/crypto pnpm dev:client`.
 
 **Balance on real markets:** `pnpm balance --record-markets [--hours=48]`

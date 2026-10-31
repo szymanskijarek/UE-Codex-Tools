@@ -94,8 +94,8 @@ export function marketReport(bundle: ContentBundle, opts: MarketReportOpts): str
  * how strong their borrowed moves are; `statBonus` in the market file evens
  * them out (target: every bro within about ±25% of an even share).
  */
-export function flatReport(bundle: ContentBundle, opts: { candles: number }): string {
-  const def = bundle.markets.find((m) => m.id === 'market.crypto')!;
+export function flatReport(bundle: ContentBundle, opts: { candles: number; market?: string }): string {
+  const def = bundle.markets.find((m) => m.id === `market.${opts.market ?? 'crypto'}`)!;
   const cast = Object.keys(def.cast).sort();
   // Two fields of ten that between them cover every bro, plus Anon Bro.
   const fields = [cast.slice(0, 10), [...cast.slice(10), 'ANON1', 'ANON2', ...cast.slice(0, 10 - cast.slice(10).length - 2)]];

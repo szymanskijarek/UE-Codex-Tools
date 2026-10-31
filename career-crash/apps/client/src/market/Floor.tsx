@@ -14,18 +14,51 @@ import {
   type ScoredCoin,
   type Standing,
 } from '@cc/game-rules';
+import type { MarketDef } from '@cc/content-schema';
 import { TICKS_PER_SECOND, type BattleEvent } from '@cc/sim';
 import { ReplayPlayer } from '../replay/player';
 import { BattleRenderer } from '../replay/renderer';
 import { music } from '../replay/music';
 import { keepAwake } from '../wake-lock';
 import { Portrait } from '../ui/components';
-import frameUrl from './ticker-frame.webp';
-import logoUrl from './logo.webp';
-import { listHours, loadFeed, type LoadedFeed } from './feed';
+import type { LoadedFeed, MarketFeed } from './feed';
 import { fightersOf, tallyPastCandles } from './past';
 
-const DEF = bundle.markets.find((m) => m.id === 'market.crypto')!;
+/** What the session says right now (13 §3): which moment the floor shows, and what to tell the viewer. */
+export interface SessionView {
+  floorMs: number;
+  /** The market is trading: false replays the last period with the lights down. */
+  live: boolean;
+  banner?: string;
+  closingBell?: boolean;
+  /** The day's first period: its start is the Opening Bell, later ones only bring new prices. */
+  firstPeriod?: boolean;
+}
+
+/** One market floor page: Crypto Bros (08) or Regards, Wall Street (13). */
+export interface FloorConfig {
+  def: MarketDef;
+  /** Console tag. */
+  tag: string;
+  /** Prefix of the floor's lines in live.json (`market_opening`, `stocks_opening`…). */
+  texts: string;
+  title: string;
+  logo: string;
+  /** The ticker portraits' frame. */
+  frame: string;
+  feed: MarketFeed;
+  /** Heading of the standings: "This hour". */
+  periodName: string;
+  /** Before the mood figure in the header: "market", "S&P 500". */
+  moodLabel: string;
+  /** Data credit in the footer. */
+  credit: string;
+  /** Exchange hours (13): wall time → what the floor shows. Without it the floor runs on the wall clock. */
+  session?: (nowMs: number) => SessionView;
+  /** A period's label ("09:30–10:00 ET"); the default is the UTC hour. */
+  periodLabel?: (hour: string) => string;
+}
+
 const FEED_MAX = 30;
 /** How long the LIQUIDATED moment holds the screen. */
 const LIQUIDATION_MS = 2600;
@@ -78,9 +111,12 @@ function Spark({ points, up }: { points?: number[]; up: boolean }) {
   );
 }
 
-export function Floor() {
+export function Floor({ cfg }: { cfg: FloorConfig }) {
+  const DEF = cfg.def;
+  /** The moment on the floor: the wall clock, or a replay outside exchange hours. */
+  const floorNow = () => (cfg.session ? cfg.session(now()).floorMs : now());
   const host = useRef<HTMLDivElement>(null);
-  const [clock, setClock] = useState<FloorClock>(() => floorClock(DEF, now()));
+  const [clock, setClock] = useState<FloorClock>(() => floorClock(DEF, floorNow()));
   const [feed, setFeed] = useState<LoadedFeed | null>(null);
   const [lines, setLines] = useState<FeedLine[]>([]);
   const [past, setPast] = useState<Map<number, Standing[]>>(new Map());
@@ -106,7 +142,7 @@ export function Floor() {
   // The hour's snapshot; fetched again when the hour turns.
   useEffect(() => {
     let alive = true;
-    void loadFeed(clock.hour).then((f) => alive && setFeed(f));
+    void cfg.feed.load(clock.hour).then((f) => alive && setFeed(f));
     return () => {
       alive = false;
     };
@@ -115,14 +151,14 @@ export function Floor() {
   // Hours on file for Rewind.
   const [hours, setHours] = useState<string[]>([]);
   useEffect(() => {
-    void listHours().then(setHours);
+    void cfg.feed.hours().then(setHours);
   }, [clock.hour]);
 
   // The wall clock, a few times a second (the floor itself runs per frame).
   useEffect(() => {
     const id = setInterval(() => {
       setClock((c) => {
-        const n = floorClock(DEF, now());
+        const n = floorClock(DEF, floorNow());
         return n.candle !== c.candle || n.hour !== c.hour || n.breaker !== c.breaker || n.opening !== c.opening || n.closing !== c.closing || Math.floor(n.tick / 20) !== Math.floor(c.tick / 20) ? n : c;
       });
     }, 250);
@@ -134,9 +170,14 @@ export function Floor() {
   }, []);
 
   const snapshot = feed && feed.snapshot.hour === clock.hour ? feed.snapshot : null;
-  const scored: ScoredCoin[] = useMemo(() => (snapshot ? scoreField(DEF, snapshot.coins) : []), [snapshot]);
+  const scored: ScoredCoin[] = useMemo(() => (snapshot ? scoreField(DEF, snapshot.coins, snapshot.benchmarkBp) : []), [snapshot]);
   const symbols = useMemo(() => scored.map((c) => c.symbol.toUpperCase()), [scored]);
-  const mood = snapshot ? marketMood(DEF, snapshot.coins) : 0;
+  const mood = snapshot ? marketMood(DEF, snapshot.coins, snapshot.benchmarkBp) : 0;
+  const sess = cfg.session?.(now());
+  const live = sess?.live ?? true;
+  // Exchange floors (13) have no hourly Closing Bell: their last candle ends in an ordinary halt.
+  const breaker = clock.breaker || (!!cfg.session && clock.closing);
+  const closing = cfg.session ? !!sess?.closingBell : clock.closing;
 
   // Earlier candles of this hour, worked out in the background.
   useEffect(() => {
@@ -152,12 +193,12 @@ export function Floor() {
     const t0 = performance.now();
     const player = new ReplayPlayer(input, { probe: false });
     // The floor's song follows the hour: a green market parties, a red one sulks.
-    const song = marketMood(DEF, snapshot.coins) < 0 ? 'trading-floor-bear' : 'trading-floor';
-    const startAt = Math.min(floorClock(DEF, now()).tick, input.endless!.ticks);
+    const song = marketMood(DEF, snapshot.coins, snapshot.benchmarkBp) < 0 ? 'trading-floor-bear' : 'trading-floor';
+    const startAt = Math.min(floorClock(DEF, floorNow()).tick, input.endless!.ticks);
     player.seek(startAt);
     player.drainEvents();
     const catchUpMs = performance.now() - t0;
-    console.info(`[cryptobro] candle ${clock.candle + 1}: caught up ${startAt} ticks in ${catchUpMs.toFixed(0)} ms`);
+    console.info(`[${cfg.tag}] candle ${clock.candle + 1}: caught up ${startAt} ticks in ${catchUpMs.toFixed(0)} ms`);
     playerRef.current = player;
     const commentator = new LiveCommentator(bundle, input);
     commentator.consume(player.world.events, player.world.events, true);
@@ -166,12 +207,14 @@ export function Floor() {
     renderer.sfx.setMuted(mutedRef.current);
     const symOf = (entityId: number) => input.teams[player.world.byId.get(entityId)?.team ?? -1]?.playerId ?? '';
     const nameOf = (entityId: number) => player.world.byId.get(entityId)?.name ?? 'someone';
-    if (startAt < 40) {
+    const s0 = cfg.session?.(now());
+    if (startAt < 40 && (s0?.live ?? true)) {
       if (clock.candle === 0) {
         const byChange = [...scored].sort((a, b) => b.changeBp - a.changeBp);
-        push(fill('market_opening', { up: byChange[0]?.symbol.toUpperCase() ?? '', down: byChange[byChange.length - 1]?.symbol.toUpperCase() ?? '' }), 'open');
+        const kind = s0 && !s0.firstPeriod ? 'prices' : 'opening';
+        push(fill(`${cfg.texts}_${kind}`, { up: byChange[0]?.symbol.toUpperCase() ?? '', down: byChange[byChange.length - 1]?.symbol.toUpperCase() ?? '' }), 'open');
         music.sting('start');
-      } else push(fill('market_open', { v: clock.candle + 1, sym: symbols[0] ?? '' }), 'open');
+      } else push(fill(`${cfg.texts}_open`, { v: clock.candle + 1, sym: symbols[0] ?? '' }), 'open');
     }
     let raf = 0;
     let last = performance.now();
@@ -186,7 +229,7 @@ export function Floor() {
         if (!alive) return;
         const dt = Math.min(100, t - last);
         last = t;
-        const c = floorClock(DEF, now());
+        const c = floorClock(DEF, floorNow());
         const target = Math.min(c.tick, input.endless!.ticks);
         const behind = target - player.tick;
         if (behind > DRIFT_HARD) player.seek(target - 4);
@@ -199,11 +242,11 @@ export function Floor() {
         if (events.length) {
           for (const l of commentator.consume(events, player.world.events, false) as LiveLine[]) if (l.importance >= 2 && !l.kind.startsWith('end_')) push(l.text, l.kind);
           for (const e of events) {
-            if (e.type === 'relist') push(fill('market_relist', { sym: symOf(e.a), name: nameOf(e.a), v: e.v + 1 }), 'relist');
+            if (e.type === 'relist') push(fill(`${cfg.texts}_relist`, { sym: symOf(e.a), name: nameOf(e.a), v: e.v + 1 }), 'relist');
             else if (e.type === 'liquidated') {
               const sym = symOf(e.b);
               const by = e.a >= 0 && player.world.byId.get(e.a)?.kind === 'char' ? `${nameOf(e.a)} (${symOf(e.a)})` : 'the market';
-              push(fill('market_liquidated', { sym, name: nameOf(e.b), by }), 'liquidated');
+              push(fill(`${cfg.texts}_liquidated`, { sym, name: nameOf(e.b), by }), 'liquidated');
               liqUntil = t + LIQUIDATION_MS;
               setLiq({ sym, name: nameOf(e.b), by, until: Date.now() + LIQUIDATION_MS });
               renderer.hitStop(450, 0.9);
@@ -221,13 +264,13 @@ export function Floor() {
         if (player.done && !breakerSaid) {
           breakerSaid = true;
           const rows = tallyCandle(DEF, symbols, player.world.events, fightersOf(player.world, symbols.length)).sort((a, b) => b.points - a.points);
-          if (clock.candle === clock.candles - 1) {
+          if (clock.candle === clock.candles - 1 && !cfg.session) {
             // The Closing Bell: the hour's table is the earlier candles plus this one.
             const hourRows = closingRef.current();
-            push(fill('market_closing', { sym: hourRows[0]?.symbol ?? '', loser: hourRows[hourRows.length - 1]?.symbol ?? '' }), 'breaker');
+            push(fill(`${cfg.texts}_closing`, { sym: hourRows[0]?.symbol ?? '', loser: hourRows[hourRows.length - 1]?.symbol ?? '' }), 'breaker');
             music.sting('win');
           } else {
-            push(fill('market_breaker', { sym: rows[0]?.symbol ?? '' }), 'breaker');
+            push(fill(`${cfg.texts}_breaker`, { sym: rows[0]?.symbol ?? '' }), 'breaker');
             music.sting('crash');
           }
         }
@@ -256,8 +299,20 @@ export function Floor() {
     };
   }, [snapshot, clock.candle]);
 
+  // The exchange's Closing Bell (13 §3): one line in the feed as it rings.
+  const bellRef = useRef(false);
+  useEffect(() => {
+    const ringing = !!sess?.closingBell && scored.length > 0;
+    if (ringing && !bellRef.current) {
+      const byChange = [...scored].sort((a, b) => b.changeBp - a.changeBp);
+      push(fill(`${cfg.texts}_closing`, { spx: pct(snapshot?.benchmarkBp ?? 0), up: byChange[0]?.symbol ?? '', down: byChange[byChange.length - 1]?.symbol ?? '' }), 'breaker');
+      music.sting('win');
+    }
+    bellRef.current = ringing;
+  });
+
   const player = playerRef.current;
-  const live = player ? tallyCandle(DEF, symbols, player.world.events, fightersOf(player.world, symbols.length)) : emptyStandings(symbols);
+  const liveRows = player ? tallyCandle(DEF, symbols, player.world.events, fightersOf(player.world, symbols.length)) : emptyStandings(symbols);
   let hour = emptyStandings(symbols);
   for (let c = 0; c < clock.candle; c++) {
     const rows = past.get(c);
@@ -265,7 +320,7 @@ export function Floor() {
   }
   const counting = clock.candle > 0 && past.size < clock.candle;
   const table = hour.map((h) => {
-    const l = live.find((r) => r.symbol === h.symbol)!;
+    const l = liveRows.find((r) => r.symbol === h.symbol)!;
     return { ...h, points: h.points + l.points, kos: h.kos + l.kos, liquidations: h.liquidations + l.liquidations };
   });
   table.sort((a, b) => b.points - a.points || a.symbol.localeCompare(b.symbol));
@@ -277,15 +332,15 @@ export function Floor() {
     return [...rows].sort((a, b) => b.points - a.points)[0]?.symbol ?? null;
   };
   const colorOf = (sym: string) => castMember(DEF, sym).art.color;
-  const secsLeft = clock.breaker || clock.closing ? 0 : Math.max(0, Math.ceil((clock.fightTicks - clock.tick) / TICKS_PER_SECOND));
+  const secsLeft = breaker || closing ? 0 : Math.max(0, Math.ceil((clock.fightTicks - clock.tick) / TICKS_PER_SECOND));
   const rewinding = CLOCK_OFFSET !== 0;
   const pickHour = (h: string) => {
     const u = new URL(window.location.href);
-    if (h) u.searchParams.set('t', `${h}:00:01Z`);
+    if (h) u.searchParams.set('t', h.length === 13 ? `${h}:00:01Z` : `${h}:01Z`);
     else u.searchParams.delete('t');
     window.location.href = u.toString();
   };
-  const hourLabel = `${clock.hour.slice(11, 13)}:00–${String((Number(clock.hour.slice(11, 13)) + 1) % 24).padStart(2, '0')}:00\u00a0UTC`;
+  const hourLabel = cfg.periodLabel?.(clock.hour) ?? `${clock.hour.slice(11, 13)}:00–${String((Number(clock.hour.slice(11, 13)) + 1) % 24).padStart(2, '0')}:00\u00a0UTC`;
 
   const toggleSound = () => {
     const m = !muted;
@@ -299,9 +354,9 @@ export function Floor() {
     <main class="cb-page">
       <header class="cb-head">
         <a class="cb-brand" href="/" title="Career Crash">
-          <img class="cb-logo" src={logoUrl} alt="" width={40} height={40} />
+          <img class="cb-logo" src={cfg.logo} alt="" width={40} height={40} />
           <span>
-            <b>Crypto Bros</b>
+            <b>{cfg.title}</b>
             <small>by Career Crash</small>
           </span>
         </a>
@@ -309,8 +364,11 @@ export function Floor() {
           <b>{hourLabel}</b>
           <small>
             {rewinding && <span class="cb-rewind-tag">⏪ Rewind · </span>}
-            Candle {clock.candle + 1}/{clock.candles} · {clock.closing ? 'closing bell' : clock.breaker ? 'trading halted' : `${Math.floor(secsLeft / 60)}:${String(secsLeft % 60).padStart(2, '0')} left`}
-            <span class="cb-mood"> · market {pct(mood)}</span>
+            Candle {clock.candle + 1}/{clock.candles} · {closing ? 'closing bell' : !live ? 'replay' : breaker ? 'trading halted' : `${Math.floor(secsLeft / 60)}:${String(secsLeft % 60).padStart(2, '0')} left`}
+            <span class="cb-mood">
+              {' '}
+              · {cfg.moodLabel} {pct(mood)}
+            </span>
           </small>
         </div>
         {(hours.length > 1 || rewinding) && (
@@ -321,7 +379,7 @@ export function Floor() {
               .reverse()
               .map((h) => (
                 <option value={h}>
-                  ⏪ {h.slice(5, 10)} {h.slice(11, 13)}:00 UTC
+                  ⏪ {h.slice(5, 10)} {cfg.periodLabel?.(h) ?? `${h.slice(11, 13)}:00 UTC`}
                 </option>
               ))}
           </select>
@@ -341,9 +399,9 @@ export function Floor() {
           return (
             <button role="listitem" class={`cb-coin${follow === sym ? ' on' : ''}${out ? ' out' : ''}`} style={{ '--c': m.art.color }} onClick={() => setFollow(follow === sym ? null : sym)} title={`${m.name} · ${bundle.locale[`${m.persona}.name`] ?? ''}`}>
               <span class="cb-coin-top">
-                <span class="cb-face" style={{ backgroundImage: `url(${frameUrl})` }}>
+                <span class="cb-face" style={{ backgroundImage: `url(${cfg.frame})` }}>
                   {/* Their face reacts to the market: shouting when pumping, shocked when leveraged, hurt when delisted. */}
-                  <Portrait c={{ careers: [m.career], appearance: ent?.snap?.appearance ?? { skin: '#e0ac69', hair: '#3b2a1a', hairStyle: 0 }, persona: m.persona }} size={30} mood={out ? 'hurt' : c.leveraged ? 'surprised' : c.pumping ? 'angry' : 'neutral'} />
+                  <Portrait c={{ careers: [m.career], appearance: ent?.snap?.appearance ?? { skin: '#e0ac69', hair: '#3b2a1a', hairStyle: 0 }, persona: m.persona, art: m.sector ? DEF.sectors?.[m.sector]?.persona : undefined }} size={30} mood={out ? 'hurt' : c.leveraged ? 'surprised' : c.pumping ? 'angry' : 'neutral'} />
                 </span>
                 <b>{sym}</b>
                 {c.leveraged && <span class="cb-badge lev">100×</span>}
@@ -362,10 +420,10 @@ export function Floor() {
 
       <div class="cb-body">
         <div class="cb-stage-wrap">
-          <div class="stage cb-stage" ref={host} />
-          {clock.opening && snapshot && (
+          <div class={`stage cb-stage${live ? '' : ' cb-dim'}`} ref={host} />
+          {clock.opening && snapshot && live && (
             <div class="cb-overlay opening">
-              <b>🔔 OPENING BELL</b>
+              <b>{sess && !sess.firstPeriod ? '📊 NEW PRICES' : '🔔 OPENING BELL'}</b>
               <div class="cb-placards">
                 {[...scored]
                   .sort((a, b) => b.changeBp - a.changeBp)
@@ -377,7 +435,25 @@ export function Floor() {
               </div>
             </div>
           )}
-          {clock.closing && (
+          {closing && cfg.session && snapshot && (
+            <div class="cb-overlay closing">
+              <b>🔔 CLOSING BELL</b>
+              <ol class="cb-podium">
+                {[...scored]
+                  .sort((a, b) => b.changeBp - a.changeBp)
+                  .slice(0, 3)
+                  .map((c, i) => (
+                    <li style={{ '--c': colorOf(c.symbol) }}>
+                      <span>{['🥇', '🥈', '🥉'][i]}</span> <b>{c.symbol}</b> {castMember(DEF, c.symbol).name} · {pct(c.changeBp)}
+                    </li>
+                  ))}
+              </ol>
+              <small>
+                {cfg.moodLabel} {pct(snapshot.benchmarkBp ?? mood)} today · {sess?.banner}
+              </small>
+            </div>
+          )}
+          {closing && !cfg.session && (
             <div class="cb-overlay closing">
               <b>🔔 CLOSING BELL</b>
               <ol class="cb-podium">
@@ -395,8 +471,9 @@ export function Floor() {
               <small>Next hour's bros in {Math.ceil(clock.msToNext / 1000)}s</small>
             </div>
           )}
-          {feed?.delayed && !clock.opening && <div class="cb-delayed">📡 Market data delayed: last hour's bros are still fighting.</div>}
-          {clock.breaker && (
+          {feed?.delayed && !clock.opening && live && <div class="cb-delayed">{bundle.live[`${cfg.texts}_delayed`]?.[0]}</div>}
+          {!live && !closing && sess?.banner && <div class="cb-delayed cb-closed">{sess.banner}</div>}
+          {breaker && live && (
             <div class="cb-overlay breaker">
               <b>⛔ TRADING HALTED</b>
               <small>Circuit breaker · next candle in {Math.ceil(clock.msToNext / 1000)}s</small>
@@ -415,7 +492,7 @@ export function Floor() {
         <aside class="cb-side">
           <section class="cb-card">
             <h2>
-              This hour <small class="muted">{counting ? 'counting earlier candles…' : 'market share points'}</small>
+              {cfg.periodName} <small class="muted">{counting ? 'counting earlier candles…' : 'market share points'}</small>
             </h2>
             <ol class="cb-table">
               {table.map((r, i) => (
@@ -451,7 +528,7 @@ export function Floor() {
 
       <footer class="cb-foot">
         <b>Not financial advice. Not advice of any kind.</b> Fictional characters; no real people.{' '}
-        {feed?.sample ? 'Prototype: sample market data.' : 'Market data: CoinGecko.'} No cookies, no tracking. <a href="/">Play Career Crash →</a>
+        {feed?.sample ? 'Prototype: sample market data.' : cfg.credit} No cookies, no tracking. <a href="/">Play Career Crash →</a>
       </footer>
     </main>
   );

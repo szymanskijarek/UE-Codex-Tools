@@ -16,13 +16,14 @@ Paths are from the repo root. Everything under `career-crash/` and
 |---|---|---|---|---|---|
 | Career Crash | Async browser auto-brawler, career mode, Sandbox | `dev` / `prod` | `career-crash/` | `docs/career-crash/00`–`07` | careercrash.org |
 | Crypto Bros | Endless hourly brawl of the top-10 coins as crypto bros | same | `career-crash/apps/client/src/cryptobro/`, `apps/markets/` | `docs/career-crash/08-cryptobro.md` | /cryptobro/ |
+| Regards, Wall Street | US megacaps as office workers brawling through the New York trading day (phase 1: Big Board on sample data; draft-a-fund later) | same | `career-crash/apps/client/src/wallstreet/`, shared floor `src/market/` | `docs/career-crash/13-regards-wall-street.md` | /wallstreet/ (not released) |
 | Diplomatic Incident | Endless brawl of 40 countries, powered by viewers' likes | same | `career-crash/apps/client/src/incident/`, `apps/votes/` | `docs/career-crash/09-diplomatic-incident.md` | /incident/ |
 | Broken News | Weekly news-satire minigames, each opened by two anchors whose desk argument becomes a brawl (live: two episodes on air, each with its own minigame) | same | `career-crash/apps/client/src/news/` | `docs/career-crash/10-broken-news.md` | /news/ |
 | CV page | Unlisted HTML CV linking the games | same | `career-crash/apps/client/public/jarek-o9bh9e/index.html` | `career-crash/WORKFLOW.md` (Where things live) | /jarek-o9bh9e/ |
 | Fine Print | Multiplayer parking-warden browser game (no deps) | `claude/parking-warden-game-3eucn3` only, **not merged** | `parking-warden/` | `parking-warden/README.md`, `docs/DESIGN.md` | — |
 | Unreal/Codex tooling | MCP servers and bridges for Unreal Engine | `main` | `Tools/`, `scripts/codex/`, `.mcp.json`, `.codex/` | `docs/codex-tooling/` | — |
 
-Crypto Bros, Diplomatic Incident and Broken News are pages of the same client
+Crypto Bros, Diplomatic Incident, Broken News and Regards, Wall Street are pages of the same client
 and share the sim, renderer, puppets, audio and content bundle with Career Crash.
 
 ## Career Crash: process docs (`career-crash/`)
@@ -49,14 +50,14 @@ and share the sim, renderer, puppets, audio and content bundle with Career Crash
 | `06-personnel-files-and-garden-leave.md` | §2 staff/Garden Leave, §3 HR notes (conditions, budget), §4 reveal and scowl |
 | `07-gatecrashers.md` | §2 when, §3 the 24 sets, §4 strength, §5 sim, §7 posts, §8 content rules, §10 Sandbox |
 | `12-career-story.md` | **Built** (§12 as built). Story mode told through a Messages tab: §2 the first session beat by beat, §3 Messages UI, §4 story beats as data (triggers, effects, save), §5 1–3 opponents per stage, §6 friend / paid weak temps / hiring, §7 progress features, §8 cameos from Crypto Bros, Diplomatic Incident and Broken News, §8.2 invite-only gigs, **§9 implementation plan** (phases 1–4), §10 old saves, §11 owner decisions, §12 as built |
-| `13-regards-wall-street.md` | **Proposal, owner decisions taken (§11).** Regards, Wall Street (`/wallstreet`): US stocks floor + draft-a-fund: §3 trading-day clock, §4 Big Board / My Fund vs The Index, §5 data → power, draft rules, diversification, Hedge, §7 sector cast, **§8 pixel forge findings**, §9 content rules, §10 data feed, **§11 owner decisions**, §12 phases and scene events |
+| `13-regards-wall-street.md` | **Phase 1 built (§14), owner decisions (§11).** Regards, Wall Street (`/wallstreet`): US stocks floor + draft-a-fund: §3 trading-day clock, §4 Big Board / My Fund vs The Index, §5 data → power, draft rules, diversification, Hedge, §7 sector cast, **§8 pixel forge findings**, §9 content rules, §10 data feed, **§11 owner decisions**, §12 phases and scene events |
 
 ## Crypto Bros
 
 | What | Where |
 |---|---|
 | Design | `docs/career-crash/08-cryptobro.md`: §2 page, §3 the hour, §4 endless mode/candles, §5 market data → power, §6 scene events, §7 liquidation, §8 cast, §10 data feed, §11 code map, **§15 as built + "Not yet"** |
-| Page | entry `career-crash/apps/client/cryptobro/index.html`; code `apps/client/src/cryptobro/` (`main.tsx`, `Floor.tsx`, `feed.ts`, `past.ts` rewind, `mock-feed.json`) |
+| Page | entry `career-crash/apps/client/cryptobro/index.html`; code `apps/client/src/cryptobro/` (`main.tsx` config, `mock-feed.json`); the floor itself is shared with Regards, Wall Street in `apps/client/src/market/` (`Floor.tsx`, `feed.ts`, `past.ts` rewind) |
 | Scoring, snapshots | `packages/game-rules/src/markets.ts`, `coingecko.ts` |
 | Content | `packages/content/data/markets/crypto.json` (cast, voices, events, regulators), `abilities/cryptobro.json`, `arenas/trading-floor.json`, `crashers/core.json` (Regulators), text in `live.json` |
 | Sim | endless mode: `packages/sim/src/systems/endless.ts` |
@@ -64,6 +65,18 @@ and share the sim, renderer, puppets, audio and content bundle with Career Crash
 | Balance | `tools/balance/src/markets.ts`, `record-markets.ts`; `pnpm balance --markets` / `--markets-flat` |
 | Career feed link | `apps/client/src/career/feed.ts` (`bro_post_*`) |
 | Art | `career-crash/art/cryptobro/README.md` (briefs 01–11, all delivered) |
+
+## Regards, Wall Street
+
+| What | Where |
+|---|---|
+| Design | `docs/career-crash/13-regards-wall-street.md`: §3 trading day, §4 Big Board / My Fund, §5 data → power and the fund, §7 sector cast, §8 pixel forge, §9 content rules, §10 data (Alpaca), §11 owner decisions, §12 phases and events, **§14 as built** |
+| Page | entry `career-crash/apps/client/wallstreet/index.html`; code `apps/client/src/wallstreet/` (`main.tsx` config + session banner, `mock-feed.json`); the floor is shared with Crypto Bros: `apps/client/src/market/` (`Floor.tsx`, `feed.ts`, `past.ts`) |
+| Session clock, scoring | `packages/game-rules/src/stocks.ts` (NY hours, holidays), `markets.ts` (benchmark, periods), `alpaca.ts` (feed → snapshot) |
+| Content | `packages/content/data/markets/stocks.json` (session, universe, sectors, cast), text `stocks_*` in `live.json` |
+| Feed | `apps/markets/src/index.ts` `refreshStocks` (`/stocks/…`); launch `PIPELINES.md` §7.2 step 5 |
+| Balance | `pnpm balance --markets-flat --market=stocks` |
+| Art | `career-crash/art/wallstreet/README.md` (briefs 01–03: sector bodies, heads, share image) |
 
 ## Diplomatic Incident
 
@@ -119,7 +132,7 @@ and share the sim, renderer, puppets, audio and content bundle with Career Crash
 | Sheet manifests (slicer overrides, `cut`, `cutX`) | `art/sheets/manifest.json`, `art/items/`, `art/obstacles/`, `art/critters/`, `art/sheets-grid/` `manifest.json` |
 | Source folders | `sheets/` (bodies), `heads/`, `faces/`, `faces-b/`, `items/`, `obstacles/`, `arenas/`, `critters/`, `ui/` |
 | Slicer previews | `tools/art-pipeline/out/` |
-| Briefs (style template: `FX_BRIEF.md`; rule: new art starts as a brief, `PIPELINES.md` §5) | `ART_BRIEF.md` (open gaps), `CHARACTER_PROMPTS.md`, `FX_BRIEF.md`, `FX_GAPS_BRIEF.md`, `GATECRASHER_PROMPTS.md`, `PERSONNEL_FILE_PROMPTS.md`, `STORY_BRIEF.md` (story cards, temp sticker, badges, 13 gig characters; all delivered), `story/`, `sheets/BODY_SHEET_PROMPTS.md`, `cryptobro/`, `incident/`, `news/` |
+| Briefs (style template: `FX_BRIEF.md`; rule: new art starts as a brief, `PIPELINES.md` §5) | `ART_BRIEF.md` (open gaps), `CHARACTER_PROMPTS.md`, `FX_BRIEF.md`, `FX_GAPS_BRIEF.md`, `GATECRASHER_PROMPTS.md`, `PERSONNEL_FILE_PROMPTS.md`, `STORY_BRIEF.md` (story cards, temp sticker, badges, 13 gig characters; all delivered), `story/`, `sheets/BODY_SHEET_PROMPTS.md`, `cryptobro/`, `incident/`, `news/`, `wallstreet/` |
 | Pixel forge (sprites drawn as code, no imagegen) | specs and sheets `art/pixel/*.json`/`.png`, forge `tools/art-pipeline/src/pixel.ts`, skill `.claude/skills/pixel-forge/SKILL.md`, previews `tools/art-pipeline/out/pixel/`; findings and scope 13 §8 (flat UI art only; creatures stay painted) |
 
 ## Unreal/Codex tooling (`main`)

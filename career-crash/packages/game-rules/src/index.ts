@@ -12,3 +12,5 @@ export * from './coingecko';
 export * from './incident';
 export * from './nationality';
 export * from './story';
+export * from './stocks';
+export * from './alpaca';

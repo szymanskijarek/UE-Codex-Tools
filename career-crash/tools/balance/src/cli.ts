@@ -44,8 +44,8 @@ if (args.get('record-markets') === 'true') {
   process.exit(0);
 }
 if (args.get('markets-flat') === 'true') {
-  // pnpm balance --markets-flat [--candles=8]: each bro's strength with the market flat.
-  console.log(flatReport(bundle, { candles: Number(args.get('candles') ?? 8) }));
+  // pnpm balance --markets-flat [--candles=8] [--market=stocks]: each bro's strength with the market flat.
+  console.log(flatReport(bundle, { candles: Number(args.get('candles') ?? 8), market: args.get('market') }));
   process.exit(0);
 }
 if (args.get('markets') === 'true') {

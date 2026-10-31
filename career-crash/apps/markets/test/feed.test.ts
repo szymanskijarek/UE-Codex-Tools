@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { CoinGeckoMarket } from '@cc/game-rules';
-import { fromPaprika, handle, refresh, type Env } from '../src/index';
+import { fromPaprika, handle, refresh, refreshStocks, type Env } from '../src/index';
 
 /** In-memory stand-in for the KV namespace. */
 function fakeKv() {
@@ -103,5 +103,58 @@ describe('market feed worker (08 §10)', () => {
     expect((await get('/crypto/2026-10-05T09.json')).status).toBe(404);
     expect((await get('/crypto/../secret.json')).status).toBe(404);
     expect((await get('/crypto/latest.json', 'https://evil.example')).headers.get('access-control-allow-origin')).toBeNull();
+  });
+});
+
+/** Alpaca's multi-symbol snapshot answer, for the stocks feed (13 §10.2). */
+const STOCK_ROWS = Object.fromEntries(
+  ['NVDA', 'MSFT', 'AAPL', 'GOOGL', 'AMZN', 'META', 'AVGO', 'TSLA', 'BRK.B', 'JPM', 'WMT', 'LLY', 'ORCL', 'V', 'SPY'].map((s, i) => [
+    s,
+    { latestTrade: { p: 100 + i }, prevDailyBar: { c: 100 }, dailyBar: { o: 100, c: 100 + i } },
+  ]),
+);
+
+describe('stocks feed (13 §10.2)', () => {
+  const OPEN = Date.parse('2026-11-02T15:00:20Z'); // Monday 10:00 New York
+  const keyed = () => Object.assign(env(), { ALPACA_KEY_ID: 'id', ALPACA_SECRET: 'secret' });
+  const calls: string[] = [];
+  const alpaca = (async (url: string, init?: RequestInit) => {
+    calls.push(`${url} ${(init?.headers as Record<string, string>)['APCA-API-KEY-ID']}`);
+    return new Response(JSON.stringify(STOCK_ROWS), { status: 200 });
+  }) as unknown as typeof fetch;
+
+  it('stores one snapshot per half hour while the market trades, scored against SPY', async () => {
+    const e = keyed();
+    const snap = await refreshStocks(e, OPEN, alpaca);
+    expect(snap?.hour).toBe('2026-11-02T15:00');
+    expect(snap?.benchmarkBp).toBe(1400);
+    expect(snap?.coins.find((c) => c.symbol === 'NVDA')).toMatchObject({ capRank: 1, changeBp: 0, price: 100, spark: [100, 100] });
+    expect(snap?.coins.find((c) => c.symbol === 'BRK.B')?.changeBp).toBe(800);
+    expect(calls[0]).toContain('feed=iex');
+    expect(calls[0]).toContain('BRK.B');
+    expect(calls[0]?.endsWith(' id')).toBe(true);
+    expect(e.store.has('stocks/2026-11-02T15:00')).toBe(true);
+    // The retry finds it on file; the next period carries the day's sparkline on.
+    expect(await refreshStocks(e, OPEN + 120_000, alpaca)).toBeNull();
+    const next = await refreshStocks(e, OPEN + 1_800_000, alpaca);
+    expect(next?.coins.find((c) => c.symbol === 'NVDA')?.spark).toEqual([100, 100, 100]);
+  });
+
+  it('stays idle without keys and outside market hours', async () => {
+    expect(await refreshStocks(env(), OPEN, alpaca)).toBeNull();
+    expect(await refreshStocks(keyed(), Date.parse('2026-10-31T15:00:00Z'), alpaca)).toBeNull(); // Saturday
+    expect(await refreshStocks(keyed(), Date.parse('2026-11-02T22:00:00Z'), alpaca)).toBeNull(); // after the close
+  });
+
+  it('serves stock periods next to crypto hours', async () => {
+    const e = keyed();
+    await refreshStocks(e, OPEN, alpaca);
+    const req = (path: string) => new Request(`https://feed.careercrash.org${path}`, { headers: { origin: 'https://careercrash.org' } });
+    const one = await handle(req('/stocks/2026-11-02T15:00.json'), e);
+    expect(one.status).toBe(200);
+    expect(one.headers.get('access-control-allow-origin')).toBe('https://careercrash.org');
+    expect(((await (await handle(req('/stocks/hours.json'), e)).json()) as { hours: string[] }).hours).toEqual(['2026-11-02T15:00']);
+    expect((await handle(req('/stocks/latest.json'), e)).status).toBe(200);
+    expect((await handle(req('/stocks/2026-11-02T15.json'), e)).status).toBe(404);
   });
 });

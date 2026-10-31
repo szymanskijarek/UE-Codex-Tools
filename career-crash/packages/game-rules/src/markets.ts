@@ -27,9 +27,11 @@ export interface MarketCoin {
 /** What the hourly feed publishes (08 §10). */
 export interface MarketSnapshot {
   market: string;
-  /** The hour this snapshot covers, UTC: `2026-10-05T14`. */
+  /** The hour this snapshot covers, UTC: `2026-10-05T14`; a shorter period's start (13), `2026-11-02T14:30`. */
   hour: string;
   coins: MarketCoin[];
+  /** The benchmark's change (`def.benchmark`, the S&P 500 for stocks), in bp: everyone is scored against it. */
+  benchmarkBp?: number;
 }
 
 export interface ScoredCoin extends MarketCoin {
@@ -59,10 +61,11 @@ function median(xs: number[]): number {
  * is from the field's median, in units of the field's typical spread. A red
  * hour still has winners: whoever fell least.
  */
-export function scoreField(def: MarketDef, coins: MarketCoin[]): ScoredCoin[] {
+export function scoreField(def: MarketDef, coins: MarketCoin[], benchmarkBp?: number): ScoredCoin[] {
   const field = pickField(def, coins);
   const changes = field.map((c) => c.changeBp);
-  const mid = median(changes);
+  // Stocks (13 §5.1) are scored against the index; everything else against the field's median.
+  const mid = benchmarkBp ?? median(changes);
   const spread = Math.max(def.score.spreadFloor, median(changes.map((c) => Math.abs(c - mid))));
   const max = def.score.max;
   const scored = field.map((c) => {
@@ -75,9 +78,9 @@ export function scoreField(def: MarketDef, coins: MarketCoin[]): ScoredCoin[] {
   return scored;
 }
 
-/** The market's mood: the field's median hourly change (08 §6). */
-export function marketMood(def: MarketDef, coins: MarketCoin[]): number {
-  return median(pickField(def, coins).map((c) => c.changeBp));
+/** The market's mood: the benchmark's change when there is one (13), else the field's median hourly change (08 §6). */
+export function marketMood(def: MarketDef, coins: MarketCoin[], benchmarkBp?: number): number {
+  return benchmarkBp ?? median(pickField(def, coins).map((c) => c.changeBp));
 }
 
 export function castMember(def: MarketDef, symbol: string) {
@@ -113,7 +116,9 @@ export function marketFighter(bundle: ContentBundle, def: MarketDef, coin: Score
   f.c.name = m === def.anon ? `${m.name} (${sym})` : m.name;
   f.c.personality = m.personality;
   f.c.traits = [];
-  const snap: CharacterSnapshot = { ...careerSnapshot(bundle, f), loadout: [], persona: m.persona, ...(m.moves?.length ? { granted: [...m.moves] } : {}) };
+  // Stocks (13 §7.1): every company in a sector wears its archetype's art.
+  const art = m.sector ? def.sectors?.[m.sector]?.persona : undefined;
+  const snap: CharacterSnapshot = { ...careerSnapshot(bundle, f), loadout: [], persona: m.persona, ...(art ? { personaArt: art } : {}), ...(m.moves?.length ? { granted: [...m.moves] } : {}) };
   const mood = coin.pumping ? 'status.pumped' : coin.dumping ? 'status.embarrassed' : '';
   if (mood) snap.startStatuses = [{ status: mood, durationTicks: def.power.moodTicks }];
   if (coin.leveraged) snap.leveraged = true;
@@ -143,8 +148,9 @@ export function candleSlotTicks(def: MarketDef): number {
   return def.candle.ticks + def.candle.breakerTicks;
 }
 
+/** Candles per snapshot period: an hour by default, half an hour for stocks (13). */
 export function candlesPerHour(def: MarketDef): number {
-  return Math.max(1, Math.floor((3600 * TICKS_PER_SECOND) / candleSlotTicks(def)));
+  return Math.max(1, Math.floor(((def.periodSec ?? 3600) * TICKS_PER_SECOND) / candleSlotTicks(def)));
 }
 
 /** How long a candle's fight runs: the last of the hour stops early for the Closing Bell. */
@@ -153,7 +159,7 @@ export function candleFightTicks(def: MarketDef, candle: number): number {
 }
 
 export function floorClock(def: MarketDef, nowMs: number): FloorClock {
-  const hourMs = 3_600_000;
+  const hourMs = (def.periodSec ?? 3600) * 1000;
   const start = Math.floor(nowMs / hourMs) * hourMs;
   const slotMs = (candleSlotTicks(def) * 1000) / TICKS_PER_SECOND;
   const candles = candlesPerHour(def);
@@ -165,7 +171,7 @@ export function floorClock(def: MarketDef, nowMs: number): FloorClock {
   const fightTicks = candleFightTicks(def, candle);
   const last = candle === candles - 1;
   return {
-    hour: new Date(start).toISOString().slice(0, 13),
+    hour: new Date(start).toISOString().slice(0, hourMs === 3_600_000 ? 13 : 16),
     candle,
     candles,
     tick,
@@ -186,7 +192,7 @@ export function floorClock(def: MarketDef, nowMs: number): FloorClock {
 export function candleEvents(def: MarketDef, snapshot: MarketSnapshot, candle: number, ticks: number): EndlessEvent[] {
   const cfg = def.events;
   if (!cfg || cfg.list.length === 0) return [];
-  const mood = marketMood(def, snapshot.coins);
+  const mood = marketMood(def, snapshot.coins, snapshot.benchmarkBp);
   const allowed = cfg.list.filter((e) => (e.minMoodBp === undefined || mood >= e.minMoodBp) && (e.maxMoodBp === undefined || mood <= e.maxMoodBp));
   if (allowed.length === 0) return [];
   const rng = Rng.fromSeed(`events:${def.id}:${snapshot.hour}#${candle}`);
@@ -239,7 +245,7 @@ export function candleRaid(bundle: ContentBundle, def: MarketDef, hour: string, 
 
 /** The battle for one candle of an hour (08 §4.2). */
 export function candleInput(bundle: ContentBundle, def: MarketDef, snapshot: MarketSnapshot, candle: number): BattleInput {
-  const scored = scoreField(def, snapshot.coins);
+  const scored = scoreField(def, snapshot.coins, snapshot.benchmarkBp);
   const raid = candleRaid(bundle, def, snapshot.hour, candle);
   return {
     schemaVersion: 1,

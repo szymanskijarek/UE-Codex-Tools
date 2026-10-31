@@ -388,6 +388,17 @@ body.cb button.ghost {
   .cb-coin {
     min-width: 96px;
   }
+  /* Keep the header inside a phone's width: the Rewind picker takes a row of its own. */
+  .cb-head {
+    flex-wrap: wrap;
+  }
+  .cb-clock {
+    min-width: 0;
+  }
+  .cb-rewind {
+    order: 3;
+    flex: 1 1 100%;
+  }
 }
 
 /* Phase 2: the bells, the delay notice, Rewind. */

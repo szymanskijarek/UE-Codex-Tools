@@ -1,6 +1,7 @@
 # 13 — Regards, Wall Street (design v0.2, proposal)
 
-Status: **proposal, nothing built** except the pixel forge (§8). Owner
+Status: **phase 1 built** (§14): the Big Board at /wallstreet on sample
+data, the trading-day clock, the feed ready for Alpaca keys. Owner
 decisions taken 30 Oct 2026 (§11). A third market floor at
 **careercrash.org/wallstreet**, signed off like every corporate email:
 US stocks as office workers, brawling to the rhythm of the trading day. It
@@ -49,7 +50,7 @@ feed).
 |---|---|---|
 | **Pre-market** 4:00–9:30 | Fighters arrive, coffee, a stand-up meeting nobody listens to. Pre-market movers get a placard. | **Draft window**: build or change your fund. |
 | **9:30 Opening Bell** | Each fighter walks on to their gap: gapped up = confetti, gapped down = trips on the stairs. | Lineups lock. |
-| **9:30–16:00** | 13 **half-hour candles** (the hour's 5-min candles in 08 §4.2, scaled up). A Circuit Breaker beat at each seam. | Live floor, your fund's panel. |
+| **9:30–16:00** | 13 **half-hour rounds**, each from its own price snapshot and played as six 5-min candles (08 §4.2), a Circuit Breaker beat at each seam. | Live floor, your fund's panel. |
 | **12:00–13:00 Lunch** | Real volume sags at lunch; so does the brawl. Slower AI, a sandwich event, someone microwaves fish. | — |
 | **15:30–16:00 Power hour** | Volume spikes into the close; energy regen up, more events. | — |
 | **16:00 Closing Bell** | Podium, the day's MVP rings the bell. | **Fund report** (§6.1). |
@@ -94,7 +95,7 @@ Same idea as 08 §5.1: score each stock **against the market**, not on raw
 change, so a red day still has winners.
 
 ```
-relative = stock's change since the open − S&P 500's change since the open
+relative = stock's change today − S&P 500's change today   (both against yesterday's close)
 spread   = median absolute deviation of the universe's relatives (floor 0.15 pp)
 score    = clamp(relative ÷ spread, −2, +2)
 ```
@@ -173,7 +174,7 @@ Numbers in content (`markets/stocks.json`), scoring in
 | Part | What |
 |---|---|
 | **Floor** | Big Board (§4.1) or your fund's fight (§4.2), a toggle. |
-| **Ticker** | Your five (or the Big Board ten): ticker, change since open, change vs S&P, health, badges (👑 overweight, ✉️ earnings today, 💰 dividend). |
+| **Ticker** | Your five (or the Big Board ten): ticker, change today, change vs S&P, health, badges (👑 overweight, ✉️ earnings today, 💰 dividend). |
 | **Day clock** | 13 candles across the session, coloured by who won each; lunch and power hour marked. Outside hours: "Market closed. Opens in 14h 02m." |
 | **Draft** | Universe list by sector with cap tier and price in Cap Space, sector colour chips, a diversification meter. No charts of past performance, deliberately. |
 | **Feed** | LinkedIn-parody posts from the fighters (§9). |
@@ -382,3 +383,19 @@ Still open:
 | Feed | `apps/markets` stocks adapter |
 | Balance | `tools/balance/src/stocks.ts` |
 | Art | painted: `career-crash/art/wallstreet/` briefs; forged (icons, badges): `career-crash/art/pixel/` |
+
+## 14. As built (phase 1, 31 Oct 2026)
+
+| Piece | State |
+|---|---|
+| Page `/wallstreet` | Built on the Crypto Bros floor: `apps/client/src/market/Floor.tsx` is now shared and takes a config (market, texts, feed, session clock, labels); `src/cryptobro/main.tsx` and `src/wallstreet/main.tsx` each pass theirs. Navy-and-brass theme (`wallstreet.css`), logo and icons from the pixel forge (`art/pixel/ws-logo.svg`). Not in the sitemap yet. |
+| Trading-day clock | `game-rules/src/stocks.ts` (`sessionState`): New York time with daylight saving, NYSE holidays and half days for 2026–27 (`session` in `markets/stocks.json`). Open: live on the wall clock. Pre-market, after hours, weekends and holidays: the last session's final half hour on a loop, dimmed, with a banner ("Opens Monday at 09:30 ET (in 2d 13h)"). The first 90 s after the close: the Closing Bell (top three of the day, the S&P's change). |
+| Periods | `periodSec: 1800` on the market: a snapshot per half hour, six 5-min candles each (`candlesPerHour` and `floorClock` take the period; crypto stays hourly). Period keys `2026-11-02T14:30` (UTC). The first period of the day opens with the Opening Bell; later ones with "📊 NEW PRICES". |
+| Scoring | Against the S&P 500 (`benchmark: "SPY"`, `benchmarkBp` in the snapshot): `scoreField`/`marketMood` take the benchmark instead of the field's median. Change = today's, against yesterday's close. Leveraged (margin call) at −4% or the worst score. |
+| Cast | 14 megacaps (`universe`, in market-cap order, refreshed by hand; the Big Board fights the first 10): each a fictional employee with a sector archetype job line, e.g. NVDA *Overclock Owen* (Scrum Master), BRK.B *Buy-and-Hold Hal* (Vest Bro), WMT *Price Gun Petra* (Shelf Stacker). Anyone else is *The Temp*. Referee: *The Specialist*. Each sector's painted art persona is wired (`sectors[].persona` → `personaArt`), so the briefs in `art/wallstreet/` import with no code change. |
+| Balance | `pnpm balance --markets-flat --market=stocks`: every company within ±25% of an even share in a flat market (0.83–1.22, `statBonus`). The "best stock wins the day" check needs recorded real days (phase 2). |
+| Feed | `apps/markets` `refreshStocks`: every :00/:30 while New York trades, one Alpaca request (`/v2/stocks/snapshots`, IEX) for the universe + SPY → `snapshotFromAlpaca` (`game-rules/src/alpaca.ts`) → KV `stocks/<period>` for two weeks; serves `/stocks/latest.json`, `/stocks/<period>.json`, `/stocks/hours.json`. The worker's crons are now one trigger (`0,2,30,32 * * * *`). Idle until the `ALPACA_KEY_ID` / `ALPACA_SECRET` secrets exist (`PIPELINES.md` §7.2 step 5). |
+| Text | `stocks_*` in `live.json`: Opening Bell, new prices, rounds, relists, margin calls, halts, Closing Bell. |
+| Scene events | Crypto Bros' set (bull, bear, whale, black swan, airdrop, gas spike, FUD cloud, rug pull) on S&P mood (±0.3%); the Regulators about one day in five. |
+| Not yet | Live data (keys due 1 Nov), the stock events of §12.1, the fund (phase 3), sector moves, painted art (briefs written), *The Exchange* backdrop, share image, sitemap entry. |
+
