@@ -10,11 +10,19 @@ Redraw everything: `pnpm --filter @cc/art-pipeline wardrobe-test` (from
 
 ## How it is drawn
 
-Each sprite is an SVG in final-pixel units, rendered 8× too big, reduced to
-the native grid by majority vote and kept on the draft palette
-(`palette-draft.json`: 6 skin ramps, 6 hair ramps, 16 cloth ramps). This is
-doc 13's "paint big, pixelate in the pipeline", with code as the painter.
+Each sprite is painted as an SVG in final-pixel units, rendered 8× too big,
+then reduced to the native grid on the draft palette (`palette-draft.json`:
+6 skin ramps, 6 hair ramps, 16 cloth ramps). This is doc 13's "paint big,
+pixelate in the pipeline", with code as the painter.
 
+- **Two layers per sprite.** The *paint* layer has soft light and shadow
+  (blurred shapes, gradients that run along a colour ramp). It is averaged
+  down and each pixel takes the ramp tone nearest in lightness, with a light
+  ordered dither where two tones meet and pixel noise on hair. The *detail*
+  layer (eyes, brows, mouth, glasses) is kept crisp by majority vote, so
+  single pixels survive.
+- **Round 1 (flat shapes, one shade tone) looked poor** and was replaced by
+  this on the owner's feedback, the same day.
 - **Faces** are data: skin ramp, hair, one exaggerated feature. Frames are
   data too (brow height and tilt, eye and mouth shapes, extras). So 8 faces ×
   8 frames is 8 + 8 definitions, not 64 drawings.
@@ -77,10 +85,10 @@ doc 13's "paint big, pixelate in the pipeline", with code as the painter.
 
 ## What code-drawn art can't do
 
-The faces are clean and readable but plainer than the painted round 1 tile:
-flat planes instead of painted skin, no real likeness, stiff hair. That
-matches the earlier verdict on code-drawn creatures (30 October). The
-suggested split:
+After the repaint the faces have painted skin, form and hair texture, and
+read as people. They are still short of the painted round 1 tile: the
+drawing underneath is generic (every face shares one skull), hair is stiff,
+and the bodies are simple tubes. The suggested split:
 
 - **Painted by the image agent:** the 16 faces (neutral frame, bare head).
 - **Worth trying in code:** the other 7 frames of each face, by moving brows,

@@ -117,6 +117,76 @@ export function texture(img: Img, names: string[], seed: number): void {
     }
 }
 
+
+const BAYER = [0, 8, 2, 10, 12, 4, 14, 6, 3, 11, 1, 9, 15, 7, 13, 5];
+
+export interface PaintOpts extends RasterOpts {
+  /** Strength of the ordered dither where two tones of a ramp meet (0 = hard bands). */
+  dither?: number;
+}
+
+/**
+ * The painted layer: smooth SVG (gradients, blurred light and shadow) rendered
+ * 8× too big, averaged down to the native grid, then every pixel snapped to
+ * the drawing's own colours. Within a ramp the tone is picked by lightness,
+ * with a little ordered dither at the band edges (noise on textured ramps),
+ * which is what turns a soft painting into VGA-style pixel shading.
+ */
+export async function paint(body: string, w: number, h: number, ox = 0, oy = 0, opts: PaintOpts = {}): Promise<Img> {
+  const K = 8;
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="${w * K}" height="${h * K}" viewBox="${ox} ${oy} ${w} ${h}">${body}</svg>`;
+  const big = await sharp(Buffer.from(svg)).ensureAlpha().raw().toBuffer();
+  const used = [...new Set((body.match(/#[0-9a-f]{6}\b/gi) ?? []).map((c) => c.toLowerCase()))];
+  const labs = used.map((c) => oklab(hex(c)));
+  const inRamp = new Map<string, { labs: RGB[]; cols: string[]; tex: boolean }>();
+  for (const [name, r] of RAMPS) {
+    const entry = { labs: r.map((c) => oklab(hex(c))), cols: r, tex: !!opts.texture?.includes(name) };
+    for (const c of r) if (!inRamp.has(c)) inRamp.set(c, entry);
+  }
+  const out = blank(w, h);
+  for (let y = 0; y < h; y++)
+    for (let x = 0; x < w; x++) {
+      let [r, g, b, a] = [0, 0, 0, 0];
+      for (let j = 0; j < K; j++)
+        for (let i = 0; i < K; i++) {
+          const o = ((y * K + j) * w * K + x * K + i) * 4;
+          const al = big[o + 3]!;
+          r += big[o]! * al;
+          g += big[o + 1]! * al;
+          b += big[o + 2]! * al;
+          a += al;
+        }
+      if (a < 128 * K * K) continue;
+      const l = oklab([r / a, g / a, b / a]);
+      let best = 0;
+      let bd = Infinity;
+      labs.forEach((p, n) => {
+        const d = (p[0] - l[0]) ** 2 + (p[1] - l[1]) ** 2 + (p[2] - l[2]) ** 2;
+        if (d < bd) [bd, best] = [d, n];
+      });
+      let col = used[best]!;
+      const rp = inRamp.get(col);
+      if (rp) {
+        const jit = rp.tex ? (noise(x, y, opts.seed ?? 1) - 0.5) * 0.11 : (BAYER[(x & 3) + (y & 3) * 4]! / 16 - 0.47) * (opts.dither ?? 0.035);
+        let rd = Infinity;
+        rp.labs.forEach((p, n) => {
+          const d = Math.abs(p[0] - (l[0] + jit));
+          if (d < rd) [rd, col] = [d, rp.cols[n]!];
+        });
+      }
+      out.px.set([...hex(col), 255], (y * w + x) * 4);
+    }
+  return out;
+}
+
+/** A gradient along a ramp, in sprite pixels: `stops` are [offset, colour]. */
+export const lin = (id: string, x1: number, y1: number, x2: number, y2: number, stops: [number, string][]): string =>
+  `<linearGradient id="${id}" gradientUnits="userSpaceOnUse" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}">${stops.map(([o, c]) => `<stop offset="${o}" stop-color="${c}"/>`).join('')}</linearGradient>`;
+export const rad = (id: string, cx: number, cy: number, r: number, stops: [number, string][]): string =>
+  `<radialGradient id="${id}" gradientUnits="userSpaceOnUse" cx="${cx}" cy="${cy}" r="${r}">${stops.map(([o, c]) => `<stop offset="${o}" stop-color="${c}"/>`).join('')}</radialGradient>`;
+/** Soft-edge filters b05, b1, b2 (blur radius in sprite pixels). */
+export const BLURS = [0.5, 1, 2].map((s) => `<filter id="b${String(s).replace('0.', '0')}" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="${s}"/></filter>`).join('');
+
 /** Draw `src` over `dst` at (dx, dy). */
 export function over(dst: Img, src: Img, dx = 0, dy = 0): Img {
   for (let y = 0; y < src.h; y++)
