@@ -34,6 +34,10 @@ export interface Face {
   jaw?: number;
   ears?: number;
   eye?: number;
+  /** Head shape below the hat line (the skull above it is shared so hats fit): longer face, fuller cheek, pointier (+) or squarer (−) chin. */
+  long?: number;
+  cheek?: number;
+  chin?: number;
   lines?: boolean;
   /** Cloth ramp of the face's own headwear (hijab, turban). */
   cloth?: string;
@@ -43,14 +47,14 @@ export interface Face {
 export const ownHeadwear = (f: Face): boolean => f.style === 'hijab' || f.style === 'turban';
 
 export const FACES: Face[] = [
-  { id: 'f01', who: 'mid-30s man, curly mop, stubble', signature: 'big hooked nose', skin: 's2', hair: 'dkbrown', style: 'curly', beard: 'stubble', iris: 'irisBrown', nose: 1.35 },
-  { id: 'f02', who: 'late-50s woman, short grey hair, glasses', signature: 'arched eyebrows', skin: 's5', hair: 'grey', style: 'short', glasses: true, iris: 'irisBrown', brow: 1.15, browArch: 3, lines: true },
+  { id: 'f01', who: 'mid-30s man, curly mop, stubble', signature: 'big hooked nose', skin: 's2', hair: 'dkbrown', style: 'curly', beard: 'stubble', iris: 'irisBrown', nose: 1.35, long: 1 },
+  { id: 'f02', who: 'late-50s woman, short grey hair, glasses', signature: 'arched eyebrows', skin: 's5', hair: 'grey', style: 'short', glasses: true, iris: 'irisBrown', brow: 1.15, browArch: 3, lines: true, cheek: 1.5, long: -1 },
   { id: 'f03', who: 'early-20s woman, teal hijab', signature: 'big eyes, round cheeks', skin: 's3', hair: 'black', style: 'hijab', cloth: 'teal', iris: 'irisHazel', eye: 1.3, jaw: 1.25 },
-  { id: 'f04', who: '40s man, bald, ginger beard', signature: 'wide jaw', skin: 's1', hair: 'ginger', style: 'bald', beard: 'full', iris: 'irisBlue', jaw: 1.5 },
-  { id: 'f05', who: '30s woman, afro', signature: 'the hair', skin: 's6', hair: 'black', style: 'afro', iris: 'irisBrown' },
-  { id: 'f06', who: '20s man, shaggy blond hair', signature: 'big ears', skin: 's1', hair: 'blond', style: 'shaggy', iris: 'irisGreen', ears: 1.6 },
-  { id: 'f07', who: '60s man, purple turban, grey beard', signature: 'heavy brows', skin: 's4', hair: 'grey', style: 'turban', cloth: 'purple', beard: 'full', iris: 'irisBrown', brow: 1.6 },
-  { id: 'f08', who: '40s woman, long brown hair', signature: 'long nose', skin: 's3', hair: 'brown', style: 'long', iris: 'irisGreen', nose: 1.25 },
+  { id: 'f04', who: '40s man, bald, ginger beard', signature: 'wide jaw', skin: 's1', hair: 'ginger', style: 'bald', beard: 'full', iris: 'irisBlue', jaw: 1.5, chin: -1, long: 1 },
+  { id: 'f05', who: '30s woman, afro', signature: 'the hair', skin: 's6', hair: 'black', style: 'afro', iris: 'irisBrown', chin: 1.2 },
+  { id: 'f06', who: '20s man, shaggy blond hair', signature: 'big ears', skin: 's1', hair: 'blond', style: 'shaggy', iris: 'irisGreen', ears: 1.6, long: 2.5, chin: 1 },
+  { id: 'f07', who: '60s man, purple turban, grey beard', signature: 'heavy brows', skin: 's4', hair: 'grey', style: 'turban', cloth: 'purple', beard: 'full', iris: 'irisBrown', brow: 1.6, cheek: 1 },
+  { id: 'f08', who: '40s woman, long brown hair', signature: 'long nose', skin: 's3', hair: 'brown', style: 'long', iris: 'irisGreen', nose: 1.25, long: 1.5, chin: 1.5 },
 ];
 
 interface Expr {
@@ -92,9 +96,11 @@ export function faceSvg(f: Face, frame: Frame): { paint: string; detail: string 
   const cl = f.cloth ? ramp(`cloth.${f.cloth}`) : [];
   const [deep, shade, mid, light, hi] = sk as [string, string, string, string, string];
   const [hd, hm, hl, hh] = hr as [string, string, string, string];
-  const d = x.drop ?? 0;
+  const d = (x.drop ?? 0) + (f.long ?? 0);
+  const ck = f.cheek ?? 0;
+  const ch = f.chin ?? 0;
   const j = ((f.jaw ?? 1) - 1) * 4;
-  const head = `M13,30 C13,15 22,9 31,9 C40,9 46,15 46.5,25 L46.5,34 C46.5,${42 + d} 45,${47 + d} 42,${51 + d} C40,${54 + d} 35,${54.5 + d} 31,${53 + d} C${25 - j},${51 + d + j * 0.5} ${19 - j},${47 + j * 0.5} 16,41 C14,37 13,34 13,30 Z`;
+  const head = `M13,30 C13,15 22,9 31,9 C40,9 46,15 46.5,25 L46.5,34 C${46.5 + ck},${42 + d} ${45 + ck},${47 + d} 42,${51 + d} C40,${54 + d + ch * 0.5} ${35 + ch * 2},${54.5 + d + ch} 31,${53 + d} C${25 - j},${51 + d + j * 0.5} ${19 - j},${47 + j * 0.5} 16,41 C14,37 13,34 13,30 Z`;
   const own = ownHeadwear(f);
   const P: string[] = [];
   const D: string[] = [];
@@ -177,6 +183,8 @@ export function faceSvg(f: Face, frame: Frame): { paint: string; detail: string 
   P.push(blur(ell(33.5, 38.2, 5.2, 2.6, light), 'b1'), blur(ell(31, 36.8, 2.2, 1, hi), 'b05', 0.9));
   P.push(blur(ell(35, 41, has('flush') ? 5.5 : 3.6, has('flush') ? 3.4 : 2, blush), 'b1', 0.9));
   P.push(blur(ell(41.5, 43.4, 3.4, 1.3, shade), 'b05'), blur(ell(39, 50.2 + d, 3, 1.1, shade), 'b05'), blur(ell(37.5, 52 + d, 2.4, 1, light), 'b05', 0.8));
+  if (['short', 'bun', 'curly', 'shaggy', 'afro', 'long'].includes(f.style)) P.push(blur(line('M20,29 C21,23 27,20 33,19.5 C39,19 44.5,21 46,26', shade, 2.8), 'b1', 0.9));
+  if (frame === 'hatHair' && !own) P.push(blur(rect(12, 20, 36, 5.5, shade), 'b1'), blur(rect(12, 20, 36, 3, deep), 'b1', 0.7));
   if (f.lines) P.push(blur(ell(33.5, 35, 4, 1.2, shade), 'b05'), blur(ell(43.2, 35, 2.6, 1.1, shade), 'b05'), blur(line('M35.5,40 Q33.8,44 34.8,48', shade, 1.2), 'b05'));
   if (has('flush')) P.push(blur(ell(28, 19, 9, 4, blush), 'b2', 0.6));
   if (has('puff')) P.push(blur(ell(35, 42, 6, 5, light), 'b1'), ell(33.5, 40, 2, 1.4, hi));
@@ -285,11 +293,15 @@ export function faceSvg(f: Face, frame: Frame): { paint: string; detail: string 
   }
   if (has('sweat')) D.push(path('M54,14 Q57.4,19.5 54,22 Q50.6,19.5 54,14 Z', ramp('cloth.glass')[1]!), rect(53, 18, 1, 1, ramp('cloth.glass')[2]!));
   const wrap = (s: string): string => (x.tilt ? `<g transform="rotate(${x.tilt} 34 54)">${s}</g>` : s);
+  // A tilted head keeps its neck upright, so the tilt never shows a cut edge.
   return { paint: wrap(P.join('')), detail: wrap(D.join('')) };
 }
 
-export async function faceSprite(f: Face, frame: Frame): Promise<Img> {
-  const svg = faceSvg(f, frame);
+/** `rot` turns the whole head about the chin (degrees), for posed fighters. */
+export async function faceSprite(f: Face, frame: Frame, rot = 0): Promise<Img> {
+  const raw = faceSvg(f, frame);
+  const turn = (t: string): string => (rot ? `<g transform="rotate(${rot} 30 54)">${t}</g>` : t);
+  const svg = { paint: turn(raw.paint), detail: turn(raw.detail) };
   const seed = Number(f.id.slice(1));
   const base = await paint(svg.paint, CELL_W, CELL_H, 0, CELL_TOP, { texture: [`hair.${f.hair}`], seed, dither: 0.02 });
   return over(base, await raster(svg.detail, CELL_W, CELL_H, 0, CELL_TOP));

@@ -156,8 +156,9 @@ branch `ccr-1d8f8585-79b1f2` (on top of this branch, still not merged):
 - **Changes the plan needs:** a second helmet size for own-headwear faces, a
   nose anchor for face accessories, glasses as an accessory, trim on its own
   ramp, snapping by region in `normalise`.
-- **Quality:** code-drawn faces are plainer than the painted round 1 tile.
-  Faces stay with the image agent; frames, hat-hair, recolours and chips are
-  good candidates for code.
+- **Quality:** three passes so far, on the owner's feedback ("getting
+  there"). Sprites are painted then pixelated, faces differ below the hat
+  line, and bodies are jointed and posed (`06-posed.png`). Still short of the
+  painted round 1 tile.
 - Still no game code changed, nothing released.
 

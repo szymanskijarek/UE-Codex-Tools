@@ -8,9 +8,9 @@
 import { mkdirSync, readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import sharp from 'sharp';
-import { ALL_COLOURS, ROOT, TESTS, autoPalette, blank, half, normalise, outline, over, ramp, recolour, sheet, stack, type Img, type Label, type Placed } from './core';
+import { ALL_COLOURS, ROOT, TESTS, autoPalette, blank, half, normalise, outline, over, ramp, sheet, stack, type Img, type Label, type Placed } from './core';
 import { CELL_H, CELL_W, FACES, FRAMES, faceSprite, ownHeadwear, type Face, type Frame } from './faces';
-import { BODY_H, BODY_W, HATS, HEAD_AT, OUTFITS, bodySprite, hatSprite, type Hat, type Outfit } from './wear';
+import { BODY_H, BODY_W, HATS, OUTFITS, POSES, bodySprites, hatSprite, pose, type Hat, type Outfit } from './wear';
 
 const cache = new Map<string, Promise<Img | undefined>>();
 const once = (k: string, make: () => Promise<Img | undefined>): Promise<Img | undefined> => cache.get(k) ?? (cache.set(k, make()), cache.get(k)!);
@@ -38,21 +38,38 @@ const head = async (f: Face, h?: Hat, acc?: Hat, frame: Frame = 'neutral'): Prom
   return l && outline(stack(CELL_W, CELL_H, ...l));
 };
 
-async function fighter(f: Face, o: Outfit, opts: { hat?: Hat; acc?: Hat; senior?: boolean; frame?: Frame; perLayerOutline?: boolean } = {}): Promise<Img> {
-  let body = await bodySprite(o, ramp(`skin.${f.skin}`));
-  if (opts.senior && o.senior) body = recolour(body, o.senior);
-  const layers = (await headLayers(f, opts.hat, opts.acc, opts.frame))!;
-  const img = blank(BODY_W, BODY_H);
-  if (opts.perLayerOutline) {
-    // What a renderer that outlines every sprite on its own would show.
-    over(img, outline(body));
-    for (const l of layers) if (l) over(img, outline(l), ...HEAD_AT);
-    return img;
-  }
-  over(img, body);
-  for (const l of layers) if (l) over(img, l, ...HEAD_AT);
-  return outline(img);
+interface Look {
+  hat?: Hat;
+  acc?: Hat;
+  senior?: boolean;
+  frame?: Frame;
+  pose?: string;
+  perLayerOutline?: boolean;
 }
+/** A whole fighter: body behind, head layers on the neck, near arm in front, then one silhouette line. */
+async function fighter(f: Face, o: Outfit, look: Look = {}): Promise<Img> {
+  const body = await bodySprites(o, ramp(`skin.${f.skin}`), pose(look.pose ?? 'stand'), look.senior);
+  const own = ownHeadwear(f);
+  const h = look.hat;
+  const fit = h && own ? fitOf(f) : 1;
+  const rot = body.headRot;
+  const layers = [h && (await hatSprite(h, 'back', fit, rot)), await faceSprite(f, h && !own ? 'hatHair' : (look.frame ?? 'neutral'), rot), look.acc && (await hatSprite(look.acc, 'front', 1, rot)), h && (await hatSprite(h, 'front', fit, rot))];
+  const img = blank(BODY_W, BODY_H);
+  const put = (l: Img | undefined, at: [number, number] = [0, 0]): void => {
+    if (l) over(img, look.perLayerOutline ? outline(l) : l, ...at);
+  };
+  put(body.back);
+  for (const l of layers) put(l, body.headAt);
+  put(body.front);
+  return look.perLayerOutline ? img : outline(img);
+}
+/** Mirror a sprite, so a fighter faces left. */
+const flip = (img: Img): Img => {
+  const out = blank(img.w, img.h);
+  for (let y = 0; y < img.h; y++) for (let x = 0; x < img.w; x++) img.px.copy(out.px, (y * img.w + (img.w - 1 - x)) * 4, (y * img.w + x) * 4, (y * img.w + x) * 4 + 4);
+  return out;
+};
+const fill = (w: number, h: number, rgb: readonly number[]): Img => ({ w, h, px: Buffer.alloc(w * h * 4, Buffer.from([...rgb, 255])) });
 
 const OUT = TESTS;
 
@@ -122,10 +139,10 @@ async function headwearSheet(): Promise<void> {
 
 async function outfitsSheet(): Promise<void> {
   const S = 2;
-  const cw = BODY_W * S + 6;
+  const step = 196;
   const items: Placed[] = [];
-  const labels: Label[] = [{ text: '4. Face + outfit + headwear as three layers; "senior" colours are a palette swap of the same sprite (shown ×2)', x: 10, y: 22, bold: true, size: 16 }];
-  type Cell = [string, string, Parameters<typeof fighter>[2], string];
+  const labels: Label[] = [{ text: '4. Face + outfit + headwear as three layers; "senior" colours are a ramp swap of the same drawing (shown ×2)', x: 10, y: 22, bold: true, size: 16 }];
+  type Cell = [string, string, Look, string];
   const rowA: Cell[] = [
     ['f04', 'mannequin', {}, 'body template'],
     ['f01', 'builder', { hat: hat('hard-hat') }, 'builder + hard hat'],
@@ -145,23 +162,68 @@ async function outfitsSheet(): Promise<void> {
     ['f01', 'chef', { hat: hat('astronaut'), frame: 'surprised2' }, 'helmet with a back layer'],
   ];
   for (const [r, row] of [rowA, rowB].entries())
-    for (const [c, [fid, oid, opts, text]] of row.entries()) {
-      items.push({ img: await fighter(faceOf(fid), outfit(oid), opts), x: 10 + c * cw, y: 40 + r * (BODY_H * S + 34), scale: S });
-      labels.push({ text, x: 14 + c * cw, y: 40 + r * (BODY_H * S + 34) + BODY_H * S + 16, size: 12 });
+    for (const [c, [fid, oid, look, text]] of row.entries()) {
+      items.push({ img: await fighter(faceOf(fid), outfit(oid), look), x: c * step - 26, y: 40 + r * (BODY_H * S + 34), scale: S });
+      labels.push({ text, x: 14 + c * step, y: 40 + r * (BODY_H * S + 34) + BODY_H * S + 16, size: 12 });
     }
-  // Game size, and the outline question.
   const y3 = 40 + 2 * (BODY_H * S + 34);
   labels.push({ text: 'Real size (×1), on light and dark floors:', x: 10, y: y3 + 18, bold: true });
   const all = [...rowA, ...rowB];
   for (const [i, bgc] of ([[226, 220, 204], [28, 30, 40]] as const).entries()) {
-    const stripe: Img = { w: 14 * 60 + 10, h: BODY_H + 12, px: Buffer.alloc((14 * 60 + 10) * (BODY_H + 12) * 4, Buffer.from([...bgc, 255])) };
-    items.push({ img: stripe, x: 10, y: y3 + 28 + i * (BODY_H + 20), scale: 1 });
-    for (const [c, [fid, oid, opts]] of all.entries()) items.push({ img: await fighter(faceOf(fid), outfit(oid), opts), x: 4 + c * 60, y: y3 + 34 + i * (BODY_H + 20), scale: 1 });
+    items.push({ img: fill(14 * 60 + 20, BODY_H + 12, bgc), x: 10, y: y3 + 28 + i * (BODY_H + 20), scale: 1 });
+    for (const [c, [fid, oid, look]] of all.entries()) items.push({ img: await fighter(faceOf(fid), outfit(oid), look), x: c * 60 - 14, y: y3 + 34 + i * (BODY_H + 20), scale: 1 });
   }
   const x4 = 14 * 60 + 60;
-  labels.push({ text: 'Outline: one silhouette line (left) vs. every sprite outlined on its own (right), ×2', x: x4, y: y3 + 18, bold: true });
-  items.push({ img: await fighter(faceOf('f01'), outfit('builder'), { hat: hat('hard-hat') }), x: x4, y: y3 + 30, scale: 2 }, { img: await fighter(faceOf('f01'), outfit('builder'), { hat: hat('hard-hat'), perLayerOutline: true }), x: x4 + 200, y: y3 + 30, scale: 2 });
-  await sheet(join(OUT, '04-outfits.png'), 10 + 7 * cw, y3 + 2 * (BODY_H + 20) + 40, items, labels);
+  labels.push({ text: 'Outline: one silhouette line (left) vs. a line per sprite (right), ×2', x: x4, y: y3 + 18, bold: true });
+  items.push({ img: await fighter(faceOf('f01'), outfit('builder'), { hat: hat('hard-hat') }), x: x4 - 30, y: y3 + 30, scale: 2 }, { img: await fighter(faceOf('f01'), outfit('builder'), { hat: hat('hard-hat'), perLayerOutline: true }), x: x4 + 170, y: y3 + 30, scale: 2 });
+  await sheet(join(OUT, '04-outfits.png'), 7 * step + 20, y3 + 2 * (BODY_H + 20) + 40, items, labels);
+}
+
+/** The same drawings on a jointed body: six poses each, then a mock fight on one of the game's arenas. */
+async function posedSheet(): Promise<void> {
+  const S = 2;
+  const step = 236;
+  const rowH = BODY_H * S + 26;
+  const items: Placed[] = [];
+  const labels: Label[] = [{ text: '6. Posed: the same face, outfit and hat sprites on a jointed body (shown ×2)', x: 10, y: 22, bold: true, size: 16 }];
+  const cast: [string, string, Look][] = [
+    ['f01', 'builder', { hat: hat('hard-hat') }],
+    ['f05', 'chef', { hat: hat('toque') }],
+    ['f02', 'teacher', {}],
+    ['f03', 'builder', { hat: hat('hard-hat') }],
+    ['f08', 'dress', {}],
+  ];
+  const frames: Record<string, Frame> = { stand: 'neutral', guard: 'angry', punch: 'angry', hit: 'hurt2', walk: 'neutral', cheer: 'surprised' };
+  POSES.forEach((p, c) => labels.push({ text: p.id, x: 96 + c * step, y: 46, bold: true }));
+  for (const [r, [fid, oid, look]] of cast.entries()) {
+    items.push({ img: fill(POSES.length * step + 10, 22, [78, 86, 102]), x: 5, y: 56 + r * rowH + BODY_H * S - 14, scale: 1 });
+    for (const [c, p] of POSES.entries()) items.push({ img: await fighter(faceOf(fid), outfit(oid), { ...look, pose: p.id, frame: frames[p.id] }), x: c * step - 6, y: 52 + r * rowH, scale: S });
+  }
+  const sheetW = POSES.length * step + 20;
+  const y2 = 60 + cast.length * rowH;
+  // Mock fight: not a game screenshot. The backdrop is the game's own construction-site arena.
+  labels.push({ text: 'Mock fight on the game\'s construction-site backdrop (a composite, not the game running; fighters ×2)', x: 10, y: y2 + 14, bold: true });
+  const sceneH = 430;
+  const bd = await sharp(join(ROOT, 'apps/client/src/replay/arenas/construction.webp')).resize(sheetW - 20, sceneH, { fit: 'cover', position: 'bottom' }).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  items.push({ img: { w: bd.info.width, h: bd.info.height, px: bd.data }, x: 10, y: y2 + 24, scale: 1 });
+  const floor = y2 + 24 + sceneH - 96;
+  // A soft oval shadow under each fighter.
+  const shadow = blank(130, 16);
+  for (let y = 0; y < 16; y++) for (let x = 0; x < 130; x++) if (((x - 65) / 65) ** 2 + ((y - 8) / 8) ** 2 <= 1) shadow.px.set([20, 16, 24, 110], (y * 130 + x) * 4);
+  const stage: [string, string, Look, number, boolean][] = [
+    ['f03', 'builder', { hat: hat('hard-hat'), pose: 'cheer', frame: 'surprised' }, 40, false],
+    ['f01', 'builder', { hat: hat('hard-hat'), pose: 'punch', frame: 'angry' }, 300, false],
+    ['f04', 'chef', { hat: hat('toque'), pose: 'hit', frame: 'hurt2' }, 440, true],
+    ['f02', 'teacher', { pose: 'guard', frame: 'angry' }, 760, false],
+    ['f06', 'dress', { hat: hat('beanie'), acc: hat('sunglasses'), pose: 'guard', frame: 'neutral' }, 930, true],
+    ['f05', 'chef', { pose: 'walk', frame: 'neutral' }, 1160, true],
+  ];
+  for (const [fid, oid, look, x, left] of stage) {
+    const img = await fighter(faceOf(fid), outfit(oid), look);
+    items.push({ img: shadow, x: x + 62, y: floor - 12, scale: 1 });
+    items.push({ img: left ? flip(img) : img, x, y: floor - BODY_H * S, scale: S });
+  }
+  await sheet(join(OUT, '06-posed.png'), sheetW, y2 + sceneH + 40, items, labels);
 }
 
 /** Today's shipped heads through `normalise`: hand-built palette vs. an automatic one (13 §3.2 "First test"). */
@@ -204,5 +266,6 @@ await facesSheet();
 await sizesSheet();
 await headwearSheet();
 await outfitsSheet();
+await posedSheet();
 await normaliseSheet();
 console.log(`wardrobe tests → ${OUT}`);

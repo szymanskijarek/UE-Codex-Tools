@@ -22,12 +22,16 @@ pixelate in the pipeline", with code as the painter.
   layer (eyes, brows, mouth, glasses) is kept crisp by majority vote, so
   single pixels survive.
 - **Round 1 (flat shapes, one shade tone) looked poor** and was replaced by
-  this on the owner's feedback, the same day.
+  this on the owner's feedback, the same day. **Round 3** gave each face its
+  own jaw, cheek and chin, added the shadow hair and hats cast on the face,
+  and rebuilt the bodies on a jointed skeleton (tapered limbs, hands, shoes,
+  cuffs, knee pads, elbow patches) so they can be posed.
 - **Faces** are data: skin ramp, hair, one exaggerated feature. Frames are
   data too (brow height and tilt, eye and mouth shapes, extras). So 8 faces ×
   8 frames is 8 + 8 definitions, not 64 drawings.
 - **Headwear, face accessories and outfits** are separate sprites, stacked as
-  the game would: hat back → face → accessory → hat front, on a 96 × 160 body.
+  the game would: body → hat back → face → accessory → hat front → near arm.
+  The body is drawn from joint angles, so a pose is six numbers.
 
 ## The sheets
 
@@ -37,6 +41,7 @@ pixelate in the pipeline", with code as the painter.
 | `02-sizes.png` | 48 px at real size, the automatic 24 px chip, light and dark floors |
 | `03-headwear.png` | 8 faces × 11 items (3 helmets, 5 caps, 3 face accessories) from one sprite each |
 | `04-outfits.png` | Full fighters at head : body 1 : 2, senior recolours, the outline question |
+| `06-posed.png` | Five fighters in six poses (stand, guard, punch, hit, walk, cheer) and a mock fight on the game's construction-site backdrop. A composite, not the game running |
 | `05-normalise.png` | Ten of today's heads at 48 px: automatic palette vs. the draft hand palette |
 
 ## What held up
@@ -48,7 +53,7 @@ pixelate in the pipeline", with code as the painter.
 2. **The own-headwear rule works.** Caps are not offered, and the hard hat,
    fire helmet and space helmet go over the hijab and the turban.
 3. **Senior colours really are free.** The senior builder, chef and teacher
-   are the same sprite with whole ramps swapped (denim → navy, hi-vis → gold).
+   are the same drawing with whole ramps swapped (denim → navy, hi-vis → gold).
 4. **Any outfit on any face.** The dress on the bearded man and the builder
    on the hijab face need nothing special.
 5. **The 8 frames can be told apart at 48 px**, on light and dark floors. The
@@ -83,12 +88,16 @@ pixelate in the pipeline", with code as the painter.
    upper layers cover most inner lines. The renderer can outline sprites
    one by one.
 
+9. **Faces can only differ below the hat line.** Hats fit because every face
+   shares one skull above y = 21. Jaw, cheek, chin and face length are free;
+   the crown is not. The image agent's faces must keep to that too.
+
 ## What code-drawn art can't do
 
-After the repaint the faces have painted skin, form and hair texture, and
-read as people. They are still short of the painted round 1 tile: the
-drawing underneath is generic (every face shares one skull), hair is stiff,
-and the bodies are simple tubes. The suggested split:
+After three passes the faces have painted skin, form, hair texture and their
+own jaw and chin, and the bodies pose well enough to stage a fight. They are
+still short of the painted round 1 tile: hair is stiff, cloth has few folds,
+and the hands are mitts. The suggested split:
 
 - **Painted by the image agent:** the 16 faces (neutral frame, bare head).
 - **Worth trying in code:** the other 7 frames of each face, by moving brows,
