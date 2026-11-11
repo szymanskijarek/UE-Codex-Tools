@@ -4,7 +4,7 @@
  * head (hat line y = 21.5, crown y = 9), so any hat goes on any face. Outfits
  * are headless bodies on one 96 × 160 template; the face cell goes at (16, 0).
  */
-import { BLURS, INK, ell, lin, line, over, paint, path, ramp, raster, rect, type Img } from './core';
+import { BLURS, INK, ell, lin, line, paint, path, ramp, rect, type Img } from './core';
 import { CELL_H, CELL_TOP, CELL_W } from './faces';
 
 const c = (name: string): [string, string, string] => ramp(`cloth.${name}`) as [string, string, string];
