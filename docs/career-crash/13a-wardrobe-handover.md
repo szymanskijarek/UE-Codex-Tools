@@ -139,3 +139,25 @@ The owner asked "is that what you wanted?"; the review is in the brief's
    (house rule: show, don't describe).
 5. **No release.** Nothing here touches the live game. Ask before merging to
    `dev`, and only push to `prod` when the owner says so.
+
+## 7. Pixel tests (11 November 2026)
+
+The owner asked for pixel art generation tests to support this plan. Done on
+branch `ccr-1d8f8585-79b1f2` (on top of this branch, still not merged):
+
+- `pnpm --filter @cc/art-pipeline wardrobe-test` draws 8 faces × 8 frames,
+  11 headwear and face items and 5 outfits **in code**, and stacks them the
+  way the game would. Source: `career-crash/tools/art-pipeline/src/wardrobe-test/`.
+- Sheets and findings: `career-crash/art/style-tile/tests/` (`README.md`).
+- It covers part of phase 0: a `normalise` function (48 px, palette snap,
+  silhouette line), a draft palette and contact sheets. Not yet a CLI.
+- **Held up:** one anchor for all hats, the own-headwear rule, free senior
+  recolours, any outfit on any face, 8 readable frames at 48 px.
+- **Changes the plan needs:** a second helmet size for own-headwear faces, a
+  nose anchor for face accessories, glasses as an accessory, trim on its own
+  ramp, snapping by region in `normalise`.
+- **Quality:** code-drawn faces are plainer than the painted round 1 tile.
+  Faces stay with the image agent; frames, hat-hair, recolours and chips are
+  good candidates for code.
+- Still no game code changed, nothing released.
+

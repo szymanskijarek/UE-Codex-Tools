@@ -49,7 +49,7 @@ and share the sim, renderer, puppets, audio and content bundle with Career Crash
 | `06-personnel-files-and-garden-leave.md` | §2 staff/Garden Leave, §3 HR notes (conditions, budget), §4 reveal and scowl |
 | `07-gatecrashers.md` | §2 when, §3 the 24 sets, §4 strength, §5 sim, §7 posts, §8 content rules, §10 Sandbox |
 | `12-career-story.md` | **Built** (§12 as built). Story mode told through a Messages tab: §2 the first session beat by beat, §3 Messages UI, §4 story beats as data (triggers, effects, save), §5 1–3 opponents per stage, §6 friend / paid weak temps / hiring, §7 progress features, §8 cameos from Crypto Bros, Diplomatic Incident and Broken News, §8.2 invite-only gigs, **§9 implementation plan** (phases 1–4), §10 old saves, §11 owner decisions, §12 as built |
-| `13-wardrobe-and-art-style.md` | **Proposal.** §1 how fighters are drawn now + style audit, §2 face/outfit/headwear layers (2.1 headwear rules, 2.2 gendered clothing, 2.3 Wardrobe and unlocks), §3 art-style reset (3.2 target look "VGA caricature", references, style tile and palette, 3.3 `normalise`/`lineup`/`stylecheck` tools, 3.4 production order), §4 phases, §5 owner decisions; handover and status: `13a-wardrobe-handover.md` |
+| `13-wardrobe-and-art-style.md` | **Proposal.** §1 how fighters are drawn now + style audit, §2 face/outfit/headwear layers (2.1 headwear rules, 2.2 gendered clothing, 2.3 Wardrobe and unlocks), §3 art-style reset (3.2 target look "VGA caricature", references, style tile and palette, 3.3 `normalise`/`lineup`/`stylecheck` tools, 3.4 production order), §4 phases, §5 owner decisions; handover and status: `13a-wardrobe-handover.md`; code-drawn pixel tests and findings: `career-crash/art/style-tile/tests/README.md` |
 
 ## Crypto Bros
 
@@ -108,7 +108,7 @@ and share the sim, renderer, puppets, audio and content bundle with Career Crash
 | Schemas / compiler | `packages/content-schema/src/`, `packages/content-compiler/src/` |
 | Commentary | `packages/commentary/src/` |
 | API | `apps/worker/src/` (`app.ts` routes, `repo.ts` D1), types `packages/protocol/src/` |
-| Tools | `tools/balance/src/`, `tools/replay-cli/src/`, `tools/art-pipeline/src/` |
+| Tools | `tools/balance/src/`, `tools/replay-cli/src/`, `tools/art-pipeline/src/` (`wardrobe-test/`: doc 13 pixel tests) |
 | Tests | `packages/*/test/`, goldens `packages/sim/test/golden/` |
 | CI | `.github/workflows/career-crash.yml` (+ `-api`, `-markets`, `-votes`) |
 
