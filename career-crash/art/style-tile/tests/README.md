@@ -42,7 +42,30 @@ pixelate in the pipeline", with code as the painter.
 | `03-headwear.png` | 8 faces × 11 items (3 helmets, 5 caps, 3 face accessories) from one sprite each |
 | `04-outfits.png` | Full fighters at head : body 1 : 2, senior recolours, the outline question |
 | `06-posed.png` | Five fighters in six poses (stand, guard, punch, hit, walk, cheer) and a mock fight on the game's construction-site backdrop. A composite, not the game running |
+| `07-vs-fidelity-pass.png` | The image agent's fidelity pass (`../reference/fidelity-pass-01.png`) above the same 14 fighters drawn in code |
 | `05-normalise.png` | Ten of today's heads at 48 px: automatic palette vs. the draft hand palette |
+
+## Lessons from the fidelity pass (round 4)
+
+The owner sent the image agent's repaint of sheet 04
+(`../reference/fidelity-pass-01.png`). It is the target. What it does that
+the code-drawn art did not, and what changed to follow it:
+
+| The fidelity pass | Changed in the painter |
+|---|---|
+| A dark line round **every part**: arm against torso, leg against leg, hat against hair | Each body part and head layer is its own sprite and is outlined before stacking |
+| Stocky build: shoulders wider than the head, short legs, thick limbs with little taper | Body 20 % wider and 5 % shorter; thicker limbs |
+| Big hands, gloves and boots | Hands and shoes about 20 % bigger; the builder gets gloves |
+| A big head on the body | Heads are drawn 22 % bigger on fighters (portraits keep 48 px) |
+| Big, dark, simple eyes with one highlight; thick brows | Iris is nearly black with a coloured rim; bigger, with thicker brows |
+| Clean clusters of 3–4 tones with hard edges, no dither, no airbrush | Dither off, blur radii cut by about 40 %, noise on hair halved |
+| A face that is mostly one flat tone, with shade under the jaw | Socket and cheek shading removed; one light on forehead and cheek |
+| Warm, saturated skin and warm whites | Skin ramps s1–s4 and the white ramp warmed |
+| Arms hang close to the body | Standing pose pulled in |
+
+**Still missing** against it: rounded cartoon faces (ours are longer and more
+realistic), wear and story detail (paint on jeans, stains, pockets, laces),
+fingers, cloth folds, hair in chunky locks, and a thicker outer line.
 
 ## What held up
 
@@ -84,9 +107,10 @@ pixelate in the pipeline", with code as the painter.
    fight size. It is right on hair and beards, as doc 13 says.
 7. **Big hair needs trimming at the sides too**, not only above the hat line,
    or the afro shows as two horns under a cap.
-8. **One silhouette line vs. a line per sprite** makes little difference:
-   upper layers cover most inner lines. The renderer can outline sprites
-   one by one.
+8. **Outline every sprite, not only the silhouette.** The fidelity pass has a
+   dark line between overlapping parts, and it reads much better. This suits
+   the renderer: it can outline sprites one by one. Doc 13 §3.2 ("silhouette
+   only") should change to match.
 
 9. **Faces can only differ below the hat line.** Hats fit because every face
    shares one skull above y = 21. Jaw, cheek, chin and face length are free;

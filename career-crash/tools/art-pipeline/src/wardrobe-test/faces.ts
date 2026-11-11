@@ -13,6 +13,14 @@ export const CELL_W = 64;
 export const CELL_H = 80;
 export const CELL_TOP = -16;
 
+/**
+ * On a fighter the head is drawn 22 % bigger about the chin, to match the fidelity pass
+ * (portraits and chips keep the 48 px head). The bigger cell: width, height, left, top.
+ */
+export const HEAD_SCALE = 1.22;
+export const BIG_CELL: [number, number, number, number] = [80, 100, -8, -32];
+export const bigHead = (big: boolean): string => (big ? `translate(30 54) scale(${HEAD_SCALE}) translate(-30 -54)` : '');
+
 export const FRAMES = ['neutral', 'angry', 'surprised', 'hurt', 'hurt2', 'hurt3', 'surprised2', 'hatHair'] as const;
 export type Frame = (typeof FRAMES)[number];
 
@@ -178,10 +186,10 @@ export function faceSvg(f: Face, frame: Frame): { paint: string; detail: string 
   P.push(`<g clip-path="url(#hd)">`);
   P.push(path(head, shade), blur(path(head, mid, 'transform="translate(-3.2,-3.6)"'), 'b2'));
   P.push(`<g clip-path="url(#low)">${blur(line(head, deep, 3), 'b1', 0.9)}</g>`);
-  P.push(blur(ell(26, 18.5, 10, 6, light), 'b2'), blur(ell(23.5, 15.5, 4.5, 2.2, hi), 'b1'));
-  P.push(blur(ell(33.5, 30.6, 5.6, 3.4, shade), 'b1', 0.85), blur(ell(43.4, 30.6, 3.4, 3.2, shade), 'b1', 0.85));
-  P.push(blur(ell(33.5, 38.2, 5.2, 2.6, light), 'b1'), blur(ell(31, 36.8, 2.2, 1, hi), 'b05', 0.9));
-  P.push(blur(ell(35, 41, has('flush') ? 5.5 : 3.6, has('flush') ? 3.4 : 2, blush), 'b1', 0.9));
+  P.push(blur(ell(25, 18, 8.5, 4.5, light), 'b1'), blur(ell(23, 15.5, 3.5, 1.6, hi), 'b05'));
+  // The fidelity pass keeps the face mostly one flat tone: a light forehead and cheek, shade under the jaw, a little blush.
+  P.push(blur(ell(31.5, 37.6, 4.2, 2, light), 'b05'));
+  P.push(blur(ell(35, 41, has('flush') ? 5.5 : 3, has('flush') ? 3.4 : 1.6, blush), 'b05', 0.9));
   P.push(blur(ell(41.5, 43.4, 3.4, 1.3, shade), 'b05'), blur(ell(39, 50.2 + d, 3, 1.1, shade), 'b05'), blur(ell(37.5, 52 + d, 2.4, 1, light), 'b05', 0.8));
   if (['short', 'bun', 'curly', 'shaggy', 'afro', 'long'].includes(f.style)) P.push(blur(line('M20,29 C21,23 27,20 33,19.5 C39,19 44.5,21 46,26', shade, 2.8), 'b1', 0.9));
   if (frame === 'hatHair' && !own) P.push(blur(rect(12, 20, 36, 5.5, shade), 'b1'), blur(rect(12, 20, 36, 3, deep), 'b1', 0.7));
@@ -215,7 +223,7 @@ export function faceSvg(f: Face, frame: Frame): { paint: string; detail: string 
   // ── eyes (crisp) ──
   const es = f.eye ?? 1;
   const eye = (cx: number, cy: number, rx: number, mode: Expr['near'], near: boolean): string => {
-    const base = 3 * es;
+    const base = 3.3 * es;
     if (mode === 'shut') {
       const s = near ? 1 : -1;
       return line(`M${cx - 2.8 * s},${cy - 2.2} L${cx + 2.6 * s},${cy} L${cx - 2.8 * s},${cy + 2.2}`, lash, 1.3, 'round');
@@ -223,14 +231,15 @@ export function faceSvg(f: Face, frame: Frame): { paint: string; detail: string 
     if (mode === 'spiral') return ell(cx, cy, rx + 0.3, base + 0.6, M.eyeWhite!) + `<circle cx="${cx}" cy="${cy}" r="${Math.min(rx, base) - 0.7}" fill="none" stroke="${PAL.ink}" stroke-width="0.9"/>` + rect(cx - 0.5, cy - 0.5, 1, 1, PAL.ink);
     const ry = base * (mode === 'narrow' ? 0.6 : mode === 'wide' ? 1.3 : mode === 'pop' ? 1.6 : 1);
     const wx = rx * (mode === 'pop' ? 1.2 : mode === 'wide' ? 1.08 : 1);
-    const ir = mode === 'pop' ? 1.2 : Math.min(near ? 2.1 : 1.8, ry + 0.4);
-    const look = has('cross') ? (near ? 1.8 : -1) : near ? 0.9 : 0.5;
+    // Big dark eyes with one highlight, as in the fidelity pass; the iris colour is only a rim.
+    const ir = mode === 'pop' ? 1.3 : Math.min(near ? 2.7 : 2.2, ry + 0.5);
+    const look = has('cross') ? (near ? 1.8 : -1) : near ? 1.1 : 0.6;
     const ix = Math.round(cx + look) + 0.5;
     const iy = Math.round(cy + (mode === 'narrow' ? 0.3 : 0)) + 0.5;
     const white = `M${cx - wx},${cy + 0.3} Q${cx - wx * 0.3},${cy - ry * 1.25} ${cx + wx},${cy - 0.2} Q${cx + wx * 0.2},${cy + ry * 1.2} ${cx - wx},${cy + 0.3} Z`;
     const id = near ? 'en' : 'ef';
     const parts = [`<clipPath id="${id}"><path d="${white}"/></clipPath>`, path(white, M.eyeWhite!)];
-    parts.push(`<g clip-path="url(#${id})">` + ell(ix, iy, ir, ir, M[f.iris]!) + ell(ix, iy, ir * 0.5, ir * 0.5, PAL.ink) + `</g>`);
+    parts.push(`<g clip-path="url(#${id})">` + ell(ix, iy, ir, ir * 1.12, mix(M[f.iris]!, PAL.ink, 0.45)) + ell(ix, iy, ir * 0.72, ir * 0.85, PAL.ink) + `</g>`);
     if (mode !== 'pop') parts.push(rect(ix - 1.5, iy - 1.5, 1, 1, M.eyeWhite!));
     // Upper lid: a dark lash line; lower lid: a soft one.
     parts.push(line(`M${cx - wx - 0.4},${cy + 0.2} Q${cx - wx * 0.3},${cy - ry * 1.3} ${cx + wx + 0.3},${cy - 0.4}`, lash, mode === 'narrow' ? 1.5 : 1.1, 'round'));
@@ -267,8 +276,8 @@ export function faceSvg(f: Face, frame: Frame): { paint: string; detail: string 
   }
 
   // ── brows (crisp, tapered: thick towards the nose) ──
-  const th = 2.1 * (f.brow ?? 1);
-  const by = 25.8 + x.browY - (es - 1) * 2;
+  const th = 2.4 * (f.brow ?? 1);
+  const by = 25 + x.browY - (es - 1) * 2;
   const arch = (f.browArch ?? 0.9) + (x.browY < -2 ? 1.2 : 0);
   const [yo, yi] = [by - x.browTilt, by + x.browTilt];
   const browCol = f.hair === 'grey' ? hd : f.hair === 'blond' ? hd : mix(hd, PAL.ink, 0.25);
@@ -298,11 +307,12 @@ export function faceSvg(f: Face, frame: Frame): { paint: string; detail: string 
 }
 
 /** `rot` turns the whole head about the chin (degrees), for posed fighters. */
-export async function faceSprite(f: Face, frame: Frame, rot = 0): Promise<Img> {
+export async function faceSprite(f: Face, frame: Frame, rot = 0, big = false): Promise<Img> {
   const raw = faceSvg(f, frame);
-  const turn = (t: string): string => (rot ? `<g transform="rotate(${rot} 30 54)">${t}</g>` : t);
+  const turn = (t: string): string => (rot || big ? `<g transform="${bigHead(big)} rotate(${rot} 30 54)">${t}</g>` : t);
+  const [w, h, ox, oy] = big ? BIG_CELL : [CELL_W, CELL_H, 0, CELL_TOP];
   const svg = { paint: turn(raw.paint), detail: turn(raw.detail) };
   const seed = Number(f.id.slice(1));
-  const base = await paint(svg.paint, CELL_W, CELL_H, 0, CELL_TOP, { texture: [`hair.${f.hair}`], seed, dither: 0.02 });
-  return over(base, await raster(svg.detail, CELL_W, CELL_H, 0, CELL_TOP));
+  const base = await paint(svg.paint, w, h, ox, oy, { texture: [`hair.${f.hair}`], seed });
+  return over(base, await raster(svg.detail, w, h, ox, oy));
 }

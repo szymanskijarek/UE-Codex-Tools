@@ -46,22 +46,27 @@ interface Look {
   pose?: string;
   perLayerOutline?: boolean;
 }
-/** A whole fighter: body behind, head layers on the neck, near arm in front, then one silhouette line. */
+/**
+ * A whole fighter: body parts behind, head layers on the neck, near arm in front. Every sprite gets
+ * its own dark line before it is stacked, so overlapping parts are separated by a line, as in the
+ * fidelity pass. `perLayerOutline: false` shows the silhouette-only alternative.
+ */
 async function fighter(f: Face, o: Outfit, look: Look = {}): Promise<Img> {
   const body = await bodySprites(o, ramp(`skin.${f.skin}`), pose(look.pose ?? 'stand'), look.senior);
   const own = ownHeadwear(f);
   const h = look.hat;
   const fit = h && own ? fitOf(f) : 1;
   const rot = body.headRot;
-  const layers = [h && (await hatSprite(h, 'back', fit, rot)), await faceSprite(f, h && !own ? 'hatHair' : (look.frame ?? 'neutral'), rot), look.acc && (await hatSprite(look.acc, 'front', 1, rot)), h && (await hatSprite(h, 'front', fit, rot))];
+  const layers = [h && (await hatSprite(h, 'back', fit, rot, true)), await faceSprite(f, h && !own ? 'hatHair' : (look.frame ?? 'neutral'), rot, true), look.acc && (await hatSprite(look.acc, 'front', 1, rot, true)), h && (await hatSprite(h, 'front', fit, rot, true))];
   const img = blank(BODY_W, BODY_H);
+  const lines = look.perLayerOutline ?? true;
   const put = (l: Img | undefined, at: [number, number] = [0, 0]): void => {
-    if (l) over(img, look.perLayerOutline ? outline(l) : l, ...at);
+    if (l) over(img, lines ? outline(l) : l, ...at);
   };
-  put(body.back);
+  for (const l of body.back) put(l);
   for (const l of layers) put(l, body.headAt);
-  put(body.front);
-  return look.perLayerOutline ? img : outline(img);
+  for (const l of body.front) put(l);
+  return lines ? img : outline(img);
 }
 /** Mirror a sprite, so a fighter faces left. */
 const flip = (img: Img): Img => {
@@ -174,8 +179,8 @@ async function outfitsSheet(): Promise<void> {
     for (const [c, [fid, oid, look]] of all.entries()) items.push({ img: await fighter(faceOf(fid), outfit(oid), look), x: c * 60 - 14, y: y3 + 34 + i * (BODY_H + 20), scale: 1 });
   }
   const x4 = 14 * 60 + 60;
-  labels.push({ text: 'Outline: one silhouette line (left) vs. a line per sprite (right), ×2', x: x4, y: y3 + 18, bold: true });
-  items.push({ img: await fighter(faceOf('f01'), outfit('builder'), { hat: hat('hard-hat') }), x: x4 - 30, y: y3 + 30, scale: 2 }, { img: await fighter(faceOf('f01'), outfit('builder'), { hat: hat('hard-hat'), perLayerOutline: true }), x: x4 + 170, y: y3 + 30, scale: 2 });
+  labels.push({ text: 'Outline: a line per sprite (left, used everywhere) vs. silhouette only (right), ×2', x: x4, y: y3 + 18, bold: true });
+  items.push({ img: await fighter(faceOf('f01'), outfit('builder'), { hat: hat('hard-hat') }), x: x4 - 30, y: y3 + 30, scale: 2 }, { img: await fighter(faceOf('f01'), outfit('builder'), { hat: hat('hard-hat'), perLayerOutline: false }), x: x4 + 170, y: y3 + 30, scale: 2 });
   await sheet(join(OUT, '04-outfits.png'), 7 * step + 20, y3 + 2 * (BODY_H + 20) + 40, items, labels);
 }
 
@@ -213,7 +218,7 @@ async function posedSheet(): Promise<void> {
   const stage: [string, string, Look, number, boolean][] = [
     ['f03', 'builder', { hat: hat('hard-hat'), pose: 'cheer', frame: 'surprised' }, 40, false],
     ['f01', 'builder', { hat: hat('hard-hat'), pose: 'punch', frame: 'angry' }, 300, false],
-    ['f04', 'chef', { hat: hat('toque'), pose: 'hit', frame: 'hurt2' }, 440, true],
+    ['f04', 'chef', { hat: hat('toque'), pose: 'hit', frame: 'hurt2' }, 430, true],
     ['f02', 'teacher', { pose: 'guard', frame: 'angry' }, 760, false],
     ['f06', 'dress', { hat: hat('beanie'), acc: hat('sunglasses'), pose: 'guard', frame: 'neutral' }, 930, true],
     ['f05', 'chef', { pose: 'walk', frame: 'neutral' }, 1160, true],
@@ -261,11 +266,28 @@ async function normaliseSheet(): Promise<void> {
   await sheet(join(OUT, '05-normalise.png'), 170 + careers.length * 136, 440, items, labels);
 }
 
+/** The image agent's fidelity pass above the same 14 fighters drawn in code. */
+async function compareSheet(): Promise<void> {
+  const ref = join(ROOT, 'art/style-tile/reference/fidelity-pass-01.png');
+  const W = 1400;
+  const top = await sharp(ref).resize(W).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const items: Placed[] = [{ img: { w: top.info.width, h: top.info.height, px: top.data }, x: 0, y: 30, scale: 1 }];
+  const labels: Label[] = [{ text: "7. The image agent's fidelity pass (top) and the same fighters drawn in code (bottom, ×2)", x: 10, y: 20, bold: true, size: 16 }];
+  const y0 = 30 + top.info.height + 10;
+  const cells: [string, string, Look][] = [
+    ['f04', 'mannequin', {}], ['f01', 'builder', { hat: hat('hard-hat') }], ['f01', 'builder', { hat: hat('hard-hat'), senior: true }], ['f05', 'chef', { hat: hat('toque') }], ['f05', 'chef', { hat: hat('toque'), senior: true }], ['f02', 'teacher', {}], ['f02', 'teacher', { senior: true }],
+    ['f03', 'builder', { hat: hat('hard-hat') }], ['f07', 'chef', {}], ['f08', 'dress', {}], ['f04', 'dress', { hat: hat('crown') }], ['f06', 'teacher', { hat: hat('beanie'), acc: hat('sunglasses') }], ['f05', 'builder', { frame: 'angry' }], ['f01', 'chef', { hat: hat('astronaut') }],
+  ];
+  for (const [i, [fid, oid, look]] of cells.entries()) items.push({ img: await fighter(faceOf(fid), outfit(oid), look), x: (i % 7) * 198 - 22, y: y0 + Math.floor(i / 7) * (BODY_H * 2 + 6), scale: 2 });
+  await sheet(join(OUT, '07-vs-fidelity-pass.png'), W, y0 + 2 * (BODY_H * 2 + 6) + 10, items, labels);
+}
+
 mkdirSync(OUT, { recursive: true });
 await facesSheet();
 await sizesSheet();
 await headwearSheet();
 await outfitsSheet();
 await posedSheet();
+await compareSheet();
 await normaliseSheet();
 console.log(`wardrobe tests → ${OUT}`);

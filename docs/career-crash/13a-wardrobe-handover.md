@@ -160,5 +160,9 @@ branch `ccr-1d8f8585-79b1f2` (on top of this branch, still not merged):
   there"). Sprites are painted then pixelated, faces differ below the hat
   line, and bodies are jointed and posed (`06-posed.png`). Still short of the
   painted round 1 tile.
+- **Fidelity pass:** the owner sent the image agent's repaint of the outfits
+  sheet (`career-crash/art/style-tile/reference/fidelity-pass-01.png`). It is
+  the target look. The painter was retuned to it (round 4); the lessons are
+  in the tests `README.md`, and `07-vs-fidelity-pass.png` shows both.
 - Still no game code changed, nothing released.
 

@@ -5,7 +5,7 @@
  * are headless bodies on one 96 × 160 template; the face cell goes at (16, 0).
  */
 import { BLURS, INK, ell, lin, line, paint, path, ramp, rect, type Img } from './core';
-import { CELL_H, CELL_TOP, CELL_W } from './faces';
+import { BIG_CELL, CELL_H, CELL_TOP, CELL_W, bigHead } from './faces';
 
 const c = (name: string): [string, string, string] => ramp(`cloth.${name}`) as [string, string, string];
 /** Fill for a hat's main shape: light at the top left, shade at the lower right, along the ramp. */
@@ -100,18 +100,21 @@ export const HATS: Hat[] = ((): Hat[] => {
 })();
 
 /** A hat layer as a sprite. `fit` enlarges it about the hat line for faces whose own headwear it must go over. */
-export async function hatSprite(h: Hat, layer: 'back' | 'front', fit = 1, rot = 0): Promise<Img | undefined> {
+export async function hatSprite(h: Hat, layer: 'back' | 'front', fit = 1, rot = 0, big = false): Promise<Img | undefined> {
   const svg = h[layer];
   if (!svg) return undefined;
   const grads = [...new Set([...svg.matchAll(/url\(#hg-(\w+)\)/g)].map((m) => m[1]!))].map((n) => lin(`hg-${n}`, 14, 0, 46, 24, [[0, c(n)[2]], [0.28, c(n)[1]], [0.7, c(n)[1]], [1, c(n)[0]]])).join('');
-  const body = `<defs>${BLURS}${grads}</defs><g transform="rotate(${rot} 30 54) translate(30 22) scale(${fit}) translate(-30 -22)">${svg}</g>`;
-  return paint(body, CELL_W, CELL_H, 0, CELL_TOP, { texture: h.texture, seed: 7, dither: 0.03 });
+  const body = `<defs>${BLURS}${grads}</defs><g transform="${bigHead(big)} rotate(${rot} 30 54) translate(30 22) scale(${fit}) translate(-30 -22)">${svg}</g>`;
+  const [w, hh, ox, oy] = big ? BIG_CELL : [CELL_W, CELL_H, 0, CELL_TOP];
+  return paint(body, w, hh, ox, oy, { texture: h.texture, seed: 7 });
 }
 
 // ── Outfits on a jointed body ───────────────────────────────────────────────
 
-export const BODY_W = 128;
-export const BODY_H = 160;
+export const BODY_W = 152;
+export const BODY_H = 176;
+/** Rows added above the body for the bigger head and tall hats. */
+const HEAD_ROOM = 16;
 /** The body is drawn about x = 46; the canvas starts 16 px to its left so poses have room. */
 const BODY_OX = -16;
 
@@ -129,6 +132,7 @@ interface Parts {
   legs: [string, number];
   shoes: string;
   cuffs?: string;
+  gloves?: string;
   elbows?: string;
   knees?: string;
 }
@@ -161,7 +165,7 @@ export interface Pose {
   fists?: boolean;
 }
 export const POSES: Pose[] = [
-  { id: 'stand', lean: 0, armN: [-7, 10], armF: [7, 8], legN: [-3, 0], legF: [3, 0], head: 0, dy: 0 },
+  { id: 'stand', lean: 0, armN: [-2, 6], armF: [3, 5], legN: [-2, 0], legF: [2, 0], head: 0, dy: 0 },
   { id: 'guard', lean: 7, armN: [38, 112], armF: [52, 96], legN: [-16, 14], legF: [20, 24], head: -2, dy: 3, fists: true },
   { id: 'punch', lean: 15, armN: [34, 118], armF: [84, 6], legN: [-26, 10], legF: [28, 32], head: -6, dy: 4, fists: true },
   { id: 'hit', lean: -17, armN: [58, 26], armF: [96, 14], legN: [-10, 0], legF: [24, 42], head: -12, dy: 1 },
@@ -180,6 +184,8 @@ const turn = (p: Pt, about: Pt, deg: number): Pt => {
 };
 const f1 = (n: number): string => n.toFixed(1);
 
+/** Body width and height against the first template. */
+const STOCKY: Pt = [1.2, 0.95];
 let gid = 0;
 /** A gradient across a form, lit from the upper left: mid, a light band, mid, then shade. */
 function across(a: Pt, b: Pt, r: Ramp3): [string, string] {
@@ -200,10 +206,10 @@ function seg(a: Pt, b: Pt, wa: number, wb: number, r: Ramp3): string {
 }
 
 interface Built {
-  /** Everything behind the head. */
-  back: string;
+  /** The parts behind the head, back to front. Each is its own sprite, so each gets its own dark line. */
+  back: string[];
   /** The near arm, which can pass in front of the head. */
-  front: string;
+  front: string[];
   /** Where the chin goes on the body canvas, and how far the head turns. */
   neck: Pt;
   headRot: number;
@@ -224,19 +230,21 @@ function build(o: Outfit, skin: string[], ps: Pose, senior: boolean): Built {
     const wr = add(e, dir(a1 + bend), 14);
     const n = p.sleeve[1];
     const out: string[] = [];
-    out.push(seg(e, wr, w - 1.5, w - 3, n >= 2 ? sl : sk));
-    out.push(seg(s, e, w + 0.5, w - 1, n >= 1 ? sl : sk));
+    out.push(seg(e, wr, w - 0.5, w - 1.5, n >= 2 ? sl : sk));
+    out.push(seg(s, e, w + 0.5, w - 0.5, n >= 1 ? sl : sk));
     if (n < 1) out.push(seg(s, add(s, dir(a1), 17 * n), w + 1.5, w + 0.5, sl));
     if (p.elbows) out.push(`<ellipse cx="${f1(e[0])}" cy="${f1(e[1])}" rx="${w * 0.38}" ry="${w * 0.5}" fill="${c(p.elbows)[1]}" transform="rotate(${-a1} ${f1(e[0])} ${f1(e[1])})"/>`);
     if (n >= 2 && p.cuffs) out.push(seg(add(wr, dir(a1 + bend), -1.5), add(wr, dir(a1 + bend), 0.5), w - 2.2, w - 2.2, c(p.cuffs)));
     // The hand: a rounded mitt with a thumb, or a fist.
-    const h = add(wr, dir(a1 + bend), 4);
-    const [hd2, hf] = across([h[0] - 4.5, h[1] - 3], [h[0] + 4.5, h[1] + 3], sk);
-    const r2 = near ? 4.6 : 4.1;
+    const hand: Ramp3 = p.gloves ? c(p.gloves) : sk;
+    const h = add(wr, dir(a1 + bend), 4.5);
+    const [hd2, hf] = across([h[0] - 5.5, h[1] - 3], [h[0] + 5.5, h[1] + 3], hand);
+    const r2 = near ? 5.6 : 5;
+    if (p.gloves) out.push(seg(add(wr, dir(a1 + bend), -2), add(wr, dir(a1 + bend), 0.5), w + 0.6, w + 0.6, hand));
     out.push(hd2 + `<ellipse cx="${f1(h[0])}" cy="${f1(h[1])}" rx="${ps.fists ? r2 : r2 * 0.86}" ry="${ps.fists ? r2 * 0.92 : r2 * 1.12}" fill="${hf}" transform="rotate(${-(a1 + bend)} ${f1(h[0])} ${f1(h[1])})"/>`);
     const th = add(h, dir(a1 + bend + 70), r2 * 0.75);
-    out.push(ell(th[0], th[1], 1.7, 1.5, sk[2]));
-    if (ps.fists) out.push(line(`M${f1(h[0] - 1.5)},${f1(h[1] + 1)} L${f1(h[0] + 2.5)},${f1(h[1] + 1.4)}`, sk[0], 0.8));
+    out.push(ell(th[0], th[1], 2.1, 1.8, hand[2]));
+    out.push(line(`M${f1(h[0] - 2)},${f1(h[1] + 1.4)} L${f1(h[0] + 3)},${f1(h[1] + 1.8)}`, hand[0], 0.9));
     return out.join('');
   };
 
@@ -246,14 +254,15 @@ function build(o: Outfit, skin: string[], ps: Pose, senior: boolean): Built {
     const an = add(k, dir(swing - bend), 14.5 - ps.dy * 0.3);
     const n = p.legs[1];
     const out: string[] = [];
-    out.push(seg(k, an, w - 2, w - 4, n >= 2 ? lg : sk));
-    out.push(seg(h, k, w, w - 2, n >= 1 ? lg : sk));
+    out.push(seg(k, an, w - 1, w - 2.5, n >= 2 ? lg : sk));
+    out.push(seg(h, k, w, w - 1, n >= 1 ? lg : sk));
     if (p.knees && n >= 2) out.push(`<ellipse cx="${f1(k[0] + 0.6)}" cy="${f1(k[1])}" rx="${w * 0.42}" ry="${w * 0.36}" fill="${c(p.knees)[0]}"/>` + ell(k[0], k[1] - 0.8, w * 0.2, w * 0.12, c(p.knees)[2]));
     // The shoe stays flat on its sole and points the way the fighter faces.
     const [x, y] = an;
+    out.push(`<g transform="translate(${f1(x)} ${f1(y + 6)}) scale(1.22 1.18) translate(${f1(-x)} ${f1(-y - 6)})">`);
     const [sd, sf] = across([x, y - 4], [x, y + 6], [sh[0], sh[1], sh[2]]);
     out.push(sd + path(`M${f1(x - 5.5)},${f1(y + 1)} Q${f1(x - 6)},${f1(y - 3)} ${f1(x - 2)},${f1(y - 3.5)} L${f1(x + 3)},${f1(y - 3.5)} Q${f1(x + 5)},${f1(y - 1)} ${f1(x + 9)},${f1(y - 0.5)} Q${f1(x + 12.5)},${f1(y + 0.5)} ${f1(x + 12.5)},${f1(y + 3.5)} L${f1(x + 12.5)},${f1(y + 6)} L${f1(x - 5.5)},${f1(y + 6)} Z`, sf));
-    out.push(rect(x - 5.5, y + 4.6, 18, 1.6, mixInk(sh[0])), line(`M${f1(x + 2)},${f1(y - 1.6)} L${f1(x + 6)},${f1(y - 0.2)}`, sh[2], 0.9), ell(x + 10, y + 1.6, 1.6, 1, sh[2]));
+    out.push(rect(x - 5.5, y + 4.6, 18, 1.6, mixInk(sh[0])), line(`M${f1(x + 2)},${f1(y - 1.6)} L${f1(x + 6)},${f1(y - 0.2)}`, sh[2], 0.9), ell(x + 10, y + 1.6, 1.6, 1, sh[2]), `</g>`);
     return out.join('');
   };
 
@@ -269,9 +278,12 @@ function build(o: Outfit, skin: string[], ps: Pose, senior: boolean): Built {
     soft(ell(46, 73.4, 7, 2.4, tor[0])) +
     `</g>`;
   const pelvis = pd + path(`M32,${105 + ps.dy} L61,${105 + ps.dy} L62.5,${122 + ps.dy} Q55,${125 + ps.dy} 47,${123 + ps.dy} L46,${119 + ps.dy} L45,${123 + ps.dy} Q38,${125 + ps.dy} 30.5,${122 + ps.dy} Z`, pf);
-  const back = [`<defs>${BLURS}</defs>`, arm([61, 79], ps.armF, 8.5, false), leg([54.5, 121], ps.legF, 12.5), leg([38.5, 121], ps.legN, 13.5), pelvis, `<g transform="translate(0 ${ps.dy})">${o.hips?.(c) ?? ''}</g>`, torso].join('');
-  const front = `<defs>${BLURS}</defs>` + arm([31.5, 79], ps.armN, 9.5, true);
-  return { back, front, neck: up([46, 70]), headRot: ps.lean * 0.6 + ps.head };
+  // The fidelity pass is stockier than the first template: wider and a little shorter, about the feet.
+  const part = (t: string): string => `<defs>${BLURS}</defs><g transform="translate(46 159) scale(${STOCKY[0]} ${STOCKY[1]}) translate(-46 -159)">${t}</g>`;
+  const back = [arm([61, 79], ps.armF, 9.5, false), leg([53.5, 121], ps.legF, 13.5), leg([39.5, 121], ps.legN, 14.5), pelvis + `<g transform="translate(0 ${ps.dy})">${o.hips?.(c) ?? ''}</g>` + torso].map(part);
+  const front = [part(arm([31.5, 79], ps.armN, 10.5, true))];
+  const n0 = up([46, 70]);
+  return { back, front, neck: [46 + (n0[0] - 46) * STOCKY[0], 159 + (n0[1] - 159) * STOCKY[1]], headRot: ps.lean * 0.6 + ps.head };
 }
 const mixInk = (col: string): string => {
   const v = [1, 3, 5].map((i) => Math.round(parseInt(col.slice(i, i + 2), 16) * 0.55));
@@ -283,7 +295,7 @@ export const OUTFITS: Outfit[] = [
   {
     id: 'builder',
     name: 'builder',
-    parts: { sleeve: ['dkgrey', 0.6], torso: 'dkgrey', pelvis: 'denim', legs: ['denim', 2], shoes: 'khaki', knees: 'dkgrey' },
+    parts: { sleeve: ['dkgrey', 0.6], torso: 'dkgrey', pelvis: 'denim', legs: ['denim', 2], shoes: 'khaki', knees: 'dkgrey', gloves: 'khaki' },
     senior: { 'cloth.denim': 'cloth.navy', 'cloth.hivis': 'cloth.gold' },
     chest: (c) => {
       const [De, H, L, M] = [c('denim'), c('hivis'), c('leather'), c('metal')];
@@ -309,7 +321,7 @@ export const OUTFITS: Outfit[] = [
     },
     hips: (c) => {
       const W = c('white');
-      return path('M33,107 L60,107 L61,130 L32,130 Z', W[2]) + path('M56,107 L60,107 L61,130 L56.5,130 Z', W[1]) + line('M33,111 L60,111', W[1], 1) + line('M38,113 L37.5,129 M47,113 L47,130', W[1], 0.8) + rect(32, 129, 29, 1.2, W[0]);
+      return path('M33,107 L60,107 L61,130 L32,130 Z', W[2]) + path('M56,107 L60,107 L61,130 L56.5,130 Z', W[1]) + line('M33,111 L60,111', W[1], 1) + line('M38,113 L37.5,129', W[1], 0.8) + rect(42, 116, 10, 8, W[1], 1) + rect(42.8, 117, 8.4, 6.4, W[2], 1) + rect(32, 129, 29, 1.2, W[0]) + ell(36, 124, 1.6, 1.2, c('khaki')[2]) + ell(55, 120, 1.2, 1, c('khaki')[2]);
     },
   },
   {
@@ -348,16 +360,17 @@ export const OUTFITS: Outfit[] = [
 ];
 
 export interface BodySprites {
-  back: Img;
-  front: Img;
-  /** Top-left of the 64 × 80 face cell on the body canvas, so the chin lands on the neck. */
+  back: Img[];
+  front: Img[];
+  /** Top-left of the big face cell on the body canvas, so the chin lands on the neck. */
   headAt: [number, number];
   headRot: number;
 }
 export async function bodySprites(o: Outfit, skin: string[], ps: Pose = POSES[0]!, senior = false): Promise<BodySprites> {
   const b = build(o, skin, ps, senior);
-  const opts = { texture: o.texture, seed: 3, dither: 0.03 };
-  const [back, front] = await Promise.all([paint(b.back, BODY_W, BODY_H, BODY_OX, 0, opts), paint(b.front, BODY_W, BODY_H, BODY_OX, 0, opts)]);
-  // The head turns about its chin at cell (30, 54); the cell starts 16 px above y = 0.
-  return { back, front, headAt: [Math.round(b.neck[0] - BODY_OX - 30), Math.round(b.neck[1] - 54 - 16)], headRot: Math.round(b.headRot) };
+  const opts = { texture: o.texture, seed: 3 };
+  const draw = (t: string): Promise<Img> => paint(t, BODY_W, BODY_H, BODY_OX, -HEAD_ROOM, opts);
+  const [back, front] = await Promise.all([Promise.all(b.back.map(draw)), Promise.all(b.front.map(draw))]);
+  // The head turns about its chin at (30, 54) in face coordinates.
+  return { back, front, headAt: [Math.round(b.neck[0] - BODY_OX - 30 + BIG_CELL[2]), Math.round(b.neck[1] - 54 + BIG_CELL[3]) + HEAD_ROOM], headRot: Math.round(b.headRot) };
 }

@@ -129,8 +129,8 @@ export interface PaintOpts extends RasterOpts {
  * The painted layer: smooth SVG (gradients, blurred light and shadow) rendered
  * 8× too big, averaged down to the native grid, then every pixel snapped to
  * the drawing's own colours. Within a ramp the tone is picked by lightness,
- * with a little ordered dither at the band edges (noise on textured ramps),
- * which is what turns a soft painting into VGA-style pixel shading.
+ * with optional ordered dither at the band edges (off by default: the fidelity
+ * pass uses clean clusters) and a little noise on textured ramps.
  */
 export async function paint(body: string, w: number, h: number, ox = 0, oy = 0, opts: PaintOpts = {}): Promise<Img> {
   const K = 8;
@@ -167,7 +167,7 @@ export async function paint(body: string, w: number, h: number, ox = 0, oy = 0, 
       let col = used[best]!;
       const rp = inRamp.get(col);
       if (rp) {
-        const jit = rp.tex ? (noise(x, y, opts.seed ?? 1) - 0.5) * 0.11 : (BAYER[(x & 3) + (y & 3) * 4]! / 16 - 0.47) * (opts.dither ?? 0.035);
+        const jit = rp.tex ? (noise(x, y, opts.seed ?? 1) - 0.5) * 0.05 : (BAYER[(x & 3) + (y & 3) * 4]! / 16 - 0.47) * (opts.dither ?? 0);
         let rd = Infinity;
         rp.labs.forEach((p, n) => {
           const d = Math.abs(p[0] - (l[0] + jit));
@@ -184,8 +184,8 @@ export const lin = (id: string, x1: number, y1: number, x2: number, y2: number, 
   `<linearGradient id="${id}" gradientUnits="userSpaceOnUse" x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}">${stops.map(([o, c]) => `<stop offset="${o}" stop-color="${c}"/>`).join('')}</linearGradient>`;
 export const rad = (id: string, cx: number, cy: number, r: number, stops: [number, string][]): string =>
   `<radialGradient id="${id}" gradientUnits="userSpaceOnUse" cx="${cx}" cy="${cy}" r="${r}">${stops.map(([o, c]) => `<stop offset="${o}" stop-color="${c}"/>`).join('')}</radialGradient>`;
-/** Soft-edge filters b05, b1, b2 (blur radius in sprite pixels). */
-export const BLURS = [0.5, 1, 2].map((s) => `<filter id="b${String(s).replace('0.', '0')}" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="${s}"/></filter>`).join('');
+/** Soft-edge filters b05, b1, b2. Kept small: the fidelity pass shades in hard-edged clusters, not airbrush. */
+export const BLURS = ([['b05', 0.3], ['b1', 0.6], ['b2', 1.1]] as const).map(([id, s]) => `<filter id="${id}" x="-60%" y="-60%" width="220%" height="220%"><feGaussianBlur stdDeviation="${s}"/></filter>`).join('');
 
 /** Draw `src` over `dst` at (dx, dy). */
 export function over(dst: Img, src: Img, dx = 0, dy = 0): Img {
